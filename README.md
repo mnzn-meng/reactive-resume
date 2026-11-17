@@ -14,11 +14,6 @@
   </p>
 
   <p>
-    <a href="https://go.rx.cv/ios"><img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" height="40" /></a>
-    <a href="https://go.rx.cv/android"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" height="40" /></a>
-  </p>
-
-  <p>
     <img src="https://img.shields.io/github/package-json/v/reactive-resume/reactive-resume?style=flat-square" alt="Reactive Resume Version">
     <img src="https://img.shields.io/github/stars/reactive-resume/reactive-resume?style=flat-square" alt="GitHub Stars">
     <img src="https://img.shields.io/github/license/reactive-resume/reactive-resume?style=flat-square" alt="License" />

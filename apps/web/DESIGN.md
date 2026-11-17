@@ -313,7 +313,7 @@ AI is optional and runs on a provider the person connects. Every AI surface foll
 Target WCAG 2.2 AA:
 
 - Show a 2px accent focus outline with a 2px gap on `:focus-visible`, only while navigating by keyboard: after a tap or click `data-pointer` on `<html>` (`apps/web/src/libs/input-modality.ts`) hides rings on focus the app moves itself, and the first Tab, arrow or Escape brings them back. `focus-visible:` utilities follow the same rule. Inputs use their border and soft ring instead.
-- On touch screens a long press on a document card or row selects it, as in the mobile app; selection checkboxes appear only once selecting starts, and the ⋯ menu keeps every action.
+- On touch screens a long press on a document card or row selects it; selection checkboxes appear only once selecting starts, and the ⋯ menu keeps every action.
 - Provide at least 24px pointer targets and 44px touch targets. Every drag operation needs keyboard and menu alternatives. Each `DndContext` takes `dndContextProps()` (`apps/web/src/libs/dnd.ts`): drags are announced in the UI language by the item's visible name and its page or column, never by an id.
 - Pair color signals with text; add icons where they clarify status.
 - Trap focus in modal sheets and dialogs. Escape closes the top layer; closing returns focus to its trigger.
@@ -387,7 +387,7 @@ Reduced motion fixes scenes at their end state and collapses pinned sections to 
 
 - Prerender the homepage and public ATS checker per locale at build time through `prerender.tsx` and `apps/web/vite.config.ts`. The app is a client-rendered SPA; `apps/server/src/static/web.ts` serves the generated HTML and adds canonical, Open Graph, `hreflang`, and structured data. Keep headings and body copy in the initial HTML. Prerendered pages start the app's JavaScript only after the first contentful paint (the loader in `vite.config.ts`), so their first screen must not depend on it, and must not fade in on load: the largest paint would wait for the fade.
 - Include title and description metadata and `SoftwareApplication` structured data with a zero-price offer.
-- **Template previews** come from each template's sample PDF (`apps/web/public/templates/pdf/<id>.pdf`), never at print resolution: `templates/jpg/<id>.jpg` at 600×848 (builder and letter cards, the mobile picker and the README; old mobile builds load this URL, so it stays a JPEG), and `templates/thumb/<id>.webp` at 596×843 with a 300×424 `<id>-small.webp` (homepage and gallery). Regenerate them with the server's sharp:
+- **Template previews** come from each template's sample PDF (`apps/web/public/templates/pdf/<id>.pdf`), never at print resolution: `templates/jpg/<id>.jpg` at 600×848 (builder and letter cards and the README), and `templates/thumb/<id>.webp` at 596×843 with a 300×424 `<id>-small.webp` (homepage and gallery). Regenerate them with the server's sharp:
 
   ```sh
   id=gengar

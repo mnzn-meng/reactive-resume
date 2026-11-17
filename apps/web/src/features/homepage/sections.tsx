@@ -2,7 +2,6 @@ import type { CSSProperties } from "react";
 import { t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
-import { AppleLogoIcon, GooglePlayLogoIcon } from "@phosphor-icons/react";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { templateSchema } from "@reactive-resume/schema/templates";
@@ -438,20 +437,6 @@ export function Closing() {
 		{ label: t`Interview`, dot: "bg-stage-interview" },
 		{ label: t`Offer`, dot: "bg-stage-offer" },
 	];
-	const stores = [
-		{
-			name: "App Store",
-			lead: t`Download on the`,
-			href: "https://go.rx.cv/ios",
-			icon: AppleLogoIcon,
-		},
-		{
-			name: "Google Play",
-			lead: t`Get it on`,
-			href: "https://go.rx.cv/android",
-			icon: GooglePlayLogoIcon,
-		},
-	];
 
 	return (
 		<section
@@ -494,24 +479,6 @@ export function Closing() {
 			</p>
 			<CtaLink size="closing" />
 			<SignInLink />
-			<div className="mt-3 flex flex-col items-center gap-3 border-t border-line pt-7">
-				<p className={cn(labelClass, "text-ink-3")}>{t`Also on mobile`}</p>
-				<div className="flex flex-wrap justify-center gap-3">
-					{stores.map((store) => (
-						<a
-							key={store.name}
-							href={store.href}
-							className="inline-flex min-h-14 items-center gap-3 rounded-xl border border-line-2 bg-raised px-5 py-2.5 text-start font-ui text-ink transition-[background-color,transform] duration-[160ms] ease-out-strong hover:bg-hover motion-safe:active:scale-[.97]"
-						>
-							<store.icon aria-hidden="true" size={28} weight="fill" className="shrink-0" />
-							<span className="flex flex-col gap-0.5">
-								<span className="text-xs leading-tight text-ink-2">{store.lead}</span>
-								<span className="text-lg leading-tight font-semibold">{store.name}</span>
-							</span>
-						</a>
-					))}
-				</div>
-			</div>
 		</section>
 	);
 }

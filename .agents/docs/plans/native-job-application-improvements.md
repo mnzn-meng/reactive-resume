@@ -1,6 +1,7 @@
 # Reactive Resume: job application improvements
 
-Status: proposed backlog. No implementation is included in this document.
+Status: proposed backlog. No implementation is included in this document. The mobile app it targets has been removed
+from this fork, so treat any item that depends on native screens as obsolete.
 
 Based on [HireSweep competitor research, October 30, 2026](../research/hiresweep-2026-10-30.md). Source-code findings refer to Reactive Resume 6.0.10 at commit `33920b2e856048f3c5951bddbc00ba9d29778f61`; recheck the current implementation before starting each item.
 
