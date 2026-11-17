@@ -44,7 +44,7 @@ You can close an application from any stage. Closing asks for a reason (**Accept
 
 ## Choosing a view
 
-In the web app, use the tabs above the list to switch views. Your choice is kept in the page address, so a bookmark opens the same view. In the native mobile app, open **Applications** and use the view selector below the heading: **List**, **Board**, **Calendar** or **Insights**. All four views are available on phones and tablets.
+Use the tabs above the list to switch views. Your choice is kept in the page address, so a bookmark opens the same view.
 
 <Tabs>
   <Tab title="List">
@@ -76,15 +76,15 @@ In the web app, use the tabs above the list to switch views. Your choice is kept
     Charts about how your applications are going: how far they get, how often and how quickly people reply, and where your applications come from. See [Viewing application insights](/guides/viewing-application-insights).
   </Tab>
   <Tab title="Calendar">
-    A month calendar of your interviews, with a list of upcoming ones beside it in the web app. In a phone browser, a chronological agenda replaces the grid; use the month arrows to browse dates. The native mobile app also shows follow-ups, with the selected day and **Coming up** below the month on phones. See [Scheduling interviews](/guides/scheduling-interviews).
+    A month calendar of your interviews, with a list of upcoming ones beside it in the web app. In a phone browser, a chronological agenda replaces the grid; use the month arrows to browse dates. See [Scheduling interviews](/guides/scheduling-interviews).
   </Tab>
 </Tabs>
 
-In a narrow phone browser, the web page shows **List**, **Insights** and **Calendar**, and list rows show the company and next step on a second line. **Board** remains available on wider browser layouts. The native mobile app offers all four views on phones and tablets.
+In a narrow phone browser, the web page shows **List**, **Insights** and **Calendar**, and list rows show the company and next step on a second line. **Board** remains available on wider browser layouts.
 
 ## Keyboard triage in List
 
-In the web app, use <kbd>Tab</kbd> to focus an application's role button. Its outline shows which application receives shortcuts. Moving focus outside the row stops bare-key triage. In the native app with a hardware keyboard, choose **Keyboard triage** in List; the outlined row and its role/company identify the current application. Choose **Stop keyboard triage** to turn it off.
+Use <kbd>Tab</kbd> to focus an application's role button. Its outline shows which application receives shortcuts. Moving focus outside the row stops bare-key triage.
 
 | Key                         | Action                                                                                                                                                                                               |
 | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -95,8 +95,6 @@ In the web app, use <kbd>Tab</kbd> to focus an application's role button. Its ou
 | <kbd>f</kbd>                | Record **Followed up** for an open application beyond Saved. Sends no message; see [Managing an application](/guides/managing-an-application).                                                       |
 
 Typing in a field or editor, composing text, modifier chords, and open dialogs, menus or sheets do not trigger background triage. Holding a command key does not repeat stage, selection or contact actions. A hidden or removed application cannot receive the next action.
-
-Native bare-key triage requires an updated iOS or Android store build. Older installed binaries retain their existing controls and modifier shortcuts.
 
 <Frame caption="The role button's outline identifies keyboard focus; x selected the same fictional application for bulk actions.">
   <img
@@ -109,7 +107,7 @@ Native bare-key triage requires an updated iOS or Android store build. Older ins
 
 Type in **Search applications** to filter the list as you type. Search looks at the role, company, location, contact names and tags. If nothing matches, select **Clear search**.
 
-In the web app, press <kbd>/</kbd> with an Applications view focused, outside a text field, to focus search. In the native mobile app, use <kbd>⌘</kbd> <kbd>F</kbd> on an iPad hardware keyboard or <kbd>Ctrl</kbd> <kbd>F</kbd> on Android. Open sheets and alerts keep keyboard focus.
+Press <kbd>/</kbd> with an Applications view focused, outside a text field, to focus search. Open sheets and alerts keep keyboard focus.
 
 <Frame caption="Selecting a tag searches for it; here the fictional list shows Northwind Labs">
   <img
@@ -118,7 +116,7 @@ In the web app, press <kbd>/</kbd> with an Applications view focused, outside a 
   />
 </Frame>
 
-In the web app, **Show closed applications** adds closed applications to the List, Board and Calendar views. The native mobile calendar shows only open applications. Insights always counts every application.
+**Show closed applications** adds closed applications to the List, Board and Calendar views. Insights always counts every application.
 
 Rows and board cards show up to two of an application's tags, with a count for the rest. Select a tag to search for it without leaving the list; the search box shows the tag, and **Clear search** returns to every application.
 
@@ -140,7 +138,7 @@ In the List view on a computer or tablet, select the checkboxes next to the appl
   />
 </Frame>
 
-Bulk moves and keyboard triage show the new stage and **Undo** once the pending move is ready. They're saved when the message goes away, when you reload or close the tab, or when the native app goes to the background; **Undo** puts the selected applications back where they were, without recording a stage change. If you move one of them again before then, here or on another device, that later move stays, even if it moved away and back to the same stage: the bulk move leaves it and says so, and **Undo** leaves it too. Other edits, such as a note, don't stop the move. If you move the same applications again before the first move is saved, or while a move of one of them from its own menu or details, **Mark as applied**, or a message's changes are still being saved, the later move is saved after the earlier one, so it's the one that stays. Removing a stage in **Stages** moves its applications to another stage of the same kind without counting as a change. Tags and deletions are saved straight away.
+Bulk moves and keyboard triage show the new stage and **Undo** once the pending move is ready. They're saved when the message goes away, when you reload or close the tab; **Undo** puts the selected applications back where they were, without recording a stage change. If you move one of them again before then, here or on another device, that later move stays, even if it moved away and back to the same stage: the bulk move leaves it and says so, and **Undo** leaves it too. Other edits, such as a note, don't stop the move. If you move the same applications again before the first move is saved, or while a move of one of them from its own menu or details, **Mark as applied**, or a message's changes are still being saved, the later move is saved after the earlier one, so it's the one that stays. Removing a stage in **Stages** moves its applications to another stage of the same kind without counting as a change. Tags and deletions are saved straight away.
 
 <Frame caption="The fictional application shows Offer while Undo can still cancel the pending move.">
   <img
@@ -150,8 +148,6 @@ Bulk moves and keyboard triage show the new stage and **Undo** once the pending 
 </Frame>
 
 You can act on up to 200 applications at once. Larger selections show a reminder; deselect rows or narrow the search before choosing an action. The list leaves room to scroll its final rows above the selection bar, including when its buttons wrap.
-
-In the native mobile app, open a row's **⋯** actions to start a selection, then tap other rows to add them. The selection controls appear above the list with **Select all**, **Tags…**, **Move to…**, **Close…**, **Clear selection** and **Move to Trash**.
 
 Selection follows the visible rows. Hiding closed applications, collapsing a stage, changing the search or applying **Needs you** removes hidden selections before a bulk action.
 
@@ -170,8 +166,6 @@ Calendar shows events from matching applications. An application whose next inte
   />
 </Frame>
 
-The native mobile app has the same **Needs you** chip above its views. Its search and attention filter clear when you switch accounts.
-
 ## Follow-up reminders
 
 A reminder appears above the list when applications owe a follow-up: the follow-up date you set is due, an application has been at **Applied** or **Screening** for 10 days without a reply, or 10 days have passed since its last recorded interview ended.
@@ -179,7 +173,7 @@ A reminder appears above the list when applications owe a follow-up: the follow-
 - With one, the reminder names it, for example "Harborlight Labs: no reply for 17 days." Select **Open** to go to that application.
 - With several, it counts them, for example "8 applications need a follow-up." Select **Show** to list only those applications, then **Show all** to return to the full list.
 
-Select **×** to dismiss the reminder. Dismissing is remembered on this device, so those applications don't come back in it here. The same rules feed **Needs you** in [Today](/guides/career-overview), which also lists interviews in the next week and offers to decide. The native mobile app shows the same reminder above its list.
+Select **×** to dismiss the reminder. Dismissing is remembered on this device, so those applications don't come back in it here. The same rules feed **Needs you** in [Today](/guides/career-overview), which also lists interviews in the next week and offers to decide.
 
 ## Opening Applications from anywhere
 

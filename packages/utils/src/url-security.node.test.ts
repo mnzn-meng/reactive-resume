@@ -148,7 +148,7 @@ describe("isAllowedOAuthRedirectUri", () => {
 	);
 
 	it.each(["cursor://anysphere.cursor-mcp/oauth/callback", "com.example.app:/callback"])(
-		"allows the native app callback %s",
+		"allows a custom-scheme client callback %s",
 		(uri) => {
 			expect(isAllowedOAuthRedirectUri(uri, trustedOrigins)).toBe(true);
 		},
