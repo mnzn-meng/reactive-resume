@@ -145,8 +145,9 @@ const serverPaths = [
 	"/openapi.json",
 	"/cards",
 	// A resume's web page, `/<username>` (the primary resume) or `/<username>/<slug>`, is rendered by the server: any
-	// one- or two-segment address outside the app's own sections, without a file extension.
-	`^/(?!(?:${ownSegments})(?:/|\\?|$))[^/.]+(?:/[^/.]+)?/?(?:\\?.*)?$`,
+	// one- or two-segment address outside the app's own sections, without a file extension. A query alone is not a
+	// segment: `/?locale=xx` is the app's own page, not a profile.
+	`^/(?!(?:${ownSegments})(?:/|\\?|$))[^/.?]+(?:/[^/.?]+)?/?(?:\\?.*)?$`,
 ] as const;
 
 const serverProxy = serverPaths.reduce(
