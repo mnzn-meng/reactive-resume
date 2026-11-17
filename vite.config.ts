@@ -98,25 +98,6 @@ export default defineConfig({
 		},
 		overrides: [
 			{
-				files: ["apps/mobile/**"],
-				rules: {
-					"no-restricted-imports": [
-						"error",
-						{
-							patterns: [
-								...workspaceImportPatterns,
-								{
-									group: ["@reactive-resume/api", "@reactive-resume/api/*"],
-									allowTypeImports: true,
-									message:
-										"The app may only import types from the server API (it is a type-only peer dependency); call it through src/api/client.ts.",
-								},
-							],
-						},
-					],
-				},
-			},
-			{
 				files: ["**/*.test.{ts,tsx,mts,mjs}", "**/*.spec.{ts,tsx,mts,mjs}"],
 				rules: {
 					"require-await": "off",

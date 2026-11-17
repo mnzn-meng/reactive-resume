@@ -137,12 +137,12 @@ jobs:
 
       - name: Check translation catalogs match source
         if: matrix.suite == 'Unit'
-        run: pnpm lingui:check || { echo "::error::Catalogs are out of sync. Run pnpm lingui:extract and commit apps/web/locales and apps/mobile/locales."; exit 1; }
+        run: pnpm lingui:check || { echo "::error::Catalogs are out of sync. Run pnpm lingui:extract and commit apps/web/locales."; exit 1; }
 
       - name: Review translation changes
         if: matrix.suite == 'Unit' && github.event_name == 'pull_request'
         run: |
-          if git diff --quiet "$BASE_REF" HEAD -- apps/web/locales/ apps/mobile/locales/; then
+          if git diff --quiet "$BASE_REF" HEAD -- apps/web/locales/; then
             exit 0
           fi
           pnpm locales:diff --base "$BASE_REF"
@@ -215,59 +215,6 @@ jobs:
             test-results
           if-no-files-found: ignore
           retention-days: 7
-
-  check-mobile-bundle:
-    name: Check mobile Hermes bundle
-    if: ${{ !inputs.live_smoke }}
-    runs-on: ${{ vars.USE_BLACKSMITH == 'true' && 'blacksmith-32vcpu-ubuntu-2404' || 'ubuntu-latest' }}
-    timeout-minutes: 20
-    env:
-      EXPO_NO_TELEMETRY: "1"
-    steps:
-      - name: Check out source
-        if: ${{ vars.USE_BLACKSMITH != 'true' }}
-        uses: actions/checkout@v7
-        with:
-          persist-credentials: false
-          fetch-depth: 2
-      - name: Check out source (Blacksmith)
-        if: ${{ vars.USE_BLACKSMITH == 'true' }}
-        uses: useblacksmith/checkout@v1
-        with:
-          persist-credentials: false
-          fetch-depth: 2
-      # App, shared-package and dependency-resolution changes can alter the bundle.
-      # The base is resolved as in the unit job: the merge commit's first parent, or where the push started.
-      - name: Detect mobile changes
-        id: changes
-        env:
-          PUSH_BASE: ${{ github.event_name == 'push' && github.event.before || '' }}
-        run: |
-          base="${PUSH_BASE:-HEAD^1}"
-          git cat-file -e "$base^{commit}" 2>/dev/null || git fetch --no-tags --depth=1 origin "$base" || base=HEAD^1
-          if git diff --quiet "$base" HEAD -- apps/mobile/ packages/ pnpm-lock.yaml pnpm-workspace.yaml patches/; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-          else
-            echo "changed=true" >> "$GITHUB_OUTPUT"
-          fi
-      - name: Install pnpm
-        if: steps.changes.outputs.changed == 'true'
-        uses: pnpm/action-setup@v6
-      - name: Set up Node.js
-        if: steps.changes.outputs.changed == 'true'
-        uses: actions/setup-node@v7
-        with:
-          node-version-file: .nvmrc
-          cache: pnpm
-      - name: Install dependencies
-        if: steps.changes.outputs.changed == 'true'
-        run: pnpm install --frozen-lockfile
-      - name: Check motion rules
-        if: steps.changes.outputs.changed == 'true'
-        run: sh apps/mobile/scripts/check-motion.sh
-      - name: Export iOS and Android Hermes bundles
-        if: steps.changes.outputs.changed == 'true'
-        run: pnpm --filter mobile check:bundle
 
   check-cloudflare:
     name: Check Cloudflare compatibility
