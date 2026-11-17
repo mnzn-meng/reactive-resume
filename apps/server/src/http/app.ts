@@ -32,7 +32,6 @@ import { handleLlms, handlePagesSitemap, handleResumesSitemap, handleRobots, han
 import { handleUpload } from "../static/uploads";
 import { handleWebApp, isProfilePath, isPublicResumePath, serveWebDistStatic } from "../static/web";
 import { handleAlias } from "./alias";
-import { handleAppleAppSiteAssociation, handleAndroidAssetLinks } from "./app-links";
 import { handleAuth, handleOAuth } from "./auth";
 import { handleCareerJobs } from "./career-jobs";
 import { handleCustomDomain, handleTraefikProvider } from "./custom-domain";
@@ -149,8 +148,6 @@ export function createApp(options: AppOptions = {}) {
 	app.get("/openapi.json", () => handleOpenApiDocument());
 	app.all("/mcp/*", (c) => handleMcp(c.req.raw, client(c)));
 
-	app.get("/.well-known/apple-app-site-association", () => handleAppleAppSiteAssociation());
-	app.get("/.well-known/assetlinks.json", () => handleAndroidAssetLinks());
 	app.get("/.well-known/integrations.json", () => handleIntegrations());
 	// Hono answers HEAD by running the GET route and dropping the body, headers kept.
 	app.get("/.well-known/api-catalog", () => handleApiCatalog());

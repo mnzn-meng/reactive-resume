@@ -146,10 +146,6 @@ export const env = createEnv({
 		BETTER_AUTH_API_KEY: z.string().min(1).optional(),
 		// Domain verification token from the OpenAI plugin portal, served at /.well-known/openai-apps-challenge.
 		OPENAI_APPS_CHALLENGE_TOKEN: z.string().trim().min(1).optional(),
-		// Native app association files (empty lists leave the endpoints disabled).
-		MOBILE_IOS_APP_IDS: commaList(z.string().regex(/^[A-Z0-9]{10}\.[A-Za-z0-9.-]+$/)),
-		MOBILE_ANDROID_PACKAGES: commaList(z.string().regex(/^[A-Za-z_]\w*(?:\.[A-Za-z_]\w*)+$/)),
-		MOBILE_ANDROID_CERT_SHA256: commaList(z.string().regex(/^(?:[A-Fa-f0-9]{2}:){31}[A-Fa-f0-9]{2}$/)),
 
 		// Social Auth (Apple): client secret is a pre-signed Apple JWT.
 		APPLE_CLIENT_ID: z.string().min(1).optional(),
