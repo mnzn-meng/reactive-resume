@@ -8,8 +8,7 @@ The repository is `reactive-resume/reactive-resume`. Docker Hub remains
 
 `.github/workflows/docker-publish.yml` builds AMD64 and ARM64 on matching native runners.
 Workflows that check `USE_BLACKSMITH` (CI, autofix, Docker publishing, issue maintenance) run on GitHub-hosted runners
-(`ubuntu-latest`, `ubuntu-24.04-arm`) by default, so forks work without setup. `mobile-release.yml` always
-runs on Blacksmith Linux and macOS runners. Setting `USE_BLACKSMITH=true` switches
+(`ubuntu-latest`, `ubuntu-24.04-arm`) by default, so forks work without setup. Setting `USE_BLACKSMITH=true` switches
 the other workflows' jobs to Blacksmith runners (32 vCPU for build/test jobs, 2 vCPU for lightweight jobs) and
 swaps in `useblacksmith/checkout`, `useblacksmith/setup-docker-builder`, and
 `useblacksmith/build-push-action`. Because `uses:` cannot be an expression, each swapped
@@ -37,8 +36,7 @@ outputs use `sha-<full-commit>-amd64` and `sha-<full-commit>-arm64`.
 
 ### Explicit product releases
 
-A push to `main` publishes container images only. It never builds mobile binaries, creates Git tags, or creates
-GitHub Releases; mobile store builds come from `mobile-release.yml` (see [mobile releases](./mobile-releases.md)).
+A push to `main` publishes container images only. It never creates Git tags or GitHub Releases.
 Product GitHub Releases and `v*` tags are created only by an explicit versioned release operation. Docker promotion
 consumes an existing tag or commit; it does not create either.
 

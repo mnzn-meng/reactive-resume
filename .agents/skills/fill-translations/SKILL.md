@@ -11,7 +11,7 @@ Run from the Reactive Resume checkout root. Follow its `AGENTS.md`, command wrap
 
 ## Establish the baseline
 
-1. Read `GLOSSARY.md` at the repository root (it is not in this skill folder), both apps' `lingui.config.ts`, relevant package scripts, and `apps/mobile/scripts/seed-locales.mjs`. Derive locales, source locale, and pseudo-locale from current config rather than a fixed locale count. Currently `zu-ZA` is a generated pseudo-locale, not Zulu translation work.
+1. Read `GLOSSARY.md` at the repository root (it is not in this skill folder), the web app's `lingui.config.ts`, and relevant package scripts. Derive locales, source locale, and pseudo-locale from current config rather than a fixed locale count. Currently `zu-ZA` is a generated pseudo-locale, not Zulu translation work.
 2. Capture `git status --short` and the initial diff. Save copies of catalog bytes outside the checkout so preservation checks compare against current work, not `HEAD`. Record pre-existing compiled locale files too. Keep staged/unstaged changes intact; no reset, checkout, clean, commit, push, or release unless separately requested.
 3. Extract all source strings in both apps before dispatching workers, and before any build: production bundles drop source text, so a build from stale catalogs shows raw message IDs.
 

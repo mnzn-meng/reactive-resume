@@ -1,8 +1,8 @@
 # Reactive Resume: agent instructions
 
-This is the index for coding agents. It holds hard rules and pointers; detail lives in the linked files. The other area
-guide is `apps/mobile/AGENTS.md` (read it before mobile work). Agent reference docs are in `.agents/docs/` (start at
-its `README.md`); contributor docs are in `docs/contributing/`. Scripts and config win when a doc disagrees with them.
+This is the index for coding agents. It holds hard rules and pointers; detail lives in the linked files. Agent
+reference docs are in `.agents/docs/` (start at its `README.md`); contributor docs are in `docs/contributing/`.
+Scripts and config win when a doc disagrees with them.
 
 <!-- caveman-begin -->
 
@@ -28,11 +28,6 @@ Boundaries: code/commits/PRs written normal.
 
 - Check `git status --short` before editing and preserve unrelated changes. Set work aside with a WIP commit; plain
   `git stash` shares one stack across every worktree.
-- **Web and mobile parity**: a user-facing change in `apps/web` gets the matching change in `apps/mobile` in the same
-  work, and the reverse. Share logic through workspace packages. Owner-approved exceptions are listed in
-  `apps/mobile/AGENTS.md`.
-- **Old clients keep working**: mobile binaries stay installed for weeks, and every mobile change ships as a store
-  build (no OTA). Keep API changes backward compatible and deploy the backend before mobile changes that depend on it.
 - Never add AI attribution, AI co-author trailers or session links to commits or PRs. Commits follow Conventional
   Commits (enforced by the commit-msg hook).
 - Keep credentials, personal resume data and production identifiers out of source, logs, fixtures and PRs.
@@ -42,7 +37,7 @@ Boundaries: code/commits/PRs written normal.
 
 - Tickets: Linear team `RX` (`RX-<n>`); public reports: GitHub issues. How to read them: `.agents/docs/issue-tracker.md`.
 - Review rules: `CODING_STANDARDS.md`. Decision records: `.agents/docs/decisions/`.
-- Runbooks (container publishing, mobile CI and releases, Turbo remote cache): `.agents/docs/runbooks/`.
+- Runbooks (container publishing, Turbo remote cache): `.agents/docs/runbooks/`.
 
 ## Environment
 
@@ -59,8 +54,7 @@ Boundaries: code/commits/PRs written normal.
 pnpm check:affected                              # changed packages: typecheck, tests (DB suites included), boundaries, lint, format
 pnpm test:db exec -- pnpm --filter @reactive-resume/api test   # DB suites on per-worktree databases, no silent skips
 pnpm test:e2e:local --build [spec]               # Playwright on a per-worktree DB, port and storage
-pnpm --filter mobile test                        # mobile Jest tests (jest-expo, not Vitest)
-pnpm lingui:extract                              # web, mobile and PDF catalogs; run before building
+pnpm lingui:extract                              # web and PDF catalogs; run before building
 pnpm lingui:check                                # catalogs match source (CI gate)
 pnpm locales:diff [--base <ref>]                 # lost translations, placeholder/tag mismatches vs base
 pnpm ci:logs [run or job URL]                    # failure blocks from a CI run, even while it's still running
@@ -69,7 +63,7 @@ pnpm docs:gen                                    # regenerate the OpenAPI spec a
 ```
 
 - One package: `pnpm --filter <name> test [file]` (paths relative to the package; no extra `--`). Package names come
-  from each `package.json`: apps are `web`, `server`, `mobile`; shared packages are `@reactive-resume/<name>`.
+  from each `package.json`: apps are `web` and `server`; shared packages are `@reactive-resume/<name>`.
 - `--filter <pkg> exec vp test run <file> -t "<name>"` runs one test. Most scripts use `--passWithNoTests`, so a green
   run with zero tests proves nothing.
 - `check:affected` compares against `TURBO_SCM_BASE` (default `origin/main`; fetch first if stale) and needs the local
@@ -82,7 +76,6 @@ pnpm docs:gen                                    # regenerate the OpenAPI spec a
 | Area                                                       | Owner                                                                                                                                                      |
 | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Web routes and workflows                                   | `apps/web/src/routes` (file-based; never hand-edit `routeTree.gen.ts`), `apps/web/src/features`                                                            |
-| Mobile screens and workflows                               | `apps/mobile/app` (Expo Router), `apps/mobile/src/features`; layout and checks in `apps/mobile/AGENTS.md`                                                  |
 | Server HTTP, startup, static pages, MCP transport, OpenAPI | `apps/server/src/{http,rpc,mcp,openapi,static,startup}`                                                                                                    |
 | Public resume web page (server-rendered)                   | `apps/server/src/static/resume-page.ts`; HTML shell and SEO in `apps/server/src/static/web.ts`                                                             |
 | API routers and business logic                             | `packages/api/src/features/<feature>` (`router.ts`, `service.ts`); use `protectedProcedure` from `packages/api/src/context.ts`                             |
@@ -113,7 +106,7 @@ files).
 
 ## Changes that touch several places
 
-- **Resume data shape**: `packages/schema/src/resume/*`, then DTOs, importers, PDF rendering, web and mobile forms.
+- **Resume data shape**: `packages/schema/src/resume/*`, then DTOs, importers, PDF rendering, then the web forms.
 - **New DB column or table**: `packages/db/src/schema/*`, then `pnpm db:generate`. Also check the feature's `crud.ts`
   update allow-list, the account export in `packages/api/src/features/auth`, and the DTO. To rebase a branch's
   migration onto a newer `main`, delete the branch's migration folder and regenerate it so its snapshot chains on.
@@ -127,8 +120,6 @@ files).
   `packages/pdf/src/templates/<name>/`, previews under `apps/web/public/templates/` (command in `apps/web/DESIGN.md`).
 - **Public marketing route**: the TanStack route plus its server fallback and SEO in `apps/server/src/static/web.ts`;
   Vite's dev fallback hides production 404s.
-- **Mobile release**: one workflow, `.github/workflows/mobile-release.yml` (Fastlane in `tooling/mobile`, no EAS);
-  procedure in `.agents/docs/runbooks/mobile-releases.md`.
 - **Career or workspace behaviour**: update the mapped user guides and screenshots; see "Keep product guides current"
   in `docs/contributing/career-platform.mdx`.
 
