@@ -1,171 +1,17 @@
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties } from "react";
 import { i18n } from "@lingui/core";
 import { t } from "@lingui/core/macro";
-import { Trans } from "@lingui/react/macro";
-import { Link } from "@tanstack/react-router";
-import { cn } from "@reactive-resume/utils/style";
-import { getHeadline } from "./hero";
 import { SCENE } from "./scroll";
-import { LanguageDoorway } from "./sections";
-import { labelClass } from "./ui";
 import { useTheme } from "@/features/theme/provider";
 
-const githubUrl = "https://github.com/reactive-resume/reactive-resume";
-const licenseUrl = `${githubUrl}/blob/main/LICENSE`;
-// On touch, each link is a 44px row; the column gap closes so the columns don't grow.
-const linkClass =
-	"text-ink transition-colors hover:text-accent-text pointer-coarse:inline-flex pointer-coarse:min-h-11 pointer-coarse:items-center";
-
-type FooterLink =
-	| { label: string; href: string }
-	| { label: string; to: "/ats-checker" | "/auth/login" | "/auth/register" | "/resume-templates" };
-
-const getColumns = (story: boolean): { id: string; title: string; links: FooterLink[] }[] => [
-	{
-		id: "product",
-		title: t`Product`,
-		links: [
-			{ label: t`Templates`, to: "/resume-templates" },
-			{ label: t`Features`, href: story ? "#write" : "https://rxresu.me/#write" },
-			{ label: t`ATS checker`, to: "/ats-checker" },
-			{ label: t`Get started`, to: "/auth/register" },
-			{ label: t`Sign in`, to: "/auth/login" },
-		],
-	},
-	{
-		id: "resources",
-		title: t`Resources`,
-		links: [
-			{ label: t`About`, href: "https://docs.rxresu.me/getting-started" },
-			{ label: t`Documentation`, href: "https://docs.rxresu.me" },
-			{ label: t`Changelog`, href: "https://docs.rxresu.me/changelog" },
-			{ label: t`Source code`, href: githubUrl },
-			{ label: t`Self-hosting`, href: "https://docs.rxresu.me/self-hosting/docker" },
-		],
-	},
-	{
-		id: "community",
-		title: t`Community`,
-		links: [
-			{ label: t`Join Discord`, href: "https://discord.gg/jSVSJyWd2k" },
-			{ label: t`Subreddit`, href: "https://reddit.com/r/reactiveresume" },
-			{ label: t`Translations`, href: "https://crowdin.com/project/reactive-resume" },
-			{ label: t`Contact`, href: "mailto:amruth@rxresu.me" },
-			{ label: "LinkedIn", href: "https://www.linkedin.com/company/reactive-resume" },
-			{ label: "Amruth Pillai · X", href: "https://x.com/KingOKings" },
-			{ label: t`Report a bug`, href: `${githubUrl}/issues` },
-		],
-	},
-	{
-		id: "legal",
-		title: t`Legal`,
-		links: [
-			{ label: t`Privacy policy`, href: "https://docs.rxresu.me/legal/privacy-policy" },
-			{ label: t`MIT License`, href: licenseUrl },
-		],
-	},
-];
-
-function FooterLinkItem({ link }: { link: FooterLink }): ReactNode {
-	if ("to" in link) {
-		return (
-			<Link to={link.to} className={linkClass}>
-				{link.label}
-			</Link>
-		);
-	}
-	return (
-		<a href={link.href} className={linkClass}>
-			{link.label}
-		</a>
-	);
-}
-
 /**
- * 13 Footer: the promise once more, the links, then the desk the story was written at. Its objects lead back into
- * the page (the resume to Write, the glasses to Check, the letters to Share, the calendar to Prepare, the window to
- * Remember), and its lamp switches the theme.
+ * 13 Footer: the desk the story was written at. Its objects lead back into the page (the resume to Write, the glasses
+ * to Check, the letters to Share, the calendar to Prepare, the window to Remember), and its lamp switches the theme.
  */
-type LandingFooterProps = { story?: boolean };
-
-export function LandingFooter({ story = true }: LandingFooterProps) {
-	const headline = getHeadline();
-
+export function LandingFooter() {
 	return (
-		<footer
-			data-scene={SCENE.footer}
-			className={cn("relative overflow-hidden border-t border-line", !story && "pb-12")}
-		>
-			<div className="relative z-1 mx-auto grid max-w-[1440px] gap-x-12 gap-y-14 px-(--gutter) pt-20 min-[1000px]:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
-				<div className="flex min-w-0 flex-col items-start gap-5">
-					<img
-						loading="lazy"
-						src="/logo/light.svg"
-						alt="Reactive Resume"
-						width={140}
-						height={140}
-						className="-ms-[18px] -mt-[22px] -mb-[22px] size-[140px] dark:hidden"
-					/>
-					<img
-						loading="lazy"
-						src="/logo/dark.svg"
-						alt="Reactive Resume"
-						width={140}
-						height={140}
-						className="-ms-[18px] -mt-[22px] -mb-[22px] hidden size-[140px] dark:block"
-					/>
-					<p className="font-display text-[clamp(30px,3vw,46px)] leading-[1.06] tracking-[-.01em] text-balance text-ink">
-						<span className="block">{headline[0]}</span>
-						<em className="block text-accent-text">{headline[1]}</em>
-						<span className="block">
-							{headline[2]} <em className="text-accent-text">{headline[3]}</em>
-						</span>
-					</p>
-				</div>
-
-				<div className="grid grid-cols-2 gap-x-8 gap-y-10 min-[640px]:grid-cols-4">
-					{getColumns(story).map((column) => (
-						<nav
-							key={column.id}
-							aria-labelledby={`footer-${column.id}`}
-							className="flex min-w-0 flex-col gap-2.5 font-ui text-sm"
-						>
-							<h2 id={`footer-${column.id}`} className={cn(labelClass, "mb-1 text-ink-3")}>
-								{column.title}
-							</h2>
-							<ul className="flex flex-col gap-2.5 pointer-coarse:gap-0">
-								{column.links.map((link) => (
-									<li key={link.label}>
-										<FooterLinkItem link={link} />
-									</li>
-								))}
-							</ul>
-						</nav>
-					))}
-				</div>
-			</div>
-
-			<div className="relative z-1 mx-auto mt-16 flex max-w-[1440px] flex-wrap items-center justify-between gap-x-6 gap-y-2 px-(--gutter) font-ui text-[13px] leading-normal text-ink-3">
-				{/* Narrow enough to wrap into two balanced lines in any language, without splitting the translation. */}
-				<p className="max-w-[20ch] text-balance">{t`By the community, for the community.`}</p>
-				<p className="flex flex-wrap items-center gap-x-4 gap-y-1">
-					<LanguageDoorway story={story} className={cn("gap-1.5", linkClass)} />
-					<span>
-						<Trans>
-							Licensed under{" "}
-							<a
-								href={licenseUrl}
-								className="text-accent-text underline underline-offset-[3px] transition-colors hover:text-accent-hover"
-							>
-								MIT
-							</a>
-						</Trans>
-					</span>
-					<span className="font-mono text-xs">v{__APP_VERSION__}</span>
-				</p>
-			</div>
-
-			{story && <FooterDesk />}
+		<footer data-scene={SCENE.footer} className="relative overflow-hidden border-t border-line">
+			<FooterDesk />
 		</footer>
 	);
 }

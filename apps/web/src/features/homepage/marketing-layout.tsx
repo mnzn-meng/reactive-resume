@@ -8,7 +8,6 @@ import { Button, buttonVariants } from "@reactive-resume/ui/components/button";
 import { Icon } from "@reactive-resume/ui/components/icon";
 import { getLanguageName } from "@reactive-resume/utils/locale";
 import { cn } from "@reactive-resume/utils/style";
-import { LandingFooter } from "./footer";
 import { LocaleCombobox } from "@/features/locale/combobox";
 
 type MarketingLayoutProps = { children: ReactNode };
@@ -28,10 +27,6 @@ export function MarketingLayout({ children }: MarketingLayoutProps) {
 			</a>
 			<PublicHeader />
 			{children}
-			{/* The footer is the homepage's own, on its desk: it keeps that page's variables. */}
-			<div className="landing relative">
-				<LandingFooter story={false} />
-			</div>
 		</div>
 	);
 }

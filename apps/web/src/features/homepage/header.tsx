@@ -1,16 +1,10 @@
-import { plural, t } from "@lingui/core/macro";
-import { useLingui } from "@lingui/react";
-import { useQuery } from "@tanstack/react-query";
+import { t } from "@lingui/core/macro";
 import { useEffect, useRef, useState } from "react";
-import { Icon } from "@reactive-resume/ui/components/icon";
 import { cn } from "@reactive-resume/utils/style";
-import { goToScene, prefersReducedMotion, SCENE, useLanding } from "./scroll";
+import { goToScene, SCENE, useLanding } from "./scroll";
 import { LanguageDoorway } from "./sections";
 import { CtaLink, SignInLink } from "./ui";
 import { useTheme } from "@/features/theme/provider";
-import { orpc } from "@/libs/orpc/client";
-
-const githubUrl = "https://github.com/reactive-resume/reactive-resume";
 
 const getStoryScenes = () => [
 	{ scene: SCENE.write, label: t`Write` },
@@ -100,71 +94,13 @@ export function LandingHeader({ story = true }: LandingHeaderProps) {
 
 			<div className="ms-auto flex items-center gap-2">
 				<LanguageDoorway
-					story={story}
 					className="font-martian h-[34px] gap-[7px] rounded-md px-[11px] text-xs leading-none font-medium font-stretch-[87.5%] opacity-65 transition-opacity duration-300 hover:opacity-100"
 					nameClassName="max-[639px]:sr-only"
 				/>
-				<GithubLink />
 				<SignInLink />
 				<CtaLink size="header" />
 			</div>
 		</header>
-	);
-}
-
-/** The repository's live star count, counted up from zero once it arrives. */
-function GithubLink() {
-	const { i18n } = useLingui();
-	const { data, isError } = useQuery(orpc.statistics.github.getStarCount.queryOptions());
-	const stars = isError ? undefined : data;
-	const countRef = useRef<HTMLSpanElement>(null);
-
-	useEffect(() => {
-		const element = countRef.current;
-		if (!element || stars == null) return;
-		const compact = new Intl.NumberFormat(i18n.locale, { notation: "compact", maximumFractionDigits: 1 });
-
-		if (prefersReducedMotion()) {
-			element.textContent = compact.format(stars);
-			return;
-		}
-
-		let frame = 0;
-		const start = performance.now();
-		const step = (now: number) => {
-			const progress = Math.min(1, (now - start) / 1600);
-			element.textContent = compact.format(Math.round(stars * (1 - (1 - progress) ** 3)));
-			if (progress < 1) frame = requestAnimationFrame(step);
-		};
-		frame = requestAnimationFrame(step);
-		return () => cancelAnimationFrame(frame);
-	}, [stars, i18n.locale]);
-
-	const label =
-		stars == null
-			? t`Star Reactive Resume on GitHub`
-			: plural(stars, {
-					one: "Star Reactive Resume on GitHub, # star",
-					other: "Star Reactive Resume on GitHub, # stars",
-				});
-
-	return (
-		<a
-			href={githubUrl}
-			aria-label={label}
-			className="font-martian hidden h-[38px] items-center gap-2 rounded-md px-2.5 text-[12px] leading-none font-medium font-stretch-[87.5%] tabular-nums transition-colors hover:bg-hover lg:flex"
-		>
-			<svg aria-hidden="true" width="18" height="18" viewBox="0 0 16 16" fill="currentColor">
-				<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
-			</svg>
-			{/* No count, no star: a lone star reads as a total that didn't load. */}
-			{stars != null && (
-				<span className="flex items-center gap-1">
-					<Icon name="star" filled size={15} className="text-[oklch(0.72_0.14_80)]" />
-					<span ref={countRef} className="min-w-[4ch]" />
-				</span>
-			)}
-		</a>
 	);
 }
 

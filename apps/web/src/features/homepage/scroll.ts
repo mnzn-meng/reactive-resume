@@ -12,11 +12,7 @@ export const SCENE = {
 	share: 5,
 	prepare: 6,
 	remember: 7,
-	numbers: 8,
-	languages: 9,
-	support: 10,
-	faq: 11,
-	footer: 12,
+	footer: 8,
 } as const;
 
 /**
@@ -48,8 +44,6 @@ type LandingState = {
 	prepareStep: number;
 	/** Prepare: the clock, in minutes since midnight, to the nearest five. */
 	prepareClock: number;
-	/** Numbers: scrolled far enough in for the digits to roll. It stays true. */
-	numbersInView: boolean;
 };
 
 export const useLanding = create<LandingState>()(() => ({
@@ -66,7 +60,6 @@ export const useLanding = create<LandingState>()(() => ({
 	night: false,
 	prepareStep: 0,
 	prepareClock: 9 * 60,
-	numbersInView: false,
 }));
 
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
@@ -393,7 +386,6 @@ export function useScrollScenes(root: RefObject<HTMLElement | null>) {
 				night: Number(pageNight) > 0.5,
 				prepareStep: stepsPassed(prepare, PREPARE_STEPS),
 				prepareClock: Math.round(minutes / 5) * 5,
-				numbersInView: state.numbersInView || at(SCENE.numbers) > 0.2,
 			};
 			const changed = (Object.keys(next) as (keyof LandingState)[]).some((key) => next[key] !== state[key]);
 			if (changed) useLanding.setState(next);

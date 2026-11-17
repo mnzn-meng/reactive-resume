@@ -28,23 +28,23 @@ const pillAccent = "bg-accent-soft text-[oklch(0.36_0.1_150)] dark:text-accent-t
 export const getHeadline = () =>
 	[
 		t({
-			message: "A free, open-source",
-			comment: "Hero headline, line 1 of 4: A free, open-source / resume builder / and / career manager.",
+			message: "A free",
+			comment: "Hero headline, line 1 of 4: A free / resume builder / and / career manager.",
 		}),
 		t({
 			message: "resume builder",
 			comment:
-				"Hero headline, line 2 of 4: A free, open-source / resume builder / and / career manager. Lines 2 and 4 are highlighted: keep each a complete phrase.",
+				"Hero headline, line 2 of 4: A free / resume builder / and / career manager. Lines 2 and 4 are highlighted: keep each a complete phrase.",
 		}),
 		t({
 			message: "and",
 			context: "hero headline",
-			comment: "Hero headline, line 3 of 4: A free, open-source / resume builder / and / career manager.",
+			comment: "Hero headline, line 3 of 4: A free / resume builder / and / career manager.",
 		}),
 		t({
 			message: "career manager.",
 			comment:
-				"Hero headline, line 4 of 4: A free, open-source / resume builder / and / career manager. Lines 2 and 4 are highlighted: keep each a complete phrase.",
+				"Hero headline, line 4 of 4: A free / resume builder / and / career manager. Lines 2 and 4 are highlighted: keep each a complete phrase.",
 		}),
 	] as const;
 

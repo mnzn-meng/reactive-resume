@@ -453,18 +453,9 @@ export async function handleWebApp(request: Request, readFile: ReadWebFile = (pa
 			imageUrl: `${origin}${prerendered.image}`,
 			structuredData: prerendered.structuredData(origin, { locale: textLocale, ...meta }),
 		});
-		const body =
-			pathname === "/"
-				? page.replace(/href="\/\?locale=([^"#&]+)#languages"/g, (_match, language: string) => {
-						const search = new URLSearchParams(requestUrl.search);
-						search.set("locale", language);
-						return `href="/?${escapeHtml(search.toString())}#languages"`;
-					})
-				: page;
-
 		// The saved locale changes what this address shows, so caches have to key on the cookie.
 		return htmlResponse(
-			body.replace("</head>", () => `${markup}</head>`),
+			page.replace("</head>", () => `${markup}</head>`),
 			{ ...headers, Vary: "Cookie" },
 			page,
 		);

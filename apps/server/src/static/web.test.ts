@@ -165,33 +165,15 @@ describe("web app fallback classification", () => {
 		expect(german.headers.get("Set-Cookie")).toBeNull();
 	});
 
-	it("preserves request parameters in language links before JavaScript", async () => {
-		const template =
-			'<html><head></head><body><a href="/?locale=de-DE#languages" lang="de-DE">Deutsch</a><a href="/?locale=en-US#languages" lang="en-US">English</a><a href="/auth/login">Sign in</a></body></html>';
-		vi.mocked(fs.readFile).mockResolvedValue(template);
-		const request = new Request("https://example.com/?locale=ar-SA&campaign=independent&tag=a&tag=b&empty=", {
-			headers: { cookie: "locale=ar-SA" },
-		});
-		const response = await handleWebApp(request);
-		const html = await response.text();
-		expect(html).toContain('href="/?locale=de-DE&amp;campaign=independent&amp;tag=a&amp;tag=b&amp;empty=#languages"');
-		expect(html).toContain('href="/?locale=en-US&amp;campaign=independent&amp;tag=a&amp;tag=b&amp;empty=#languages"');
-		expect(html).toContain('<a href="/auth/login">Sign in</a>');
-		expect(html).toContain('<link rel="canonical" href="https://rxresu.me/?locale=ar-SA">');
-		expect(response.headers.get("Vary")).toBe("Cookie");
-	});
-
-	it("keeps query values inert and out of script authorization when personalizing language links", async () => {
+	it("keeps query values inert and out of script authorization", async () => {
 		const script = "window.ready = true;";
-		const template = `<html><head></head><body><a href="/?locale=de-DE#languages">Deutsch</a><script>${script}</script></body></html>`;
+		const template = `<html><head></head><body><a href="/auth/login">Sign in</a><script>${script}</script></body></html>`;
 		vi.mocked(fs.readFile).mockResolvedValue(template);
 		const url = new URL("https://example.com/?locale=en-US");
 		url.searchParams.set("campaign", '"><script>window.injected=true</script>&$&');
 		const response = await handleWebApp(new Request(url));
 		const html = await response.text();
-		expect(html).toContain(
-			'href="/?locale=de-DE&amp;campaign=%22%3E%3Cscript%3Ewindow.injected%3Dtrue%3C%2Fscript%3E%26%24%26#languages"',
-		);
+		expect(html).toContain('<a href="/auth/login">Sign in</a>');
 		expect(html.match(/<script>/g)).toHaveLength(1);
 		expect(html).toContain(`<script>${script}</script>`);
 		expect(response.headers.get("Content-Security-Policy")).toContain(
