@@ -230,40 +230,6 @@ async function revokeTokensFromBeforeGrant(oauthQuery: string, headers: Headers 
 }
 
 /**
- * The Reactive Resume apps register their own client with this one callback. Only the signed official app receives it
- * (verified App Links and Universal Links; the web fallback opens it by package name), so an authorization code sent
- * there can't reach anyone else, and its sign-in skips the consent screen.
- */
-const FIRST_PARTY_APP_CALLBACK = "https://rxresu.me/auth/native-callback";
-
-async function trustFirstPartyClient(client: Record<string, unknown>) {
-	const redirects = client.redirect_uris;
-	if (typeof client.client_id !== "string" || !Array.isArray(redirects)) return;
-	if (redirects.length !== 1 || redirects[0] !== FIRST_PARTY_APP_CALLBACK) return;
-	await db
-		.update(schema.oauthClient)
-		.set({ skipConsent: true })
-		.where(eq(schema.oauthClient.clientId, client.client_id));
-}
-
-/**
- * Consent is skipped only while the app callback is a client's single redirect. A client whose redirects were
- * changed afterwards asks for consent like any other.
- */
-async function revokeMisplacedTrust(clientId: string) {
-	await db
-		.update(schema.oauthClient)
-		.set({ skipConsent: false })
-		.where(
-			and(
-				eq(schema.oauthClient.clientId, clientId),
-				eq(schema.oauthClient.skipConsent, true),
-				sql`${schema.oauthClient.redirectUris} <> ARRAY[${FIRST_PARTY_APP_CALLBACK}]::text[]`,
-			),
-		);
-}
-
-/**
  * A grant without the consent screen still needs a consent row: tokens carry its ID, Connected apps lists it and
  * disconnecting deletes it. Only a new code records one, so a refresh can't bring back a disconnected grant.
  */
@@ -878,8 +844,6 @@ const getAuthConfig = () => {
 					const isFormPost =
 						ctx.request?.method === "POST" && new URL(ctx.request.url).pathname.endsWith("/oauth2/authorize");
 					const params = (isFormPost ? ctx.body : ctx.query) as Record<string, unknown> | undefined;
-					// The provider reads the client after this hook, so a client that no longer qualifies meets the consent screen.
-					if (typeof params?.client_id === "string") await revokeMisplacedTrust(params.client_id);
 					if (!params?.resource) {
 						const redirect = await missingResourceRedirect(params);
 						if (redirect) throw ctx.redirect(redirect);
@@ -1051,14 +1015,6 @@ const getAuthConfig = () => {
 			}),
 			after: createAuthMiddleware(async (ctx) => {
 				const payload = ctx.context.returned as JWTPayload | undefined;
-				if (ctx.path === "/oauth2/register" && payload) {
-					await trustFirstPartyClient(payload);
-					return;
-				}
-				if (ctx.path === "/oauth2/update-client" && payload && typeof payload.client_id === "string") {
-					await revokeMisplacedTrust(payload.client_id);
-					return;
-				}
 				if (ctx.path === "/oauth2/public-client-prelogin" && payload && typeof payload.client_id === "string") {
 					return ctx.json({ client_id: payload.client_id, client_name: payload.client_name });
 				}
@@ -1283,6 +1239,8 @@ const getAuthConfig = () => {
 								if (!user) return {};
 								if (user.isAnonymous)
 									throw new APIError("FORBIDDEN", { message: "Guest accounts cannot connect apps." });
+								// No client is trusted automatically; a deployment can still mark one with skipConsent, and that
+								// path needs the consent row the screen would otherwise have written.
 								if (client.skipConsent && grantType === "authorization_code")
 									await recordTrustedGrant({
 										userId: user.id,
