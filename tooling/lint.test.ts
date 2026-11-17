@@ -50,23 +50,3 @@ it("blocks private workspace paths in imports, re-exports, and dynamic imports",
 		rmSync(directory, { recursive: true, force: true });
 	}
 });
-
-it("allows only type imports from the server API in mobile code", () => {
-	const directory = mkdtempSync(join(root, "apps/mobile/lint-fixture-"));
-	try {
-		writeFileSync(join(directory, "runtime.ts"), 'export { default as router } from "@reactive-resume/api/routers";');
-		writeFileSync(
-			join(directory, "types.ts"),
-			'export type { default as Router } from "@reactive-resume/api/routers";',
-		);
-		const { status, diagnostics } = lint(directory);
-		expect(status).toBe(1);
-		expect(diagnostics).toHaveLength(1);
-		expect(diagnostics[0]).toMatchObject({
-			code: "eslint(no-restricted-imports)",
-			filename: expect.stringContaining("runtime.ts"),
-		});
-	} finally {
-		rmSync(directory, { recursive: true, force: true });
-	}
-});

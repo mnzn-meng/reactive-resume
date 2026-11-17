@@ -60,9 +60,7 @@ export async function checkDocs(root) {
 			.filter((message) => !message.obsolete)
 			.map((message) => normalize(message.message)),
 	);
-	const sourcePaths = (
-		await Promise.all(["apps/web/src", "apps/mobile/src"].map((path) => files(resolve(root, path))))
-	).flat();
+	const sourcePaths = await files(resolve(root, "apps/web/src"));
 	const source = normalize(
 		(
 			await Promise.all(

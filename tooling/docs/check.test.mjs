@@ -14,11 +14,11 @@ afterEach(async () => {
 async function fixture() {
 	const root = await mkdtemp(join(tmpdir(), "rr-docs-check-"));
 	roots.push(root);
-	for (const path of ["docs/guides", "docs/images", "apps/web/locales", "apps/web/src", "apps/mobile/src"]) {
+	for (const path of ["docs/guides", "docs/images", "apps/web/locales", "apps/web/src"]) {
 		await mkdir(join(root, path), { recursive: true });
 	}
 	await writeFile(join(root, "apps/web/locales/en-US.po"), 'msgid "Save changes"\nmsgstr ""\n');
-	await writeFile(join(root, "apps/mobile/src/label.tsx"), "<Text>App-only</Text>");
+	await writeFile(join(root, "apps/web/src/label.tsx"), "<p>App-only</p>");
 	await writeFile(join(root, "docs/docs.json"), '{"logo": "/images/logo.svg"}');
 	await writeFile(join(root, "docs/images/logo.svg"), "<svg />");
 	await writeFile(join(root, "docs/images/used.svg"), "<svg />");

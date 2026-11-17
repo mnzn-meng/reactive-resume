@@ -184,7 +184,7 @@ async function main() {
 	}
 
 	const totals = { catalogs: 0, lost: 0, placeholder: 0, changed: 0, untranslated: 0, removed: 0 };
-	for (const directory of ["apps/web/locales", "apps/mobile/locales"]) {
+	for (const directory of ["apps/web/locales"]) {
 		// Catalogs in the checkout or at the base, so a deleted catalog is compared too.
 		// The pathspec form lists nothing (instead of failing) when the folder didn't exist at the base.
 		const atBase = git("ls-tree", "--name-only", base, "--", `${directory}/`)
