@@ -192,7 +192,7 @@ export const crudRouter = {
 			operationId: "listApplicationSummaries",
 			summary: "List application summaries",
 			description:
-				"Returns lightweight application summaries for list views. Full descriptions, notes, documents and timeline note text are omitted; structured followed-up events keep their contact timestamp and stage identity. Use the application endpoint for full detail. When includeInitialDetails is N, up to 2N full details may be attached as initialDetail: the union of the first N candidates under web and mobile ordering, with closed applications excluded unless status is provided.",
+				"Returns lightweight application summaries for list views. Full descriptions, notes, documents and timeline note text are omitted; structured followed-up events keep their contact timestamp and stage identity. Use the application endpoint for full detail. When includeInitialDetails is N, up to 2N full details may be attached as initialDetail: the union of the first N candidates in list order, with closed applications excluded unless status is provided.",
 			successDescription: "A list of lightweight application summaries.",
 		})
 		.input(applicationDto.listSummary.input)

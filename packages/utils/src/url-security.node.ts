@@ -267,7 +267,7 @@ const NON_PRIVATE_USE_SCHEMES = new Set([
 const REVERSE_DOMAIN_SCHEME = /^[a-z](?:[a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)+$/i;
 
 /**
- * Desktop and mobile apps receive OAuth callbacks on their own scheme (RFC 8252 §7.1): either the
+ * Desktop apps and other native clients receive OAuth callbacks on their own scheme (RFC 8252 §7.1): either the
  * authority-free reverse-domain form (`com.example.app:/callback`) or a host and path
  * (`cursor://anysphere.cursor-mcp/oauth/callback`, which Cursor registers).
  */
