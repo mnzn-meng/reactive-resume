@@ -72,16 +72,13 @@ const emptySummary = (): StorageCleanupSummary => ({ completed: 0, missing: 0, f
 /** Sanitized signal for every runtime. Never logs storage keys, owner IDs or provider errors. */
 export function reportStorageCleanupSummary(summary: StorageCleanupSummary) {
 	if (summary.failed === 0 && summary.partial === 0 && summary.abandoned === 0) return;
-	console.warn(
-		"[storage-cleanup] Cleanup work remains. See docs/contributing/storage-cleanup.mdx for inspection and requeue.",
-		{
-			completed: summary.completed,
-			missing: summary.missing,
-			failed: summary.failed,
-			partial: summary.partial,
-			abandoned: summary.abandoned,
-		},
-	);
+	console.warn("[storage-cleanup] Cleanup work remains; inspect and requeue it before removing data.", {
+		completed: summary.completed,
+		missing: summary.missing,
+		failed: summary.failed,
+		partial: summary.partial,
+		abandoned: summary.abandoned,
+	});
 }
 
 /** Claims one due job close to execution, with a new fence token for every attempt. */

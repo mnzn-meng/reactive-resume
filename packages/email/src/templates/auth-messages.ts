@@ -34,8 +34,6 @@ const ENGLISH = {
 	changeOutro:
 		"If you did not request this change, ignore this email and change your password. The address on the account will not change without your approval.",
 	linkFallback: "If the button does not work, copy and paste this link into your browser:",
-	community: "By the community, for the community.",
-	credit: "A passion project by {author}.",
 };
 
 export type AuthEmailMessages = typeof ENGLISH;

@@ -174,7 +174,7 @@ OIDC trust policies; the repository URL alone does not describe the subject.
 - The old Pages address `https://amruthpillai.github.io/reactive-resume/` returned 404 on
   September 11, 2026. GitHub now reports `https://reactive-resume.github.io/reactive-resume/`; repository
   redirects do not redirect Pages traffic. No active repository references use the old Pages URL.
-- Confirm documentation hosting, Crowdin, Docker Hub source metadata, sponsorship access
+- Confirm Docker Hub source metadata, sponsorship access
   rewards, and any external OIDC policies in their owning accounts. Repository transfer alone
   does not verify those integrations.
 

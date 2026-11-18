@@ -6,7 +6,6 @@ import {
 	Container,
 	Head,
 	Heading,
-	Hr,
 	Html,
 	Img,
 	Link,
@@ -62,7 +61,6 @@ function AuthEmailLayout({
 	outro,
 }: AuthEmailLayoutProps) {
 	const messages = authEmailMessages(locale);
-	const [creditBefore = "", creditAfter = ""] = messages.credit.split("{author}");
 	// Body repeats both on its wrapper table and defaults them to English, left to right.
 	const dir = isRTL(locale) ? "rtl" : "ltr";
 
@@ -127,25 +125,6 @@ function AuthEmailLayout({
 							<Section className="mt-4">
 								<Text style={{ color: colors.muted }}>{outro}</Text>
 							</Section>
-
-							<Hr className="my-8" style={{ borderColor: colors.line }} />
-
-							<Text className="m-0 text-xs" style={{ color: colors.muted }}>
-								{messages.community}
-							</Text>
-							<Text className="m-0 text-xs" style={{ color: colors.muted }}>
-								{creditBefore}
-								<Link
-									target="_blank"
-									rel="noopener noreferrer"
-									href="https://amruthpillai.com"
-									className="underline underline-offset-2"
-									style={{ color: colors.muted }}
-								>
-									Amruth Pillai
-								</Link>
-								{creditAfter}
-							</Text>
 						</Section>
 					</Container>
 				</Body>

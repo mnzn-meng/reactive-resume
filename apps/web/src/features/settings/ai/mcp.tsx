@@ -37,15 +37,6 @@ export function McpSection() {
 					<Icon name={copied ? "check" : "copy"} />
 					<Swap swapped={copied} from={<Trans>Copy</Trans>} to={<Trans>Copied</Trans>} />
 				</Button>
-				<a
-					href="https://docs.rxresu.me/guides/using-the-mcp-server"
-					target="_blank"
-					rel="noopener noreferrer"
-					className="flex h-9 items-center gap-1.5 px-3.5 text-sm font-medium text-ink-2 hover:underline"
-				>
-					<Trans>Setup guide</Trans>
-					<Icon name="arrow-square-out" size={16} />
-				</a>
 			</div>
 			<details className="pt-2 text-[13px]/[18px] text-ink-3">
 				<summary className="w-fit cursor-pointer">

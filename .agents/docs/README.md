@@ -14,7 +14,6 @@ worktree. `pnpm check:agent-docs` checks that repo paths named in these docs exi
 
 - **Durable and public-safe** (a convention, a runbook, a decision): here. Name files by topic, never by ticket;
   `check:agent-docs` rejects ticket IDs in file names.
-- **Contributor-facing** (setup, tests, translations): `docs/contributing/`, which humans also read on the docs site.
 - **Area guides**: an `AGENTS.md` in the area's folder, with a `CLAUDE.md` symlink beside it, listed in the root
   `AGENTS.md`.
 - **Ticket notes** (delivery logs, handoffs, review results, evidence): a comment on the Linear issue.

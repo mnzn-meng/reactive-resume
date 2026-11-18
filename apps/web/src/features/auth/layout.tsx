@@ -39,7 +39,7 @@ export function AuthLayout() {
 					<Trans>Your resume and your job search, in one place.</Trans>
 				</p>
 				<p className="pt-1.5 text-center t-small text-ink-3">
-					<Trans>Free and open source. Your data stays yours.</Trans>
+					<Trans>Your data stays yours.</Trans>
 				</p>
 			</aside>
 		</div>

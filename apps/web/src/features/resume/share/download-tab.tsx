@@ -14,7 +14,6 @@ import { Icon } from "@reactive-resume/ui/components/icon";
 import { Spinner } from "@reactive-resume/ui/components/spinner";
 import { toast } from "@reactive-resume/ui/components/toast";
 import { downloadWithAnchor } from "@reactive-resume/utils/file";
-import { cn } from "@reactive-resume/utils/style";
 import { applicationsListQueryOptions } from "@/features/applications/queries";
 import { createLetterFile, letterFileName } from "@/features/letters/export";
 import { useCurrentResume } from "@/features/resume/builder/draft";
@@ -26,7 +25,6 @@ import {
 	sanitizeFileName,
 } from "@/features/resume/export/use-resume-export";
 import { getReadableErrorMessage } from "@/libs/error-message";
-import { ENTER_CLASS } from "@/libs/motion";
 import { client } from "@/libs/orpc/client";
 
 export type DownloadFormat<Id extends string = ExportFormat> = {
@@ -169,8 +167,7 @@ type DownloadActionsProps = {
 };
 
 /**
- * The failure alert (with PDF as the fallback) and the 44px button that shows its progress. After a download, a
- * one-line thank-you asks for a donation: the moment someone has what they came for is the one time it's fair to ask.
+ * The failure alert (with PDF as the fallback) and the 44px button that shows its progress.
  */
 export function DownloadActions({ state, label, onDownload, onDownloadPdf }: DownloadActionsProps) {
 	return (
@@ -215,23 +212,6 @@ export function DownloadActions({ state, label, onDownload, onDownloadPdf }: Dow
 					</>
 				)}
 			</Button>
-
-			{state === "done" && (
-				<p className={cn(ENTER_CLASS, "flex items-start gap-2 text-[13px] leading-[19px] text-ink-2")}>
-					<Icon name="hand-heart" size={18} className="shrink-0 text-ink-3" />
-					<span>
-						<Trans>Good luck out there. Reactive Resume stays free because people chip in.</Trans>{" "}
-						<a
-							href="https://opencollective.com/reactive-resume/donate"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="font-medium text-accent-text underline underline-offset-2 hover:text-accent-hover"
-						>
-							<Trans>Donate</Trans>
-						</a>
-					</span>
-				</p>
-			)}
 		</>
 	);
 }
@@ -344,22 +324,6 @@ export function DownloadTab({ onReview }: DownloadTabProps) {
 				onDownload={() => void download(format)}
 				onDownloadPdf={format === "pdf" ? undefined : () => void download("pdf")}
 			/>
-			{state === "done" && (
-				<div className="grid gap-1.5 rounded-lg border border-line p-3 text-[13px] leading-[19px]">
-					<a
-						href="https://discord.gg/9kAqrGcwn5"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="flex items-center gap-2 font-medium text-accent-text underline underline-offset-2 hover:text-accent-hover"
-					>
-						<Icon name="chat-text" size={18} />
-						<Trans>Get resume feedback on Discord</Trans>
-					</a>
-					<p className="text-ink-2">
-						<Trans>Ask the community. Remove personal details before posting.</Trans>
-					</p>
-				</div>
-			)}
 		</div>
 	);
 }

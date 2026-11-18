@@ -116,15 +116,6 @@ export function TemplateGallery() {
 								</Chip>
 							))}
 						</div>
-						<a
-							href="https://docs.rxresu.me/guides/choosing-a-template"
-							target="_blank"
-							rel="noreferrer"
-							className="ms-auto inline-flex items-center gap-1.5 rounded-xs text-sm font-medium text-accent-text"
-						>
-							{t`How to choose a template`}
-							<Icon name="arrow-square-out" size={16} />
-						</a>
 					</div>
 					<p className="pt-1.5 pb-[18px] t-small text-ink-3">
 						{t`One column reads top to bottom, which hiring software follows most reliably. Two columns keep supporting details in a sidebar.`}

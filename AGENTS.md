@@ -1,7 +1,7 @@
 # Reactive Resume: agent instructions
 
 This is the index for coding agents. It holds hard rules and pointers; detail lives in the linked files. Agent
-reference docs are in `.agents/docs/` (start at its `README.md`); contributor docs are in `docs/contributing/`.
+reference docs are in `.agents/docs/` (start at its `README.md`).
 Scripts and config win when a doc disagrees with them.
 
 <!-- caveman-begin -->
@@ -43,8 +43,8 @@ Boundaries: code/commits/PRs written normal.
 
 - Node 26 (`.nvmrc`). This machine's default may be newer; run commands as `mise exec node@26 -- <cmd>` when
   `node -v` isn't 26. pnpm version: root `packageManager`.
-- Setup, `.env.local`, dev servers, storage and database workflow: `docs/contributing/development.mdx`. Local Postgres,
-  Redis and SeaweedFS come from `compose.dev.yml`; host-run code uses `localhost`, containers use service names.
+- Setup: `.env.local`, `compose.dev.yml` and the scripts below. Local Postgres, Redis and SeaweedFS come from
+  `compose.dev.yml`; host-run code uses `localhost`, containers use service names.
 - Root `.env` is auto-loaded by `packages/env`; root dev and `db:*` scripts load `.env.local` through `dotenvx`; tests,
   builds and `pnpm start` load neither, so export what they need or use the scripts below.
 
@@ -59,7 +59,6 @@ pnpm lingui:check                                # catalogs match source (CI gat
 pnpm locales:diff [--base <ref>]                 # lost translations, placeholder/tag mismatches vs base
 pnpm ci:logs [run or job URL]                    # failure blocks from a CI run, even while it's still running
 pnpm check:agent-docs                            # paths named in agent docs exist, AGENTS.md size, no ignored files tracked
-pnpm docs:gen                                    # regenerate the OpenAPI spec after API contract changes
 ```
 
 - One package: `pnpm --filter <name> test [file]` (paths relative to the package; no extra `--`). Package names come
@@ -110,18 +109,18 @@ files).
 - **New DB column or table**: `packages/db/src/schema/*`, then `pnpm db:generate`. Also check the feature's `crud.ts`
   update allow-list, the account export in `packages/api/src/features/auth`, and the DTO. To rebase a branch's
   migration onto a newer `main`, delete the branch's migration folder and regenerate it so its snapshot chains on.
-- **API contract change**: `pnpm docs:gen`, then `pnpm --filter server test src/openapi` (it counts schemas).
+- **API contract change**: the spec is generated at runtime at `/api/openapi/spec.json`; run `pnpm --filter server test src/openapi` (it counts schemas).
 - **New env var**: `packages/env/src/server.ts`, `.env.example`, and `turbo.json` (`globalPassThroughEnv` plus the
   test-task `env` arrays; Turbo's strict env mode hides unlisted variables). Deployment aliases:
   `packages/env/src/deployment.ts`.
 - **User-facing strings**: Lingui macros, then `pnpm lingui:extract` (both apps). Translations workflow:
-  `docs/contributing/translations.mdx` and the `.agents/skills/fill-translations` skill. Glossary: root `GLOSSARY.md`.
+  the `.agents/skills/fill-translations` skill. Glossary: root `GLOSSARY.md`.
 - **New template**: `packages/schema/src/templates.ts`, `packages/pdf/src/templates/index.ts`, source in
   `packages/pdf/src/templates/<name>/`, previews under `apps/web/public/templates/` (command in `apps/web/DESIGN.md`).
 - **Public marketing route**: the TanStack route plus its server fallback and SEO in `apps/server/src/static/web.ts`;
   Vite's dev fallback hides production 404s.
-- **Career or workspace behaviour**: update the mapped user guides and screenshots; see "Keep product guides current"
-  in `docs/contributing/career-platform.mdx`.
+- **Career or workspace behaviour**: the ownership table above names where it lives; keep the notes in `.agents/docs/`
+  current.
 
 ## Finish checks
 
@@ -142,6 +141,5 @@ files).
 - Vercel module-loading failures: bundle CommonJS server dependencies through `bundledInteropPackages` in
   `apps/server/vite.config.ts`; Vercel's service builder drops their pnpm links.
 - Playwright starts `node apps/server/dist/index.mjs` directly; build first, and keep that direct command.
-- Deployment smoke tests create and delete accounts; run them only against a dedicated test installation
-  (`docs/contributing/deployment-checks.mdx`).
+- Deployment smoke tests create and delete accounts; run them only against a dedicated test installation.
 - CodeRabbit is not set up for automatic reviews; don't wait for it.

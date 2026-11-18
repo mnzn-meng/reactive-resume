@@ -25,7 +25,6 @@ import {
 	useResumeExport,
 } from "@/features/resume/export/use-resume-export";
 import { getReadableErrorMessage } from "@/libs/error-message";
-import { ENTER_CLASS } from "@/libs/motion";
 import { client } from "@/libs/orpc/client";
 
 type DownloadMenuProps<Id extends string> = {
@@ -198,22 +197,7 @@ export function DownloadMenu<Id extends string>({
 							<Trans>Download PDF instead</Trans>
 						</button>
 					</p>
-				) : done ? (
-					<p className={cn(ENTER_CLASS, "flex items-center gap-2 border-t border-line pt-3 t-small text-ink-2")}>
-						<Icon name="hand-heart" size={16} className="shrink-0 text-ink-3" />
-						<span className="min-w-0 flex-1">
-							<Trans>Good luck out there. Reactive Resume stays free because people chip in.</Trans>
-						</span>
-						<a
-							href="https://opencollective.com/reactive-resume/donate"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="font-medium text-accent-text"
-						>
-							<Trans>Donate</Trans>
-						</a>
-					</p>
-				) : issues && issues.count > 0 ? (
+				) : done ? null : issues && issues.count > 0 ? (
 					<p className="flex items-center gap-2 border-t border-line pt-3 t-small text-ink-2">
 						<Icon name="list-checks" size={16} className="shrink-0 text-ink-3" />
 						<span className="min-w-0 flex-1">

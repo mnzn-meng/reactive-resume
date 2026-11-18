@@ -127,14 +127,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Review documentation drift
-        if: matrix.suite == 'Unit'
-        run: |
-          if git diff --quiet "$BASE_REF" HEAD -- docs/ tooling/docs/; then
-            exit 0
-          fi
-          pnpm docs:check
-
       - name: Check translation catalogs match source
         if: matrix.suite == 'Unit'
         run: pnpm lingui:check || { echo "::error::Catalogs are out of sync. Run pnpm lingui:extract and commit apps/web/locales."; exit 1; }

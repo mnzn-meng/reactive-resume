@@ -2,14 +2,12 @@ import type { IconName } from "@reactive-resume/ui/components/icon";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { createFileRoute, Link, Outlet, retainSearchParams, useRouterState } from "@tanstack/react-router";
-import { Fragment } from "react";
 import z from "zod";
 import { Button } from "@reactive-resume/ui/components/button";
 import { Icon } from "@reactive-resume/ui/components/icon";
 import { Page, PageBody, RootHeader } from "@/components/calm/page";
 import { SectionRail, SectionRailItem } from "@/components/calm/section-rail";
 import { PageHeader } from "@/components/layout/page-header";
-import { getProjectLinks } from "@/features/settings/project-links";
 import { popTransition } from "@/features/settings/root";
 import { useSignOut } from "@/features/user/sign-out";
 import { authClient } from "@/libs/auth/client";
@@ -79,7 +77,6 @@ function RouteComponent() {
 						</button>
 					</div>
 
-					{/* The column reaches the window's foot, so the about line sits there on a short page (`.about`). */}
 					<div className="flex min-w-0 flex-col sm:min-h-[calc(100svh-92px)]">
 						{!isRoot && (
 							<Link
@@ -108,26 +105,6 @@ function RouteComponent() {
 								</>
 							)}
 						</div>
-						<footer className="mt-auto flex max-w-[704px] flex-wrap justify-between gap-4 border-t border-line pt-3 pb-[22px] text-[13px]/[18px] text-ink-2 max-sm:hidden">
-							<p className="text-ink-3">
-								<Trans>Reactive Resume {__APP_VERSION__} · MIT</Trans>
-							</p>
-							<p className="text-ink-3">
-								{getProjectLinks().map((link, index) => (
-									<Fragment key={link.href}>
-										{index > 0 && " · "}
-										<a
-											className="text-ink-2 underline decoration-line-2 underline-offset-3"
-											href={link.href}
-											target="_blank"
-											rel="noopener noreferrer"
-										>
-											{link.label}
-										</a>
-									</Fragment>
-								))}
-							</p>
-						</footer>
 					</div>
 				</div>
 			</PageBody>

@@ -286,22 +286,7 @@ function CustomCss() {
 				</Trans>
 			</Lede>
 			<CustomStylesSectionBuilder />
-			<DesignHeading
-				action={
-					<a
-						className="t-ui font-medium text-accent-text hover:underline"
-						href="https://docs.rxresu.me/applying-custom-styles"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						<Trans>Full guide</Trans>
-						<span className="sr-only">
-							{" "}
-							(<Trans>opens in new tab</Trans>)
-						</span>
-					</a>
-				}
-			>
+			<DesignHeading>
 				<Trans>What you can target</Trans>
 			</DesignHeading>
 			<dl className="grid grid-cols-[auto_1fr] items-center gap-x-3.5">

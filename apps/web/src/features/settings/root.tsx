@@ -8,7 +8,6 @@ import { Button } from "@reactive-resume/ui/components/button";
 import { Icon } from "@reactive-resume/ui/components/icon";
 import { getLanguageName } from "@reactive-resume/utils/locale";
 import { getInitials } from "@reactive-resume/utils/string";
-import { getProjectLinks } from "./project-links";
 import { List, ListRow } from "@/components/calm/list-row";
 import { RootHeader } from "@/components/calm/page";
 import { useTheme } from "@/features/theme/provider";
@@ -119,24 +118,6 @@ export function SettingsRoot() {
 				<Icon name="sign-out" />
 				<Trans>Sign out</Trans>
 			</Button>
-			<footer className="mt-2 t-small text-ink-3">
-				<p>
-					<Trans>Reactive Resume {__APP_VERSION__} · MIT</Trans>
-				</p>
-				<nav aria-label={t`About Reactive Resume`} className="flex flex-wrap gap-x-4 gap-y-2 pt-1">
-					{getProjectLinks().map((link) => (
-						<a
-							key={link.href}
-							href={link.href}
-							target="_blank"
-							rel="noopener noreferrer"
-							className="underline decoration-line-2 underline-offset-3"
-						>
-							{link.label}
-						</a>
-					))}
-				</nav>
-			</footer>
 		</div>
 	);
 }

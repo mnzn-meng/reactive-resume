@@ -55,17 +55,6 @@ export function PreferencesSettings() {
 					</SettingsRow>
 					<TimezoneSetting id={timezoneId} />
 				</List>
-				<p className="pt-2.5 text-[13px]/[18px] text-ink-3">
-					<Trans>Reactive Resume is translated by volunteers.</Trans>{" "}
-					<a
-						href="https://crowdin.com/project/reactive-resume"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="inline-block font-medium text-accent-text hover:underline"
-					>
-						<Trans>Help translate</Trans>
-					</a>
-				</p>
 			</SettingsSection>
 
 			{/* Touch screens have no shortcut help to open, so the setting would only add noise there. */}

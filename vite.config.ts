@@ -159,8 +159,6 @@ export default defineConfig({
 			"packages/pdf/src/semantic/__fixtures__/**/*.css",
 			"pnpm-lock.yaml",
 			"migrations/**",
-			"docs/spec.json",
-			"docs/guides/json-resume-schema.mdx",
 			"plugins/reactive-resume/skills/resume-builder/references/schema.md",
 		],
 		overrides: [

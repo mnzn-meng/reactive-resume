@@ -152,12 +152,11 @@ function htmlResponse(html: string, headers: Record<string, string>, template = 
 	});
 }
 
-const githubUrl = "https://github.com/reactive-resume/reactive-resume";
 // The English copy, for a build without prerendered pages; a prerendered page carries its own locale's title and
 // description, and the social cards reuse them.
 const ROOT_TITLE = "Free resume builder with PDF &amp; Word downloads | Reactive Resume";
 const ROOT_DESCRIPTION =
-	"Free, open-source resume builder. Create, update, and share your resume, with PDF and Word downloads, no ads and no paywall.";
+	"Free resume builder. Create, update, and share your resume, with PDF and Word downloads, no ads and no paywall.";
 const ATS_CHECKER_TITLE = "Free ATS resume checker | Reactive Resume";
 const ATS_CHECKER_DESCRIPTION =
 	"Check whether software can read your resume PDF. Runs entirely in your browser, so your file is never uploaded.";
@@ -174,16 +173,7 @@ function organization(origin: string): StructuredData {
 		"@id": `${origin}/#organization`,
 		name: "Reactive Resume",
 		url: `${origin}/`,
-		contactPoint: { "@type": "ContactPoint", contactType: "support", email: "amruth@rxresu.me" },
 		logo: { "@type": "ImageObject", url: `${origin}/pwa-512x512.png`, width: 512, height: 512 },
-		sameAs: [
-			githubUrl,
-			"https://www.linkedin.com/company/reactive-resume",
-			"https://opencollective.com/reactive-resume",
-			"https://www.reddit.com/r/reactiveresume",
-			"https://discord.gg/aSyA5ZSxpb",
-			"https://crowdin.com/project/reactive-resume",
-		],
 	};
 }
 
@@ -236,7 +226,6 @@ function homepageStructuredData(origin: string, text: PageText): StructuredData 
 				operatingSystem: "Web",
 				isAccessibleForFree: true,
 				offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-				license: `${githubUrl}/blob/main/LICENSE`,
 				publisher: { "@id": `${origin}/#organization` },
 				// The feature list is written in English; other languages leave it out rather than mix languages.
 				...(text.locale === defaultLocale ? { featureList: FEATURE_LIST } : {}),

@@ -9,7 +9,7 @@ it("emits a sanitized aggregate when cleanup work remains", () => {
 
 	expect(warn).toHaveBeenCalledOnce();
 	const [message, summary] = warn.mock.calls[0] ?? [];
-	expect(message).toContain("docs/contributing/storage-cleanup.mdx");
+	expect(message).toContain("inspect and requeue");
 	expect(summary).toEqual({ completed: 2, missing: 1, failed: 3, partial: 4, abandoned: 1 });
 	expect(JSON.stringify(warn.mock.calls)).not.toContain("uploads/");
 });
