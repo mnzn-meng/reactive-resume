@@ -22,7 +22,7 @@ carries a published changelog, so the release notes are the only changelog: they
 
    ## Thematic Section (e.g. Resume Builder, Import & Export, Self-Hosting & Maintenance)
 
-   - Past-tense entry ("Added…", "Fixed…", "Improved…") with commit links. [abc123def](...)
+   - Past-tense entry ("Added…", "Fixed…", "Improved…") with commit links. [abc123def](https://github.com/reactive-resume/reactive-resume/commit/abc123def)
 
    **Full Changelog**: [vPREV...vX.Y.Z](https://github.com/reactive-resume/reactive-resume/compare/vPREV...vX.Y.Z)
    ```

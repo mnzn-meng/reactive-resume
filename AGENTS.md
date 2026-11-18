@@ -109,12 +109,13 @@ files).
 - **New DB column or table**: `packages/db/src/schema/*`, then `pnpm db:generate`. Also check the feature's `crud.ts`
   update allow-list, the account export in `packages/api/src/features/auth`, and the DTO. To rebase a branch's
   migration onto a newer `main`, delete the branch's migration folder and regenerate it so its snapshot chains on.
-- **API contract change**: the spec is generated at runtime at `/api/openapi/spec.json`; run `pnpm --filter server test src/openapi` (it counts schemas).
+- **API contract change**: the spec is generated at runtime at `/api/openapi/spec.json`; run
+  `pnpm --filter server test src/openapi` (it counts schemas).
 - **New env var**: `packages/env/src/server.ts`, `.env.example`, and `turbo.json` (`globalPassThroughEnv` plus the
   test-task `env` arrays; Turbo's strict env mode hides unlisted variables). Deployment aliases:
   `packages/env/src/deployment.ts`.
-- **User-facing strings**: Lingui macros, then `pnpm lingui:extract` (both apps). Translations workflow:
-  the `.agents/skills/fill-translations` skill. Glossary: root `GLOSSARY.md`.
+- **User-facing strings**: Lingui macros for the copy, then `pnpm lingui:extract` (both apps); the
+  `.agents/skills/fill-translations` skill covers the rest of the workflow. Glossary: root `GLOSSARY.md`.
 - **New template**: `packages/schema/src/templates.ts`, `packages/pdf/src/templates/index.ts`, source in
   `packages/pdf/src/templates/<name>/`, previews under `apps/web/public/templates/` (command in `apps/web/DESIGN.md`).
 - **Public marketing route**: the TanStack route plus its server fallback and SEO in `apps/server/src/static/web.ts`;
