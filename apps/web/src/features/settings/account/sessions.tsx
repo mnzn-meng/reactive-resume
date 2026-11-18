@@ -43,7 +43,7 @@ export function SessionsRow() {
 	const { i18n } = useLingui();
 	const queryClient = useQueryClient();
 	const { data: current } = authClient.useSession();
-	// Links to `#sessions` (the phone apps use it) land on the opened list.
+	// Older links to `#sessions` land on the opened list.
 	const [open, setOpen] = useState(() => window.location.hash === "#sessions");
 	const { data: sessions = [] } = useQuery({
 		queryKey: SESSIONS_KEY,

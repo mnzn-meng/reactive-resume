@@ -745,8 +745,7 @@ export const applicationService = {
 			return { items, total: totals?.[0]?.total ?? rows.length };
 		}
 
-		// Web keeps SQL order within each stage. Mobile differs only when the cutoff
-		// falls inside a timestamp tie, so only that group needs an ID sort.
+		// Preload the first rows in stage order, keeping SQL order within each stage.
 		const stageOrder: readonly ApplicationStatus[] = ["interview", "offer", "screening", "applied", "saved", "closed"];
 		const buckets = new Map<ApplicationStatus, typeof items>();
 		for (const item of items) {
@@ -755,18 +754,8 @@ export const applicationService = {
 			if (bucket) bucket.push(item);
 			else buckets.set(item.status, [item]);
 		}
-		const webCandidates = stageOrder.flatMap((status) => buckets.get(status) ?? []).slice(0, initialDetailCount);
-		const candidateIds = new Set(webCandidates.map((item) => item.id));
-		const boundary = webCandidates.at(-1);
-		if (boundary) {
-			const sameGroup = (item: (typeof items)[number]) =>
-				item.status === boundary.status && item.updatedAt.getTime() === boundary.updatedAt.getTime();
-			const mobileCount = webCandidates.filter(sameGroup).length;
-			const tied = items.filter(sameGroup);
-			for (const item of tied.toSorted((a, b) => a.id.localeCompare(b.id)).slice(0, mobileCount)) {
-				candidateIds.add(item.id);
-			}
-		}
+		const candidates = stageOrder.flatMap((status) => buckets.get(status) ?? []).slice(0, initialDetailCount);
+		const candidateIds = new Set(candidates.map((item) => item.id));
 		if (candidateIds.size === 0) return { items, total: totals?.[0]?.total ?? rows.length };
 
 		// Fetch candidates together so the initial response adds one bounded query, never one query per row.

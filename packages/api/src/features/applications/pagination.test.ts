@@ -201,7 +201,7 @@ describe("application list summary completeness", () => {
 		expect(queries()[1]?.sql).toContain(" in ");
 	});
 
-	it("attaches the web/mobile candidate union with one batch query", async () => {
+	it("attaches the first candidates in stage order with one batch query", async () => {
 		const updatedAt = "2026-07-03T12:00:00.000Z";
 		const summaryRows = [
 			candidateSummary("interview-d", "interview", updatedAt),
@@ -222,7 +222,7 @@ describe("application list summary completeness", () => {
 			.filter((item) => item.initialDetail)
 			.map((item) => item.id)
 			.sort();
-		expect(attached).toEqual(["interview-a", "interview-b", "interview-c", "interview-d"]);
+		expect(attached).toEqual(["interview-b", "interview-c", "interview-d"]);
 		expect(items.find((item) => item.id === "closed-a")).not.toHaveProperty("initialDetail");
 		expect(items.every((item) => item.initialDetail?.id === item.id || !item.initialDetail)).toBe(true);
 		expect(queries()).toHaveLength(2);
@@ -240,7 +240,7 @@ describe("application list summary completeness", () => {
 				["interview-a", "interview", "2026-07-03T00:00:00Z"],
 				["offer-a", "offer", "2026-07-02T00:00:00Z"],
 			],
-			expected: ["interview-a", "interview-b", "interview-c", "interview-new"],
+			expected: ["interview-b", "interview-c", "interview-new"],
 		},
 		{
 			name: "a cutoff in the next stage",
@@ -251,9 +251,9 @@ describe("application list summary completeness", () => {
 				["interview-a", "interview", "2026-07-03T00:00:00Z"],
 				["saved-a", "saved", "2026-07-02T00:00:00Z"],
 			],
-			expected: ["interview-a", "offer-a", "offer-b", "offer-c"],
+			expected: ["interview-a", "offer-b", "offer-c"],
 		},
-	] as const)("preloads both clients' first rows across $name", async ({ rows, expected }) => {
+	] as const)("preloads the first rows across $name", async ({ rows, expected }) => {
 		fixture.rows = rows.map(([id, status, at]) => candidateSummary(id, status, at));
 		fixture.fullRows = rows.map(([id]) => row(id));
 		fixture.fullRowsActive = true;

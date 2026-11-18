@@ -4,7 +4,7 @@ import { z } from "zod";
 import { AiSettings } from "@/features/settings/ai/page";
 import { getPageTitle } from "@/libs/seo";
 
-/** Sections that moved to Developer. Old clients (phone apps, MCP, agents) still link to them here by anchor. */
+/** Sections that moved to Developer. MCP and agent clients still link to them here by anchor. */
 const MOVED = new Set(["api-keys", "connected-applications"]);
 
 export const Route = createFileRoute("/dashboard/settings/ai")({

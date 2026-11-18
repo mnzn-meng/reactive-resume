@@ -160,7 +160,7 @@ const isTouch = (event: Event | undefined) =>
 	!!event && (event.type.startsWith("touch") || ("pointerType" in event && event.pointerType === "touch"));
 
 /**
- * On touch, a long press selects the document instead of opening its context menu, as in the mobile app; the ⋯ menu
+ * On touch, a long press selects the document instead of opening its context menu; the ⋯ menu
  * keeps every action. Base UI times the press (500ms, cancelled by a 10px move); the tap that ends it is swallowed so
  * it doesn't open the document or toggle it straight back.
  */

@@ -73,7 +73,7 @@ export const Route = createFileRoute("/dashboard/applications/")({
 	component: RouteComponent,
 	validateSearch: searchSchema,
 	search: { middlewares: [stripSearchParams(defaultSearch)] },
-	// Today, notifications, emails and the phone apps link to one application as `?applicationId=`. An application is
+	// Today, notifications and emails link to one application as `?applicationId=`. An application is
 	// a page now, so the old address goes there, with its stage and details open as the old sheet showed them.
 	beforeLoad: ({ search }) => {
 		if (!search.applicationId) return;
@@ -253,7 +253,7 @@ function RouteComponent() {
 	const empty = !!applications && applications.length === 0;
 	const noMatches = !!applications && !empty && text && filtered.length === 0;
 	const noAttentionMatches = !!applications && !empty && needsYou && filtered.length === 0;
-	// Every application is closed and closed ones are hidden: say so, as the phone app does, instead of a bare header.
+	// Every application is closed and closed ones are hidden: say so instead of a bare header.
 	const allClosed =
 		!!applications && !empty && !closed && !text && filtered.length > 0 && closedCount === filtered.length;
 	const filteredIds = new Set(filtered.map((application) => application.id));

@@ -38,7 +38,7 @@ const keys = Object.keys(documentsSearchSchema.shape);
 
 /**
  * Documents lived at `/dashboard` until Today took its place. This is the Documents search an address there carried
- * (bookmarks, emails, the phone apps), or undefined when it carried none.
+ * (bookmarks, emails), or undefined when it carried none.
  */
 export function legacyDocumentsSearch(search: Record<string, unknown>) {
 	return keys.some((key) => search[key] !== undefined) ? documentsSearchSchema.parse(search) : undefined;

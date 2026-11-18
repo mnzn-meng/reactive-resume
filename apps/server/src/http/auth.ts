@@ -240,7 +240,7 @@ function redirectToOAuthLogin(url: URL, reauthenticate = false, headers = new He
 	const prompt = new Set(url.searchParams.get("prompt")?.split(" ") ?? []);
 	const loginUrl = new URL(prompt.has("create") ? "/auth/register" : "/auth/login", env.APP_URL);
 	if (reauthenticate) loginUrl.searchParams.set("reauthenticate", "true");
-	// A client's OpenID `ui_locales` (the mobile app sends its language) opens the sign-in pages in that language; the
+	// A client's OpenID `ui_locales` opens the sign-in pages in that language; the
 	// app keeps it, and a new account starts in it. Only a supported locale is passed on.
 	const uiLocale = url.searchParams
 		.get("ui_locales")

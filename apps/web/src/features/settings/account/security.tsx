@@ -142,7 +142,7 @@ function Passkeys() {
 	const verified = session?.user.emailVerified ?? true;
 	const prompt = usePrompt();
 	const confirm = useConfirm();
-	// Links to `#passkeys` (the phone apps use it) land on the opened list.
+	// Older links to `#passkeys` land on the opened list.
 	const [open, setOpen] = useState(() => window.location.hash === "#passkeys");
 	const { data: passkeys = [] } = useQuery({
 		queryKey: PASSKEYS_KEY,
