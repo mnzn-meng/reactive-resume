@@ -20,7 +20,7 @@ export async function createResumePdfDownload(input: CreateResumePdfDownloadInpu
 	const resume = await resumeService.getById({ id: input.id, userId: input.userId });
 	await consumePdfExportLimit(input);
 	const data = parseStoredResumeData(resume.data);
-	const filename = `${getDefaultFileName({ name: resume.name, slug: resume.slug, data })}.pdf`;
+	const filename = `${getDefaultFileName({ name: resume.name, data })}.pdf`;
 
 	try {
 		// Lazy-load the PDF renderer (@reactive-resume/pdf → the Forme WASM engine and

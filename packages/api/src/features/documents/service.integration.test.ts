@@ -9,7 +9,6 @@ import * as tables from "@reactive-resume/db/schema";
 import { copyCoverLetterStyle } from "@reactive-resume/resume/cover-letter";
 import { defaultResumeData } from "@reactive-resume/schema/resume/default";
 import { truncateCascade } from "../../test-database";
-import { createPublicResumePdf } from "../resume/public-pdf";
 import { runStorageCleanup } from "../storage/cleanup";
 
 const fixture = vi.hoisted(() => ({
@@ -151,14 +150,12 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 					id: "alice-active",
 					userId: "alice",
 					name: "Active",
-					slug: "active",
 					data: structuredClone(defaultResumeData),
 				},
 				{
 					id: "alice-trashed-1",
 					userId: "alice",
 					name: "Trashed one",
-					slug: "trashed-one",
 					trashedAt: trashedAt(),
 					data: structuredClone(defaultResumeData),
 				},
@@ -166,7 +163,6 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 					id: "alice-trashed-2",
 					userId: "alice",
 					name: "Trashed two",
-					slug: "trashed-two",
 					trashedAt: trashedAt(),
 					data: structuredClone(defaultResumeData),
 				},
@@ -174,7 +170,6 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 					id: "bob-trashed",
 					userId: "bob",
 					name: "Bob trash",
-					slug: "bob-trash",
 					trashedAt: trashedAt(),
 					data: structuredClone(defaultResumeData),
 				},
@@ -612,38 +607,6 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 		).toHaveLength(0);
 	});
 
-	it("does not let an in-flight public PDF render recreate a prefix after deletion", async () => {
-		await getDb()
-			.update(tables.resume)
-			.set({ isPublic: true, slug: "public-resume" })
-			.where(eq(tables.resume.id, "alice-active"));
-		const rendered = Promise.withResolvers<void>();
-		const finishRender = Promise.withResolvers<void>();
-		renderPdf.mockImplementationOnce(async () => {
-			rendered.resolve();
-			await finishRender.promise;
-			return new File(["%PDF"], "resume.pdf", { type: "application/pdf" });
-		});
-
-		const pdf = createPublicResumePdf({
-			username: `${schemaName}-alice`,
-			slug: "public-resume",
-			requestHeaders: new Headers(),
-			trustedClient: "127.0.0.1",
-		});
-		await rendered.promise;
-		await service.trash({ userId: "alice", type: "resume", id: "alice-active" });
-		await service.purgeMany({ userId: "alice", documents: [{ type: "resume", id: "alice-active" }] });
-		finishRender.resolve();
-		const result = await pdf;
-
-		expect(await result.body?.text()).toBe("%PDF");
-		expect([...fixture.storageKeys]).toHaveLength(0);
-		expect(
-			await getDb().select().from(tables.storageCleanupJob).where(eq(tables.storageCleanupJob.ownerId, "alice")),
-		).toHaveLength(0);
-	});
-
 	it("empties every one of this account's trashed documents without loading their IDs on the client", async () => {
 		await getDb()
 			.insert(tables.resume)
@@ -652,7 +615,6 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 					id: `alice-bulk-${index}`,
 					userId: "alice",
 					name: `Bulk ${index}`,
-					slug: `bulk-${index}`,
 					trashedAt: trashedAt(),
 					data: structuredClone(defaultResumeData),
 				})),
@@ -680,7 +642,6 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 					id: `alice-scale-${index}`,
 					userId: "alice",
 					name: `Scale ${index}`,
-					slug: `scale-${index}`,
 					trashedAt: trashedAt(),
 					data: structuredClone(defaultResumeData),
 				})),
@@ -749,7 +710,6 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 		await service.setLocked({ ...letterRef, isLocked: false });
 		await service.trash(resumeRef);
 		await service.restore(resumeRef);
-		await db.update(tables.resume).set({ isPublic: true }).where(eq(tables.resume.id, "alice-active"));
 		const details = await read();
 		expect(details.resume.editedAt).toEqual(past);
 		expect(details.letter.editedAt).toEqual(past);
@@ -767,7 +727,6 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 			type: "all",
 			q: "",
 			tags: [],
-			public: false,
 			sort: "edited",
 		});
 		expect(listed.items.find((row) => row.id === "alice-active")?.editedAt).toEqual(past);
@@ -789,7 +748,6 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 			type: "letter",
 			q: "",
 			tags: [],
-			public: false,
 			sort: "edited",
 		});
 		expect(after.items[0]).toMatchObject({ id: "alice-letter", recipient: "Northwind Labs" });
@@ -844,55 +802,12 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 		await service.rename({ userId: "alice", type: "letter", id: "alice-letter", name: "Renamed letter" });
 		expect(published).not.toHaveBeenCalled();
 	});
-	it("sends a renamed account's old public links to its new username for 30 days, and only its own", async () => {
-		await seed();
-		const oldUsername = `${schemaName}-alice`;
-		const newUsername = `${schemaName}-alice-new`;
-		const db = getDb();
-		await db.update(tables.resume).set({ isPublic: true }).where(eq(tables.resume.id, "alice-active"));
-		await db
-			.update(tables.user)
-			.set({ username: newUsername, displayUsername: newUsername })
-			.where(eq(tables.user.id, "alice"));
-		const { loadPublicWebPage } = await import("../resume/web-page");
-		const visit = (match: { username: string; slug: string } | { username: string; primary: true }) =>
-			loadPublicWebPage({ match, requestHeaders: new Headers(), trustedClient: "test" });
-
-		await expect(visit({ username: oldUsername, slug: "active" })).resolves.toEqual({
-			status: "moved",
-			username: newUsername,
-			slug: "active",
-			isPrimary: false,
-			movedBy: "username",
-		});
-		await expect(visit({ username: oldUsername.toUpperCase(), slug: "active" })).resolves.toMatchObject({
-			status: "moved",
-		});
-		// Another account never answers for a name it didn't release.
-		await expect(visit({ username: `${schemaName}-bob`, slug: "active" })).resolves.toEqual({ status: "unavailable" });
-
-		// The primary resume's short link moves to the new short link.
-		await db.update(tables.resume).set({ isPrimary: true }).where(eq(tables.resume.id, "alice-active"));
-		await expect(visit({ username: oldUsername, primary: true })).resolves.toEqual({
-			status: "moved",
-			username: newUsername,
-			slug: "active",
-			isPrimary: true,
-			movedBy: "username",
-		});
-
-		// After 30 days the name is free for anyone, so the old links stop resolving to this account.
-		await pool.query("UPDATE released_username SET released_at = now() - interval '31 days' WHERE username = $1", [
-			oldUsername,
-		]);
-		await expect(visit({ username: oldUsername, slug: "active" })).resolves.toEqual({ status: "unavailable" });
-	}, 30_000);
 	it("names a second import of the same person apart from the first, ignoring Trash and other accounts", async () => {
 		await seed();
-		const { findFreeResumeName } = await import("../resume/slugs");
+		const { findFreeResumeName } = await import("../resume/naming");
 		const db = getDb();
 		const add = (id: string, userId: string, name: string) =>
-			db.insert(tables.resume).values({ id, userId, name, slug: id, data: structuredClone(defaultResumeData) });
+			db.insert(tables.resume).values({ id, userId, name, data: structuredClone(defaultResumeData) });
 
 		await expect(findFreeResumeName("alice", "Morgan Chen", "Engineering lead")).resolves.toBe("Morgan Chen");
 		await add("first", "alice", "Morgan Chen");

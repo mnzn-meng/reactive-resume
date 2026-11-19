@@ -22,7 +22,6 @@ export const preloadDocumentExport = () => {
 
 type ExportableResume = {
 	name: string;
-	slug: string;
 	data: ResumeData;
 };
 

@@ -7,21 +7,9 @@ import { paginate } from "../../pagination";
 import { suggestDuplicateName } from "../documents/naming";
 import { documentsService } from "../documents/service";
 import { createResumeData } from "./initial-data";
+import { findFreeResumeName } from "./naming";
 import { parseStoredResumeData } from "./resume-data-validation";
 import { resumeService } from "./service";
-import { findFreeResumeName } from "./slugs";
-
-const slugErrors = {
-	RESUME_SLUG_ALREADY_EXISTS: {
-		message: "A resume with this slug already exists.",
-		status: 400,
-	},
-	INVALID_SLUG: {
-		message:
-			"The slug must be at most 64 characters and contain only lowercase letters and numbers, separated by single dashes.",
-		status: 400,
-	},
-} as const;
 
 export const crudRouter = {
 	list: protectedProcedure
@@ -72,19 +60,15 @@ export const crudRouter = {
 			operationId: "createResume",
 			summary: "Create a new resume",
 			description:
-				"Creates a new resume with the given name and tags. The slug (its public address) is optional: when omitted it is generated from the name (or is \"resume\" when autoName is set) and made unique across the user's resumes, and it follows the resume's name until the resume is published or given a slug; when given it must be unique too. Optionally initializes the resume with sample data by setting withSampleData to true, and starts it in a given template. Returns the ID of the newly created resume. Requires authentication.",
+				"Creates a new resume with the given name and tags. Optionally initializes the resume with sample data by setting withSampleData to true, and starts it in a given template. Returns the ID of the newly created resume. Requires authentication.",
 			successDescription: "The ID of the newly created resume.",
 		})
 		.input(resumeDto.create.input)
 		.use(resumeMutationRateLimit)
 		.output(resumeDto.create.output)
-		.errors({
-			...slugErrors,
-		})
 		.handler(({ context, input }) =>
 			resumeService.create({
 				name: input.name,
-				...(input.slug ? { slug: input.slug } : {}),
 				...(input.autoName ? { autoName: true } : {}),
 				tags: input.tags,
 				locale: input.locale ?? context.locale,
@@ -115,9 +99,6 @@ export const crudRouter = {
 		.input(resumeDto.import.input)
 		.use(resumeMutationRateLimit)
 		.output(resumeDto.import.output)
-		.errors({
-			RESUME_SLUG_ALREADY_EXISTS: slugErrors.RESUME_SLUG_ALREADY_EXISTS,
-		})
 		.handler(async ({ context, input }) => {
 			const id = generateId();
 
@@ -146,7 +127,7 @@ export const crudRouter = {
 			operationId: "updateResume",
 			summary: "Update a resume",
 			description:
-				"Updates one or more fields of a resume identified by its ID. All fields are optional; only provided fields will be updated. A generated slug follows a new name while the resume has never been published; publishing it or setting a slug keeps the slug from then on. Publishing a resume that was not public (isPublic true on a private resume) also makes it the primary resume when the account has none, unless isPrimary is given. When expectedUpdatedAt is provided, a stale version returns RESUME_VERSION_CONFLICT (409) with data.updatedAt. Locked resumes cannot be updated. Requires authentication.",
+				"Updates one or more fields of a resume identified by its ID. All fields are optional; only provided fields will be updated. When expectedUpdatedAt is provided, a stale version returns RESUME_VERSION_CONFLICT (409) with data.updatedAt. Locked resumes cannot be updated. Requires authentication.",
 			successDescription: "The updated resume with its full data.",
 		})
 		.input(resumeDto.update.input)
@@ -158,12 +139,6 @@ export const crudRouter = {
 				status: 409,
 			},
 			RESUME_LOCKED: { status: 403, message: "Unlock the resume first." },
-			...slugErrors,
-			RESUME_NOT_PUBLIC: { status: 400, message: "Publish the resume before making it primary." },
-			RESUME_PRIMARY_CONFLICT: {
-				status: 409,
-				message: "Another resume became the primary one at the same time. Try again.",
-			},
 		})
 		.handler(({ context, input }) =>
 			resumeService.update({
@@ -174,16 +149,9 @@ export const crudRouter = {
 				...(input.expectedUpdatedAt !== undefined ? { expectedUpdatedAt: input.expectedUpdatedAt } : {}),
 				...(input.proposalApplications !== undefined ? { proposalApplications: input.proposalApplications } : {}),
 				...(input.proposalSafety !== undefined ? { proposalSafety: input.proposalSafety } : {}),
-				...(input.slug !== undefined ? { slug: input.slug } : {}),
 				...(input.tags !== undefined ? { tags: input.tags } : {}),
 				...(input.data !== undefined ? { data: input.data } : {}),
 				...(input.aiOperationIds !== undefined ? { aiOperationIds: input.aiOperationIds } : {}),
-				...(input.isPublic !== undefined ? { isPublic: input.isPublic } : {}),
-				...(input.showDownloadButtons !== undefined ? { showDownloadButtons: input.showDownloadButtons } : {}),
-				...(input.allowWordDownload !== undefined ? { allowWordDownload: input.allowWordDownload } : {}),
-				...(input.showInSearchEngines !== undefined ? { showInSearchEngines: input.showInSearchEngines } : {}),
-				...(input.hideContactDetails !== undefined ? { hideContactDetails: input.hideContactDetails } : {}),
-				...(input.isPrimary !== undefined ? { isPrimary: input.isPrimary } : {}),
 			}),
 		),
 
@@ -258,7 +226,7 @@ export const crudRouter = {
 			operationId: "duplicateResume",
 			summary: "Duplicate a resume",
 			description:
-				"Creates a copy of an existing resume with the same data and tags. When name is omitted, suggests an available numbered name across the account’s documents. The slug is optional: when omitted it is generated from the name, made unique across the user's resumes, and follows the name until the copy is published. Returns the ID of the duplicated resume. Requires authentication.",
+				"Creates a copy of an existing resume with the same data and tags. When name is omitted, suggests an available numbered name across the account’s documents. Returns the ID of the duplicated resume. Requires authentication.",
 			successDescription: "The ID of the duplicated resume.",
 		})
 		.input(resumeDto.duplicate.input)
@@ -266,7 +234,6 @@ export const crudRouter = {
 		.output(resumeDto.duplicate.output)
 		.errors({
 			NOT_FOUND: { message: "The resume does not exist.", status: 404 },
-			...slugErrors,
 		})
 		.handler(async ({ context, input }) => {
 			const original = await resumeService.getById({ id: input.id, userId: context.user.id });
@@ -275,7 +242,6 @@ export const crudRouter = {
 			return resumeService.create({
 				userId: context.user.id,
 				name: input.name ?? (await suggestDuplicateName({ userId: context.user.id, type: "resume", id: input.id })),
-				...(input.slug ? { slug: input.slug } : {}),
 				tags: input.tags ?? original.tags,
 				// A copy keeps its source's page language; only an explicit choice changes it.
 				...(input.pageLocale ? { locale: input.pageLocale } : {}),
@@ -292,7 +258,7 @@ export const crudRouter = {
 			operationId: "deleteResume",
 			summary: "Move a resume to Trash",
 			description:
-				"Moves a resume to Trash, which stops its public link. It stays there for 30 days, then it and its files are deleted; until then it can be restored (documents.restore) or deleted at once (documents.purge). Locked resumes can't be moved; unlock the resume first. Requires authentication.",
+				"Moves a resume to Trash. It stays there for 30 days, then it and its files are deleted; until then it can be restored (documents.restore) or deleted at once (documents.purge). Locked resumes can't be moved; unlock the resume first. Requires authentication.",
 			successDescription: "The resume is in Trash.",
 		})
 		.input(resumeDto.delete.input)

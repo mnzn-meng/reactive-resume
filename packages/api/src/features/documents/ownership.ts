@@ -1,7 +1,7 @@
 import type { DbOrTx } from "@reactive-resume/db/client";
 import { createHash } from "node:crypto";
 import { ORPCError } from "@orpc/client";
-import { and, eq, isNull } from "drizzle-orm";
+import { and, eq, isNull, sql } from "drizzle-orm";
 import * as schema from "@reactive-resume/db/schema";
 
 /**
@@ -15,6 +15,14 @@ export async function lockUser(tx: DbOrTx, userId: string) {
 		.where(eq(schema.user.id, userId))
 		.for("no key update");
 	if (!owner) throw new ORPCError("NOT_FOUND");
+}
+
+/**
+ * Query condition: the joined `user` (the content's owner) is not banned. Same rule as `findActiveUser` in
+ * context.ts, so a banned owner's pictures and feedback links stop serving to everyone.
+ */
+export function ownerIsNotBanned() {
+	return sql`(${schema.user.banned} is not true or ${schema.user.banExpires} <= now())`;
 }
 
 /** The same JSON with object keys sorted, so one request always gives one fingerprint. */

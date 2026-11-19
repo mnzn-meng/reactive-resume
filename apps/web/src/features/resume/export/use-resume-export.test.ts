@@ -18,7 +18,7 @@ it.each(["docx", "odt"] as const)(
 			content: "<p>I build analytical engines.</p>",
 			style: copyCoverLetterStyle(source),
 		});
-		const resume = { name: "Letter", slug: "", data };
+		const resume = { name: "Letter", data };
 		for (const standalone of [true, false]) {
 			const blob = await createExportFile(resume, format, "cover-letter", { includeCoverLetterHeader: standalone });
 			const files = unzipSync(new Uint8Array(await blob.arrayBuffer()));
@@ -36,7 +36,7 @@ it("marks editor list paragraphs in browser Word downloads", async () => {
 	const data = structuredClone(defaultResumeData);
 	data.basics.name = "Ada Lovelace";
 	data.summary.content = "<ul><li><p>Editor bullet</p></li><li>Plain bullet</li></ul>";
-	const blob = await createExportFile({ name: "Ada", slug: "ada", data }, "docx");
+	const blob = await createExportFile({ name: "Ada", data }, "docx");
 	const files = unzipSync(new Uint8Array(await blob.arrayBuffer()));
 	const documentXml = files["word/document.xml"];
 	const numberingXml = files["word/numbering.xml"];
@@ -52,7 +52,7 @@ it.each(["docx", "odt"] as const)("preserves highlight colors and code shading i
 	const data = structuredClone(defaultResumeData);
 	data.summary.content =
 		'<p><mark>Yellow</mark> <mark data-color="#00ff00">Green</mark> <mark data-color="#000000">Dark</mark> <code>Code</code></p>';
-	const blob = await createExportFile({ name: "Highlights", slug: "highlights", data }, format);
+	const blob = await createExportFile({ name: "Highlights", data }, format);
 	const files = unzipSync(new Uint8Array(await blob.arrayBuffer()));
 	const content = files[format === "docx" ? "word/document.xml" : "content.xml"];
 	if (!content) throw new Error("Missing document content");
@@ -66,7 +66,7 @@ it.each(["docx", "odt"] as const)("preserves highlight colors and code shading i
 it("preserves highlight markup in JSON and visible text in Markdown downloads", async () => {
 	const data = structuredClone(defaultResumeData);
 	data.summary.content = '<p><mark data-color="#00ff00">Highlighted</mark> <code>Code</code></p>';
-	const resume = { name: "Highlights", slug: "highlights", data };
+	const resume = { name: "Highlights", data };
 	const json = await createExportFile(resume, "json");
 	expect(JSON.parse(await json.text()).summary.content).toBe(data.summary.content);
 	const md = await createExportFile(resume, "md");

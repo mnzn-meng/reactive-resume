@@ -4,7 +4,7 @@ import { getCoordination } from "@reactive-resume/db/coordination";
 import { getRedis, redisKey } from "@reactive-resume/db/redis";
 
 const RESUME_UPDATED_CHANNEL = "resume_updated";
-const resumeMutationNames = new Set(["sync", "create", "update", "patch", "lock", "password", "delete"] as const);
+const resumeMutationNames = new Set(["sync", "create", "update", "patch", "lock", "delete"] as const);
 
 type PgNotification = {
 	channel?: string | undefined;
@@ -16,7 +16,7 @@ export type ResumeUpdatedEvent = {
 	resumeId: string;
 	userId: string;
 	updatedAt: string;
-	mutation: "sync" | "create" | "update" | "patch" | "lock" | "password" | "delete";
+	mutation: "sync" | "create" | "update" | "patch" | "lock" | "delete";
 };
 
 type SubscribeResumeUpdatedInput = {

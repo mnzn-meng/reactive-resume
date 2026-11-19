@@ -1502,14 +1502,6 @@ msgstr "{lines, plural, one {पृष्ठ {page} लगभग # पंक्�
 msgid "{lines, plural, one {Page {page} still runs over by about # line.} other {Page {page} still runs over by about # lines.}}"
 msgstr "{lines, plural, one {पृष्ठ {page} अभी भी लगभग # पंक्ति सीमा पार कर रहा है।} other {पृष्ठ {page} अभी भी लगभग # पंक्तियाँ सीमा पार कर रही हैं।}}"
 
-#: src/features/documents/document-actions.tsx
-msgid "{made, plural, one {# made private} other {# made private}}"
-msgstr "{made, plural, one {# निजी किया गया} other {# निजी किए गए}}"
-
-#: src/features/documents/document-actions.tsx
-msgid "{made, plural, one {# made public} other {# made public}}"
-msgstr "{made, plural, one {# सार्वजनिक किया गया} other {# सार्वजनिक किए गए}}"
-
 #: src/features/resume/editor/check/page-layer.tsx
 msgid "{mentions, plural, one {found in # place} other {found in # places}}"
 msgstr "{mentions, plural, one {# जगह मिला} other {# जगहों पर मिला}}"
@@ -1691,14 +1683,6 @@ msgstr "{removed, plural, one {आपके # वाक्य बदलता �
 #: src/features/documents/document-actions.tsx
 msgid "{restored, plural, one {# document restored} other {# documents restored}}"
 msgstr "{restored, plural, one {# दस्तावेज़ वापस लाया गया} other {# दस्तावेज़ वापस लाए गए}}"
-
-#: src/features/documents/documents-page.tsx
-msgid "{resumes, plural, =0 {Letters have no public link.} one {Applies to the # resume selected. Letters have no public link.} other {Applies to the # resumes selected. Letters have no public link.}}"
-msgstr "{resumes, plural, =0 {पत्रों का कोई सार्वजनिक लिंक नहीं होता।} one {चुने गए # रेज़्यूमे पर लागू होता है। पत्रों का कोई सार्वजनिक लिंक नहीं होता।} other {चुने गए # रेज़्यूमे पर लागू होता है। पत्रों का कोई सार्वजनिक लिंक नहीं होता।}}"
-
-#: src/features/documents/documents-page.tsx
-msgid "{resumes, plural, one {Applies to the # resume selected.} other {Applies to the # resumes selected.}}"
-msgstr "{resumes, plural, one {चुने गए # रेज़्यूमे पर लागू होता है।} other {चुने गए # रेज़्यूमे पर लागू होता है।}}"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "{rules, plural, =2 {Removes both rules; Undo brings them back, and History keeps every saved version. Reset design never touches your CSS.} one {Removes the rule; Undo brings it back, and History keeps every saved version. Reset design never touches your CSS.} other {Removes all # rules; Undo brings them back, and History keeps every saved version. Reset design never touches your CSS.}}"
@@ -1898,15 +1882,6 @@ msgstr "+13 अंक सक्रियण"
 #: src/features/keyboard-shortcuts/index.tsx
 msgid "<0>?</0> opens this list on any page."
 msgstr "<0>?</0> किसी भी पेज पर यह सूची खोलता है।"
-
-#. placeholder {0}: user.username
-#: src/features/settings/account/profile.tsx
-msgid "<0>{host}/{0}</0> · part of every public link"
-msgstr "<0>{host}/{0}</0> · हर सार्वजनिक लिंक का हिस्सा"
-
-#: src/features/settings/account/profile.tsx
-msgid "<0>{oldAddress}</0> becomes <1>{newAddress}</1>."
-msgstr "<0>{oldAddress}</0> बदलकर <1>{newAddress}</1> हो जाता है।"
 
 #: src/components/input/chip-input.tsx
 msgid "<0>{RETURN_KEY}</0> or a comma adds one. Drag to reorder."
@@ -4398,10 +4373,6 @@ msgstr "<0>{pendingEmail}</0> में बदलाव {0} की मंज़�
 msgid "Change to <0>{pendingEmail}</0> is waiting: open the link we sent there. The link works for an hour."
 msgstr "<0>{pendingEmail}</0> में बदलाव बाकी है: वहाँ भेजा गया लिंक खोलें। लिंक एक घंटे तक काम करता है।"
 
-#: src/features/settings/account/profile.tsx
-msgid "Change username"
-msgstr "यूज़रनेम बदलें"
-
 #: src/dialogs/auth/change-password.tsx
 msgid "Change your password"
 msgstr "अपना पासवर्ड बदलें"
@@ -5371,10 +5342,6 @@ msgstr "बातचीत का नाम"
 msgid "Conversations"
 msgstr "बात चिट"
 
-#: src/features/homepage/share.tsx
-msgid "Copied"
-msgstr "कॉपी किया गया"
-
 #: src/features/career/coach-chat.tsx
 msgid "Copies for {company}"
 msgstr "{company} के लिए प्रतिलिपियाँ"
@@ -5436,17 +5403,9 @@ msgstr "नौकरी के लिए कॉपी करें..."
 msgid "Copy it for a job"
 msgstr "किसी नौकरी के लिए इसकी कॉपी बनाएँ"
 
-#: src/features/homepage/share.tsx
-msgid "Copy link"
-msgstr "लिंक की प्रतिलिपि करें"
-
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Copy made for {company}. This resume is unchanged."
 msgstr "{company} के लिए प्रतिलिपि बनाई गई। यह रेज़्यूमे नहीं बदला।"
-
-#: src/features/documents/document-actions.tsx
-msgid "Copy public link"
-msgstr "सार्वजनिक लिंक कॉपी करें"
 
 #: src/features/career/offers.tsx
 msgid "Copy questions"
@@ -7146,6 +7105,7 @@ msgstr "पूरा · {0}"
 
 #: src/features/career/workspace/apply.tsx
 #: src/features/career/workspace/practise.tsx
+#: src/features/homepage/share.tsx
 #: src/features/resume/editor/chrome/bar.tsx
 #: src/features/resume/share/download-menu.tsx
 #: src/features/resume/share/web-page-text.ts
@@ -7969,6 +7929,10 @@ msgstr "हर दिन"
 msgid "Every entry has dates in a form systems read, in order, and none in the future."
 msgstr "प्रत्येक प्रविष्टि में एक फॉर्म सिस्टम में तारीखें होती हैं, क्रम में पढ़ी जाती हैं, और भविष्य में कोई नहीं होती है।"
 
+#: src/features/homepage/share.tsx
+msgid "Every format, yours"
+msgstr ""
+
 #: src/features/resume/editor/check/issues.ts
 msgid "Every role says what you did. Opinions on wording live in the Writing tab."
 msgstr "हर भूमिका कहती है कि आपने क्या किया। लेखन टैब में शब्दों पर राय लाइव होती है।"
@@ -8046,6 +8010,10 @@ msgstr "अनुभव, शिक्षा और बहुत कुछ"
 msgid "explain one limit of the measurement clearly, without underselling the work."
 msgstr "काम को कम आँके बिना, माप की एक सीमा स्पष्ट रूप से समझाएँ।"
 
+#: src/features/documents/document-actions.tsx
+#: src/features/homepage/footer.tsx
+#: src/features/homepage/header.tsx
+#: src/features/homepage/share.tsx
 #: src/features/settings/profile.tsx
 #: src/libs/resume/section.tsx
 #: src/routes/builder/letter/-components/letter-bar.tsx
@@ -8626,6 +8594,7 @@ msgstr "फ़ॉर्म उत्तर"
 msgid "Form questions (optional)"
 msgstr "फ़ॉर्म के सवाल (वैकल्पिक)"
 
+#: src/features/homepage/share.tsx
 #: src/features/resume/share/download-tab.tsx
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Format"
@@ -10068,10 +10037,6 @@ msgstr "यह जवाब रखें"
 msgid "Keep to two or three families. Each extra font is another chance for one to map badly."
 msgstr "दो या तीन फ़ॉन्ट फ़ैमिली तक सीमित रहें। हर अतिरिक्त फ़ॉन्ट गलत मैप होने का एक और मौका है।"
 
-#: src/features/settings/account/profile.tsx
-msgid "Keep username"
-msgstr "यूज़रनेम रखें"
-
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Keep with it"
 msgstr "इसके साथ रखें"
@@ -10627,7 +10592,6 @@ msgstr "नौकरी आवेदन लिंक करें..."
 msgid "Link an existing letter"
 msgstr "कोई मौजूदा कवर लेटर लिंक करें"
 
-#: src/features/documents/document-actions.tsx
 #: src/features/resume/share/web-page-text.ts
 msgid "Link copied"
 msgstr "लिंक कॉपी किया गया"
@@ -10715,10 +10679,6 @@ msgstr "LinkedIn, रेफ़रल…"
 #: src/features/settings/profile.tsx
 msgid "Links"
 msgstr "लिंक"
-
-#: src/features/settings/account/profile.tsx
-msgid "Links you've already shared keep working for 30 days, then stop. Share the new ones before then."
-msgstr "आपके साझा किए गए लिंक 30 दिन तक काम करते रहेंगे, फिर बंद हो जाएँगे। उससे पहले नए लिंक साझा करें।"
 
 #: src/features/homepage/hero.tsx
 msgid "Lisbon"
@@ -10954,18 +10914,6 @@ msgstr "कम"
 msgid "Lower the design sheet"
 msgstr "डिज़ाइन शीट को नीचे करें"
 
-#. placeholder {0}: number(made)
-#. placeholder {1}: number(total)
-#: src/features/documents/document-actions.tsx
-msgid "Made {0} of {1} private. Letters have no public link, and locked documents are left as they are."
-msgstr "{1} में से {0} निजी किए गए। पत्रों का कोई सार्वजनिक लिंक नहीं होता, और लॉक दस्तावेज़ जैसे हैं वैसे ही रहते हैं।"
-
-#. placeholder {0}: number(made)
-#. placeholder {1}: number(total)
-#: src/features/documents/document-actions.tsx
-msgid "Made {0} of {1} public. Letters have no public link, and locked documents are left as they are."
-msgstr "{1} में से {0} सार्वजनिक किए गए। पत्रों का कोई सार्वजनिक लिंक नहीं होता, और लॉक दस्तावेज़ जैसे हैं वैसे ही रहते हैं।"
-
 #: src/features/resume/share/web-page-text.ts
 msgid "Made with Reactive Resume"
 msgstr ""
@@ -11019,14 +10967,6 @@ msgstr "इसे और अधिक विशिष्ट बनाएं"
 #: src/features/resume/editor/write/improve.tsx
 msgid "Make it shorter"
 msgstr "इसे छोटा करो"
-
-#: src/features/documents/documents-page.tsx
-msgid "Make private"
-msgstr "निजी बनाएँ"
-
-#: src/features/documents/documents-page.tsx
-msgid "Make public"
-msgstr "सार्वजनिक बनाएँ"
 
 #: src/features/assistant/assistant-panel.tsx
 msgid "Make the opening stronger"
@@ -13572,10 +13512,6 @@ msgstr "Parcel & Co."
 msgid "Parcel & Co. · Porto"
 msgstr "Parcel & Co. · Porto"
 
-#: src/features/settings/account/profile.tsx
-msgid "Part of every public link. Old links keep working for 30 days after a change."
-msgstr "हर सार्वजनिक लिंक का हिस्सा। बदलाव के बाद पुराने लिंक 30 दिन तक काम करते रहते हैं।"
-
 #: src/features/career/workspace/fit.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Partly supported"
@@ -13603,7 +13539,6 @@ msgstr "पासकी के लिए सत्यापित ईमेल �
 #: src/features/auth/pages/login.tsx
 #: src/features/auth/pages/register.tsx
 #: src/features/command-palette/pages/navigation.tsx
-#: src/features/homepage/share.tsx
 #: src/features/resume/builder/password-dialog.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/features/settings/account/auth-hooks.ts
@@ -14285,10 +14220,6 @@ msgstr "छाप"
 msgid "Print or export the form to a flat PDF before sending it."
 msgstr "भेजने से पहले फ़ॉर्म को प्रिंट करें या फ़्लैट PDF के रूप में एक्सपोर्ट करें।"
 
-#: src/features/homepage/share.tsx
-msgid "Private"
-msgstr "निजी"
-
 #: src/routes/builder/$resumeId/-sidebar/right/sections/notes.tsx
 msgid "Private notes about this resume. Nobody else can see them."
 msgstr "इस रेज़्यूमे के बारे में निजी टिप्पणियाँ। कोई और इन्हें नहीं देख सकता।"
@@ -14296,10 +14227,6 @@ msgstr "इस रेज़्यूमे के बारे में नि�
 #: src/features/career/coach-chat.tsx
 msgid "Private to this application"
 msgstr "इस आवेदन तक सीमित"
-
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Private. Only you can see it."
-msgstr "निजी। इसे केवल आप ही देख सकते हैं."
 
 #: src/features/homepage/check.tsx
 #: src/features/homepage/sheet.tsx
@@ -14415,19 +14342,6 @@ msgstr "प्रोवाइडर डेटा अपनी नीति क�
 #: src/features/ai/usage.tsx
 msgid "Provider test"
 msgstr "प्रदाता परीक्षण"
-
-#: src/features/documents/document-status.tsx
-#: src/features/documents/documents-page.tsx
-#: src/features/homepage/share.tsx
-#: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Public"
-msgstr "सार्वजनिक"
-
-#: src/features/documents/document-status.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Public, with a password"
-msgstr "सार्वजनिक, पासवर्ड के साथ"
 
 #: src/libs/resume/section.tsx
 msgid "Publications"
@@ -17083,18 +16997,10 @@ msgstr "छाया रंग"
 msgid "Shadow width"
 msgstr "शैडो चौड़ाई"
 
-#: src/features/documents/document-actions.tsx
-#: src/features/homepage/footer.tsx
-#: src/features/homepage/header.tsx
-#: src/features/homepage/share.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
 msgid "Share"
 msgstr "शेयर करना"
-
-#: src/features/homepage/share.tsx
-msgid "Share a public link, add a password or keep it private. Choose from 3 visibility options. Export to PDF or Word, or take all your data with you as JSON."
-msgstr "एक सार्वजनिक लिंक साझा करें, एक पासवर्ड जोड़ें या इसे निजी रखें। 3 दृश्यता विकल्पों में से चुनें. PDF या Word पर निर्यात करें, या अपना सारा डेटा JSON के रूप में अपने साथ ले जाएं।"
 
 #. placeholder {0}: provider.label
 #: src/libs/orpc/ai-consent.ts
@@ -17104,10 +17010,6 @@ msgstr "{0} के साथ डेटा साझा करें?"
 #: src/features/resume/editor/chrome/download-sheet.tsx
 msgid "Share sections"
 msgstr "अनुभाग साझा करें"
-
-#: src/features/documents/document-actions.tsx
-msgid "Share…"
-msgstr "साझा करें…"
 
 #: src/libs/orpc/ai-consent.ts
 msgid "Shares only resume and posting. Knowledge, private notes and web access are excluded. Review proposals before accepting; the original stays unchanged."
@@ -17121,9 +17023,7 @@ msgstr "केवल चुना गया ज्ञान कथन, रेज
 msgid "Shares resume, posting and pasted questions. Answer drafts also use your letter, career preferences, application notes and contacts, and enabled Knowledge facts and stories. Context may be excerpted. Web access is off. Review before saving; nothing is submitted."
 msgstr "रेज़्यूमे, विज्ञापन और पेस्ट किए सवाल साझा होते हैं। जवाबों के मसौदे आपके पत्र, करियर पसंद, आवेदन के नोट्स और संपर्क, तथा ज्ञान के सक्रिय तथ्यों और कहानियों का भी उपयोग करते हैं। संदर्भ छोटा किया जा सकता है। वेब एक्सेस बंद है। सहेजने से पहले जाँचें; कुछ जमा नहीं किया जाता।"
 
-#: src/features/documents/documents-page.tsx
 #: src/libs/resume/section.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
 msgid "Sharing"
 msgstr "साझा करना"
 
@@ -18354,6 +18254,10 @@ msgstr "अनुरूप बनाम मूल रेज़्यूमे"
 #: src/features/career/workspace/practise.tsx
 msgid "Take dictation with"
 msgstr "इससे डिक्टेशन लें"
+
+#: src/features/homepage/share.tsx
+msgid "Take it as PDF, Word, Markdown or JSON. Your resume is yours: no lock-in, and every format is free."
+msgstr ""
 
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "Take-home assignment"
@@ -20936,9 +20840,9 @@ msgstr "{host} पर पोस्टिंग देखें"
 msgid "View recorded answers"
 msgstr "रिकॉर्ड किए गए उत्तर देखें"
 
-#: src/features/homepage/share.tsx
-msgid "Visibility"
-msgstr "दृश्यता"
+#: src/features/settings/account/profile.tsx
+msgid "Visible to nobody but you; used to sign in."
+msgstr ""
 
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
@@ -22191,14 +22095,6 @@ msgstr "आपका प्रदाता"
 msgid "Your provider may charge for the run."
 msgstr "आपका प्रोवाइडर इस रन के लिए शुल्क ले सकता है।"
 
-#: src/features/settings/account/profile.tsx
-msgid "Your public link will change"
-msgstr "आपका सार्वजनिक लिंक बदल जाएगा"
-
-#: src/features/settings/account/profile.tsx
-msgid "Your public links will change"
-msgstr "आपके सार्वजनिक लिंक बदलेंगे"
-
 #: src/features/career/workspace/messages.tsx
 msgid "Your reply"
 msgstr "आपका जवाब"
@@ -22242,10 +22138,6 @@ msgstr "आपका रेज़्यूमे पाठ, चयनित अ�
 #: src/features/ats-checker/messages.ts
 msgid "Your resume uses \"I\" and \"my\"."
 msgstr "आपका बायोडाटा \"I\" और \"my\" का इस्तेमाल करता है।"
-
-#: src/features/homepage/share.tsx
-msgid "Your resume, live at"
-msgstr "आपका बायोडाटा, लाइव पर"
 
 #: src/features/documents/documents-page.tsx
 msgid "Your resumes and cover letters live here"

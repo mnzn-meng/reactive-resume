@@ -4,14 +4,7 @@ import { supportedLocales } from "@reactive-resume/utils/locale";
 const mocks = vi.hoisted(() => ({ env: { APP_URL: "https://rxresu.me/" } }));
 
 vi.mock("@reactive-resume/env/server", () => ({ env: mocks.env }));
-vi.mock("@reactive-resume/api/features/resume/web-page", () => ({
-	listIndexableResumes: async () => [
-		{ username: "tess", slug: "game-dev", isPrimary: true, updatedAt: new Date("2026-10-01T00:00:00Z") },
-		{ username: "tess", slug: "level-design", isPrimary: false, updatedAt: new Date("2026-10-02T00:00:00Z") },
-	],
-}));
-
-const { handleLlms, handlePagesSitemap, handleResumesSitemap } = await import("./seo");
+const { handleLlms, handlePagesSitemap } = await import("./seo");
 
 it("keeps search documentation in llms.txt with instance-local product and API links", async () => {
 	mocks.env.APP_URL = "https://resume.example.test/";
@@ -27,14 +20,6 @@ it("keeps search documentation in llms.txt with instance-local product and API l
 	} finally {
 		mocks.env.APP_URL = "https://rxresu.me/";
 	}
-});
-
-it("lists each indexed resume at its canonical address: the primary at /<username>", async () => {
-	const xml = await (await handleResumesSitemap(1)).text();
-	expect([...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1])).toEqual([
-		"https://rxresu.me/tess",
-		"https://rxresu.me/tess/level-design",
-	]);
 });
 
 describe("localized sitemap", () => {

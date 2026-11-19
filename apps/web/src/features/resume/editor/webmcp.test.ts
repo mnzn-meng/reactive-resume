@@ -61,11 +61,9 @@ function makeResume(overrides: Partial<Resume> = {}): Resume {
 	return {
 		id: "resume-1",
 		name: "Engineer",
-		slug: "engineer",
 		tags: [],
 		data: structuredClone(defaultResumeData),
 		isLocked: false,
-		isPublic: false,
 		createdAt: new Date("2026-10-01T09:00:00.000Z"),
 		updatedAt: new Date("2026-10-02T09:00:00.000Z"),
 		...overrides,
@@ -123,7 +121,7 @@ describe("resume editor WebMCP tools", () => {
 
 		const result = JSON.parse(await tool("read_resume").execute({}));
 
-		expect(result).toMatchObject({ id: "resume-1", name: "Engineer", isLocked: false, isPublic: false });
+		expect(result).toMatchObject({ id: "resume-1", name: "Engineer", isLocked: false });
 		expect(result.data.basics.name).toBe("Unsaved Name");
 	});
 

@@ -1502,14 +1502,6 @@ msgstr "{lines, plural, other {Trang {page} bị tràn khoảng # dòng}}"
 msgid "{lines, plural, one {Page {page} still runs over by about # line.} other {Page {page} still runs over by about # lines.}}"
 msgstr "{lines, plural, other {Trang {page} vẫn bị tràn khoảng # dòng.}}"
 
-#: src/features/documents/document-actions.tsx
-msgid "{made, plural, one {# made private} other {# made private}}"
-msgstr "{made, plural, other {Đã đặt # thành riêng tư}}"
-
-#: src/features/documents/document-actions.tsx
-msgid "{made, plural, one {# made public} other {# made public}}"
-msgstr "{made, plural, other {Đã đặt # thành công khai}}"
-
 #: src/features/resume/editor/check/page-layer.tsx
 msgid "{mentions, plural, one {found in # place} other {found in # places}}"
 msgstr "{mentions, plural, other {có ở # chỗ}}"
@@ -1691,14 +1683,6 @@ msgstr "{removed, plural, other {thay đổi hoặc xóa # câu của bạn}}"
 #: src/features/documents/document-actions.tsx
 msgid "{restored, plural, one {# document restored} other {# documents restored}}"
 msgstr "{restored, plural, other {Đã khôi phục # tài liệu}}"
-
-#: src/features/documents/documents-page.tsx
-msgid "{resumes, plural, =0 {Letters have no public link.} one {Applies to the # resume selected. Letters have no public link.} other {Applies to the # resumes selected. Letters have no public link.}}"
-msgstr "{resumes, plural, =0 {Thư không có liên kết công khai.} other {Áp dụng cho # sơ yếu lý lịch đã chọn. Thư không có liên kết công khai.}}"
-
-#: src/features/documents/documents-page.tsx
-msgid "{resumes, plural, one {Applies to the # resume selected.} other {Applies to the # resumes selected.}}"
-msgstr "{resumes, plural, other {Áp dụng cho # sơ yếu lý lịch đã chọn.}}"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "{rules, plural, =2 {Removes both rules; Undo brings them back, and History keeps every saved version. Reset design never touches your CSS.} one {Removes the rule; Undo brings it back, and History keeps every saved version. Reset design never touches your CSS.} other {Removes all # rules; Undo brings them back, and History keeps every saved version. Reset design never touches your CSS.}}"
@@ -1898,15 +1882,6 @@ msgstr "Kích hoạt +13 điểm"
 #: src/features/keyboard-shortcuts/index.tsx
 msgid "<0>?</0> opens this list on any page."
 msgstr "<0>?</0> mở danh sách này trên mọi trang."
-
-#. placeholder {0}: user.username
-#: src/features/settings/account/profile.tsx
-msgid "<0>{host}/{0}</0> · part of every public link"
-msgstr "<0>{host}/{0}</0> · có trong mọi liên kết công khai"
-
-#: src/features/settings/account/profile.tsx
-msgid "<0>{oldAddress}</0> becomes <1>{newAddress}</1>."
-msgstr "<0>{oldAddress}</0> trở thành <1>{newAddress}</1>."
 
 #: src/components/input/chip-input.tsx
 msgid "<0>{RETURN_KEY}</0> or a comma adds one. Drag to reorder."
@@ -4398,10 +4373,6 @@ msgstr "Yêu cầu đổi sang <0>{pendingEmail}</0> đang chờ {0} phê duyệ
 msgid "Change to <0>{pendingEmail}</0> is waiting: open the link we sent there. The link works for an hour."
 msgstr "Yêu cầu đổi sang <0>{pendingEmail}</0> đang chờ: hãy mở liên kết chúng tôi đã gửi đến đó. Liên kết có hiệu lực trong một giờ."
 
-#: src/features/settings/account/profile.tsx
-msgid "Change username"
-msgstr "Đổi tên người dùng"
-
 #: src/dialogs/auth/change-password.tsx
 msgid "Change your password"
 msgstr "Đổi mật khẩu của bạn"
@@ -5371,10 +5342,6 @@ msgstr "Tên cuộc hội thoại"
 msgid "Conversations"
 msgstr "Cuộc trò chuyện"
 
-#: src/features/homepage/share.tsx
-msgid "Copied"
-msgstr "Đã sao chép"
-
 #: src/features/career/coach-chat.tsx
 msgid "Copies for {company}"
 msgstr "Bản sao cho {company}"
@@ -5436,17 +5403,9 @@ msgstr "Sao chép cho một công việc…"
 msgid "Copy it for a job"
 msgstr "Sao chép cho một công việc"
 
-#: src/features/homepage/share.tsx
-msgid "Copy link"
-msgstr "Sao chép liên kết"
-
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Copy made for {company}. This resume is unchanged."
 msgstr "Đã tạo bản sao cho {company}. Sơ yếu lý lịch này không thay đổi."
-
-#: src/features/documents/document-actions.tsx
-msgid "Copy public link"
-msgstr "Sao chép liên kết công khai"
 
 #: src/features/career/offers.tsx
 msgid "Copy questions"
@@ -7146,6 +7105,7 @@ msgstr "Xong · {0}"
 
 #: src/features/career/workspace/apply.tsx
 #: src/features/career/workspace/practise.tsx
+#: src/features/homepage/share.tsx
 #: src/features/resume/editor/chrome/bar.tsx
 #: src/features/resume/share/download-menu.tsx
 #: src/features/resume/share/web-page-text.ts
@@ -7969,6 +7929,10 @@ msgstr "Hằng ngày"
 msgid "Every entry has dates in a form systems read, in order, and none in the future."
 msgstr "Mỗi mục đều có ngày ở dạng hệ thống được đọc theo thứ tự và không có ngày nào trong tương lai."
 
+#: src/features/homepage/share.tsx
+msgid "Every format, yours"
+msgstr ""
+
 #: src/features/resume/editor/check/issues.ts
 msgid "Every role says what you did. Opinions on wording live in the Writing tab."
 msgstr "Mọi vai trò đều nói lên những gì bạn đã làm. Ý kiến ​​về cách diễn đạt trực tiếp trong tab Viết."
@@ -8046,6 +8010,10 @@ msgstr "Kinh nghiệm, Giáo dục và các phần khác"
 msgid "explain one limit of the measurement clearly, without underselling the work."
 msgstr "giải thích rõ một hạn chế của cách đo, mà không hạ thấp công việc."
 
+#: src/features/documents/document-actions.tsx
+#: src/features/homepage/footer.tsx
+#: src/features/homepage/header.tsx
+#: src/features/homepage/share.tsx
 #: src/features/settings/profile.tsx
 #: src/libs/resume/section.tsx
 #: src/routes/builder/letter/-components/letter-bar.tsx
@@ -8626,6 +8594,7 @@ msgstr "Câu trả lời cho biểu mẫu"
 msgid "Form questions (optional)"
 msgstr "Câu hỏi trong biểu mẫu (tùy chọn)"
 
+#: src/features/homepage/share.tsx
 #: src/features/resume/share/download-tab.tsx
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Format"
@@ -10068,10 +10037,6 @@ msgstr "Giữ câu trả lời này"
 msgid "Keep to two or three families. Each extra font is another chance for one to map badly."
 msgstr "Chỉ dùng hai hoặc ba họ font. Mỗi font thêm vào là thêm một rủi ro hiển thị sai."
 
-#: src/features/settings/account/profile.tsx
-msgid "Keep username"
-msgstr "Giữ tên người dùng"
-
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Keep with it"
 msgstr "Giữ cùng với nó"
@@ -10627,7 +10592,6 @@ msgstr "Liên kết hồ sơ xin việc…"
 msgid "Link an existing letter"
 msgstr "Liên kết một bức thư có sẵn"
 
-#: src/features/documents/document-actions.tsx
 #: src/features/resume/share/web-page-text.ts
 msgid "Link copied"
 msgstr "Đã sao chép liên kết"
@@ -10715,10 +10679,6 @@ msgstr "LinkedIn, Giới thiệu…"
 #: src/features/settings/profile.tsx
 msgid "Links"
 msgstr "Liên kết"
-
-#: src/features/settings/account/profile.tsx
-msgid "Links you've already shared keep working for 30 days, then stop. Share the new ones before then."
-msgstr "Các liên kết bạn đã chia sẻ vẫn hoạt động trong 30 ngày, sau đó ngừng. Hãy chia sẻ các liên kết mới trước thời điểm đó."
 
 #: src/features/homepage/hero.tsx
 msgid "Lisbon"
@@ -10954,18 +10914,6 @@ msgstr "Thấp"
 msgid "Lower the design sheet"
 msgstr "Hạ tờ thiết kế xuống"
 
-#. placeholder {0}: number(made)
-#. placeholder {1}: number(total)
-#: src/features/documents/document-actions.tsx
-msgid "Made {0} of {1} private. Letters have no public link, and locked documents are left as they are."
-msgstr "Đã đặt {0}/{1} thành riêng tư. Thư không có liên kết công khai, và tài liệu đã khóa được giữ nguyên."
-
-#. placeholder {0}: number(made)
-#. placeholder {1}: number(total)
-#: src/features/documents/document-actions.tsx
-msgid "Made {0} of {1} public. Letters have no public link, and locked documents are left as they are."
-msgstr "Đã đặt {0}/{1} thành công khai. Thư không có liên kết công khai, và tài liệu đã khóa được giữ nguyên."
-
 #: src/features/resume/share/web-page-text.ts
 msgid "Made with Reactive Resume"
 msgstr ""
@@ -11019,14 +10967,6 @@ msgstr "Làm cho nó cụ thể hơn"
 #: src/features/resume/editor/write/improve.tsx
 msgid "Make it shorter"
 msgstr "Làm cho nó ngắn hơn"
-
-#: src/features/documents/documents-page.tsx
-msgid "Make private"
-msgstr "Đặt riêng tư"
-
-#: src/features/documents/documents-page.tsx
-msgid "Make public"
-msgstr "Đặt công khai"
 
 #: src/features/assistant/assistant-panel.tsx
 msgid "Make the opening stronger"
@@ -13572,10 +13512,6 @@ msgstr "Parcel & Co."
 msgid "Parcel & Co. · Porto"
 msgstr "Parcel & Co. · Porto"
 
-#: src/features/settings/account/profile.tsx
-msgid "Part of every public link. Old links keep working for 30 days after a change."
-msgstr "Là một phần của mọi liên kết công khai. Liên kết cũ vẫn hoạt động trong 30 ngày sau khi thay đổi."
-
 #: src/features/career/workspace/fit.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Partly supported"
@@ -13603,7 +13539,6 @@ msgstr "Khóa truy cập cần email đã xác minh, nhưng máy chủ này khô
 #: src/features/auth/pages/login.tsx
 #: src/features/auth/pages/register.tsx
 #: src/features/command-palette/pages/navigation.tsx
-#: src/features/homepage/share.tsx
 #: src/features/resume/builder/password-dialog.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/features/settings/account/auth-hooks.ts
@@ -14285,10 +14220,6 @@ msgstr "In"
 msgid "Print or export the form to a flat PDF before sending it."
 msgstr "In hoặc xuất biểu mẫu thành PDF phẳng trước khi gửi."
 
-#: src/features/homepage/share.tsx
-msgid "Private"
-msgstr "Riêng tư"
-
 #: src/routes/builder/$resumeId/-sidebar/right/sections/notes.tsx
 msgid "Private notes about this resume. Nobody else can see them."
 msgstr "Ghi chú riêng về sơ yếu lý lịch này. Không ai khác xem được."
@@ -14296,10 +14227,6 @@ msgstr "Ghi chú riêng về sơ yếu lý lịch này. Không ai khác xem đư
 #: src/features/career/coach-chat.tsx
 msgid "Private to this application"
 msgstr "Riêng cho hồ sơ ứng tuyển này"
-
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Private. Only you can see it."
-msgstr "Riêng tư. Chỉ có bạn mới có thể nhìn thấy nó."
 
 #: src/features/homepage/check.tsx
 #: src/features/homepage/sheet.tsx
@@ -14415,19 +14342,6 @@ msgstr "Việc lưu giữ dữ liệu của nhà cung cấp tuân theo chính s�
 #: src/features/ai/usage.tsx
 msgid "Provider test"
 msgstr "Kiểm tra nhà cung cấp"
-
-#: src/features/documents/document-status.tsx
-#: src/features/documents/documents-page.tsx
-#: src/features/homepage/share.tsx
-#: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Public"
-msgstr "Công khai"
-
-#: src/features/documents/document-status.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Public, with a password"
-msgstr "Công khai, có mật khẩu"
 
 #: src/libs/resume/section.tsx
 msgid "Publications"
@@ -17083,18 +16997,10 @@ msgstr "Màu bóng"
 msgid "Shadow width"
 msgstr "Độ rộng bóng"
 
-#: src/features/documents/document-actions.tsx
-#: src/features/homepage/footer.tsx
-#: src/features/homepage/header.tsx
-#: src/features/homepage/share.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
 msgid "Share"
 msgstr "Chia sẻ"
-
-#: src/features/homepage/share.tsx
-msgid "Share a public link, add a password or keep it private. Choose from 3 visibility options. Export to PDF or Word, or take all your data with you as JSON."
-msgstr "Chia sẻ liên kết công khai, thêm mật khẩu hoặc giữ nó ở chế độ riêng tư. Chọn từ 3 tùy chọn hiển thị. Xuất sang PDF hoặc Word hoặc mang theo tất cả dữ liệu của bạn dưới dạng JSON."
 
 #. placeholder {0}: provider.label
 #: src/libs/orpc/ai-consent.ts
@@ -17104,10 +17010,6 @@ msgstr "Chia sẻ dữ liệu với {0}?"
 #: src/features/resume/editor/chrome/download-sheet.tsx
 msgid "Share sections"
 msgstr "Chia sẻ phần"
-
-#: src/features/documents/document-actions.tsx
-msgid "Share…"
-msgstr "Chia sẻ…"
 
 #: src/libs/orpc/ai-consent.ts
 msgid "Shares only resume and posting. Knowledge, private notes and web access are excluded. Review proposals before accepting; the original stays unchanged."
@@ -17121,9 +17023,7 @@ msgstr "Chỉ chia sẻ thông tin Kiến thức đã chọn, CV và tin tuyển
 msgid "Shares resume, posting and pasted questions. Answer drafts also use your letter, career preferences, application notes and contacts, and enabled Knowledge facts and stories. Context may be excerpted. Web access is off. Review before saving; nothing is submitted."
 msgstr "Chia sẻ CV, tin tuyển dụng và câu hỏi đã dán. Bản nháp câu trả lời cũng dùng thư, tùy chọn nghề nghiệp, ghi chú và liên hệ của đơn ứng tuyển, cùng dữ kiện và câu chuyện Kiến thức đang bật. Ngữ cảnh có thể được rút gọn. Truy cập web đã tắt. Xem xét trước khi lưu; không nộp gì cả."
 
-#: src/features/documents/documents-page.tsx
 #: src/libs/resume/section.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
 msgid "Sharing"
 msgstr "Chia sẻ"
 
@@ -18354,6 +18254,10 @@ msgstr "Sơ yếu lý lịch điều chỉnh so với bản gốc"
 #: src/features/career/workspace/practise.tsx
 msgid "Take dictation with"
 msgstr "Đọc chính tả bằng"
+
+#: src/features/homepage/share.tsx
+msgid "Take it as PDF, Word, Markdown or JSON. Your resume is yours: no lock-in, and every format is free."
+msgstr ""
 
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "Take-home assignment"
@@ -20936,9 +20840,9 @@ msgstr "Xem tin tuyển dụng trên {host}"
 msgid "View recorded answers"
 msgstr "Xem các câu trả lời đã ghi lại"
 
-#: src/features/homepage/share.tsx
-msgid "Visibility"
-msgstr "Khả năng hiển thị"
+#: src/features/settings/account/profile.tsx
+msgid "Visible to nobody but you; used to sign in."
+msgstr ""
 
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
@@ -22191,14 +22095,6 @@ msgstr "nhà cung cấp của bạn"
 msgid "Your provider may charge for the run."
 msgstr "Nhà cung cấp có thể tính phí cho lần chạy."
 
-#: src/features/settings/account/profile.tsx
-msgid "Your public link will change"
-msgstr "Liên kết công khai của bạn sẽ thay đổi"
-
-#: src/features/settings/account/profile.tsx
-msgid "Your public links will change"
-msgstr "Các liên kết công khai của bạn sẽ thay đổi"
-
 #: src/features/career/workspace/messages.tsx
 msgid "Your reply"
 msgstr "Câu trả lời của bạn"
@@ -22242,10 +22138,6 @@ msgstr "Văn bản sơ yếu lý lịch, các đoạn đã chọn và kết qu�
 #: src/features/ats-checker/messages.ts
 msgid "Your resume uses \"I\" and \"my\"."
 msgstr "Sơ yếu lý lịch của bạn sử dụng \"tôi\" và \"của tôi\"."
-
-#: src/features/homepage/share.tsx
-msgid "Your resume, live at"
-msgstr "Sơ yếu lý lịch của bạn, sống tại"
 
 #: src/features/documents/documents-page.tsx
 msgid "Your resumes and cover letters live here"

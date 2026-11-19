@@ -11,20 +11,13 @@ import { Badge } from "@reactive-resume/ui/components/badge";
 import { Button } from "@reactive-resume/ui/components/button";
 import { Icon } from "@reactive-resume/ui/components/icon";
 import { Input } from "@reactive-resume/ui/components/input";
-import {
-	InputGroup,
-	InputGroupAddon,
-	InputGroupInput,
-	InputGroupText,
-} from "@reactive-resume/ui/components/input-group";
 import { toast } from "@reactive-resume/ui/components/toast";
 import { getInitials } from "@reactive-resume/utils/string";
 import { SettingsOpenRow, SettingsRow, SettingsSection, TextAction } from "../section";
-import { useConfirm } from "@/hooks/use-confirm";
 import { authClient } from "@/libs/auth/client";
 import { getReadableErrorMessage } from "@/libs/error-message";
 import { isImeComposing } from "@/libs/keyboard";
-import { client, orpc } from "@/libs/orpc/client";
+import { orpc } from "@/libs/orpc/client";
 import { sessionQueryKey } from "@/libs/root-context";
 
 const nameSchema = z.string().trim().min(1).max(64);
@@ -55,7 +48,6 @@ type FieldProps = {
 	validate: (value: string) => string | null;
 	/** Asks before saving a valid change; false keeps the row open. */
 	confirm?: (value: string) => Promise<boolean>;
-	prefix?: string;
 	hint?: React.ReactNode;
 	type?: "text" | "email";
 	autoComplete?: string;
@@ -76,7 +68,6 @@ function EditableRow({
 	save,
 	validate,
 	confirm,
-	prefix,
 	hint,
 	type = "text",
 	autoComplete,
@@ -180,17 +171,7 @@ function EditableRow({
 						void commit();
 					}}
 				>
-					{prefix ? (
-						// A web address (host/username) reads left to right in every language.
-						<InputGroup dir="ltr" className="min-w-48 flex-1">
-							<InputGroupAddon>
-								<InputGroupText className="font-mono text-[13px]">{prefix}</InputGroupText>
-							</InputGroupAddon>
-							<InputGroupInput {...inputProps} />
-						</InputGroup>
-					) : (
-						<Input {...inputProps} className="min-w-48 flex-1" />
-					)}
+					<Input {...inputProps} className="min-w-48 flex-1" />
 					<Button type="button" variant="ghost" disabled={saving} onClick={close}>
 						<Trans>Cancel</Trans>
 					</Button>
@@ -223,45 +204,6 @@ export function ProfileSection({ session }: ProfileSectionProps) {
 	const context = useRouteContext({ strict: false });
 	const smtpEnabled = context.flags?.smtpEnabled ?? false;
 	const user = session.user;
-	const host = window.location.host;
-	const ask = useConfirm();
-
-	// Show an actual public link before changing its username; still warn when the lookup is unavailable.
-	const confirmUsername = async (next: string) => {
-		let total = -1;
-		let slug: string | null | undefined;
-		try {
-			const page = await client.documents.page({ type: "resume", public: true, limit: 1 });
-			total = page.total;
-			slug = page.items[0]?.slug;
-		} catch {
-			// Unknown is not none: still warn, without a count.
-		}
-		if (total === 0) return true;
-		const oldAddress = `${host}/${user.username}${slug ? `/${slug}` : ""}`;
-		const newAddress = `${host}/${next.trim().toLowerCase()}${slug ? `/${slug}` : ""}`;
-		return ask(total === 1 ? t`Your public link will change` : t`Your public links will change`, {
-			description: (
-				<>
-					<Trans>
-						<code dir="ltr" className="font-mono text-xs">
-							{oldAddress}
-						</code>{" "}
-						becomes{" "}
-						<code dir="ltr" className="font-mono text-xs">
-							{newAddress}
-						</code>
-						.
-					</Trans>{" "}
-					<Trans>
-						Links you've already shared keep working for 30 days, then stop. Share the new ones before then.
-					</Trans>
-				</>
-			),
-			confirmText: t`Change username`,
-			cancelText: t`Keep username`,
-		});
-	};
 
 	const updateUser = async (patch: Parameters<typeof authClient.updateUser>[0]) => {
 		const { error } = await authClient.updateUser(patch);
@@ -327,30 +269,25 @@ export function ProfileSection({ session }: ProfileSectionProps) {
 				value={user.username ?? ""}
 				display={
 					user.username ? (
-						<Trans>
-							<span dir="ltr" className="font-mono text-xs/4 font-medium">
-								{host}/{user.username}
-							</span>{" "}
-							· part of every public link
-						</Trans>
+						<span dir="ltr" className="font-mono text-xs/4 font-medium">
+							{user.username}
+						</span>
 					) : (
 						<Trans>Not set</Trans>
 					)
 				}
 				action={t`Change`}
-				prefix={`${host}/`}
 				autoComplete="username"
 				validate={(value) =>
 					usernameSchema.safeParse(value).success
 						? null
 						: t`Use 3 to 64 Latin letters a–z, numbers, dots, hyphens and underscores.`
 				}
-				confirm={confirmUsername}
 				save={(value) => {
 					const username = value.trim().toLowerCase();
 					return updateUser({ username, displayUsername: username });
 				}}
-				hint={<Trans>Part of every public link. Old links keep working for 30 days after a change.</Trans>}
+				hint={<Trans>Visible to nobody but you; used to sign in.</Trans>}
 			/>
 			<EditableRow
 				anchor="email"

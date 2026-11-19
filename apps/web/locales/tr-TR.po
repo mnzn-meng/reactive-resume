@@ -1502,14 +1502,6 @@ msgstr "{lines, plural, one {Sayfa {page} yaklaşık # satır taşıyor} other {
 msgid "{lines, plural, one {Page {page} still runs over by about # line.} other {Page {page} still runs over by about # lines.}}"
 msgstr "{lines, plural, one {Sayfa {page} hâlâ yaklaşık # satır taşıyor.} other {Sayfa {page} hâlâ yaklaşık # satır taşıyor.}}"
 
-#: src/features/documents/document-actions.tsx
-msgid "{made, plural, one {# made private} other {# made private}}"
-msgstr "{made, plural, one {# özel yapıldı} other {# özel yapıldı}}"
-
-#: src/features/documents/document-actions.tsx
-msgid "{made, plural, one {# made public} other {# made public}}"
-msgstr "{made, plural, one {# herkese açık yapıldı} other {# herkese açık yapıldı}}"
-
 #: src/features/resume/editor/check/page-layer.tsx
 msgid "{mentions, plural, one {found in # place} other {found in # places}}"
 msgstr "{mentions, plural, one {# yerde bulundu} other {# yerde bulundu}}"
@@ -1691,14 +1683,6 @@ msgstr "{removed, plural, one {cümlelerinizden # tanesini değiştirir veya kal
 #: src/features/documents/document-actions.tsx
 msgid "{restored, plural, one {# document restored} other {# documents restored}}"
 msgstr "{restored, plural, one {# belge geri yüklendi} other {# belge geri yüklendi}}"
-
-#: src/features/documents/documents-page.tsx
-msgid "{resumes, plural, =0 {Letters have no public link.} one {Applies to the # resume selected. Letters have no public link.} other {Applies to the # resumes selected. Letters have no public link.}}"
-msgstr "{resumes, plural, =0 {Mektupların herkese açık bağlantısı yoktur.} one {Seçili # özgeçmişe uygulanır. Mektupların herkese açık bağlantısı yoktur.} other {Seçili # özgeçmişe uygulanır. Mektupların herkese açık bağlantısı yoktur.}}"
-
-#: src/features/documents/documents-page.tsx
-msgid "{resumes, plural, one {Applies to the # resume selected.} other {Applies to the # resumes selected.}}"
-msgstr "{resumes, plural, one {Seçili # özgeçmişe uygulanır.} other {Seçili # özgeçmişe uygulanır.}}"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "{rules, plural, =2 {Removes both rules; Undo brings them back, and History keeps every saved version. Reset design never touches your CSS.} one {Removes the rule; Undo brings it back, and History keeps every saved version. Reset design never touches your CSS.} other {Removes all # rules; Undo brings them back, and History keeps every saved version. Reset design never touches your CSS.}}"
@@ -1898,15 +1882,6 @@ msgstr "+13 puan aktivasyon"
 #: src/features/keyboard-shortcuts/index.tsx
 msgid "<0>?</0> opens this list on any page."
 msgstr "<0>?</0> her sayfada bu listeyi açar."
-
-#. placeholder {0}: user.username
-#: src/features/settings/account/profile.tsx
-msgid "<0>{host}/{0}</0> · part of every public link"
-msgstr "<0>{host}/{0}</0> · her herkese açık bağlantının parçası"
-
-#: src/features/settings/account/profile.tsx
-msgid "<0>{oldAddress}</0> becomes <1>{newAddress}</1>."
-msgstr "<0>{oldAddress}</0> adresi <1>{newAddress}</1> olur."
 
 #: src/components/input/chip-input.tsx
 msgid "<0>{RETURN_KEY}</0> or a comma adds one. Drag to reorder."
@@ -4398,10 +4373,6 @@ msgstr "<0>{pendingEmail}</0> adresine geçiş {0} adresinden onay bekliyor. Ba�
 msgid "Change to <0>{pendingEmail}</0> is waiting: open the link we sent there. The link works for an hour."
 msgstr "<0>{pendingEmail}</0> adresine geçiş bekliyor: oraya gönderdiğimiz bağlantıyı açın. Bağlantı bir saat geçerlidir."
 
-#: src/features/settings/account/profile.tsx
-msgid "Change username"
-msgstr "Kullanıcı adını değiştir"
-
 #: src/dialogs/auth/change-password.tsx
 msgid "Change your password"
 msgstr "Şifrenizi değiştirin"
@@ -5371,10 +5342,6 @@ msgstr "Konuşma adı"
 msgid "Conversations"
 msgstr "Konuşmalar"
 
-#: src/features/homepage/share.tsx
-msgid "Copied"
-msgstr "Kopyalandı"
-
 #: src/features/career/coach-chat.tsx
 msgid "Copies for {company}"
 msgstr "{company} için hazırlanan kopyalar"
@@ -5436,17 +5403,9 @@ msgstr "Bir iş için kopyalayın…"
 msgid "Copy it for a job"
 msgstr "Bir iş için kopyala"
 
-#: src/features/homepage/share.tsx
-msgid "Copy link"
-msgstr "Bağlantıyı kopyala"
-
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Copy made for {company}. This resume is unchanged."
 msgstr "{company} için bir kopya oluşturuldu. Bu özgeçmiş değişmedi."
-
-#: src/features/documents/document-actions.tsx
-msgid "Copy public link"
-msgstr "Herkese açık bağlantıyı kopyala"
 
 #: src/features/career/offers.tsx
 msgid "Copy questions"
@@ -7146,6 +7105,7 @@ msgstr "Tamamlandı · {0}"
 
 #: src/features/career/workspace/apply.tsx
 #: src/features/career/workspace/practise.tsx
+#: src/features/homepage/share.tsx
 #: src/features/resume/editor/chrome/bar.tsx
 #: src/features/resume/share/download-menu.tsx
 #: src/features/resume/share/web-page-text.ts
@@ -7969,6 +7929,10 @@ msgstr "Her gün"
 msgid "Every entry has dates in a form systems read, in order, and none in the future."
 msgstr "Her girişin, sistem tarafından okunan bir formdaki tarihleri ​​vardır ve gelecekte hiçbiri yoktur."
 
+#: src/features/homepage/share.tsx
+msgid "Every format, yours"
+msgstr ""
+
 #: src/features/resume/editor/check/issues.ts
 msgid "Every role says what you did. Opinions on wording live in the Writing tab."
 msgstr "Her rol ne yaptığını söylüyor. İfadelerle ilgili görüşler Yazma sekmesinde yayınlanır."
@@ -8046,6 +8010,10 @@ msgstr "Deneyim, Eğitim ve daha fazlası"
 msgid "explain one limit of the measurement clearly, without underselling the work."
 msgstr "işin değerini küçültmeden, ölçümün bir sınırını açıkça anlatın."
 
+#: src/features/documents/document-actions.tsx
+#: src/features/homepage/footer.tsx
+#: src/features/homepage/header.tsx
+#: src/features/homepage/share.tsx
 #: src/features/settings/profile.tsx
 #: src/libs/resume/section.tsx
 #: src/routes/builder/letter/-components/letter-bar.tsx
@@ -8626,6 +8594,7 @@ msgstr "Form cevapları"
 msgid "Form questions (optional)"
 msgstr "Form soruları (isteğe bağlı)"
 
+#: src/features/homepage/share.tsx
 #: src/features/resume/share/download-tab.tsx
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Format"
@@ -10068,10 +10037,6 @@ msgstr "Bu yanıtı sakla"
 msgid "Keep to two or three families. Each extra font is another chance for one to map badly."
 msgstr "İki veya üç yazı tipi ailesiyle sınırlı tutun. Her ek yazı tipi, birinin yanlış eşleşme ihtimalini artırır."
 
-#: src/features/settings/account/profile.tsx
-msgid "Keep username"
-msgstr "Kullanıcı adını koru"
-
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Keep with it"
 msgstr "Onunla birlikte tut"
@@ -10627,7 +10592,6 @@ msgstr "Bir iş başvurusunu bağlayın…"
 msgid "Link an existing letter"
 msgstr "Var olan bir mektubu bağla"
 
-#: src/features/documents/document-actions.tsx
 #: src/features/resume/share/web-page-text.ts
 msgid "Link copied"
 msgstr "Bağlantı kopyalandı"
@@ -10715,10 +10679,6 @@ msgstr "LinkedIn, Referans…"
 #: src/features/settings/profile.tsx
 msgid "Links"
 msgstr "Bağlantılar"
-
-#: src/features/settings/account/profile.tsx
-msgid "Links you've already shared keep working for 30 days, then stop. Share the new ones before then."
-msgstr "Daha önce paylaştığınız bağlantılar 30 gün boyunca çalışmaya devam eder, sonra durur. Ondan önce yenilerini paylaşın."
 
 #: src/features/homepage/hero.tsx
 msgid "Lisbon"
@@ -10954,18 +10914,6 @@ msgstr "Düşük"
 msgid "Lower the design sheet"
 msgstr "Tasarım sayfasını indirin"
 
-#. placeholder {0}: number(made)
-#. placeholder {1}: number(total)
-#: src/features/documents/document-actions.tsx
-msgid "Made {0} of {1} private. Letters have no public link, and locked documents are left as they are."
-msgstr "{1} belgeden {0} tanesi özel yapıldı. Mektupların herkese açık bağlantısı yoktur ve kilitli belgeler olduğu gibi kalır."
-
-#. placeholder {0}: number(made)
-#. placeholder {1}: number(total)
-#: src/features/documents/document-actions.tsx
-msgid "Made {0} of {1} public. Letters have no public link, and locked documents are left as they are."
-msgstr "{1} belgeden {0} tanesi herkese açık yapıldı. Mektupların herkese açık bağlantısı yoktur ve kilitli belgeler olduğu gibi kalır."
-
 #: src/features/resume/share/web-page-text.ts
 msgid "Made with Reactive Resume"
 msgstr ""
@@ -11019,14 +10967,6 @@ msgstr "Daha spesifik hale getirin"
 #: src/features/resume/editor/write/improve.tsx
 msgid "Make it shorter"
 msgstr "Daha kısa yap"
-
-#: src/features/documents/documents-page.tsx
-msgid "Make private"
-msgstr "Özel yap"
-
-#: src/features/documents/documents-page.tsx
-msgid "Make public"
-msgstr "Herkese açık yap"
 
 #: src/features/assistant/assistant-panel.tsx
 msgid "Make the opening stronger"
@@ -13572,10 +13512,6 @@ msgstr "Parcel & Co."
 msgid "Parcel & Co. · Porto"
 msgstr "Parcel & Co. · Porto"
 
-#: src/features/settings/account/profile.tsx
-msgid "Part of every public link. Old links keep working for 30 days after a change."
-msgstr "Herkese açık her bağlantının parçasıdır. Bir değişiklikten sonra eski bağlantılar 30 gün daha çalışır."
-
 #: src/features/career/workspace/fit.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Partly supported"
@@ -13603,7 +13539,6 @@ msgstr "Passkey'ler, bu sunucunun gönderemeyeceği doğrulanmış bir e-posta g
 #: src/features/auth/pages/login.tsx
 #: src/features/auth/pages/register.tsx
 #: src/features/command-palette/pages/navigation.tsx
-#: src/features/homepage/share.tsx
 #: src/features/resume/builder/password-dialog.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/features/settings/account/auth-hooks.ts
@@ -14285,10 +14220,6 @@ msgstr "Yazdır"
 msgid "Print or export the form to a flat PDF before sending it."
 msgstr "Göndermeden önce formu düz bir PDF olarak yazdırın veya dışa aktarın."
 
-#: src/features/homepage/share.tsx
-msgid "Private"
-msgstr "Özel"
-
 #: src/routes/builder/$resumeId/-sidebar/right/sections/notes.tsx
 msgid "Private notes about this resume. Nobody else can see them."
 msgstr "Bu özgeçmişle ilgili özel notlar. Başka kimse göremez."
@@ -14296,10 +14227,6 @@ msgstr "Bu özgeçmişle ilgili özel notlar. Başka kimse göremez."
 #: src/features/career/coach-chat.tsx
 msgid "Private to this application"
 msgstr "Bu başvuruya özel"
-
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Private. Only you can see it."
-msgstr "Özel. Bunu yalnızca sen görebilirsin."
 
 #: src/features/homepage/check.tsx
 #: src/features/homepage/sheet.tsx
@@ -14415,19 +14342,6 @@ msgstr "Sağlayıcı saklama işlemi kendi politikasını izler. Sağlayıcını
 #: src/features/ai/usage.tsx
 msgid "Provider test"
 msgstr "Sağlayıcı testi"
-
-#: src/features/documents/document-status.tsx
-#: src/features/documents/documents-page.tsx
-#: src/features/homepage/share.tsx
-#: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Public"
-msgstr "Genel"
-
-#: src/features/documents/document-status.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Public, with a password"
-msgstr "Herkese açık, şifreli"
 
 #: src/libs/resume/section.tsx
 msgid "Publications"
@@ -17083,18 +16997,10 @@ msgstr "Gölge rengi"
 msgid "Shadow width"
 msgstr "Gölge genişliği"
 
-#: src/features/documents/document-actions.tsx
-#: src/features/homepage/footer.tsx
-#: src/features/homepage/header.tsx
-#: src/features/homepage/share.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
 msgid "Share"
 msgstr "Paylaşmak"
-
-#: src/features/homepage/share.tsx
-msgid "Share a public link, add a password or keep it private. Choose from 3 visibility options. Export to PDF or Word, or take all your data with you as JSON."
-msgstr "Herkese açık bir bağlantı paylaşın, bir şifre ekleyin veya gizli tutun. 3 görünürlük seçeneğinden birini seçin. PDF veya Word'ye aktarın veya tüm verilerinizi JSON olarak yanınızda taşıyın."
 
 #. placeholder {0}: provider.label
 #: src/libs/orpc/ai-consent.ts
@@ -17104,10 +17010,6 @@ msgstr "Veriler {0} ile paylaşılsın mı?"
 #: src/features/resume/editor/chrome/download-sheet.tsx
 msgid "Share sections"
 msgstr "Bölümleri paylaş"
-
-#: src/features/documents/document-actions.tsx
-msgid "Share…"
-msgstr "Paylaş…"
 
 #: src/libs/orpc/ai-consent.ts
 msgid "Shares only resume and posting. Knowledge, private notes and web access are excluded. Review proposals before accepting; the original stays unchanged."
@@ -17121,9 +17023,7 @@ msgstr "Yalnızca seçilen Bilgi ifadesi, özgeçmiş ve ilan paylaşılır. Di�
 msgid "Shares resume, posting and pasted questions. Answer drafts also use your letter, career preferences, application notes and contacts, and enabled Knowledge facts and stories. Context may be excerpted. Web access is off. Review before saving; nothing is submitted."
 msgstr "Özgeçmiş, ilan ve yapıştırılan sorular paylaşılır. Yanıt taslakları mektubunuzu, kariyer tercihlerinizi, başvuru notları ve kişilerini, etkin Bilgi olguları ve hikâyelerini de kullanır. Bağlam kısaltılabilir. Web erişimi kapalıdır. Kaydetmeden önce inceleyin; hiçbir şey gönderilmez."
 
-#: src/features/documents/documents-page.tsx
 #: src/libs/resume/section.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
 msgid "Sharing"
 msgstr "Paylaşım"
 
@@ -18354,6 +18254,10 @@ msgstr "Uyarlanmış ve temel özgeçmiş"
 #: src/features/career/workspace/practise.tsx
 msgid "Take dictation with"
 msgstr "Dikte aracı"
+
+#: src/features/homepage/share.tsx
+msgid "Take it as PDF, Word, Markdown or JSON. Your resume is yours: no lock-in, and every format is free."
+msgstr ""
 
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "Take-home assignment"
@@ -20936,9 +20840,9 @@ msgstr "İlanı {host} üzerinde görüntüle"
 msgid "View recorded answers"
 msgstr "Kaydedilen cevapları görüntüle"
 
-#: src/features/homepage/share.tsx
-msgid "Visibility"
-msgstr "Görünürlük"
+#: src/features/settings/account/profile.tsx
+msgid "Visible to nobody but you; used to sign in."
+msgstr ""
 
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
@@ -22191,14 +22095,6 @@ msgstr "sağlayıcınız"
 msgid "Your provider may charge for the run."
 msgstr "Sağlayıcınız bu çalıştırma için ücret alabilir."
 
-#: src/features/settings/account/profile.tsx
-msgid "Your public link will change"
-msgstr "Herkese açık bağlantınız değişecek"
-
-#: src/features/settings/account/profile.tsx
-msgid "Your public links will change"
-msgstr "Herkese açık bağlantılarınız değişecek"
-
 #: src/features/career/workspace/messages.tsx
 msgid "Your reply"
 msgstr "Yanıtınız"
@@ -22242,10 +22138,6 @@ msgstr "Özgeçmiş metniniz, seçili pasajlar ve kontrol bulguları."
 #: src/features/ats-checker/messages.ts
 msgid "Your resume uses \"I\" and \"my\"."
 msgstr "Özgeçmişiniz \"I\" ve \"my\" kullanıyor."
-
-#: src/features/homepage/share.tsx
-msgid "Your resume, live at"
-msgstr "Özgeçmişiniz şu adreste canlı yayında"
 
 #: src/features/documents/documents-page.tsx
 msgid "Your resumes and cover letters live here"

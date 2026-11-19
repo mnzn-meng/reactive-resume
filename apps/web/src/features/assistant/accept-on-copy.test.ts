@@ -43,7 +43,7 @@ const AFTER = "<p>Built accessible interfaces for six product teams.</p>";
 const resume = (id: string): Resume => {
 	const data = structuredClone(defaultResumeData);
 	data.summary.content = BEFORE;
-	return { id, name: id, slug: id, tags: [], data, isLocked: false, createdAt: new Date(), updatedAt: new Date() };
+	return { id, name: id, tags: [], data, isLocked: false, createdAt: new Date(), updatedAt: new Date() };
 };
 const edit: Proposal = {
 	id: "edit-1",

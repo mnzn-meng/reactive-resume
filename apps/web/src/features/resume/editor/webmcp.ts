@@ -86,8 +86,8 @@ function createResumeTools(
 		input: noInput,
 		annotations: { readOnlyHint: true, untrustedContentHint: true },
 		execute: () => {
-			const { id, name, slug, tags, isLocked, isPublic, data } = getOpenResume(resumeId);
-			return { id, name, slug, tags, isLocked, isPublic: isPublic ?? false, data };
+			const { id, name, tags, isLocked, data } = getOpenResume(resumeId);
+			return { id, name, tags, isLocked, data };
 		},
 	});
 

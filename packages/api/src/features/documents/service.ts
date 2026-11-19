@@ -9,7 +9,6 @@ import { activeApplications } from "../applications/access";
 import { applicationService, insertApplication } from "../applications/service";
 import { coverLetterService } from "../cover-letters/service";
 import { notifyResumeUpdated, resumeService, writeResumeFields } from "../resume/service";
-import { followNameWithSlug } from "../resume/slugs";
 import { listDocumentPage, listDocuments } from "./listing";
 import { isRetriedCreate, lockUser, recordCreateRequest } from "./ownership";
 
@@ -63,9 +62,6 @@ async function update(ref: DocumentRef, resume: ResumeChanges, letter: LetterCha
 	const updatedAt = await db.transaction(async (tx) => {
 		await lockUser(tx, ref.userId);
 		if (resume.applicationId) await assertOwnedApplication(ref.userId, resume.applicationId, tx);
-		// A private resume's app-made address follows a new name, like a rename in the editor.
-		if (ref.type === "resume" && resume.name !== undefined)
-			await followNameWithSlug(tx, { userId: ref.userId, resumeId: ref.id, name: resume.name });
 		if (ref.type === "resume") {
 			const [row] = await tx
 				.update(schema.resume)

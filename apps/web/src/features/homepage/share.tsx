@@ -1,14 +1,13 @@
 import type { IconName } from "@reactive-resume/ui/components/icon";
 import type { CSSProperties } from "react";
 import { t } from "@lingui/core/macro";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Icon } from "@reactive-resume/ui/components/icon";
 import { SegmentedControl, SegmentedControlItem } from "@reactive-resume/ui/components/segmented-control";
 import { cn } from "@reactive-resume/utils/style";
 import { SCENE, useLanding } from "./scroll";
 import { Sheet } from "./sheet";
 import { Doodle, labelClass, TypedText } from "./ui";
-import { useShareOrigin } from "@/features/resume/share/use-share-origin";
 
 /**
  * Colours that switch from the day palette to the night sky's once the sky is half dark (--nts), rather than passing
@@ -42,37 +41,23 @@ const stars = (() => {
 	}));
 })();
 
-const visibilityIcons: IconName[] = ["globe-hemisphere-west", "lock", "eye-slash"];
+const formats: { icon: IconName; label: string; extension: string }[] = [
+	{ icon: "file-pdf", label: "PDF", extension: "pdf" },
+	{ icon: "file-text", label: "Word", extension: "docx" },
+	{ icon: "brackets-curly", label: "JSON", extension: "json" },
+];
 
 /**
- * 05 Share, the night scene. The page flies off to the top corner on a green trail, the resume's address types out,
- * and the visibility and copy controls and the export formats appear.
+ * 05 Export, the night scene. The page flies off to the top corner on a green trail, the file's name types out, and the
+ * format controls and the formats it comes in appear.
  */
 export function Share() {
-	const origin = useShareOrigin();
-	const host = origin ? new URL(origin).host : "rxresu.me";
-	const address = `${host}/alex-morgan`;
 	const active = useLanding((state) => state.activeScene === SCENE.share);
 	const ready = useLanding((state) => state.shareReady);
-	const [visibility, setVisibility] = useState(0);
-	const [copied, setCopied] = useState(false);
-	const copiedTimer = useRef(0);
-	const share = t`Share`;
-	const isPrivate = visibility === 2;
-
-	useEffect(() => () => window.clearTimeout(copiedTimer.current), []);
-
-	const copy = () => {
-		setCopied(true);
-		window.clearTimeout(copiedTimer.current);
-		copiedTimer.current = window.setTimeout(() => setCopied(false), 1600);
-	};
-
-	const formats = [
-		{ icon: "file-pdf", label: "PDF" },
-		{ icon: "file-text", label: "Word" },
-		{ icon: "brackets-curly", label: "JSON" },
-	] as const;
+	const [format, setFormat] = useState(0);
+	const chosen = formats[format] ?? formats[0];
+	const fileName = `alex-morgan-resume.${chosen?.extension ?? "pdf"}`;
+	const label = t`Export`;
 
 	return (
 		<section
@@ -141,30 +126,28 @@ export function Share() {
 						aria-hidden="true"
 						className={cn(labelClass, "tracking-[.1em] text-(--night-label) opacity-[clamp(0,var(--tu)*20,1)]")}
 					>
-						{t`Your resume, live at`}
+						{t`Every format, yours`}
 					</span>
 					<h2
 						id="share-title"
 						dir="ltr"
 						className={cn(
 							"font-anybody flex flex-wrap items-center justify-center text-[8vw] leading-[1.1] font-light tracking-[-.025em] text-(--night-ink) transition-opacity duration-300 min-[900px]:text-[clamp(34px,4.6vw,88px)]",
-							isPrivate && "opacity-40",
 						)}
 					>
-						<span className="sr-only">{t`Your resume, live at`} </span>
+						<span className="sr-only">{t`Every format, yours`} </span>
 						<Icon
-							name={visibilityIcons[visibility] ?? "globe-hemisphere-west"}
+							name={chosen?.icon ?? "file-pdf"}
 							className="me-[.2em] text-(--night-accent) opacity-[clamp(0,var(--tu)*20,1)]"
 							style={{ fontSize: ".6em" }}
 						/>
 						{/* The caret rides on the last character typed. */}
 						<TypedText
-							text={address}
+							text={fileName}
 							progress="--tu"
 							rate={60}
-							className={cn("[overflow-wrap:anywhere] [--caret:var(--night-accent)]", isPrivate && "line-through")}
+							className="[overflow-wrap:anywhere] [--caret:var(--night-accent)]"
 							charClassName="typed-caret"
-							charStyle={(index) => (index > host.length ? { color: "var(--night-accent)" } : undefined)}
 						/>
 					</h2>
 
@@ -176,54 +159,50 @@ export function Share() {
 						)}
 					>
 						<SegmentedControl
-							aria-label={t`Visibility`}
-							value={visibility}
-							onValueChange={(value) => setVisibility(value as number)}
+							aria-label={t`Format`}
+							value={format}
+							onValueChange={(value) => setFormat(value as number)}
 							className="h-auto rounded-lg border border-(--night-line) bg-(--night-fill) p-1"
 						>
-							{[t`Public`, t`Password`, t`Private`].map((label, index) => (
-								<label key={label} className="contents">
+							{formats.map((item, index) => (
+								<label key={item.label} className="contents">
 									<SegmentedControlItem
 										value={index}
 										className="h-[34px] flex-none rounded-md px-3.5 font-ui text-(--night-ink-2) duration-300 not-data-checked:hover:text-(--night-ink) data-checked:bg-(--night-ink) data-checked:text-(--night-on-ink) data-checked:shadow-none"
 									>
-										<Icon name={visibilityIcons[index] ?? "globe-hemisphere-west"} size={17} />
-										{label}
+										<Icon name={item.icon} size={17} />
+										{item.label}
 									</SegmentedControlItem>
 								</label>
 							))}
 						</SegmentedControl>
 						<button
 							type="button"
-							onClick={copy}
-							className={cn(
-								"flex h-11 items-center gap-1.5 rounded-lg px-[18px] font-ui text-sm font-semibold text-(--night-on-ink) transition-colors duration-standard",
-								copied ? "bg-(--night-accent)" : "bg-(--night-ink)",
-							)}
+							className="flex h-11 items-center gap-1.5 rounded-lg bg-(--night-ink) px-[18px] font-ui text-sm font-semibold text-(--night-on-ink) transition-colors duration-standard"
 						>
-							<Icon name={copied ? "check" : "link-simple-horizontal"} size={18} />
-							{copied ? t`Copied` : t`Copy link`}
+							<Icon name="download-simple" size={18} />
+							{t`Download`}
 						</button>
 					</div>
 
 					<ul className="flex flex-wrap justify-center gap-2.5">
-						{formats.map((format, index) => (
+						{formats.map((item, index) => (
 							<li
-								key={format.icon}
+								key={item.icon}
 								className="font-martian flex h-9 [transform:translateY(calc((1-var(--f))*10px))] items-center gap-2 rounded-md border border-[color-mix(in_oklch,var(--night-chip-line)_calc(var(--f)*100%),transparent)] px-3.5 text-[11.5px] leading-none font-medium text-(--night-chip) opacity-(--f)"
 								style={{ "--f": `var(--f${index + 1})` } as CSSProperties}
 							>
-								<Icon name={format.icon} size={18} />
-								{format.label}
+								<Icon name={item.icon} size={18} />
+								{item.label}
 							</li>
 						))}
 					</ul>
 				</div>
 
 				<div className="absolute start-(--gutter) bottom-[clamp(20px,5vh,44px)] flex max-w-[90vw] flex-col gap-2.5 min-[900px]:max-w-[min(28em,34vw)]">
-					<span className={cn(labelClass, "text-(--night-label)")}>05 / {share}</span>
+					<span className={cn(labelClass, "text-(--night-label)")}>05 / {label}</span>
 					<p className="min-[900px]:short:hidden font-display text-base leading-[1.45] text-pretty text-(--night-ink) min-[900px]:text-[clamp(17px,1.35vw,20px)]">
-						{t`Share a public link, add a password or keep it private. Choose from 3 visibility options. Export to PDF or Word, or take all your data with you as JSON.`}
+						{t`Take it as PDF, Word, Markdown or JSON. Your resume is yours: no lock-in, and every format is free.`}
 					</p>
 				</div>
 			</div>

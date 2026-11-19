@@ -15,15 +15,8 @@ it("paginates the owner's filtered list without changing legacy array responses"
 	const rows = ["a", "b", "c"].map((id) => ({
 		id,
 		name: id,
-		slug: id,
 		tags: ["engineering"],
-		isPublic: false,
 		isLocked: false,
-		showDownloadButtons: false,
-		allowWordDownload: false,
-		showInSearchEngines: false,
-		hideContactDetails: false,
-		isPrimary: false,
 		createdAt: new Date(),
 		updatedAt: new Date(),
 	}));

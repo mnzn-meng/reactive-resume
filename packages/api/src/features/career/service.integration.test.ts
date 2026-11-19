@@ -224,10 +224,9 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 					id: "shared-resume",
 					userId: "alice",
 					name: "Current",
-					slug: "current",
 					data: resumeData("LIVE UNSUBMITTED DRAFT"),
 				},
-				{ id: "bob-resume", userId: "bob", name: "Bob", slug: "bob", data: resumeData("Bob private history") },
+				{ id: "bob-resume", userId: "bob", name: "Bob", data: resumeData("Bob private history") },
 			]);
 		await getDb()
 			.insert(tables.resumeVersion)

@@ -53,7 +53,7 @@ beforeAll(async () => {
 		trustedClient: "127.0.0.1",
 	};
 	registerTools(server, calls as unknown as RouterClient<typeof MCP_ROUTER>, new Headers(), context.authentication);
-	registerParityTools(server, calls as unknown as RouterClient<typeof MCP_ROUTER>, new Headers(), context);
+	registerParityTools(server, calls as unknown as RouterClient<typeof MCP_ROUTER>, context);
 	registerPrompts(server, calls as unknown as RouterClient<typeof MCP_ROUTER>);
 	client = new Client({ name: "parity-client", version: "1.0.0" });
 	const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
@@ -299,7 +299,7 @@ it("exposes explicit discovery context consent and blocks delegated read-only AI
 	expect(calls.career.suggestTargetRoles).toHaveBeenCalledWith(input);
 	const limited = new McpServer({ name: "limited-discovery", version: "1.0.0" });
 	const limitedClient = new Client({ name: "limited", version: "1.0.0" });
-	registerParityTools(limited, calls as unknown as RouterClient<typeof MCP_ROUTER>, new Headers(), {
+	registerParityTools(limited, calls as unknown as RouterClient<typeof MCP_ROUTER>, {
 		authentication: {
 			user: {
 				id: "owner-1",

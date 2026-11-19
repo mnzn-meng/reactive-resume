@@ -24,20 +24,13 @@ const documentSchema = z.object({
 	name: z.string(),
 	tags: z.array(z.string()),
 	isLocked: z.boolean(),
-	isPublic: z.boolean().describe("Whether a resume's public link is on; always false for letters."),
-	hasPassword: z
-		.boolean()
-		.describe(
-			"Whether a resume has a password set. Visitors need it while the resume is public (isPublic); always false for letters.",
-		),
-	slug: z.string().nullable().describe("A resume's public address, /{username}/{slug}; null for letters."),
 	trashedAt: z.date().nullable().describe("When the document moved to Trash; null while it's live."),
 	createdAt: z.date(),
 	updatedAt: z.date().describe("When anything about the document last changed, its details included."),
 	editedAt: z
 		.date()
 		.describe(
-			"When its content was last edited: a resume's data, or a letter's text, recipient and design. Renames, tags, sharing, locks and Trash don't move it. Library sorting by edited uses it.",
+			"When its content was last edited: a resume's data, or a letter's text, recipient and design. Renames, tags, locks and Trash don't move it. Library sorting by edited uses it.",
 		),
 	recipient: z
 		.string()
@@ -63,7 +56,6 @@ const documentFiltersSchema = z.object({
 	type: z.enum(["all", "resume", "letter"]).default("all"),
 	q: z.string().max(500).default(""),
 	tags: z.array(z.string().min(1).max(40)).max(20).default([]),
-	public: z.boolean().default(false),
 	sort: z.enum(["edited", "name", "created"]).default("edited"),
 });
 export type DocumentFilters = z.infer<typeof documentFiltersSchema>;
@@ -85,7 +77,6 @@ export const documentsDto = {
 			total: z.number(),
 			counts: z.object({ resume: z.number(), letter: z.number() }),
 			tags: z.array(z.string()),
-			hasPublic: z.boolean(),
 		}),
 	},
 	counts: {

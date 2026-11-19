@@ -7,7 +7,7 @@ import { client } from "@/libs/orpc/client";
 
 /** "First-Last-Cover-Letter", from the sender's name. */
 export const letterFileName = (letter: CoverLetter) =>
-	getDefaultFileName({ name: letter.name, slug: "", data: createCoverLetterResumeData(letter) }, "cover-letter");
+	getDefaultFileName({ name: letter.name, data: createCoverLetterResumeData(letter) }, "cover-letter");
 
 /** The letter as a file: the page with its sender header, or JSON that imports back as a letter. */
 export async function createLetterFile(letter: CoverLetter, format: ExportFormat): Promise<Blob> {
@@ -16,12 +16,7 @@ export async function createLetterFile(letter: CoverLetter, format: ExportFormat
 		return new Blob([JSON.stringify(document, null, 2)], { type: "application/json" });
 	}
 	const words = await createLetterWordsForLocale(letter.style.metadata.page.locale);
-	return createExportFile(
-		{ name: letter.name, slug: "", data: letterPageData(letter, words) },
-		format,
-		"cover-letter",
-		{
-			includeCoverLetterHeader: true,
-		},
-	);
+	return createExportFile({ name: letter.name, data: letterPageData(letter, words) }, format, "cover-letter", {
+		includeCoverLetterHeader: true,
+	});
 }

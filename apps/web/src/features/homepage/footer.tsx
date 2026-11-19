@@ -27,7 +27,7 @@ type DeskSpot = {
 const getDeskSpots = (): DeskSpot[] => [
 	{ box: [38.2, 71, 18.8, 24], number: "01", label: t`Write`, href: "#write" },
 	{ box: [77.6, 72, 10.2, 12], number: "03", label: t`Check`, href: "#check" },
-	{ box: [1.2, 60, 18.4, 26], number: "05", label: t`Share`, href: "#share" },
+	{ box: [1.2, 60, 18.4, 26], number: "05", label: t`Export`, href: "#share" },
 	{ box: [19.8, 56, 9.4, 26], number: "06", label: t`Prepare`, href: "#prepare" },
 	{ box: [30.3, 15, 36.9, 53], number: "07", label: t`Remember`, href: "#remember" },
 ];

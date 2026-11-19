@@ -6,7 +6,6 @@ export const documentsSearchDefaults = {
 	type: "all",
 	q: "",
 	tags: [],
-	public: false,
 	sort: "edited",
 } satisfies DocumentsSearch;
 
@@ -22,7 +21,6 @@ export const documentsSearchSchema = z.object({
 		.transform((tags) => [...new Set(tags.filter(Boolean).map((tag) => tag.slice(0, 40)))].slice(0, 20))
 		.default([])
 		.catch([]),
-	public: z.boolean().default(false).catch(false),
 	sort: z.enum(["edited", "name", "created"]).default("edited").catch("edited"),
 	// Without one, the page uses the last view picked on this device.
 	view: z.enum(["grid", "list"]).optional().catch(undefined),

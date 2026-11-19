@@ -1,7 +1,6 @@
 import { protectedProcedure, publicProcedure } from "../../context";
 import { feedbackDto } from "../../dto/feedback";
 import { feedbackCommentRateLimit, feedbackViewRateLimit, resumeMutationRateLimit } from "../../middleware/rate-limit";
-import { ownerViewer } from "../resume/sharing";
 import { feedbackService } from "./service";
 
 const TAG = "Feedback Links";
@@ -100,7 +99,12 @@ export const feedbackRouter = {
 		.use(feedbackViewRateLimit)
 		.output(feedbackDto.view.output)
 		.handler(({ context, input }) =>
-			feedbackService.view({ token: input.token, viewerId: ownerViewer(context).currentUserId }),
+			// A credential that may read the owner's resumes sees the owner's unredacted copy.
+			feedbackService.view({
+				token: input.token,
+				viewerId:
+					context.user?.id && context.authentication?.permissions.includes("read") ? context.user.id : undefined,
+			}),
 		),
 
 	comment: publicProcedure

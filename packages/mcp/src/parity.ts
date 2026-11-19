@@ -2,7 +2,7 @@ import type { BehaviorAnnotations } from "./annotations";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import type { AnyProcedure, InferRouterInitialContext, RouterClient } from "@orpc/server";
 import type { RequestAuthentication } from "@reactive-resume/api/context";
-import { call, ORPCError } from "@orpc/server";
+import { ORPCError } from "@orpc/server";
 import z from "zod";
 import { missingPermissionMessage, requiredPermission } from "@reactive-resume/api/context";
 import { restAliases } from "@reactive-resume/api/rest";
@@ -34,12 +34,7 @@ const PARITY_PROCEDURES: Record<string, [AnyProcedure, BehaviorAnnotations]> = {
 	"resume.renameVersion": [router.resume.renameVersion, WRITE_DESTRUCTIVE],
 	"resume.deleteVersion": [router.resume.deleteVersion, WRITE_DESTRUCTIVE],
 	"resume.restoreVersion": [router.resume.restoreVersion, WRITE_DESTRUCTIVE_EXTERNAL],
-	"resume.removePassword": [router.resume.removePassword, WRITE_DESTRUCTIVE_EXTERNAL],
-	"resume.getBySlug": [router.resume.getBySlug, WRITE_EXTERNAL],
-	"resume.checkSlug": [router.resume.checkSlug, READ_IDEMPOTENT],
 	"resume.update": [router.resume.update, WRITE_DESTRUCTIVE_EXTERNAL],
-	"resume.statistics.getDailyById": [router.resume.statistics.getDailyById, READ_IDEMPOTENT],
-	"resume.statistics.recordDownload": [router.resume.statistics.recordDownload, WRITE_NON_IDEMPOTENT],
 	"coverLetters.listVersions": [router.coverLetters.listVersions, READ_IDEMPOTENT],
 	"coverLetters.getVersion": [router.coverLetters.getVersion, READ_IDEMPOTENT],
 	"coverLetters.createVersion": [router.coverLetters.createVersion, WRITE_NON_IDEMPOTENT],
@@ -163,27 +158,8 @@ const HANDOFFS: Record<string, Handoff> = {
 	"aiProviders.create": settingsHandoff("Add an AI provider in the app", "ai"),
 	"aiProviders.update": settingsHandoff("Edit an AI provider in the app", "ai"),
 	"webAccess.save": settingsHandoff("Set up web search in the app", "ai"),
-	"resume.getRoot": settingsHandoff("Open the dashboard", ""),
 	"auth.createApiKey": settingsHandoff("Create an API key in the app", "ai?newKey=true#api-keys"),
 	"auth.deleteAccount": settingsHandoff("Delete your account in the app", "account?deleteAccount=true"),
-	// Resume share passwords are credentials too: owners set them and visitors enter them in the browser.
-	"resume.setPassword": {
-		title: "Set a resume's share password in the app",
-		description:
-			"Open the resume in the editor to set, change or remove its share password under Share → Link → Require a password. Passwords stay out of tool arguments. No change is made by this tool.",
-		inputSchema: z.object({ id: z.string().min(1).describe("Resume ID. Use `list_resumes` to find valid IDs.") }),
-		url: ({ id }) => `/builder/${encodeURIComponent(id ?? "")}`,
-	},
-	"resume.verifyPassword": {
-		title: "Open a password-protected resume",
-		description:
-			"Open a password-protected public resume so the visitor can enter its password in the browser. Passwords stay out of tool arguments. No change is made by this tool.",
-		inputSchema: z.object({
-			username: z.string().min(1).describe("Username in the public resume address."),
-			slug: z.string().min(1).describe("Slug in the public resume address."),
-		}),
-		url: ({ username, slug }) => `/${encodeURIComponent(username ?? "")}/${encodeURIComponent(slug ?? "")}`,
-	},
 };
 const handoffOutputSchema = z.object({ url: z.url(), action: z.string(), requiresBrowser: z.literal(true) });
 // Its output carries no `action`, so it is registered on its own.
@@ -394,7 +370,6 @@ function encodeOutput(value: unknown): unknown {
 export function registerParityTools(
 	server: McpServer,
 	client: RouterClient<typeof MCP_ROUTER>,
-	headers: Headers,
 	context: {
 		authentication: RequestAuthentication;
 		resHeaders: Headers;
@@ -446,26 +421,15 @@ export function registerParityTools(
 					if (words) for (const [key, value] of Object.entries(words)) url.searchParams.set(`words[${key}]`, value);
 					return json({ url: url.toString(), requiresAuthentication: true });
 				}
-				if (path === "resume.getBySlug") {
-					// Public reads never borrow the caller's browser cookies.
-					const reqHeaders = new Headers(headers);
-					reqHeaders.delete("cookie");
-					context.signal?.throwIfAborted();
-					result = await call(router.resume.getBySlug, input as { username: string; slug: string }, {
-						context: { ...context, reqHeaders },
-						...(context.signal && { signal: context.signal }),
-					});
-				} else {
-					result = await getClientCall(client, path)(input);
-					// Application-only data stays out of model tool results, including account backups.
-					if (path === "auth.exportData" && result && typeof result === "object") {
-						const {
-							applicationProfile: _privateProfile,
-							uploads: _privateFiles,
-							...backup
-						} = result as Record<string, unknown>;
-						result = backup;
-					}
+				result = await getClientCall(client, path)(input);
+				// Application-only data stays out of model tool results, including account backups.
+				if (path === "auth.exportData" && result && typeof result === "object") {
+					const {
+						applicationProfile: _privateProfile,
+						uploads: _privateFiles,
+						...backup
+					} = result as Record<string, unknown>;
+					result = backup;
 				}
 				if (streamingPaths.has(path)) {
 					const events: string[] = [];

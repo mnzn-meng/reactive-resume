@@ -18,12 +18,11 @@ import { ENTER_CLASS } from "@/libs/motion";
 
 /**
  * What the status line adds to the save state while there is nothing to do: how long the resume runs and where it
- * stands, as Documents says it ("1 page · Public", "2 pages · Draft", "1 page · Sent to Lumen").
+ * stands, as Documents says it ("1 page · Draft", "2 pages · Sent to Lumen").
  */
 function useDocumentFacts() {
 	const pageCount = useEditorStore((state) => state.rendered.pageCount);
 	const id = useResumeStore((state) => state.resume?.id ?? "");
-	const isPublic = useResumeStore((state) => state.resume?.isPublic ?? false);
 	const applicationId = useResumeStore((state) => state.resume?.applicationId ?? null);
 	const { data: applications } = useQuery({ ...applicationsListQueryOptions(), enabled: !!applicationId });
 	const application = applications?.find((item) => item.id === applicationId);
@@ -35,9 +34,7 @@ function useDocumentFacts() {
 				? t`Sent ${i18n.date(application.appliedAt, { day: "numeric", month: "short" })}`
 				: t`Sent to ${company}`
 			: t`For ${company}`
-		: isPublic
-			? t`Public`
-			: t`Draft`;
+		: t`Draft`;
 
 	return [pages, standing].filter(Boolean).join(" · ");
 }

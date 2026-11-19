@@ -58,9 +58,6 @@ const trashed = (index: number): DocumentSummary => ({
 	name: `Document ${index}`,
 	tags: [],
 	isLocked: false,
-	isPublic: false,
-	hasPassword: false,
-	slug: null,
 	// Newest in Trash first, so the list keeps the order the numbers have.
 	trashedAt: new Date(Date.now() - index * MINUTE),
 	createdAt: new Date(),

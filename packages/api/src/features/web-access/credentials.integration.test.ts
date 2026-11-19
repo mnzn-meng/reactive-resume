@@ -253,7 +253,7 @@ describe.skipIf(!process.env.INTEGRATIONS_TEST_DATABASE_URL)("integration creden
 	it("keeps paid writing reviews with their input version, isolates owners, and discards a late older result", async () => {
 		const { beginWritingReview, saveWritingReview, readWritingReview } = await import("../ai/writing-review");
 		await pool.query(
-			`INSERT INTO resume (id,user_id,name,slug,data) VALUES ('resume-alice','alice','Resume','resume','{}'),('resume-bob','bob','Resume','resume','{}')`,
+			`INSERT INTO resume (id,user_id,name,data) VALUES ('resume-alice','alice','Resume','{}'),('resume-bob','bob','Resume','{}')`,
 		);
 		const input = {
 			resumeId: "resume-alice",

@@ -423,7 +423,7 @@ describe.skipIf(!databaseUrl)("role recipient approval through router, PostgreSQ
 				const disclosed = await create();
 				await db
 					.insert(tables.resume)
-					.values({ id: "selected", userId: user.id, name: "Synthetic", slug: "selected", data: sampleResumeData });
+					.values({ id: "selected", userId: user.id, name: "Synthetic", data: sampleResumeData });
 				const lock = await pool.connect();
 				await lock.query("BEGIN");
 				await lock.query("LOCK TABLE resume IN ACCESS EXCLUSIVE MODE");
@@ -474,9 +474,7 @@ describe.skipIf(!databaseUrl)("role recipient approval through router, PostgreSQ
 				const disclosed = await create();
 				const data = structuredClone(sampleResumeData);
 				data.basics.headline = "Synthetic ".repeat(1500) + "original tail";
-				await db
-					.insert(tables.resume)
-					.values({ id: "selected", userId: user.id, name: "Synthetic", slug: "selected", data });
+				await db.insert(tables.resume).values({ id: "selected", userId: user.id, name: "Synthetic", data });
 				const lock = await pool.connect();
 				await lock.query("BEGIN");
 				await lock.query("SELECT id FROM resume WHERE id='selected' FOR UPDATE");
@@ -520,7 +518,7 @@ describe.skipIf(!databaseUrl)("role recipient approval through router, PostgreSQ
 				const disclosed = await create();
 				await db
 					.insert(tables.resume)
-					.values({ id: "selected", userId: user.id, name: "Synthetic", slug: "selected", data: sampleResumeData });
+					.values({ id: "selected", userId: user.id, name: "Synthetic", data: sampleResumeData });
 				let arrived!: () => void;
 				let release!: () => void;
 				const entered = new Promise<void>((resolve) => {
@@ -586,7 +584,7 @@ describe.skipIf(!databaseUrl)("role recipient approval through router, PostgreSQ
 			assert(disclosed);
 			await db
 				.insert(tables.resume)
-				.values({ id: "selected", userId: user.id, name: "Synthetic", slug: "selected", data: sampleResumeData });
+				.values({ id: "selected", userId: user.id, name: "Synthetic", data: sampleResumeData });
 			const lock = await pool.connect();
 			await lock.query("BEGIN");
 			let entered!: () => void;
@@ -709,7 +707,7 @@ describe.skipIf(!databaseUrl)("role recipient approval through router, PostgreSQ
 			const disclosed = await create();
 			await db
 				.insert(tables.resume)
-				.values({ id: "selected", userId: user.id, name: "Synthetic", slug: "selected", data: sampleResumeData });
+				.values({ id: "selected", userId: user.id, name: "Synthetic", data: sampleResumeData });
 			const lock = await pool.connect();
 			await lock.query("BEGIN");
 			await lock.query("LOCK TABLE resume IN ACCESS EXCLUSIVE MODE");

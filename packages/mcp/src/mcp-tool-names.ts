@@ -12,7 +12,6 @@ export const MCP_TOOL_NAME = {
 	deleteResume: "delete_resume",
 	lockResume: "lock_resume",
 	unlockResume: "unlock_resume",
-	getResumeStatistics: "get_resume_statistics",
 	listCoverLetters: "list_cover_letters",
 	readCoverLetter: "read_cover_letter",
 	createCoverLetter: "create_cover_letter",

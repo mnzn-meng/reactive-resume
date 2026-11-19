@@ -76,7 +76,6 @@ pnpm check:agent-docs                            # paths named in agent docs exi
 | ---------------------------------------------------------- | ------------------------------------------------------- |
 | Web routes and workflows                                   | `apps/web/src/routes`, `apps/web/src/features`          |
 | Server HTTP, startup, static pages, MCP transport, OpenAPI | `apps/server/src/{http,rpc,mcp,openapi,static,startup}` |
-| Public resume web page (server-rendered)                   | `apps/server/src/static/resume-page.ts`                 |
 | API routers and business logic                             | `packages/api/src/features/<feature>`                   |
 | API input/output DTOs                                      | `packages/api/src/dto/<feature>.ts`                     |
 | Auth                                                       | `packages/auth` (Better Auth)                           |
@@ -95,7 +94,7 @@ pnpm check:agent-docs                            # paths named in agent docs exi
 Details behind those rows:
 
 - Never hand-edit `apps/web/src/routeTree.gen.ts`; it is generated from the file routes.
-- The resume's public HTML shell and SEO live in `apps/server/src/static/web.ts`.
+- The app's HTML shells and SEO live in `apps/server/src/static/web.ts`.
 - API routes use `protectedProcedure` from `packages/api/src/context.ts`; a feature's `router.ts` delegates to its
   `service.ts`. The Drizzle config is `packages/db/drizzle.config.ts`, SQL in `migrations/`.
 - Auth lives in `packages/auth`; `apps/server/src/http/auth.ts` only delegates to it.

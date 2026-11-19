@@ -353,26 +353,18 @@ export const TOOL_META = withAnnotationTitles({
 	[T.updateResume]: {
 		title: "Update Resume",
 		description: [
-			"Update a resume's settings (display name, URL slug, tags, public visibility, download buttons), its web page's Share settings (showInSearchEngines, hideContactDetails, isPrimary), or replace its whole content with `data`.",
-			"Ask the user before turning on showInSearchEngines or turning off hideContactDetails: both make personal details easier for strangers to find.",
+			"Update a resume's name or tags, or replace its whole content with `data`.",
 			`For content edits prefer \`${T.patchResume}\` with expectedUpdatedAt, which changes only what it targets and avoids overwriting concurrent changes.`,
 			`Locked resumes cannot be updated. Ask the user before unlocking with \`${T.unlockResume}\`.`,
-			"To set a share password, `api_resume_set_password` opens the resume in the app.",
-			"",
-			"Always returns your canonical share URL (`{app}/{username}/{slug}`). Anonymous viewers can use it only when `isPublic` is true; password protection from the web app still applies.",
 		].join("\n"),
-		outputSchema: toWireObjectSchema(
-			resumeDto.update.output
-				.pick({ id: true, name: true, slug: true, tags: true, isPublic: true, hasPassword: true })
-				.extend({ shareUrl: z.string() }),
-		),
+		outputSchema: toWireObjectSchema(resumeDto.update.output.pick({ id: true, name: true, tags: true })),
 		inputSchema: wireInput(resumeDto.update.input.strict()),
 		annotations: { ...WRITE_NON_IDEMPOTENT, destructiveHint: true, openWorldHint: true },
 	},
 	[T.deleteResume]: {
 		title: "Delete Resume",
 		description: [
-			"Move a resume to Trash, removing public access if published.",
+			"Move a resume to Trash.",
 			"",
 			"It stays in Trash for 30 days, where the user can restore it from the app; then it and its files are deleted.",
 			`Locked resumes cannot be moved; use \`${T.unlockResume}\` first.`,
@@ -400,26 +392,6 @@ export const TOOL_META = withAnnotationTitles({
 		outputSchema: messageOutput,
 		inputSchema: wireInput(z.strictObject({ id: resumeIdSchema })),
 		annotations: WRITE_DESTRUCTIVE,
-	},
-	[T.getResumeStatistics]: {
-		title: "Get Resume Statistics",
-		description: [
-			"Get view and download statistics for a resume.",
-			"",
-			"Returns: isPublic (boolean), views (count), downloads (count),",
-			"lastViewedAt (timestamp or null), lastDownloadedAt (timestamp or null).",
-		].join("\n"),
-		outputSchema: toWireObjectSchema(
-			z.object({
-				isPublic: z.boolean(),
-				views: z.number(),
-				downloads: z.number(),
-				lastViewedAt: z.date().nullable(),
-				lastDownloadedAt: z.date().nullable(),
-			}),
-		),
-		inputSchema: wireInput(z.strictObject({ id: resumeIdSchema })),
-		annotations: READ_IDEMPOTENT,
 	},
 	[T.listCoverLetters]: {
 		title: "List Cover Letters",

@@ -257,7 +257,7 @@ Read [references/evidence.md](references/evidence.md) when the user asks why, ch
 
 Skip this section unless Reactive Resume tools such as `read_resume` are available.
 
-1. **Find the resume.** Call `list_resumes` (ask which one if there are several; note `isPublic` and `isLocked`), then `read_resume {id}`. Keep `updatedAt` from the structured result to send as `expectedUpdatedAt`.
+1. **Find the resume.** Call `list_resumes` (ask which one if there are several; note `isLocked`), then `read_resume {id}`. Keep `updatedAt` from the structured result to send as `expectedUpdatedAt`.
 2. **Map the targets.** Descriptions are HTML strings:
 
    | Content                                    | Path                                                   |

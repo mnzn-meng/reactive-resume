@@ -11,7 +11,7 @@ const getStoryScenes = () => [
 	{ scene: SCENE.design, label: t`Design` },
 	{ scene: SCENE.check, label: t`Check` },
 	{ scene: SCENE.tailor, label: t`Tailor` },
-	{ scene: SCENE.share, label: t`Share` },
+	{ scene: SCENE.share, label: t`Export` },
 	{ scene: SCENE.prepare, label: t`Prepare` },
 	{ scene: SCENE.remember, label: t`Remember` },
 ];

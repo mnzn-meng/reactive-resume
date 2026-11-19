@@ -1,5 +1,4 @@
 import type { DocumentSummary } from "./filter";
-import { t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { useQuery } from "@tanstack/react-query";
@@ -8,7 +7,7 @@ import { Badge } from "@reactive-resume/ui/components/badge";
 import { Icon } from "@reactive-resume/ui/components/icon";
 import { applicationsListQueryOptions } from "@/features/applications/queries";
 
-type StatusDocument = Pick<DocumentSummary, "type" | "id" | "isPublic" | "hasPassword" | "application">;
+type StatusDocument = Pick<DocumentSummary, "type" | "id" | "application">;
 
 /**
  * When the document went out with its application: the day the application reached Applied with this document's
@@ -36,7 +35,7 @@ export function useDocumentSentDate(document: StatusDocument) {
 	return i18n.date(sentAt, { day: "numeric", month: "short", timeZone: session?.user.timezone ?? "UTC" });
 }
 
-/** A document's status as one word (BUILD.md §3.8): Sent 2 Nov, Public or Draft. */
+/** A document's status as one word (BUILD.md §3.8): Sent 2 Nov, or Draft. */
 export function DocumentStatusBadge({ document }: { document: StatusDocument }) {
 	const date = useDocumentSentDate(document);
 	if (date === undefined) return null;
@@ -48,13 +47,6 @@ export function DocumentStatusBadge({ document }: { document: StatusDocument }) 
 			</Badge>
 		);
 	}
-	if (document.isPublic)
-		return (
-			<Badge variant="accent" title={document.hasPassword ? t`Public, with a password` : undefined}>
-				<Icon name="globe-simple" />
-				<Trans>Public</Trans>
-			</Badge>
-		);
 	return (
 		<Badge variant="outline">
 			<Trans>Draft</Trans>

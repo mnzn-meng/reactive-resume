@@ -2,7 +2,7 @@ import { afterAll, expect, it, vi } from "vite-plus/test";
 
 const mocks = vi.hoisted(() => ({
 	render: vi.fn(),
-	getById: vi.fn(async () => ({ name: "Resume", slug: "resume", data: { basics: { name: "" } } })),
+	getById: vi.fn(async () => ({ name: "Resume", data: { basics: { name: "" } } })),
 }));
 const render = mocks.render;
 const previousNodeEnv = vi.hoisted(() => {
@@ -43,7 +43,6 @@ it("names a signed PDF download from the resume's full name, not its internal do
 	render.mockResolvedValue(new File(["%PDF"], "resume.pdf", { type: "application/pdf" }));
 	mocks.getById.mockResolvedValueOnce({
 		name: "acme-tailored-v3",
-		slug: "acme-tailored-v3",
 		data: { basics: { name: "Jordan Long" } },
 	});
 
@@ -57,7 +56,6 @@ it("adds an RFC 5987 UTF-8 file name for a Chinese full name", async () => {
 	render.mockResolvedValue(new File(["%PDF"], "resume.pdf", { type: "application/pdf" }));
 	mocks.getById.mockResolvedValueOnce({
 		name: "untitled-resume",
-		slug: "untitled-resume",
 		data: { basics: { name: "李明" } },
 	});
 

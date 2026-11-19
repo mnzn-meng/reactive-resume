@@ -975,7 +975,7 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 			const connection = await provider();
 			const [resume] = await db
 				.insert(tables.resume)
-				.values({ userId: user.id, name: "Fictional resume", slug: "fixture", data: sampleResumeData })
+				.values({ userId: user.id, name: "Fictional resume", data: sampleResumeData })
 				.returning();
 			if (!resume) throw new Error("Missing fixture resume");
 			const usage = createAiUsage(user.id, "assistant", connection, (reader) =>
@@ -1817,11 +1817,6 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 			const sent = (await api.resume.listVersions({ resumeId: id })).find((version) => version.kind === "sent");
 			if (!sent) throw new Error("Missing sent version");
 			expect((await api.resume.getVersion({ resumeId: id, versionId: sent.id })).aiUsage).toEqual(expected);
-			await api.resume.update({ id, isPublic: true });
-			const published = await api.resume.getById({ id });
-			const publicResult = await api.resume.getBySlug({ username: user.username, slug: published.slug });
-			expect(publicResult).not.toHaveProperty("aiOperationIds");
-			expect(publicResult).not.toHaveProperty("aiUsage");
 			await aiProvidersService.update({ userId: user.id, id: connection.id, label: "Renamed", model: "replacement" });
 			await aiProvidersService.delete({ userId: user.id, id: connection.id });
 			expect((await api.resume.getById({ id })).aiUsage).toEqual(expected);
@@ -1866,7 +1861,7 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 			const connection = await provider();
 			const [resume] = await db
 				.insert(tables.resume)
-				.values({ userId: user.id, name: "Fictional resume", slug: "letter", data: sampleResumeData })
+				.values({ userId: user.id, name: "Fictional resume", data: sampleResumeData })
 				.returning();
 			if (!resume) throw new Error("Missing fixture resume");
 			const api = client();
@@ -2004,7 +1999,6 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 				.values({
 					userId: user.id,
 					name: "Fictional writing resume",
-					slug: "writing",
 					data: sampleResumeData,
 				})
 				.returning();

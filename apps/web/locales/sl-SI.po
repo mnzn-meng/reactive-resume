@@ -1502,14 +1502,6 @@ msgstr "{lines, plural, one {Stran {page} je predolga za približno # vrstico} t
 msgid "{lines, plural, one {Page {page} still runs over by about # line.} other {Page {page} still runs over by about # lines.}}"
 msgstr "{lines, plural, one {Stran {page} je še vedno predolga za približno # vrstico.} two {Stran {page} je še vedno predolga za približno # vrstici.} few {Stran {page} je še vedno predolga za približno # vrstice.} other {Stran {page} je še vedno predolga za približno # vrstic.}}"
 
-#: src/features/documents/document-actions.tsx
-msgid "{made, plural, one {# made private} other {# made private}}"
-msgstr "{made, plural, one {# nastavljen kot zaseben} two {# nastavljena kot zasebna} few {# nastavljeni kot zasebni} other {# nastavljenih kot zasebnih}}"
-
-#: src/features/documents/document-actions.tsx
-msgid "{made, plural, one {# made public} other {# made public}}"
-msgstr "{made, plural, one {# nastavljen kot javen} two {# nastavljena kot javna} few {# nastavljeni kot javni} other {# nastavljenih kot javnih}}"
-
 #: src/features/resume/editor/check/page-layer.tsx
 msgid "{mentions, plural, one {found in # place} other {found in # places}}"
 msgstr "{mentions, plural, one {najdeno na # mestu} two {najdeno na # mestih} few {najdeno na # mestih} other {najdeno na # mestih}}"
@@ -1691,14 +1683,6 @@ msgstr "{removed, plural, one {spremeni ali odstrani # vaš stavek} two {spremen
 #: src/features/documents/document-actions.tsx
 msgid "{restored, plural, one {# document restored} other {# documents restored}}"
 msgstr "{restored, plural, one {# dokument obnovljen} two {# dokumenta obnovljena} few {# dokumenti obnovljeni} other {# dokumentov obnovljenih}}"
-
-#: src/features/documents/documents-page.tsx
-msgid "{resumes, plural, =0 {Letters have no public link.} one {Applies to the # resume selected. Letters have no public link.} other {Applies to the # resumes selected. Letters have no public link.}}"
-msgstr "{resumes, plural, =0 {Pisma nimajo javne povezave.} one {Velja za # izbrani življenjepis. Pisma nimajo javne povezave.} two {Velja za # izbrana življenjepisa. Pisma nimajo javne povezave.} few {Velja za # izbrane življenjepise. Pisma nimajo javne povezave.} other {Velja za # izbranih življenjepisov. Pisma nimajo javne povezave.}}"
-
-#: src/features/documents/documents-page.tsx
-msgid "{resumes, plural, one {Applies to the # resume selected.} other {Applies to the # resumes selected.}}"
-msgstr "{resumes, plural, one {Velja za # izbrani življenjepis.} two {Velja za # izbrana življenjepisa.} few {Velja za # izbrane življenjepise.} other {Velja za # izbranih življenjepisov.}}"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "{rules, plural, =2 {Removes both rules; Undo brings them back, and History keeps every saved version. Reset design never touches your CSS.} one {Removes the rule; Undo brings it back, and History keeps every saved version. Reset design never touches your CSS.} other {Removes all # rules; Undo brings them back, and History keeps every saved version. Reset design never touches your CSS.}}"
@@ -1898,15 +1882,6 @@ msgstr "Aktivacija +13 točk"
 #: src/features/keyboard-shortcuts/index.tsx
 msgid "<0>?</0> opens this list on any page."
 msgstr "<0>?</0> odpre ta seznam na kateri koli strani."
-
-#. placeholder {0}: user.username
-#: src/features/settings/account/profile.tsx
-msgid "<0>{host}/{0}</0> · part of every public link"
-msgstr "<0>{host}/{0}</0> · del vsake javne povezave"
-
-#: src/features/settings/account/profile.tsx
-msgid "<0>{oldAddress}</0> becomes <1>{newAddress}</1>."
-msgstr "<0>{oldAddress}</0> postane <1>{newAddress}</1>."
 
 #: src/components/input/chip-input.tsx
 msgid "<0>{RETURN_KEY}</0> or a comma adds one. Drag to reorder."
@@ -4398,10 +4373,6 @@ msgstr "Sprememba v <0>{pendingEmail}</0> čaka na odobritev z naslova {0}. Pove
 msgid "Change to <0>{pendingEmail}</0> is waiting: open the link we sent there. The link works for an hour."
 msgstr "Sprememba v <0>{pendingEmail}</0> čaka: odprite povezavo, ki smo jo poslali tja. Povezava velja eno uro."
 
-#: src/features/settings/account/profile.tsx
-msgid "Change username"
-msgstr "Spremeni uporabniško ime"
-
 #: src/dialogs/auth/change-password.tsx
 msgid "Change your password"
 msgstr "Spremenite svoje geslo"
@@ -5371,10 +5342,6 @@ msgstr "Ime pogovora"
 msgid "Conversations"
 msgstr "Pogovori"
 
-#: src/features/homepage/share.tsx
-msgid "Copied"
-msgstr "Kopirano"
-
 #: src/features/career/coach-chat.tsx
 msgid "Copies for {company}"
 msgstr "Kopije za {company}"
@@ -5436,17 +5403,9 @@ msgstr "Kopija za službo ..."
 msgid "Copy it for a job"
 msgstr "Kopiraj za delovno mesto"
 
-#: src/features/homepage/share.tsx
-msgid "Copy link"
-msgstr "Kopiraj povezavo"
-
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Copy made for {company}. This resume is unchanged."
 msgstr "Kopija za {company} je narejena. Ta življenjepis je nespremenjen."
-
-#: src/features/documents/document-actions.tsx
-msgid "Copy public link"
-msgstr "Kopiraj javno povezavo"
 
 #: src/features/career/offers.tsx
 msgid "Copy questions"
@@ -7146,6 +7105,7 @@ msgstr "Opravljeno · {0}"
 
 #: src/features/career/workspace/apply.tsx
 #: src/features/career/workspace/practise.tsx
+#: src/features/homepage/share.tsx
 #: src/features/resume/editor/chrome/bar.tsx
 #: src/features/resume/share/download-menu.tsx
 #: src/features/resume/share/web-page-text.ts
@@ -7969,6 +7929,10 @@ msgstr "Vsak dan"
 msgid "Every entry has dates in a form systems read, in order, and none in the future."
 msgstr "Vsak vnos ima datume v obrazcu, ki se berejo po vrstnem redu in nobenega v prihodnosti."
 
+#: src/features/homepage/share.tsx
+msgid "Every format, yours"
+msgstr ""
+
 #: src/features/resume/editor/check/issues.ts
 msgid "Every role says what you did. Opinions on wording live in the Writing tab."
 msgstr "Vsaka vloga pove, kaj si naredil. Mnenja o besedilih živijo v zavihku Pisanje."
@@ -8046,6 +8010,10 @@ msgstr "Izkušnje, Izobrazba in drugo"
 msgid "explain one limit of the measurement clearly, without underselling the work."
 msgstr "jasno pojasnite eno omejitev meritve, ne da bi podcenili delo."
 
+#: src/features/documents/document-actions.tsx
+#: src/features/homepage/footer.tsx
+#: src/features/homepage/header.tsx
+#: src/features/homepage/share.tsx
 #: src/features/settings/profile.tsx
 #: src/libs/resume/section.tsx
 #: src/routes/builder/letter/-components/letter-bar.tsx
@@ -8626,6 +8594,7 @@ msgstr "Odgovori za obrazce"
 msgid "Form questions (optional)"
 msgstr "Vprašanja obrazca (neobvezno)"
 
+#: src/features/homepage/share.tsx
 #: src/features/resume/share/download-tab.tsx
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Format"
@@ -10068,10 +10037,6 @@ msgstr "Obdrži ta odgovor"
 msgid "Keep to two or three families. Each extra font is another chance for one to map badly."
 msgstr "Uporabite le dve ali tri družine pisav. Vsaka dodatna pisava je nova priložnost za napačen prikaz."
 
-#: src/features/settings/account/profile.tsx
-msgid "Keep username"
-msgstr "Obdrži uporabniško ime"
-
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Keep with it"
 msgstr "Obdrži skupaj"
@@ -10627,7 +10592,6 @@ msgstr "Poveži prošnjo za delo ..."
 msgid "Link an existing letter"
 msgstr "Poveži obstoječe pismo"
 
-#: src/features/documents/document-actions.tsx
 #: src/features/resume/share/web-page-text.ts
 msgid "Link copied"
 msgstr "Povezava je kopirana"
@@ -10715,10 +10679,6 @@ msgstr "LinkedIn, priporočilo…"
 #: src/features/settings/profile.tsx
 msgid "Links"
 msgstr "Povezave"
-
-#: src/features/settings/account/profile.tsx
-msgid "Links you've already shared keep working for 30 days, then stop. Share the new ones before then."
-msgstr "Povezave, ki ste jih že delili, delujejo še 30 dni, nato prenehajo. Pred tem delite nove."
 
 #: src/features/homepage/hero.tsx
 msgid "Lisbon"
@@ -10954,18 +10914,6 @@ msgstr "Nizka"
 msgid "Lower the design sheet"
 msgstr "Spustite oblikovalni list"
 
-#. placeholder {0}: number(made)
-#. placeholder {1}: number(total)
-#: src/features/documents/document-actions.tsx
-msgid "Made {0} of {1} private. Letters have no public link, and locked documents are left as they are."
-msgstr "Zasebnih {0} od {1}. Pisma nimajo javne povezave, zaklenjeni dokumenti pa ostanejo nespremenjeni."
-
-#. placeholder {0}: number(made)
-#. placeholder {1}: number(total)
-#: src/features/documents/document-actions.tsx
-msgid "Made {0} of {1} public. Letters have no public link, and locked documents are left as they are."
-msgstr "Javnih {0} od {1}. Pisma nimajo javne povezave, zaklenjeni dokumenti pa ostanejo nespremenjeni."
-
 #: src/features/resume/share/web-page-text.ts
 msgid "Made with Reactive Resume"
 msgstr ""
@@ -11019,14 +10967,6 @@ msgstr "Naj bo bolj natančno"
 #: src/features/resume/editor/write/improve.tsx
 msgid "Make it shorter"
 msgstr "Naj bo krajši"
-
-#: src/features/documents/documents-page.tsx
-msgid "Make private"
-msgstr "Nastavi kot zasebno"
-
-#: src/features/documents/documents-page.tsx
-msgid "Make public"
-msgstr "Nastavi kot javno"
 
 #: src/features/assistant/assistant-panel.tsx
 msgid "Make the opening stronger"
@@ -13572,10 +13512,6 @@ msgstr "Parcel & Co."
 msgid "Parcel & Co. · Porto"
 msgstr "Parcel & Co. · Porto"
 
-#: src/features/settings/account/profile.tsx
-msgid "Part of every public link. Old links keep working for 30 days after a change."
-msgstr "Del vsake javne povezave. Stare povezave po spremembi delujejo še 30 dni."
-
 #: src/features/career/workspace/fit.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Partly supported"
@@ -13603,7 +13539,6 @@ msgstr "Passkeys potrebujejo potrjen e-poštni naslov, tega pa ta strežnik ne m
 #: src/features/auth/pages/login.tsx
 #: src/features/auth/pages/register.tsx
 #: src/features/command-palette/pages/navigation.tsx
-#: src/features/homepage/share.tsx
 #: src/features/resume/builder/password-dialog.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/features/settings/account/auth-hooks.ts
@@ -14285,10 +14220,6 @@ msgstr "Tiskanje"
 msgid "Print or export the form to a flat PDF before sending it."
 msgstr "Pred pošiljanjem obrazec natisnite ali izvozite v ploski PDF."
 
-#: src/features/homepage/share.tsx
-msgid "Private"
-msgstr "Zasebno"
-
 #: src/routes/builder/$resumeId/-sidebar/right/sections/notes.tsx
 msgid "Private notes about this resume. Nobody else can see them."
 msgstr "Zasebne opombe o tem življenjepisu. Nihče drug jih ne vidi."
@@ -14296,10 +14227,6 @@ msgstr "Zasebne opombe o tem življenjepisu. Nihče drug jih ne vidi."
 #: src/features/career/coach-chat.tsx
 msgid "Private to this application"
 msgstr "Zasebno za to prijavo"
-
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Private. Only you can see it."
-msgstr "Zasebno. Samo vi ga lahko vidite."
 
 #: src/features/homepage/check.tsx
 #: src/features/homepage/sheet.tsx
@@ -14415,19 +14342,6 @@ msgstr "Hramba podatkov pri ponudniku sledi njegovim pravilom. Vaš ponudnik lah
 #: src/features/ai/usage.tsx
 msgid "Provider test"
 msgstr "Preizkus ponudnika"
-
-#: src/features/documents/document-status.tsx
-#: src/features/documents/documents-page.tsx
-#: src/features/homepage/share.tsx
-#: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Public"
-msgstr "Javno"
-
-#: src/features/documents/document-status.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Public, with a password"
-msgstr "Javno, z geslom"
 
 #: src/libs/resume/section.tsx
 msgid "Publications"
@@ -17083,18 +16997,10 @@ msgstr "Barva sence"
 msgid "Shadow width"
 msgstr "Širina sence"
 
-#: src/features/documents/document-actions.tsx
-#: src/features/homepage/footer.tsx
-#: src/features/homepage/header.tsx
-#: src/features/homepage/share.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
 msgid "Share"
 msgstr "Delite"
-
-#: src/features/homepage/share.tsx
-msgid "Share a public link, add a password or keep it private. Choose from 3 visibility options. Export to PDF or Word, or take all your data with you as JSON."
-msgstr "Delite javno povezavo, dodajte geslo ali ohranite zasebnost. Izbirate lahko med 3 možnostmi vidnosti. Izvozite v PDF ali Word ali vzemite vse svoje podatke s seboj kot JSON."
 
 #. placeholder {0}: provider.label
 #: src/libs/orpc/ai-consent.ts
@@ -17104,10 +17010,6 @@ msgstr "Želite deliti podatke s ponudnikom {0}?"
 #: src/features/resume/editor/chrome/download-sheet.tsx
 msgid "Share sections"
 msgstr "Delite razdelke"
-
-#: src/features/documents/document-actions.tsx
-msgid "Share…"
-msgstr "Deli …"
 
 #: src/libs/orpc/ai-consent.ts
 msgid "Shares only resume and posting. Knowledge, private notes and web access are excluded. Review proposals before accepting; the original stays unchanged."
@@ -17121,9 +17023,7 @@ msgstr "Deli le izbrano trditev iz Znanja, življenjepis in oglas. Drugo znanje,
 msgid "Shares resume, posting and pasted questions. Answer drafts also use your letter, career preferences, application notes and contacts, and enabled Knowledge facts and stories. Context may be excerpted. Web access is off. Review before saving; nothing is submitted."
 msgstr "Deli življenjepis, oglas in prilepljena vprašanja. Osnutki odgovorov uporabljajo tudi pismo, karierne želje, opombe in stike prijave ter aktivna dejstva in zgodbe iz Znanja. Kontekst se lahko skrajša. Spletni dostop je izklopljen. Pred shranjevanjem preglejte; nič se ne odda."
 
-#: src/features/documents/documents-page.tsx
 #: src/libs/resume/section.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
 msgid "Sharing"
 msgstr "Deljenje"
 
@@ -18354,6 +18254,10 @@ msgstr "Prilagojen ali osnovni življenjepis"
 #: src/features/career/workspace/practise.tsx
 msgid "Take dictation with"
 msgstr "Narekuj z"
+
+#: src/features/homepage/share.tsx
+msgid "Take it as PDF, Word, Markdown or JSON. Your resume is yours: no lock-in, and every format is free."
+msgstr ""
 
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "Take-home assignment"
@@ -20936,9 +20840,9 @@ msgstr "Ogled oglasa na {host}"
 msgid "View recorded answers"
 msgstr "Prikaži zabeležene odgovore"
 
-#: src/features/homepage/share.tsx
-msgid "Visibility"
-msgstr "Vidnost"
+#: src/features/settings/account/profile.tsx
+msgid "Visible to nobody but you; used to sign in."
+msgstr ""
 
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
@@ -22191,14 +22095,6 @@ msgstr "vašega ponudnika"
 msgid "Your provider may charge for the run."
 msgstr "Vaš ponudnik lahko zaračuna izvedbo."
 
-#: src/features/settings/account/profile.tsx
-msgid "Your public link will change"
-msgstr "Vaša javna povezava se bo spremenila"
-
-#: src/features/settings/account/profile.tsx
-msgid "Your public links will change"
-msgstr "Vaše javne povezave se bodo spremenile"
-
 #: src/features/career/workspace/messages.tsx
 msgid "Your reply"
 msgstr "Vaš odgovor"
@@ -22242,10 +22138,6 @@ msgstr "Besedilo vašega življenjepisa, izbrani odlomki in ugotovitve preverjan
 #: src/features/ats-checker/messages.ts
 msgid "Your resume uses \"I\" and \"my\"."
 msgstr "Vaš življenjepis uporablja „I“ in „my“."
-
-#: src/features/homepage/share.tsx
-msgid "Your resume, live at"
-msgstr "Vaš življenjepis, v živo na"
 
 #: src/features/documents/documents-page.tsx
 msgid "Your resumes and cover letters live here"

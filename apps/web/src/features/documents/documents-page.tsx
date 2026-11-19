@@ -16,7 +16,6 @@ import {
 	DropdownMenuCheckboxItem,
 	DropdownMenuContent,
 	DropdownMenuGroup,
-	DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuRadioGroup,
 	DropdownMenuRadioItem,
@@ -116,7 +115,6 @@ export function DocumentsPage({ search, onSearchChange }: DocumentsPageProps) {
 		q: searchText,
 		tags: search.tags,
 		sort: search.sort,
-		public: search.public ?? false,
 		trashed: false,
 		limit: 100,
 		offset,
@@ -216,13 +214,11 @@ export function DocumentsPage({ search, onSearchChange }: DocumentsPageProps) {
 	};
 	// No count at zero, and none while the library loads (it would read 0).
 	const tabCount = (count: number) => (count > 0 ? <TabsCount>{i18n.number(count)}</TabsCount> : null);
-	const hasPublic = displayed?.hasPublic ?? false;
 	// A type tab with nothing of its kind is empty, not filtered: it offers to make one.
 	const emptyType =
 		search.type !== "all" &&
 		search.q.trim() === "" &&
 		search.tags.length === 0 &&
-		search.public !== true &&
 		offset === 0 &&
 		counts[search.type] === 0
 			? search.type
@@ -315,7 +311,7 @@ export function DocumentsPage({ search, onSearchChange }: DocumentsPageProps) {
 	};
 
 	const sortLabels: Record<DocumentSort, string> = { edited: t`Last edited`, name: t`Name`, created: t`Created` };
-	const clearFilters = () => onSearchChange({ q: "", tags: [], type: "all", public: false });
+	const clearFilters = () => onSearchChange({ q: "", tags: [], type: "all" });
 
 	const newDocumentButton = (
 		<Button
@@ -426,21 +422,13 @@ export function DocumentsPage({ search, onSearchChange }: DocumentsPageProps) {
 													</DropdownMenuRadioItem>
 												</DropdownMenuRadioGroup>
 											</DropdownMenuGroup>
-											{(hasPublic || tags.length > 0 || jobs.length > 0) && (
+											{(tags.length > 0 || jobs.length > 0) && (
 												<>
 													<DropdownMenuSeparator />
 													<DropdownMenuGroup>
 														<DropdownMenuLabel>
 															<Trans>Show</Trans>
 														</DropdownMenuLabel>
-														{hasPublic && (
-															<DropdownMenuCheckboxItem
-																checked={search.public ?? false}
-																onCheckedChange={(on) => onSearchChange({ public: on })}
-															>
-																<Trans>Public</Trans>
-															</DropdownMenuCheckboxItem>
-														)}
 														{tags.map((tag) => (
 															<DropdownMenuCheckboxItem
 																key={tag}
@@ -532,17 +520,7 @@ export function DocumentsPage({ search, onSearchChange }: DocumentsPageProps) {
 							{/* Desktop: the chips follow the field. Tablets: their own line under the field, sort and view (M2).
 							    Phones: inside the one button. */}
 							<div className="flex flex-wrap items-center gap-2 max-lg:order-last max-lg:w-full max-sm:hidden lg:contents">
-								{/* Chips come from the data: Public once any link is on, the tags in use, a job with several documents. */}
-								{hasPublic && (
-									<Chip
-										pressed={search.public ?? false}
-										className="lg:ms-2"
-										onClick={() => onSearchChange({ public: !search.public })}
-									>
-										<Icon name="globe-simple" size={16} />
-										<Trans>Public</Trans>
-									</Chip>
-								)}
+								{/* Chips come from the data: the tags in use, a job with several documents. */}
 								{tags.map((tag) => {
 									const isActive = search.tags.includes(tag);
 									return (
@@ -905,7 +883,6 @@ type DocumentsSelectionBarProps = {
  * document: these are quiet, and Trash is red text because its toast can undo it.
  */
 function DocumentsSelectionBar({ selection, total, onSelectAll, onClear, onTags }: DocumentsSelectionBarProps) {
-	const resumes = selection.filter((document) => document.type === "resume").length;
 	const allLocked = selection.every((document) => document.isLocked);
 	const batch = useBatchActions();
 	const [busy, setBusy] = useState(false);
@@ -940,50 +917,6 @@ function DocumentsSelectionBar({ selection, total, onSelectAll, onClear, onTags 
 				<Icon name="tag" />
 				<Trans>Tags…</Trans>
 			</Button>
-			<DropdownMenu>
-				<DropdownMenuTrigger
-					render={
-						<Button
-							variant="ghost"
-							size="sm"
-							disabled={busy}
-							className="data-popup-open:bg-hover data-popup-open:text-ink"
-						>
-							<Icon name="globe-simple" />
-							<Trans>Sharing</Trans>
-							<Icon name="caret-down" />
-						</Button>
-					}
-				/>
-				<DropdownMenuContent side="top" align="start" alignOffset={-4} sideOffset={14} className="w-62">
-					<DropdownMenuItem disabled={resumes === 0} onClick={() => void run(() => batch.setPublic(selection, true))}>
-						<Icon name="globe-simple" />
-						<Trans>Make public</Trans>
-					</DropdownMenuItem>
-					<DropdownMenuItem disabled={resumes === 0} onClick={() => void run(() => batch.setPublic(selection, false))}>
-						<Icon name="eye-slash" />
-						<Trans>Make private</Trans>
-					</DropdownMenuItem>
-					<DropdownMenuSeparator />
-					{/* Says what it reaches before it runs, instead of reporting skipped letters afterwards. */}
-					<p className="px-2.5 pt-1.5 pb-2 t-small text-ink-3">
-						{resumes === selection.length ? (
-							<Plural
-								value={resumes}
-								one="Applies to the # resume selected."
-								other="Applies to the # resumes selected."
-							/>
-						) : (
-							<Plural
-								value={resumes}
-								_0="Letters have no public link."
-								one="Applies to the # resume selected. Letters have no public link."
-								other="Applies to the # resumes selected. Letters have no public link."
-							/>
-						)}
-					</p>
-				</DropdownMenuContent>
-			</DropdownMenu>
 			<Button
 				variant="ghost"
 				size="sm"

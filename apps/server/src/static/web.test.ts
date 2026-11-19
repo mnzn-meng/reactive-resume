@@ -25,7 +25,7 @@ vi.mock("@reactive-resume/env/server", () => ({
 	env: mocks.env,
 }));
 
-const { handleWebApp, isPublicResumePath, contentSecurityPolicy } = await import("./web");
+const { handleWebApp, contentSecurityPolicy } = await import("./web");
 
 it("builds font-src with the application and configured mirror origins", () => {
 	mocks.env.FONT_MIRROR_URL = "http://fonts.example.test:8080/resume";
@@ -260,9 +260,6 @@ describe("web app fallback classification", () => {
 
 	it("serves a feedback link's page as the app, never indexed and without a referrer", async () => {
 		const pathname = "/feedback/0190f3a2-7c1e-7000-8000-000000000000~AbC_dEf-123";
-		expect(isPublicResumePath(pathname)).toBe(false);
-		// An account named "feedback" keeps its resume pages: slugs never hold "~".
-		expect(isPublicResumePath("/feedback/my-resume")).toBe(true);
 		const response = await handleWebApp(new Request(`https://example.com${pathname}`));
 		expect(response.status).toBe(200);
 		expect(response.headers.get("X-Robots-Tag")).toBe("noindex, nofollow");

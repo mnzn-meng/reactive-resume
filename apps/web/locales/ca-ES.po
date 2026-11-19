@@ -1502,14 +1502,6 @@ msgstr "{lines, plural, one {La pàgina {page} es passa d'aproximadament # líni
 msgid "{lines, plural, one {Page {page} still runs over by about # line.} other {Page {page} still runs over by about # lines.}}"
 msgstr "{lines, plural, one {La pàgina {page} encara es passa d'aproximadament # línia.} other {La pàgina {page} encara es passa d'aproximadament # línies.}}"
 
-#: src/features/documents/document-actions.tsx
-msgid "{made, plural, one {# made private} other {# made private}}"
-msgstr "{made, plural, one {# fet privat} other {# fets privats}}"
-
-#: src/features/documents/document-actions.tsx
-msgid "{made, plural, one {# made public} other {# made public}}"
-msgstr "{made, plural, one {# fet públic} other {# fets públics}}"
-
 #: src/features/resume/editor/check/page-layer.tsx
 msgid "{mentions, plural, one {found in # place} other {found in # places}}"
 msgstr "{mentions, plural, one {trobat en # lloc} other {trobat en # llocs}}"
@@ -1691,14 +1683,6 @@ msgstr "{removed, plural, one {en modifica o elimina # de les teves frases} othe
 #: src/features/documents/document-actions.tsx
 msgid "{restored, plural, one {# document restored} other {# documents restored}}"
 msgstr "{restored, plural, one {# document restaurat} other {# documents restaurats}}"
-
-#: src/features/documents/documents-page.tsx
-msgid "{resumes, plural, =0 {Letters have no public link.} one {Applies to the # resume selected. Letters have no public link.} other {Applies to the # resumes selected. Letters have no public link.}}"
-msgstr "{resumes, plural, =0 {Les cartes no tenen enllaç públic.} one {S'aplica al # currículum seleccionat. Les cartes no tenen enllaç públic.} other {S'aplica als # currículums seleccionats. Les cartes no tenen enllaç públic.}}"
-
-#: src/features/documents/documents-page.tsx
-msgid "{resumes, plural, one {Applies to the # resume selected.} other {Applies to the # resumes selected.}}"
-msgstr "{resumes, plural, one {S'aplica al # currículum seleccionat.} other {S'aplica als # currículums seleccionats.}}"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "{rules, plural, =2 {Removes both rules; Undo brings them back, and History keeps every saved version. Reset design never touches your CSS.} one {Removes the rule; Undo brings it back, and History keeps every saved version. Reset design never touches your CSS.} other {Removes all # rules; Undo brings them back, and History keeps every saved version. Reset design never touches your CSS.}}"
@@ -1898,15 +1882,6 @@ msgstr "+13 pts d'activació"
 #: src/features/keyboard-shortcuts/index.tsx
 msgid "<0>?</0> opens this list on any page."
 msgstr "<0>?</0> obre aquesta llista des de qualsevol pàgina."
-
-#. placeholder {0}: user.username
-#: src/features/settings/account/profile.tsx
-msgid "<0>{host}/{0}</0> · part of every public link"
-msgstr "<0>{host}/{0}</0> · forma part de cada enllaç públic"
-
-#: src/features/settings/account/profile.tsx
-msgid "<0>{oldAddress}</0> becomes <1>{newAddress}</1>."
-msgstr "<0>{oldAddress}</0> passa a ser <1>{newAddress}</1>."
 
 #: src/components/input/chip-input.tsx
 msgid "<0>{RETURN_KEY}</0> or a comma adds one. Drag to reorder."
@@ -4398,10 +4373,6 @@ msgstr "El canvi a <0>{pendingEmail}</0> espera l'aprovació de {0}. L'enllaç f
 msgid "Change to <0>{pendingEmail}</0> is waiting: open the link we sent there. The link works for an hour."
 msgstr "El canvi a <0>{pendingEmail}</0> està pendent: obre l'enllaç que t'hi hem enviat. L'enllaç funciona durant una hora."
 
-#: src/features/settings/account/profile.tsx
-msgid "Change username"
-msgstr "Canvia el nom d'usuari"
-
 #: src/dialogs/auth/change-password.tsx
 msgid "Change your password"
 msgstr "Canvieu la contrasenya"
@@ -5371,10 +5342,6 @@ msgstr "Nom de la conversa"
 msgid "Conversations"
 msgstr "Converses"
 
-#: src/features/homepage/share.tsx
-msgid "Copied"
-msgstr "Copiat"
-
 #: src/features/career/coach-chat.tsx
 msgid "Copies for {company}"
 msgstr "Còpies per a {company}"
@@ -5436,17 +5403,9 @@ msgstr "Còpia per a una feina..."
 msgid "Copy it for a job"
 msgstr "Copia'l per a una feina"
 
-#: src/features/homepage/share.tsx
-msgid "Copy link"
-msgstr "Copia l'enllaç"
-
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Copy made for {company}. This resume is unchanged."
 msgstr "S'ha fet una còpia per a {company}. Aquest currículum no canvia."
-
-#: src/features/documents/document-actions.tsx
-msgid "Copy public link"
-msgstr "Copia l'enllaç públic"
 
 #: src/features/career/offers.tsx
 msgid "Copy questions"
@@ -7146,6 +7105,7 @@ msgstr "Completat · {0}"
 
 #: src/features/career/workspace/apply.tsx
 #: src/features/career/workspace/practise.tsx
+#: src/features/homepage/share.tsx
 #: src/features/resume/editor/chrome/bar.tsx
 #: src/features/resume/share/download-menu.tsx
 #: src/features/resume/share/web-page-text.ts
@@ -7969,6 +7929,10 @@ msgstr "Cada dia"
 msgid "Every entry has dates in a form systems read, in order, and none in the future."
 msgstr "Cada entrada té dates en un formulari que els sistemes llegeixen, en ordre, i cap en el futur."
 
+#: src/features/homepage/share.tsx
+msgid "Every format, yours"
+msgstr ""
+
 #: src/features/resume/editor/check/issues.ts
 msgid "Every role says what you did. Opinions on wording live in the Writing tab."
 msgstr "Cada paper diu el que has fet. Opinions sobre la redacció en directe a la pestanya Redacció."
@@ -8046,6 +8010,10 @@ msgstr "Experiència, Educació i més"
 msgid "explain one limit of the measurement clearly, without underselling the work."
 msgstr "expliqueu clarament una limitació de la mesura, sense infravalorar la feina."
 
+#: src/features/documents/document-actions.tsx
+#: src/features/homepage/footer.tsx
+#: src/features/homepage/header.tsx
+#: src/features/homepage/share.tsx
 #: src/features/settings/profile.tsx
 #: src/libs/resume/section.tsx
 #: src/routes/builder/letter/-components/letter-bar.tsx
@@ -8626,6 +8594,7 @@ msgstr "Respostes del formulari"
 msgid "Form questions (optional)"
 msgstr "Preguntes del formulari (opcional)"
 
+#: src/features/homepage/share.tsx
 #: src/features/resume/share/download-tab.tsx
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Format"
@@ -10068,10 +10037,6 @@ msgstr "Conserva aquesta resposta"
 msgid "Keep to two or three families. Each extra font is another chance for one to map badly."
 msgstr "Limita't a dues o tres famílies. Cada tipus de lletra addicional és una oportunitat més perquè un es representi malament."
 
-#: src/features/settings/account/profile.tsx
-msgid "Keep username"
-msgstr "Conserva el nom d'usuari"
-
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Keep with it"
 msgstr "Mantén-ho amb ell"
@@ -10627,7 +10592,6 @@ msgstr "Enllaça una sol·licitud de feina..."
 msgid "Link an existing letter"
 msgstr "Enllaça una carta existent"
 
-#: src/features/documents/document-actions.tsx
 #: src/features/resume/share/web-page-text.ts
 msgid "Link copied"
 msgstr "S'ha copiat l'enllaç"
@@ -10715,10 +10679,6 @@ msgstr "LinkedIn, Recomanació…"
 #: src/features/settings/profile.tsx
 msgid "Links"
 msgstr "Enllaços"
-
-#: src/features/settings/account/profile.tsx
-msgid "Links you've already shared keep working for 30 days, then stop. Share the new ones before then."
-msgstr "Els enllaços que ja has compartit continuen funcionant durant 30 dies i després s'aturen. Comparteix-ne els nous abans."
 
 #: src/features/homepage/hero.tsx
 msgid "Lisbon"
@@ -10954,18 +10914,6 @@ msgstr "Baixa"
 msgid "Lower the design sheet"
 msgstr "Baixeu el full de disseny"
 
-#. placeholder {0}: number(made)
-#. placeholder {1}: number(total)
-#: src/features/documents/document-actions.tsx
-msgid "Made {0} of {1} private. Letters have no public link, and locked documents are left as they are."
-msgstr "S'han fet privats {0} de {1}. Les cartes no tenen enllaç públic i els documents bloquejats no es modifiquen."
-
-#. placeholder {0}: number(made)
-#. placeholder {1}: number(total)
-#: src/features/documents/document-actions.tsx
-msgid "Made {0} of {1} public. Letters have no public link, and locked documents are left as they are."
-msgstr "S'han fet públics {0} de {1}. Les cartes no tenen enllaç públic i els documents bloquejats no es modifiquen."
-
 #: src/features/resume/share/web-page-text.ts
 msgid "Made with Reactive Resume"
 msgstr ""
@@ -11019,14 +10967,6 @@ msgstr "Feu-ho més específic"
 #: src/features/resume/editor/write/improve.tsx
 msgid "Make it shorter"
 msgstr "Fes-ho més curt"
-
-#: src/features/documents/documents-page.tsx
-msgid "Make private"
-msgstr "Fes privat"
-
-#: src/features/documents/documents-page.tsx
-msgid "Make public"
-msgstr "Fes públic"
 
 #: src/features/assistant/assistant-panel.tsx
 msgid "Make the opening stronger"
@@ -13572,10 +13512,6 @@ msgstr "Parcel & Co."
 msgid "Parcel & Co. · Porto"
 msgstr "Parcel & Co. · Porto"
 
-#: src/features/settings/account/profile.tsx
-msgid "Part of every public link. Old links keep working for 30 days after a change."
-msgstr "Part de cada enllaç públic. Els enllaços antics continuen funcionant durant 30 dies després d'un canvi."
-
 #: src/features/career/workspace/fit.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Partly supported"
@@ -13603,7 +13539,6 @@ msgstr "Les claus d'accés necessiten un correu verificat, i aquest servidor no 
 #: src/features/auth/pages/login.tsx
 #: src/features/auth/pages/register.tsx
 #: src/features/command-palette/pages/navigation.tsx
-#: src/features/homepage/share.tsx
 #: src/features/resume/builder/password-dialog.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/features/settings/account/auth-hooks.ts
@@ -14285,10 +14220,6 @@ msgstr "Imprimeix"
 msgid "Print or export the form to a flat PDF before sending it."
 msgstr "Imprimeix o exporta el formulari a un PDF pla abans d'enviar-lo."
 
-#: src/features/homepage/share.tsx
-msgid "Private"
-msgstr "Privat"
-
 #: src/routes/builder/$resumeId/-sidebar/right/sections/notes.tsx
 msgid "Private notes about this resume. Nobody else can see them."
 msgstr "Notes privades sobre aquest currículum. Ningú més les pot veure."
@@ -14296,10 +14227,6 @@ msgstr "Notes privades sobre aquest currículum. Ningú més les pot veure."
 #: src/features/career/coach-chat.tsx
 msgid "Private to this application"
 msgstr "Privat d'aquesta candidatura"
-
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Private. Only you can see it."
-msgstr "Privat. Només tu ho pots veure."
 
 #: src/features/homepage/check.tsx
 #: src/features/homepage/sheet.tsx
@@ -14415,19 +14342,6 @@ msgstr "La retenció al proveïdor segueix la seva pròpia política. El teu pro
 #: src/features/ai/usage.tsx
 msgid "Provider test"
 msgstr "Prova del proveïdor"
-
-#: src/features/documents/document-status.tsx
-#: src/features/documents/documents-page.tsx
-#: src/features/homepage/share.tsx
-#: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Public"
-msgstr "Públic"
-
-#: src/features/documents/document-status.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Public, with a password"
-msgstr "Públic, amb contrasenya"
 
 #: src/libs/resume/section.tsx
 msgid "Publications"
@@ -17083,18 +16997,10 @@ msgstr "Color de l'ombra"
 msgid "Shadow width"
 msgstr "Amplada de l'ombra"
 
-#: src/features/documents/document-actions.tsx
-#: src/features/homepage/footer.tsx
-#: src/features/homepage/header.tsx
-#: src/features/homepage/share.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
 msgid "Share"
 msgstr "Comparteix"
-
-#: src/features/homepage/share.tsx
-msgid "Share a public link, add a password or keep it private. Choose from 3 visibility options. Export to PDF or Word, or take all your data with you as JSON."
-msgstr "Comparteix un enllaç públic, afegeix una contrasenya o manté-la privada. Trieu entre 3 opcions de visibilitat. Exporteu a PDF o Word, o emporteu totes les vostres dades com a JSON."
 
 #. placeholder {0}: provider.label
 #: src/libs/orpc/ai-consent.ts
@@ -17104,10 +17010,6 @@ msgstr "Vols compartir dades amb {0}?"
 #: src/features/resume/editor/chrome/download-sheet.tsx
 msgid "Share sections"
 msgstr "Comparteix seccions"
-
-#: src/features/documents/document-actions.tsx
-msgid "Share…"
-msgstr "Comparteix…"
 
 #: src/libs/orpc/ai-consent.ts
 msgid "Shares only resume and posting. Knowledge, private notes and web access are excluded. Review proposals before accepting; the original stays unchanged."
@@ -17121,9 +17023,7 @@ msgstr "Comparteix només el fet seleccionat de Coneixements, el currículum i l
 msgid "Shares resume, posting and pasted questions. Answer drafts also use your letter, career preferences, application notes and contacts, and enabled Knowledge facts and stories. Context may be excerpted. Web access is off. Review before saving; nothing is submitted."
 msgstr "Comparteix el currículum, l’oferta i les preguntes enganxades. Els esborranys de resposta també fan servir la carta, preferències professionals, notes i contactes de la candidatura i fets i històries actius de Coneixements. El context es pot abreujar. Accés web desactivat. Revisa abans de desar; no s’envia res."
 
-#: src/features/documents/documents-page.tsx
 #: src/libs/resume/section.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
 msgid "Sharing"
 msgstr "Compartició"
 
@@ -18354,6 +18254,10 @@ msgstr "Currículum adaptat vs. base"
 #: src/features/career/workspace/practise.tsx
 msgid "Take dictation with"
 msgstr "Dicta amb"
+
+#: src/features/homepage/share.tsx
+msgid "Take it as PDF, Word, Markdown or JSON. Your resume is yours: no lock-in, and every format is free."
+msgstr ""
 
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "Take-home assignment"
@@ -20936,9 +20840,9 @@ msgstr "Mostra l'anunci a {host}"
 msgid "View recorded answers"
 msgstr "Mostra les respostes enregistrades"
 
-#: src/features/homepage/share.tsx
-msgid "Visibility"
-msgstr "Visibilitat"
+#: src/features/settings/account/profile.tsx
+msgid "Visible to nobody but you; used to sign in."
+msgstr ""
 
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
@@ -22191,14 +22095,6 @@ msgstr "el vostre proveïdor"
 msgid "Your provider may charge for the run."
 msgstr "El teu proveïdor pot cobrar per l'execució."
 
-#: src/features/settings/account/profile.tsx
-msgid "Your public link will change"
-msgstr "El teu enllaç públic canviarà"
-
-#: src/features/settings/account/profile.tsx
-msgid "Your public links will change"
-msgstr "Els teus enllaços públics canviaran"
-
 #: src/features/career/workspace/messages.tsx
 msgid "Your reply"
 msgstr "La teva resposta"
@@ -22242,10 +22138,6 @@ msgstr "El text del teu currículum, els passatges seleccionats i les troballes 
 #: src/features/ats-checker/messages.ts
 msgid "Your resume uses \"I\" and \"my\"."
 msgstr "El teu currículum utilitza «I» i «my»."
-
-#: src/features/homepage/share.tsx
-msgid "Your resume, live at"
-msgstr "El teu currículum, viu a"
 
 #: src/features/documents/documents-page.tsx
 msgid "Your resumes and cover letters live here"

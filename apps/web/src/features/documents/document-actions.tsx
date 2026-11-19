@@ -7,8 +7,6 @@ import { Plural, Trans } from "@lingui/react/macro";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { lazy, Suspense, useId, useRef, useState } from "react";
-import { useCopyToClipboard } from "usehooks-ts";
-import { publicResumeUrl } from "@reactive-resume/resume/sharing";
 import { Button } from "@reactive-resume/ui/components/button";
 import { ContextMenuContent, ContextMenuItem, ContextMenuSeparator } from "@reactive-resume/ui/components/context-menu";
 import {
@@ -39,9 +37,7 @@ import { ChipInput } from "@/components/input/chip-input";
 import { useDialogStore } from "@/dialogs/store";
 import { applicationsListQueryOptions } from "@/features/applications/queries";
 import { useDocumentDownload } from "@/features/applications/use-document-download";
-import { useShareOrigin } from "@/features/resume/share/use-share-origin";
 import { useClosingValue } from "@/hooks/use-closing-value";
-import { authClient } from "@/libs/auth/client";
 import { toastError } from "@/libs/error-message";
 import { orpc } from "@/libs/orpc/client";
 import { confirmUndone } from "@/libs/undone";
@@ -136,7 +132,6 @@ export function useDocumentActions() {
 									q: name,
 									type: document.type,
 									tags: [],
-									public: false,
 									sort: "created",
 								}),
 							});
@@ -208,7 +203,6 @@ export function useBatchActions() {
 			onSuccess: (result) => (result.deleted > 0 ? onEffect("purge") : undefined),
 		}),
 	);
-	const updateResume = useMutation(orpc.resume.update.mutationOptions());
 
 	// The server accepts a large selection, but splitting it keeps one request's body bounded on old clients that
 	// still load the whole library.
@@ -229,31 +223,7 @@ export function useBatchActions() {
 		return targets.filter((_, index) => results[index]?.status === "fulfilled");
 	};
 
-	const number = (value: number) => i18n.number(value);
-
 	return {
-		setPublic: async (documents: readonly DocumentSummary[], isPublic: boolean) => {
-			const done = await run(
-				documents,
-				(document) => document.type === "resume" && !document.isLocked && document.isPublic !== isPublic,
-				(document) => updateResume.mutateAsync({ id: document.id, isPublic }),
-			);
-			// Already in that state counts as done.
-			const made = done.length + documents.filter((document) => document.isPublic === isPublic).length;
-			const total = documents.length;
-			toast.add({
-				type: made === 0 ? "error" : undefined,
-				description:
-					made === total
-						? isPublic
-							? plural(made, { one: "# made public", other: "# made public" })
-							: plural(made, { one: "# made private", other: "# made private" })
-						: isPublic
-							? t`Made ${number(made)} of ${number(total)} public. Letters have no public link, and locked documents are left as they are.`
-							: t`Made ${number(made)} of ${number(total)} private. Letters have no public link, and locked documents are left as they are.`,
-			});
-		},
-
 		/** Reversible, so it happens at once; Undo puts back the documents this changed (ruling P3). */
 		setLocked: async (documents: readonly DocumentSummary[], isLocked: boolean) => {
 			const done = await run(
@@ -440,20 +410,10 @@ export function DocumentMenuContent({
 	variant = "dropdown",
 }: DocumentMenuProps) {
 	const actions = useDocumentActions();
-	const navigate = useNavigate();
 	const { download, downloading } = useDocumentDownload();
 	const openDialog = useDialogStore((state) => state.openDialog);
-	const { data: session } = authClient.useSession();
-	const [, copy] = useCopyToClipboard();
-	const origin = useShareOrigin();
 	const sentOn = useDocumentSentDate(document);
-	const username = session?.user.username;
 	const isResume = document.type === "resume";
-	// A resume's public address, or null while its link is off.
-	const url =
-		isResume && document.isPublic && document.slug && username
-			? publicResumeUrl(origin, { username, slug: document.slug })
-			: null;
 
 	const groups: MenuGroup[] = [
 		{
@@ -463,32 +423,8 @@ export function DocumentMenuContent({
 			],
 		},
 		{
-			label: t`Share`,
+			label: t`Export`,
 			entries: [
-				...(isResume
-					? [
-							{
-								icon: "share-network",
-								label: t`Share…`,
-								// The editor's Share view: public link, password, web page and download settings.
-								onSelect: () =>
-									void navigate({
-										to: "/builder/$resumeId",
-										params: { resumeId: document.id },
-										search: { mode: "share" },
-									}),
-							} satisfies MenuEntry,
-						]
-					: []),
-				...(url
-					? [
-							{
-								icon: "link",
-								label: t`Copy public link`,
-								onSelect: () => void copy(url).then((copied) => copied && toast.add({ description: t`Link copied` })),
-							} satisfies MenuEntry,
-						]
-					: []),
 				{
 					icon: "download-simple",
 					label: t`Download PDF`,

@@ -16,21 +16,10 @@ export const resume = pg.pgTable(
 			.primaryKey()
 			.$defaultFn(() => generateId()),
 		name: pg.text("name").notNull(),
-		slug: pg.text("slug").notNull(),
 		tags: pg.text("tags").array().notNull().default([]),
 		// Private request lineage stays outside portable resume data.
 		aiOperationIds: pg.text("ai_operation_ids").array().notNull().default([]),
-		isPublic: pg.boolean("is_public").notNull().default(false),
-		showDownloadButtons: pg.boolean("show_download_buttons").notNull().default(true),
-		allowWordDownload: pg.boolean("allow_word_download").notNull().default(false),
-		// Share settings that decide who sees what. They live here, not in `data`, so a JSON patch, an import or a
-		// version restore can never change them.
-		showInSearchEngines: pg.boolean("show_in_search_engines").notNull().default(false),
-		hideContactDetails: pg.boolean("hide_contact_details").notNull().default(false),
-		// The resume an account's short link and custom domain open; at most one per user.
-		isPrimary: pg.boolean("is_primary").notNull().default(false),
 		isLocked: pg.boolean("is_locked").notNull().default(false),
-		password: pg.text("password"),
 		// "Made for this application": Check's job match, the assistant and Copy for a job use its posting.
 		// Separate from application.resume_id, the resume linked to (or sent with) an application.
 		applicationId: pg.text("application_id").references((): AnyPgColumn => application.id, { onDelete: "set null" }),
@@ -38,9 +27,6 @@ export const resume = pg.pgTable(
 		trashedAt: pg.timestamp("trashed_at", { withTimezone: true }),
 		// A blank resume's name follows its headline until the user renames it.
 		autoName: pg.boolean("auto_name").notNull().default(false),
-		// The address was made by the app and nobody has been sent it: it follows the name until the resume is
-		// published or someone chooses an address.
-		autoSlug: pg.boolean("auto_slug").notNull().default(false),
 		data: pg
 			.jsonb("data")
 			.notNull()
@@ -62,14 +48,8 @@ export const resume = pg.pgTable(
 		editedAt: pg.timestamp("edited_at", { withTimezone: true }).defaultNow(),
 	},
 	(t) => [
-		pg.unique().on(t.slug, t.userId),
 		pg.index().on(t.createdAt.asc()),
 		pg.index().on(t.userId, t.updatedAt.desc()),
-		pg.index().on(t.isPublic, t.slug, t.userId),
-		pg
-			.uniqueIndex("resume_primary_unique")
-			.on(t.userId)
-			.where(sql`${t.isPrimary}`),
 		// Finds documents past Trash retention without scanning every resume.
 		pg
 			.index()
@@ -133,78 +113,6 @@ export const resumeVersion = pg.pgTable(
 		// Looked up when the row it points to is deleted.
 		pg.index().on(t.userId),
 	],
-);
-
-/** A resume's previous public address, kept for 30 days after a rename so shared links keep working. */
-export const resumeSlugRedirect = pg.pgTable(
-	"resume_slug_redirect",
-	{
-		id: pg
-			.text("id")
-			.notNull()
-			.primaryKey()
-			.$defaultFn(() => generateId()),
-		slug: pg.text("slug").notNull(),
-		resumeId: pg
-			.text("resume_id")
-			.notNull()
-			.references(() => resume.id, { onDelete: "cascade" }),
-		userId: pg
-			.text("user_id")
-			.notNull()
-			.references(() => user.id, { onDelete: "cascade" }),
-		expiresAt: pg.timestamp("expires_at", { withTimezone: true }).notNull(),
-		createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-	},
-	(t) => [pg.unique().on(t.userId, t.slug), pg.index().on(t.resumeId)],
-);
-
-export const resumeStatistics = pg.pgTable("resume_statistics", {
-	id: pg
-		.text("id")
-		.notNull()
-		.primaryKey()
-		.$defaultFn(() => generateId()),
-	views: pg.integer("views").notNull().default(0),
-	downloads: pg.integer("downloads").notNull().default(0),
-	lastViewedAt: pg.timestamp("last_viewed_at", { withTimezone: true }),
-	lastDownloadedAt: pg.timestamp("last_downloaded_at", { withTimezone: true }),
-	resumeId: pg
-		.text("resume_id")
-		.unique()
-		.notNull()
-		.references(() => resume.id, { onDelete: "cascade" }),
-	createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-	updatedAt: pg
-		.timestamp("updated_at", { withTimezone: true })
-		.notNull()
-		.defaultNow()
-		.$onUpdate(() => /* @__PURE__ */ new Date()),
-});
-
-export const resumeStatisticsDaily = pg.pgTable(
-	"resume_statistics_daily",
-	{
-		id: pg
-			.text("id")
-			.notNull()
-			.primaryKey()
-			.$defaultFn(() => generateId()),
-		date: pg.date("date", { mode: "string" }).notNull(),
-		views: pg.integer("views").notNull().default(0),
-		downloads: pg.integer("downloads").notNull().default(0),
-		resumeId: pg
-			.text("resume_id")
-			.notNull()
-			.references(() => resume.id, { onDelete: "cascade" }),
-		createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-		updatedAt: pg
-			.timestamp("updated_at", { withTimezone: true })
-			.notNull()
-			.defaultNow()
-			.$onUpdate(() => /* @__PURE__ */ new Date()),
-	},
-	(t) => [pg.unique().on(t.resumeId, t.date), pg.index().on(t.resumeId, t.date.desc())],
 );
 
 /** One paid writing review per resume, kept independently of the editable document revision. */

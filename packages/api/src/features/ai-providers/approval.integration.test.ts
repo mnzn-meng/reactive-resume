@@ -292,7 +292,6 @@ describe.skipIf(!process.env.INTEGRATIONS_TEST_DATABASE_URL)(
 						id: "letter-source",
 						userId: "alice",
 						name: "Fictional",
-						slug: "fictional",
 						data: structuredClone(defaultResumeData),
 					});
 				await getDb()
@@ -503,7 +502,6 @@ describe.skipIf(!process.env.INTEGRATIONS_TEST_DATABASE_URL)(
 						id: "resume",
 						name: "Fictional resume",
 						userId: "alice",
-						slug: "fictional",
 						data: sampleResumeData,
 					});
 					await pool.query("UPDATE application SET resume_id='resume' WHERE id='app'");
@@ -598,7 +596,6 @@ describe.skipIf(!process.env.INTEGRATIONS_TEST_DATABASE_URL)(
 						id: "document",
 						userId: "alice",
 						name: "Fictional",
-						slug: "fictional",
 						data: structuredClone(defaultResumeData),
 					});
 				await pool.query("UPDATE application SET resume_id=$1 WHERE id=$2", ["document", "app"]);

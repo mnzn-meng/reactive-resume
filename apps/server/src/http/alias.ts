@@ -12,10 +12,10 @@ const appOrigin = new URL(env.APP_URL).origin;
 export const onAppDomain = (url: URL) => `${appOrigin}${url.pathname}${url.search}`;
 
 /**
- * The alias domain (`APP_ALIAS_URL`) serves the same public pages as `APP_URL`: resumes, `/<username>`, the home and
- * marketing pages, and the API they call. Signing in and the editor live on `APP_URL` alone (login cookies, passkeys
- * and social sign-in belong to one domain), so on the alias those sections move there. Search engines are pointed at
- * `APP_URL` by each page's canonical address. Other hosts and paths are left alone.
+ * The alias domain (`APP_ALIAS_URL`) serves the home and marketing pages, and the API they call. Signing in and the
+ * editor live on `APP_URL` alone (login cookies, passkeys and social sign-in belong to one domain), so on the alias
+ * those sections move there. Search engines are pointed at `APP_URL` by each page's canonical address. Other hosts
+ * and paths are left alone.
  */
 export function handleAlias(request: Request): Response | null {
 	if (!aliasHost) return null;

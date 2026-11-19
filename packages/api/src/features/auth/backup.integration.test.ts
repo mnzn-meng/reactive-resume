@@ -73,7 +73,7 @@ it.skipIf(!databaseUrl)(
 				});
 				const [neighborResume] = await db
 					.insert(tables.resume)
-					.values({ userId: neighborId, name: "NEIGHBOR-DOCUMENT", slug: "private" })
+					.values({ userId: neighborId, name: "NEIGHBOR-DOCUMENT" })
 					.returning();
 				if (!neighborResume) throw new Error("Neighbor fixture missing");
 				await db.insert(tables.resumeVersion).values({
@@ -91,9 +91,7 @@ it.skipIf(!databaseUrl)(
 					.values({
 						userId: ownerId,
 						name: "Current resume",
-						slug: "resume",
 						data: resumeData,
-						password: "never-export-password",
 					})
 					.returning();
 				if (!resume) throw new Error("Resume fixture missing");

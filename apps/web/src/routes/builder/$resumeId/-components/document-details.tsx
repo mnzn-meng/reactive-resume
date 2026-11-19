@@ -1,13 +1,10 @@
 import type { ReactNode } from "react";
 import { useLingui } from "@lingui/react";
 import { Plural, Trans } from "@lingui/react/macro";
-import { publicResumeUrl } from "@reactive-resume/resume/sharing";
 import { DialogDescription, DialogHeader, DialogTitle } from "@reactive-resume/ui/components/dialog";
 import { templates } from "@/dialogs/resume/template/data";
 import { useCurrentResume } from "@/features/resume/builder/draft";
 import { useEditorStore } from "@/features/resume/editor/store";
-import { useShareOrigin } from "@/features/resume/share/use-share-origin";
-import { authClient } from "@/libs/auth/client";
 import { formatRelativeTime, localeMap, resolveLocale } from "@/libs/locale";
 
 /** The page language as Design › Page and the letter name it: "British English", not "English (United Kingdom)". */
@@ -32,16 +29,13 @@ function Row({ label, children }: RowProps) {
 
 /**
  * The document menu's Details: what this resume is, at a glance. When it was made and last edited, how it looks,
- * how long it runs, and whether anyone can see it.
+ * and how long it runs.
  */
 export function DocumentDetails() {
 	const { i18n } = useLingui();
 	const resume = useCurrentResume();
 	const pageCount = useEditorStore((state) => state.rendered.pageCount);
-	const { data: session } = authClient.useSession();
 	const { template, page } = resume.data.metadata;
-	const origin = useShareOrigin();
-	const url = publicResumeUrl(origin, { username: session?.user.username ?? "", slug: resume.slug });
 
 	return (
 		<>
@@ -72,23 +66,6 @@ export function DocumentDetails() {
 				</Row>
 				<Row label={<Trans>Length</Trans>}>
 					{pageCount > 0 ? <Plural value={pageCount} one="# page" other="# pages" /> : "—"}
-				</Row>
-				<Row label={<Trans>Sharing</Trans>}>
-					{resume.isPublic ? (
-						<>
-							{resume.hasPassword ? <Trans>Public, with a password</Trans> : <Trans>Public</Trans>}
-							<a
-								href={url}
-								target="_blank"
-								rel="noopener noreferrer"
-								className="mt-0.5 block font-mono text-[13px] break-all text-accent-text underline-offset-2 hover:underline"
-							>
-								{url.replace(/^https?:\/\//, "")}
-							</a>
-						</>
-					) : (
-						<Trans>Private. Only you can see it.</Trans>
-					)}
 				</Row>
 			</dl>
 		</>

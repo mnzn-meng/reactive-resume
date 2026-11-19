@@ -1502,14 +1502,6 @@ msgstr "{lines, plural, one {Сторінка {page} виходить за ме�
 msgid "{lines, plural, one {Page {page} still runs over by about # line.} other {Page {page} still runs over by about # lines.}}"
 msgstr "{lines, plural, one {Сторінка {page} усе ще виходить за межі приблизно на # рядок.} few {Сторінка {page} усе ще виходить за межі приблизно на # рядки.} many {Сторінка {page} усе ще виходить за межі приблизно на # рядків.} other {Сторінка {page} усе ще виходить за межі приблизно на # рядка.}}"
 
-#: src/features/documents/document-actions.tsx
-msgid "{made, plural, one {# made private} other {# made private}}"
-msgstr "{made, plural, one {зроблено приватними: #} other {зроблено приватними: #}}"
-
-#: src/features/documents/document-actions.tsx
-msgid "{made, plural, one {# made public} other {# made public}}"
-msgstr "{made, plural, one {зроблено публічними: #} other {зроблено публічними: #}}"
-
 #: src/features/resume/editor/check/page-layer.tsx
 msgid "{mentions, plural, one {found in # place} other {found in # places}}"
 msgstr "{mentions, plural, one {знайдено в # місці} few {знайдено в # місцях} many {знайдено в # місцях} other {знайдено в # місця}}"
@@ -1691,14 +1683,6 @@ msgstr "{removed, plural, one {змінює або видаляє # ваше р�
 #: src/features/documents/document-actions.tsx
 msgid "{restored, plural, one {# document restored} other {# documents restored}}"
 msgstr "{restored, plural, one {# документ відновлено} few {# документи відновлено} many {# документів відновлено} other {# документа відновлено}}"
-
-#: src/features/documents/documents-page.tsx
-msgid "{resumes, plural, =0 {Letters have no public link.} one {Applies to the # resume selected. Letters have no public link.} other {Applies to the # resumes selected. Letters have no public link.}}"
-msgstr "{resumes, plural, =0 {Листи не мають публічного посилання.} one {Застосовується до # вибраного резюме. Листи не мають публічного посилання.} other {Застосовується до # вибраних резюме. Листи не мають публічного посилання.}}"
-
-#: src/features/documents/documents-page.tsx
-msgid "{resumes, plural, one {Applies to the # resume selected.} other {Applies to the # resumes selected.}}"
-msgstr "{resumes, plural, one {Застосовується до # вибраного резюме.} other {Застосовується до # вибраних резюме.}}"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "{rules, plural, =2 {Removes both rules; Undo brings them back, and History keeps every saved version. Reset design never touches your CSS.} one {Removes the rule; Undo brings it back, and History keeps every saved version. Reset design never touches your CSS.} other {Removes all # rules; Undo brings them back, and History keeps every saved version. Reset design never touches your CSS.}}"
@@ -1898,15 +1882,6 @@ msgstr "+13 очок активації"
 #: src/features/keyboard-shortcuts/index.tsx
 msgid "<0>?</0> opens this list on any page."
 msgstr "<0>?</0> відкриває цей список на будь-якій сторінці."
-
-#. placeholder {0}: user.username
-#: src/features/settings/account/profile.tsx
-msgid "<0>{host}/{0}</0> · part of every public link"
-msgstr "<0>{host}/{0}</0> · частина кожного публічного посилання"
-
-#: src/features/settings/account/profile.tsx
-msgid "<0>{oldAddress}</0> becomes <1>{newAddress}</1>."
-msgstr "<0>{oldAddress}</0> стане <1>{newAddress}</1>."
 
 #: src/components/input/chip-input.tsx
 msgid "<0>{RETURN_KEY}</0> or a comma adds one. Drag to reorder."
@@ -4398,10 +4373,6 @@ msgstr "Зміна на <0>{pendingEmail}</0> чекає на підтвердж
 msgid "Change to <0>{pendingEmail}</0> is waiting: open the link we sent there. The link works for an hour."
 msgstr "Зміна на <0>{pendingEmail}</0> очікує: відкрийте посилання, яке ми туди надіслали. Посилання діє годину."
 
-#: src/features/settings/account/profile.tsx
-msgid "Change username"
-msgstr "Змінити ім’я користувача"
-
 #: src/dialogs/auth/change-password.tsx
 msgid "Change your password"
 msgstr "Змініть пароль"
@@ -5371,10 +5342,6 @@ msgstr "Назва розмови"
 msgid "Conversations"
 msgstr "Розмови"
 
-#: src/features/homepage/share.tsx
-msgid "Copied"
-msgstr "Скопійовано"
-
 #: src/features/career/coach-chat.tsx
 msgid "Copies for {company}"
 msgstr "Копії для {company}"
@@ -5436,17 +5403,9 @@ msgstr "Копія для роботи…"
 msgid "Copy it for a job"
 msgstr "Скопіювати для вакансії"
 
-#: src/features/homepage/share.tsx
-msgid "Copy link"
-msgstr "Копіювати посилання"
-
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Copy made for {company}. This resume is unchanged."
 msgstr "Копію для {company} створено. Це резюме не змінено."
-
-#: src/features/documents/document-actions.tsx
-msgid "Copy public link"
-msgstr "Копіювати публічне посилання"
 
 #: src/features/career/offers.tsx
 msgid "Copy questions"
@@ -7146,6 +7105,7 @@ msgstr "Виконано · {0}"
 
 #: src/features/career/workspace/apply.tsx
 #: src/features/career/workspace/practise.tsx
+#: src/features/homepage/share.tsx
 #: src/features/resume/editor/chrome/bar.tsx
 #: src/features/resume/share/download-menu.tsx
 #: src/features/resume/share/web-page-text.ts
@@ -7969,6 +7929,10 @@ msgstr "Щодня"
 msgid "Every entry has dates in a form systems read, in order, and none in the future."
 msgstr "Кожний запис має дати у системі форми, які читаються по порядку, і жодної дати в майбутньому."
 
+#: src/features/homepage/share.tsx
+msgid "Every format, yours"
+msgstr ""
+
 #: src/features/resume/editor/check/issues.ts
 msgid "Every role says what you did. Opinions on wording live in the Writing tab."
 msgstr "Кожна роль говорить про те, що ти зробив. Думки щодо формулювання живуть у вкладці Написання."
@@ -8046,6 +8010,10 @@ msgstr "Досвід, Освіта та інше"
 msgid "explain one limit of the measurement clearly, without underselling the work."
 msgstr "чітко поясніть одне обмеження вимірювання, не применшуючи роботи."
 
+#: src/features/documents/document-actions.tsx
+#: src/features/homepage/footer.tsx
+#: src/features/homepage/header.tsx
+#: src/features/homepage/share.tsx
 #: src/features/settings/profile.tsx
 #: src/libs/resume/section.tsx
 #: src/routes/builder/letter/-components/letter-bar.tsx
@@ -8626,6 +8594,7 @@ msgstr "Відповіді для форми"
 msgid "Form questions (optional)"
 msgstr "Запитання анкети (необов’язково)"
 
+#: src/features/homepage/share.tsx
 #: src/features/resume/share/download-tab.tsx
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Format"
@@ -10068,10 +10037,6 @@ msgstr "Зберегти цю відповідь"
 msgid "Keep to two or three families. Each extra font is another chance for one to map badly."
 msgstr "Обмежтеся двома-трьома гарнітурами. Кожен додатковий шрифт — ще один шанс, що щось відобразиться неправильно."
 
-#: src/features/settings/account/profile.tsx
-msgid "Keep username"
-msgstr "Залишити ім’я користувача"
-
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Keep with it"
 msgstr "Залишити разом"
@@ -10627,7 +10592,6 @@ msgstr "Посилання на заявку на роботу…"
 msgid "Link an existing letter"
 msgstr "Пов’язати наявний лист"
 
-#: src/features/documents/document-actions.tsx
 #: src/features/resume/share/web-page-text.ts
 msgid "Link copied"
 msgstr "Посилання скопійовано"
@@ -10715,10 +10679,6 @@ msgstr "LinkedIn, рекомендація…"
 #: src/features/settings/profile.tsx
 msgid "Links"
 msgstr "Посилання"
-
-#: src/features/settings/account/profile.tsx
-msgid "Links you've already shared keep working for 30 days, then stop. Share the new ones before then."
-msgstr "Посилання, якими ви вже поділилися, працюватимуть ще 30 днів, а потім перестануть. Поділіться новими до того часу."
 
 #: src/features/homepage/hero.tsx
 msgid "Lisbon"
@@ -10954,18 +10914,6 @@ msgstr "Низький"
 msgid "Lower the design sheet"
 msgstr "Опустіть лист дизайну"
 
-#. placeholder {0}: number(made)
-#. placeholder {1}: number(total)
-#: src/features/documents/document-actions.tsx
-msgid "Made {0} of {1} private. Letters have no public link, and locked documents are left as they are."
-msgstr "Зроблено приватними {0} з {1}. Листи не мають публічного посилання, а заблоковані документи не змінюються."
-
-#. placeholder {0}: number(made)
-#. placeholder {1}: number(total)
-#: src/features/documents/document-actions.tsx
-msgid "Made {0} of {1} public. Letters have no public link, and locked documents are left as they are."
-msgstr "Зроблено публічними {0} з {1}. Листи не мають публічного посилання, а заблоковані документи не змінюються."
-
 #: src/features/resume/share/web-page-text.ts
 msgid "Made with Reactive Resume"
 msgstr ""
@@ -11019,14 +10967,6 @@ msgstr "Зробіть це більш конкретним"
 #: src/features/resume/editor/write/improve.tsx
 msgid "Make it shorter"
 msgstr "Зробіть його коротшим"
-
-#: src/features/documents/documents-page.tsx
-msgid "Make private"
-msgstr "Зробити приватним"
-
-#: src/features/documents/documents-page.tsx
-msgid "Make public"
-msgstr "Зробити публічним"
 
 #: src/features/assistant/assistant-panel.tsx
 msgid "Make the opening stronger"
@@ -13572,10 +13512,6 @@ msgstr "Parcel & Co."
 msgid "Parcel & Co. · Porto"
 msgstr "Parcel & Co. · Porto"
 
-#: src/features/settings/account/profile.tsx
-msgid "Part of every public link. Old links keep working for 30 days after a change."
-msgstr "Входить до кожного публічного посилання. Старі посилання працюють ще 30 днів після зміни."
-
 #: src/features/career/workspace/fit.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Partly supported"
@@ -13603,7 +13539,6 @@ msgstr "Для ключів доступу потрібна підтвердже
 #: src/features/auth/pages/login.tsx
 #: src/features/auth/pages/register.tsx
 #: src/features/command-palette/pages/navigation.tsx
-#: src/features/homepage/share.tsx
 #: src/features/resume/builder/password-dialog.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/features/settings/account/auth-hooks.ts
@@ -14285,10 +14220,6 @@ msgstr "Роздрукувати"
 msgid "Print or export the form to a flat PDF before sending it."
 msgstr "Роздрукуйте або експортуйте форму у плаский PDF перед відправленням."
 
-#: src/features/homepage/share.tsx
-msgid "Private"
-msgstr "Приватне"
-
 #: src/routes/builder/$resumeId/-sidebar/right/sections/notes.tsx
 msgid "Private notes about this resume. Nobody else can see them."
 msgstr "Особисті нотатки до цього резюме. Їх не бачить ніхто інший."
@@ -14296,10 +14227,6 @@ msgstr "Особисті нотатки до цього резюме. Їх не 
 #: src/features/career/coach-chat.tsx
 msgid "Private to this application"
 msgstr "Доступно лише в цій заявці"
-
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Private. Only you can see it."
-msgstr "Приватний. Тільки ви можете це побачити."
 
 #: src/features/homepage/check.tsx
 #: src/features/homepage/sheet.tsx
@@ -14415,19 +14342,6 @@ msgstr "Провайдер зберігає дані відповідно до �
 #: src/features/ai/usage.tsx
 msgid "Provider test"
 msgstr "Перевірка провайдера"
-
-#: src/features/documents/document-status.tsx
-#: src/features/documents/documents-page.tsx
-#: src/features/homepage/share.tsx
-#: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Public"
-msgstr "Публічне"
-
-#: src/features/documents/document-status.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Public, with a password"
-msgstr "Публічний, з паролем"
 
 #: src/libs/resume/section.tsx
 msgid "Publications"
@@ -17083,18 +16997,10 @@ msgstr "Колір тіні"
 msgid "Shadow width"
 msgstr "Ширина тіні"
 
-#: src/features/documents/document-actions.tsx
-#: src/features/homepage/footer.tsx
-#: src/features/homepage/header.tsx
-#: src/features/homepage/share.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
 msgid "Share"
 msgstr "Поділитися"
-
-#: src/features/homepage/share.tsx
-msgid "Share a public link, add a password or keep it private. Choose from 3 visibility options. Export to PDF or Word, or take all your data with you as JSON."
-msgstr "Поділіться загальнодоступним посиланням, додайте пароль або збережіть його приватним. Виберіть один із 3 варіантів видимості. Експортуйте в PDF або Word або візьміть усі свої дані з собою як JSON."
 
 #. placeholder {0}: provider.label
 #: src/libs/orpc/ai-consent.ts
@@ -17104,10 +17010,6 @@ msgstr "Поділитися даними з {0}?"
 #: src/features/resume/editor/chrome/download-sheet.tsx
 msgid "Share sections"
 msgstr "Поділіться розділами"
-
-#: src/features/documents/document-actions.tsx
-msgid "Share…"
-msgstr "Поділитися…"
 
 #: src/libs/orpc/ai-consent.ts
 msgid "Shares only resume and posting. Knowledge, private notes and web access are excluded. Review proposals before accepting; the original stays unchanged."
@@ -17121,9 +17023,7 @@ msgstr "Передаються лише вибране твердження зі
 msgid "Shares resume, posting and pasted questions. Answer drafts also use your letter, career preferences, application notes and contacts, and enabled Knowledge facts and stories. Context may be excerpted. Web access is off. Review before saving; nothing is submitted."
 msgstr "Передаються резюме, вакансія та вставлені запитання. Чернетки відповідей також використовують лист, кар’єрні вподобання, нотатки й контакти заявки та активні факти й історії зі Знань. Контекст може бути скорочений. Доступ до вебу вимкнено. Перевірте перед збереженням; нічого не надсилається."
 
-#: src/features/documents/documents-page.tsx
 #: src/libs/resume/section.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
 msgid "Sharing"
 msgstr "Поширити"
 
@@ -18354,6 +18254,10 @@ msgstr "Адаптоване й базове резюме"
 #: src/features/career/workspace/practise.tsx
 msgid "Take dictation with"
 msgstr "Диктувати через"
+
+#: src/features/homepage/share.tsx
+msgid "Take it as PDF, Word, Markdown or JSON. Your resume is yours: no lock-in, and every format is free."
+msgstr ""
 
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "Take-home assignment"
@@ -20936,9 +20840,9 @@ msgstr "Переглянути оголошення на {host}"
 msgid "View recorded answers"
 msgstr "Переглянути записані відповіді"
 
-#: src/features/homepage/share.tsx
-msgid "Visibility"
-msgstr "Видимість"
+#: src/features/settings/account/profile.tsx
+msgid "Visible to nobody but you; used to sign in."
+msgstr ""
 
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
@@ -22191,14 +22095,6 @@ msgstr "вашого провайдера"
 msgid "Your provider may charge for the run."
 msgstr "Ваш провайдер може стягувати плату за запуск."
 
-#: src/features/settings/account/profile.tsx
-msgid "Your public link will change"
-msgstr "Ваше публічне посилання зміниться"
-
-#: src/features/settings/account/profile.tsx
-msgid "Your public links will change"
-msgstr "Ваші публічні посилання зміняться"
-
 #: src/features/career/workspace/messages.tsx
 msgid "Your reply"
 msgstr "Ваша відповідь"
@@ -22242,10 +22138,6 @@ msgstr "Текст вашого резюме, вибрані фрагменти 
 #: src/features/ats-checker/messages.ts
 msgid "Your resume uses \"I\" and \"my\"."
 msgstr "Ваше резюме використовує \"I\" та \"my\"."
-
-#: src/features/homepage/share.tsx
-msgid "Your resume, live at"
-msgstr "Ваше резюме, наживо за адресою"
 
 #: src/features/documents/documents-page.tsx
 msgid "Your resumes and cover letters live here"

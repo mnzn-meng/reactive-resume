@@ -48,17 +48,17 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("document SQL pages
     SELECT id, id, id || '@example.test', id, id FROM unnest(ARRAY['owner','stranger','large','naming','duplicates']) id;
    INSERT INTO application (id, user_id, company, role, status) VALUES
     ('job', 'owner', 'Orbital', 'Design lead', 'closed'), ('foreign-job', 'stranger', 'Secret', 'Private', 'saved');
-   INSERT INTO resume (id, user_id, name, slug, data, tags, is_public, application_id, created_at, updated_at, edited_at) VALUES
-    ('same', 'owner', 'Alpha', 'same', '{}', ARRAY['design','shared'], true, 'job', '2026-01-01', '2026-01-01', '2026-01-01'),
-    ('foreign-link', 'owner', 'Beta', 'foreign-link', '{}', ARRAY['shared'], false, 'foreign-job', '2026-01-01', '2026-01-01', '2026-01-01'),
-    ('foreign', 'stranger', 'Private document', 'foreign', '{}', ARRAY['secret'], true, 'foreign-job', '2026-01-01', '2026-01-01', '2026-01-01');
+   INSERT INTO resume (id, user_id, name, data, tags, application_id, created_at, updated_at, edited_at) VALUES
+    ('same', 'owner', 'Alpha', '{}', ARRAY['design','shared'], 'job', '2026-01-01', '2026-01-01', '2026-01-01'),
+    ('foreign-link', 'owner', 'Beta', '{}', ARRAY['shared'], 'foreign-job', '2026-01-01', '2026-01-01', '2026-01-01'),
+    ('foreign', 'stranger', 'Private document', '{}', ARRAY['secret'], 'foreign-job', '2026-01-01', '2026-01-01', '2026-01-01');
    INSERT INTO cover_letter (id, user_id, name, style, tags, source_application_id, created_at, updated_at, edited_at) VALUES
     ('same', 'owner', 'Gamma 100%_\\path', '{}', ARRAY['design','shared'], 'job', '2026-01-01', '2026-01-01', '2026-01-01');
    INSERT INTO cover_letter (id, user_id, name, style, tags, trashed_at)
     SELECT 'large-' || lpad(i::text, 5, '0'), 'large', 'Letter ' || i, '{}', ARRAY['tag-' || i],
      CASE WHEN i > 1000 THEN now() ELSE null END FROM generate_series(1, 2000) i;
-   INSERT INTO resume (id, user_id, name, slug, data, trashed_at) VALUES
-    ('trash', 'owner', 'Trash', 'trash', '{}', now()), ('expired', 'owner', 'Expired', 'expired', '{}', now() - interval '31 days');
+   INSERT INTO resume (id, user_id, name, data, trashed_at) VALUES
+    ('trash', 'owner', 'Trash', '{}', now()), ('expired', 'owner', 'Expired', '{}', now() - interval '31 days');
   `);
 		const { documentsRouter } = await import("./router");
 		headers = new Headers();
@@ -83,28 +83,12 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("document SQL pages
 		expect((await api.list({ offset: 1 })).length).toBe(2);
 		expect(headers.get("X-Limit")).toBe("20");
 		expect(legacy.find((row) => row.id === "foreign-link")?.application).toBeNull();
-		expect(legacy.find((row) => row.type === "letter")?.slug).toBeNull();
 		expect(legacy.find((row) => row.id === "same")?.application).toEqual({
 			id: "job",
 			company: "Orbital",
 			role: "Design lead",
 			status: "closed",
 		});
-	});
-
-	it("says which public links ask for a password, without the password itself", async () => {
-		await pool.query(`UPDATE resume SET password = 'hash' WHERE id = 'same' AND user_id = 'owner'`);
-		try {
-			const rows = await api.list();
-			expect(rows.map((row) => [`${row.type}:${row.id}`, row.hasPassword])).toEqual([
-				["letter:same", false],
-				["resume:foreign-link", false],
-				["resume:same", true],
-			]);
-			expect(JSON.stringify(rows)).not.toContain("hash");
-		} finally {
-			await pool.query(`UPDATE resume SET password = NULL WHERE id = 'same'`);
-		}
 	});
 
 	it("projects legacy recipients only for freeform letters, with HTML entities decoded", async () => {
@@ -127,16 +111,16 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("document SQL pages
 		const name = "Long imported name ".repeat(6).slice(0, 100);
 		const stem = name.slice(0, 94);
 		await pool.query(
-			`INSERT INTO resume (id,user_id,name,slug,data) VALUES ('name-original','naming',$1,'name-original','{}'),('name-two','naming',$2,'name-two','{}'),('name-three','naming',$3,'name-three','{}'),('name-foreign','stranger',$4,'name-foreign','{}')`,
+			`INSERT INTO resume (id,user_id,name,data) VALUES ('name-original','naming',$1,'{}'),('name-two','naming',$2,'{}'),('name-three','naming',$3,'{}'),('name-foreign','stranger',$4,'{}')`,
 			[name, `${stem} (2)`, `${stem} (3)`, `${stem} (4)`],
 		);
-		const { findFreeResumeName } = await import("../resume/slugs");
+		const { findFreeResumeName } = await import("../resume/naming");
 		expect(await findFreeResumeName("naming", name)).toBe(`${stem} (4)`);
 	});
 
 	it("suggests numbered copies across types and Trash while protecting ownership", async () => {
-		await pool.query(`INSERT INTO resume (id,user_id,name,slug,data) VALUES
-			('duplicate-source','duplicates','Portfolio','duplicate-source','{}'),('duplicate-three','stranger','Portfolio 3','duplicate-three','{}');
+		await pool.query(`INSERT INTO resume (id,user_id,name,data) VALUES
+			('duplicate-source','duplicates','Portfolio','{}'),('duplicate-three','stranger','Portfolio 3','{}');
 			INSERT INTO cover_letter (id,user_id,name,style,trashed_at) VALUES ('duplicate-two','duplicates','PORTFOLIO 2','{}',now());`);
 		const { documentsRouter } = await import("./router");
 		const client = createRouterClient(documentsRouter, {
@@ -144,11 +128,11 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("document SQL pages
 		});
 		expect(await client.suggestDuplicateName({ type: "resume", id: "duplicate-source" })).toBe("Portfolio 3");
 		await pool.query(
-			`INSERT INTO resume (id,user_id,name,slug,data) VALUES ('duplicate-copy','duplicates','Portfolio 3','duplicate-copy','{}')`,
+			`INSERT INTO resume (id,user_id,name,data) VALUES ('duplicate-copy','duplicates','Portfolio 3','{}')`,
 		);
 		expect(await client.suggestDuplicateName({ type: "resume", id: "duplicate-copy" })).toBe("Portfolio 4");
 		await pool.query(
-			`INSERT INTO resume (id,user_id,name,slug,data) VALUES ('duplicate-year','duplicates','Resume 2026','duplicate-year','{}')`,
+			`INSERT INTO resume (id,user_id,name,data) VALUES ('duplicate-year','duplicates','Resume 2026','{}')`,
 		);
 		expect(await client.suggestDuplicateName({ type: "resume", id: "duplicate-year" })).toBe("Resume 2026 2");
 		for (const id of ["duplicate-three", "missing", "duplicate-two"]) {
@@ -167,7 +151,6 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("document SQL pages
 			expect(page.total).toBe(1);
 			expect(page.counts).toEqual({ resume: 1, letter: 1 });
 		}
-		expect((await api.page({ public: true })).items.map((row) => row.name)).toEqual(["Alpha"]);
 		expect((await api.page({ q: "%_\\path" })).items.map((row) => row.type)).toEqual(["letter"]);
 		expect((await api.page({ tags: ["design", "missing"] })).total).toBe(0);
 		expect((await api.page({ q: "Secret" })).total).toBe(0);

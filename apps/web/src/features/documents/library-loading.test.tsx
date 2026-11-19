@@ -87,7 +87,7 @@ it("offers clearing filters after a first-load failure without tag facets", asyn
 	);
 	expect(await screen.findByRole("alert")).toBeVisible();
 	fireEvent.click(screen.getByRole("button", { name: "Clear search and filters" }));
-	expect(onSearchChange).toHaveBeenCalledWith({ q: "", tags: [], type: "all", public: false });
+	expect(onSearchChange).toHaveBeenCalledWith({ q: "", tags: [], type: "all" });
 	view.unmount();
 	queryClient.clear();
 });

@@ -62,7 +62,7 @@ export async function fileResponse(
 	includeCoverLetterHeader = false,
 	target: "resume" | "cover-letter" = "resume",
 ) {
-	const filename = `${getDefaultFileName({ name, slug: "", data }, target)}.${format}`;
+	const filename = `${getDefaultFileName({ name, data }, target)}.${format}`;
 	let body: File;
 	try {
 		if (format === "json") body = new File([JSON.stringify(json, null, 2)], filename, { type: "application/json" });

@@ -29,7 +29,6 @@ import { orpc, streamClient } from "@/libs/orpc/client";
 export type Resume = {
 	id: string;
 	name: string;
-	slug: string;
 	tags: string[];
 	data: ResumeData;
 	aiOperationIds?: string[] | undefined;
@@ -37,13 +36,6 @@ export type Resume = {
 	isLocked: boolean;
 	createdAt: Date;
 	updatedAt: Date;
-	hasPassword?: boolean | undefined;
-	isPublic?: boolean | undefined;
-	showDownloadButtons?: boolean | undefined;
-	allowWordDownload?: boolean | undefined;
-	showInSearchEngines?: boolean | undefined;
-	hideContactDetails?: boolean | undefined;
-	isPrimary?: boolean | undefined;
 	/** The job application this resume was made for; Check's Job match reads its posting. */
 	applicationId?: string | null;
 };
@@ -733,17 +725,9 @@ export const useResumeStore = create<ResumeStore>()(
 				if (!state.resume || state.resume.id !== resume.id) return;
 
 				state.resume.name = resume.name;
-				state.resume.slug = resume.slug;
 				state.resume.tags = resume.tags;
 				state.resume.isLocked = resume.isLocked;
 				state.resume.updatedAt = resume.updatedAt;
-				state.resume.hasPassword = resume.hasPassword;
-				state.resume.isPublic = resume.isPublic;
-				state.resume.showDownloadButtons = resume.showDownloadButtons;
-				state.resume.allowWordDownload = resume.allowWordDownload;
-				state.resume.showInSearchEngines = resume.showInSearchEngines;
-				state.resume.hideContactDetails = resume.hideContactDetails;
-				state.resume.isPrimary = resume.isPrimary;
 				if (!getRuntime(resume.id).hasPendingLocalChanges) {
 					if (resume.aiOperationIds !== undefined) state.resume.aiOperationIds = resume.aiOperationIds;
 					if (resume.aiUsage !== undefined) state.resume.aiUsage = resume.aiUsage;

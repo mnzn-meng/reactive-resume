@@ -208,7 +208,7 @@ export const authRouter = {
 					createdAt: true,
 					updatedAt: true,
 				}),
-				resumes: z.array(resumeDto.getById.output.omit({ hasPassword: true, applicationId: true })),
+				resumes: z.array(resumeDto.getById.output.omit({ applicationId: true })),
 				coverLetters: z.array(coverLetterSchema),
 				documentVersions: z
 					.object({

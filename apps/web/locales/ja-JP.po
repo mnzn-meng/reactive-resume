@@ -1502,14 +1502,6 @@ msgstr "{lines, plural, other {ページ {page} が約 # 行はみ出してい�
 msgid "{lines, plural, one {Page {page} still runs over by about # line.} other {Page {page} still runs over by about # lines.}}"
 msgstr "{lines, plural, other {ページ {page} がまだ約 # 行はみ出しています。}}"
 
-#: src/features/documents/document-actions.tsx
-msgid "{made, plural, one {# made private} other {# made private}}"
-msgstr "{made, plural, other {# 件を非公開にしました}}"
-
-#: src/features/documents/document-actions.tsx
-msgid "{made, plural, one {# made public} other {# made public}}"
-msgstr "{made, plural, other {# 件を公開しました}}"
-
 #: src/features/resume/editor/check/page-layer.tsx
 msgid "{mentions, plural, one {found in # place} other {found in # places}}"
 msgstr "{mentions, plural, other {# か所で検出}}"
@@ -1691,14 +1683,6 @@ msgstr "{removed, plural, other {あなたの文を # 件変更または削除�
 #: src/features/documents/document-actions.tsx
 msgid "{restored, plural, one {# document restored} other {# documents restored}}"
 msgstr "{restored, plural, other {# 件の書類を復元しました}}"
-
-#: src/features/documents/documents-page.tsx
-msgid "{resumes, plural, =0 {Letters have no public link.} one {Applies to the # resume selected. Letters have no public link.} other {Applies to the # resumes selected. Letters have no public link.}}"
-msgstr "{resumes, plural, =0 {レターには公開リンクがありません。} other {選択した # 件のレジュメに適用されます。レターには公開リンクがありません。}}"
-
-#: src/features/documents/documents-page.tsx
-msgid "{resumes, plural, one {Applies to the # resume selected.} other {Applies to the # resumes selected.}}"
-msgstr "{resumes, plural, other {選択した # 件のレジュメに適用されます。}}"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "{rules, plural, =2 {Removes both rules; Undo brings them back, and History keeps every saved version. Reset design never touches your CSS.} one {Removes the rule; Undo brings it back, and History keeps every saved version. Reset design never touches your CSS.} other {Removes all # rules; Undo brings them back, and History keeps every saved version. Reset design never touches your CSS.}}"
@@ -1898,15 +1882,6 @@ msgstr "+13 ポイントのアクティベーション"
 #: src/features/keyboard-shortcuts/index.tsx
 msgid "<0>?</0> opens this list on any page."
 msgstr "<0>?</0> を押すと、どのページでもこの一覧が開きます。"
-
-#. placeholder {0}: user.username
-#: src/features/settings/account/profile.tsx
-msgid "<0>{host}/{0}</0> · part of every public link"
-msgstr "<0>{host}/{0}</0> · すべての公開リンクの一部"
-
-#: src/features/settings/account/profile.tsx
-msgid "<0>{oldAddress}</0> becomes <1>{newAddress}</1>."
-msgstr "<0>{oldAddress}</0> は <1>{newAddress}</1> になります。"
 
 #: src/components/input/chip-input.tsx
 msgid "<0>{RETURN_KEY}</0> or a comma adds one. Drag to reorder."
@@ -4398,10 +4373,6 @@ msgstr "<0>{pendingEmail}</0> への変更は {0} の承認待ちです。リン
 msgid "Change to <0>{pendingEmail}</0> is waiting: open the link we sent there. The link works for an hour."
 msgstr "<0>{pendingEmail}</0> への変更が保留中です：そのアドレスに送信したリンクを開いてください。リンクの有効期限は 1 時間です。"
 
-#: src/features/settings/account/profile.tsx
-msgid "Change username"
-msgstr "ユーザー名を変更"
-
 #: src/dialogs/auth/change-password.tsx
 msgid "Change your password"
 msgstr "パスワードを変更"
@@ -5371,10 +5342,6 @@ msgstr "会話の名前"
 msgid "Conversations"
 msgstr "会話"
 
-#: src/features/homepage/share.tsx
-msgid "Copied"
-msgstr "コピーされました"
-
 #: src/features/career/coach-chat.tsx
 msgid "Copies for {company}"
 msgstr "{company} 用のコピー"
@@ -5436,17 +5403,9 @@ msgstr "仕事用にコピー…"
 msgid "Copy it for a job"
 msgstr "求人用にコピー"
 
-#: src/features/homepage/share.tsx
-msgid "Copy link"
-msgstr "リンクをコピー"
-
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Copy made for {company}. This resume is unchanged."
 msgstr "{company} 用のコピーを作成しました。このレジュメは変更されていません。"
-
-#: src/features/documents/document-actions.tsx
-msgid "Copy public link"
-msgstr "公開リンクをコピー"
 
 #: src/features/career/offers.tsx
 msgid "Copy questions"
@@ -7146,6 +7105,7 @@ msgstr "完了 · {0}"
 
 #: src/features/career/workspace/apply.tsx
 #: src/features/career/workspace/practise.tsx
+#: src/features/homepage/share.tsx
 #: src/features/resume/editor/chrome/bar.tsx
 #: src/features/resume/share/download-menu.tsx
 #: src/features/resume/share/web-page-text.ts
@@ -7969,6 +7929,10 @@ msgstr "毎日"
 msgid "Every entry has dates in a form systems read, in order, and none in the future."
 msgstr "すべてのエントリには、システムが順番に読み取った形式の日付が含まれており、将来の日付は含まれていません。"
 
+#: src/features/homepage/share.tsx
+msgid "Every format, yours"
+msgstr ""
+
 #: src/features/resume/editor/check/issues.ts
 msgid "Every role says what you did. Opinions on wording live in the Writing tab."
 msgstr "どの役割にも、あなたが何をしたかが表れます。言葉遣いに関する意見は「書き込み」タブにあります。"
@@ -8046,6 +8010,10 @@ msgstr "職歴、学歴など"
 msgid "explain one limit of the measurement clearly, without underselling the work."
 msgstr "仕事を過小評価せずに、測定の限界を1つ明確に説明しましょう。"
 
+#: src/features/documents/document-actions.tsx
+#: src/features/homepage/footer.tsx
+#: src/features/homepage/header.tsx
+#: src/features/homepage/share.tsx
 #: src/features/settings/profile.tsx
 #: src/libs/resume/section.tsx
 #: src/routes/builder/letter/-components/letter-bar.tsx
@@ -8626,6 +8594,7 @@ msgstr "フォームの回答"
 msgid "Form questions (optional)"
 msgstr "フォームの質問（任意）"
 
+#: src/features/homepage/share.tsx
 #: src/features/resume/share/download-tab.tsx
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Format"
@@ -10068,10 +10037,6 @@ msgstr "この回答を残す"
 msgid "Keep to two or three families. Each extra font is another chance for one to map badly."
 msgstr "フォントは2〜3種類に抑えてください。追加するフォントが増えるほど、正しく表示されないリスクが高まります。"
 
-#: src/features/settings/account/profile.tsx
-msgid "Keep username"
-msgstr "ユーザー名を維持"
-
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Keep with it"
 msgstr "そのまま保持"
@@ -10627,7 +10592,6 @@ msgstr "求人応募をリンクします…"
 msgid "Link an existing letter"
 msgstr "既存のレターをリンク"
 
-#: src/features/documents/document-actions.tsx
 #: src/features/resume/share/web-page-text.ts
 msgid "Link copied"
 msgstr "リンクがコピーされました"
@@ -10715,10 +10679,6 @@ msgstr "LinkedIn、紹介…"
 #: src/features/settings/profile.tsx
 msgid "Links"
 msgstr "リンク"
-
-#: src/features/settings/account/profile.tsx
-msgid "Links you've already shared keep working for 30 days, then stop. Share the new ones before then."
-msgstr "すでに共有したリンクは 30 日間使え、その後は使えなくなります。それまでに新しいリンクを共有してください。"
 
 #: src/features/homepage/hero.tsx
 msgid "Lisbon"
@@ -10954,18 +10914,6 @@ msgstr "低い"
 msgid "Lower the design sheet"
 msgstr "デザインシートを下げます"
 
-#. placeholder {0}: number(made)
-#. placeholder {1}: number(total)
-#: src/features/documents/document-actions.tsx
-msgid "Made {0} of {1} private. Letters have no public link, and locked documents are left as they are."
-msgstr "{1} 件中 {0} 件を非公開にしました。レターには公開リンクがなく、ロック中の書類は変更されません。"
-
-#. placeholder {0}: number(made)
-#. placeholder {1}: number(total)
-#: src/features/documents/document-actions.tsx
-msgid "Made {0} of {1} public. Letters have no public link, and locked documents are left as they are."
-msgstr "{1} 件中 {0} 件を公開しました。レターには公開リンクがなく、ロック中の書類は変更されません。"
-
 #: src/features/resume/share/web-page-text.ts
 msgid "Made with Reactive Resume"
 msgstr ""
@@ -11019,14 +10967,6 @@ msgstr "より具体的にする"
 #: src/features/resume/editor/write/improve.tsx
 msgid "Make it shorter"
 msgstr "短くしてください"
-
-#: src/features/documents/documents-page.tsx
-msgid "Make private"
-msgstr "非公開にする"
-
-#: src/features/documents/documents-page.tsx
-msgid "Make public"
-msgstr "公開する"
 
 #: src/features/assistant/assistant-panel.tsx
 msgid "Make the opening stronger"
@@ -13572,10 +13512,6 @@ msgstr "Parcel & Co."
 msgid "Parcel & Co. · Porto"
 msgstr "Parcel & Co. · Porto"
 
-#: src/features/settings/account/profile.tsx
-msgid "Part of every public link. Old links keep working for 30 days after a change."
-msgstr "すべてのパブリックリンクに含まれます。変更後も、古いリンクは 30 日間使えます。"
-
 #: src/features/career/workspace/fit.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Partly supported"
@@ -13603,7 +13539,6 @@ msgstr "パスキーには確認済みのメールアドレスが必要ですが
 #: src/features/auth/pages/login.tsx
 #: src/features/auth/pages/register.tsx
 #: src/features/command-palette/pages/navigation.tsx
-#: src/features/homepage/share.tsx
 #: src/features/resume/builder/password-dialog.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/features/settings/account/auth-hooks.ts
@@ -14285,10 +14220,6 @@ msgstr "印刷する"
 msgid "Print or export the form to a flat PDF before sending it."
 msgstr "送信前に、フォームをフラットなPDFとして印刷またはエクスポートしてください。"
 
-#: src/features/homepage/share.tsx
-msgid "Private"
-msgstr "非公開"
-
 #: src/routes/builder/$resumeId/-sidebar/right/sections/notes.tsx
 msgid "Private notes about this resume. Nobody else can see them."
 msgstr "このレジュメに関する非公開のメモ。他の人には表示されません。"
@@ -14296,10 +14227,6 @@ msgstr "このレジュメに関する非公開のメモ。他の人には表示
 #: src/features/career/coach-chat.tsx
 msgid "Private to this application"
 msgstr "この応募専用"
-
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Private. Only you can see it."
-msgstr "プライベート。あなただけがそれを見ることができます。"
 
 #: src/features/homepage/check.tsx
 #: src/features/homepage/sheet.tsx
@@ -14415,19 +14342,6 @@ msgstr "データの保持はプロバイダー独自のポリシーに従いま
 #: src/features/ai/usage.tsx
 msgid "Provider test"
 msgstr "プロバイダーテスト"
-
-#: src/features/documents/document-status.tsx
-#: src/features/documents/documents-page.tsx
-#: src/features/homepage/share.tsx
-#: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Public"
-msgstr "公開"
-
-#: src/features/documents/document-status.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Public, with a password"
-msgstr "公開、パスワード付き"
 
 #: src/libs/resume/section.tsx
 msgid "Publications"
@@ -17083,18 +16997,10 @@ msgstr "影の色"
 msgid "Shadow width"
 msgstr "影の幅"
 
-#: src/features/documents/document-actions.tsx
-#: src/features/homepage/footer.tsx
-#: src/features/homepage/header.tsx
-#: src/features/homepage/share.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
 msgid "Share"
 msgstr "共有"
-
-#: src/features/homepage/share.tsx
-msgid "Share a public link, add a password or keep it private. Choose from 3 visibility options. Export to PDF or Word, or take all your data with you as JSON."
-msgstr "公開リンクを共有し、パスワードを追加するか、非公開にしてください。 3 つの表示オプションから選択します。 PDF または Word にエクスポートするか、すべてのデータを JSON として持ち歩きます。"
 
 #. placeholder {0}: provider.label
 #: src/libs/orpc/ai-consent.ts
@@ -17104,10 +17010,6 @@ msgstr "{0} とデータを共有しますか?"
 #: src/features/resume/editor/chrome/download-sheet.tsx
 msgid "Share sections"
 msgstr "セクションを共有する"
-
-#: src/features/documents/document-actions.tsx
-msgid "Share…"
-msgstr "共有…"
 
 #: src/libs/orpc/ai-consent.ts
 msgid "Shares only resume and posting. Knowledge, private notes and web access are excluded. Review proposals before accepting; the original stays unchanged."
@@ -17121,9 +17023,7 @@ msgstr "選択したナレッジの記述、履歴書、求人情報のみを共
 msgid "Shares resume, posting and pasted questions. Answer drafts also use your letter, career preferences, application notes and contacts, and enabled Knowledge facts and stories. Context may be excerpted. Web access is off. Review before saving; nothing is submitted."
 msgstr "履歴書、求人情報、貼り付けた質問を共有します。回答の下書きには、手紙、キャリアの希望、応募のメモと連絡先、有効なナレッジの事実やエピソードも使用します。内容は抜粋される場合があります。ウェブアクセスは無効です。保存前に確認してください。応募は送信されません。"
 
-#: src/features/documents/documents-page.tsx
 #: src/libs/resume/section.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
 msgid "Sharing"
 msgstr "共有"
 
@@ -18354,6 +18254,10 @@ msgstr "調整済み vs 元のレジュメ"
 #: src/features/career/workspace/practise.tsx
 msgid "Take dictation with"
 msgstr "音声入力に使用"
+
+#: src/features/homepage/share.tsx
+msgid "Take it as PDF, Word, Markdown or JSON. Your resume is yours: no lock-in, and every format is free."
+msgstr ""
 
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "Take-home assignment"
@@ -20936,9 +20840,9 @@ msgstr "{host} で求人情報を表示"
 msgid "View recorded answers"
 msgstr "記録された回答を表示"
 
-#: src/features/homepage/share.tsx
-msgid "Visibility"
-msgstr "可視性"
+#: src/features/settings/account/profile.tsx
+msgid "Visible to nobody but you; used to sign in."
+msgstr ""
 
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
@@ -22191,14 +22095,6 @@ msgstr "あなたのプロバイダー"
 msgid "Your provider may charge for the run."
 msgstr "実行にはプロバイダーから課金される場合があります。"
 
-#: src/features/settings/account/profile.tsx
-msgid "Your public link will change"
-msgstr "公開リンクが変更されます"
-
-#: src/features/settings/account/profile.tsx
-msgid "Your public links will change"
-msgstr "パブリックリンクが変わります"
-
 #: src/features/career/workspace/messages.tsx
 msgid "Your reply"
 msgstr "あなたの返信"
@@ -22242,10 +22138,6 @@ msgstr "レジュメのテキスト、選択した箇所、チェックの結果
 #: src/features/ats-checker/messages.ts
 msgid "Your resume uses \"I\" and \"my\"."
 msgstr "履歴書内に「I」や「my」が使われています。"
-
-#: src/features/homepage/share.tsx
-msgid "Your resume, live at"
-msgstr "あなたの履歴書、住んでいます"
 
 #: src/features/documents/documents-page.tsx
 msgid "Your resumes and cover letters live here"

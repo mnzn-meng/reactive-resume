@@ -1502,14 +1502,6 @@ msgstr "{lines, plural, other {第 {page} 页超出约 # 行}}"
 msgid "{lines, plural, one {Page {page} still runs over by about # line.} other {Page {page} still runs over by about # lines.}}"
 msgstr "{lines, plural, other {第 {page} 页仍超出约 # 行。}}"
 
-#: src/features/documents/document-actions.tsx
-msgid "{made, plural, one {# made private} other {# made private}}"
-msgstr "{made, plural, other {# 个已设为私密}}"
-
-#: src/features/documents/document-actions.tsx
-msgid "{made, plural, one {# made public} other {# made public}}"
-msgstr "{made, plural, other {# 个已设为公开}}"
-
 #: src/features/resume/editor/check/page-layer.tsx
 msgid "{mentions, plural, one {found in # place} other {found in # places}}"
 msgstr "{mentions, plural, other {在 # 处找到}}"
@@ -1691,14 +1683,6 @@ msgstr "{removed, plural, other {修改或删除了您的 # 个句子}}"
 #: src/features/documents/document-actions.tsx
 msgid "{restored, plural, one {# document restored} other {# documents restored}}"
 msgstr "{restored, plural, other {已恢复 # 个文档}}"
-
-#: src/features/documents/documents-page.tsx
-msgid "{resumes, plural, =0 {Letters have no public link.} one {Applies to the # resume selected. Letters have no public link.} other {Applies to the # resumes selected. Letters have no public link.}}"
-msgstr "{resumes, plural, =0 {求职信没有公开链接。} other {应用于所选的 # 份简历。求职信没有公开链接。}}"
-
-#: src/features/documents/documents-page.tsx
-msgid "{resumes, plural, one {Applies to the # resume selected.} other {Applies to the # resumes selected.}}"
-msgstr "{resumes, plural, other {应用于所选的 # 份简历。}}"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "{rules, plural, =2 {Removes both rules; Undo brings them back, and History keeps every saved version. Reset design never touches your CSS.} one {Removes the rule; Undo brings it back, and History keeps every saved version. Reset design never touches your CSS.} other {Removes all # rules; Undo brings them back, and History keeps every saved version. Reset design never touches your CSS.}}"
@@ -1898,15 +1882,6 @@ msgstr "+13 点激活"
 #: src/features/keyboard-shortcuts/index.tsx
 msgid "<0>?</0> opens this list on any page."
 msgstr "在任意页面按 <0>?</0> 打开此列表。"
-
-#. placeholder {0}: user.username
-#: src/features/settings/account/profile.tsx
-msgid "<0>{host}/{0}</0> · part of every public link"
-msgstr "<0>{host}/{0}</0> · 每个公开链接的一部分"
-
-#: src/features/settings/account/profile.tsx
-msgid "<0>{oldAddress}</0> becomes <1>{newAddress}</1>."
-msgstr "<0>{oldAddress}</0> 将变为 <1>{newAddress}</1>。"
 
 #: src/components/input/chip-input.tsx
 msgid "<0>{RETURN_KEY}</0> or a comma adds one. Drag to reorder."
@@ -4398,10 +4373,6 @@ msgstr "更改为 <0>{pendingEmail}</0> 正在等待 {0} 批准。链接一小�
 msgid "Change to <0>{pendingEmail}</0> is waiting: open the link we sent there. The link works for an hour."
 msgstr "更改为 <0>{pendingEmail}</0> 正在等待：请打开我们发送到该地址的链接。链接一小时内有效。"
 
-#: src/features/settings/account/profile.tsx
-msgid "Change username"
-msgstr "更改用户名"
-
 #: src/dialogs/auth/change-password.tsx
 msgid "Change your password"
 msgstr "更改你的密码"
@@ -5371,10 +5342,6 @@ msgstr "对话名称"
 msgid "Conversations"
 msgstr "对话"
 
-#: src/features/homepage/share.tsx
-msgid "Copied"
-msgstr "已复制"
-
 #: src/features/career/coach-chat.tsx
 msgid "Copies for {company}"
 msgstr "为 {company} 创建的副本"
@@ -5436,17 +5403,9 @@ msgstr "复印一份工作..."
 msgid "Copy it for a job"
 msgstr "为职位复制一份"
 
-#: src/features/homepage/share.tsx
-msgid "Copy link"
-msgstr "复制链接"
-
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Copy made for {company}. This resume is unchanged."
 msgstr "已为 {company} 创建副本。此简历保持不变。"
-
-#: src/features/documents/document-actions.tsx
-msgid "Copy public link"
-msgstr "复制公共链接"
 
 #: src/features/career/offers.tsx
 msgid "Copy questions"
@@ -7146,6 +7105,7 @@ msgstr "已完成 · {0}"
 
 #: src/features/career/workspace/apply.tsx
 #: src/features/career/workspace/practise.tsx
+#: src/features/homepage/share.tsx
 #: src/features/resume/editor/chrome/bar.tsx
 #: src/features/resume/share/download-menu.tsx
 #: src/features/resume/share/web-page-text.ts
@@ -7969,6 +7929,10 @@ msgstr "每天"
 msgid "Every entry has dates in a form systems read, in order, and none in the future."
 msgstr "每个条目都有系统读取的表单中的日期（按顺序），并且没有将来的日期。"
 
+#: src/features/homepage/share.tsx
+msgid "Every format, yours"
+msgstr ""
+
 #: src/features/resume/editor/check/issues.ts
 msgid "Every role says what you did. Opinions on wording live in the Writing tab."
 msgstr "每个角色都说明了你所做的事情。关于措辞的意见存在于“写作”选项卡中。"
@@ -8046,6 +8010,10 @@ msgstr "工作经历、教育经历等"
 msgid "explain one limit of the measurement clearly, without underselling the work."
 msgstr "清楚说明衡量方式的一个局限，同时不要低估这项工作。"
 
+#: src/features/documents/document-actions.tsx
+#: src/features/homepage/footer.tsx
+#: src/features/homepage/header.tsx
+#: src/features/homepage/share.tsx
 #: src/features/settings/profile.tsx
 #: src/libs/resume/section.tsx
 #: src/routes/builder/letter/-components/letter-bar.tsx
@@ -8626,6 +8594,7 @@ msgstr "表单回答"
 msgid "Form questions (optional)"
 msgstr "表单问题（可选）"
 
+#: src/features/homepage/share.tsx
 #: src/features/resume/share/download-tab.tsx
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Format"
@@ -10068,10 +10037,6 @@ msgstr "保留此回答"
 msgid "Keep to two or three families. Each extra font is another chance for one to map badly."
 msgstr "字体最多保留两三种。每多一种字体，就多一次映射出错的风险。"
 
-#: src/features/settings/account/profile.tsx
-msgid "Keep username"
-msgstr "保留用户名"
-
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Keep with it"
 msgstr "随之保留"
@@ -10627,7 +10592,6 @@ msgstr "链接工作申请..."
 msgid "Link an existing letter"
 msgstr "关联现有求职信"
 
-#: src/features/documents/document-actions.tsx
 #: src/features/resume/share/web-page-text.ts
 msgid "Link copied"
 msgstr "链接已复制"
@@ -10715,10 +10679,6 @@ msgstr "LinkedIn、内推…"
 #: src/features/settings/profile.tsx
 msgid "Links"
 msgstr "链接"
-
-#: src/features/settings/account/profile.tsx
-msgid "Links you've already shared keep working for 30 days, then stop. Share the new ones before then."
-msgstr "您已分享的链接在 30 天内仍然有效，之后将失效。请在此之前分享新链接。"
 
 #: src/features/homepage/hero.tsx
 msgid "Lisbon"
@@ -10954,18 +10914,6 @@ msgstr "低的"
 msgid "Lower the design sheet"
 msgstr "降低设计表"
 
-#. placeholder {0}: number(made)
-#. placeholder {1}: number(total)
-#: src/features/documents/document-actions.tsx
-msgid "Made {0} of {1} private. Letters have no public link, and locked documents are left as they are."
-msgstr "已将 {1} 个中的 {0} 个设为私密。求职信没有公开链接，已锁定的文档保持不变。"
-
-#. placeholder {0}: number(made)
-#. placeholder {1}: number(total)
-#: src/features/documents/document-actions.tsx
-msgid "Made {0} of {1} public. Letters have no public link, and locked documents are left as they are."
-msgstr "已将 {1} 个中的 {0} 个设为公开。求职信没有公开链接，已锁定的文档保持不变。"
-
 #: src/features/resume/share/web-page-text.ts
 msgid "Made with Reactive Resume"
 msgstr ""
@@ -11019,14 +10967,6 @@ msgstr "使其更具体"
 #: src/features/resume/editor/write/improve.tsx
 msgid "Make it shorter"
 msgstr "让它更短"
-
-#: src/features/documents/documents-page.tsx
-msgid "Make private"
-msgstr "设为私密"
-
-#: src/features/documents/documents-page.tsx
-msgid "Make public"
-msgstr "设为公开"
 
 #: src/features/assistant/assistant-panel.tsx
 msgid "Make the opening stronger"
@@ -13572,10 +13512,6 @@ msgstr "Parcel & Co."
 msgid "Parcel & Co. · Porto"
 msgstr "Parcel & Co. · Porto"
 
-#: src/features/settings/account/profile.tsx
-msgid "Part of every public link. Old links keep working for 30 days after a change."
-msgstr "是每个公共链接的一部分。更改后，旧链接在 30 天内仍然有效。"
-
 #: src/features/career/workspace/fit.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Partly supported"
@@ -13603,7 +13539,6 @@ msgstr "通行密钥需要已验证的邮箱，但此服务器无法发送邮件
 #: src/features/auth/pages/login.tsx
 #: src/features/auth/pages/register.tsx
 #: src/features/command-palette/pages/navigation.tsx
-#: src/features/homepage/share.tsx
 #: src/features/resume/builder/password-dialog.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/features/settings/account/auth-hooks.ts
@@ -14285,10 +14220,6 @@ msgstr "打印"
 msgid "Print or export the form to a flat PDF before sending it."
 msgstr "在发送之前，把表单打印或导出为扁平化的 PDF。"
 
-#: src/features/homepage/share.tsx
-msgid "Private"
-msgstr "私密"
-
 #: src/routes/builder/$resumeId/-sidebar/right/sections/notes.tsx
 msgid "Private notes about this resume. Nobody else can see them."
 msgstr "关于这份简历的私人笔记。其他人无法看到。"
@@ -14296,10 +14227,6 @@ msgstr "关于这份简历的私人笔记。其他人无法看到。"
 #: src/features/career/coach-chat.tsx
 msgid "Private to this application"
 msgstr "仅此申请可见"
-
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Private. Only you can see it."
-msgstr "私人的。只有你能看到它。"
 
 #: src/features/homepage/check.tsx
 #: src/features/homepage/sheet.tsx
@@ -14415,19 +14342,6 @@ msgstr "服务提供商的数据保留遵循其自身政策。您的服务提供
 #: src/features/ai/usage.tsx
 msgid "Provider test"
 msgstr "提供商测试"
-
-#: src/features/documents/document-status.tsx
-#: src/features/documents/documents-page.tsx
-#: src/features/homepage/share.tsx
-#: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Public"
-msgstr "公开"
-
-#: src/features/documents/document-status.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Public, with a password"
-msgstr "公开，有密码"
 
 #: src/libs/resume/section.tsx
 msgid "Publications"
@@ -17083,18 +16997,10 @@ msgstr "阴影颜色"
 msgid "Shadow width"
 msgstr "阴影宽度"
 
-#: src/features/documents/document-actions.tsx
-#: src/features/homepage/footer.tsx
-#: src/features/homepage/header.tsx
-#: src/features/homepage/share.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
 msgid "Share"
 msgstr "分享"
-
-#: src/features/homepage/share.tsx
-msgid "Share a public link, add a password or keep it private. Choose from 3 visibility options. Export to PDF or Word, or take all your data with you as JSON."
-msgstr "分享公开链接、设置密码或保持私密。从 3 种可见性选项中选择。导出为 PDF 或 Word，或以 JSON 格式带走全部数据。"
 
 #. placeholder {0}: provider.label
 #: src/libs/orpc/ai-consent.ts
@@ -17104,10 +17010,6 @@ msgstr "与 {0} 共享数据？"
 #: src/features/resume/editor/chrome/download-sheet.tsx
 msgid "Share sections"
 msgstr "分享部分"
-
-#: src/features/documents/document-actions.tsx
-msgid "Share…"
-msgstr "分享…"
 
 #: src/libs/orpc/ai-consent.ts
 msgid "Shares only resume and posting. Knowledge, private notes and web access are excluded. Review proposals before accepting; the original stays unchanged."
@@ -17121,9 +17023,7 @@ msgstr "仅分享选中的知识库陈述、简历和招聘信息。不包含其
 msgid "Shares resume, posting and pasted questions. Answer drafts also use your letter, career preferences, application notes and contacts, and enabled Knowledge facts and stories. Context may be excerpted. Web access is off. Review before saving; nothing is submitted."
 msgstr "分享简历、招聘信息和粘贴的问题。回答草稿还会使用求职信、职业偏好、申请笔记和联系人，以及知识库中启用的事实和经历。上下文可能被节选。网页访问已关闭。保存前请审阅，不会提交任何内容。"
 
-#: src/features/documents/documents-page.tsx
 #: src/libs/resume/section.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
 msgid "Sharing"
 msgstr "发布与分享"
 
@@ -18354,6 +18254,10 @@ msgstr "定制简历与基础简历对比"
 #: src/features/career/workspace/practise.tsx
 msgid "Take dictation with"
 msgstr "听写方式"
+
+#: src/features/homepage/share.tsx
+msgid "Take it as PDF, Word, Markdown or JSON. Your resume is yours: no lock-in, and every format is free."
+msgstr ""
 
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "Take-home assignment"
@@ -20936,9 +20840,9 @@ msgstr "在 {host} 上查看职位公告"
 msgid "View recorded answers"
 msgstr "查看已记录的回答"
 
-#: src/features/homepage/share.tsx
-msgid "Visibility"
-msgstr "能见度"
+#: src/features/settings/account/profile.tsx
+msgid "Visible to nobody but you; used to sign in."
+msgstr ""
 
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
@@ -22191,14 +22095,6 @@ msgstr "您的提供者"
 msgid "Your provider may charge for the run."
 msgstr "您的服务提供商可能会对此次运行收费。"
 
-#: src/features/settings/account/profile.tsx
-msgid "Your public link will change"
-msgstr "您的公开链接将会改变"
-
-#: src/features/settings/account/profile.tsx
-msgid "Your public links will change"
-msgstr "您的公共链接将会改变"
-
 #: src/features/career/workspace/messages.tsx
 msgid "Your reply"
 msgstr "您的回复"
@@ -22242,10 +22138,6 @@ msgstr "您的简历文本、所选段落和检查结果。"
 #: src/features/ats-checker/messages.ts
 msgid "Your resume uses \"I\" and \"my\"."
 msgstr "你的简历使用了“我”和“我的”这类词。"
-
-#: src/features/homepage/share.tsx
-msgid "Your resume, live at"
-msgstr "您的简历，居住地址"
 
 #: src/features/documents/documents-page.tsx
 msgid "Your resumes and cover letters live here"

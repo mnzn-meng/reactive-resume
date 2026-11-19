@@ -117,19 +117,7 @@ function ResumeEditor() {
 
 	useEffect(() => {
 		mergeResumeMetadata(resume);
-	}, [
-		mergeResumeMetadata,
-		resume.id,
-		resume.name,
-		resume.slug,
-		resume.tags,
-		resume.isLocked,
-		resume.isPublic,
-		resume.showDownloadButtons,
-		resume.hasPassword,
-		resume.updatedAt,
-		resume,
-	]);
+	}, [mergeResumeMetadata, resume.id, resume.name, resume.tags, resume.isLocked, resume.updatedAt, resume]);
 
 	if (!isInitialized) return <EditorPending />;
 

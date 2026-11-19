@@ -1,5 +1,4 @@
 import { env } from "@reactive-resume/env/server";
-import { publicResumeUrl } from "@reactive-resume/resume/sharing";
 import { templateSchema } from "@reactive-resume/schema/templates";
 import { getLocaleAlternates } from "@reactive-resume/utils/locale";
 
@@ -25,7 +24,7 @@ export function handleRobots() {
 		"Disallow: /api/auth",
 		"Disallow: /mcp",
 		"Disallow: /.well-known",
-		// A resume's PDF duplicates its web page, and each crawl would render one.
+		// PDF and Word downloads are rendered per request; keep crawlers off them.
 		"Disallow: /api/resumes/",
 		// Discovery documents meant for agents and API directories.
 		"Allow: /.well-known/integrations.json",
@@ -40,7 +39,7 @@ export function handleRobots() {
 	return textResponse(body);
 }
 
-// The marketing pages; resumes whose owners opted in are listed on the sitemap's other pages.
+// The marketing pages.
 const sitemapPaths = ["/", "/ats-checker", "/resume-templates"];
 
 const escapeXml = (value: string) =>
@@ -55,19 +54,12 @@ const xmlResponse = (root: string, lines: string[]) =>
 		},
 	);
 
-/** The sitemap index: the marketing pages, then resumes listed in search engines, 50,000 to a page. */
-export async function handleSitemap() {
+/** The sitemap index: the marketing pages. */
+export function handleSitemap() {
 	const baseUrl = appUrl();
-	const { countIndexableResumes, SITEMAP_PAGE_SIZE } = await import("@reactive-resume/api/features/resume/web-page");
-	const pages = Math.ceil((await countIndexableResumes().catch(() => 0)) / SITEMAP_PAGE_SIZE);
-	const sitemaps = [
-		`${baseUrl}/sitemaps/pages.xml`,
-		...Array.from({ length: pages }, (_, page) => `${baseUrl}/sitemaps/resumes-${page + 1}.xml`),
-	];
-	return xmlResponse(
-		'sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
-		sitemaps.map((loc) => `  <sitemap><loc>${escapeXml(loc)}</loc></sitemap>`),
-	);
+	return xmlResponse('sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"', [
+		`  <sitemap><loc>${escapeXml(`${baseUrl}/sitemaps/pages.xml`)}</loc></sitemap>`,
+	]);
 }
 
 export function handlePagesSitemap() {
@@ -89,28 +81,12 @@ export function handlePagesSitemap() {
 	);
 }
 
-/** `/sitemaps/resumes-<n>.xml`: one page of resumes listed in search engines. */
-export async function handleResumesSitemap(page: number) {
-	const baseUrl = appUrl();
-	const { listIndexableResumes } = await import("@reactive-resume/api/features/resume/web-page");
-	const resumes = Number.isInteger(page) && page >= 1 ? await listIndexableResumes(page - 1) : [];
-	if (resumes.length === 0) return new Response("Not Found", { status: 404 });
-	return xmlResponse(
-		'urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
-		resumes.map(
-			(resume) =>
-				// A primary resume's address is /<username>, as its page's canonical says.
-				`  <url><loc>${escapeXml(publicResumeUrl(baseUrl, resume))}</loc><lastmod>${resume.updatedAt.toISOString()}</lastmod></url>`,
-		),
-	);
-}
-
 export function handleLlms() {
 	const baseUrl = appUrl();
 	const body = [
 		"# Reactive Resume",
 		"",
-		`> Reactive Resume is a free resume builder. Write a resume in an editor beside a live page, pick one of ${templateSchema.options.length} templates, check that applicant tracking systems can read it, tailor it to a job posting, and share it at a public link or download it. No ads, no tracking, no paid tier.`,
+		`> Reactive Resume is a free resume builder. Write a resume in an editor beside a live page, pick one of ${templateSchema.options.length} templates, check that applicant tracking systems can read it, tailor it to a job posting, and download it. No ads, no tracking, no paid tier.`,
 		"",
 		"## Search",
 		"",
@@ -128,7 +104,7 @@ export function handleLlms() {
 		"- Price: free, every feature.",
 		"- Export: PDF, Word (DOCX), Markdown and JSON.",
 		"- Import: PDF, LinkedIn data export, JSON Resume, Reactive Resume JSON; Word files with an AI provider.",
-		"- Sharing: private by default; a public link or a password-protected link, changeable at any time.",
+		"- Private by default: a resume stays in the account and is never published to a link.",
 		"- AI: optional, with the user's own API key (OpenAI, Anthropic, Google Gemini, OpenRouter, Ollama and others). Nothing is sent to an AI service without one.",
 		"- Also includes: cover letters, a job application tracker, version history, passkeys and two-factor authentication.",
 		"- Languages: the interface is translated into more than 50 languages by volunteers.",

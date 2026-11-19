@@ -45,7 +45,6 @@ describe.skipIf(!process.env.OAUTH_TEST_DATABASE_URL)("account wrapper ownership
 			"career_artifact",
 			"career_transcript",
 			"ai_request",
-			"resume_slug_redirect",
 			"feedback_link",
 			"feedback_comment",
 			"feedback_event",
@@ -72,13 +71,13 @@ describe.skipIf(!process.env.OAUTH_TEST_DATABASE_URL)("account wrapper ownership
 		await admin?.end();
 	});
 
-	it("links guest documents, versions, attachments and redirects without changing destination assets", async () => {
+	it("links guest documents, versions and attachments without changing destination assets", async () => {
 		const oldUrl = "https://resume.example/api/uploads/link-guest/pictures/photo.png";
 		const newUrl = "https://resume.example/api/uploads/link-owner/pictures/photo.png";
 		await pool.query(
-			`INSERT INTO resume (id, name, slug, data, user_id) VALUES
-			('guest-resume', 'Guest', 'shared', $1, 'link-guest'),
-			('owner-resume', 'Owner', 'shared', $2, 'link-owner')`,
+			`INSERT INTO resume (id, name, data, user_id) VALUES
+			('guest-resume', 'Guest', $1, 'link-guest'),
+			('owner-resume', 'Owner', $2, 'link-owner')`,
 			[JSON.stringify({ picture: oldUrl, nested: [oldUrl] }), JSON.stringify({ picture: "existing" })],
 		);
 		await pool.query(
@@ -97,15 +96,10 @@ describe.skipIf(!process.env.OAUTH_TEST_DATABASE_URL)("account wrapper ownership
 			`INSERT INTO application (id, user_id, company, role, resume_file_url, cover_letter_url) VALUES ('guest-application', 'link-guest', 'Example', 'Engineer', $1, NULL)`,
 			[oldUrl],
 		);
-		await pool.query(`INSERT INTO resume_slug_redirect (id, user_id, resume_id, slug, expires_at) VALUES
-			('guest-redirect', 'link-guest', 'guest-resume', 'old', now() + interval '1 day'),
-			('guest-conflict', 'link-guest', 'guest-resume', 'conflict', now() + interval '1 day'),
-			('owner-redirect', 'link-owner', 'owner-resume', 'conflict', now() + interval '1 day')`);
-
 		await withDatabasePool(pool, () => linkAnonymousAccount({ fromUserId: "link-guest", toUserId: "link-owner" }));
 
-		expect((await pool.query("SELECT user_id, slug, data FROM resume WHERE id = 'guest-resume'")).rows).toEqual([
-			{ user_id: "link-owner", slug: "shared-resume", data: { picture: newUrl, nested: [newUrl] } },
+		expect((await pool.query("SELECT user_id, data FROM resume WHERE id = 'guest-resume'")).rows).toEqual([
+			{ user_id: "link-owner", data: { picture: newUrl, nested: [newUrl] } },
 		]);
 		expect((await pool.query("SELECT data FROM resume WHERE id = 'owner-resume'")).rows[0]?.data).toEqual({
 			picture: "existing",
@@ -121,10 +115,6 @@ describe.skipIf(!process.env.OAUTH_TEST_DATABASE_URL)("account wrapper ownership
 		}
 		expect((await pool.query("SELECT user_id, resume_file_url, cover_letter_url FROM application")).rows).toEqual([
 			{ user_id: "link-owner", resume_file_url: newUrl, cover_letter_url: null },
-		]);
-		expect((await pool.query("SELECT id, user_id FROM resume_slug_redirect ORDER BY id")).rows).toEqual([
-			{ id: "guest-redirect", user_id: "link-owner" },
-			{ id: "owner-redirect", user_id: "link-owner" },
 		]);
 	});
 
@@ -166,7 +156,7 @@ describe.skipIf(!process.env.OAUTH_TEST_DATABASE_URL)("account wrapper ownership
 			JSON.stringify(owner),
 		]);
 		await pool.query(
-			`INSERT INTO resume (id,name,slug,data,user_id) VALUES ('profile-conflict-resume','Guest','profile-conflict','{}','link-guest')`,
+			`INSERT INTO resume (id,name,data,user_id) VALUES ('profile-conflict-resume','Guest','{}','link-guest')`,
 		);
 		try {
 			await expect(
@@ -261,7 +251,7 @@ describe.skipIf(!process.env.OAUTH_TEST_DATABASE_URL)("account wrapper ownership
 	it("rolls back ownership and URLs when upload copying fails", async () => {
 		const data = { picture: "https://resume.example/api/uploads/failed-guest/pictures/a.png" };
 		await pool.query(
-			`INSERT INTO resume (id, name, slug, data, user_id) VALUES ('failed-resume', 'Guest', 'failed', $1, 'failed-guest')`,
+			`INSERT INTO resume (id, name, data, user_id) VALUES ('failed-resume', 'Guest', $1, 'failed-guest')`,
 			[JSON.stringify(data)],
 		);
 		setAccountLinkHook(async () => {
@@ -281,10 +271,9 @@ describe.skipIf(!process.env.OAUTH_TEST_DATABASE_URL)("account wrapper ownership
 
 	it("blocks guest saves while copying and rejects stale ownership after commit", async () => {
 		const data = { picture: "https://resume.example/api/uploads/race-guest/pictures/a.png" };
-		await pool.query(
-			`INSERT INTO resume (id, name, slug, data, user_id) VALUES ('race-resume', 'Guest', 'race', $1, 'race-guest')`,
-			[JSON.stringify(data)],
-		);
+		await pool.query(`INSERT INTO resume (id, name, data, user_id) VALUES ('race-resume', 'Guest', $1, 'race-guest')`, [
+			JSON.stringify(data),
+		]);
 		const copying = Promise.withResolvers<void>();
 		const resumeCopy = Promise.withResolvers<void>();
 		setAccountLinkHook(async () => {
@@ -368,10 +357,7 @@ describe.skipIf(!process.env.OAUTH_TEST_DATABASE_URL)("account wrapper ownership
 		);
 		const session = await authContext.internalAdapter.createSession(guest.id);
 		const signature = createHmac("sha256", env.AUTH_SECRET).update(session.token).digest("base64");
-		await pool.query(`INSERT INTO resume (id, name, slug, data, user_id) VALUES ($1, 'Guest', $1, '{}', $2)`, [
-			id,
-			guest.id,
-		]);
+		await pool.query(`INSERT INTO resume (id, name, data, user_id) VALUES ($1, 'Guest', '{}', $2)`, [id, guest.id]);
 		const sessionCookie = authContext.authCookies.sessionToken.name;
 		const jar: Jar = new Map([[sessionCookie, encodeURIComponent(`${session.token}.${signature}`)]]);
 		const challenge = await send("sign-in/email", credentials, jar);

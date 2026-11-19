@@ -5,9 +5,9 @@ import fs from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { serveStatic } from "@hono/node-server/serve-static";
 import { env } from "@reactive-resume/env/server";
-import { jsonLdScript, socialMetaTags } from "@reactive-resume/pdf/web-page-document";
+import { jsonLdScript, socialMetaTags } from "@reactive-resume/pdf/social";
 import { templateSchema } from "@reactive-resume/schema/templates";
-import { isAppSectionPath, isFeedbackPath, RESERVED_SEGMENTS } from "@reactive-resume/utils/app-paths";
+import { isAppSectionPath, isFeedbackPath } from "@reactive-resume/utils/app-paths";
 import { defaultLocale, getLocaleAlternates, languageTag, localizedUrl } from "@reactive-resume/utils/locale";
 import { escapeHtml } from "@reactive-resume/utils/string";
 import { getPageLocale } from "./locale";
@@ -38,36 +38,9 @@ const prerenderRoot = `${staticRoot}-prerender`;
  * server serves the shell for anything, so this failure only ever shows up once deployed.
  */
 const indexableAppPaths = new Set(["/ats-checker", "/resume-templates"]);
-const reservedPublicResumeSegments = new Set<string>(RESERVED_SEGMENTS);
 
 function isAssetPath(pathname: string): boolean {
 	return pathname.split("/").pop()?.includes(".") ?? false;
-}
-
-function getPathSegments(pathname: string) {
-	return pathname.split("/").filter(Boolean);
-}
-
-export function isPublicResumePath(pathname: string): boolean {
-	const segments = getPathSegments(pathname);
-	const [firstSegment] = segments;
-
-	return (
-		segments.length === 2 &&
-		firstSegment !== undefined &&
-		!reservedPublicResumeSegments.has(firstSegment) &&
-		!isFeedbackPath(pathname)
-	);
-}
-
-// Single-segment addresses the app or the server answer themselves, so they can never be a username's page.
-const reservedProfileSegments = new Set([...reservedPublicResumeSegments, "cards", "sitemaps", "index.html"]);
-
-/** `/<username>`: an account's primary resume. */
-export function isProfilePath(pathname: string): boolean {
-	const segments = getPathSegments(pathname);
-	const [segment] = segments;
-	return segments.length === 1 && segment !== undefined && !reservedProfileSegments.has(segment);
 }
 
 /**

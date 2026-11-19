@@ -124,7 +124,7 @@ describe.skipIf(!databaseUrl)("document assistant review on PostgreSQL", () => {
 			username: `${schemaName}-alice`,
 			displayUsername: `${schemaName}-alice`,
 		});
-		await db.insert(tables.resume).values({ id: "base", userId, name: "Base", slug: "base", data });
+		await db.insert(tables.resume).values({ id: "base", userId, name: "Base", data });
 		await db.insert(tables.application).values({
 			id: "job-a",
 			userId,
@@ -1025,9 +1025,7 @@ describe.skipIf(!databaseUrl)("document assistant review on PostgreSQL", () => {
 		if (kind === "resume") {
 			const data = structuredClone(defaultResumeData);
 			data.summary.content = "<p>Anchor</p>";
-			await fixture.db
-				?.insert(tables.resume)
-				.values({ id: documentId, userId, name: "Anchor", slug: documentId, data });
+			await fixture.db?.insert(tables.resume).values({ id: documentId, userId, name: "Anchor", data });
 		} else documentId = (await letters.create({ userId, name: "Anchor", content: "<p>Anchor</p>" })).id;
 		const { id: threadId } = await agent.threads.start({
 			userId,
@@ -1206,12 +1204,12 @@ describe.skipIf(!databaseUrl)("document assistant review on PostgreSQL", () => {
 			username: `${schemaName}-bob`,
 			displayUsername: `${schemaName}-bob`,
 		});
-		await db.insert(tables.resume).values({ id: "bobs", userId: "bob", name: "Bob's", slug: "bobs", data });
+		await db.insert(tables.resume).values({ id: "bobs", userId: "bob", name: "Bob's", data });
 		const trashed = await documents.copyForJob({ userId, resumeId: baseId });
 		await documents.trash({ userId, type: "resume", id: trashed });
 		const different = structuredClone(data);
 		different.summary.content = "<p>Something else</p>";
-		await db.insert(tables.resume).values({ id: "other", userId, name: "Other", slug: "other", data: different });
+		await db.insert(tables.resume).values({ id: "other", userId, name: "Other", data: different });
 		const copy = await documents.copyForJob({ userId, resumeId: baseId });
 
 		await expect(repoint("bobs")).rejects.toMatchObject({ code: "NOT_FOUND" });
@@ -1282,7 +1280,7 @@ describe.skipIf(!databaseUrl)("document assistant review on PostgreSQL", () => {
 			{ ...createEntry("projects"), id: "shown", name: "Shown project" },
 			{ ...createEntry("projects"), id: "secret", hidden: true, name: "HIDDEN_PROJECT_MARKER" },
 		] as typeof data.sections.projects.items;
-		await fixture.db?.insert(tables.resume).values({ id, userId, name: "Structural", slug: id, data });
+		await fixture.db?.insert(tables.resume).values({ id, userId, name: "Structural", data });
 		const { resolveDocumentEdits } = await import("./document");
 		const loaded = await loadDocument(userId, { kind: "resume", id });
 		const { translationFields } = await import("./translation");

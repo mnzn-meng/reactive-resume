@@ -1502,14 +1502,6 @@ msgstr "{lines, plural, one {עמוד {page} חורג בשורה אחת בערך
 msgid "{lines, plural, one {Page {page} still runs over by about # line.} other {Page {page} still runs over by about # lines.}}"
 msgstr "{lines, plural, one {עמוד {page} עדיין חורג בשורה אחת בערך.} other {עמוד {page} עדיין חורג בכ-# שורות.}}"
 
-#: src/features/documents/document-actions.tsx
-msgid "{made, plural, one {# made private} other {# made private}}"
-msgstr "{made, plural, one {# הפך לפרטי} other {# הפכו לפרטיים}}"
-
-#: src/features/documents/document-actions.tsx
-msgid "{made, plural, one {# made public} other {# made public}}"
-msgstr "{made, plural, one {# הפך לציבורי} other {# הפכו לציבוריים}}"
-
 #: src/features/resume/editor/check/page-layer.tsx
 msgid "{mentions, plural, one {found in # place} other {found in # places}}"
 msgstr "{mentions, plural, one {נמצא ב־# מקום} other {נמצא ב־# מקומות}}"
@@ -1691,14 +1683,6 @@ msgstr "{removed, plural, one {משנה או מסיר משפט אחד שלך} ot
 #: src/features/documents/document-actions.tsx
 msgid "{restored, plural, one {# document restored} other {# documents restored}}"
 msgstr "{restored, plural, one {מסמך אחד שוחזר} other {# מסמכים שוחזרו}}"
-
-#: src/features/documents/documents-page.tsx
-msgid "{resumes, plural, =0 {Letters have no public link.} one {Applies to the # resume selected. Letters have no public link.} other {Applies to the # resumes selected. Letters have no public link.}}"
-msgstr "{resumes, plural, =0 {למכתבים אין קישור ציבורי.} one {חל על # קורות החיים שנבחרו. למכתבים אין קישור ציבורי.} other {חל על # קורות החיים שנבחרו. למכתבים אין קישור ציבורי.}}"
-
-#: src/features/documents/documents-page.tsx
-msgid "{resumes, plural, one {Applies to the # resume selected.} other {Applies to the # resumes selected.}}"
-msgstr "{resumes, plural, one {חל על # קורות החיים שנבחרו.} other {חל על # קורות החיים שנבחרו.}}"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "{rules, plural, =2 {Removes both rules; Undo brings them back, and History keeps every saved version. Reset design never touches your CSS.} one {Removes the rule; Undo brings it back, and History keeps every saved version. Reset design never touches your CSS.} other {Removes all # rules; Undo brings them back, and History keeps every saved version. Reset design never touches your CSS.}}"
@@ -1898,15 +1882,6 @@ msgstr "+13 נקודות הפעלה"
 #: src/features/keyboard-shortcuts/index.tsx
 msgid "<0>?</0> opens this list on any page."
 msgstr "<0>?</0> פותח את הרשימה הזו בכל עמוד."
-
-#. placeholder {0}: user.username
-#: src/features/settings/account/profile.tsx
-msgid "<0>{host}/{0}</0> · part of every public link"
-msgstr "<0>{host}/{0}</0> · חלק מכל קישור ציבורי"
-
-#: src/features/settings/account/profile.tsx
-msgid "<0>{oldAddress}</0> becomes <1>{newAddress}</1>."
-msgstr "<0>{oldAddress}</0> הופכת ל־<1>{newAddress}</1>."
 
 #: src/components/input/chip-input.tsx
 msgid "<0>{RETURN_KEY}</0> or a comma adds one. Drag to reorder."
@@ -4398,10 +4373,6 @@ msgstr "השינוי ל־<0>{pendingEmail}</0> ממתין לאישור מ־{0}. 
 msgid "Change to <0>{pendingEmail}</0> is waiting: open the link we sent there. The link works for an hour."
 msgstr "השינוי ל־<0>{pendingEmail}</0> ממתין: פתחו את הקישור ששלחנו לשם. הקישור תקף לשעה."
 
-#: src/features/settings/account/profile.tsx
-msgid "Change username"
-msgstr "שנה שם משתמש"
-
 #: src/dialogs/auth/change-password.tsx
 msgid "Change your password"
 msgstr "שינוי הסיסמה שלך"
@@ -5371,10 +5342,6 @@ msgstr "שם השיחה"
 msgid "Conversations"
 msgstr "שיחות"
 
-#: src/features/homepage/share.tsx
-msgid "Copied"
-msgstr "מוּעֲתָק"
-
 #: src/features/career/coach-chat.tsx
 msgid "Copies for {company}"
 msgstr "עותקים עבור {company}"
@@ -5436,17 +5403,9 @@ msgstr "העתק לעבודה..."
 msgid "Copy it for a job"
 msgstr "להעתיק עבור משרה"
 
-#: src/features/homepage/share.tsx
-msgid "Copy link"
-msgstr "העתק קישור"
-
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Copy made for {company}. This resume is unchanged."
 msgstr "נוצר עותק עבור {company}. קורות החיים האלה לא השתנו."
-
-#: src/features/documents/document-actions.tsx
-msgid "Copy public link"
-msgstr "העתק קישור ציבורי"
 
 #: src/features/career/offers.tsx
 msgid "Copy questions"
@@ -7146,6 +7105,7 @@ msgstr "בוצע · {0}"
 
 #: src/features/career/workspace/apply.tsx
 #: src/features/career/workspace/practise.tsx
+#: src/features/homepage/share.tsx
 #: src/features/resume/editor/chrome/bar.tsx
 #: src/features/resume/share/download-menu.tsx
 #: src/features/resume/share/web-page-text.ts
@@ -7969,6 +7929,10 @@ msgstr "כל יום"
 msgid "Every entry has dates in a form systems read, in order, and none in the future."
 msgstr "לכל ערך יש תאריכים בטופס מערכות נקראות, לפי הסדר, ואף לא בעתיד."
 
+#: src/features/homepage/share.tsx
+msgid "Every format, yours"
+msgstr ""
+
 #: src/features/resume/editor/check/issues.ts
 msgid "Every role says what you did. Opinions on wording live in the Writing tab."
 msgstr "כל תפקיד אומר מה עשית. חוות דעת על ניסוח חיות בלשונית כתיבה."
@@ -8046,6 +8010,10 @@ msgstr "ניסיון, השכלה ועוד"
 msgid "explain one limit of the measurement clearly, without underselling the work."
 msgstr "הסבר בבירור מגבלה אחת של המדידה, בלי להמעיט בערך העבודה."
 
+#: src/features/documents/document-actions.tsx
+#: src/features/homepage/footer.tsx
+#: src/features/homepage/header.tsx
+#: src/features/homepage/share.tsx
 #: src/features/settings/profile.tsx
 #: src/libs/resume/section.tsx
 #: src/routes/builder/letter/-components/letter-bar.tsx
@@ -8626,6 +8594,7 @@ msgstr "תשובות לטופס"
 msgid "Form questions (optional)"
 msgstr "שאלות הטופס (רשות)"
 
+#: src/features/homepage/share.tsx
 #: src/features/resume/share/download-tab.tsx
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Format"
@@ -10068,10 +10037,6 @@ msgstr "לשמור את התשובה הזו"
 msgid "Keep to two or three families. Each extra font is another chance for one to map badly."
 msgstr "הישאר עם שתיים עד שלוש משפחות גופנים. כל גופן נוסף הוא עוד סיכוי שאחד מהם יוצג לא נכון."
 
-#: src/features/settings/account/profile.tsx
-msgid "Keep username"
-msgstr "השאר את שם המשתמש"
-
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Keep with it"
 msgstr "להשאיר יחד איתו"
@@ -10627,7 +10592,6 @@ msgstr "קישור להגשת מועמדות לעבודה..."
 msgid "Link an existing letter"
 msgstr "קשר מכתב קיים"
 
-#: src/features/documents/document-actions.tsx
 #: src/features/resume/share/web-page-text.ts
 msgid "Link copied"
 msgstr "הקישור הועתק"
@@ -10715,10 +10679,6 @@ msgstr "LinkedIn, הפניה…"
 #: src/features/settings/profile.tsx
 msgid "Links"
 msgstr "קישורים"
-
-#: src/features/settings/account/profile.tsx
-msgid "Links you've already shared keep working for 30 days, then stop. Share the new ones before then."
-msgstr "קישורים שכבר שיתפת ימשיכו לעבוד 30 ימים, ואז יפסיקו. שתף את החדשים לפני כן."
 
 #: src/features/homepage/hero.tsx
 msgid "Lisbon"
@@ -10954,18 +10914,6 @@ msgstr "נָמוּך"
 msgid "Lower the design sheet"
 msgstr "הורד את גיליון העיצוב"
 
-#. placeholder {0}: number(made)
-#. placeholder {1}: number(total)
-#: src/features/documents/document-actions.tsx
-msgid "Made {0} of {1} private. Letters have no public link, and locked documents are left as they are."
-msgstr "{0} מתוך {1} הפכו לפרטיים. למכתבים אין קישור ציבורי, ומסמכים נעולים נשארים כמו שהם."
-
-#. placeholder {0}: number(made)
-#. placeholder {1}: number(total)
-#: src/features/documents/document-actions.tsx
-msgid "Made {0} of {1} public. Letters have no public link, and locked documents are left as they are."
-msgstr "{0} מתוך {1} הפכו לציבוריים. למכתבים אין קישור ציבורי, ומסמכים נעולים נשארים כמו שהם."
-
 #: src/features/resume/share/web-page-text.ts
 msgid "Made with Reactive Resume"
 msgstr ""
@@ -11019,14 +10967,6 @@ msgstr "תעשה את זה יותר ספציפי"
 #: src/features/resume/editor/write/improve.tsx
 msgid "Make it shorter"
 msgstr "תעשה את זה קצר יותר"
-
-#: src/features/documents/documents-page.tsx
-msgid "Make private"
-msgstr "הפוך לפרטי"
-
-#: src/features/documents/documents-page.tsx
-msgid "Make public"
-msgstr "הפוך לציבורי"
 
 #: src/features/assistant/assistant-panel.tsx
 msgid "Make the opening stronger"
@@ -13572,10 +13512,6 @@ msgstr "Parcel & Co."
 msgid "Parcel & Co. · Porto"
 msgstr "Parcel & Co. · Porto"
 
-#: src/features/settings/account/profile.tsx
-msgid "Part of every public link. Old links keep working for 30 days after a change."
-msgstr "חלק מכל קישור ציבורי. קישורים ישנים ממשיכים לעבוד 30 ימים אחרי שינוי."
-
 #: src/features/career/workspace/fit.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Partly supported"
@@ -13603,7 +13539,6 @@ msgstr "מפתחות גישה דורשים דוא״ל מאומת, והשרת ה�
 #: src/features/auth/pages/login.tsx
 #: src/features/auth/pages/register.tsx
 #: src/features/command-palette/pages/navigation.tsx
-#: src/features/homepage/share.tsx
 #: src/features/resume/builder/password-dialog.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/features/settings/account/auth-hooks.ts
@@ -14285,10 +14220,6 @@ msgstr "הֶדפֵּס"
 msgid "Print or export the form to a flat PDF before sending it."
 msgstr "הדפס או ייצא את הטופס ל־PDF שטוח לפני השליחה."
 
-#: src/features/homepage/share.tsx
-msgid "Private"
-msgstr "פרטי"
-
 #: src/routes/builder/$resumeId/-sidebar/right/sections/notes.tsx
 msgid "Private notes about this resume. Nobody else can see them."
 msgstr "הערות פרטיות על קורות החיים האלה. אף אחד אחר לא יכול לראות אותן."
@@ -14296,10 +14227,6 @@ msgstr "הערות פרטיות על קורות החיים האלה. אף אחד
 #: src/features/career/coach-chat.tsx
 msgid "Private to this application"
 msgstr "פרטי למועמדות הזו"
-
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Private. Only you can see it."
-msgstr "פְּרָטִי. רק אתה יכול לראות את זה."
 
 #: src/features/homepage/check.tsx
 #: src/features/homepage/sheet.tsx
@@ -14415,19 +14342,6 @@ msgstr "שמירת הנתונים אצל הספק כפופה למדיניות ש
 #: src/features/ai/usage.tsx
 msgid "Provider test"
 msgstr "בדיקת ספק"
-
-#: src/features/documents/document-status.tsx
-#: src/features/documents/documents-page.tsx
-#: src/features/homepage/share.tsx
-#: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Public"
-msgstr "ציבורי"
-
-#: src/features/documents/document-status.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Public, with a password"
-msgstr "ציבורי, עם סיסמה"
 
 #: src/libs/resume/section.tsx
 msgid "Publications"
@@ -17083,18 +16997,10 @@ msgstr "צבע צל"
 msgid "Shadow width"
 msgstr "רוחב צל"
 
-#: src/features/documents/document-actions.tsx
-#: src/features/homepage/footer.tsx
-#: src/features/homepage/header.tsx
-#: src/features/homepage/share.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
 msgid "Share"
 msgstr "שיתוף"
-
-#: src/features/homepage/share.tsx
-msgid "Share a public link, add a password or keep it private. Choose from 3 visibility options. Export to PDF or Word, or take all your data with you as JSON."
-msgstr "שתף קישור ציבורי, הוסף סיסמה או השאר אותה פרטית. בחר מתוך 3 אפשרויות נראות. ייצא ל-PDF או Word, או קח איתך את כל הנתונים שלך בתור JSON."
 
 #. placeholder {0}: provider.label
 #: src/libs/orpc/ai-consent.ts
@@ -17104,10 +17010,6 @@ msgstr "לשתף נתונים עם {0}?"
 #: src/features/resume/editor/chrome/download-sheet.tsx
 msgid "Share sections"
 msgstr "שתף קטעים"
-
-#: src/features/documents/document-actions.tsx
-msgid "Share…"
-msgstr "שיתוף…"
 
 #: src/libs/orpc/ai-consent.ts
 msgid "Shares only resume and posting. Knowledge, private notes and web access are excluded. Review proposals before accepting; the original stays unchanged."
@@ -17121,9 +17023,7 @@ msgstr "משתף רק את פריט הידע הנבחר, קורות החיים �
 msgid "Shares resume, posting and pasted questions. Answer drafts also use your letter, career preferences, application notes and contacts, and enabled Knowledge facts and stories. Context may be excerpted. Web access is off. Review before saving; nothing is submitted."
 msgstr "משתף קורות חיים, מודעת משרה ושאלות שהודבקו. טיוטות התשובות משתמשות גם במכתב, בהעדפות קריירה, בהערות ובאנשי קשר של המועמדות ובעובדות ובסיפורים פעילים בידע. ההקשר עשוי להתקצר. הגישה לרשת כבויה. בדקו לפני שמירה; דבר לא מוגש."
 
-#: src/features/documents/documents-page.tsx
 #: src/libs/resume/section.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
 msgid "Sharing"
 msgstr "שיתוף"
 
@@ -18354,6 +18254,10 @@ msgstr "קורות חיים מותאמים מול בסיסיים"
 #: src/features/career/workspace/practise.tsx
 msgid "Take dictation with"
 msgstr "להכתיב עם"
+
+#: src/features/homepage/share.tsx
+msgid "Take it as PDF, Word, Markdown or JSON. Your resume is yours: no lock-in, and every format is free."
+msgstr ""
 
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "Take-home assignment"
@@ -20936,9 +20840,9 @@ msgstr "להציג את המודעה ב־{host}"
 msgid "View recorded answers"
 msgstr "הצג תשובות מתועדות"
 
-#: src/features/homepage/share.tsx
-msgid "Visibility"
-msgstr "רְאוּת"
+#: src/features/settings/account/profile.tsx
+msgid "Visible to nobody but you; used to sign in."
+msgstr ""
 
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
@@ -22191,14 +22095,6 @@ msgstr "הספק שלך"
 msgid "Your provider may charge for the run."
 msgstr "הספק שלכם עשוי לחייב על ההרצה."
 
-#: src/features/settings/account/profile.tsx
-msgid "Your public link will change"
-msgstr "הקישור הציבורי שלכם ישתנה"
-
-#: src/features/settings/account/profile.tsx
-msgid "Your public links will change"
-msgstr "הקישורים הציבוריים שלך ישתנו"
-
 #: src/features/career/workspace/messages.tsx
 msgid "Your reply"
 msgstr "התשובה שלכם"
@@ -22242,10 +22138,6 @@ msgstr "טקסט קורות החיים שלך, קטעים שנבחרו וממצ�
 #: src/features/ats-checker/messages.ts
 msgid "Your resume uses \"I\" and \"my\"."
 msgstr "קורות החיים שלך משתמשים ב־״I״ וב־״my״."
-
-#: src/features/homepage/share.tsx
-msgid "Your resume, live at"
-msgstr "קורות החיים שלך, חי ב"
 
 #: src/features/documents/documents-page.tsx
 msgid "Your resumes and cover letters live here"

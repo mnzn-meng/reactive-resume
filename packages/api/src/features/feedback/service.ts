@@ -6,8 +6,9 @@ import { db } from "@reactive-resume/db/client";
 import * as schema from "@reactive-resume/db/schema";
 import { FEEDBACK_MAX_APPLICATIONS, FEEDBACK_MAX_COMMENTS } from "../../dto/feedback";
 import { activeApplications } from "../applications/access";
-import { ownerIsNotBanned, redactResumeForViewer } from "../resume/access-policy";
+import { ownerIsNotBanned } from "../documents/ownership";
 import { parseStoredResumeData } from "../resume/resume-data-validation";
+import { redactResumeForReviewer } from "./redaction";
 import { feedbackLinkIdFromToken, feedbackUrl } from "./token";
 
 /** Most links an account can have open at once; revoked and expired ones don't count. */
@@ -186,10 +187,7 @@ export const feedbackService = {
 				message: `You can have up to ${FEEDBACK_MAX_ACTIVE_LINKS} feedback links open. Revoke one you no longer need.`,
 			});
 		// The reviewer reads the resume as the owner wrote it, without private notes, hidden items or check results.
-		const snapshot = redactResumeForViewer(
-			{ name: resume.name, data: parseStoredResumeData(resume.data), hideContactDetails: false },
-			false,
-		).data;
+		const snapshot = redactResumeForReviewer(parseStoredResumeData(resume.data));
 		const [link] = await db
 			.insert(schema.feedbackLink)
 			.values({

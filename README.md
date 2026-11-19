@@ -14,7 +14,7 @@
 
 ---
 
-Create a free account, import an existing resume or start fresh, and see the finished page as you write. Download a PDF, Word, Markdown, or JSON file, or share your resume with a public link. You can also run the whole application on your own infrastructure.
+Create a free account, import an existing resume or start fresh, and see the finished page as you write. Download a PDF, Word, Markdown, or JSON file. You can also run the whole application on your own infrastructure.
 
 You own your data. No tracking, no ads, and no paid tier. Optional AI features use a provider you connect; hosting and provider usage may have their own costs.
 
@@ -74,7 +74,6 @@ You own your data. No tracking, no ads, and no paid tier. Optional AI features u
 - Import Reactive Resume JSON, JSON Resume, LinkedIn data exports, PDF, and Word files
 - JSON, LinkedIn, and readable PDF imports work without AI; Word imports require a connected provider
 - Export resumes and letters as PDF, Word (DOCX), Markdown, or JSON
-- Share resumes through public links with optional password protection and view/download statistics
 - REST API and MCP server for document management, imports, exports, checks, and application workflows
 
 **Privacy and Control**

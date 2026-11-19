@@ -19,10 +19,6 @@ function library(database: DbOrTx, input: ListInput) {
 			name: resume.name,
 			tags: resume.tags,
 			isLocked: resume.isLocked,
-			isPublic: resume.isPublic,
-			// Whether the link asks for a password; the hash itself never leaves the database.
-			hasPassword: sql<boolean>`${resume.password} is not null`.as("has_password"),
-			slug: sql<string | null>`${resume.slug}`.as("slug"),
 			trashedAt: resume.trashedAt,
 			createdAt: resume.createdAt,
 			updatedAt: resume.updatedAt,
@@ -53,9 +49,6 @@ function library(database: DbOrTx, input: ListInput) {
 			name: coverLetter.name,
 			tags: coverLetter.tags,
 			isLocked: coverLetter.isLocked,
-			isPublic: sql<boolean>`false`.as("is_public"),
-			hasPassword: sql<boolean>`false`.as("has_password"),
-			slug: sql<string | null>`null`.as("slug"),
 			trashedAt: coverLetter.trashedAt,
 			createdAt: coverLetter.createdAt,
 			updatedAt: coverLetter.updatedAt,
@@ -100,7 +93,6 @@ function predicate(rows: ReturnType<typeof library>, input: ListInput, includeTy
 	const contains = (value: SQLWrapper) => sql`strpos(lower(${value}), lower(${q})) > 0`;
 	return and(
 		includeType && input.type !== "all" ? eq(rows.type, input.type) : undefined,
-		input.public ? eq(rows.isPublic, true) : undefined,
 		input.tags.length ? arrayContains(rows.tags, input.tags) : undefined,
 		q
 			? or(
@@ -167,18 +159,12 @@ async function documentFacets(database: DbOrTx, input: ListInput) {
 		)
 		.orderBy(sql`tag`)
 		.limit(100);
-	const publicRows = await database
-		.select({ id: rows.id })
-		.from(rows)
-		.where(and(eq(rows.isPublic, true), ofType))
-		.limit(1);
 	return {
 		counts: {
 			resume: counts.find((row) => row.type === "resume")?.total ?? 0,
 			letter: counts.find((row) => row.type === "letter")?.total ?? 0,
 		},
 		tags: [...new Set([...input.tags, ...tags.map((row) => row.tag)])],
-		hasPublic: publicRows.length > 0,
 	};
 }
 

@@ -1502,14 +1502,6 @@ msgstr "{lines, plural, other {{page}페이지가 약 #줄 넘칩니다}}"
 msgid "{lines, plural, one {Page {page} still runs over by about # line.} other {Page {page} still runs over by about # lines.}}"
 msgstr "{lines, plural, other {{page}페이지가 여전히 약 #줄 넘칩니다.}}"
 
-#: src/features/documents/document-actions.tsx
-msgid "{made, plural, one {# made private} other {# made private}}"
-msgstr "{made, plural, other {#개 비공개로 전환됨}}"
-
-#: src/features/documents/document-actions.tsx
-msgid "{made, plural, one {# made public} other {# made public}}"
-msgstr "{made, plural, other {#개 공개로 전환됨}}"
-
 #: src/features/resume/editor/check/page-layer.tsx
 msgid "{mentions, plural, one {found in # place} other {found in # places}}"
 msgstr "{mentions, plural, other {#곳에서 발견}}"
@@ -1691,14 +1683,6 @@ msgstr "{removed, plural, other {내가 쓴 문장 #개를 변경하거나 삭�
 #: src/features/documents/document-actions.tsx
 msgid "{restored, plural, one {# document restored} other {# documents restored}}"
 msgstr "{restored, plural, other {서류 #개를 복원했습니다}}"
-
-#: src/features/documents/documents-page.tsx
-msgid "{resumes, plural, =0 {Letters have no public link.} one {Applies to the # resume selected. Letters have no public link.} other {Applies to the # resumes selected. Letters have no public link.}}"
-msgstr "{resumes, plural, =0 {레터에는 공개 링크가 없습니다.} other {선택한 이력서 #개에 적용됩니다. 레터에는 공개 링크가 없습니다.}}"
-
-#: src/features/documents/documents-page.tsx
-msgid "{resumes, plural, one {Applies to the # resume selected.} other {Applies to the # resumes selected.}}"
-msgstr "{resumes, plural, other {선택한 이력서 #개에 적용됩니다.}}"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "{rules, plural, =2 {Removes both rules; Undo brings them back, and History keeps every saved version. Reset design never touches your CSS.} one {Removes the rule; Undo brings it back, and History keeps every saved version. Reset design never touches your CSS.} other {Removes all # rules; Undo brings them back, and History keeps every saved version. Reset design never touches your CSS.}}"
@@ -1898,15 +1882,6 @@ msgstr "+13 포인트 활성화"
 #: src/features/keyboard-shortcuts/index.tsx
 msgid "<0>?</0> opens this list on any page."
 msgstr "어느 페이지에서나 <0>?</0> 키로 이 목록을 엽니다."
-
-#. placeholder {0}: user.username
-#: src/features/settings/account/profile.tsx
-msgid "<0>{host}/{0}</0> · part of every public link"
-msgstr "<0>{host}/{0}</0> · 모든 공개 링크에 포함됨"
-
-#: src/features/settings/account/profile.tsx
-msgid "<0>{oldAddress}</0> becomes <1>{newAddress}</1>."
-msgstr "<0>{oldAddress}</0>이(가) <1>{newAddress}</1>(으)로 바뀝니다."
 
 #: src/components/input/chip-input.tsx
 msgid "<0>{RETURN_KEY}</0> or a comma adds one. Drag to reorder."
@@ -4398,10 +4373,6 @@ msgstr "<0>{pendingEmail}</0>(으)로의 변경이 {0}의 승인을 기다리고
 msgid "Change to <0>{pendingEmail}</0> is waiting: open the link we sent there. The link works for an hour."
 msgstr "<0>{pendingEmail}</0>(으)로의 변경 대기 중: 그 주소로 보낸 링크를 여세요. 링크는 1시간 동안 유효합니다."
 
-#: src/features/settings/account/profile.tsx
-msgid "Change username"
-msgstr "사용자 이름 변경"
-
 #: src/dialogs/auth/change-password.tsx
 msgid "Change your password"
 msgstr "비밀번호 변경"
@@ -5371,10 +5342,6 @@ msgstr "대화 이름"
 msgid "Conversations"
 msgstr "대화"
 
-#: src/features/homepage/share.tsx
-msgid "Copied"
-msgstr "복사됨"
-
 #: src/features/career/coach-chat.tsx
 msgid "Copies for {company}"
 msgstr "{company}용 사본"
@@ -5436,17 +5403,9 @@ msgstr "작업용 복사…"
 msgid "Copy it for a job"
 msgstr "채용 건용으로 복사"
 
-#: src/features/homepage/share.tsx
-msgid "Copy link"
-msgstr "링크 복사"
-
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Copy made for {company}. This resume is unchanged."
 msgstr "{company}용 사본을 만들었습니다. 이 이력서는 변경되지 않았습니다."
-
-#: src/features/documents/document-actions.tsx
-msgid "Copy public link"
-msgstr "공개 링크 복사"
 
 #: src/features/career/offers.tsx
 msgid "Copy questions"
@@ -7146,6 +7105,7 @@ msgstr "완료 · {0}"
 
 #: src/features/career/workspace/apply.tsx
 #: src/features/career/workspace/practise.tsx
+#: src/features/homepage/share.tsx
 #: src/features/resume/editor/chrome/bar.tsx
 #: src/features/resume/share/download-menu.tsx
 #: src/features/resume/share/web-page-text.ts
@@ -7969,6 +7929,10 @@ msgstr "매일"
 msgid "Every entry has dates in a form systems read, in order, and none in the future."
 msgstr "모든 항목에는 시스템 읽기 형식의 날짜가 순서대로 있고 미래의 날짜는 없습니다."
 
+#: src/features/homepage/share.tsx
+msgid "Every format, yours"
+msgstr ""
+
 #: src/features/resume/editor/check/issues.ts
 msgid "Every role says what you did. Opinions on wording live in the Writing tab."
 msgstr "모든 역할은 당신이 한 일을 말해줍니다. 표현에 대한 의견은 글쓰기 탭에 있습니다."
@@ -8046,6 +8010,10 @@ msgstr "경력, 학력 등"
 msgid "explain one limit of the measurement clearly, without underselling the work."
 msgstr "작업을 과소평가하지 않으면서 측정의 한계 하나를 명확히 설명하세요."
 
+#: src/features/documents/document-actions.tsx
+#: src/features/homepage/footer.tsx
+#: src/features/homepage/header.tsx
+#: src/features/homepage/share.tsx
 #: src/features/settings/profile.tsx
 #: src/libs/resume/section.tsx
 #: src/routes/builder/letter/-components/letter-bar.tsx
@@ -8626,6 +8594,7 @@ msgstr "양식 답변"
 msgid "Form questions (optional)"
 msgstr "양식 질문(선택 사항)"
 
+#: src/features/homepage/share.tsx
 #: src/features/resume/share/download-tab.tsx
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Format"
@@ -10068,10 +10037,6 @@ msgstr "이 답변 보관"
 msgid "Keep to two or three families. Each extra font is another chance for one to map badly."
 msgstr "폰트는 두세 종류로 유지하세요. 폰트가 추가될수록 잘못 매핑될 가능성이 커집니다."
 
-#: src/features/settings/account/profile.tsx
-msgid "Keep username"
-msgstr "사용자 이름 유지"
-
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Keep with it"
 msgstr "함께 보관"
@@ -10627,7 +10592,6 @@ msgstr "입사 지원서 연결…"
 msgid "Link an existing letter"
 msgstr "기존 레터 연결"
 
-#: src/features/documents/document-actions.tsx
 #: src/features/resume/share/web-page-text.ts
 msgid "Link copied"
 msgstr "링크가 복사되었습니다"
@@ -10715,10 +10679,6 @@ msgstr "LinkedIn, 추천…"
 #: src/features/settings/profile.tsx
 msgid "Links"
 msgstr "모래밭"
-
-#: src/features/settings/account/profile.tsx
-msgid "Links you've already shared keep working for 30 days, then stop. Share the new ones before then."
-msgstr "이미 공유한 링크는 30일 동안 작동한 후 중단됩니다. 그 전에 새 링크를 공유하세요."
 
 #: src/features/homepage/hero.tsx
 msgid "Lisbon"
@@ -10954,18 +10914,6 @@ msgstr "낮은"
 msgid "Lower the design sheet"
 msgstr "디자인 시트를 내리세요"
 
-#. placeholder {0}: number(made)
-#. placeholder {1}: number(total)
-#: src/features/documents/document-actions.tsx
-msgid "Made {0} of {1} private. Letters have no public link, and locked documents are left as they are."
-msgstr "{1}개 중 {0}개를 비공개로 전환했습니다. 레터에는 공개 링크가 없으며, 잠긴 서류는 그대로 둡니다."
-
-#. placeholder {0}: number(made)
-#. placeholder {1}: number(total)
-#: src/features/documents/document-actions.tsx
-msgid "Made {0} of {1} public. Letters have no public link, and locked documents are left as they are."
-msgstr "{1}개 중 {0}개를 공개로 전환했습니다. 레터에는 공개 링크가 없으며, 잠긴 서류는 그대로 둡니다."
-
 #: src/features/resume/share/web-page-text.ts
 msgid "Made with Reactive Resume"
 msgstr ""
@@ -11019,14 +10967,6 @@ msgstr "좀 더 구체적으로 작성하세요"
 #: src/features/resume/editor/write/improve.tsx
 msgid "Make it shorter"
 msgstr "더 짧게 만드세요"
-
-#: src/features/documents/documents-page.tsx
-msgid "Make private"
-msgstr "비공개로 전환"
-
-#: src/features/documents/documents-page.tsx
-msgid "Make public"
-msgstr "공개로 전환"
 
 #: src/features/assistant/assistant-panel.tsx
 msgid "Make the opening stronger"
@@ -13572,10 +13512,6 @@ msgstr "Parcel & Co."
 msgid "Parcel & Co. · Porto"
 msgstr "Parcel & Co. · Porto"
 
-#: src/features/settings/account/profile.tsx
-msgid "Part of every public link. Old links keep working for 30 days after a change."
-msgstr "모든 공개 링크에 포함됩니다. 변경 후에도 이전 링크는 30일 동안 작동합니다."
-
 #: src/features/career/workspace/fit.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Partly supported"
@@ -13603,7 +13539,6 @@ msgstr "패스키를 사용하려면 인증된 이메일이 필요하지만, 이
 #: src/features/auth/pages/login.tsx
 #: src/features/auth/pages/register.tsx
 #: src/features/command-palette/pages/navigation.tsx
-#: src/features/homepage/share.tsx
 #: src/features/resume/builder/password-dialog.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/features/settings/account/auth-hooks.ts
@@ -14285,10 +14220,6 @@ msgstr "인쇄"
 msgid "Print or export the form to a flat PDF before sending it."
 msgstr "보내기 전에 양식을 일반 PDF로 인쇄하거나 내보내세요."
 
-#: src/features/homepage/share.tsx
-msgid "Private"
-msgstr "비공개"
-
 #: src/routes/builder/$resumeId/-sidebar/right/sections/notes.tsx
 msgid "Private notes about this resume. Nobody else can see them."
 msgstr "이 이력서에 대한 비공개 노트입니다. 다른 사람은 볼 수 없습니다."
@@ -14296,10 +14227,6 @@ msgstr "이 이력서에 대한 비공개 노트입니다. 다른 사람은 볼 
 #: src/features/career/coach-chat.tsx
 msgid "Private to this application"
 msgstr "이 지원에서만 비공개"
-
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Private. Only you can see it."
-msgstr "사적인. 오직 당신만이 그것을 볼 수 있습니다."
 
 #: src/features/homepage/check.tsx
 #: src/features/homepage/sheet.tsx
@@ -14415,19 +14342,6 @@ msgstr "제공자의 데이터 보존은 해당 제공자의 정책을 따릅니
 #: src/features/ai/usage.tsx
 msgid "Provider test"
 msgstr "제공업체 테스트"
-
-#: src/features/documents/document-status.tsx
-#: src/features/documents/documents-page.tsx
-#: src/features/homepage/share.tsx
-#: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Public"
-msgstr "공개"
-
-#: src/features/documents/document-status.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Public, with a password"
-msgstr "공개, 비밀번호 포함"
 
 #: src/libs/resume/section.tsx
 msgid "Publications"
@@ -17083,18 +16997,10 @@ msgstr "그림자 색상"
 msgid "Shadow width"
 msgstr "그림자 너비"
 
-#: src/features/documents/document-actions.tsx
-#: src/features/homepage/footer.tsx
-#: src/features/homepage/header.tsx
-#: src/features/homepage/share.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
 msgid "Share"
 msgstr "공유하다"
-
-#: src/features/homepage/share.tsx
-msgid "Share a public link, add a password or keep it private. Choose from 3 visibility options. Export to PDF or Word, or take all your data with you as JSON."
-msgstr "공개 링크를 공유하고 비밀번호를 추가하거나 비공개로 유지하세요. 3가지 공개 옵션 중에서 선택하세요. PDF 또는 Word로 내보내거나 모든 데이터를 JSON로 가져가세요."
 
 #. placeholder {0}: provider.label
 #: src/libs/orpc/ai-consent.ts
@@ -17104,10 +17010,6 @@ msgstr "{0}와(과) 데이터를 공유할까요?"
 #: src/features/resume/editor/chrome/download-sheet.tsx
 msgid "Share sections"
 msgstr "섹션 공유"
-
-#: src/features/documents/document-actions.tsx
-msgid "Share…"
-msgstr "공유…"
 
 #: src/libs/orpc/ai-consent.ts
 msgid "Shares only resume and posting. Knowledge, private notes and web access are excluded. Review proposals before accepting; the original stays unchanged."
@@ -17121,9 +17023,7 @@ msgstr "선택한 지식 문장, 이력서, 채용 공고만 공유합니다. �
 msgid "Shares resume, posting and pasted questions. Answer drafts also use your letter, career preferences, application notes and contacts, and enabled Knowledge facts and stories. Context may be excerpted. Web access is off. Review before saving; nothing is submitted."
 msgstr "이력서, 채용 공고, 붙여 넣은 질문을 공유합니다. 답변 초안에는 편지, 경력 선호, 지원 메모와 연락처, 활성 지식의 사실과 이야기도 사용됩니다. 내용이 발췌될 수 있습니다. 웹 액세스는 꺼져 있습니다. 저장 전에 검토하세요. 지원서는 제출되지 않습니다."
 
-#: src/features/documents/documents-page.tsx
 #: src/libs/resume/section.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
 msgid "Sharing"
 msgstr "공유"
 
@@ -18354,6 +18254,10 @@ msgstr "맞춤 이력서 대 기본 이력서"
 #: src/features/career/workspace/practise.tsx
 msgid "Take dictation with"
 msgstr "받아쓰기 방식"
+
+#: src/features/homepage/share.tsx
+msgid "Take it as PDF, Word, Markdown or JSON. Your resume is yours: no lock-in, and every format is free."
+msgstr ""
 
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "Take-home assignment"
@@ -20936,9 +20840,9 @@ msgstr "{host}에서 채용 공고 보기"
 msgid "View recorded answers"
 msgstr "기록된 답변 보기"
 
-#: src/features/homepage/share.tsx
-msgid "Visibility"
-msgstr "시계"
+#: src/features/settings/account/profile.tsx
+msgid "Visible to nobody but you; used to sign in."
+msgstr ""
 
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
@@ -22191,14 +22095,6 @@ msgstr "귀하의 제공자"
 msgid "Your provider may charge for the run."
 msgstr "제공자가 실행 요금을 청구할 수 있습니다."
 
-#: src/features/settings/account/profile.tsx
-msgid "Your public link will change"
-msgstr "공개 링크가 변경됩니다"
-
-#: src/features/settings/account/profile.tsx
-msgid "Your public links will change"
-msgstr "공개 링크가 변경됩니다"
-
 #: src/features/career/workspace/messages.tsx
 msgid "Your reply"
 msgstr "내 답장"
@@ -22242,10 +22138,6 @@ msgstr "이력서 텍스트, 선택한 구절, 검토 결과."
 #: src/features/ats-checker/messages.ts
 msgid "Your resume uses \"I\" and \"my\"."
 msgstr "이력서에서 \"I\"와 \"my\"를 사용하고 있습니다."
-
-#: src/features/homepage/share.tsx
-msgid "Your resume, live at"
-msgstr "이력서, 라이브"
 
 #: src/features/documents/documents-page.tsx
 msgid "Your resumes and cover letters live here"

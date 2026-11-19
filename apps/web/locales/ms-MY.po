@@ -1502,14 +1502,6 @@ msgstr "{lines, plural, one {Halaman {page} melebihi kira-kira # baris} other {H
 msgid "{lines, plural, one {Page {page} still runs over by about # line.} other {Page {page} still runs over by about # lines.}}"
 msgstr "{lines, plural, one {Halaman {page} masih melebihi kira-kira # baris.} other {Halaman {page} masih melebihi kira-kira # baris.}}"
 
-#: src/features/documents/document-actions.tsx
-msgid "{made, plural, one {# made private} other {# made private}}"
-msgstr "{made, plural, other {# dijadikan peribadi}}"
-
-#: src/features/documents/document-actions.tsx
-msgid "{made, plural, one {# made public} other {# made public}}"
-msgstr "{made, plural, other {# dijadikan awam}}"
-
 #: src/features/resume/editor/check/page-layer.tsx
 msgid "{mentions, plural, one {found in # place} other {found in # places}}"
 msgstr "{mentions, plural, other {ditemui di # tempat}}"
@@ -1691,14 +1683,6 @@ msgstr "{removed, plural, one {mengubah atau membuang # ayat anda} other {mengub
 #: src/features/documents/document-actions.tsx
 msgid "{restored, plural, one {# document restored} other {# documents restored}}"
 msgstr "{restored, plural, one {# dokumen dipulihkan} other {# dokumen dipulihkan}}"
-
-#: src/features/documents/documents-page.tsx
-msgid "{resumes, plural, =0 {Letters have no public link.} one {Applies to the # resume selected. Letters have no public link.} other {Applies to the # resumes selected. Letters have no public link.}}"
-msgstr "{resumes, plural, =0 {Surat tidak mempunyai pautan awam.} other {Digunakan pada # resume yang dipilih. Surat tidak mempunyai pautan awam.}}"
-
-#: src/features/documents/documents-page.tsx
-msgid "{resumes, plural, one {Applies to the # resume selected.} other {Applies to the # resumes selected.}}"
-msgstr "{resumes, plural, other {Digunakan pada # resume yang dipilih.}}"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "{rules, plural, =2 {Removes both rules; Undo brings them back, and History keeps every saved version. Reset design never touches your CSS.} one {Removes the rule; Undo brings it back, and History keeps every saved version. Reset design never touches your CSS.} other {Removes all # rules; Undo brings them back, and History keeps every saved version. Reset design never touches your CSS.}}"
@@ -1898,15 +1882,6 @@ msgstr "+13 mata pengaktifan"
 #: src/features/keyboard-shortcuts/index.tsx
 msgid "<0>?</0> opens this list on any page."
 msgstr "<0>?</0> membuka senarai ini pada mana-mana halaman."
-
-#. placeholder {0}: user.username
-#: src/features/settings/account/profile.tsx
-msgid "<0>{host}/{0}</0> · part of every public link"
-msgstr "<0>{host}/{0}</0> · sebahagian daripada setiap pautan awam"
-
-#: src/features/settings/account/profile.tsx
-msgid "<0>{oldAddress}</0> becomes <1>{newAddress}</1>."
-msgstr "<0>{oldAddress}</0> menjadi <1>{newAddress}</1>."
 
 #: src/components/input/chip-input.tsx
 msgid "<0>{RETURN_KEY}</0> or a comma adds one. Drag to reorder."
@@ -4398,10 +4373,6 @@ msgstr "Pertukaran kepada <0>{pendingEmail}</0> sedang menunggu kelulusan daripa
 msgid "Change to <0>{pendingEmail}</0> is waiting: open the link we sent there. The link works for an hour."
 msgstr "Pertukaran kepada <0>{pendingEmail}</0> sedang menunggu: buka pautan yang kami hantar ke sana. Pautan berfungsi selama sejam."
 
-#: src/features/settings/account/profile.tsx
-msgid "Change username"
-msgstr "Ubah nama pengguna"
-
 #: src/dialogs/auth/change-password.tsx
 msgid "Change your password"
 msgstr "Tukar kata laluan anda"
@@ -5371,10 +5342,6 @@ msgstr "Nama perbualan"
 msgid "Conversations"
 msgstr "Perbualan"
 
-#: src/features/homepage/share.tsx
-msgid "Copied"
-msgstr "disalin"
-
 #: src/features/career/coach-chat.tsx
 msgid "Copies for {company}"
 msgstr "Salinan untuk {company}"
@@ -5436,17 +5403,9 @@ msgstr "Salin untuk kerja…"
 msgid "Copy it for a job"
 msgstr "Salin untuk satu kerja"
 
-#: src/features/homepage/share.tsx
-msgid "Copy link"
-msgstr "Salin pautan"
-
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Copy made for {company}. This resume is unchanged."
 msgstr "Salinan dibuat untuk {company}. Resume ini tidak diubah."
-
-#: src/features/documents/document-actions.tsx
-msgid "Copy public link"
-msgstr "Salin pautan awam"
 
 #: src/features/career/offers.tsx
 msgid "Copy questions"
@@ -7146,6 +7105,7 @@ msgstr "Selesai · {0}"
 
 #: src/features/career/workspace/apply.tsx
 #: src/features/career/workspace/practise.tsx
+#: src/features/homepage/share.tsx
 #: src/features/resume/editor/chrome/bar.tsx
 #: src/features/resume/share/download-menu.tsx
 #: src/features/resume/share/web-page-text.ts
@@ -7969,6 +7929,10 @@ msgstr "Setiap hari"
 msgid "Every entry has dates in a form systems read, in order, and none in the future."
 msgstr "Setiap entri mempunyai tarikh dalam sistem borang yang dibaca, mengikut urutan, dan tiada pada masa hadapan."
 
+#: src/features/homepage/share.tsx
+msgid "Every format, yours"
+msgstr ""
+
 #: src/features/resume/editor/check/issues.ts
 msgid "Every role says what you did. Opinions on wording live in the Writing tab."
 msgstr "Setiap peranan menyatakan apa yang anda lakukan. Pendapat tentang perkataan secara langsung dalam tab Penulisan."
@@ -8046,6 +8010,10 @@ msgstr "Pengalaman, Pendidikan dan banyak lagi"
 msgid "explain one limit of the measurement clearly, without underselling the work."
 msgstr "terangkan satu had pengukuran dengan jelas, tanpa memperkecilkan kerja itu."
 
+#: src/features/documents/document-actions.tsx
+#: src/features/homepage/footer.tsx
+#: src/features/homepage/header.tsx
+#: src/features/homepage/share.tsx
 #: src/features/settings/profile.tsx
 #: src/libs/resume/section.tsx
 #: src/routes/builder/letter/-components/letter-bar.tsx
@@ -8626,6 +8594,7 @@ msgstr "Jawapan borang"
 msgid "Form questions (optional)"
 msgstr "Soalan borang (pilihan)"
 
+#: src/features/homepage/share.tsx
 #: src/features/resume/share/download-tab.tsx
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Format"
@@ -10068,10 +10037,6 @@ msgstr "Simpan jawapan ini"
 msgid "Keep to two or three families. Each extra font is another chance for one to map badly."
 msgstr "Kekalkan pada dua atau tiga keluarga. Setiap fon tambahan adalah satu lagi peluang untuk salah dipetakan."
 
-#: src/features/settings/account/profile.tsx
-msgid "Keep username"
-msgstr "Kekalkan nama pengguna"
-
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Keep with it"
 msgstr "Kekalkan bersamanya"
@@ -10627,7 +10592,6 @@ msgstr "Pautkan permohonan kerja…"
 msgid "Link an existing letter"
 msgstr "Pautkan surat sedia ada"
 
-#: src/features/documents/document-actions.tsx
 #: src/features/resume/share/web-page-text.ts
 msgid "Link copied"
 msgstr "Pautan disalin"
@@ -10715,10 +10679,6 @@ msgstr "LinkedIn, Rujukan…"
 #: src/features/settings/profile.tsx
 msgid "Links"
 msgstr "Pautan"
-
-#: src/features/settings/account/profile.tsx
-msgid "Links you've already shared keep working for 30 days, then stop. Share the new ones before then."
-msgstr "Pautan yang telah anda kongsi terus berfungsi selama 30 hari, kemudian berhenti. Kongsi pautan baharu sebelum itu."
 
 #: src/features/homepage/hero.tsx
 msgid "Lisbon"
@@ -10954,18 +10914,6 @@ msgstr "rendah"
 msgid "Lower the design sheet"
 msgstr "Turunkan helaian reka bentuk"
 
-#. placeholder {0}: number(made)
-#. placeholder {1}: number(total)
-#: src/features/documents/document-actions.tsx
-msgid "Made {0} of {1} private. Letters have no public link, and locked documents are left as they are."
-msgstr "{0} daripada {1} dijadikan peribadi. Surat tidak mempunyai pautan awam, dan dokumen berkunci dibiarkan seperti sedia ada."
-
-#. placeholder {0}: number(made)
-#. placeholder {1}: number(total)
-#: src/features/documents/document-actions.tsx
-msgid "Made {0} of {1} public. Letters have no public link, and locked documents are left as they are."
-msgstr "{0} daripada {1} dijadikan awam. Surat tidak mempunyai pautan awam, dan dokumen berkunci dibiarkan seperti sedia ada."
-
 #: src/features/resume/share/web-page-text.ts
 msgid "Made with Reactive Resume"
 msgstr ""
@@ -11019,14 +10967,6 @@ msgstr "Jadikan ia lebih spesifik"
 #: src/features/resume/editor/write/improve.tsx
 msgid "Make it shorter"
 msgstr "Jadikan ia lebih pendek"
-
-#: src/features/documents/documents-page.tsx
-msgid "Make private"
-msgstr "Jadikan peribadi"
-
-#: src/features/documents/documents-page.tsx
-msgid "Make public"
-msgstr "Jadikan awam"
 
 #: src/features/assistant/assistant-panel.tsx
 msgid "Make the opening stronger"
@@ -13572,10 +13512,6 @@ msgstr "Parcel & Co."
 msgid "Parcel & Co. · Porto"
 msgstr "Parcel & Co. · Porto"
 
-#: src/features/settings/account/profile.tsx
-msgid "Part of every public link. Old links keep working for 30 days after a change."
-msgstr "Sebahagian daripada setiap pautan awam. Pautan lama terus berfungsi selama 30 hari selepas perubahan."
-
 #: src/features/career/workspace/fit.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Partly supported"
@@ -13603,7 +13539,6 @@ msgstr "Passkey memerlukan e-mel yang disahkan, yang pelayan ini tidak dapat men
 #: src/features/auth/pages/login.tsx
 #: src/features/auth/pages/register.tsx
 #: src/features/command-palette/pages/navigation.tsx
-#: src/features/homepage/share.tsx
 #: src/features/resume/builder/password-dialog.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/features/settings/account/auth-hooks.ts
@@ -14285,10 +14220,6 @@ msgstr "Cetak"
 msgid "Print or export the form to a flat PDF before sending it."
 msgstr "Cetak atau eksport borang kepada PDF rata sebelum menghantarnya."
 
-#: src/features/homepage/share.tsx
-msgid "Private"
-msgstr "Peribadi"
-
 #: src/routes/builder/$resumeId/-sidebar/right/sections/notes.tsx
 msgid "Private notes about this resume. Nobody else can see them."
 msgstr "Nota peribadi tentang resume ini. Tiada orang lain yang boleh melihatnya."
@@ -14296,10 +14227,6 @@ msgstr "Nota peribadi tentang resume ini. Tiada orang lain yang boleh melihatnya
 #: src/features/career/coach-chat.tsx
 msgid "Private to this application"
 msgstr "Peribadi untuk permohonan ini"
-
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Private. Only you can see it."
-msgstr "Persendirian. Hanya anda boleh melihatnya."
 
 #: src/features/homepage/check.tsx
 #: src/features/homepage/sheet.tsx
@@ -14415,19 +14342,6 @@ msgstr "Penyimpanan penyedia mengikut polisi tersendiri. Penyedia anda mungkin m
 #: src/features/ai/usage.tsx
 msgid "Provider test"
 msgstr "Ujian penyedia"
-
-#: src/features/documents/document-status.tsx
-#: src/features/documents/documents-page.tsx
-#: src/features/homepage/share.tsx
-#: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Public"
-msgstr "Awam"
-
-#: src/features/documents/document-status.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Public, with a password"
-msgstr "Awam, dengan kata laluan"
 
 #: src/libs/resume/section.tsx
 msgid "Publications"
@@ -17083,18 +16997,10 @@ msgstr "Warna bayang"
 msgid "Shadow width"
 msgstr "Lebar bayang"
 
-#: src/features/documents/document-actions.tsx
-#: src/features/homepage/footer.tsx
-#: src/features/homepage/header.tsx
-#: src/features/homepage/share.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
 msgid "Share"
 msgstr "Kongsi"
-
-#: src/features/homepage/share.tsx
-msgid "Share a public link, add a password or keep it private. Choose from 3 visibility options. Export to PDF or Word, or take all your data with you as JSON."
-msgstr "Kongsi pautan awam, tambah kata laluan atau simpan ia peribadi. Pilih daripada 3 pilihan keterlihatan. Eksport ke PDF atau Word, atau bawa semua data anda bersama anda sebagai JSON."
 
 #. placeholder {0}: provider.label
 #: src/libs/orpc/ai-consent.ts
@@ -17104,10 +17010,6 @@ msgstr "Kongsi data dengan {0}?"
 #: src/features/resume/editor/chrome/download-sheet.tsx
 msgid "Share sections"
 msgstr "Kongsi bahagian"
-
-#: src/features/documents/document-actions.tsx
-msgid "Share…"
-msgstr "Kongsi…"
 
 #: src/libs/orpc/ai-consent.ts
 msgid "Shares only resume and posting. Knowledge, private notes and web access are excluded. Review proposals before accepting; the original stays unchanged."
@@ -17121,9 +17023,7 @@ msgstr "Hanya pernyataan Pengetahuan terpilih, resume dan iklan jawatan dikongsi
 msgid "Shares resume, posting and pasted questions. Answer drafts also use your letter, career preferences, application notes and contacts, and enabled Knowledge facts and stories. Context may be excerpted. Web access is off. Review before saving; nothing is submitted."
 msgstr "Berkongsi resume, iklan jawatan dan soalan yang ditampal. Draf jawapan turut menggunakan surat, pilihan kerjaya, nota dan kenalan permohonan serta fakta dan cerita Pengetahuan yang aktif. Konteks mungkin dipendekkan. Akses web dimatikan. Semak sebelum menyimpan; tiada apa dihantar."
 
-#: src/features/documents/documents-page.tsx
 #: src/libs/resume/section.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
 msgid "Sharing"
 msgstr "Berkongsi"
 
@@ -18354,6 +18254,10 @@ msgstr "Resume disesuaikan berbanding asas"
 #: src/features/career/workspace/practise.tsx
 msgid "Take dictation with"
 msgstr "Ambil imlak dengan"
+
+#: src/features/homepage/share.tsx
+msgid "Take it as PDF, Word, Markdown or JSON. Your resume is yours: no lock-in, and every format is free."
+msgstr ""
 
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "Take-home assignment"
@@ -20936,9 +20840,9 @@ msgstr "Lihat siaran kerja di {host}"
 msgid "View recorded answers"
 msgstr "Lihat jawapan yang dirakam"
 
-#: src/features/homepage/share.tsx
-msgid "Visibility"
-msgstr "Keterlihatan"
+#: src/features/settings/account/profile.tsx
+msgid "Visible to nobody but you; used to sign in."
+msgstr ""
 
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
@@ -22191,14 +22095,6 @@ msgstr "pembekal anda"
 msgid "Your provider may charge for the run."
 msgstr "Penyedia anda mungkin mengenakan caj untuk larian ini."
 
-#: src/features/settings/account/profile.tsx
-msgid "Your public link will change"
-msgstr "Pautan awam anda akan berubah"
-
-#: src/features/settings/account/profile.tsx
-msgid "Your public links will change"
-msgstr "Pautan awam anda akan berubah"
-
 #: src/features/career/workspace/messages.tsx
 msgid "Your reply"
 msgstr "Balasan anda"
@@ -22242,10 +22138,6 @@ msgstr "Teks resume anda, petikan yang dipilih, dan temuan semakan."
 #: src/features/ats-checker/messages.ts
 msgid "Your resume uses \"I\" and \"my\"."
 msgstr "Resume anda menggunakan \"I\" dan \"my\"."
-
-#: src/features/homepage/share.tsx
-msgid "Your resume, live at"
-msgstr "Resume anda, tinggal di"
 
 #: src/features/documents/documents-page.tsx
 msgid "Your resumes and cover letters live here"

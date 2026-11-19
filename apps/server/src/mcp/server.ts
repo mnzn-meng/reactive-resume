@@ -70,7 +70,7 @@ export function createMcpServer(
 	headers.delete("cookie");
 	registerResources(server, client);
 	registerTools(server, client, headers, authentication);
-	registerParityTools(server, client, headers, {
+	registerParityTools(server, client, {
 		authentication,
 		resHeaders,
 		trustedClient,

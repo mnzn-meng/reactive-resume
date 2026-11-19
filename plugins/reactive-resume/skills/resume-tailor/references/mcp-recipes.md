@@ -57,7 +57,7 @@ Don't use it after the application has a recorded sent resume: the relink fails 
 1. `list_resumes` (optionally `tags`, `sort`) → choose the base with the user → `read_resume {id}`.
 2. Conversation as in Path A.
 3. `duplicate_resume {id, name, tags}`. Keep the name under ~60 characters so it stays readable in lists; `tags` replaces the default (the original's tags), so send the full list, for example the original tags plus `tailored`.
-   The copy is private: duplicates don't inherit `isPublic`.
+   The copy is a separate document with its own content and history.
 4. Patch and check as in Path A steps 6–8.
 5. Offer to create the application record. The job-application-manager skill handles intake and duplicates; without it, `create_application {company, role, status: "saved", jobDescription, resumeId: <copy id>}` after checking `list_applications` for an existing record.
 
@@ -228,15 +228,15 @@ Check the exported PDF afterwards. If the template still reads poorly in one col
 
 ## 7. Errors and edge cases
 
-| Situation                                          | Do                                                                                                              |
-| -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| 409 `RESUME_VERSION_CONFLICT`                      | `read_resume` again, recompute indices, show the user any change that affects the plan, resend                  |
-| A `test` op fails                                  | The copy differs from what you read; read again and rebuild the operations                                      |
-| 403 `RESUME_LOCKED`                                | Ask before `unlock_resume`; offer `lock_resume` again when done                                                 |
-| "Recorded submitted documents cannot be replaced…" | The application already has sent versions; see section 5                                                        |
-| "No AI provider is configured"                     | Skip AI tools; every core step works without them. `open_account_settings` returns a link to settings           |
-| NOT_FOUND                                          | List records again for valid IDs                                                                                |
-| 429                                                | Rate limited; wait, then retry once                                                                             |
-| BAD_GATEWAY                                        | The AI provider failed; continue without AI or try later                                                        |
-| `download_resume_pdf`                              | The signed URL expires after 10 minutes and works for anyone holding it; give it only to the user               |
-| User asks to make the copy public                  | `update_resume {id, isPublic: true}` returns `shareUrl`; public resumes change immediately on every later patch |
+| Situation                                          | Do                                                                                                    |
+| -------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| 409 `RESUME_VERSION_CONFLICT`                      | `read_resume` again, recompute indices, show the user any change that affects the plan, resend        |
+| A `test` op fails                                  | The copy differs from what you read; read again and rebuild the operations                            |
+| 403 `RESUME_LOCKED`                                | Ask before `unlock_resume`; offer `lock_resume` again when done                                       |
+| "Recorded submitted documents cannot be replaced…" | The application already has sent versions; see section 5                                              |
+| "No AI provider is configured"                     | Skip AI tools; every core step works without them. `open_account_settings` returns a link to settings |
+| NOT_FOUND                                          | List records again for valid IDs                                                                      |
+| 429                                                | Rate limited; wait, then retry once                                                                   |
+| BAD_GATEWAY                                        | The AI provider failed; continue without AI or try later                                              |
+| `download_resume_pdf`                              | The signed URL expires after 10 minutes and works for anyone holding it; give it only to the user     |
+| User asks to rename the copy                       | `update_resume {id, name}` returns the updated document                                               |

@@ -190,7 +190,7 @@ describe.skipIf(!databaseUrl)("reviewed target role suggestions", () => {
 		await expect(suggest("alice", { ...input, providerId: "foreign" })).rejects.toMatchObject({ code: "NOT_FOUND" });
 		await getDb()
 			.insert(tables.resume)
-			.values({ id: "bob-resume", userId: "bob", name: "Private", slug: "private", data: sampleResumeData });
+			.values({ id: "bob-resume", userId: "bob", name: "Private", data: sampleResumeData });
 		await expect(suggest("alice", { ...input, resumeId: "bob-resume" })).rejects.toMatchObject({ code: "NOT_FOUND" });
 		expect(fixture.generate).not.toHaveBeenCalled();
 	});
@@ -217,7 +217,7 @@ describe.skipIf(!databaseUrl)("reviewed target role suggestions", () => {
 	it("shares only an explicitly chosen resume, blocks corrected-source replay and never guesses quotes", async () => {
 		await getDb()
 			.insert(tables.resume)
-			.values({ id: "alice-resume", userId: "alice", name: "Synthetic", slug: "synthetic", data: sampleResumeData });
+			.values({ id: "alice-resume", userId: "alice", name: "Synthetic", data: sampleResumeData });
 		fixture.generate.mockResolvedValue({
 			suggestions: [{ role: "Engineer", factIds: ["active"], resumeQuote: "made-up" }],
 		});

@@ -216,7 +216,7 @@ describe.skipIf(!databaseUrl)("application Trash: real retained rows, storage an
 	it("retains timeline, linked snapshots, workspace, facts, coach and real attachment bytes across reload/restore", async () => {
 		await getDb()
 			.insert(tables.resume)
-			.values({ id: "resume", userId: "alice", name: "Fictional", slug: "fictional", data: defaultResumeData });
+			.values({ id: "resume", userId: "alice", name: "Fictional", data: defaultResumeData });
 		const client = api();
 		const id = await client.create({
 			company: "Fictional Cedar",

@@ -37,7 +37,7 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("database migration
 				`INSERT INTO "user" (id,name,email,username,display_username) VALUES ('up-a','Ana','ana@example.test','ana','ana'),('up-b','Ben','ben@example.test','ben','ben')`,
 			);
 			await pool.query(
-				`INSERT INTO resume (id,user_id,name,slug,data) VALUES ('a-resume','up-a','A resume','a-resume','{"basics":{}}'),('b-resume','up-b','B resume','b-resume','{"basics":{}}')`,
+				`INSERT INTO resume (id,user_id,name,data) VALUES ('a-resume','up-a','A resume','{"basics":{}}'),('b-resume','up-b','B resume','{"basics":{}}')`,
 			);
 			await pool.query(
 				`INSERT INTO cover_letter (id,user_id,name,content,style) VALUES ('a-letter','up-a','A letter','Old letter','{}')`,
@@ -139,7 +139,7 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("database migration
 			}
 
 			// A document created after the migration starts its own clock, and the other account was never touched.
-			await pool.query(`INSERT INTO resume (id,user_id,name,slug,data) VALUES ('a-new','up-a','New','a-new','{}')`);
+			await pool.query(`INSERT INTO resume (id,user_id,name,data) VALUES ('a-new','up-a','New','{}')`);
 			expect((await editedAt("resume", "a-new")).edited_at).toBeInstanceOf(Date);
 			expect((await editedAt("resume", "b-resume")).edited_at).toEqual(new Date("2025-02-02T00:00:00.000Z"));
 		} finally {
@@ -186,10 +186,7 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("database migration
 						await pool.query(
 							`INSERT INTO "user" (id,name,email,username,display_username) VALUES ('owner','Owner','owner@example.test','owner','owner')`,
 						);
-						await pool.query(
-							`INSERT INTO resume (id,user_id,name,slug,data) VALUES ('resume','owner','Resume','resume',$1)`,
-							[data],
-						);
+						await pool.query(`INSERT INTO resume (id,user_id,name,data) VALUES ('resume','owner','Resume',$1)`, [data]);
 						await pool.query(
 							`INSERT INTO application (id,user_id,company,role,resume_id,status,activity) VALUES ('rejected','owner','Acme','Engineer','resume','rejected','[{"type":"stage","stage":"saved"},{"type":"stage","stage":"rejected"}]')`,
 						);

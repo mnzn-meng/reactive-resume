@@ -123,7 +123,6 @@ vi.mock("@reactive-resume/db/schema", () => ({
 		name: "resume.name",
 		id: "resume.id",
 		userId: "resume.user_id",
-		slug: "resume.slug",
 	},
 	coverLetter: { name: "cover_letter.name", id: "cover_letter.id" },
 	aiProvider: { label: "ai_provider.label", id: "ai_provider.id" },

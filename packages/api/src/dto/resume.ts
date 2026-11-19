@@ -4,7 +4,6 @@ import * as schema from "@reactive-resume/db/schema";
 import { jsonPatchOperationSchema } from "@reactive-resume/resume/patch";
 import { aiOperationIdsSchema, aiUsageSummarySchema } from "@reactive-resume/schema/ai-usage";
 import { resumeDataSchema } from "@reactive-resume/schema/resume/data";
-import { slugSchema } from "@reactive-resume/schema/resume/slug";
 import { writableResumeDataSchema } from "@reactive-resume/schema/resume/write";
 import { templateSchema } from "@reactive-resume/schema/templates";
 import { localeSchema } from "@reactive-resume/utils/locale";
@@ -14,44 +13,22 @@ import { proposalApplicationsSchema, proposalSafetySchema } from "./proposals";
 const resumeSchema = createSelectSchema(schema.resume, {
 	id: z.string().describe("The ID of the resume."),
 	name: z.string().trim().min(1).describe("The name of the resume."),
-	slug: z.string().trim().min(1).describe("The slug of the resume."),
 	tags: z.array(z.string()).describe("The tags of the resume."),
-	isPublic: z.boolean().describe("Whether the resume is public."),
-	showDownloadButtons: z.boolean().describe("Whether visitors may download the public PDF."),
-	allowWordDownload: z
-		.boolean()
-		.default(false)
-		.describe("Whether visitors may download the public Word file. Off unless the owner opts in."),
-	showInSearchEngines: z
-		.boolean()
-		.describe("Whether search engines may list the resume's public web page. Off unless the owner turns it on."),
-	hideContactDetails: z
-		.boolean()
-		.describe(
-			"Whether the public web page, its PDF and this API leave out the email, phone, location, custom header fields and references' phone numbers.",
-		),
-	isPrimary: z
-		.boolean()
-		.describe("Whether this is the account's primary resume, opened by its short link and custom domain."),
 	isLocked: z.boolean().describe("Whether the resume is locked."),
-	password: z.string().trim().min(6).max(64).nullable().describe("The password of the resume, if any."),
 	data: resumeDataSchema,
 	userId: z.string().describe("The ID of the user who owns the resume."),
 	createdAt: z.date().describe("The date and time the resume was created."),
 	updatedAt: z.date().describe("The date and time the resume was last updated."),
 })
-	// Trash and automatic naming and addresses stay internal to the documents API. getById exposes the application link
-	// explicitly because the editor uses it to select the application a tailored copy belongs to.
-	.omit({ applicationId: true, trashedAt: true, autoName: true, autoSlug: true, editedAt: true, aiOperationIds: true });
+	// Trash and automatic naming stay internal to the documents API. getById exposes the application link explicitly
+	// because the editor uses it to select the application a tailored copy belongs to.
+	.omit({ applicationId: true, trashedAt: true, autoName: true, editedAt: true, aiOperationIds: true });
 
 const aiSourceShape = {
 	aiOperationIds: aiOperationIdsSchema.optional(),
 	aiUsage: aiUsageSummarySchema.nullable().optional(),
 };
-const ownedResumeSchema = resumeSchema.omit({ password: true, userId: true }).extend({
-	hasPassword: z.boolean(),
-	...aiSourceShape,
-});
+const ownedResumeSchema = resumeSchema.omit({ userId: true }).extend(aiSourceShape);
 
 const versionSchema = z.object({
 	id: z.string().describe("The ID of the version."),
@@ -91,7 +68,7 @@ export const resumeDto = {
 			})
 			.optional()
 			.default({ tags: [], sort: "lastUpdatedAt" }),
-		output: z.array(resumeSchema.omit({ data: true, password: true, userId: true })),
+		output: z.array(resumeSchema.omit({ data: true, userId: true })),
 	},
 
 	getById: {
@@ -101,26 +78,12 @@ export const resumeDto = {
 		}),
 	},
 
-	getBySlug: {
-		input: z.object({ username: z.string(), slug: z.string() }),
-		// `name` is the owner-chosen dashboard title and is intentionally redacted
-		// to an empty string for non-owner viewers (see redactResumeForViewer in
-		// features/resume/access-policy.ts). Relax the `min(1)` constraint here so
-		// the redacted public response passes output validation.
-		output: resumeSchema
-			.omit({ name: true, password: true, userId: true, createdAt: true, updatedAt: true })
-			.extend({ name: z.string() }),
-	},
-
 	create: {
 		input: resumeSchema.pick({ name: true, tags: true }).extend({
 			autoName: z
 				.boolean()
 				.optional()
 				.describe("While true, the resume's name follows its headline until someone renames it."),
-			slug: slugSchema
-				.optional()
-				.describe("The slug of the resume. Generated from the name, and made unique, when omitted."),
 			withSampleData: z.boolean().default(false),
 			locale: localeSchema.optional().describe("The resume language. Uses the interface language when omitted."),
 			template: templateSchema
@@ -137,24 +100,10 @@ export const resumeDto = {
 
 	update: {
 		input: resumeSchema
-			.pick({
-				name: true,
-				slug: true,
-				tags: true,
-				data: true,
-				isPublic: true,
-				showDownloadButtons: true,
-				allowWordDownload: true,
-				showInSearchEngines: true,
-				hideContactDetails: true,
-				isPrimary: true,
-			})
+			.pick({ name: true, tags: true, data: true })
 			.partial()
 			.extend({
 				id: z.string(),
-				// A write from an older client must never reset the owner's Word opt-in.
-				allowWordDownload: z.boolean().optional(),
-				slug: slugSchema.optional(),
 				data: writableResumeDataSchema.optional(),
 				aiOperationIds: aiOperationIdsSchema.optional(),
 				expectedUpdatedAt: z.coerce
@@ -174,36 +123,8 @@ export const resumeDto = {
 		output: ownedResumeSchema,
 	},
 
-	checkSlug: {
-		input: z.object({
-			resumeId: z.string().describe("The ID of the resume the slug is for."),
-			slug: z.string().describe("The slug to check."),
-		}),
-		output: z.object({
-			status: z
-				.enum(["available", "current", "invalid", "taken"])
-				.describe(
-					"available: free to use. current: this resume's slug already. invalid: not Latin letters a–z, numbers and single dashes. taken: another of the user's resumes uses it.",
-				),
-			takenBy: z.string().optional().describe("The name of the resume that uses the slug, when taken."),
-			suggestion: z.string().optional().describe("A slug that would work instead."),
-		}),
-	},
-
 	setLocked: {
 		input: resumeSchema.pick({ id: true, isLocked: true }).extend({ expectedUpdatedAt: expectedRevisionSchema }),
-		output: acceptedRevisionSchema,
-	},
-
-	setPassword: {
-		input: resumeSchema
-			.pick({ id: true })
-			.extend({ password: z.string().min(6).max(64), expectedUpdatedAt: expectedRevisionSchema }),
-		output: acceptedRevisionSchema,
-	},
-
-	removePassword: {
-		input: resumeSchema.pick({ id: true }).extend({ expectedUpdatedAt: expectedRevisionSchema }),
 		output: acceptedRevisionSchema,
 	},
 
@@ -233,9 +154,6 @@ export const resumeDto = {
 				.describe("Set the copy's page language without changing the source or translating its text."),
 			name: resumeSchema.shape.name.optional(),
 			tags: resumeSchema.shape.tags.optional(),
-			slug: slugSchema
-				.optional()
-				.describe("The slug of the copy. Generated from the name, and made unique, when omitted."),
 		}),
 		output: z.string().describe("The ID of the duplicated resume."),
 	},

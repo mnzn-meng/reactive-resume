@@ -2,7 +2,6 @@ import z from "zod";
 import { env } from "@reactive-resume/env/server";
 import { publicProcedure } from "../../context";
 import { isCareerSchedulingEnabled } from "../career/runner";
-import { isCustomDomainsEnabled } from "../custom-domain/service";
 
 export type FeatureFlags = {
 	disableSignups: boolean;
@@ -12,8 +11,6 @@ export type FeatureFlags = {
 	careerSchedulingEnabled?: boolean;
 	appUrl?: string;
 	aliasUrl?: string | undefined;
-	customDomains?: boolean;
-	olacvSuggestion?: boolean;
 	fontMirrorUrl?: string | undefined;
 };
 
@@ -44,16 +41,7 @@ export const flagsRouter = {
 					.boolean()
 					.describe("Whether scheduled career work is configured on this deployment."),
 				appUrl: z.string().describe("The app's own address, where sign-in and the editor live."),
-				aliasUrl: z
-					.string()
-					.optional()
-					.describe(
-						"A second domain serving the same public pages, when configured. Shared resume links use it instead of appUrl.",
-					),
-				customDomains: z.boolean().describe("Whether accounts can open their primary resume at their own domain."),
-				olacvSuggestion: z
-					.boolean()
-					.describe("Whether accounts without a custom domain see a suggestion to register one at OlaCV."),
+				aliasUrl: z.string().optional().describe("A second domain serving the marketing pages, when configured."),
 			}),
 		)
 		.handler(() => ({
@@ -65,7 +53,5 @@ export const flagsRouter = {
 			careerSchedulingEnabled: isCareerSchedulingEnabled(),
 			appUrl: new URL(env.APP_URL).origin,
 			...(env.APP_ALIAS_URL ? { aliasUrl: new URL(env.APP_ALIAS_URL).origin } : {}),
-			customDomains: isCustomDomainsEnabled(),
-			olacvSuggestion: env.FLAG_OLACV_SUGGESTION,
 		})),
 };

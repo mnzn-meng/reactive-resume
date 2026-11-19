@@ -1,6 +1,6 @@
 import { createHmac } from "node:crypto";
 import { env } from "@reactive-resume/env/server";
-import { safeEquals } from "../resume/access";
+import { safeEquals } from "../../safe-equals";
 
 // A key of its own, derived from AUTH_SECRET, so a feedback token can't stand in for any other use of the secret.
 const signingKey = () => createHmac("sha256", env.AUTH_SECRET).update("reactive-resume:feedback-link:v1").digest();
@@ -9,7 +9,7 @@ const signature = (linkId: string) => createHmac("sha256", signingKey()).update(
 
 /**
  * The secret part of a feedback link: `<linkId>~<signature>`. It isn't stored, so the owner can copy it again. `~` never
- * appears in a slug and the address has no dot, so it can't be mistaken for a resume's web page or a file.
+ * appears in a signed token and the address has no dot, so it can't be mistaken for a file.
  */
 const feedbackToken = (linkId: string) => `${linkId}~${signature(linkId)}`;
 

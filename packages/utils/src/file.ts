@@ -10,7 +10,6 @@ export type FileNameTarget = "resume" | "cover-letter";
 
 export type FileNameSource = {
 	name: string;
-	slug?: string | null;
 	data: { basics: { name: string }; metadata?: { page?: { locale?: string } } };
 };
 
@@ -44,10 +43,7 @@ export function getDefaultFileName(source: FileNameSource, target: FileNameTarge
 	const suffix = documentWords(target, source.data.metadata?.page?.locale);
 	if (person.length > 0) return [...person, ...suffix].join("-");
 	const name = split(source.name);
-	const fallback = [
-		...(name.length > 0 ? name : split(source.slug ?? "")),
-		...(target === "cover-letter" ? suffix : []),
-	];
+	const fallback = [...name, ...(target === "cover-letter" ? suffix : [])];
 	return fallback.join("-") || suffix.join("-");
 }
 

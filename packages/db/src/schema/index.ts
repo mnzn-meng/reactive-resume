@@ -4,7 +4,6 @@ export * from "./applications";
 export * from "./career";
 export * from "./auth";
 export * from "./cover-letter";
-export * from "./custom-domain";
 export * from "./resume";
 export * from "./storage-cleanup";
 export * from "./web-access";

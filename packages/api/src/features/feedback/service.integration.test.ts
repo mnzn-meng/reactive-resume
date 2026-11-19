@@ -76,8 +76,8 @@ describe.skipIf(!databaseUrl)("feedback links", () => {
 		await db()
 			.insert(tables.resume)
 			.values([
-				{ id: "cv", userId: "priya", name: "Platform CV", slug: "platform-cv", data },
-				{ id: "other-cv", userId: "sam", name: "Sam CV", slug: "sam-cv", data: defaultResumeData },
+				{ id: "cv", userId: "priya", name: "Platform CV", data },
+				{ id: "other-cv", userId: "sam", name: "Sam CV", data: defaultResumeData },
 			]);
 		await db()
 			.insert(tables.application)

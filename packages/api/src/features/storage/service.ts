@@ -145,7 +145,7 @@ export async function isPublicUploadOwner(userId: string): Promise<boolean> {
 		import("@reactive-resume/db/client"),
 		import("@reactive-resume/db/schema"),
 		import("drizzle-orm"),
-		import("../resume/access-policy"),
+		import("../documents/ownership"),
 	]);
 	const [owner] = await db
 		.select({ id: user.id })

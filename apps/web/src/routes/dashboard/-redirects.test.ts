@@ -46,12 +46,12 @@ async function destination(route: keyof typeof routes, { search = {}, hash = "" 
 	return null;
 }
 
-const documents = { type: "all", q: "", tags: [], public: false, sort: "edited" };
+const documents = { type: "all", q: "", tags: [], sort: "edited" };
 
 it.each<[string, Record<string, unknown>, object]>([
 	["a type", { type: "letter" }, { ...documents, type: "letter" }],
 	["a search", { q: "design", tags: ["lead"] }, { ...documents, q: "design", tags: ["lead"] }],
-	["filters", { public: true, sort: "name", view: "list" }, { ...documents, public: true, sort: "name", view: "list" }],
+	["filters", { sort: "name", view: "list" }, { ...documents, sort: "name", view: "list" }],
 	["an old letter link", { letter: "letter-1" }, { ...documents, letter: "letter-1" }],
 	["a blank resume to start", { new: "resume" }, { ...documents, new: "resume" }],
 	["a template to start from", { template: "onyx" }, { ...documents, template: "onyx" }],

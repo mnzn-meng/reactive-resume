@@ -10,7 +10,6 @@ import { applicationDto } from "@reactive-resume/api/dto/application";
 import { coverLetterDto } from "@reactive-resume/api/dto/cover-letter";
 import { resumeDto } from "@reactive-resume/api/dto/resume";
 import { createResumePdfDownloadUrl } from "@reactive-resume/api/features/resume/export";
-import { env } from "@reactive-resume/env/server";
 import { readMcpFile } from "./files";
 import { MCP_TOOL_NAME as T } from "./mcp-tool-names";
 import { getClientCall, json, text, withErrorHandling } from "./results";
@@ -25,29 +24,9 @@ function coerceFollowUpAt(input: Record<string, unknown>): Record<string, unknow
 	return { ...input, followUpAt: new Date(String(followUpAt)) };
 }
 
-function buildResumeShareUrl(username: string, slug: string): string {
-	const base = env.APP_URL.replace(/\/$/, "");
-	return `${base}/${encodeURIComponent(username)}/${encodeURIComponent(slug)}`;
-}
-
-function resumeShareUrlNotes(input: { isPublic: boolean; hasPassword: boolean }): string {
-	const lines = [
-		"Anyone can open this link without signing in only when the resume is public (`isPublic: true`).",
-		input.isPublic
-			? "This resume is currently public."
-			: "This resume is currently private; the URL is still your canonical share link if you make it public later.",
-	];
-	if (input.hasPassword)
-		lines.push(
-			"Password protection is enabled in the web app; visitors may need that password before content is shown.",
-		);
-	return lines.join("\n");
-}
-
 /** Tools whose structured result is the procedure's own response; the router client validates their input. */
 const DIRECT_TOOLS = {
 	[T.listResumeTags]: "resume.tags.list",
-	[T.getResumeStatistics]: "resume.statistics.getById",
 	[T.readCoverLetter]: "coverLetters.getById",
 	[T.createCoverLetter]: "coverLetters.create",
 	[T.updateCoverLetter]: "coverLetters.update",
@@ -118,11 +97,11 @@ export function registerTools(
 		}),
 
 		[T.createResume]: withErrorHandling("creating resume", async (params) => {
-			const { name, slug, withSampleData } = params;
+			const { name, withSampleData } = params;
 			const id = await client.resume.create(params);
 
 			return text(
-				`Created resume "${name}" (ID: ${id}) ${slug ? `with slug "${slug}"` : "with a generated address"}.${withSampleData ? " Pre-filled with sample data." : ""}\n\nNext steps: Use \`${T.getResume}\` to view it, or \`${T.patchResume}\` to start editing.`,
+				`Created resume "${name}" (ID: ${id}).${withSampleData ? " Pre-filled with sample data." : ""}\n\nNext steps: Use \`${T.getResume}\` to view it, or \`${T.patchResume}\` to start editing.`,
 				{ id },
 			);
 		}),
@@ -143,21 +122,20 @@ export function registerTools(
 			const id = await client.resume.import(parsed.data);
 
 			return text(
-				`Imported resume (ID: ${id}).\n\nNext steps: Use \`${T.getResume}\` to inspect metadata (name/slug were auto-generated), or \`${T.updateResume}\` / \`${T.patchResume}\` to adjust.`,
+				`Imported resume (ID: ${id}).\n\nNext steps: Use \`${T.getResume}\` to inspect metadata (its name was generated), or \`${T.updateResume}\` / \`${T.patchResume}\` to adjust.`,
 				{ id },
 			);
 		}),
 
-		[T.duplicateResume]: withErrorHandling("duplicating resume", async ({ id, name, slug, tags }) => {
+		[T.duplicateResume]: withErrorHandling("duplicating resume", async ({ id, name, tags }) => {
 			const newId = await client.resume.duplicate({
 				id,
 				...(name ? { name } : {}),
-				...(slug ? { slug } : {}),
 				...(tags ? { tags } : {}),
 			});
 
 			return text(
-				`Duplicated resume${name ? ` as "${name}"` : ""} (ID: ${newId}) ${slug ? `with slug "${slug}"` : "with a generated address"}.\n\nNext steps: Use \`${T.getResume}\` to view it, or \`${T.patchResume}\` to customize.`,
+				`Duplicated resume${name ? ` as "${name}"` : ""} (ID: ${newId}).\n\nNext steps: Use \`${T.getResume}\` to view it, or \`${T.patchResume}\` to customize.`,
 				{ id: newId },
 			);
 		}),
@@ -176,34 +154,13 @@ export function registerTools(
 				throw new ORPCError("BAD_REQUEST", { message: "Provide at least one field to update." });
 			const resume = await client.resume.update(input);
 
-			const user = authentication?.user ?? (await resolveUserFromRequestHeaders(requestHeaders));
-			const username =
-				user && "username" in user && typeof (user as { username: unknown }).username === "string"
-					? (user as { username: string }).username
-					: "";
-			const shareUrl =
-				username !== ""
-					? buildResumeShareUrl(username, resume.slug)
-					: "(could not build share URL: missing username on account)";
-
 			const payload = {
 				id: resume.id,
 				name: resume.name,
-				slug: resume.slug,
 				tags: resume.tags,
-				isPublic: resume.isPublic,
-				hasPassword: resume.hasPassword,
-				shareUrl,
 			};
 
-			return text(
-				[
-					JSON.stringify(payload, null, 2),
-					"",
-					resumeShareUrlNotes({ isPublic: resume.isPublic, hasPassword: resume.hasPassword }),
-				].join("\n"),
-				payload,
-			);
+			return text(JSON.stringify(payload, null, 2), payload);
 		}),
 
 		[T.deleteResume]: withErrorHandling("deleting resume", async ({ id }) => {

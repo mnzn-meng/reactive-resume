@@ -70,7 +70,7 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("cover-letter owned
 			"INSERT INTO \"user\" (id,name,email,username,display_username) VALUES ('alice','alice','alice@example.test','alice','alice'),('bob','bob','bob@example.test','bob','bob')",
 		);
 		await getPool().query(
-			"INSERT INTO resume (id,user_id,name,slug,data) VALUES ('alice-resume','alice','Resume','resume',$1),('bob-resume','bob','Resume','resume',$1)",
+			"INSERT INTO resume (id,user_id,name,data) VALUES ('alice-resume','alice','Resume',$1),('bob-resume','bob','Resume',$1)",
 			[defaultResumeData],
 		);
 		await getPool().query(
@@ -217,7 +217,7 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("cover-letter owned
 		const letter = await service.create({ userId: "alice", name: "Assistant letter", content: "<p>Original</p>" });
 		const other = await service.create({ userId: "alice", name: "Other letter" });
 		// A resume that shares the letter's id: only the thread's document kind tells them apart.
-		await getPool().query("INSERT INTO resume (id,user_id,name,slug,data) VALUES ($1,'alice','Same id','same-id',$2)", [
+		await getPool().query("INSERT INTO resume (id,user_id,name,data) VALUES ($1,'alice','Same id',$2)", [
 			letter.id,
 			defaultResumeData,
 		]);
@@ -509,10 +509,9 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("cover-letter owned
 	it("synchronizes only the owned resume's threads inside the caller transaction", async () => {
 		const { saveProposalApplications } = await import("../agent/proposal-applications");
 		// Decoys: another resume, and a letter that shares the resume's id.
-		await getPool().query(
-			"INSERT INTO resume (id,user_id,name,slug,data) VALUES ('other-resume','alice','Other','other',$1)",
-			[defaultResumeData],
-		);
+		await getPool().query("INSERT INTO resume (id,user_id,name,data) VALUES ('other-resume','alice','Other',$1)", [
+			defaultResumeData,
+		]);
 		await getPool().query(
 			"INSERT INTO cover_letter (id,user_id,name,style) VALUES ('alice-resume','alice','Same id','{}')",
 		);

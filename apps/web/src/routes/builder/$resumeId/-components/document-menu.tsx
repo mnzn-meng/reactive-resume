@@ -230,7 +230,7 @@ function DocumentMenuItems({ onOpenDialog, onHelp }: DocumentMenuItemsProps) {
 	const resume = useCurrentResume();
 	const patchResume = usePatchResume();
 	const { onPrint } = useResumeExport(resume);
-	const { id, name, slug, tags, isLocked } = resume;
+	const { id, name, tags, isLocked } = resume;
 	const setSheetTab = useEditorStore((state) => state.setSheetTab);
 	// Downloads need a connection, as in the bar.
 	const offline = useResumeStore((state) => state.saveStatus === "offline");
@@ -297,7 +297,7 @@ function DocumentMenuItems({ onOpenDialog, onHelp }: DocumentMenuItemsProps) {
 					onClick={() =>
 						void orpc.documents.suggestDuplicateName
 							.call({ type: "resume", id })
-							.then((suggested) => openDialog("resume.duplicate", { id, name: suggested, slug, tags }))
+							.then((suggested) => openDialog("resume.duplicate", { id, name: suggested, tags }))
 							.catch((error: unknown) => toast.add({ type: "error", description: getResumeErrorMessage(error) }))
 					}
 				>

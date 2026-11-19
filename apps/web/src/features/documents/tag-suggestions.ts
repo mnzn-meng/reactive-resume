@@ -11,7 +11,7 @@ export function useExistingTags(types: readonly DocumentType[], enabled = true):
 	const queries = useQueries({
 		queries: [...new Set(types)].map((type) => ({
 			...orpc.documents.page.queryOptions({
-				input: { type, q: "", tags: [], sort: "edited", trashed: false, public: false, limit: 1, offset: 0 },
+				input: { type, q: "", tags: [], sort: "edited", trashed: false, limit: 1, offset: 0 },
 			}),
 			enabled,
 			staleTime: 30_000,

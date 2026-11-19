@@ -5,23 +5,7 @@ import type { ProposalApplications } from "@reactive-resume/resume/proposals";
 import type { ResumeData } from "@reactive-resume/schema/resume/data";
 import type { Locale } from "@reactive-resume/utils/locale";
 import { ORPCError } from "@orpc/client";
-import { compare, hash } from "bcryptjs";
-import {
-	and,
-	arrayContains,
-	asc,
-	desc,
-	eq,
-	gte,
-	inArray,
-	isNotNull,
-	isNull,
-	lt,
-	ne,
-	notExists,
-	sql,
-} from "drizzle-orm";
-import { alias } from "drizzle-orm/pg-core";
+import { and, arrayContains, asc, desc, eq, inArray, isNotNull, isNull, lt } from "drizzle-orm";
 import { match } from "ts-pattern";
 import { db } from "@reactive-resume/db/client";
 import * as schema from "@reactive-resume/db/schema";
@@ -29,9 +13,7 @@ import { detachEmbeddedLetters } from "@reactive-resume/resume/cover-letter";
 import { applyResumePatches, describeResumePatchError, ResumePatchError } from "@reactive-resume/resume/patch";
 import { withWebPageCss } from "@reactive-resume/schema/resume/data";
 import { defaultResumeData } from "@reactive-resume/schema/resume/default";
-import { isValidSlug } from "@reactive-resume/schema/resume/slug";
 import { generateId } from "@reactive-resume/utils/string";
-import { consumeResumePasswordLimit } from "../../middleware/rate-limit";
 import {
 	assertCurrentClientWrite,
 	CurrentClientRequired,
@@ -41,17 +23,8 @@ import { assertAiOperations, readAiUsage } from "../ai/usage";
 import { adoptEmbeddedLetters } from "../cover-letters/embedded";
 import { idInUse, lockUser } from "../documents/ownership";
 import { enqueueStorageCleanup, reportStorageCleanupSummary, runStorageCleanup } from "../storage/cleanup";
-import { grantResumeAccess, hasResumeAccess } from "./access";
-import {
-	assertCanView,
-	isOwner,
-	redactResumeForViewer,
-	requiresPassword,
-	shouldCountForStatistics,
-} from "./access-policy";
 import { publishResumeUpdated } from "./events";
 import { parseStoredResumeData, parseWritableResumeData } from "./resume-data-validation";
-import { checkSlug, DEFAULT_SLUG_STEM, findFreeSlug, findResume, followNameWithSlug, recordSlugChange } from "./slugs";
 import {
 	deleteVersion,
 	getVersion,
@@ -60,7 +33,6 @@ import {
 	saveSessionVersion,
 	writeVersion,
 } from "./version-history";
-import { countVisit } from "./view-dedup";
 
 function resumeVersionConflict(updatedAt: Date) {
 	return new ORPCError("RESUME_VERSION_CONFLICT", {
@@ -110,47 +82,6 @@ function invalidPatchOperation(message: string, index: number, operation: JsonPa
 /** The unique constraint a Postgres insert or update broke, if that's why it failed. */
 const uniqueConstraint = (error: unknown) => (error as { cause?: { constraint?: string } } | null)?.cause?.constraint;
 
-const otherPrimary = alias(schema.resume, "other_primary");
-
-/**
- * Makes a resume the account's primary one when the account has none outside Trash, in its own savepoint: when
- * another resume becomes primary at the same moment, that one keeps the role and this save still succeeds.
- */
-async function claimPrimaryIfNone(tx: DbOrTx, input: { userId: string; resumeId: string }) {
-	try {
-		await tx.transaction(async (savepoint) => {
-			// A primary resume in Trash opens nothing and Share can't show it, so the role passes on.
-			await savepoint
-				.update(schema.resume)
-				.set({ isPrimary: false })
-				.where(
-					and(
-						eq(schema.resume.userId, input.userId),
-						eq(schema.resume.isPrimary, true),
-						isNotNull(schema.resume.trashedAt),
-					),
-				);
-			await savepoint
-				.update(schema.resume)
-				.set({ isPrimary: true })
-				.where(
-					and(
-						eq(schema.resume.id, input.resumeId),
-						eq(schema.resume.userId, input.userId),
-						notExists(
-							savepoint
-								.select({ id: otherPrimary.id })
-								.from(otherPrimary)
-								.where(and(eq(otherPrimary.userId, input.userId), eq(otherPrimary.isPrimary, true))),
-						),
-					),
-				);
-		});
-	} catch (error) {
-		if (uniqueConstraint(error) !== "resume_primary_unique") throw error;
-	}
-}
-
 function isValidJsonPointer(pointer: string): boolean {
 	if (pointer === "") return true;
 	if (!pointer.startsWith("/")) return false;
@@ -189,28 +120,15 @@ const activeUnlockedResumeWhere = (id: string, userId: string) =>
 	and(...activeResumeConditions(id, userId), eq(schema.resume.isLocked, false));
 
 /** The fields a resume read or write returns to its owner. */
-/** The Share settings every read of a resume carries. */
-const shareColumns = {
-	allowWordDownload: schema.resume.allowWordDownload,
-	showInSearchEngines: schema.resume.showInSearchEngines,
-	hideContactDetails: schema.resume.hideContactDetails,
-	isPrimary: schema.resume.isPrimary,
-};
-
 const resumeColumns = {
-	...shareColumns,
 	id: schema.resume.id,
 	name: schema.resume.name,
-	slug: schema.resume.slug,
 	tags: schema.resume.tags,
 	data: schema.resume.data,
 	aiOperationIds: schema.resume.aiOperationIds,
-	isPublic: schema.resume.isPublic,
 	isLocked: schema.resume.isLocked,
-	showDownloadButtons: schema.resume.showDownloadButtons,
 	createdAt: schema.resume.createdAt,
 	updatedAt: schema.resume.updatedAt,
-	hasPassword: sql<boolean>`${schema.resume.password} IS NOT NULL`,
 };
 
 const RESUME_AI_ACTIONS = [
@@ -329,171 +247,6 @@ const tags = {
 	},
 };
 
-const statistics = {
-	recordDownload: async (input: {
-		username: string;
-		slug: string;
-		requestHeaders: Headers;
-		trustedClient?: string;
-		currentUserId?: string;
-	}): Promise<boolean> => {
-		const resume = await findResume(input, {
-			id: schema.resume.id,
-			userId: schema.resume.userId,
-			isPublic: schema.resume.isPublic,
-			passwordHash: schema.resume.password,
-		});
-
-		if (!resume) throw new ORPCError("NOT_FOUND");
-		const viewer = input.currentUserId ? { id: input.currentUserId } : null;
-		assertCanView(resume, viewer);
-		if (requiresPassword(resume, viewer) && !hasResumeAccess(input.requestHeaders, resume.id, resume.passwordHash)) {
-			throw new ORPCError("NEED_PASSWORD", {
-				status: 401,
-				data: { username: input.username, slug: input.slug },
-			});
-		}
-
-		// Like views, a visitor's downloads count once an hour, so repeated calls can't inflate the number.
-		if (shouldCountForStatistics(resume, viewer))
-			await countVisit({ kind: "download", resumeId: resume.id, trustedClient: input.trustedClient });
-		return true;
-	},
-
-	getById: async (input: { id: string; userId: string }) => {
-		const [statistics] = await db
-			.select({
-				isPublic: schema.resume.isPublic,
-				views: schema.resumeStatistics.views,
-				downloads: schema.resumeStatistics.downloads,
-				lastViewedAt: schema.resumeStatistics.lastViewedAt,
-				lastDownloadedAt: schema.resumeStatistics.lastDownloadedAt,
-			})
-			.from(schema.resumeStatistics)
-			.rightJoin(schema.resume, eq(schema.resumeStatistics.resumeId, schema.resume.id))
-			.where(activeResumeWhere(input.id, input.userId));
-
-		if (!statistics) throw new ORPCError("NOT_FOUND");
-
-		return {
-			isPublic: statistics.isPublic,
-			views: statistics.views ?? 0,
-			downloads: statistics.downloads ?? 0,
-			lastViewedAt: statistics.lastViewedAt,
-			lastDownloadedAt: statistics.lastDownloadedAt,
-		};
-	},
-
-	increment: async (input: { id: string; views?: boolean; downloads?: boolean }) => {
-		const views = input.views ? 1 : 0;
-		const downloads = input.downloads ? 1 : 0;
-		const lastViewedAt = input.views ? sql`now()` : undefined;
-		const lastDownloadedAt = input.downloads ? sql`now()` : undefined;
-		const today = new Date().toISOString().slice(0, 10);
-
-		await db.transaction(async (tx) => {
-			await tx
-				.insert(schema.resumeStatistics)
-				.values({
-					resumeId: input.id,
-					views,
-					downloads,
-					lastViewedAt,
-					lastDownloadedAt,
-				})
-				.onConflictDoUpdate({
-					target: [schema.resumeStatistics.resumeId],
-					set: {
-						views: sql`${schema.resumeStatistics.views} + ${views}`,
-						downloads: sql`${schema.resumeStatistics.downloads} + ${downloads}`,
-						lastViewedAt,
-						lastDownloadedAt,
-					},
-				});
-
-			await tx
-				.insert(schema.resumeStatisticsDaily)
-				.values({ resumeId: input.id, date: today, views, downloads })
-				.onConflictDoUpdate({
-					target: [schema.resumeStatisticsDaily.resumeId, schema.resumeStatisticsDaily.date],
-					set: {
-						views: sql`${schema.resumeStatisticsDaily.views} + ${views}`,
-						downloads: sql`${schema.resumeStatisticsDaily.downloads} + ${downloads}`,
-					},
-				});
-		});
-	},
-
-	// Returns the last `days` (default 30) of daily view/download counts, zero-filled so the series is continuous.
-	getDailySeries: async (input: { id: string; userId: string; days?: number }) => {
-		const days = input.days ?? 30;
-
-		const [resume] = await db
-			.select({ id: schema.resume.id })
-			.from(schema.resume)
-			.where(activeResumeWhere(input.id, input.userId));
-
-		if (!resume) throw new ORPCError("NOT_FOUND");
-
-		const now = new Date();
-		const utcDay = (offset: number) =>
-			new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - offset)).toISOString().slice(0, 10);
-		const start = utcDay(days - 1);
-		const dates = Array.from({ length: days }, (_, i) => utcDay(days - 1 - i));
-
-		const rows = await db
-			.select({
-				date: schema.resumeStatisticsDaily.date,
-				views: schema.resumeStatisticsDaily.views,
-				downloads: schema.resumeStatisticsDaily.downloads,
-			})
-			.from(schema.resumeStatisticsDaily)
-			.where(and(eq(schema.resumeStatisticsDaily.resumeId, input.id), gte(schema.resumeStatisticsDaily.date, start)));
-
-		const byDate = new Map(rows.map((row) => [row.date, row]));
-
-		return dates.map((date) => ({
-			date,
-			views: byDate.get(date)?.views ?? 0,
-			downloads: byDate.get(date)?.downloads ?? 0,
-		}));
-	},
-};
-
-function toSharedResumeResponse(
-	resume: {
-		id: string;
-		name: string;
-		slug: string;
-		tags: string[];
-		data: ResumeData;
-		isPublic: boolean;
-		isLocked: boolean;
-		showDownloadButtons: boolean;
-		allowWordDownload: boolean;
-		showInSearchEngines: boolean;
-		hideContactDetails: boolean;
-		isPrimary: boolean;
-	},
-	hasPassword: boolean,
-) {
-	return {
-		showInSearchEngines: resume.showInSearchEngines,
-		hideContactDetails: resume.hideContactDetails,
-		isPrimary: resume.isPrimary,
-		id: resume.id,
-		name: resume.name,
-		slug: resume.slug,
-		tags: resume.tags,
-		data: resume.data,
-		isPublic: resume.isPublic,
-		isLocked: resume.isLocked,
-		showDownloadButtons: resume.showDownloadButtons,
-		allowWordDownload: resume.allowWordDownload,
-		hasPassword,
-	};
-}
-
 export async function notifyResumeUpdated(event: ResumeUpdatedEvent) {
 	try {
 		await publishResumeUpdated(event);
@@ -551,9 +304,6 @@ export async function writeResumeFields(input: {
 	return resume;
 }
 
-let unusedHash: Promise<string> | undefined;
-const unusedPasswordHash = () => (unusedHash ??= hash(generateId(), 10));
-
 /** Every storage prefix owned by one resume. Shared account pictures stay outside them. */
 const resumeStorageKeys = (userId: string, resumeId: string) => [
 	`uploads/${userId}/screenshots/${resumeId}`,
@@ -562,9 +312,6 @@ const resumeStorageKeys = (userId: string, resumeId: string) => [
 
 export const resumeService = {
 	tags,
-	statistics,
-
-	checkSlug,
 
 	versions: {
 		list: listVersions,
@@ -635,12 +382,8 @@ export const resumeService = {
 			.select({
 				id: schema.resume.id,
 				name: schema.resume.name,
-				slug: schema.resume.slug,
 				tags: schema.resume.tags,
-				isPublic: schema.resume.isPublic,
 				isLocked: schema.resume.isLocked,
-				showDownloadButtons: schema.resume.showDownloadButtons,
-				...shareColumns,
 				createdAt: schema.resume.createdAt,
 				updatedAt: schema.resume.updatedAt,
 			})
@@ -677,60 +420,10 @@ export const resumeService = {
 		};
 	},
 
-	getBySlug: async (input: {
-		username: string;
-		slug: string;
-		requestHeaders: Headers;
-		trustedClient?: string;
-		currentUserId?: string;
-		requirePublic?: boolean;
-		expectedResumeId?: string;
-	}) => {
-		const resume = await findResume(input, {
-			id: schema.resume.id,
-			userId: schema.resume.userId,
-			name: schema.resume.name,
-			slug: schema.resume.slug,
-			tags: schema.resume.tags,
-			data: schema.resume.data,
-			isPublic: schema.resume.isPublic,
-			isLocked: schema.resume.isLocked,
-			showDownloadButtons: schema.resume.showDownloadButtons,
-			...shareColumns,
-			passwordHash: schema.resume.password,
-			hasPassword: sql<boolean>`${schema.resume.password} IS NOT NULL`,
-		});
-
-		if (
-			!resume ||
-			(input.requirePublic && !resume.isPublic) ||
-			(input.expectedResumeId && resume.id !== input.expectedResumeId)
-		)
-			throw new ORPCError("NOT_FOUND");
-
-		const viewer = input.currentUserId ? { id: input.currentUserId } : null;
-		assertCanView(resume, viewer);
-
-		if (requiresPassword(resume, viewer) && !hasResumeAccess(input.requestHeaders, resume.id, resume.passwordHash)) {
-			throw new ORPCError("NEED_PASSWORD", {
-				status: 401,
-				data: { username: input.username, slug: input.slug },
-			});
-		}
-
-		if (shouldCountForStatistics(resume, viewer))
-			await countVisit({ kind: "view", resumeId: resume.id, trustedClient: input.trustedClient });
-
-		const current = { ...resume, data: parseStoredResumeData(resume.data) };
-		return toSharedResumeResponse(redactResumeForViewer(current, isOwner(current, viewer)), resume.hasPassword);
-	},
-
 	create: async (input: {
 		id?: string;
 		userId: string;
 		name: string;
-		/** Generated from the name, and made unique among the user's resumes, when omitted. */
-		slug?: string;
 		tags: string[];
 		locale?: Locale;
 		data?: ResumeData;
@@ -746,15 +439,7 @@ export const resumeService = {
 		const data = parseWritableResumeData(structuredClone(input.data ?? defaultResumeData));
 		if (input.locale) data.metadata.page.locale = input.locale;
 
-		if (input.slug !== undefined && !isValidSlug(input.slug)) {
-			throw new ORPCError("INVALID_SLUG", { status: 400 });
-		}
-
 		try {
-			// An app-made address follows the name until the resume is published (see followNameWithSlug). A default
-			// name ("Untitled resume", in the user's language) gives the neutral "resume" instead of a translation.
-			const slug =
-				input.slug ?? (await findFreeSlug(db, input.userId, input.autoName ? DEFAULT_SLUG_STEM : input.name));
 			await db.transaction(async (tx) => {
 				if (input.aiOperationIds?.length) await lockUser(tx, input.userId);
 				await assertAiOperations(input.userId, input.aiOperationIds ?? [], RESUME_AI_ACTIONS, tx);
@@ -765,8 +450,6 @@ export const resumeService = {
 					id,
 					name: input.name,
 					autoName: input.autoName ?? false,
-					slug,
-					autoSlug: input.slug === undefined,
 					tags: input.tags,
 					userId: input.userId,
 					data: stored,
@@ -799,9 +482,6 @@ export const resumeService = {
 
 			const constraint = uniqueConstraint(error);
 
-			if (constraint === "resume_slug_user_id_unique") {
-				throw new ORPCError("RESUME_SLUG_ALREADY_EXISTS", { status: 400 });
-			}
 			// Only a client-chosen ID can collide: another press of the same request got there first, or the ID is taken.
 			// Expected, so it's answered, not logged with the resume's contents.
 			if (input.id && constraint === "resume_pkey") throw idInUse();
@@ -815,16 +495,9 @@ export const resumeService = {
 		id: string;
 		userId: string;
 		name?: string;
-		slug?: string;
 		tags?: string[];
 		data?: ResumeData;
 		aiOperationIds?: string[];
-		isPublic?: boolean;
-		showDownloadButtons?: boolean;
-		allowWordDownload?: boolean;
-		showInSearchEngines?: boolean;
-		hideContactDetails?: boolean;
-		isPrimary?: boolean;
 		expectedUpdatedAt?: Date;
 		skipAutoSnapshot?: boolean;
 		/** The editor visit this save belongs to; its autosaves share one version. */
@@ -841,11 +514,8 @@ export const resumeService = {
 					.select({
 						name: schema.resume.name,
 						data: schema.resume.data,
-						slug: schema.resume.slug,
 						isLocked: schema.resume.isLocked,
-						isPublic: schema.resume.isPublic,
 						autoName: schema.resume.autoName,
-						autoSlug: schema.resume.autoSlug,
 						updatedAt: schema.resume.updatedAt,
 					})
 					.from(schema.resume)
@@ -863,20 +533,6 @@ export const resumeService = {
 						document: { kind: "resume", id: input.id },
 						proposalSafety: input.proposalSafety,
 					});
-
-				// A new address must follow the pattern; existing ones that don't keep working until changed.
-				const renamed = input.slug !== undefined && input.slug !== existing.slug;
-				if (renamed && !isValidSlug(input.slug as string)) {
-					throw new ORPCError("INVALID_SLUG", { status: 400 });
-				}
-				if (renamed) {
-					await recordSlugChange(tx, {
-						userId: input.userId,
-						resumeId: input.id,
-						from: existing.slug,
-						to: input.slug as string,
-					});
-				}
 
 				const normalizedData = input.data ? parseWritableResumeData(input.data) : undefined;
 				// Apps built before the web page's custom CSS drop `metadata.web.css` from the data they send; keep the
@@ -896,50 +552,16 @@ export const resumeService = {
 					existing.autoName && input.name === undefined && normalizedData
 						? normalizedData.basics.headline.trim().slice(0, 100) || undefined
 						: undefined;
-				const nextName = input.name ?? followedName;
-				if (nextName !== undefined && nextName !== existing.name && input.slug === undefined)
-					await followNameWithSlug(tx, { userId: input.userId, resumeId: input.id, name: nextName });
-				// Publishing the account's first web page makes it the primary one, so the short link opens it.
-				if (input.isPublic === true && !existing.isPublic && input.isPrimary === undefined)
-					await claimPrimaryIfNone(tx, { userId: input.userId, resumeId: input.id });
 				const updateData: Partial<typeof schema.resume.$inferSelect> = {
 					...(input.proposalApplications && Object.keys(input.proposalApplications).length
 						? { updatedAt: new Date() }
 						: {}),
 					...(input.name !== undefined ? { name: input.name, autoName: false } : {}),
 					...(followedName ? { name: followedName } : {}),
-					...(input.slug !== undefined ? { slug: input.slug } : {}),
-					// Once chosen by hand or published, the address stays put.
-					...(input.slug !== undefined || input.isPublic === true ? { autoSlug: false } : {}),
 					...(input.tags !== undefined ? { tags: input.tags } : {}),
 					...(normalizedData ? { data: normalizedData } : {}),
 					...(input.aiOperationIds !== undefined ? { aiOperationIds: [...new Set(input.aiOperationIds)] } : {}),
-					...(input.isPublic !== undefined ? { isPublic: input.isPublic } : {}),
-					...(input.showDownloadButtons !== undefined ? { showDownloadButtons: input.showDownloadButtons } : {}),
-					...(input.allowWordDownload !== undefined ? { allowWordDownload: input.allowWordDownload } : {}),
-					...(input.showInSearchEngines !== undefined ? { showInSearchEngines: input.showInSearchEngines } : {}),
-					...(input.hideContactDetails !== undefined ? { hideContactDetails: input.hideContactDetails } : {}),
-					...(input.isPrimary !== undefined ? { isPrimary: input.isPrimary } : {}),
 				};
-
-				// Only a published resume can become the primary one; it takes the role from the account's previous primary.
-				if (input.isPrimary === true) {
-					if (!(input.isPublic ?? existing.isPublic))
-						throw new ORPCError("RESUME_NOT_PUBLIC", {
-							status: 400,
-							message: "Publish the resume before making it primary.",
-						});
-					await tx
-						.update(schema.resume)
-						.set({ isPrimary: false })
-						.where(
-							and(
-								eq(schema.resume.userId, input.userId),
-								eq(schema.resume.isPrimary, true),
-								ne(schema.resume.id, input.id),
-							),
-						);
-				}
 
 				const [updated] = await tx
 					.update(schema.resume)
@@ -960,19 +582,6 @@ export const resumeService = {
 			.catch(async (error: unknown) => {
 				if (error instanceof CurrentClientRequired) throw await refuseOlderClient(input);
 				if (error instanceof ORPCError) throw error;
-
-				if (uniqueConstraint(error) === "resume_slug_user_id_unique") {
-					throw new ORPCError("RESUME_SLUG_ALREADY_EXISTS", { status: 400 });
-				}
-
-				// A concurrent first publish or explicit Make primary took the role as this one tried to. Nothing is
-				// written; the owner can act again (the retry then takes the role over from that resume).
-				if (uniqueConstraint(error) === "resume_primary_unique") {
-					throw new ORPCError("RESUME_PRIMARY_CONFLICT", {
-						status: 409,
-						message: "Another resume became the primary one at the same time. Try again.",
-					});
-				}
 
 				console.error("Couldn't update the resume. Try again.:", error);
 				throw new ORPCError("INTERNAL_SERVER_ERROR", { message: "Couldn't update the resume. Try again." });
@@ -1035,54 +644,6 @@ export const resumeService = {
 			unlockedOnly: false,
 			expectedUpdatedAt: input.expectedUpdatedAt,
 			mutation: "lock",
-		}),
-
-	setPassword: async (input: { id: string; userId: string; password: string; expectedUpdatedAt?: Date | undefined }) =>
-		writeResumeFields({
-			id: input.id,
-			userId: input.userId,
-			set: { password: await hash(input.password, 10) },
-			unlockedOnly: true,
-			expectedUpdatedAt: input.expectedUpdatedAt,
-			mutation: "password",
-		}),
-
-	verifyPassword: async (input: {
-		slug: string;
-		username: string;
-		password: string;
-		responseHeaders?: Headers;
-		trustedClient?: string | undefined;
-	}) => {
-		const resume = await findResume(
-			input,
-			{ id: schema.resume.id, password: schema.resume.password },
-			isNotNull(schema.resume.password),
-			eq(schema.resume.isPublic, true),
-		);
-
-		if (!(await consumeResumePasswordLimit({ resumeId: resume?.id ?? "missing", trustedClient: input.trustedClient })))
-			throw new ORPCError("TOO_MANY_REQUESTS");
-		// A miss costs the same bcrypt work as a wrong password, so timing doesn't reveal which addresses exist.
-		const passwordHash = resume?.password ?? (await unusedPasswordHash());
-		const isValid = await compare(input.password, passwordHash);
-		if (!resume) throw new ORPCError("INVALID_PASSWORD", { status: 401 });
-
-		if (!isValid) throw new ORPCError("INVALID_PASSWORD", { status: 401 });
-
-		if (input.responseHeaders) grantResumeAccess(input.responseHeaders, resume.id, passwordHash);
-
-		return true;
-	},
-
-	removePassword: (input: { id: string; userId: string; expectedUpdatedAt?: Date | undefined }) =>
-		writeResumeFields({
-			id: input.id,
-			userId: input.userId,
-			set: { password: null },
-			unlockedOnly: true,
-			expectedUpdatedAt: input.expectedUpdatedAt,
-			mutation: "password",
 		}),
 
 	/**

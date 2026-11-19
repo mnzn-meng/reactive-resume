@@ -20,7 +20,7 @@ export function useDocumentDownload() {
 				const words = await createLetterWordsForLocale(letter.style.metadata.page.locale);
 				const data = letterPageData(letter, words);
 				downloadWithAnchor(
-					await createExportFile({ name: letter.name, slug: "", data }, "pdf", "cover-letter", {
+					await createExportFile({ name: letter.name, data }, "pdf", "cover-letter", {
 						includeCoverLetterHeader: true,
 					}),
 					generateFilename(letter.name, "pdf"),

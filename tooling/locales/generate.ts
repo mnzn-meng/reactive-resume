@@ -1,7 +1,6 @@
 import { writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { AUTH_EMAIL_SOURCE_MESSAGES } from "@reactive-resume/email/templates/auth-messages";
-import { WEB_PAGE_SOURCE_MESSAGES } from "@reactive-resume/pdf/web-page-messages";
 import {
 	generateExpectedLabels,
 	generateMessageCatalog,
@@ -31,13 +30,6 @@ const expectedLabels = await generateExpectedLabels(catalogs);
 const expectedOutput = new URL("../../packages/schema/src/resume/expected-labels.json", import.meta.url);
 await writeFile(expectedOutput, `${JSON.stringify(expectedLabels, null, "\t")}\n`);
 console.log(`Updated "Expected" for ${Object.keys(expectedLabels).length} locales.`);
-
-const webPage = await generateMessageCatalog(catalogs, WEB_PAGE_SOURCE_MESSAGES);
-// English needs no catalog: the page falls back to its source strings.
-delete webPage["en-US"];
-const webPageOutput = new URL("../../packages/pdf/src/html/web-page-catalog.json", import.meta.url);
-await writeFile(webPageOutput, `${JSON.stringify(webPage, null, "\t")}\n`);
-console.log(`Updated the web page's interface text for ${Object.keys(webPage).length} locales.`);
 
 const authEmails = await generateMessageCatalog(catalogs, AUTH_EMAIL_SOURCE_MESSAGES);
 // English needs no catalog: the emails fall back to their source strings.

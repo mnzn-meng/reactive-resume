@@ -71,7 +71,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
       '[{"id":"legacy-stage","type":"stage","stage":"applied","at":"2025-01-01T12:00:00.000Z"}]',
       '2025-01-01T12:00:00Z','2025-01-01T12:00:00Z','2025-01-02T12:00:00Z','Keep legacy notes')`);
 				await pool.query(
-					`INSERT INTO resume (id,user_id,name,slug,data) VALUES ('migration-resume','migration-owner','Legacy','legacy','{}')`,
+					`INSERT INTO resume (id,user_id,name,data) VALUES ('migration-resume','migration-owner','Legacy','{}')`,
 				);
 				await pool.query(
 					`INSERT INTO resume_version (id,resume_id,user_id,data,kind) VALUES ('migration-version','migration-resume','migration-owner','{}','sent')`,
@@ -1477,9 +1477,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 
 	it("sent versions remain stable across lane moves, metadata edits and submission retries", async () => {
 		const data = structuredClone(defaultResumeData);
-		await getDb()
-			.insert(tables.resume)
-			.values({ id: "resume", userId: "alice", name: "Fixture", slug: "fixture", data });
+		await getDb().insert(tables.resume).values({ id: "resume", userId: "alice", name: "Fixture", data });
 		const custom = await addLane("Awaiting response", "applied");
 		const id = await applications.create({ userId: "alice", company: "Co", role: "Role", resumeId: "resume" });
 		await career.submitApplication("alice", id, [], []);
@@ -1570,7 +1568,6 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 					id: "resume",
 					userId: "alice",
 					name: "Fixture",
-					slug: "fixture",
 					data: structuredClone(defaultResumeData),
 				});
 			const input = { company: "Co", role: "Role", laneId: custom.id, resumeId: "resume" };

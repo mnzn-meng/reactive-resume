@@ -1502,14 +1502,6 @@ msgstr "{lines, plural, one {Lapa {page} sniedzas pāri apmēram par # rindu} ot
 msgid "{lines, plural, one {Page {page} still runs over by about # line.} other {Page {page} still runs over by about # lines.}}"
 msgstr "{lines, plural, one {Lapa {page} joprojām sniedzas pāri apmēram par # rindu.} other {Lapa {page} joprojām sniedzas pāri apmēram par # rindām.}}"
 
-#: src/features/documents/document-actions.tsx
-msgid "{made, plural, one {# made private} other {# made private}}"
-msgstr "{made, plural, zero {# padarīti privāti} one {# padarīts privāts} other {# padarīti privāti}}"
-
-#: src/features/documents/document-actions.tsx
-msgid "{made, plural, one {# made public} other {# made public}}"
-msgstr "{made, plural, zero {# padarīti publiski} one {# padarīts publisks} other {# padarīti publiski}}"
-
 #: src/features/resume/editor/check/page-layer.tsx
 msgid "{mentions, plural, one {found in # place} other {found in # places}}"
 msgstr "{mentions, plural, zero {atrasts # vietās} one {atrasts # vietā} other {atrasts # vietās}}"
@@ -1691,14 +1683,6 @@ msgstr "{removed, plural, one {izmaina vai noņem # no jūsu teikumiem} other {i
 #: src/features/documents/document-actions.tsx
 msgid "{restored, plural, one {# document restored} other {# documents restored}}"
 msgstr "{restored, plural, one {# dokuments atjaunots} other {# dokumenti atjaunoti}}"
-
-#: src/features/documents/documents-page.tsx
-msgid "{resumes, plural, =0 {Letters have no public link.} one {Applies to the # resume selected. Letters have no public link.} other {Applies to the # resumes selected. Letters have no public link.}}"
-msgstr "{resumes, plural, =0 {Vēstulēm nav publiskas saites.} zero {Attiecas uz # atlasītajiem CV. Vēstulēm nav publiskas saites.} one {Attiecas uz # atlasīto CV. Vēstulēm nav publiskas saites.} other {Attiecas uz # atlasītajiem CV. Vēstulēm nav publiskas saites.}}"
-
-#: src/features/documents/documents-page.tsx
-msgid "{resumes, plural, one {Applies to the # resume selected.} other {Applies to the # resumes selected.}}"
-msgstr "{resumes, plural, zero {Attiecas uz # atlasītajiem CV.} one {Attiecas uz # atlasīto CV.} other {Attiecas uz # atlasītajiem CV.}}"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "{rules, plural, =2 {Removes both rules; Undo brings them back, and History keeps every saved version. Reset design never touches your CSS.} one {Removes the rule; Undo brings it back, and History keeps every saved version. Reset design never touches your CSS.} other {Removes all # rules; Undo brings them back, and History keeps every saved version. Reset design never touches your CSS.}}"
@@ -1898,15 +1882,6 @@ msgstr "+13 pts aktivizācija"
 #: src/features/keyboard-shortcuts/index.tsx
 msgid "<0>?</0> opens this list on any page."
 msgstr "<0>?</0> atver šo sarakstu jebkurā lapā."
-
-#. placeholder {0}: user.username
-#: src/features/settings/account/profile.tsx
-msgid "<0>{host}/{0}</0> · part of every public link"
-msgstr "<0>{host}/{0}</0> · daļa no katras publiskās saites"
-
-#: src/features/settings/account/profile.tsx
-msgid "<0>{oldAddress}</0> becomes <1>{newAddress}</1>."
-msgstr "<0>{oldAddress}</0> kļūst par <1>{newAddress}</1>."
 
 #: src/components/input/chip-input.tsx
 msgid "<0>{RETURN_KEY}</0> or a comma adds one. Drag to reorder."
@@ -4398,10 +4373,6 @@ msgstr "Maiņa uz <0>{pendingEmail}</0> gaida apstiprinājumu no {0}. Saite darb
 msgid "Change to <0>{pendingEmail}</0> is waiting: open the link we sent there. The link works for an hour."
 msgstr "Maiņa uz <0>{pendingEmail}</0> gaida: atveriet saiti, ko tur nosūtījām. Saite darbojas vienu stundu."
 
-#: src/features/settings/account/profile.tsx
-msgid "Change username"
-msgstr "Mainīt lietotājvārdu"
-
 #: src/dialogs/auth/change-password.tsx
 msgid "Change your password"
 msgstr "Mainiet savu paroli"
@@ -5371,10 +5342,6 @@ msgstr "Sarunas nosaukums"
 msgid "Conversations"
 msgstr "Sarunas"
 
-#: src/features/homepage/share.tsx
-msgid "Copied"
-msgstr "Kopēts"
-
 #: src/features/career/coach-chat.tsx
 msgid "Copies for {company}"
 msgstr "Kopijas darbam {company}"
@@ -5436,17 +5403,9 @@ msgstr "Kopēt darbam…"
 msgid "Copy it for a job"
 msgstr "Kopēt to darbam"
 
-#: src/features/homepage/share.tsx
-msgid "Copy link"
-msgstr "Kopēt saiti"
-
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Copy made for {company}. This resume is unchanged."
 msgstr "Kopija izveidota darbam {company}. Šis CV ir nemainīts."
-
-#: src/features/documents/document-actions.tsx
-msgid "Copy public link"
-msgstr "Kopēt publisko saiti"
 
 #: src/features/career/offers.tsx
 msgid "Copy questions"
@@ -7146,6 +7105,7 @@ msgstr "Gatavs · {0}"
 
 #: src/features/career/workspace/apply.tsx
 #: src/features/career/workspace/practise.tsx
+#: src/features/homepage/share.tsx
 #: src/features/resume/editor/chrome/bar.tsx
 #: src/features/resume/share/download-menu.tsx
 #: src/features/resume/share/web-page-text.ts
@@ -7969,6 +7929,10 @@ msgstr "Katru dienu"
 msgid "Every entry has dates in a form systems read, in order, and none in the future."
 msgstr "Katram ierakstam ir datumi veidlapu sistēmās, kas tiek lasīti secībā, un nav neviena nākotnē."
 
+#: src/features/homepage/share.tsx
+msgid "Every format, yours"
+msgstr ""
+
 #: src/features/resume/editor/check/issues.ts
 msgid "Every role says what you did. Opinions on wording live in the Writing tab."
 msgstr "Katra loma saka, ko jūs izdarījāt. Viedokļi par formulējumu dzīvo cilnē Rakstīšana."
@@ -8046,6 +8010,10 @@ msgstr "Pieredze, izglītība un citas sadaļas"
 msgid "explain one limit of the measurement clearly, without underselling the work."
 msgstr "skaidri izskaidrojiet vienu mērījuma ierobežojumu, nemazinot darba vērtību."
 
+#: src/features/documents/document-actions.tsx
+#: src/features/homepage/footer.tsx
+#: src/features/homepage/header.tsx
+#: src/features/homepage/share.tsx
 #: src/features/settings/profile.tsx
 #: src/libs/resume/section.tsx
 #: src/routes/builder/letter/-components/letter-bar.tsx
@@ -8626,6 +8594,7 @@ msgstr "Formulāra atbildes"
 msgid "Form questions (optional)"
 msgstr "Veidlapas jautājumi (neobligāti)"
 
+#: src/features/homepage/share.tsx
 #: src/features/resume/share/download-tab.tsx
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Format"
@@ -10068,10 +10037,6 @@ msgstr "Paturēt šo atbildi"
 msgid "Keep to two or three families. Each extra font is another chance for one to map badly."
 msgstr "Izmantojiet ne vairāk kā divas vai trīs fontu saimes. Katrs papildu fonts ir vēl viena iespēja, ka kāds tiks attēlots nepareizi."
 
-#: src/features/settings/account/profile.tsx
-msgid "Keep username"
-msgstr "Paturēt lietotājvārdu"
-
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Keep with it"
 msgstr "Paturēt kopā ar to"
@@ -10627,7 +10592,6 @@ msgstr "Saite darba pieteikumu…"
 msgid "Link an existing letter"
 msgstr "Piesaistīt esošu vēstuli"
 
-#: src/features/documents/document-actions.tsx
 #: src/features/resume/share/web-page-text.ts
 msgid "Link copied"
 msgstr "Saite nokopēta"
@@ -10715,10 +10679,6 @@ msgstr "LinkedIn, ieteikums…"
 #: src/features/settings/profile.tsx
 msgid "Links"
 msgstr "Saites"
-
-#: src/features/settings/account/profile.tsx
-msgid "Links you've already shared keep working for 30 days, then stop. Share the new ones before then."
-msgstr "Jau kopīgotās saites darbojas vēl 30 dienas, pēc tam apstājas. Līdz tam laikam izkopīgojiet jaunās."
 
 #: src/features/homepage/hero.tsx
 msgid "Lisbon"
@@ -10954,18 +10914,6 @@ msgstr "Zems"
 msgid "Lower the design sheet"
 msgstr "Nolaidiet dizaina lapu"
 
-#. placeholder {0}: number(made)
-#. placeholder {1}: number(total)
-#: src/features/documents/document-actions.tsx
-msgid "Made {0} of {1} private. Letters have no public link, and locked documents are left as they are."
-msgstr "Privāti padarīti {0} no {1}. Vēstulēm nav publiskas saites, un bloķētie dokumenti paliek nemainīti."
-
-#. placeholder {0}: number(made)
-#. placeholder {1}: number(total)
-#: src/features/documents/document-actions.tsx
-msgid "Made {0} of {1} public. Letters have no public link, and locked documents are left as they are."
-msgstr "Publiski padarīti {0} no {1}. Vēstulēm nav publiskas saites, un bloķētie dokumenti paliek nemainīti."
-
 #: src/features/resume/share/web-page-text.ts
 msgid "Made with Reactive Resume"
 msgstr ""
@@ -11019,14 +10967,6 @@ msgstr "Padariet to konkrētāku"
 #: src/features/resume/editor/write/improve.tsx
 msgid "Make it shorter"
 msgstr "Padariet to īsāku"
-
-#: src/features/documents/documents-page.tsx
-msgid "Make private"
-msgstr "Padarīt privātu"
-
-#: src/features/documents/documents-page.tsx
-msgid "Make public"
-msgstr "Padarīt publisku"
 
 #: src/features/assistant/assistant-panel.tsx
 msgid "Make the opening stronger"
@@ -13572,10 +13512,6 @@ msgstr "Parcel & Co."
 msgid "Parcel & Co. · Porto"
 msgstr "Parcel & Co. · Porto"
 
-#: src/features/settings/account/profile.tsx
-msgid "Part of every public link. Old links keep working for 30 days after a change."
-msgstr "Daļa no katras publiskās saites. Vecās saites darbojas vēl 30 dienas pēc izmaiņām."
-
 #: src/features/career/workspace/fit.tsx
 #: src/features/homepage/prepare.tsx
 msgid "Partly supported"
@@ -13603,7 +13539,6 @@ msgstr "Piekļuves atslēgām nepieciešams apstiprināts e-pasts, ko šis serve
 #: src/features/auth/pages/login.tsx
 #: src/features/auth/pages/register.tsx
 #: src/features/command-palette/pages/navigation.tsx
-#: src/features/homepage/share.tsx
 #: src/features/resume/builder/password-dialog.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/features/settings/account/auth-hooks.ts
@@ -14285,10 +14220,6 @@ msgstr "Drukāt"
 msgid "Print or export the form to a flat PDF before sending it."
 msgstr "Pirms nosūtīšanas izdrukājiet vai eksportējiet veidlapu kā saplacinātu PDF."
 
-#: src/features/homepage/share.tsx
-msgid "Private"
-msgstr "Privāts"
-
 #: src/routes/builder/$resumeId/-sidebar/right/sections/notes.tsx
 msgid "Private notes about this resume. Nobody else can see them."
 msgstr "Privātas piezīmes par šo CV. Neviens cits tās neredz."
@@ -14296,10 +14227,6 @@ msgstr "Privātas piezīmes par šo CV. Neviens cits tās neredz."
 #: src/features/career/coach-chat.tsx
 msgid "Private to this application"
 msgstr "Privāts šim pieteikumam"
-
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Private. Only you can see it."
-msgstr "Privāts. Tikai jūs to varat redzēt."
 
 #: src/features/homepage/check.tsx
 #: src/features/homepage/sheet.tsx
@@ -14415,19 +14342,6 @@ msgstr "Pakalpojumu sniedzēja datu glabāšana seko savai politikai. Jūsu paka
 #: src/features/ai/usage.tsx
 msgid "Provider test"
 msgstr "Pakalpojuma sniedzēja pārbaude"
-
-#: src/features/documents/document-status.tsx
-#: src/features/documents/documents-page.tsx
-#: src/features/homepage/share.tsx
-#: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Public"
-msgstr "Publisks"
-
-#: src/features/documents/document-status.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
-msgid "Public, with a password"
-msgstr "Publisks, ar paroli"
 
 #: src/libs/resume/section.tsx
 msgid "Publications"
@@ -17083,18 +16997,10 @@ msgstr "Ēnas krāsa"
 msgid "Shadow width"
 msgstr "Ēnas platums"
 
-#: src/features/documents/document-actions.tsx
-#: src/features/homepage/footer.tsx
-#: src/features/homepage/header.tsx
-#: src/features/homepage/share.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
 msgid "Share"
 msgstr "Dalīties"
-
-#: src/features/homepage/share.tsx
-msgid "Share a public link, add a password or keep it private. Choose from 3 visibility options. Export to PDF or Word, or take all your data with you as JSON."
-msgstr "Kopīgojiet publisku saiti, pievienojiet paroli vai saglabājiet to privātu. Izvēlieties kādu no 3 redzamības opcijām. Eksportējiet uz PDF vai Word vai paņemiet visus savus datus līdzi kā JSON."
 
 #. placeholder {0}: provider.label
 #: src/libs/orpc/ai-consent.ts
@@ -17104,10 +17010,6 @@ msgstr "Kopīgot datus ar {0}?"
 #: src/features/resume/editor/chrome/download-sheet.tsx
 msgid "Share sections"
 msgstr "Kopīgojiet sadaļas"
-
-#: src/features/documents/document-actions.tsx
-msgid "Share…"
-msgstr "Kopīgot…"
 
 #: src/libs/orpc/ai-consent.ts
 msgid "Shares only resume and posting. Knowledge, private notes and web access are excluded. Review proposals before accepting; the original stays unchanged."
@@ -17121,9 +17023,7 @@ msgstr "Kopīgo tikai izvēlēto Zināšanu apgalvojumu, CV un sludinājumu. Cit
 msgid "Shares resume, posting and pasted questions. Answer drafts also use your letter, career preferences, application notes and contacts, and enabled Knowledge facts and stories. Context may be excerpted. Web access is off. Review before saving; nothing is submitted."
 msgstr "Kopīgo CV, sludinājumu un ielīmētos jautājumus. Atbilžu melnraksti izmanto arī vēstuli, karjeras vēlmes, pieteikuma piezīmes un kontaktus, kā arī aktīvos Zināšanu faktus un stāstus. Kontekstu var saīsināt. Tīmekļa piekļuve ir izslēgta. Pārskatiet pirms saglabāšanas; nekas netiek iesniegts."
 
-#: src/features/documents/documents-page.tsx
 #: src/libs/resume/section.tsx
-#: src/routes/builder/$resumeId/-components/document-details.tsx
 msgid "Sharing"
 msgstr "Kopīgošana"
 
@@ -18354,6 +18254,10 @@ msgstr "Pielāgots vai pamata CV"
 #: src/features/career/workspace/practise.tsx
 msgid "Take dictation with"
 msgstr "Diktēt ar"
+
+#: src/features/homepage/share.tsx
+msgid "Take it as PDF, Word, Markdown or JSON. Your resume is yours: no lock-in, and every format is free."
+msgstr ""
 
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "Take-home assignment"
@@ -20936,9 +20840,9 @@ msgstr "Skatīt darba sludinājumu vietnē {host}"
 msgid "View recorded answers"
 msgstr "Skatīt reģistrētās atbildes"
 
-#: src/features/homepage/share.tsx
-msgid "Visibility"
-msgstr "Redzamība"
+#: src/features/settings/account/profile.tsx
+msgid "Visible to nobody but you; used to sign in."
+msgstr ""
 
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
@@ -22191,14 +22095,6 @@ msgstr "jūsu pakalpojumu sniedzējs"
 msgid "Your provider may charge for the run."
 msgstr "Jūsu pakalpojumu sniedzējs var iekasēt maksu par izpildi."
 
-#: src/features/settings/account/profile.tsx
-msgid "Your public link will change"
-msgstr "Jūsu publiskā saite mainīsies"
-
-#: src/features/settings/account/profile.tsx
-msgid "Your public links will change"
-msgstr "Jūsu publiskās saites mainīsies"
-
 #: src/features/career/workspace/messages.tsx
 msgid "Your reply"
 msgstr "Jūsu atbilde"
@@ -22242,10 +22138,6 @@ msgstr "Jūsu CV teksts, atlasītie fragmenti un pārbaudes atklājumi."
 #: src/features/ats-checker/messages.ts
 msgid "Your resume uses \"I\" and \"my\"."
 msgstr "Jūsu CV izmanto vārdus \"I\" un \"my\"."
-
-#: src/features/homepage/share.tsx
-msgid "Your resume, live at"
-msgstr "Jūsu CV, tiešraide plkst"
 
 #: src/features/documents/documents-page.tsx
 msgid "Your resumes and cover letters live here"

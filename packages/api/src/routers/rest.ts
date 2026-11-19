@@ -42,18 +42,6 @@ export const restAliases = {
 		path: "/resumes/{resumeId}/versions/{versionId}/restorations",
 		operationId: "createResumeRestoration",
 	}),
-	resumePasswordVerification: router.resume.verifyPassword.route({
-		path: "/resumes/{username}/{slug}/password-verifications",
-		operationId: "createResumePasswordVerification",
-	}),
-	resumeSlugAvailability: router.resume.checkSlug.route({
-		path: "/resumes/{resumeId}/slug-availability",
-		operationId: "getResumeSlugAvailability",
-	}),
-	resumeDownload: router.resume.statistics.recordDownload.route({
-		path: "/resumes/{username}/{slug}/statistics/downloads",
-		operationId: "createResumeDownload",
-	}),
 	letterCopy: router.coverLetters.duplicate.route({
 		path: "/cover-letters/{id}/copies",
 		operationId: "createCoverLetterCopy",

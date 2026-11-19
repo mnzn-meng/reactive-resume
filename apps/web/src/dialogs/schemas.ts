@@ -10,11 +10,11 @@ export type DialogSchema =
 	  }
 	| {
 			type: "resume.update";
-			data: { id: string; name: string; slug: string; tags: string[] };
+			data: { id: string; name: string; tags: string[] };
 	  }
 	| {
 			type: "resume.duplicate";
-			data: { id: string; name: string; slug: string; tags: string[] };
+			data: { id: string; name: string; tags: string[] };
 	  };
 
 export type DialogType = DialogSchema["type"];

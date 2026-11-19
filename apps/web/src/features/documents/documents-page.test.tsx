@@ -104,9 +104,6 @@ function page(offset: number, total = 19500): Page {
 			name: `Document ${offset + i}`,
 			tags: [],
 			isLocked: false,
-			isPublic: false,
-			hasPassword: false,
-			slug: null,
 			trashedAt: null,
 			createdAt: new Date(),
 			updatedAt: new Date(),
@@ -117,7 +114,6 @@ function page(offset: number, total = 19500): Page {
 		total,
 		counts: { resume: 0, letter: total },
 		tags: [],
-		hasPublic: false,
 	};
 }
 function setup(view: "grid" | "list" = "list", cacheNext = true, initialQuery = "") {
@@ -129,7 +125,6 @@ function setup(view: "grid" | "list" = "list", cacheNext = true, initialQuery = 
 		q: "",
 		tags: [],
 		sort: "edited" as const,
-		public: false,
 		limit: 100,
 	};
 	for (const offset of cacheNext ? [0, 100] : [0])
@@ -425,7 +420,6 @@ it("an empty Letters tab offers to make one instead of clearing filters", async 
 		q: "",
 		tags: [],
 		sort: "edited" as const,
-		public: false,
 		limit: 100,
 		offset: 0,
 	};
@@ -434,7 +428,6 @@ it("an empty Letters tab offers to make one instead of clearing filters", async 
 		total: 0,
 		counts: { resume: 3, letter: 0 },
 		tags: [],
-		hasPublic: false,
 	});
 	render(
 		<I18nProvider i18n={i18n}>
@@ -465,7 +458,6 @@ it("first run's Choose a file opens the file picker, then imports the chosen fil
 		q: "",
 		tags: [],
 		sort: "edited" as const,
-		public: false,
 		limit: 100,
 		offset: 0,
 	};
@@ -510,7 +502,6 @@ it.each([0, 1])("recovers the correct empty state after a failed counts request 
 		q: "",
 		tags: [],
 		sort: "edited" as const,
-		public: false,
 		limit: 100,
 		offset: 0,
 	};
@@ -548,7 +539,6 @@ it.each(["list", "grid"] as const)(
 			q: "",
 			tags: [],
 			sort: "edited" as const,
-			public: false,
 			limit: 100,
 			offset: 0,
 		};

@@ -1,6 +1,6 @@
 import { createHmac } from "node:crypto";
 import { env } from "@reactive-resume/env/server";
-import { safeEquals } from "./access";
+import { safeEquals } from "../../safe-equals";
 
 // Long enough to click, short enough that a leaked link is useless soon after.
 const TTL_SECONDS = 10 * 60;

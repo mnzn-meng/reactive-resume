@@ -49,7 +49,6 @@ function renderPhoto(url = "/api/uploads/owner/pictures/shared.jpeg", fit: "cove
 	const initial: Resume = {
 		id: "original",
 		name: "Original",
-		slug: "original",
 		tags: [],
 		data,
 		isLocked: false,

@@ -26,7 +26,7 @@ it("matches the complete unmodified SDK tools/list response and server-card sche
 		permissions: ["read", "write", "delete"],
 	};
 	registerTools(server, apiClient, new Headers(), authentication);
-	registerParityTools(server, apiClient, new Headers(), {
+	registerParityTools(server, apiClient, {
 		authentication,
 		resHeaders: new Headers(),
 		locale: "en-US",
