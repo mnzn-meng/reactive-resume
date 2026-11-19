@@ -416,7 +416,7 @@ export function registerParityTools(
 				const permission = requiredPermission(definition.route);
 				if (!context.authentication.permissions.includes(permission))
 					throw new ORPCError("FORBIDDEN", {
-						message: missingPermissionMessage(context.authentication.method, permission),
+						message: missingPermissionMessage(permission),
 					});
 				const maxBytes =
 					path === "rest.checkPdf"

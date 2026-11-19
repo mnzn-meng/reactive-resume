@@ -12,7 +12,7 @@ import { withAiDestination, withWebDestination } from "./features/ai/destination
 export type RequestPermission = "read" | "write" | "delete";
 export type RequestAuthentication = {
 	user: User;
-	method: "apiKey" | "bearer" | "session";
+	method: "bearer" | "session";
 	permissions: readonly RequestPermission[];
 };
 
@@ -59,31 +59,8 @@ async function getAuthenticationFromBearerToken(headers: Headers): Promise<Reque
 	}
 }
 
-async function getAuthenticationFromApiKey(apiKey: string): Promise<RequestAuthentication | null> {
-	try {
-		const result = await auth.api.verifyApiKey({ body: { key: apiKey } });
-		if (!result.key || !result.valid) return null;
-		const activeUser = await findActiveUser(result.key.referenceId);
-		if (!activeUser) return null;
-		const statements: unknown = result.key.permissions;
-		const apiPermissions = statements && typeof statements === "object" && "api" in statements ? statements.api : [];
-		const permissions =
-			statements == null
-				? fullPermissions
-				: fullPermissions.filter((permission) => Array.isArray(apiPermissions) && apiPermissions.includes(permission));
-		return { user: activeUser, method: "apiKey", permissions };
-	} catch {
-		return null;
-	}
-}
-
-/** API key, then OAuth bearer token, then same-origin session cookies. */
+/** OAuth bearer token, then same-origin session cookies. */
 export async function resolveAuthenticationFromRequestHeaders(headers: Headers): Promise<RequestAuthentication | null> {
-	const apiKey = headers.get("x-api-key");
-	if (apiKey) {
-		const authentication = await getAuthenticationFromApiKey(apiKey);
-		if (authentication) return authentication;
-	}
 	const bearer = await getAuthenticationFromBearerToken(headers);
 	if (bearer) return bearer;
 	const origin = headers.get("origin");
@@ -95,9 +72,8 @@ export async function resolveAuthenticationFromRequestHeaders(headers: Headers):
 			message: "This request came from another site. Open Reactive Resume directly and try again.",
 		});
 	}
-	// Do not let Better Auth turn an API key into an unrestricted synthetic session.
+	// Session lookup must not treat a bearer token as a cookie session of its own.
 	const sessionHeaders = new Headers(headers);
-	sessionHeaders.delete("x-api-key");
 	sessionHeaders.delete("authorization");
 	try {
 		const result = await auth.api.getSession({ headers: sessionHeaders, query: { disableCookieCache: true } });
@@ -147,15 +123,13 @@ export function requiredPermission(route: { method?: string | undefined; operati
  * Why a credential can't do something, in the words the settings use. API keys are either read-only or full, so a key
  * missing a permission is a read-only key; OAuth connections keep the scope names their consent screen granted.
  */
-export function missingPermissionMessage(method: string | undefined, permission: string) {
-	if (method === "apiKey")
-		return "This API key is read-only. Create a key with read, write and delete access in Settings → AI & developer.";
+export function missingPermissionMessage(permission: string) {
 	return `This credential needs the api:${permission} permission. Use a credential that includes it.`;
 }
 
 export const protectedProcedure = publicProcedure
 	.route({
-		spec: (operation) => ({ ...operation, security: [{ apiKey: [] }, { bearerAuth: [] }, { cookieAuth: [] }] }),
+		spec: (operation) => ({ ...operation, security: [{ bearerAuth: [] }, { cookieAuth: [] }] }),
 	})
 	.use(({ context, procedure, next }) => {
 		if (!context.user) {
@@ -164,7 +138,7 @@ export const protectedProcedure = publicProcedure
 				`Bearer resource_metadata="${env.APP_URL}/.well-known/oauth-protected-resource"`,
 			);
 			throw new ORPCError("UNAUTHORIZED", {
-				message: "Sign-in required. Send a valid API key in the x-api-key header or an OAuth bearer token.",
+				message: "Sign-in required. Send a valid OAuth bearer token.",
 			});
 		}
 		const permission = requiredPermission(procedure["~orpc"].route);
@@ -182,7 +156,7 @@ export const protectedProcedure = publicProcedure
 		if (!context.authentication?.permissions.includes(permission)) {
 			context.resHeaders?.set("WWW-Authenticate", `Bearer error="insufficient_scope", scope="api:${permission}"`);
 			throw new ORPCError("FORBIDDEN", {
-				message: missingPermissionMessage(context.authentication?.method, permission),
+				message: missingPermissionMessage(permission),
 			});
 		}
 

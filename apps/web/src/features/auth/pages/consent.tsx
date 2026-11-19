@@ -253,15 +253,12 @@ export function OAuthConsentPage({ oauthQuery, email, isAnonymous, disableSignup
 						</Permission>
 					)}
 				</ul>
-				<p className="mt-3.5 t-small text-ink-3">
-					{/* Only true when the request names what it wants and leaves deleting out. */}
-					{(api.read || api.write) && !api.delete && (
-						<>
-							<Trans>It can't delete anything.</Trans>{" "}
-						</>
-					)}
-					<Trans>You can disconnect it anytime in Settings › Developer.</Trans>
-				</p>
+				{/* Only true when the request names what it wants and leaves deleting out. */}
+				{(api.read || api.write) && !api.delete && (
+					<p className="mt-3.5 t-small text-ink-3">
+						<Trans>It can't delete anything.</Trans>
+					</p>
+				)}
 				{failure}
 				<div className="mt-5 grid grid-cols-2 gap-3">
 					<Button

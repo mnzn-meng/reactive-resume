@@ -19,7 +19,7 @@ const errorStatus = (error: unknown): number => {
 const cacheHeaders = (etag: string) => ({
 	"Cache-Control": "private, no-cache",
 	ETag: etag,
-	Vary: "Cookie, Authorization, X-Api-Key",
+	Vary: "Cookie, Authorization",
 });
 
 export async function handlePublicResumeDownload(
@@ -46,7 +46,7 @@ export async function handlePublicResumeDownload(
 					...result.headers,
 					"Content-Type": result.body.type,
 					"Cache-Control": "private, no-store",
-					Vary: "Cookie, Authorization, X-Api-Key",
+					Vary: "Cookie, Authorization",
 					"X-Content-Type-Options": "nosniff",
 				},
 			});

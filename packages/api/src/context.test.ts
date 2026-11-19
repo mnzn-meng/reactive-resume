@@ -6,7 +6,6 @@ import { env } from "@reactive-resume/env/server";
 const authMock = vi.hoisted(() => ({
 	api: {
 		getSession: vi.fn(),
-		verifyApiKey: vi.fn(),
 	},
 }));
 const verifyOAuthTokenMock = vi.hoisted(() => vi.fn());
@@ -42,35 +41,11 @@ const setupDbResolves = (userResult: unknown) => {
 
 const reset = () => {
 	authMock.api.getSession.mockReset();
-	authMock.api.verifyApiKey.mockReset();
 	verifyOAuthTokenMock.mockReset();
 	dbMock.select.mockReset();
 };
 
 describe("resolveUserFromRequestHeaders", () => {
-	it("falls back to a valid bearer token when an API key is invalid", async () => {
-		reset();
-		authMock.api.verifyApiKey.mockResolvedValueOnce({ valid: false });
-		verifyOAuthTokenMock.mockResolvedValueOnce({ sub: "bearer-user" });
-		setupDbResolves({ id: "bearer-user" });
-		const user = await resolveUserFromRequestHeaders(
-			new Headers({ "x-api-key": "expired-key", authorization: "Bearer valid-token" }),
-		);
-		expect(user).toMatchObject({ id: "bearer-user" });
-		expect(verifyOAuthTokenMock).toHaveBeenCalledWith("valid-token");
-	});
-	it("returns the user resolved from a valid x-api-key", async () => {
-		reset();
-		authMock.api.verifyApiKey.mockResolvedValueOnce({ valid: true, key: { referenceId: "user-1" } });
-		setupDbResolves({ id: "user-1", name: "Alice" });
-
-		const headers = new Headers({ "x-api-key": "abc123" });
-		const user = await resolveUserFromRequestHeaders(headers);
-
-		expect(authMock.api.verifyApiKey).toHaveBeenCalledWith({ body: { key: "abc123" } });
-		expect(user).toMatchObject({ id: "user-1", name: "Alice" });
-	});
-
 	it("uses Bearer token when present and no api key", async () => {
 		reset();
 		verifyOAuthTokenMock.mockResolvedValueOnce({ sub: "user-bearer" });
@@ -155,9 +130,9 @@ describe("credential authorization", () => {
 		{ banned: true, banExpires: new Date("2000-01-01"), allowed: true },
 	])("enforces active bans for explicit credentials: %j", async ({ banned, banExpires, allowed }) => {
 		reset();
-		authMock.api.verifyApiKey.mockResolvedValue({ valid: true, key: { referenceId: "owner" } });
+		verifyOAuthTokenMock.mockResolvedValue({ sub: "owner" });
 		setupDbResolves({ id: "owner", banned, banExpires });
-		const result = await resolveUserFromRequestHeaders(new Headers({ "x-api-key": "key" }));
+		const result = await resolveUserFromRequestHeaders(new Headers({ authorization: "Bearer token" }));
 		expect(result?.id ?? null).toBe(allowed ? "owner" : null);
 	});
 
@@ -176,14 +151,22 @@ describe("credential authorization", () => {
 		{ permissions: { api: ["delete"] }, method: "POST" as const, operationId: "purgeDocuments", allowed: true },
 		{ permissions: { api: ["write"] }, method: "DELETE" as const, operationId: "emptyDocumentTrash", allowed: false },
 		{ permissions: { api: ["delete"] }, method: "DELETE" as const, operationId: "emptyDocumentTrash", allowed: true },
-	])("enforces API-key permissions at procedure execution: %j", async ({ permissions, method, allowed, ...route }) => {
+	])("enforces scoped credentials at procedure execution: %j", async ({ permissions, method, allowed, ...route }) => {
 		reset();
-		authMock.api.verifyApiKey.mockResolvedValue({ valid: true, key: { referenceId: "owner", permissions } });
 		setupDbResolves({ id: "owner" });
+		const granted = permissions === null ? ["read", "write", "delete"] : (permissions.api ?? []);
 		const operation = createProcedureClient(
 			protectedProcedure.route({ method, ...route }).handler(() => "executed"),
 			{
-				context: { locale: "en-US", reqHeaders: new Headers({ "x-api-key": "key" }) },
+				context: {
+					locale: "en-US",
+					reqHeaders: new Headers(),
+					authentication: {
+						user: { id: "owner" },
+						method: "bearer",
+						permissions: granted,
+					} as unknown as RequestAuthentication,
+				},
 			},
 		);
 		if (allowed) await expect(operation(undefined)).resolves.toBe("executed");

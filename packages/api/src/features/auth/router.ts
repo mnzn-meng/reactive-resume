@@ -120,99 +120,6 @@ export const authRouter = {
 			}),
 		),
 
-	apiKeys: {
-		list: accountProcedure
-			.route({
-				method: "GET",
-				path: "/auth/api-keys",
-				tags: ["Authentication"],
-				operationId: "listApiKeys",
-				summary: "List your API keys",
-				description: "Lists only the authenticated user's API-key metadata. Key secrets are never returned.",
-			})
-			.input(z.object({}).optional())
-			.output(
-				z.object({
-					apiKeys: z.array(
-						createSelectSchema(schema.apikey)
-							.pick({
-								id: true,
-								name: true,
-								start: true,
-								prefix: true,
-								enabled: true,
-								createdAt: true,
-								updatedAt: true,
-								expiresAt: true,
-								lastRequest: true,
-							})
-							.extend({ permissions: z.record(z.string(), z.array(z.string())).nullable() }),
-					),
-					total: z.number(),
-				}),
-			)
-			.handler(({ context }) => accountAuth.listApiKeys(context.user)),
-
-		delete: accountProcedure
-			.route({
-				method: "DELETE",
-				path: "/auth/api-keys/{keyId}",
-				tags: ["Authentication"],
-				operationId: "deleteApiKey",
-				summary: "Delete your API key",
-				description: "Revokes an API key belonging to the authenticated user.",
-			})
-			.input(z.object({ keyId: z.string().min(1) }))
-			.output(z.object({ success: z.boolean() }))
-			.handler(({ context, input }) => accountAuth.deleteApiKey(context.user, input.keyId)),
-	},
-
-	connections: {
-		list: accountProcedure
-			.route({
-				method: "GET",
-				path: "/auth/connections",
-				tags: ["Authentication"],
-				operationId: "listConnectedApplications",
-				summary: "List connected applications",
-				description:
-					"Lists the applications you allowed through OAuth, newest first, with their registered names and granted scopes.",
-			})
-			.input(z.object({}).optional())
-			.output(
-				z.object({
-					connections: z.array(
-						z.object({
-							id: z.string(),
-							clientId: z.string(),
-							clientName: z.string().nullable(),
-							scopes: z.array(z.string()),
-							createdAt: z.date().nullable(),
-						}),
-					),
-				}),
-			)
-			.handler(async ({ context }) => ({ connections: await accountAuth.listConnections(context.user) })),
-
-		delete: accountProcedure
-			.route({
-				method: "DELETE",
-				path: "/auth/connections/{id}",
-				tags: ["Authentication"],
-				operationId: "deleteConnectedApplication",
-				summary: "Disconnect an application",
-				description:
-					"Disconnects an application you allowed through OAuth. Its tokens stop working at once; to use it again, connect it from the application.",
-			})
-			.input(z.object({ id: z.string().min(1) }))
-			.output(z.object({ success: z.boolean() }))
-			.handler(async ({ context, input }) => {
-				if (!(await accountAuth.revokeConnection(context.user, input.id)))
-					throw new ORPCError("NOT_FOUND", { message: "No connected application with that ID." });
-				return { success: true };
-			}),
-	},
-
 	providers: {
 		list: publicProcedure
 			.route({
@@ -234,39 +141,6 @@ export const authRouter = {
 			)
 			.handler(() => authService.providers.list()),
 	},
-
-	createApiKey: protectedProcedure
-		.route({
-			method: "POST",
-			path: "/auth/api-keys",
-			tags: ["Authentication"],
-			operationId: "createScopedApiKey",
-			summary: "Create an API key",
-			description:
-				"Create a read-only or full-access API key. Requires a browser session; keys and OAuth tokens cannot create credentials.",
-		})
-		.input(
-			z.object({
-				name: z.string().trim().min(1).max(64),
-				expiresIn: z.number().int().positive().nullable(),
-				access: z.enum(["read", "full"]),
-			}),
-		)
-		.output(z.object({ key: z.string() }))
-		.handler(async ({ context, input }) => {
-			if (context.authentication?.method !== "session")
-				throw new ORPCError("FORBIDDEN", { message: "Create API keys from Settings in a web browser." });
-			await assertRecentSignIn(context.reqHeaders);
-			const result = await auth.api.createApiKey({
-				body: {
-					userId: context.user.id,
-					name: input.name,
-					expiresIn: input.expiresIn,
-					permissions: { api: input.access === "read" ? ["read"] : ["read", "write", "delete"] },
-				},
-			});
-			return { key: result.key };
-		}),
 
 	setPassword: accountProcedure
 		.route({

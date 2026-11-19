@@ -183,7 +183,7 @@ it("documents anonymous routes, all supported credentials, and additive PATCH ro
 	const spec = await generateSpec();
 	expect(spec.paths?.["/flags"]?.get?.security).toEqual([]);
 	expect(spec.paths?.["/resumes/{username}/{slug}"]?.get?.security).toEqual([]);
-	expect(spec.paths?.["/resumes"]?.get?.security).toEqual([{ apiKey: [] }, { bearerAuth: [] }, { cookieAuth: [] }]);
+	expect(spec.paths?.["/resumes"]?.get?.security).toEqual([{ bearerAuth: [] }, { cookieAuth: [] }]);
 	expect(spec.paths?.["/auth/account"]?.delete?.security).toEqual([{ cookieAuth: [] }]);
 	expect(spec.paths?.["/auth/account"]?.delete).toHaveProperty(
 		"x-codeSamples.0.source",

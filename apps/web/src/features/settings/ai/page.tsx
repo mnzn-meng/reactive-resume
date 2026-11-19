@@ -1,7 +1,6 @@
 import type { MemoryMode } from "@reactive-resume/schema/career";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
-import { useSearch } from "@tanstack/react-router";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -12,9 +11,6 @@ import {
 import { Icon } from "@reactive-resume/ui/components/icon";
 import { useHasUsableAiProvider } from "../integrations/hooks/use-has-usable-ai-provider";
 import { SettingsRow, SettingsSection } from "../section";
-import { ApiKeysSection } from "./api-keys";
-import { ConnectedAppsSection } from "./connected-apps";
-import { McpSection } from "./mcp";
 import { ProvidersSection } from "./providers";
 import { AiUsageSection } from "./usage";
 import { WebAccessSection } from "./web-access";
@@ -68,17 +64,5 @@ function WhatAiCanUse() {
 				</DropdownMenu>
 			</SettingsRow>
 		</SettingsSection>
-	);
-}
-
-/** What lets outside tools act as this account: API keys, connected applications and the MCP server. */
-export function DeveloperSettings() {
-	const { newKey } = useSearch({ from: "/dashboard/settings/developer" });
-	return (
-		<>
-			<ApiKeysSection openNewKey={newKey ?? false} />
-			<ConnectedAppsSection />
-			<McpSection />
-		</>
 	);
 }

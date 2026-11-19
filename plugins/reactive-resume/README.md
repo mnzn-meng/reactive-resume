@@ -57,7 +57,7 @@ The skills never invent employers, dates, numbers or results. They keep estimate
 
 ## MCP server
 
-The plugin connects to `https://rxresu.me/mcp`. The first time a skill needs your data, your agent asks you to sign in to Reactive Resume and approve access; no API key is stored in the plugin. Without signing in, the skills still work on text you paste.
+The plugin connects to `https://rxresu.me/mcp`. The first time a skill needs your data, your agent asks you to sign in to Reactive Resume and approve access; nothing is stored in the plugin. Without signing in, the skills still work on text you paste.
 
 Your agent's provider processes the text you give it under its own terms. Connected tools read and save data in your Reactive Resume account under its [privacy policy](https://docs.rxresu.me/legal/privacy-policy). Tools that use AI (match scores, tailored summaries, drafted messages) also send data to the AI provider you configured in Reactive Resume; the skills ask before calling them. They do not upload your resume to outside scanners or publish private work samples without authorization.
 

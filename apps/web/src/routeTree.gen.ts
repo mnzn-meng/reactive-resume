@@ -50,8 +50,6 @@ import { Route as DashboardResumesIndexRouteImport } from "./routes/dashboard/re
 import { Route as DashboardSettingsIndexRouteImport } from "./routes/dashboard/settings/index";
 import { Route as DashboardSettingsAccountRouteImport } from "./routes/dashboard/settings/account";
 import { Route as DashboardSettingsAiRouteImport } from "./routes/dashboard/settings/ai";
-import { Route as DashboardSettingsApiKeysRouteImport } from "./routes/dashboard/settings/api-keys";
-import { Route as DashboardSettingsDeveloperRouteImport } from "./routes/dashboard/settings/developer";
 import { Route as DashboardSettingsIntegrationsRouteRouteImport } from "./routes/dashboard/settings/integrations/route";
 import { Route as DashboardSettingsJobSearchRouteImport } from "./routes/dashboard/settings/job-search";
 import { Route as DashboardSettingsPreferencesRouteImport } from "./routes/dashboard/settings/preferences";
@@ -274,18 +272,6 @@ const DashboardSettingsAiRoute = DashboardSettingsAiRouteImport.update({
   path: "/ai",
   getParentRoute: () => DashboardSettingsRouteRoute,
 } as any);
-const DashboardSettingsApiKeysRoute =
-  DashboardSettingsApiKeysRouteImport.update({
-    id: "/api-keys",
-    path: "/api-keys",
-    getParentRoute: () => DashboardSettingsRouteRoute,
-  } as any);
-const DashboardSettingsDeveloperRoute =
-  DashboardSettingsDeveloperRouteImport.update({
-    id: "/developer",
-    path: "/developer",
-    getParentRoute: () => DashboardSettingsRouteRoute,
-  } as any);
 const DashboardSettingsIntegrationsRouteRoute =
   DashboardSettingsIntegrationsRouteRouteImport.update({
     id: "/integrations",
@@ -384,8 +370,6 @@ export interface FileRoutesByFullPath {
   "/dashboard/documents/import": typeof DashboardDocumentsImportRoute;
   "/dashboard/settings/account": typeof DashboardSettingsAccountRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
-  "/dashboard/settings/api-keys": typeof DashboardSettingsApiKeysRoute;
-  "/dashboard/settings/developer": typeof DashboardSettingsDeveloperRoute;
   "/dashboard/settings/job-search": typeof DashboardSettingsJobSearchRoute;
   "/dashboard/settings/preferences": typeof DashboardSettingsPreferencesRoute;
   "/dashboard/settings/profile": typeof DashboardSettingsProfileRoute;
@@ -432,8 +416,6 @@ export interface FileRoutesByTo {
   "/dashboard/documents/import": typeof DashboardDocumentsImportRoute;
   "/dashboard/settings/account": typeof DashboardSettingsAccountRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
-  "/dashboard/settings/api-keys": typeof DashboardSettingsApiKeysRoute;
-  "/dashboard/settings/developer": typeof DashboardSettingsDeveloperRoute;
   "/dashboard/settings/job-search": typeof DashboardSettingsJobSearchRoute;
   "/dashboard/settings/preferences": typeof DashboardSettingsPreferencesRoute;
   "/dashboard/settings/profile": typeof DashboardSettingsProfileRoute;
@@ -488,8 +470,6 @@ export interface FileRoutesById {
   "/dashboard/documents_/import": typeof DashboardDocumentsImportRoute;
   "/dashboard/settings/account": typeof DashboardSettingsAccountRoute;
   "/dashboard/settings/ai": typeof DashboardSettingsAiRoute;
-  "/dashboard/settings/api-keys": typeof DashboardSettingsApiKeysRoute;
-  "/dashboard/settings/developer": typeof DashboardSettingsDeveloperRoute;
   "/dashboard/settings/job-search": typeof DashboardSettingsJobSearchRoute;
   "/dashboard/settings/preferences": typeof DashboardSettingsPreferencesRoute;
   "/dashboard/settings/profile": typeof DashboardSettingsProfileRoute;
@@ -544,8 +524,6 @@ export interface FileRouteTypes {
     | "/dashboard/documents/import"
     | "/dashboard/settings/account"
     | "/dashboard/settings/ai"
-    | "/dashboard/settings/api-keys"
-    | "/dashboard/settings/developer"
     | "/dashboard/settings/job-search"
     | "/dashboard/settings/preferences"
     | "/dashboard/settings/profile"
@@ -592,8 +570,6 @@ export interface FileRouteTypes {
     | "/dashboard/documents/import"
     | "/dashboard/settings/account"
     | "/dashboard/settings/ai"
-    | "/dashboard/settings/api-keys"
-    | "/dashboard/settings/developer"
     | "/dashboard/settings/job-search"
     | "/dashboard/settings/preferences"
     | "/dashboard/settings/profile"
@@ -647,8 +623,6 @@ export interface FileRouteTypes {
     | "/dashboard/documents_/import"
     | "/dashboard/settings/account"
     | "/dashboard/settings/ai"
-    | "/dashboard/settings/api-keys"
-    | "/dashboard/settings/developer"
     | "/dashboard/settings/job-search"
     | "/dashboard/settings/preferences"
     | "/dashboard/settings/profile"
@@ -965,20 +939,6 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardSettingsAiRouteImport;
       parentRoute: typeof DashboardSettingsRouteRoute;
     };
-    "/dashboard/settings/api-keys": {
-      id: "/dashboard/settings/api-keys";
-      path: "/api-keys";
-      fullPath: "/dashboard/settings/api-keys";
-      preLoaderRoute: typeof DashboardSettingsApiKeysRouteImport;
-      parentRoute: typeof DashboardSettingsRouteRoute;
-    };
-    "/dashboard/settings/developer": {
-      id: "/dashboard/settings/developer";
-      path: "/developer";
-      fullPath: "/dashboard/settings/developer";
-      preLoaderRoute: typeof DashboardSettingsDeveloperRouteImport;
-      parentRoute: typeof DashboardSettingsRouteRoute;
-    };
     "/dashboard/settings/integrations": {
       id: "/dashboard/settings/integrations";
       path: "/integrations";
@@ -1157,8 +1117,6 @@ interface DashboardSettingsRouteRouteChildren {
   DashboardSettingsIntegrationsRouteRoute: typeof DashboardSettingsIntegrationsRouteRoute;
   DashboardSettingsAccountRoute: typeof DashboardSettingsAccountRoute;
   DashboardSettingsAiRoute: typeof DashboardSettingsAiRoute;
-  DashboardSettingsApiKeysRoute: typeof DashboardSettingsApiKeysRoute;
-  DashboardSettingsDeveloperRoute: typeof DashboardSettingsDeveloperRoute;
   DashboardSettingsJobSearchRoute: typeof DashboardSettingsJobSearchRoute;
   DashboardSettingsPreferencesRoute: typeof DashboardSettingsPreferencesRoute;
   DashboardSettingsProfileRoute: typeof DashboardSettingsProfileRoute;
@@ -1172,8 +1130,6 @@ const DashboardSettingsRouteRouteChildren: DashboardSettingsRouteRouteChildren =
       DashboardSettingsIntegrationsRouteRoute,
     DashboardSettingsAccountRoute: DashboardSettingsAccountRoute,
     DashboardSettingsAiRoute: DashboardSettingsAiRoute,
-    DashboardSettingsApiKeysRoute: DashboardSettingsApiKeysRoute,
-    DashboardSettingsDeveloperRoute: DashboardSettingsDeveloperRoute,
     DashboardSettingsJobSearchRoute: DashboardSettingsJobSearchRoute,
     DashboardSettingsPreferencesRoute: DashboardSettingsPreferencesRoute,
     DashboardSettingsProfileRoute: DashboardSettingsProfileRoute,

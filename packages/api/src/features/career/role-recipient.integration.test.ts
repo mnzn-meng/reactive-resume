@@ -113,7 +113,7 @@ describe.skipIf(!databaseUrl)("role recipient approval through router, PostgreSQ
 				context: {
 					locale: "en-US",
 					reqHeaders: new Headers(),
-					authentication: { user, method: "apiKey", permissions },
+					authentication: { user, method: "bearer", permissions },
 				},
 			},
 		);

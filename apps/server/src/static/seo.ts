@@ -138,7 +138,7 @@ export function handleLlms() {
 		"",
 		`- [OpenAPI specification](${baseUrl}/openapi.json)`,
 		`- [Resume JSON schema](${baseUrl}/schema.json)`,
-		`- [MCP server](${baseUrl}/mcp): connect any MCP client with OAuth or an API key.`,
+		`- [MCP server](${baseUrl}/mcp): connect any MCP client with OAuth.`,
 		`- [Agent skills](${baseUrl}/.well-known/agent-skills/index.json): resume and job-search skills.`,
 		`- [Integrations](${baseUrl}/.well-known/integrations.json): every API and MCP surface with its authentication.`,
 		"",

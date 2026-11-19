@@ -89,7 +89,6 @@ it("publishes the configured native authentication HTTP contract", async () => {
 	const spec = await response.json();
 	expect(spec.paths).toHaveProperty("/sign-in/email");
 	expect(spec.paths).toHaveProperty("/get-session");
-	expect(spec.paths).toHaveProperty("/api-key/create");
 });
 
 it("tells an email-change token from a sign-up token by its updateTo claim", () => {

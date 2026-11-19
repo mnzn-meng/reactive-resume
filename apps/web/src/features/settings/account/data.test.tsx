@@ -17,7 +17,6 @@ vi.mock("@/libs/auth/account-scope", () => ({
 vi.mock("@reactive-resume/utils/file", () => ({ downloadWithAnchor: exported.download }));
 vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: exported.toast } }));
 vi.mock("@tanstack/react-router", () => ({ useNavigate: () => vi.fn() }));
-vi.mock("@/libs/auth/client", () => ({ authClient: { apiKey: { list: async () => ({ data: { apiKeys: [] } }) } } }));
 vi.mock("@/libs/orpc/client", () => ({
 	client: { auth: { deleteAccount: remove, exportData: exported.request } },
 	orpc: {

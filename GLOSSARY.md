@@ -229,9 +229,8 @@ established term, keep "passkey" in English rather than reusing the word for pas
 
 **Backup codes** — single-use codes for signing in when the second factor is unavailable.
 
-**API key** — a token for programmatic access. **Key** on its own, in `ai-section.tsx`, means the
-AI provider's API key. Not a physical door key, not a keyboard key, and not the adjective "key"
-in the sense of crucial or main.
+**Key** — the AI provider's API key, entered under AI settings. Not a physical door key, not a
+keyboard key, and not the adjective "key" in the sense of crucial or main.
 
 **Session** — an active sign-in on one device.
 

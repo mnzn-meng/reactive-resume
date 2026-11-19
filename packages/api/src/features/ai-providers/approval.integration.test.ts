@@ -673,7 +673,7 @@ describe.skipIf(!process.env.INTEGRATIONS_TEST_DATABASE_URL)(
 			const readOnly = createRouterClient(router, {
 				context: {
 					...readContext,
-					authentication: { ...readContext.authentication, method: "apiKey" as const, permissions: ["read"] },
+					authentication: { ...readContext.authentication, method: "bearer" as const, permissions: ["read"] },
 				},
 			});
 			await expect(readOnly.autofill({ jobDescription: marker })).rejects.toMatchObject({ code: "FORBIDDEN" });

@@ -160,9 +160,7 @@ function DeleteAccountDialog({ open, onOpenChange, onExport, exporting }: Delete
 						<Trans>Delete your account?</Trans>
 					</AlertDialogTitle>
 					<AlertDialogDescription>
-						<Trans>
-							All your documents, applications, API keys and public links are deleted for good. This can't be undone.
-						</Trans>{" "}
+						<Trans>All your documents, applications and public links are deleted for good. This can't be undone.</Trans>{" "}
 						<TextAction
 							disabled={exporting}
 							onClick={onExport}

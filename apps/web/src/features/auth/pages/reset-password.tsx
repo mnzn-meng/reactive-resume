@@ -69,7 +69,7 @@ export function ResetPasswordPage({ token }: Props) {
 
 			toast.add({
 				type: "success",
-				description: t`Password changed. You're signed out everywhere; sign in, then add any passkeys or API keys again.`,
+				description: t`Password changed. You're signed out everywhere; sign in, then add any passkeys again.`,
 				id: toastId,
 			});
 
@@ -91,7 +91,7 @@ export function ResetPasswordPage({ token }: Props) {
 				<Trans>Choose a new password</Trans>
 			</AuthTitle>
 			<AuthLead>
-				<Trans>This signs you out everywhere and removes your passkeys, API keys and connected apps.</Trans>
+				<Trans>This signs you out everywhere and removes your passkeys and connected apps.</Trans>
 			</AuthLead>
 
 			<form

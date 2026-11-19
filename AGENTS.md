@@ -105,7 +105,6 @@ Details behind those rows:
   `packages/pdf`. Shared filtering lives in `packages/pdf/src/templates/shared/filtering.ts`.
 - MCP tool annotations are reviewed in `packages/mcp/src/fixtures/tool-annotations.md`.
 - UI styles are in `packages/ui/src/styles/`; web design rules are in `apps/web/DESIGN.md`.
-- `packages/dsh-plugin` is published separately from this repository.
 
 `packages/utils` takes a helper only when no domain package owns it: JSON Patch belongs in `@reactive-resume/resume`,
 DOCX builders in `@reactive-resume/docx`.

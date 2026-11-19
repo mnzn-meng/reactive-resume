@@ -90,13 +90,6 @@ export function SettingsRoot() {
 						subtitle={provider ? `${provider.label} · ${provider.model}` : <Trans>Not set up</Trans>}
 						caret
 					/>
-					<ListRow
-						render={<Link to="/dashboard/settings/developer" viewTransition={pushTransition} />}
-						leading={<Icon name="code" />}
-						title={<Trans>Developer</Trans>}
-						subtitle={<Trans>API keys and MCP</Trans>}
-						caret
-					/>
 				</List>
 			</nav>
 			<List cap>

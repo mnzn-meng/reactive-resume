@@ -173,15 +173,9 @@ export async function generateOpenApiSpec({ appUrl, version }: GenerateOpenApiSp
 					description:
 						"Browser session (secure deployments use the __Secure- prefix). Cookie requests must originate from this instance.",
 				},
-				apiKey: {
-					type: "apiKey",
-					name: "x-api-key",
-					in: "header",
-					description: "The API key to authenticate requests.",
-				},
 			},
 		},
-		security: [{ apiKey: [] }, { bearerAuth: [] }, { cookieAuth: [] }],
+		security: [{ bearerAuth: [] }, { cookieAuth: [] }],
 		filter: ({ contract }) => !contract["~orpc"].route.tags?.includes("Internal"),
 	});
 	// Void results have no HTTP body; Zod's impossible JSON schema is not a response payload.
@@ -307,8 +301,8 @@ function addCurlSamples(spec: OpenAPI.Document) {
 			const security = operation.security ?? spec.security;
 			if (security?.length) {
 				args.push(
-					security.some((requirement) => "apiKey" in requirement)
-						? `--header "x-api-key: <api-key>"`
+					security.some((requirement) => "bearerAuth" in requirement)
+						? `--header "Authorization: Bearer <access-token>"`
 						: `--cookie "<session-cookie>"`,
 				);
 			}

@@ -75,7 +75,7 @@ const client = () =>
 		context: {
 			locale: "en-US",
 			reqHeaders: new Headers(),
-			authentication: { user, method: "apiKey", permissions: ["read", "write", "delete"] },
+			authentication: { user, method: "bearer", permissions: ["read", "write", "delete"] },
 		},
 	});
 

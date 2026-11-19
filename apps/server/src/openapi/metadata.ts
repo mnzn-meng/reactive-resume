@@ -98,26 +98,11 @@ export function handleOAuthProtectedResource() {
 function buildIntegrations() {
 	const baseUrl = appUrl();
 	const basis = { via: "declared", source: `${baseUrl}/.well-known/integrations.json` } as const;
-	const apiKey = {
-		id: "api-key",
-		mechanics: { source: "http", in: "header", headerName: "x-api-key" },
-	} as const;
-
 	return {
 		version: 3,
 		summary:
 			"Reactive Resume is a free resume builder. Agents can read and edit a user's resumes, cover letters and job applications through the REST API or the MCP server.",
 		credentials: {
-			"api-key": {
-				type: "api_key",
-				label: "Reactive Resume API key",
-				generateUrl: `${baseUrl}/dashboard/settings/ai`,
-				setup: [
-					"Open **Settings → AI & developer**, select **New key** in the **API keys** section and name it. Under **Access**, choose **Read only** unless the tool needs to change your documents. Choose when it expires, then copy it.",
-					"The key is shown only once and acts as you with the access you chose: anyone holding a read-only key can read your account, and a full-access key can also change and delete it. Revoke it from the same table when you no longer need it.",
-					"Send it in the `x-api-key` header.",
-				].join("\n\n"),
-			},
 			oauth: {
 				type: "oauth2",
 				label: "Reactive Resume OAuth",
@@ -139,7 +124,6 @@ function buildIntegrations() {
 				auth: {
 					status: "required",
 					entries: [
-						{ use: [apiKey], basis },
 						{
 							use: [
 								{
@@ -161,10 +145,7 @@ function buildIntegrations() {
 				transports: ["streamable-http"],
 				auth: {
 					status: "required",
-					entries: [
-						{ use: [{ id: "oauth", mechanics: { source: "well-known" } }], basis },
-						{ use: [apiKey], basis },
-					],
+					entries: [{ use: [{ id: "oauth", mechanics: { source: "well-known" } }], basis }],
 				},
 			},
 		],

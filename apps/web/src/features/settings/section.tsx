@@ -13,7 +13,7 @@ type SettingsSectionProps = {
 	action?: ReactNode;
 	children: ReactNode;
 	className?: string;
-	/** An anchor for links straight to this group, e.g. `/dashboard/settings/developer#api-keys`. */
+	/** An anchor for links straight to this group, e.g. `/dashboard/settings/account#security`. */
 	id?: string;
 };
 

@@ -11,7 +11,7 @@ msg({
 	message: "We received a request to reset your {appName} password.",
 	comment: "Password reset email. appName: Reactive Resume",
 });
-msg`The link works for 1 hour. Resetting signs you out on every device and removes your passkeys, API keys and connected apps. If you didn't ask for this, ignore this email; your password stays the same.`;
+msg`The link works for 1 hour. Resetting signs you out on every device and removes your passkeys and connected apps. If you didn't ask for this, ignore this email; your password stays the same.`;
 msg`Create new password`;
 msg`For security, only use links from emails sent by Reactive Resume.`;
 msg`Verify your email`;

@@ -50,7 +50,7 @@ it.each(["write", "read"] as RequestPermission[])(
 						createdAt: new Date(),
 						updatedAt: new Date(),
 					},
-					method: "apiKey",
+					method: "bearer",
 					permissions: [permission],
 				},
 			},

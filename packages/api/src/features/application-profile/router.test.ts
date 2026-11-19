@@ -14,14 +14,14 @@ const user = {
 };
 const context = (
 	permissions: Array<"read" | "write" | "delete">,
-	method: "apiKey" | "bearer" | "session" = "bearer",
+	method: "bearer" | "bearer" | "session" = "bearer",
 ) => ({ locale: "en-US" as const, reqHeaders: new Headers(), authentication: { user, permissions, method } });
 beforeEach(() => {
 	vi.clearAllMocks();
 	service.get.mockResolvedValue(null);
 	service.delete.mockResolvedValue(undefined);
 });
-it.each(["apiKey", "bearer", "session"] as const)("scopes %s reads to the authenticated owner", async (method) => {
+it.each(["bearer", "session"] as const)("scopes %s reads to the authenticated owner", async (method) => {
 	const get = createProcedureClient(applicationProfileRouter.get, { context: context(["read"], method) });
 	expect(await get()).toBeNull();
 	expect(service.get).toHaveBeenCalledExactlyOnceWith("owner");

@@ -7,7 +7,7 @@ export class AuthError extends Error {
 }
 
 export async function authenticateRequest(request: Request) {
-	// MCP accepts API keys and bearer tokens; share their priority and validation with its oRPC tools.
+	// MCP accepts OAuth bearer tokens; share their validation with its oRPC tools.
 	const headers = new Headers(request.headers);
 	headers.delete("cookie");
 	const authentication = await resolveAuthenticationFromRequestHeaders(headers);

@@ -8,7 +8,6 @@ import type {
 import type { JWTPayload } from "jose";
 import { AsyncLocalStorage } from "node:async_hooks";
 import { isDeepStrictEqual } from "node:util";
-import { apiKey } from "@better-auth/api-key";
 import { drizzleAdapter } from "@better-auth/drizzle-adapter/relations-v2";
 import { dash } from "@better-auth/infra";
 import { oauthProvider } from "@better-auth/oauth-provider";
@@ -27,7 +26,7 @@ import { admin, anonymous, jwt, openAPI } from "better-auth/plugins";
 import { genericOAuth } from "better-auth/plugins/generic-oauth";
 import { twoFactor } from "better-auth/plugins/two-factor";
 import { username } from "better-auth/plugins/username";
-import { and, desc, eq, gt, inArray, isNull, lt, ne, sql } from "drizzle-orm";
+import { and, eq, gt, inArray, isNull, lt, ne, sql } from "drizzle-orm";
 import { createLocalJWKSet, jwtVerify } from "jose";
 import { createDefaultOwnedApplicationLanes, MAX_APPLICATION_LANES } from "@reactive-resume/db/application-lanes";
 import { db } from "@reactive-resume/db/client";
@@ -1063,7 +1062,6 @@ const getAuthConfig = () => {
 			// account registered with this address before its owner.
 			onPasswordReset: async ({ user }) => {
 				await db.transaction(async (tx) => {
-					await tx.delete(schema.apikey).where(eq(schema.apikey.referenceId, user.id));
 					await tx.delete(schema.oauthAccessToken).where(eq(schema.oauthAccessToken.userId, user.id));
 					await tx.delete(schema.oauthRefreshToken).where(eq(schema.oauthRefreshToken.userId, user.id));
 					await tx.delete(schema.oauthConsent).where(eq(schema.oauthConsent.userId, user.id));
@@ -1203,15 +1201,6 @@ const getAuthConfig = () => {
 				// Capitals without look-alike characters; the sign-in form also tries what's typed in capitals.
 				backupCodeOptions: { customBackupCodesGenerate: () => generateBackupCodes() },
 			}),
-			apiKey({
-				// A fixed prefix lets secret scanners and people reading config files recognize a leaked key.
-				defaultPrefix: "rr_",
-				enableSessionForAPIKeys: false,
-				rateLimit: {
-					...rateLimitConfig.betterAuth.apiKey,
-					enabled: isRateLimitEnabled,
-				},
-			}),
 			oauthProvider({
 				loginPage: "/api/auth/oauth",
 				consentPage: "/auth/consent",
@@ -1334,38 +1323,6 @@ export const accountAuth = {
 				body: { ...body, ...(body.username !== undefined ? { displayUsername: body.username } : {}) },
 			}),
 		),
-	listApiKeys: (user: User) => accountUser.run(user, () => auth.api.listApiKeys({})),
-	deleteApiKey: (user: User, keyId: string) => accountUser.run(user, () => auth.api.deleteApiKey({ body: { keyId } })),
-	/** The applications this account allowed through OAuth, newest first, with the name each registered. */
-	listConnections: (user: User) =>
-		db
-			.select({
-				id: schema.oauthConsent.id,
-				clientId: schema.oauthConsent.clientId,
-				clientName: schema.oauthClient.name,
-				scopes: schema.oauthConsent.scopes,
-				createdAt: schema.oauthConsent.createdAt,
-			})
-			.from(schema.oauthConsent)
-			.innerJoin(schema.oauthClient, eq(schema.oauthClient.clientId, schema.oauthConsent.clientId))
-			.where(eq(schema.oauthConsent.userId, user.id))
-			.orderBy(desc(schema.oauthConsent.createdAt)),
-	/** Disconnects one application: its tokens stop working and its consent is removed. False when it isn't this account's. */
-	revokeConnection: (user: User, id: string) =>
-		db.transaction(async (tx) => {
-			const [consent] = await tx
-				.select({ clientId: schema.oauthConsent.clientId })
-				.from(schema.oauthConsent)
-				.where(and(eq(schema.oauthConsent.id, id), eq(schema.oauthConsent.userId, user.id)))
-				.limit(1)
-				.for("update");
-			if (!consent) return false;
-			await revokeGrantTokens(tx, user.id, consent.clientId);
-			await tx.delete(schema.oauthConsent).where(eq(schema.oauthConsent.id, id));
-			// Again after the delete: a refresh that committed while the first pass ran is caught here.
-			await revokeGrantTokens(tx, user.id, consent.clientId);
-			return true;
-		}),
 };
 
 export async function initializeAuth(): Promise<void> {

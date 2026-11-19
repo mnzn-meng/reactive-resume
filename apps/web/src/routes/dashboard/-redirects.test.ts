@@ -7,7 +7,7 @@ vi.mock("@/features/career/hooks", () => ({ useOverlayHistory: () => ({}) }));
 vi.mock("@/features/career/shared", () => ({ useCareerTime: () => ({}), useNow: () => new Date() }));
 vi.mock("@/features/documents/documents-page", () => ({ DocumentsPage: () => null }));
 vi.mock("@/features/documents/use-start-document", () => ({ useStartDocument: () => ({}) }));
-vi.mock("@/features/settings/ai/page", () => ({ AiSettings: () => null, DeveloperSettings: () => null }));
+vi.mock("@/features/settings/ai/page", () => ({ AiSettings: () => null }));
 vi.mock("@/components/layout/phone-header-actions", () => ({ PhoneHeaderActions: () => null }));
 
 const routes = {
@@ -17,7 +17,6 @@ const routes = {
 	letters: () => import("./cover-letters"),
 	applicationTrash: () => import("./applications/trash"),
 	ai: () => import("./settings/ai"),
-	apiKeys: () => import("./settings/api-keys"),
 	jobSearch: () => import("./settings/job-search"),
 	integrations: () => import("./settings/integrations/route"),
 	authentication: () => import("./settings/authentication/index"),
@@ -97,29 +96,7 @@ it("sends the old application Trash to the one Trash, on applications", async ()
 	});
 });
 
-it.each<[string, Address, object]>([
-	["#api-keys", { hash: "api-keys" }, { hash: "api-keys" }],
-	[
-		"?newKey=true#api-keys",
-		{ search: { newKey: true }, hash: "api-keys" },
-		{ search: { newKey: true }, hash: "api-keys" },
-	],
-	["?newKey=true", { search: { newKey: true } }, { search: { newKey: true }, hash: "api-keys" }],
-	["#connected-applications", { hash: "connected-applications" }, { hash: "connected-applications" }],
-])("sends settings/ai%s on to Developer", async (_, address, kept) => {
-	expect(await destination("ai", address)).toEqual({ to: "/dashboard/settings/developer", replace: true, ...kept });
-});
-
-it.each(["", "ai-usage"])("keeps settings/ai#%s on AI", async (hash) => {
-	expect(await destination("ai", { hash })).toBeNull();
-});
-
 it("keeps the older settings addresses working", async () => {
-	expect(await destination("apiKeys")).toEqual({
-		to: "/dashboard/settings/developer",
-		hash: "api-keys",
-		replace: true,
-	});
 	expect(await destination("jobSearch")).toEqual({ to: "/dashboard/settings/ai", replace: true });
 	expect(await destination("integrations")).toEqual({ to: "/dashboard/settings/ai", replace: true });
 	expect(await destination("authentication")).toEqual({

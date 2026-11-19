@@ -728,7 +728,7 @@ describe.skipIf(!process.env.OAUTH_TEST_DATABASE_URL)("account wrapper ownership
 
 	it("confines concurrent account calls to their authenticated users, despite another user's cookie", async () => {
 		await withDatabasePool(pool, async () => {
-			const methods = ["session", "bearer", "apiKey"] as const;
+			const methods = ["session", "bearer"] as const;
 			const users = await db
 				.insert(schema.user)
 				.values(
@@ -749,13 +749,11 @@ describe.skipIf(!process.env.OAUTH_TEST_DATABASE_URL)("account wrapper ownership
 			const cookie = `${authContext.authCookies.sessionToken.name}=${encodeURIComponent(`${session.token}.${signature}`)}`;
 			const headers = new Headers({ cookie });
 			expect((await auth.api.getSession({ headers }))?.user.id).toBe(foreign.id);
-			const foreignKey = await auth.api.createApiKey({ body: { userId: foreign.id, name: "Foreign" } });
 
 			await Promise.all(
 				methods.map(async (method, index) => {
 					const user = users[index + 1];
 					if (!user) throw new Error(`Missing ${method} fixture`);
-					const ownKey = await auth.api.createApiKey({ body: { userId: user.id, name: method } });
 					const resHeaders = new Headers();
 					const client = createRouterClient(authRouter, {
 						context: {
@@ -773,15 +771,6 @@ describe.skipIf(!process.env.OAUTH_TEST_DATABASE_URL)("account wrapper ownership
 						code: "USERNAME_IS_ALREADY_TAKEN",
 						status: 400,
 					});
-					const listed = await client.apiKeys.list();
-					expect(listed.total).toBe(1);
-					expect(listed.apiKeys.map((key) => key.id)).toEqual([ownKey.id]);
-					expect(listed.apiKeys[0]).not.toHaveProperty("key");
-					expect(listed.apiKeys[0]).not.toHaveProperty("metadata");
-					expect(JSON.stringify(listed)).not.toContain(ownKey.key);
-					await expect(client.apiKeys.delete({ keyId: foreignKey.id })).rejects.toMatchObject({ status: 404 });
-					await expect(client.apiKeys.delete({ keyId: ownKey.id })).resolves.toEqual({ success: true });
-					expect((await client.apiKeys.list()).apiKeys).toEqual([]);
 					expect(resHeaders.has("set-cookie")).toBe(false);
 				}),
 			);
@@ -794,9 +783,7 @@ describe.skipIf(!process.env.OAUTH_TEST_DATABASE_URL)("account wrapper ownership
 					displayUsername: `saved-${method.toLowerCase()}`,
 				});
 			}
-			expect((await db.select().from(schema.apikey)).map((key) => key.id)).toEqual([foreignKey.id]);
 			expect(await db.select().from(schema.session)).toHaveLength(1);
-			await expect(auth.api.listApiKeys({})).rejects.toMatchObject({ statusCode: 401 });
 			const response = await auth.handler(
 				new Request(`${env.APP_URL}/api/auth/update-user`, {
 					method: "POST",

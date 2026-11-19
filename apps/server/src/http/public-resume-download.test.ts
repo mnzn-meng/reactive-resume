@@ -32,7 +32,7 @@ describe("handlePublicResumeDownload", () => {
 		expect(response.headers.get("Content-Disposition")).toBe('inline; filename="Ada-Lovelace-Resume.pdf"');
 		expect(response.headers.get("Cache-Control")).toBe("private, no-cache");
 		expect(response.headers.get("ETag")).toBe('"abc"');
-		expect(response.headers.get("Vary")).toBe("Cookie, Authorization, X-Api-Key");
+		expect(response.headers.get("Vary")).toBe("Cookie, Authorization");
 		expect(response.headers.get("X-Content-Type-Options")).toBe("nosniff");
 		expect(await response.text()).toBe("%PDF");
 		expect(mocks.createPublicResumePdf).toHaveBeenCalledWith({

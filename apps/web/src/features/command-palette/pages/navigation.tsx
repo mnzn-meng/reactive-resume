@@ -237,14 +237,6 @@ export function MoreItems() {
 						<Icon name="sparkle" />
 						<Trans>AI</Trans>
 					</CommandItem>
-					<CommandItem
-						keywords={[t`API keys`, t`MCP`, t`Connected applications`, t`Integrations`]}
-						value="navigation.settings.developer"
-						onSelect={() => go("/dashboard/settings/developer")}
-					>
-						<Icon name="code" />
-						<Trans>Developer</Trans>
-					</CommandItem>
 
 					{/* Each kind's full list, searched on a page of its own. */}
 					<CommandItem keywords={[t`Resumes`]} value="search.resumes" onSelect={() => pushPage("resumes")}>

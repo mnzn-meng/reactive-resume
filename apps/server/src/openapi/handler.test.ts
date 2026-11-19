@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
 vi.mock("@reactive-resume/auth/config", () => ({
 	auth: {
-		api: { getSession: vi.fn().mockResolvedValue(null), verifyApiKey: vi.fn().mockResolvedValue({ valid: false }) },
+		api: { getSession: vi.fn().mockResolvedValue(null) },
 	},
 	verifyOAuthToken: vi.fn().mockRejectedValue(new Error("invalid token")),
 	isCustomOAuthProviderEnabled: () => false,

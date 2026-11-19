@@ -14,7 +14,7 @@ const user = {
 };
 const client = (permissions: ("read" | "write" | "delete")[]) =>
 	createRouterClient(answerRouter, {
-		context: { locale: "en-US", reqHeaders: new Headers(), authentication: { user, method: "apiKey", permissions } },
+		context: { locale: "en-US", reqHeaders: new Headers(), authentication: { user, method: "bearer", permissions } },
 	});
 beforeEach(() => {
 	vi.clearAllMocks();

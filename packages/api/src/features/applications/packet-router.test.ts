@@ -11,7 +11,7 @@ const user = {
 	createdAt: new Date(0),
 	updatedAt: new Date(0),
 };
-const client = (permissions: ("read" | "write" | "delete")[], method: "session" | "apiKey" | "bearer" = "session") =>
+const client = (permissions: ("read" | "write" | "delete")[], method: "session" | "bearer" = "session") =>
 	createRouterClient(packetRouter, {
 		context: { locale: "en-US", reqHeaders: new Headers(), authentication: { user, method, permissions } },
 	});
@@ -22,7 +22,7 @@ const selection = {
 	answerIds: [],
 	letterWords: null,
 };
-it.each(["session", "apiKey", "bearer"] as const)(
+it.each(["session", "bearer"] as const)(
 	"requires read and write scopes for private packet export through %s",
 	async (method) => {
 		for (const permissions of [["read"], ["write"]] as const) {

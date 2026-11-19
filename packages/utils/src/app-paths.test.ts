@@ -7,7 +7,7 @@ it.each([
 	["/today", "/dashboard"],
 	["/letters", "/dashboard/cover-letters"],
 	["/trash", "/dashboard/trash"],
-	["/settings/developer", "/dashboard/settings/developer"],
+	["/settings/account", "/dashboard/settings/account"],
 	["/signin", "/auth/login"],
 ])("reads %s as the app page %s", (typed, page) => {
 	expect(mistypedAppPath(typed)).toBe(page);

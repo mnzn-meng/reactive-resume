@@ -347,7 +347,7 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 				context: {
 					locale: "en-US",
 					reqHeaders,
-					authentication: { user, method: "apiKey", permissions },
+					authentication: { user, method: "bearer", permissions },
 				},
 			},
 		);
