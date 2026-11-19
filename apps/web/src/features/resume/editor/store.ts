@@ -5,7 +5,7 @@ import type { ResumeData } from "@reactive-resume/schema/resume/data";
 import type { Template } from "@reactive-resume/schema/templates";
 import { create } from "zustand/react";
 
-export const EDITOR_MODES = ["write", "design", "check", "share"] as const;
+export const EDITOR_MODES = ["write", "design", "check"] as const;
 export type EditorMode = (typeof EDITOR_MODES)[number];
 
 /** The Download & history sheet's tabs; each entry point opens its own. */

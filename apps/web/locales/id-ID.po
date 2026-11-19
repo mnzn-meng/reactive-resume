@@ -45,14 +45,6 @@ msgstr ", bersama {0}"
 msgid "“{0}”"
 msgstr "“{0}”"
 
-#. placeholder {0}: link.resumeName
-#. placeholder {1}: date(link.createdAt)
-#. placeholder {2}: statusLabel(link.status)
-#. placeholder {3}: link.expiresAt && link.status === "active" ? `, ${t`expires ${i18n.date(link.expiresAt, { dateStyle: "medium" })}`}` : ""
-#: src/features/resume/share/feedback-links.tsx
-msgid "“{0}” as saved {1} · {2}{3}"
-msgstr "“{0}” seperti disimpan {1} · {2}{3}"
-
 #. placeholder {0}: view.resumeName
 #: src/features/feedback/review-page.tsx
 msgid "“{0}” as saved on {sharedOn}."
@@ -72,11 +64,6 @@ msgstr "“{0}” dikunci"
 #: src/features/documents/document-actions.tsx
 msgid "“{0}” moved to Trash"
 msgstr "“{0}” dipindahkan ke Sampah"
-
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "“{0}” stops being your primary resume."
-msgstr "“{0}” tidak lagi menjadi CV utama Anda."
 
 #. placeholder {0}: isolate(document.name)
 #: src/features/documents/document-actions.tsx
@@ -307,11 +294,6 @@ msgstr "{0, plural, other {# hari lagi}}"
 #: src/features/documents/document-actions.tsx
 msgid "{0, plural, one {# moved to Trash} other {# moved to Trash}}"
 msgstr "{0, plural, other {# dipindahkan ke Sampah}}"
-
-#. placeholder {0}: link.openCommentCount
-#: src/features/resume/share/feedback-links.tsx
-msgid "{0, plural, one {# new comment} other {# new comments}}"
-msgstr "{0, plural, other {# komentar baru}}"
 
 #. placeholder {0}: notice.count
 #: src/features/career/today.tsx
@@ -751,11 +733,6 @@ msgstr "{0} dihapus permanen sekarang, beserta riwayat dan linimasanya, alih-ali
 msgid "{0} closed"
 msgstr "{0} ditutup"
 
-#. placeholder {0}: link.commentCount
-#: src/features/resume/share/feedback-links.tsx
-msgid "{0} comments, all done"
-msgstr "{0} komentar, semua selesai"
-
 #. placeholder {0}: props.providerLabel
 #: src/features/assistant/conversation.tsx
 msgid "{0} didn't respond."
@@ -837,16 +814,6 @@ msgstr "Wawancara {0} di {1} · {2} · bersama {3}"
 #: src/features/career/workspace/overview.tsx
 msgid "{0} interview debriefed {1}"
 msgstr "Wawancara {0} dievaluasi {1}"
-
-#. placeholder {0}: domain.hostname
-#: src/features/resume/share/share-panel.tsx
-msgid "{0} is connected"
-msgstr "{0} terhubung"
-
-#. placeholder {0}: domain.hostname
-#: src/features/resume/share/share-panel.tsx
-msgid "{0} is not connected yet"
-msgstr "{0} belum terhubung"
 
 #. placeholder {0}: job.company
 #: src/features/assistant/assistant-panel.tsx
@@ -1081,10 +1048,6 @@ msgstr "{active, plural, other {# lamaran aktif}}"
 msgid "{active, plural, one {active application} other {active applications}}"
 msgstr "{active, plural, other {lamaran aktif}}"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "{active} active"
-msgstr "{active} aktif"
-
 #: src/features/career/workspace/fit-local.tsx
 msgid "{activeFacts, plural, one {# fact} other {# facts}}"
 msgstr "{activeFacts, plural, other {# fakta}}"
@@ -1182,10 +1145,6 @@ msgstr "{connection} lulus uji. Coba pada sesuatu yang nyata:"
 #: src/features/career/knowledge/facts.tsx
 msgid "{correctedOn} · the original wording is kept above"
 msgstr "{correctedOn} · kata-kata asli tetap ada di atas"
-
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "{cost} the first year"
-msgstr "{cost} untuk tahun pertama"
 
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "{count, plural, =0 {Its applications move to the stage you choose. Their history keeps the name “{label}”.} one {Its # application moves to the stage you choose. Its history keeps the name “{label}”.} other {Its # applications move to the stage you choose. Their history keeps the name “{label}”.}}"
@@ -1758,19 +1717,6 @@ msgstr "{sections, plural, one {Bagian #} other {Bagian #}}"
 msgid "{sent} sent {0}"
 msgstr "{sent} dikirim {0}"
 
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "{shortLink} opens “{0}”"
-msgstr "{shortLink} membuka “{0}”"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "{shortLink} opens no resume yet"
-msgstr "{shortLink} belum membuka CV apa pun"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "{shortLink} opens this resume"
-msgstr "{shortLink} membuka CV ini"
-
 #: src/features/applications/components/application-detail-sheet.tsx
 msgid "{since, plural, =0 {since today} one {for # day} other {for # days}}"
 msgstr "{since, plural, =0 {sejak hari ini} one {untuk hari #} other {selama # hari}}"
@@ -1995,10 +1941,6 @@ msgstr "0 menyembunyikannya"
 msgid "06/2017 – 2021"
 msgstr "06/2017 – 2021"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "1 comment, done"
-msgstr "1 komentar, selesai"
-
 #: src/features/settings/account/security.tsx
 msgid "1 passkey · {first}"
 msgstr "1 kunci sandi · {first}"
@@ -2018,10 +1960,6 @@ msgstr "Versi 10 menit"
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "10–11 recommended"
 msgstr "10–11 direkomendasikan"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "2 comments, both done"
-msgstr "2 komentar, keduanya selesai"
 
 #: src/routes/builder/letter/-components/download-sheet.tsx
 msgid "2 files"
@@ -2306,10 +2244,6 @@ msgstr "Pendapat kedua tentang kata-kata Anda"
 msgid "A short follow-up is usually fine now"
 msgstr "Tindak lanjut singkat biasanya baik-baik saja sekarang"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "A shorter address that opens your primary resume."
-msgstr "Alamat lebih pendek yang membuka CV utama Anda."
-
 #: src/features/resume/editor/design/entries-group.tsx
 msgid "A small accent line above a larger company"
 msgstr "Garis aksen kecil di atas nama perusahaan yang lebih besar"
@@ -2489,14 +2423,9 @@ msgstr "Aktivasi naik dari 31% ke 44% dalam satu kuartal."
 msgid "Activation rose from 31%…"
 msgstr "Aktivasi naik dari 31%…"
 
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/ai/web-access.tsx
 msgid "Active"
 msgstr "Aktif"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Activity"
-msgstr "Aktivitas"
 
 #: src/features/applications/components/list-view.tsx
 #: src/features/career/knowledge/facts.tsx
@@ -2653,10 +2582,6 @@ msgstr "Tambahkan istilah hanya jika memang sesuai dengan pekerjaan Anda."
 #: src/features/resume/editor/write/fields.tsx
 msgid "Add an @ and the domain, like name@example.com"
 msgstr "Tambahkan @ dan domain, seperti name@example.com"
-
-#: src/features/resume/share/address-field.tsx
-msgid "Add an address."
-msgstr "Tambahkan alamat."
 
 #: src/features/career/offer-entry.tsx
 #: src/features/career/schedule-sheet.tsx
@@ -2827,10 +2752,6 @@ msgstr "Tambahkan ketentuan penawaran"
 msgid "Add them as a section called “More from your file”, to sort later"
 msgstr "Tambahkan sebagai bagian bernama “Lainnya dari file Anda”, untuk diurutkan nanti"
 
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "Add these records where you manage the domain, then check. Changes can take a few hours to reach everyone."
-msgstr "Tambahkan record ini di tempat Anda mengelola domain, lalu periksa. Perubahan bisa memerlukan beberapa jam untuk menjangkau semua orang."
-
 #: src/features/career/knowledge/facts.tsx
 msgid "Add things you've done, with numbers when you have them, such as “Cut checkout errors by 30% in 2025”."
 msgstr "Tambahkan hal yang telah Anda lakukan, dengan angka bila ada, seperti “Mengurangi kesalahan checkout 30% pada 2025”."
@@ -2914,7 +2835,6 @@ msgstr "Ditambahkan ke Pengetahuan sebagai pengalaman."
 msgid "Added to Knowledge."
 msgstr "Ditambahkan ke Pengetahuan."
 
-#: src/features/resume/share/address-field.tsx
 #: src/features/settings/profile.tsx
 msgid "Address"
 msgstr "Alamat"
@@ -3133,10 +3053,6 @@ msgstr "Semua dokumen, lamaran pekerjaan, dan tautan publik Anda akan dihapus se
 msgid "Allow access"
 msgstr "Izinkan akses"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Allow comments"
-msgstr "Izinkan komentar"
-
 #: src/features/auth/pages/error.tsx
 msgid "Allow email access when the provider asks, or use another sign-in method."
 msgstr "Izinkan akses email saat penyedia memintanya, atau gunakan metode masuk lain."
@@ -3253,10 +3169,6 @@ msgstr "dan"
 msgid "and {0} more"
 msgstr "dan {0} lainnya"
 
-#: src/features/resume/share/address-field.tsx
-msgid "Another of your resumes uses this address."
-msgstr "Resume Anda yang lain menggunakan alamat ini."
-
 #: src/libs/error-message.ts
 msgid "Another resume already uses this address. Choose a different one."
 msgstr "CV lain sudah menggunakan alamat ini. Pilih alamat lain."
@@ -3320,14 +3232,6 @@ msgstr "Jenis apa pun, judul Anda sendiri"
 #: src/features/resume/builder/password-dialog.tsx
 msgid "Anyone who opens the public link needs this password."
 msgstr "Siapa pun yang membuka tautan publik memerlukan kata sandi ini."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Anyone with the link can see your web page."
-msgstr "Siapa pun yang memiliki tautan dapat melihat halaman web Anda."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Anyone with the link will be able to view your resume."
-msgstr "Siapa pun yang memiliki tautan tersebut akan dapat melihat resume Anda."
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Anything that can't be placed is listed before you create it."
@@ -3525,10 +3429,6 @@ msgstr "Diterapkan. Tindak lanjut diatur untuk {0}."
 #: src/features/career/workspace/messages.tsx
 msgid "Applied. The application is updated."
 msgstr "Diterapkan. Lamaran telah diperbarui."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Applies to the web page after its own styles, at every screen size. The PDF stays as it is."
-msgstr "Berlaku untuk halaman web setelah gayanya sendiri, di setiap ukuran layar. PDF tetap seperti semula."
 
 #: src/features/resume/editor/write/section-view.tsx
 msgid "applies to the whole section"
@@ -3836,10 +3736,6 @@ msgstr "disimpan otomatis"
 #: src/features/resume/share/history-tab.tsx
 msgid "Autosaves are grouped by session and kept for 90 days. Named and sent versions are kept. Restoring saves the current state first, so nothing is lost."
 msgstr "Simpanan otomatis dikelompokkan per sesi dan disimpan selama 90 hari. Versi yang diberi nama dan yang dikirim tetap disimpan. Memulihkan akan menyimpan keadaan saat ini terlebih dahulu, jadi tidak ada yang hilang."
-
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "Available"
-msgstr "Tersedia"
 
 #: src/features/ats-checker/messages.ts
 msgid "Avoid heavy letter-spacing effects, then re-export."
@@ -4371,7 +4267,6 @@ msgstr "Tidak bisa memindai? Masukkan kunci ini di aplikasi:"
 #: src/features/resume/editor/check/job-match.tsx
 #: src/features/resume/editor/proposals/proposal-list.tsx
 #: src/features/resume/editor/write/picture-settings.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/account/data.tsx
 #: src/features/settings/account/profile.tsx
 #: src/features/settings/ai/providers.tsx
@@ -4429,7 +4324,6 @@ msgstr "Sertifikasi"
 #: src/features/resume/editor/check/job-match.tsx
 #: src/features/resume/editor/check/writing-tab.tsx
 #: src/features/resume/editor/write/section-view.tsx
-#: src/features/resume/share/share-panel.tsx
 #: src/features/settings/account/profile.tsx
 #: src/features/settings/account/security.tsx
 #: src/features/settings/ai/web-access.tsx
@@ -4578,11 +4472,6 @@ msgstr "Periksa PDF apa ​​pun, tidak perlu akun"
 msgid "Check before accepting: {0}"
 msgstr "Periksa sebelum menerima: {0}"
 
-#: src/features/resume/share/custom-domain-field.tsx
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "Check DNS"
-msgstr "Periksa DNS"
-
 #: src/features/settings/profile.tsx
 msgid "Check email addresses, links, names, countries and salary. A salary amount needs currency and pay period."
 msgstr "Periksa alamat email, tautan, nama, negara, dan gaji. Nilai gaji memerlukan mata uang dan periode pembayaran."
@@ -4699,17 +4588,9 @@ msgstr "Memeriksa tata letak dan konten"
 msgid "Checking the exported PDF…"
 msgstr "Memeriksa PDF yang diekspor…"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Checking which resume opens your short link…"
-msgstr "Memeriksa CV mana yang dibuka oleh tautan pendek Anda…"
-
 #: src/features/career/shared.tsx
 msgid "Checking your preferences"
 msgstr "Memeriksa preferensi Anda"
-
-#: src/features/resume/share/address-field.tsx
-msgid "Checking… Copy is available after saving."
-msgstr "Memeriksa… Salinan tersedia setelah disimpan."
 
 #: src/features/resume/editor/check/check-panel.tsx
 msgid "Checks by category"
@@ -5022,8 +4903,6 @@ msgstr "tutup"
 #: src/features/resume/editor/check/page-layer.tsx
 #: src/features/resume/editor/chrome/download-sheet.tsx
 #: src/features/resume/editor/write/picture-settings.tsx
-#: src/features/resume/share/dns-records-dialog.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/resume/stylesheet/editor.tsx
 #: src/features/settings/account/backup-codes.tsx
 #: src/features/settings/ai/next-steps.tsx
@@ -5150,17 +5029,12 @@ msgstr "Perintah"
 msgid "Comment"
 msgstr "Komentar"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Comment left"
-msgstr "Komentar ditinggalkan"
-
 #. placeholder {0}: view.ownerName
 #: src/features/feedback/review-page.tsx
 msgid "Comment sent to {0}"
 msgstr "Komentar terkirim ke {0}"
 
 #: src/features/feedback/review-page.tsx
-#: src/features/resume/share/feedback-links.tsx
 msgid "Comments"
 msgstr "Komentar"
 
@@ -5265,10 +5139,6 @@ msgstr "Lengkapi {0} sebelum menyimpan."
 msgid "Compress or remove large images to keep uploads quick."
 msgstr "Kompres atau hapus gambar besar agar pengunggahan tetap cepat."
 
-#: src/features/resume/share/web-page-preview.tsx
-msgid "Computer"
-msgstr "Komputer"
-
 #: src/features/career/offers.tsx
 msgid "Conditions not stated"
 msgstr "Ketentuan tidak disebutkan"
@@ -5316,19 +5186,9 @@ msgstr "Konfirmasi alamat email baru Anda"
 msgid "Confirms {time} today, by video."
 msgstr "Mengonfirmasi {time} hari ini, lewat video."
 
-#: src/features/resume/share/custom-domain-field.tsx
 #: src/features/settings/account/security.tsx
 msgid "Connect"
 msgstr "Hubungkan"
-
-#. placeholder {0}: domain.hostname
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "Connect {0}"
-msgstr "Hubungkan {0}"
-
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "Connect {domain}"
-msgstr "Hubungkan {domain}"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Connect a search service"
@@ -5358,10 +5218,6 @@ msgstr "Hubungkan yang lain…"
 #: src/features/settings/ai/providers.tsx
 msgid "Connected"
 msgstr "Terhubung"
-
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Connected. Your domain opens your primary resume."
-msgstr "Terhubung. Domain Anda membuka CV utama Anda."
 
 #: src/features/settings/account/auth-hooks.ts
 msgid "Connecting your {providerName} account…"
@@ -5397,14 +5253,6 @@ msgstr "Detail kontak dan jawaban standar untuk formulir lamaran pekerjaan, disi
 #: src/features/homepage/check.tsx
 msgid "Contact details found"
 msgstr "Detail kontak ditemukan"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Contact details hidden"
-msgstr "Detail kontak disembunyikan"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Contact details shown"
-msgstr "Detail kontak ditampilkan"
 
 #: src/features/resume/editor/check/check-panel.tsx
 msgid "Contact details, reading order, fonts, links"
@@ -5524,8 +5372,6 @@ msgid "Conversations"
 msgstr "Percakapan"
 
 #: src/features/homepage/share.tsx
-#: src/features/resume/share/copy-link-button.tsx
-#: src/features/resume/share/copy-text.tsx
 msgid "Copied"
 msgstr "Disalin"
 
@@ -5543,13 +5389,8 @@ msgstr "Menyalin pertanyaan dan membuka Pesan untuk lamaran ini. Tidak ada yang 
 
 #: src/features/career/coach-chat.tsx
 #: src/features/career/workspace/answer-library.tsx
-#: src/features/resume/share/copy-text.tsx
 msgid "Copy"
 msgstr "Salin"
-
-#: src/features/resume/share/copy-text.tsx
-msgid "Copy {value}"
-msgstr "Salin {value}"
 
 #: src/features/career/workspace/preparation.tsx
 msgid "Copy a base resume for this job"
@@ -5596,7 +5437,6 @@ msgid "Copy it for a job"
 msgstr "Salin untuk pekerjaan"
 
 #: src/features/homepage/share.tsx
-#: src/features/resume/share/copy-link-button.tsx
 msgid "Copy link"
 msgstr "Salin tautan"
 
@@ -5709,10 +5549,6 @@ msgstr "Tidak dapat mengubah kata sandi Anda. Periksa kata sandi Anda saat ini d
 msgid "Couldn't check for a web search service. Retry."
 msgstr "Tidak dapat memeriksa layanan penelusuran web. Coba lagi."
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Couldn't check which resume opens your short link. Reload the page and try again."
-msgstr "Tidak dapat memeriksa CV mana yang dibuka oleh tautan pendek Anda. Muat ulang halaman dan coba lagi."
-
 #: src/features/career/workspace/fit.tsx
 msgid "Couldn't check your evidence."
 msgstr "Tidak dapat memeriksa bukti Anda."
@@ -5766,8 +5602,6 @@ msgid "Couldn't copy the transcript. Try again."
 msgstr "Tidak dapat menyalin transkrip. Coba lagi."
 
 #: src/features/career/coach-thread.tsx
-#: src/features/resume/share/copy-link-button.tsx
-#: src/features/resume/share/copy-text.tsx
 msgid "Couldn't copy to the clipboard. Try again."
 msgstr "Tidak dapat menyalin ke papan klip. Coba lagi."
 
@@ -5942,10 +5776,6 @@ msgstr "Tidak dapat memuat tinjauan tersimpan."
 msgid "Couldn't load this application. Try again."
 msgstr "Lamaran ini tidak dapat dimuat. Coba lagi."
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Couldn't load this link."
-msgstr "Tidak dapat memuat tautan ini."
-
 #: src/features/applications/components/application-detail-sheet.tsx
 #: src/features/career/load-state.tsx
 #: src/features/career/workspace/practise.tsx
@@ -5960,10 +5790,6 @@ msgstr "Sampah tidak dapat dimuat"
 #: src/features/settings/profile.tsx
 msgid "Couldn't load your application profile. Your saved data hasn't changed."
 msgstr "Profil lamaran Anda tidak dapat dimuat. Data tersimpan Anda tidak berubah."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Couldn't load your feedback links."
-msgstr "Tidak dapat memuat tautan umpan balik Anda."
 
 #: src/routes/dashboard/applications/index.tsx
 msgid "Couldn't load your stages, so the standard ones are shown."
@@ -5996,10 +5822,6 @@ msgstr "Salinan untuk dikerjakan tidak dapat dibuat."
 #: src/features/settings/account/backup-codes.tsx
 msgid "Couldn't make new codes. Try again."
 msgstr "Tidak dapat membuat kode baru. Coba lagi."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Couldn't make the link. Try again."
-msgstr "Tidak dapat membuat tautan. Coba lagi."
 
 #: src/features/settings/ai/providers.tsx
 msgid "Couldn't make this connection the default. Try again."
@@ -6224,10 +6046,6 @@ msgstr "Penawaran tidak dapat disimpan. Draf Anda masih ada di sini. Coba lagi."
 msgid "Couldn't save the posting. Try again."
 msgstr "Tidak dapat menyimpan postingan pekerjaan. Coba lagi."
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Couldn't save the QR code as PNG. Try SVG instead."
-msgstr "Tidak dapat menyimpan kode QR sebagai PNG. Gunakan SVG."
-
 #: src/features/career/knowledge/stories.tsx
 msgid "Couldn't save the story. Try again."
 msgstr "Tidak dapat menyimpan cerita. Coba lagi."
@@ -6374,10 +6192,6 @@ msgstr "Tidak dapat berganti model. Coba lagi."
 msgid "Couldn't transcribe. Your recording is still here."
 msgstr "Tidak dapat mentranskripsi. Rekaman Anda masih ada di sini."
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Couldn't turn off the link. Try again."
-msgstr "Tidak dapat mematikan tautan. Coba lagi."
-
 #. Fallback toast when disabling two-factor authentication fails
 #: src/dialogs/auth/disable-two-factor.tsx
 msgid "Couldn't turn off two-step verification. Check your password and try again."
@@ -6416,11 +6230,6 @@ msgstr "Kunci dokumen tidak dapat dibuka. Coba lagi."
 msgid "Couldn't update saved answers. Try again."
 msgstr "Tidak dapat memperbarui jawaban tersimpan. Coba lagi."
 
-#: src/features/resume/share/custom-domain-field.tsx
-#: src/features/resume/share/share-panel.tsx
-msgid "Couldn't update sharing. Try again."
-msgstr "Tidak dapat memperbarui pengaturan berbagi. Coba lagi."
-
 #: src/features/career/workspace/messages.tsx
 msgid "Couldn't update the application. Nothing was changed. Try again."
 msgstr "Tidak dapat memperbarui lamaran. Tidak ada yang diubah. Coba lagi."
@@ -6433,10 +6242,6 @@ msgstr "Tidak dapat memperbarui lamaran. Coba lagi."
 #: src/features/applications/use-application-actions.ts
 msgid "Couldn't update the applications. Try again."
 msgstr "Tidak dapat memperbarui lamaran pekerjaan. Coba lagi."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Couldn't update the comment. Try again."
-msgstr "Tidak dapat memperbarui komentar. Coba lagi."
 
 #: src/features/applications/components/interview-dialog.tsx
 msgid "Couldn't update the interview. Try again."
@@ -6677,10 +6482,6 @@ msgctxt "Template style tag"
 msgid "Creative"
 msgstr "Kreatif"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Credit"
-msgstr "Kredit"
-
 #: src/features/resume/editor/write/picture-settings.tsx
 msgid "Crop and upload"
 msgstr "Pangkas dan unggah"
@@ -6736,7 +6537,6 @@ msgid "Custom color (hex)"
 msgstr "Warna khusus (hex)"
 
 #: src/components/calm/category-strip.tsx
-#: src/features/resume/share/share-panel.tsx
 msgid "Custom CSS"
 msgstr "CSS kustom"
 
@@ -7310,10 +7110,6 @@ msgstr "Apakah dimulai dengan apa yang Anda lakukan?"
 msgid "Does this offer meet what I want?"
 msgstr "Apakah penawaran ini memenuhi keinginan saya?"
 
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Domain connected"
-msgstr "Domain terhubung"
-
 #. placeholder {0}: chip.label
 #: src/features/assistant/conversation.tsx
 msgid "Don't send {0}"
@@ -7337,7 +7133,6 @@ msgstr "selesai"
 #: src/features/career/workspace/prepare-review.tsx
 #: src/features/documents/document-actions.tsx
 #: src/features/resume/editor/write/rich-text-editor-field.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/account/backup-codes.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Done"
@@ -7430,7 +7225,7 @@ msgstr "Unduh contoh PDF"
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Download Word"
-msgstr "Unduh Word"
+msgstr ""
 
 #: src/features/resume/editor/chrome/bar.tsx
 msgid "Download, needs a connection"
@@ -7445,14 +7240,6 @@ msgstr "Mengunduh {file}"
 #: src/features/resume/share/download-tab.tsx
 msgid "Downloaded {file} and the cover letter"
 msgstr "Mengunduh {file} dan surat lamaran"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "downloads"
-msgstr "unduhan"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Downloads"
-msgstr "Unduhan"
 
 #: src/features/career/workspace/preparation.tsx
 msgid "draft"
@@ -8073,7 +7860,7 @@ msgstr "Masukkan URL dasar API layanan Anda dan uji lagi."
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Enter the password the resume owner shared with you."
-msgstr "Masukkan kata sandi yang dibagikan pemilik resume kepada Anda."
+msgstr ""
 
 #: src/features/resume/builder/password-dialog.tsx
 msgid "Enter the same password in both fields."
@@ -8255,15 +8042,6 @@ msgstr "Pengalaman"
 msgid "Experience, Education and more"
 msgstr "Pengalaman, Pendidikan, dan lainnya"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Expired"
-msgstr "Kedaluwarsa"
-
-#. placeholder {0}: i18n.date(link.expiresAt, { dateStyle: "medium" })
-#: src/features/resume/share/feedback-links.tsx
-msgid "expires {0}"
-msgstr "kedaluwarsa pada {0}"
-
 #: src/features/homepage/prepare.tsx
 msgid "explain one limit of the measurement clearly, without underselling the work."
 msgstr "jelaskan satu keterbatasan pengukurannya dengan jelas, tanpa mengecilkan hasil kerja Anda."
@@ -8424,15 +8202,6 @@ msgstr "Masukan"
 #: src/features/career/workspace/practise.tsx
 msgid "Feedback · compared with your stories and the posting"
 msgstr "Masukan · dibandingkan dengan cerita Anda dan lowongan"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Feedback link"
-msgstr "Tautan umpan balik"
-
-#: src/features/resume/share/feedback-links.tsx
-#: src/features/resume/share/share-panel.tsx
-msgid "Feedback links"
-msgstr "Tautan umpan balik"
 
 #: src/features/career/workspace/practise.tsx
 msgid "Feedback on an answer needs AI."
@@ -8771,11 +8540,6 @@ msgstr "Untuk pekerjaan"
 msgid "For a promotion at the same company: its own position, dates and description."
 msgstr "Untuk promosi di perusahaan yang sama: posisi, tanggal, dan deskripsinya sendiri."
 
-#. placeholder {0}: domain.target
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "For a root domain such as example.com, use A and AAAA records with {0}'s addresses instead of the CNAME."
-msgstr "Untuk domain root seperti example.com, gunakan record A dan AAAA dengan alamat {0}, bukan CNAME."
-
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "For details the other categories don't cover. Rules apply to the page, the PDF and your public page."
 msgstr "Untuk detail yang tidak dicakup kategori lain. Aturan berlaku untuk halaman, PDF, dan halaman publik Anda."
@@ -8791,10 +8555,6 @@ msgstr "Misalnya “Saya membimbing dua associate PM pada 2025”"
 #: src/features/resume/share/history-tab.tsx
 msgid "For example, Before the rewrite"
 msgstr "Misalnya, Sebelum penulisan ulang"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "For example, Careers office"
-msgstr "Contohnya, Kantor karier"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/notes.tsx
 msgid "For example, where you sent this resume, or links to the postings."
@@ -9161,11 +8921,6 @@ msgstr "Buka Reactive Resume"
 msgid "Go to Today"
 msgstr "Buka Hari ini"
 
-#. placeholder {0}: url.replace(/^https?:\/\//, "")
-#: src/features/resume/share/address-field.tsx
-msgid "Goes live at {0} when you publish."
-msgstr "Tayang di {0} saat Anda mempublikasikan."
-
 #. Authentication provider display name in account settings
 #. Brand name label for Google social sign-in button
 #: src/features/auth/components/social-auth.tsx
@@ -9365,10 +9120,6 @@ msgstr "Sembunyikan"
 msgctxt "Fold an edit card"
 msgid "Hide"
 msgstr "Sembunyikan"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Hide contact details"
-msgstr "Sembunyikan detail kontak"
 
 #: src/features/resume/editor/write/entry-row.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
@@ -9604,10 +9355,6 @@ msgstr "ID {clientId}"
 msgid "If an account uses that address, a reset link is on its way."
 msgstr "Jika ada akun yang memakai alamat itu, tautan atur ulang sedang dikirim."
 
-#: src/features/resume/share/share-panel.tsx
-msgid "If another resume holds Primary, turn it on for this one instead."
-msgstr "Jika CV lain menjadi Utama, aktifkan untuk CV ini sebagai gantinya."
-
 #: src/features/homepage/remember.tsx
 msgid "If I did it again, I’d agree on the measure before the first prototype."
 msgstr "Jika mengulanginya, saya akan menyepakati ukurannya sebelum prototipe pertama."
@@ -9622,7 +9369,7 @@ msgstr "Jika itu bagian dari pengalaman Anda, tambahkan di tempatnya."
 
 #: src/features/resume/share/web-page-text.ts
 msgid "If someone sent you this link, ask them for a new one."
-msgstr "Jika seseorang mengirimi Anda tautan ini, mintalah tautan baru dari mereka."
+msgstr ""
 
 #: src/features/auth/email-text.ts
 msgid "If the button does not work, copy and paste this link into your browser:"
@@ -9786,18 +9533,6 @@ msgstr "Tingkatkan berfungsi pada baris setelah Anda menulisnya."
 #: src/features/resume/editor/write/improve.tsx
 msgid "Improving…"
 msgstr "Meningkatkan…"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "In 30 days"
-msgstr "Dalam 30 hari"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "In 7 days"
-msgstr "Dalam 7 hari"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "In 90 days"
-msgstr "Dalam 90 hari"
 
 #: src/features/career/workspace/fit.tsx
 msgid "In Interview prep"
@@ -10075,10 +9810,6 @@ msgstr "Mungkin telah dipindahkan, atau sudah tidak ada."
 msgid "It reads the posting, your notes and what you sent, and knows you are on {tabName}."
 msgstr "Membaca lowongan, catatan Anda, dan apa yang Anda kirim, serta tahu Anda sedang di {tabName}."
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "It stops opening at once. Comments already left are kept. You can make a new link anytime."
-msgstr "Tautan langsung berhenti dibuka. Komentar yang sudah ditinggalkan tetap tersimpan. Anda dapat membuat tautan baru kapan saja."
-
 #: src/features/applications/components/interview-dialog.tsx
 msgid "It will show on the application's timeline and on the calendar."
 msgstr "Ini akan ditampilkan di timeline lamaran pekerjaan dan di kalender."
@@ -10260,10 +9991,6 @@ msgstr "Pertahankan koneksi"
 msgid "Keep current connection"
 msgstr "Pertahankan koneksi saat ini"
 
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Keep domain"
-msgstr "Pertahankan domain"
-
 #: src/features/career/schedule-sheet.tsx
 #: src/features/resume/editor/save-status.tsx
 #: src/hooks/use-form-blocker.tsx
@@ -10308,10 +10035,6 @@ msgstr "Tetap di satu halaman"
 #: src/features/settings/account/security.tsx
 msgid "Keep passkey"
 msgstr "Pertahankan kunci sandi"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Keep password"
-msgstr "Pertahankan kata sandi"
 
 #: src/features/settings/profile.tsx
 msgid "Keep profile"
@@ -10541,23 +10264,6 @@ msgstr "Terakhir aktif {active}"
 #: src/features/settings/account/security.tsx
 msgid "Last changed in {0}"
 msgstr "Terakhir diubah di {0}"
-
-#. placeholder {0}: formatTimeAgo(domain.lastCheckedAt, i18n.locale)
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Last checked {0}"
-msgstr "Terakhir diperiksa {0}"
-
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "Last checked {lastChecked}"
-msgstr "Terakhir diperiksa {lastChecked}"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Last counted view {lastView} ago"
-msgstr "Kunjungan terakhir yang dihitung {lastView} lalu"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Last counted view {lastView} ago. Each visitor counts once an hour."
-msgstr "Kunjungan terakhir yang dihitung {lastView} lalu. Setiap pengunjung dihitung sekali per jam."
 
 #: src/features/documents/documents-page.tsx
 #: src/routes/builder/$resumeId/-components/document-details.tsx
@@ -10922,7 +10628,6 @@ msgid "Link an existing letter"
 msgstr "Tautkan surat yang sudah ada"
 
 #: src/features/documents/document-actions.tsx
-#: src/features/resume/share/copy-link-button.tsx
 #: src/features/resume/share/web-page-text.ts
 msgid "Link copied"
 msgstr "Tautan disalin"
@@ -10931,17 +10636,9 @@ msgstr "Tautan disalin"
 msgid "Link expired"
 msgstr "Tautan kedaluwarsa"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Link expires"
-msgstr "Tautan kedaluwarsa"
-
 #: src/components/input/url-input.tsx
 msgid "Link label"
 msgstr "Label tautan"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Link made"
-msgstr "Tautan dibuat"
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Link one later"
@@ -10962,14 +10659,6 @@ msgstr "Tautan ke lamaran pekerjaan"
 #: src/features/documents/document-actions.tsx
 msgid "Link to application…"
 msgstr "Tautan ke lamaran pekerjaan…"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Link turned off"
-msgstr "Tautan dimatikan"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Link turned off. The address is kept"
-msgstr "Tautan dimatikan. Alamatnya disimpan"
 
 #: src/features/resume/editor/check/issues.ts
 msgid "Link updated"
@@ -11056,11 +10745,6 @@ msgstr "Mendengarkan… Hentikan jika sudah selesai."
 #: src/libs/locale.ts
 msgid "Lithuanian"
 msgstr "Lituania"
-
-#. placeholder {0}: url.replace(/^https?:\/\//, "")
-#: src/features/resume/share/address-field.tsx
-msgid "Live at {0}"
-msgstr "Langsung di {0}"
 
 #: src/features/applications/components/import-applications-sheet.tsx
 msgid "Load your stages before importing named stages. Your CSV data is kept."
@@ -11163,7 +10847,6 @@ msgstr "Memuat ruang kerja…"
 #: src/features/command-palette/index.tsx
 #: src/features/command-palette/pages/ask.tsx
 #: src/features/resume/editor/check/job-match.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/ai/next-steps.tsx
 #: src/features/settings/profile.tsx
 msgid "Loading…"
@@ -11285,7 +10968,7 @@ msgstr "{0} dari {1} dijadikan publik. Surat tidak memiliki tautan publik, dan d
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Made with Reactive Resume"
-msgstr "Dibuat dengan Reactive Resume"
+msgstr ""
 
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
@@ -11337,14 +11020,6 @@ msgstr "Buatlah lebih spesifik"
 msgid "Make it shorter"
 msgstr "Buatlah lebih pendek"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Make link"
-msgstr "Buat tautan"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Make primary"
-msgstr "Jadikan utama"
-
 #: src/features/documents/documents-page.tsx
 msgid "Make private"
 msgstr "Jadikan privat"
@@ -11364,10 +11039,6 @@ msgstr "Samakan teks yang terlihat dengan tujuan tautannya."
 #: src/features/ats-checker/messages.ts
 msgid "Make them visibly larger, bolder or capitalized."
 msgstr "Buat lebih besar, tebal, atau berhuruf kapital secara jelas."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Make this your primary resume?"
-msgstr "Jadikan ini CV utama Anda?"
 
 #: src/features/assistant/translate-resume.tsx
 msgid "Makes a copy named “{copyName}” and opens it with a request ready for the assistant. Nothing is sent until you send it."
@@ -11542,10 +11213,6 @@ msgstr "Mencocokkan fakta Anda"
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Matching, Add to Skills and hiding a term work without it."
 msgstr "Pencocokan, Tambahkan ke Keahlian, dan menyembunyikan istilah berfungsi tanpanya."
-
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "May be available"
-msgstr "Mungkin tersedia"
 
 #: src/features/ai/usage.tsx
 msgid "MCP match score"
@@ -11960,11 +11627,6 @@ msgstr "Tugas saya adalah mencari tahu penyebabnya, tanpa menambah beban tim duk
 msgid "Name"
 msgstr "Nama"
 
-#: src/features/resume/share/dns-records-dialog.tsx
-msgctxt "DNS record"
-msgid "Name"
-msgstr "Nama"
-
 #: src/features/settings/ai/provider-fields.tsx
 msgid "Name and base URL"
 msgstr "Nama dan URL dasar"
@@ -12110,14 +11772,9 @@ msgstr "Jaringan"
 
 #: src/features/career/coach.tsx
 #: src/features/career/knowledge/facts.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/ai/page.tsx
 msgid "Never"
 msgstr "Tidak pernah"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Never opened"
-msgstr "Belum pernah dibuka"
 
 #: src/features/career/coach.tsx
 #: src/features/documents/document-card.tsx
@@ -12165,10 +11822,6 @@ msgstr "Dokumen baru"
 #: src/features/career/knowledge/facts.tsx
 msgid "New fact"
 msgstr "Fakta baru"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "New feedback link"
-msgstr "Tautan umpan balik baru"
 
 #: src/features/auth/pages/login.tsx
 msgid "New here?"
@@ -12369,7 +12022,6 @@ msgid "No commands match that search."
 msgstr "Tidak ada perintah yang cocok dengan pencarian itu."
 
 #: src/features/feedback/review-page.tsx
-#: src/features/resume/share/feedback-links.tsx
 msgid "No comments yet."
 msgstr "Belum ada komentar."
 
@@ -12404,10 +12056,6 @@ msgstr "Belum ada surat lamaran"
 #: src/features/documents/documents-page.tsx
 msgid "No cover letters yet"
 msgstr "Belum ada surat lamaran"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "No custom domain"
-msgstr "Tanpa domain kustom"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "No custom rules"
@@ -12545,10 +12193,6 @@ msgstr "Tidak ada posisi baru. Penemuan posisi berjalan lagi pukul {clock}."
 msgid "No offers to compare yet"
 msgstr "Belum ada penawaran untuk dibandingkan"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "No open applications."
-msgstr "Tidak ada lamaran terbuka."
-
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
 msgid "No open issues"
 msgstr "Tidak ada masalah terbuka"
@@ -12557,10 +12201,6 @@ msgstr "Tidak ada masalah terbuka"
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "No other stage counts as {0}. Add one first, so its applications have somewhere to go."
 msgstr "Tidak ada tahap lain yang dihitung sebagai {0}. Tambahkan satu terlebih dahulu agar lamarannya memiliki tujuan pemindahan."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "no password"
-msgstr "tanpa kata sandi"
 
 #: src/features/resume/editor/check/issues.ts
 msgid "No phone number"
@@ -12809,10 +12449,6 @@ msgstr "tidak berizin kerja"
 msgid "Not available in this browser"
 msgstr "Tidak tersedia di browser ini"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Not available while the resume needs a password."
-msgstr "Tidak tersedia selama CV memerlukan kata sandi."
-
 #: src/features/settings/account/security.tsx
 msgid "Not connected"
 msgstr "Tidak terhubung"
@@ -12820,10 +12456,6 @@ msgstr "Tidak terhubung"
 #: src/features/settings/ai/web-access.tsx
 msgid "Not connected · finds roles and reads pages the reader can't"
 msgstr "Tidak terhubung · menemukan posisi dan membaca halaman yang tidak dapat dibaca pembaca"
-
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Not connected yet. Add its DNS records where you manage the domain, then check."
-msgstr "Belum terhubung. Tambahkan record DNS-nya di tempat Anda mengelola domain, lalu periksa."
 
 #: src/features/applications/components/insights-view.tsx
 msgid "Not enough to compare yet: this needs 3 of each."
@@ -13155,14 +12787,6 @@ msgstr "Odia"
 msgid "Off"
 msgstr "Mati"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Off by default. Shares an editable Word file with the same visible content as your web page. Layout is simplified."
-msgstr "Nonaktif secara bawaan. Membagikan berkas Word yang dapat diedit dengan konten yang sama seperti halaman web Anda. Tata letak disederhanakan."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Off makes the link read-only."
-msgstr "Nonaktif membuat tautan hanya bisa dibaca."
-
 #: src/features/homepage/remember.tsx
 msgid "Off: the coach won’t see it or claim it."
 msgstr "Nonaktif: coach tidak akan melihat atau mengklaimnya."
@@ -13170,14 +12794,6 @@ msgstr "Nonaktif: coach tidak akan melihat atau mengklaimnya."
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Off. Edit this letter’s details below. Turning this on replaces them with the resume’s current details."
 msgstr "Nonaktif. Edit detail surat ini di bawah. Mengaktifkan opsi ini akan menggantinya dengan detail terkini dari CV."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Off. Let recruiters find you on Google by turning this on."
-msgstr "Nonaktif. Aktifkan agar perekrut dapat menemukan Anda di Google."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Off. Only you can see your web page."
-msgstr "Nonaktif. Hanya Anda yang dapat melihat halaman web Anda."
 
 #: src/features/applications/stages.ts
 #: src/features/career/offer-entry.tsx
@@ -13459,19 +13075,7 @@ msgstr "Hanya waktu dan jumlahnya yang disimpan, tidak pernah kata-katanya. Coac
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Only you can see this address. Publish it in Share."
-msgstr "Hanya Anda yang bisa melihat alamat ini. Publikasikan di Bagikan."
-
-#: src/features/resume/share/web-page-preview.tsx
-msgid "Only you can see this page"
-msgstr "Hanya Anda yang dapat melihat halaman ini"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "only you see these"
-msgstr "hanya Anda yang melihat ini"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Only you see this."
-msgstr "Hanya Anda yang melihat ini."
+msgstr ""
 
 #: src/libs/orpc/ai-consent.ts
 msgid "Only your recording is sent to this transcription model. The returned transcript is saved to your account."
@@ -13591,7 +13195,7 @@ msgstr "Buka versi terkirim"
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Open Share"
-msgstr "Buka Bagikan"
+msgstr ""
 
 #: src/features/career/workspace/prepare.tsx
 msgid "Open stories"
@@ -13633,22 +13237,9 @@ msgstr "Buka versi CV yang terkirim"
 msgid "Open Trash"
 msgstr "Buka Sampah"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Open web page"
-msgstr "Buka halaman web"
-
 #: src/features/settings/ai/providers.tsx
 msgid "OpenAI, Anthropic, Gemini, Ollama and more"
 msgstr "OpenAI, Anthropic, Gemini, Ollama dan lainnya"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Opened"
-msgstr "Sudah dibuka"
-
-#. placeholder {0}: dayLabel(link.lastViewedAt, i18n.locale)
-#: src/features/resume/share/feedback-links.tsx
-msgid "Opened {0}"
-msgstr "Dibuka {0}"
 
 #: src/features/homepage/remember.tsx
 msgid "Opening"
@@ -14029,18 +13620,6 @@ msgstr "Kata sandi diubah"
 msgid "Password changed. You're signed out everywhere; sign in, then add any passkeys again."
 msgstr ""
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Password removed"
-msgstr "Kata sandi dihapus"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "password set"
-msgstr "kata sandi diatur"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Password set"
-msgstr "Kata sandi ditetapkan"
-
 #: src/dialogs/auth/set-password.tsx
 msgid "Password set. You can now sign in with it too."
 msgstr "Kata sandi diatur. Kini Anda juga bisa masuk dengannya."
@@ -14132,14 +13711,6 @@ msgstr "Periode pembayaran"
 msgid "Pay, deadline and conditions, so you can compare and decide"
 msgstr "Gaji, tenggat waktu, dan syarat, agar Anda bisa membandingkan dan memutuskan"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "PDF download off"
-msgstr "Unduhan PDF nonaktif"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "PDF download on"
-msgstr "Unduhan PDF aktif"
-
 #: src/features/ai/usage.tsx
 msgid "PDF import"
 msgstr "Impor PDF"
@@ -14203,7 +13774,6 @@ msgstr "Persia"
 #: src/features/resume/editor/check/parser-view.tsx
 #: src/features/resume/editor/write/basics-card.tsx
 #: src/features/resume/editor/write/entries.tsx
-#: src/features/resume/share/web-page-preview.tsx
 #: src/features/settings/profile.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Phone"
@@ -14651,10 +14221,6 @@ msgstr "Pratinjau {0}"
 msgid "Preview {name} sample PDF"
 msgstr "Pratinjau contoh PDF {name}"
 
-#: src/features/resume/share/web-page-preview.tsx
-msgid "Preview size"
-msgstr "Ukuran pratinjau"
-
 #: src/features/documents/document-card.tsx
 msgid "Preview unavailable"
 msgstr "Pratinjau tidak tersedia"
@@ -14710,10 +14276,6 @@ msgstr "Versi sebelumnya"
 msgid "Primary color"
 msgstr "Warna utama"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Primary resume"
-msgstr "CV utama"
-
 #: src/features/resume/share/download-menu.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Print"
@@ -14722,14 +14284,6 @@ msgstr "Mencetak"
 #: src/features/ats-checker/messages.ts
 msgid "Print or export the form to a flat PDF before sending it."
 msgstr "Cetak atau ekspor formulir menjadi PDF datar sebelum mengirimkannya."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Privacy"
-msgstr "Privasi"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Privacy and downloads"
-msgstr "Privasi dan unduhan"
 
 #: src/features/homepage/share.tsx
 msgid "Private"
@@ -14870,10 +14424,6 @@ msgstr "Uji penyedia"
 msgid "Public"
 msgstr "Publik"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Public link"
-msgstr "Tautan publik"
-
 #: src/features/documents/document-status.tsx
 #: src/routes/builder/$resumeId/-components/document-details.tsx
 msgid "Public, with a password"
@@ -14882,30 +14432,6 @@ msgstr "Publik, dengan kata sandi"
 #: src/libs/resume/section.tsx
 msgid "Publications"
 msgstr "Publikasi"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish"
-msgstr "Terbitkan"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish it to share a link that opens on any screen. Only you can see it until then."
-msgstr "Terbitkan untuk membagikan tautan yang terbuka di layar apa pun. Sampai saat itu, hanya Anda yang dapat melihatnya."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish the web page first."
-msgstr "Terbitkan halaman web terlebih dahulu."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish the web page to count views and downloads. Counts are anonymous, and search engines aren't counted."
-msgstr "Terbitkan halaman web untuk menghitung tayangan dan unduhan. Penghitungan bersifat anonim, dan mesin pencari tidak dihitung."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish this resume to open it at your short link and custom domain."
-msgstr "Terbitkan CV ini agar terbuka di tautan pendek dan domain kustom Anda."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish this resume to open it at your short link."
-msgstr "Publikasikan CV ini agar terbuka di tautan pendek Anda."
 
 #: src/features/resume/editor/write/entries.tsx
 msgid "Publisher"
@@ -14938,14 +14464,6 @@ msgstr "Letakkan tanda sisipan dalam satu garis untuk memperbaikinya"
 #: src/features/assistant/chat.ts
 msgid "Q: {question}"
 msgstr "T: {question}"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "QR code"
-msgstr "kode QR"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "QR code for {url}"
-msgstr "Kode QR untuk {url}"
 
 #. Accessible title for QR code image shown during two-factor setup
 #: src/dialogs/auth/enable-two-factor.tsx
@@ -15425,10 +14943,6 @@ msgstr "Perbarui briefing"
 msgid "Refresh usage"
 msgstr "Muat ulang penggunaan"
 
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "Register at OlaCV"
-msgstr "Daftarkan di OlaCV"
-
 #: src/features/career/workspace/prepare.tsx
 msgid "Rehearse aloud"
 msgstr "Latih dengan bersuara"
@@ -15573,7 +15087,6 @@ msgid "Remote, Hybrid, a city…"
 msgstr "Remote, Hybrid, kota…"
 
 #: src/features/applications/components/detail/contacts.tsx
-#: src/features/resume/share/custom-domain-field.tsx
 #: src/features/settings/account/security.tsx
 msgid "Remove"
 msgstr "Menghapus"
@@ -15623,10 +15136,6 @@ msgstr "Hapus koneksi"
 msgid "Remove connection…"
 msgstr "Hapus koneksi…"
 
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Remove domain"
-msgstr "Hapus domain"
-
 #: src/features/resume/editor/write/basics-card.tsx
 msgid "Remove field"
 msgstr "Hapus bidang"
@@ -15643,10 +15152,6 @@ msgstr "Hapus tautan {0}"
 #: src/features/settings/account/security.tsx
 msgid "Remove passkey"
 msgstr "Hapus kunci sandi"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Remove password"
-msgstr "Hapus kata sandi"
 
 #. placeholder {0}: i18n.number(index + 1)
 #: src/features/applications/components/interview-dialog.tsx
@@ -15677,14 +15182,6 @@ msgstr "Hapus tahap"
 #: src/features/applications/components/application-form-sheet.tsx
 msgid "Remove tag"
 msgstr "Hapus tag"
-
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Remove the custom domain?"
-msgstr "Hapus domain khusus?"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Remove the password?"
-msgstr "Hapus kata sandi?"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Remove the web connection?"
@@ -15896,10 +15393,6 @@ msgstr "Jumlah yang diminta"
 #: src/features/settings/profile.tsx
 msgid "Requested salary"
 msgstr "Gaji yang diminta"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Require a password"
-msgstr "Memerlukan kata sandi"
 
 #: src/features/career/knowledge/preferences.tsx
 #: src/features/career/workspace/fit.tsx
@@ -16656,10 +16149,6 @@ msgstr "Simpan nama"
 msgid "Save offer"
 msgstr "Simpan penawaran"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Save PNG"
-msgstr "Simpan PNG"
-
 #: src/features/career/workspace/preparation.tsx
 msgid "Save posting"
 msgstr "Simpan lowongan"
@@ -16680,10 +16169,6 @@ msgstr "Simpan jadwal"
 #: src/features/career/knowledge/stories.tsx
 msgid "Save story"
 msgstr "Simpan cerita"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Save SVG"
-msgstr "Simpan SVG"
 
 #: src/features/documents/document-actions.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
@@ -16903,11 +16388,6 @@ msgstr "Disimpan bersama lamaran ini. Tanda tangan tidak disertakan."
 msgid "Saved: {0}. Skipped: {1}. Existing, corrected or switched-off facts stay unchanged."
 msgstr "Disimpan: {0}. Dilewati: {1}. Fakta yang sudah ada, dikoreksi, atau dinonaktifkan tetap tidak berubah."
 
-#. placeholder {0}: new URL(url).host
-#: src/features/resume/share/address-field.tsx
-msgid "Saving {0}/{username}/{slug}… Copy is available after saving."
-msgstr "Menyimpan {0}/{username}/{slug}… Salinan tersedia setelah disimpan."
-
 #: src/features/resume/builder/draft.ts
 msgid "Saving is taking longer than expected. Your changes are still open."
 msgstr "Penghematan membutuhkan waktu lebih lama dari yang diperkirakan. Perubahan Anda masih terbuka."
@@ -17069,10 +16549,6 @@ msgstr "Pencarian mencakup judul, tag, dan lamaran tertaut."
 #: src/features/command-palette/content.tsx
 msgid "Search documents, applications and commands"
 msgstr "Cari dokumen, lamaran, dan perintah"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Search engines such as Google may list your web page. It can take weeks to appear, or to disappear after you turn this off."
-msgstr "Mesin pencari seperti Google dapat mencantumkan halaman web Anda. Perlu waktu berminggu-minggu hingga halaman muncul, atau hilang setelah Anda menonaktifkan ini."
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Search failed"
@@ -17347,11 +16823,6 @@ msgstr "Mengirim"
 msgid "Send {0} again"
 msgstr "Kirim {0} lagi"
 
-#: src/features/resume/share/feedback-links.tsx
-#: src/features/resume/share/share-panel.tsx
-msgid "Send a coach or friend a private link to this version. They can comment, but can't change it or see anything else."
-msgstr "Kirimi coach atau teman tautan pribadi ke versi ini. Mereka bisa berkomentar, tetapi tidak bisa mengubahnya atau melihat apa pun selain itu."
-
 #: src/features/applications/components/calendar-view.tsx
 #: src/features/applications/next-step.ts
 msgid "Send a follow-up"
@@ -17616,21 +17087,14 @@ msgstr "Lebar bayangan"
 #: src/features/homepage/footer.tsx
 #: src/features/homepage/header.tsx
 #: src/features/homepage/share.tsx
-#: src/features/resume/share/share-panel.tsx
 #: src/features/resume/share/web-page-text.ts
-#: src/routes/builder/$resumeId/-components/editor-bar.tsx
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
-#: src/routes/builder/$resumeId/-components/use-editor-hotkeys.ts
 msgid "Share"
 msgstr "Membagikan"
 
 #: src/features/homepage/share.tsx
 msgid "Share a public link, add a password or keep it private. Choose from 3 visibility options. Export to PDF or Word, or take all your data with you as JSON."
 msgstr "Bagikan tautan publik, tambahkan kata sandi, atau jadikan pribadi. Pilih dari 3 opsi visibilitas. Ekspor ke PDF atau Word, atau bawa semua data Anda sebagai JSON."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Share application progress (optional)"
-msgstr "Bagikan progres lamaran (opsional)"
 
 #. placeholder {0}: provider.label
 #: src/libs/orpc/ai-consent.ts
@@ -17640,10 +17104,6 @@ msgstr "Bagikan data dengan {0}?"
 #: src/features/resume/editor/chrome/download-sheet.tsx
 msgid "Share sections"
 msgstr "Bagikan bagian"
-
-#: src/features/resume/share/address-field.tsx
-msgid "Share via…"
-msgstr "Bagikan melalui…"
 
 #: src/features/documents/document-actions.tsx
 msgid "Share…"
@@ -17691,14 +17151,6 @@ msgstr "Singkat dan langsung. Baik jika lowongan pekerjaan meminta singkatnya."
 msgid "Short and polite, for the recruiter"
 msgstr "Singkat dan sopan, untuk perekrut"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Short link"
-msgstr "Tautan pendek"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Short link and domain"
-msgstr "Tautan pendek dan domain"
-
 #: src/routes/dashboard/-components/app-shell.tsx
 msgid "Shortcuts"
 msgstr "Pintasan"
@@ -17732,10 +17184,6 @@ msgstr "Menunjukkan"
 msgctxt "Open a folded edit card"
 msgid "Show"
 msgstr "Tampilkan"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Show “Made with Reactive Resume”"
-msgstr "Tampilkan “Dibuat dengan Reactive Resume”"
 
 #. placeholder {0}: i18n.number(Math.min(remaining, COLUMN_PAGE_SIZE))
 #: src/features/applications/components/board.tsx
@@ -17789,17 +17237,9 @@ msgstr "Tampilkan semua jenis"
 msgid "Show closed applications"
 msgstr "Tampilkan lamaran yang ditutup"
 
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Show DNS records"
-msgstr "Tampilkan record DNS"
-
 #: src/features/resume/editor/proposals/proposal-list.tsx
 msgid "Show edit {number}"
 msgstr "Tampilkan edit {number}"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Show in search engines"
-msgstr "Tampilkan di mesin pencari"
 
 #: src/features/resume/editor/check/check-panel.tsx
 msgid "Show it again"
@@ -19177,7 +18617,7 @@ msgstr "File itu terlalu besar untuk diperiksa. PDFs hingga 25 MB berfungsi."
 
 #: src/features/resume/share/web-page-text.ts
 msgid "That password isn't correct. Check it with the resume owner and try again."
-msgstr "Kata sandi itu salah. Tanyakan kepada pemilik CV dan coba lagi."
+msgstr ""
 
 #: src/dialogs/auth/disable-two-factor.tsx
 #: src/features/settings/account/backup-codes.tsx
@@ -19480,10 +18920,6 @@ msgstr "Surat itu kembali cocok dengan desain resume"
 msgid "The line changed since you asked, so it wasn't replaced."
 msgstr "Baris berubah sejak Anda meminta, jadi tidak diganti."
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "The link opens the resume as it is now. Later edits aren't shared, so every comment is about this version."
-msgstr "Tautan membuka CV seperti saat ini. Edit berikutnya tidak dibagikan, jadi setiap komentar merujuk versi ini."
-
 #: src/features/auth/email-text.ts
 msgid "The link works for 1 hour. Resetting signs you out on every device and removes your passkeys and connected apps. If you didn't ask for this, ignore this email; your password stays the same."
 msgstr "Tautan berlaku selama 1 jam. Mengatur ulang mengeluarkan Anda di semua perangkat dan menghapus passkey, serta aplikasi tersambung Anda. Jika Anda tidak meminta ini, abaikan email ini; kata sandi Anda tetap sama."
@@ -19654,10 +19090,6 @@ msgstr "Pertanyaan, mengetik, berbicara, dan Dengarkan berfungsi tanpanya."
 msgid "The reason is kept for Insights. Linked documents aren't touched."
 msgstr "Alasannya disimpan untuk Insights. Dokumen tertaut tidak disentuh."
 
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "The records aren't visible yet. Check again later."
-msgstr "Record belum terlihat. Periksa lagi nanti."
-
 #: src/routes/builder/letter/-components/design-panel.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "the resume"
@@ -19691,10 +19123,6 @@ msgstr "CV yang Anda kirim {sent} · terkunci"
 #: src/features/resume/editor/check/writing-tab.tsx
 msgid "The review couldn't finish. Try again."
 msgstr "Peninjauan tidak dapat diselesaikan. Coba lagi."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "The reviewer sees each one's stage and dates. Notes, contacts and pay stay private."
-msgstr "Peninjau melihat tahap dan tanggal tiap lamaran. Catatan, kontak, dan gaji tetap privat."
 
 #: src/features/ats-checker/messages.ts
 msgid "The same line repeats on every page."
@@ -20195,7 +19623,7 @@ msgstr "Resume ini panjang."
 
 #: src/features/resume/share/web-page-text.ts
 msgid "This resume is password-protected"
-msgstr "CV ini dilindungi kata sandi"
+msgstr ""
 
 #: src/features/resume/editor/check/job-match.tsx
 msgid "This resume isn't linked to an application yet. Pick one to make a copy for it."
@@ -20203,7 +19631,7 @@ msgstr "CV ini belum tertaut ke lamaran. Pilih satu untuk membuat salinan untukn
 
 #: src/features/resume/share/web-page-text.ts
 msgid "This resume isn't shared right now"
-msgstr "CV ini sedang tidak dibagikan"
+msgstr ""
 
 #: src/features/resume/editor/check/job-match.tsx
 msgid "This resume stays as it is for other jobs"
@@ -20449,7 +19877,6 @@ msgstr "hari ini"
 #: src/features/applications/components/calendar-view.tsx
 #: src/features/career/today.tsx
 #: src/features/command-palette/pages/navigation.tsx
-#: src/features/resume/share/share-panel.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 #: src/routes/dashboard/-components/app-shell.tsx
 #: src/routes/dashboard/index.tsx
@@ -20609,11 +20036,6 @@ msgstr "Memangkas kata"
 msgid "Trust this device for 30 days"
 msgstr "Percayai perangkat ini selama 30 hari"
 
-#. placeholder {0}: result.suggestion
-#: src/features/resume/share/address-field.tsx
-msgid "Try {0}"
-msgstr "Coba {0}"
-
 #: src/features/career/today.tsx
 #: src/features/documents/documents-page.tsx
 msgid "Try a sample"
@@ -20633,7 +20055,6 @@ msgstr "Coba sampel"
 #: src/features/resume/editor/write/improve.tsx
 #: src/features/resume/preview/preview.browser.tsx
 #: src/features/resume/share/download-tab.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/ai/next-steps.tsx
 #: src/features/settings/ai/web-access.tsx
 #: src/features/settings/integrations/ai-provider-load-state.tsx
@@ -20690,7 +20111,6 @@ msgstr "Turki"
 
 #. Destructive action button to turn off two-factor authentication
 #: src/dialogs/auth/disable-two-factor.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/account/security.tsx
 #: src/features/settings/ai/providers.tsx
 msgid "Turn off"
@@ -20703,14 +20123,6 @@ msgstr "Matikan ligatur opsional saat mengekspor."
 #: src/features/keyboard-shortcuts/character-shortcuts.tsx
 msgid "Turn off if you use speech input. Shortcuts with ⌘ keep working."
 msgstr "Nonaktifkan jika Anda menggunakan input suara. Pintasan dengan ⌘ tetap berfungsi."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Turn off link…"
-msgstr "Matikan tautan…"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Turn off this link?"
-msgstr "Matikan tautan ini?"
 
 #: src/features/settings/account/security.tsx
 msgid "Turn off two-step verification"
@@ -20728,35 +20140,14 @@ msgstr "Aktifkan"
 msgid "Turn on two-step verification"
 msgstr "Aktifkan verifikasi dua langkah"
 
-#: src/features/resume/share/web-page-preview.tsx
-msgid "Turn Public link on to share it."
-msgstr "Aktifkan Tautan publik untuk membagikannya."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Turn this on to open this resume at your short link and custom domain."
-msgstr "Aktifkan ini untuk membuka CV Anda di tautan pendek dan domain kustom Anda."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Turn this on to open this resume at your short link."
-msgstr "Aktifkan ini untuk membuka CV Anda di tautan pendek Anda."
-
 #: src/features/career/schedule-sheet.tsx
 msgid "Turn this schedule on"
 msgstr "Aktifkan jadwal ini"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Turned off"
-msgstr "Dinonaktifkan"
 
 #. placeholder {0}: provider.label
 #: src/features/settings/ai/providers.tsx
 msgid "Turned off “{0}”. Its key is kept."
 msgstr "“{0}” dinonaktifkan. Kuncinya tetap disimpan."
-
-#. placeholder {0}: i18n.date(link.revokedAt, { day: "numeric", month: "short" })
-#: src/features/resume/share/feedback-links.tsx
-msgid "turned off {0}"
-msgstr "dinonaktifkan {0}"
 
 #: src/dialogs/auth/disable-two-factor.tsx
 msgid "Turning off two-step verification…"
@@ -20792,10 +20183,6 @@ msgstr "Dua CV yang dibuat dengan Reactive Resume"
 #: src/features/resume/editor/design/entries-group.tsx
 msgid "Two rows: company, then position"
 msgstr "Dua baris: perusahaan, lalu posisi"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Two shorter addresses. Both open your primary resume."
-msgstr "Dua alamat lebih pendek. Keduanya membuka CV utama Anda."
 
 #: src/features/career/workspace/prepare.tsx
 msgid "Two stories"
@@ -20852,11 +20239,6 @@ msgstr "Verifikasi dua langkah diaktifkan"
 #: src/features/career/knowledge/resume-facts.tsx
 #: src/features/career/workspace/practise.tsx
 #: src/features/documents/documents-page.tsx
-msgid "Type"
-msgstr "Tipe"
-
-#: src/features/resume/share/dns-records-dialog.tsx
-msgctxt "DNS record"
 msgid "Type"
 msgstr "Tipe"
 
@@ -21205,7 +20587,6 @@ msgstr "Gunakan minimal 8 karakter."
 msgid "Use at least 9pt."
 msgstr "Gunakan setidaknya 9pt."
 
-#: src/features/resume/share/address-field.tsx
 #: src/libs/error-message.ts
 msgid "Use at most 64 characters."
 msgstr "Gunakan maksimal 64 karakter."
@@ -21235,10 +20616,6 @@ msgstr "Gunakan untuk semua lamaran"
 #: src/features/career/knowledge/facts.tsx
 msgid "Use in coaching: {excerpt}"
 msgstr "Gunakan dalam coaching: {excerpt}"
-
-#: src/features/resume/share/address-field.tsx
-msgid "Use Latin letters a–z, numbers and single dashes."
-msgstr "Gunakan huruf Latin a–z, angka, dan tanda hubung tunggal."
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Use my timezone"
@@ -21428,10 +20805,6 @@ msgstr "Uzbek"
 msgid "Valuation and dilution uncertain"
 msgstr "Valuasi dan dilusi tidak pasti"
 
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "Value"
-msgstr "Nilai"
-
 #: src/features/career/offers.tsx
 msgid "Value uncertain"
 msgstr "Nilai tidak pasti"
@@ -21563,38 +20936,9 @@ msgstr "Lihat lowongan di {host}"
 msgid "View recorded answers"
 msgstr "Lihat jawaban tercatat"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "views in the last 30 days"
-msgstr "kunjungan dalam 30 hari terakhir"
-
-#. placeholder {0}: i18n.number(summary.peak)
-#: src/features/resume/share/share-panel.tsx
-msgid "Views per day, {firstLabel} to today. The busiest day had {0}."
-msgstr "Kunjungan per hari, {firstLabel} hingga hari ini. Hari tersibuk memiliki {0}."
-
 #: src/features/homepage/share.tsx
 msgid "Visibility"
 msgstr "Visibilitas"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Visitors"
-msgstr "Pengunjung"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Visitors can download the PDF"
-msgstr "Pengunjung dapat mengunduh PDF"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Visitors can download Word"
-msgstr "Pengunjung dapat mengunduh Word"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Visitors enter it before they see the resume. Share it only with people you trust."
-msgstr "Pengunjung memasukkannya sebelum mereka melihat resume. Bagikan hanya dengan orang yang Anda percayai."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Visitors need the link and password to see your web page."
-msgstr "Pengunjung membutuhkan tautan dan kata sandi untuk melihat halaman web Anda."
 
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
@@ -21694,18 +21038,6 @@ msgstr "Alamat web"
 #: src/libs/orpc/ai-consent.ts
 msgid "Web destination: {0}."
 msgstr "Tujuan web: {0}."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Web page"
-msgstr "Halaman web"
-
-#: src/features/resume/share/web-page-preview.tsx
-msgid "Web page preview"
-msgstr "Pratinjau halaman web"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Web page settings"
-msgstr "Pengaturan halaman web"
 
 #: src/features/ai/usage.tsx
 #: src/features/career/coach-thread.tsx
@@ -22162,14 +21494,6 @@ msgctxt "Template style tag"
 msgid "Whitespace"
 msgstr "Ruang lega"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Who can find your web page, reach you from it and take a copy."
-msgstr "Siapa yang dapat menemukan halaman web Anda, menghubungi Anda melaluinya, dan mengambil salinannya."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Who is it for?"
-msgstr "Untuk siapa?"
-
 #: src/features/homepage/prepare.tsx
 msgid "Who owns the design system today? What does success look like in 90 days?"
 msgstr "Siapa yang memegang design system saat ini? Seperti apa keberhasilan dalam 90 hari?"
@@ -22249,14 +21573,6 @@ msgstr "File Word dibaca dengan AI. File dikirim ke koneksi AI Anda."
 #: src/features/ai/usage.tsx
 msgid "Word import"
 msgstr "Impor Word"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Word off"
-msgstr "Word nonaktif"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Word on"
-msgstr "Word aktif"
 
 #: src/features/ats-checker/messages.ts
 msgid "Words run together when the text is extracted."
@@ -22509,11 +21825,6 @@ msgstr "Anda menerima sebuah penawaran"
 msgid "You already saved this job: {0} at {1}."
 msgstr "Anda sudah menyimpan pekerjaan ini: {0} di {1}."
 
-#. placeholder {0}: result.takenBy
-#: src/features/resume/share/address-field.tsx
-msgid "You already use this for “{0}”."
-msgstr "Anda sudah menggunakan ini untuk \"{0}\"."
-
 #: src/features/career/schedule-sheet.tsx
 msgid "You always see results in Today."
 msgstr "Anda selalu melihat hasil di Hari ini."
@@ -22735,15 +22046,6 @@ msgstr "Tanggal Anda ditulis dengan beberapa cara berbeda."
 msgid "Your details changed on the resume. The letter updated too."
 msgstr "Detail Anda berubah di resume. Surat itu juga diperbarui."
 
-#: src/features/resume/share/custom-domain-field.tsx
-#: src/features/resume/share/share-panel.tsx
-msgid "Your domain"
-msgstr "Domain Anda"
-
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Your domain will stop opening your primary resume. You can reconnect it later."
-msgstr "Domain Anda tidak akan lagi membuka CV utama Anda. Anda dapat menghubungkannya kembali nanti."
-
 #: src/features/career/coach-chat.tsx
 msgid "Your edited story is saved to Knowledge."
 msgstr "Cerita yang Anda edit tersimpan di Pengetahuan."
@@ -22772,10 +22074,6 @@ msgstr "Alamat email Anda terpecah di beberapa potongan teks."
 #: src/features/auth/pages/error.tsx
 msgid "Your email address isn't verified with the provider."
 msgstr "Alamat email Anda belum diverifikasi oleh penyedia."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your email, phone, location and extra header fields, and references' phone numbers, are left out of the web page, its PDF and search results. Your website stays."
-msgstr "Email, telepon, lokasi, dan kolom header ekstra Anda, serta nomor telepon referensi, dikeluarkan dari halaman web, PDF-nya, dan hasil penelusuran. Situs web Anda tetap ada."
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Your experience, laid out on a page."
@@ -22848,10 +22146,6 @@ msgstr "Nama dan detail kontak Anda diambil darinya, dan surat dapat menyesuaika
 #: src/features/resume/editor/write/outline.tsx
 msgid "Your name and how to reach you"
 msgstr "Nama Anda dan cara menghubungi Anda"
-
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "Your name as your address, from OlaCV, the .cv registry. Code <0/> takes 50% off the first year."
-msgstr "Nama Anda sebagai alamat Anda, dari OlaCV, registri .cv. Kode <0/> memberi diskon 50% untuk tahun pertama."
 
 #: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Your name changed on the resume. The letter updated too."
@@ -22929,10 +22223,6 @@ msgstr "CV Anda dan surat ini"
 msgid "Your resume and your job search, in one place."
 msgstr "CV dan pencarian kerja Anda, di satu tempat."
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Your resume as a web page"
-msgstr "CV Anda sebagai halaman web"
-
 #: src/features/resume/editor/check/issues.ts
 msgid "Your resume has a photo"
 msgstr "Resume Anda memiliki foto"
@@ -22981,42 +22271,6 @@ msgstr "Server Anda menyediakan pencarian · hubungkan layanan untuk membaca hal
 msgid "your server's search service"
 msgstr "layanan penelusuran server Anda"
 
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link and custom domain open “{0}”."
-msgstr "Tautan pendek dan domain kustom Anda membuka “{0}”."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link and custom domain open this resume."
-msgstr "Tautan pendek dan domain kustom Anda membuka CV ini."
-
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link and custom domain point to “{0}”, which isn't published."
-msgstr "Tautan pendek dan domain kustom Anda mengarah ke “{0}”, yang belum dipublikasikan."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link and custom domain say this resume isn't shared until you publish it again."
-msgstr "Tautan pendek dan domain kustom Anda menyatakan bahwa CV ini tidak dibagikan sampai Anda menerbitkannya lagi."
-
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link opens “{0}”."
-msgstr "Tautan pendek Anda membuka “{0}”."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link opens this resume."
-msgstr "Tautan pendek Anda membuka CV ini."
-
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link points to “{0}”, which isn't published."
-msgstr "Tautan pendek Anda mengarah ke “{0}”, yang belum dipublikasikan."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link says this resume isn't shared until you publish it again."
-msgstr "Tautan pendek Anda menyatakan CV ini tidak dibagikan sampai Anda mempublikasikannya lagi."
-
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "Your stages changed somewhere else. They've been refreshed; try again."
 msgstr "Tahap Anda diubah di tempat lain. Tahap telah dimuat ulang; coba lagi."
@@ -23046,10 +22300,6 @@ msgstr "Perkenalan dua menit Anda"
 #: src/features/auth/pages/register.tsx
 msgid "Your username is made from your email. <0>Choose your own</0>"
 msgstr "Nama pengguna Anda dibuat dari email Anda. <0>Pilih sendiri</0>"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your web page is live"
-msgstr "Halaman web Anda sudah tayang"
 
 #: src/libs/orpc/ai-consent.ts
 msgid "Your web settings changed. Nothing was sent; try again."

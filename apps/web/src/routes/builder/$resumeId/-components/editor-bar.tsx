@@ -35,7 +35,7 @@ export function EditorBar({ layout, pinnable }: EditorBarProps) {
 			layout={layout}
 			pinnable={pinnable}
 			menu={<DocumentMenu />}
-			modes={<ModeTabs compact={layout === "tablet"} offline={offline} />}
+			modes={<ModeTabs compact={layout === "tablet"} />}
 			history={<UndoRedo />}
 			historyInPanel
 		>
@@ -71,18 +71,15 @@ const MODE_ICONS = {
 	write: "pencil-simple",
 	design: "palette",
 	check: "list-checks",
-	share: "globe-hemisphere-west",
 } as const;
 
 type ModeTabsProps = {
 	/** Tablets keep the mode names with tighter padding. */
 	compact: boolean;
-	/** Share needs a connection: its tab is dimmed while offline. */
-	offline: boolean;
 };
 
-/** Write · Design · Check · Share, in words. What Check found and whether the resume is public are said beside it. */
-function ModeTabs({ compact, offline }: ModeTabsProps) {
+/** Write · Design · Check, in words. What Check found is said beside it. */
+function ModeTabs({ compact }: ModeTabsProps) {
 	const characterShortcuts = useShortcutSettings((state) => state.characterShortcuts);
 	const issueCount = useOpenIssueCount();
 	const labels: Record<EditorMode, string> = {
@@ -92,7 +89,6 @@ function ModeTabs({ compact, offline }: ModeTabsProps) {
 			comment: "The resume builder mode that reviews the resume for problems. Not the Screening application stage.",
 			message: "Check",
 		}),
-		share: t`Share`,
 	};
 
 	return (
@@ -102,7 +98,6 @@ function ModeTabs({ compact, offline }: ModeTabsProps) {
 				<TabsTrigger
 					key={mode}
 					value={mode}
-					disabled={mode === "share" && offline}
 					className={cn(
 						"flex-none disabled:text-ink-2 disabled:opacity-100 data-disabled:text-ink-2 data-disabled:opacity-100",
 						compact && "px-2.5",

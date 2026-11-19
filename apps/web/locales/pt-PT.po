@@ -45,14 +45,6 @@ msgstr ", com {0}"
 msgid "“{0}”"
 msgstr "“{0}”"
 
-#. placeholder {0}: link.resumeName
-#. placeholder {1}: date(link.createdAt)
-#. placeholder {2}: statusLabel(link.status)
-#. placeholder {3}: link.expiresAt && link.status === "active" ? `, ${t`expires ${i18n.date(link.expiresAt, { dateStyle: "medium" })}`}` : ""
-#: src/features/resume/share/feedback-links.tsx
-msgid "“{0}” as saved {1} · {2}{3}"
-msgstr "“{0}” tal como guardado {1} · {2}{3}"
-
 #. placeholder {0}: view.resumeName
 #: src/features/feedback/review-page.tsx
 msgid "“{0}” as saved on {sharedOn}."
@@ -72,11 +64,6 @@ msgstr "“{0}” bloqueado"
 #: src/features/documents/document-actions.tsx
 msgid "“{0}” moved to Trash"
 msgstr "“{0}” movido para a Reciclagem"
-
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "“{0}” stops being your primary resume."
-msgstr "«{0}» deixa de ser o seu currículo principal."
 
 #. placeholder {0}: isolate(document.name)
 #: src/features/documents/document-actions.tsx
@@ -307,11 +294,6 @@ msgstr "{0, plural, one {mais # dia} other {mais # dias}}"
 #: src/features/documents/document-actions.tsx
 msgid "{0, plural, one {# moved to Trash} other {# moved to Trash}}"
 msgstr "{0, plural, one {# movido para a Lixeira} other {# movidos para a Lixeira}}"
-
-#. placeholder {0}: link.openCommentCount
-#: src/features/resume/share/feedback-links.tsx
-msgid "{0, plural, one {# new comment} other {# new comments}}"
-msgstr "{0, plural, one {# comentário novo} other {# comentários novos}}"
 
 #. placeholder {0}: notice.count
 #: src/features/career/today.tsx
@@ -751,11 +733,6 @@ msgstr "{0} são apagados definitivamente agora, com o respetivo histórico e cr
 msgid "{0} closed"
 msgstr "{0} fechado"
 
-#. placeholder {0}: link.commentCount
-#: src/features/resume/share/feedback-links.tsx
-msgid "{0} comments, all done"
-msgstr "{0} comentários, todos tratados"
-
 #. placeholder {0}: props.providerLabel
 #: src/features/assistant/conversation.tsx
 msgid "{0} didn't respond."
@@ -837,16 +814,6 @@ msgstr "Entrevista {0} na {1} · {2} · com {3}"
 #: src/features/career/workspace/overview.tsx
 msgid "{0} interview debriefed {1}"
 msgstr "Balanço da entrevista {0} feito {1}"
-
-#. placeholder {0}: domain.hostname
-#: src/features/resume/share/share-panel.tsx
-msgid "{0} is connected"
-msgstr "{0} está ligado"
-
-#. placeholder {0}: domain.hostname
-#: src/features/resume/share/share-panel.tsx
-msgid "{0} is not connected yet"
-msgstr "{0} ainda não está ligado"
 
 #. placeholder {0}: job.company
 #: src/features/assistant/assistant-panel.tsx
@@ -1081,10 +1048,6 @@ msgstr "{active, plural, one {# candidatura ativa} other {# candidaturas ativas}
 msgid "{active, plural, one {active application} other {active applications}}"
 msgstr "{active, plural, one {candidatura ativa} other {candidaturas ativas}}"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "{active} active"
-msgstr "{active} ativos"
-
 #: src/features/career/workspace/fit-local.tsx
 msgid "{activeFacts, plural, one {# fact} other {# facts}}"
 msgstr "{activeFacts, plural, one {# facto} other {# factos}}"
@@ -1182,10 +1145,6 @@ msgstr "{connection} passou no teste. Experimente em algo real:"
 #: src/features/career/knowledge/facts.tsx
 msgid "{correctedOn} · the original wording is kept above"
 msgstr "{correctedOn} · o texto original é mantido acima"
-
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "{cost} the first year"
-msgstr "{cost} no primeiro ano"
 
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "{count, plural, =0 {Its applications move to the stage you choose. Their history keeps the name “{label}”.} one {Its # application moves to the stage you choose. Its history keeps the name “{label}”.} other {Its # applications move to the stage you choose. Their history keeps the name “{label}”.}}"
@@ -1758,19 +1717,6 @@ msgstr "{sections, plural, one {Secção #} other {Secções #}}"
 msgid "{sent} sent {0}"
 msgstr "{sent} enviados {0}"
 
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "{shortLink} opens “{0}”"
-msgstr "{shortLink} abre “{0}”"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "{shortLink} opens no resume yet"
-msgstr "{shortLink} ainda não abre nenhum currículo"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "{shortLink} opens this resume"
-msgstr "{shortLink} abre este currículo"
-
 #: src/features/applications/components/application-detail-sheet.tsx
 msgid "{since, plural, =0 {since today} one {for # day} other {for # days}}"
 msgstr "{since, plural, =0 {desde hoje} one {para o dia #} other {para dias #}}"
@@ -1995,10 +1941,6 @@ msgstr "0 oculta-o"
 msgid "06/2017 – 2021"
 msgstr "06/2017 – 2021"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "1 comment, done"
-msgstr "1 comentário, tratado"
-
 #: src/features/settings/account/security.tsx
 msgid "1 passkey · {first}"
 msgstr "1 chave de acesso · {first}"
@@ -2018,10 +1960,6 @@ msgstr "Versão de 10 minutos"
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "10–11 recommended"
 msgstr "10–11 recomendado"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "2 comments, both done"
-msgstr "2 comentários, ambos tratados"
 
 #: src/routes/builder/letter/-components/download-sheet.tsx
 msgid "2 files"
@@ -2306,10 +2244,6 @@ msgstr "Uma segunda opinião sobre o seu texto"
 msgid "A short follow-up is usually fine now"
 msgstr "Um breve seguimento é geralmente bom agora"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "A shorter address that opens your primary resume."
-msgstr "Um endereço mais curto que abre o seu currículo principal."
-
 #: src/features/resume/editor/design/entries-group.tsx
 msgid "A small accent line above a larger company"
 msgstr "Uma pequena linha de destaque acima de uma empresa maior"
@@ -2489,14 +2423,9 @@ msgstr "A ativação subiu de 31% para 44% num trimestre."
 msgid "Activation rose from 31%…"
 msgstr "A ativação subiu de 31%…"
 
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/ai/web-access.tsx
 msgid "Active"
 msgstr "Ativo"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Activity"
-msgstr "Atividade"
 
 #: src/features/applications/components/list-view.tsx
 #: src/features/career/knowledge/facts.tsx
@@ -2653,10 +2582,6 @@ msgstr "Adicione um termo apenas quando for verdade no seu trabalho."
 #: src/features/resume/editor/write/fields.tsx
 msgid "Add an @ and the domain, like name@example.com"
 msgstr "Adicione um @ e o domínio, como por exemplo name@example.com"
-
-#: src/features/resume/share/address-field.tsx
-msgid "Add an address."
-msgstr "Adicione um endereço."
 
 #: src/features/career/offer-entry.tsx
 #: src/features/career/schedule-sheet.tsx
@@ -2827,10 +2752,6 @@ msgstr "Adicionar as condições da oferta"
 msgid "Add them as a section called “More from your file”, to sort later"
 msgstr "Adicioná-las como uma secção chamada “Mais do seu ficheiro”, para organizar depois"
 
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "Add these records where you manage the domain, then check. Changes can take a few hours to reach everyone."
-msgstr "Adicione estes registos onde gere o domínio e depois verifique. As alterações podem demorar algumas horas a chegar a todos."
-
 #: src/features/career/knowledge/facts.tsx
 msgid "Add things you've done, with numbers when you have them, such as “Cut checkout errors by 30% in 2025”."
 msgstr "Adicione coisas que fez, com números quando os tiver, como “Reduzi os erros no checkout em 30% em 2025”."
@@ -2914,7 +2835,6 @@ msgstr "Adicionado ao Conhecimento como experiência."
 msgid "Added to Knowledge."
 msgstr "Adicionado a Conhecimento."
 
-#: src/features/resume/share/address-field.tsx
 #: src/features/settings/profile.tsx
 msgid "Address"
 msgstr "Morada"
@@ -3133,10 +3053,6 @@ msgstr "Todos os seus documentos, candidaturas e links públicos serão eliminad
 msgid "Allow access"
 msgstr "Permitir acesso"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Allow comments"
-msgstr "Permitir comentários"
-
 #: src/features/auth/pages/error.tsx
 msgid "Allow email access when the provider asks, or use another sign-in method."
 msgstr "Permita o acesso ao email quando o fornecedor pedir, ou use outro método de início de sessão."
@@ -3253,10 +3169,6 @@ msgstr "e"
 msgid "and {0} more"
 msgstr "e {0} mais"
 
-#: src/features/resume/share/address-field.tsx
-msgid "Another of your resumes uses this address."
-msgstr "Outro dos seus currículos usa este endereço."
-
 #: src/libs/error-message.ts
 msgid "Another resume already uses this address. Choose a different one."
 msgstr "Outro currículo já usa este endereço. Escolha outro."
@@ -3320,14 +3232,6 @@ msgstr "Qualquer tipo, com o seu próprio título"
 #: src/features/resume/builder/password-dialog.tsx
 msgid "Anyone who opens the public link needs this password."
 msgstr "Quem abrir o link público precisa desta palavra-passe."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Anyone with the link can see your web page."
-msgstr "Qualquer pessoa com o link pode ver a sua página web."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Anyone with the link will be able to view your resume."
-msgstr "Qualquer pessoa com o link poderá visualizar o seu currículo."
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Anything that can't be placed is listed before you create it."
@@ -3525,10 +3429,6 @@ msgstr "Aplicado. Acompanhamento definido para {0}."
 #: src/features/career/workspace/messages.tsx
 msgid "Applied. The application is updated."
 msgstr "Aplicado. A candidatura foi atualizada."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Applies to the web page after its own styles, at every screen size. The PDF stays as it is."
-msgstr "Aplica-se à página web depois dos seus próprios estilos, em qualquer tamanho de ecrã. O PDF mantém-se igual."
 
 #: src/features/resume/editor/write/section-view.tsx
 msgid "applies to the whole section"
@@ -3836,10 +3736,6 @@ msgstr "salvo automaticamente"
 #: src/features/resume/share/history-tab.tsx
 msgid "Autosaves are grouped by session and kept for 90 days. Named and sent versions are kept. Restoring saves the current state first, so nothing is lost."
 msgstr "As gravações automáticas são agrupadas por sessão e guardadas durante 90 dias. As versões com nome e as enviadas são mantidas. Restaurar guarda primeiro o estado atual, por isso nada se perde."
-
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "Available"
-msgstr "Disponível"
 
 #: src/features/ats-checker/messages.ts
 msgid "Avoid heavy letter-spacing effects, then re-export."
@@ -4371,7 +4267,6 @@ msgstr "Não consegue ler o código? Introduza esta chave na aplicação:"
 #: src/features/resume/editor/check/job-match.tsx
 #: src/features/resume/editor/proposals/proposal-list.tsx
 #: src/features/resume/editor/write/picture-settings.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/account/data.tsx
 #: src/features/settings/account/profile.tsx
 #: src/features/settings/ai/providers.tsx
@@ -4429,7 +4324,6 @@ msgstr "Certificações"
 #: src/features/resume/editor/check/job-match.tsx
 #: src/features/resume/editor/check/writing-tab.tsx
 #: src/features/resume/editor/write/section-view.tsx
-#: src/features/resume/share/share-panel.tsx
 #: src/features/settings/account/profile.tsx
 #: src/features/settings/account/security.tsx
 #: src/features/settings/ai/web-access.tsx
@@ -4578,11 +4472,6 @@ msgstr "Verifique qualquer PDF, não é necessária nenhuma conta"
 msgid "Check before accepting: {0}"
 msgstr "Verifique antes de aceitar: {0}"
 
-#: src/features/resume/share/custom-domain-field.tsx
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "Check DNS"
-msgstr "Verificar DNS"
-
 #: src/features/settings/profile.tsx
 msgid "Check email addresses, links, names, countries and salary. A salary amount needs currency and pay period."
 msgstr "Verifique endereços de email, links, nomes, países e salário. Um valor salarial precisa de moeda e período de pagamento."
@@ -4699,17 +4588,9 @@ msgstr "Verificação do layout e conteúdo"
 msgid "Checking the exported PDF…"
 msgstr "A verificar o PDF exportado…"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Checking which resume opens your short link…"
-msgstr "A verificar que currículo abre o seu link curto…"
-
 #: src/features/career/shared.tsx
 msgid "Checking your preferences"
 msgstr "A verificar as suas preferências"
-
-#: src/features/resume/share/address-field.tsx
-msgid "Checking… Copy is available after saving."
-msgstr "A verificar… A cópia está disponível após guardar."
 
 #: src/features/resume/editor/check/check-panel.tsx
 msgid "Checks by category"
@@ -5022,8 +4903,6 @@ msgstr "fechar"
 #: src/features/resume/editor/check/page-layer.tsx
 #: src/features/resume/editor/chrome/download-sheet.tsx
 #: src/features/resume/editor/write/picture-settings.tsx
-#: src/features/resume/share/dns-records-dialog.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/resume/stylesheet/editor.tsx
 #: src/features/settings/account/backup-codes.tsx
 #: src/features/settings/ai/next-steps.tsx
@@ -5150,17 +5029,12 @@ msgstr "Comandos"
 msgid "Comment"
 msgstr "Comentar"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Comment left"
-msgstr "Comentário deixado"
-
 #. placeholder {0}: view.ownerName
 #: src/features/feedback/review-page.tsx
 msgid "Comment sent to {0}"
 msgstr "Comentário enviado a {0}"
 
 #: src/features/feedback/review-page.tsx
-#: src/features/resume/share/feedback-links.tsx
 msgid "Comments"
 msgstr "Comentários"
 
@@ -5265,10 +5139,6 @@ msgstr "Preenche {0} antes de guardar."
 msgid "Compress or remove large images to keep uploads quick."
 msgstr "Comprima ou remova imagens grandes para manter os envios rápidos."
 
-#: src/features/resume/share/web-page-preview.tsx
-msgid "Computer"
-msgstr "Computador"
-
 #: src/features/career/offers.tsx
 msgid "Conditions not stated"
 msgstr "Condições não indicadas"
@@ -5316,19 +5186,9 @@ msgstr "Confirme o seu novo endereço de email"
 msgid "Confirms {time} today, by video."
 msgstr "Confirma hoje às {time}, por vídeo."
 
-#: src/features/resume/share/custom-domain-field.tsx
 #: src/features/settings/account/security.tsx
 msgid "Connect"
 msgstr "Ligar"
-
-#. placeholder {0}: domain.hostname
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "Connect {0}"
-msgstr "Ligar {0}"
-
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "Connect {domain}"
-msgstr "Ligar {domain}"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Connect a search service"
@@ -5358,10 +5218,6 @@ msgstr "Ligue outro…"
 #: src/features/settings/ai/providers.tsx
 msgid "Connected"
 msgstr "Conectado"
-
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Connected. Your domain opens your primary resume."
-msgstr "Ligado. O seu domínio abre o seu currículo principal."
 
 #: src/features/settings/account/auth-hooks.ts
 msgid "Connecting your {providerName} account…"
@@ -5397,14 +5253,6 @@ msgstr "Dados de contacto e respostas-padrão para formulários de candidatura, 
 #: src/features/homepage/check.tsx
 msgid "Contact details found"
 msgstr "Detalhes de contacto encontrados"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Contact details hidden"
-msgstr "Dados de contacto ocultos"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Contact details shown"
-msgstr "Dados de contacto visíveis"
 
 #: src/features/resume/editor/check/check-panel.tsx
 msgid "Contact details, reading order, fonts, links"
@@ -5524,8 +5372,6 @@ msgid "Conversations"
 msgstr "Conversas"
 
 #: src/features/homepage/share.tsx
-#: src/features/resume/share/copy-link-button.tsx
-#: src/features/resume/share/copy-text.tsx
 msgid "Copied"
 msgstr "Copiado"
 
@@ -5543,13 +5389,8 @@ msgstr "Copia as perguntas e abre as Mensagens desta candidatura. Nada é enviad
 
 #: src/features/career/coach-chat.tsx
 #: src/features/career/workspace/answer-library.tsx
-#: src/features/resume/share/copy-text.tsx
 msgid "Copy"
 msgstr "Copiar"
-
-#: src/features/resume/share/copy-text.tsx
-msgid "Copy {value}"
-msgstr "Copiar {value}"
 
 #: src/features/career/workspace/preparation.tsx
 msgid "Copy a base resume for this job"
@@ -5596,7 +5437,6 @@ msgid "Copy it for a job"
 msgstr "Copiar para uma vaga"
 
 #: src/features/homepage/share.tsx
-#: src/features/resume/share/copy-link-button.tsx
 msgid "Copy link"
 msgstr "Copiar link"
 
@@ -5709,10 +5549,6 @@ msgstr "Não foi possível alterar a sua senha. Verifique a sua senha atual e te
 msgid "Couldn't check for a web search service. Retry."
 msgstr "Não foi possível procurar um serviço de pesquisa na web. Tente novamente."
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Couldn't check which resume opens your short link. Reload the page and try again."
-msgstr "Não foi possível verificar que currículo abre o seu link curto. Recarregue a página e tente novamente."
-
 #: src/features/career/workspace/fit.tsx
 msgid "Couldn't check your evidence."
 msgstr "Não foi possível verificar as suas provas."
@@ -5766,8 +5602,6 @@ msgid "Couldn't copy the transcript. Try again."
 msgstr "Não foi possível copiar a transcrição. Tente novamente."
 
 #: src/features/career/coach-thread.tsx
-#: src/features/resume/share/copy-link-button.tsx
-#: src/features/resume/share/copy-text.tsx
 msgid "Couldn't copy to the clipboard. Try again."
 msgstr "Não foi possível copiar para a área de transferência. Tente novamente."
 
@@ -5942,10 +5776,6 @@ msgstr "Não foi possível carregar a revisão guardada."
 msgid "Couldn't load this application. Try again."
 msgstr "Não foi possível carregar esta candidatura. Tente novamente."
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Couldn't load this link."
-msgstr "Não foi possível carregar este link."
-
 #: src/features/applications/components/application-detail-sheet.tsx
 #: src/features/career/load-state.tsx
 #: src/features/career/workspace/practise.tsx
@@ -5960,10 +5790,6 @@ msgstr "Não foi possível carregar a Lixeira"
 #: src/features/settings/profile.tsx
 msgid "Couldn't load your application profile. Your saved data hasn't changed."
 msgstr "Não foi possível carregar o seu perfil de candidatura. Os seus dados guardados não mudaram."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Couldn't load your feedback links."
-msgstr "Não foi possível carregar os seus links de feedback."
 
 #: src/routes/dashboard/applications/index.tsx
 msgid "Couldn't load your stages, so the standard ones are shown."
@@ -5996,10 +5822,6 @@ msgstr "Não foi possível criar uma cópia para trabalhar."
 #: src/features/settings/account/backup-codes.tsx
 msgid "Couldn't make new codes. Try again."
 msgstr "Não foi possível gerar novos códigos. Tente novamente."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Couldn't make the link. Try again."
-msgstr "Não foi possível criar o link. Tente novamente."
 
 #: src/features/settings/ai/providers.tsx
 msgid "Couldn't make this connection the default. Try again."
@@ -6224,10 +6046,6 @@ msgstr "Não foi possível guardar a oferta de emprego. O teu rascunho continua 
 msgid "Couldn't save the posting. Try again."
 msgstr "Não foi possível guardar o anúncio de emprego. Tente novamente."
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Couldn't save the QR code as PNG. Try SVG instead."
-msgstr "Não foi possível guardar o código QR como PNG. Experimente SVG."
-
 #: src/features/career/knowledge/stories.tsx
 msgid "Couldn't save the story. Try again."
 msgstr "Não foi possível guardar a história. Tente novamente."
@@ -6374,10 +6192,6 @@ msgstr "Não foi possível trocar de modelo. Tente novamente."
 msgid "Couldn't transcribe. Your recording is still here."
 msgstr "Não foi possível transcrever. A sua gravação continua aqui."
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Couldn't turn off the link. Try again."
-msgstr "Não foi possível desativar o link. Tente novamente."
-
 #. Fallback toast when disabling two-factor authentication fails
 #: src/dialogs/auth/disable-two-factor.tsx
 msgid "Couldn't turn off two-step verification. Check your password and try again."
@@ -6416,11 +6230,6 @@ msgstr "Não foi possível desbloquear os documentos. Tente novamente."
 msgid "Couldn't update saved answers. Try again."
 msgstr "Não foi possível atualizar as respostas guardadas. Tente novamente."
 
-#: src/features/resume/share/custom-domain-field.tsx
-#: src/features/resume/share/share-panel.tsx
-msgid "Couldn't update sharing. Try again."
-msgstr "Não foi possível atualizar a partilha. Tente novamente."
-
 #: src/features/career/workspace/messages.tsx
 msgid "Couldn't update the application. Nothing was changed. Try again."
 msgstr "Não foi possível atualizar a candidatura. Nada foi alterado. Tente novamente."
@@ -6433,10 +6242,6 @@ msgstr "Não foi possível atualizar a candidatura. Tente novamente."
 #: src/features/applications/use-application-actions.ts
 msgid "Couldn't update the applications. Try again."
 msgstr "Não foi possível atualizar os formulários de emprego. Tente novamente."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Couldn't update the comment. Try again."
-msgstr "Não foi possível atualizar o comentário. Tente novamente."
 
 #: src/features/applications/components/interview-dialog.tsx
 msgid "Couldn't update the interview. Try again."
@@ -6677,10 +6482,6 @@ msgctxt "Template style tag"
 msgid "Creative"
 msgstr "Criativo"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Credit"
-msgstr "Crédito"
-
 #: src/features/resume/editor/write/picture-settings.tsx
 msgid "Crop and upload"
 msgstr "Recortar e carregar"
@@ -6736,7 +6537,6 @@ msgid "Custom color (hex)"
 msgstr "Cor personalizada (hex)"
 
 #: src/components/calm/category-strip.tsx
-#: src/features/resume/share/share-panel.tsx
 msgid "Custom CSS"
 msgstr "CSS personalizado"
 
@@ -7310,10 +7110,6 @@ msgstr "Começa pelo que fez?"
 msgid "Does this offer meet what I want?"
 msgstr "Esta oferta corresponde ao que eu quero?"
 
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Domain connected"
-msgstr "Domínio ligado"
-
 #. placeholder {0}: chip.label
 #: src/features/assistant/conversation.tsx
 msgid "Don't send {0}"
@@ -7337,7 +7133,6 @@ msgstr "concluída"
 #: src/features/career/workspace/prepare-review.tsx
 #: src/features/documents/document-actions.tsx
 #: src/features/resume/editor/write/rich-text-editor-field.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/account/backup-codes.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Done"
@@ -7430,7 +7225,7 @@ msgstr "Descarregue o PDF de amostra"
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Download Word"
-msgstr "Descarregar Word"
+msgstr ""
 
 #: src/features/resume/editor/chrome/bar.tsx
 msgid "Download, needs a connection"
@@ -7445,14 +7240,6 @@ msgstr "Descarregado {file}"
 #: src/features/resume/share/download-tab.tsx
 msgid "Downloaded {file} and the cover letter"
 msgstr "Fiz o download do {file} e a carta de apresentação"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "downloads"
-msgstr "transferências"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Downloads"
-msgstr "Transferências"
 
 #: src/features/career/workspace/preparation.tsx
 msgid "draft"
@@ -8073,7 +7860,7 @@ msgstr "Introduza o URL base da API do seu serviço e teste novamente."
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Enter the password the resume owner shared with you."
-msgstr "Introduza a senha que o proprietário do currículo lhe partilhou."
+msgstr ""
 
 #: src/features/resume/builder/password-dialog.tsx
 msgid "Enter the same password in both fields."
@@ -8255,15 +8042,6 @@ msgstr "Experiência"
 msgid "Experience, Education and more"
 msgstr "Experiência, Formação e mais"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Expired"
-msgstr "Expirado"
-
-#. placeholder {0}: i18n.date(link.expiresAt, { dateStyle: "medium" })
-#: src/features/resume/share/feedback-links.tsx
-msgid "expires {0}"
-msgstr "expira a {0}"
-
 #: src/features/homepage/prepare.tsx
 msgid "explain one limit of the measurement clearly, without underselling the work."
 msgstr "explicar com clareza um limite da medição, sem desvalorizar o trabalho."
@@ -8424,15 +8202,6 @@ msgstr "Feedback"
 #: src/features/career/workspace/practise.tsx
 msgid "Feedback · compared with your stories and the posting"
 msgstr "Feedback · comparado com as suas histórias e o anúncio"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Feedback link"
-msgstr "Link de feedback"
-
-#: src/features/resume/share/feedback-links.tsx
-#: src/features/resume/share/share-panel.tsx
-msgid "Feedback links"
-msgstr "Links de feedback"
 
 #: src/features/career/workspace/practise.tsx
 msgid "Feedback on an answer needs AI."
@@ -8771,11 +8540,6 @@ msgstr "Para uma vaga"
 msgid "For a promotion at the same company: its own position, dates and description."
 msgstr "Para uma promoção na mesma empresa: cargo, datas e descrição próprios."
 
-#. placeholder {0}: domain.target
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "For a root domain such as example.com, use A and AAAA records with {0}'s addresses instead of the CNAME."
-msgstr "Para um domínio raiz como example.com, utilize registos A e AAAA com os endereços de {0} em vez do CNAME."
-
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "For details the other categories don't cover. Rules apply to the page, the PDF and your public page."
 msgstr "Para detalhes que as outras categorias não cobrem. As regras aplicam-se à página, ao PDF e à sua página pública."
@@ -8791,10 +8555,6 @@ msgstr "Por exemplo “Fui mentor de dois PMs associados em 2025”"
 #: src/features/resume/share/history-tab.tsx
 msgid "For example, Before the rewrite"
 msgstr "Por exemplo, Antes da reescrita"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "For example, Careers office"
-msgstr "Por exemplo, Gabinete de Carreiras"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/notes.tsx
 msgid "For example, where you sent this resume, or links to the postings."
@@ -9161,11 +8921,6 @@ msgstr "Ir para o Reactive Resume"
 msgid "Go to Today"
 msgstr "Ir para Hoje"
 
-#. placeholder {0}: url.replace(/^https?:\/\//, "")
-#: src/features/resume/share/address-field.tsx
-msgid "Goes live at {0} when you publish."
-msgstr "Fica disponível em {0} quando publicar."
-
 #. Authentication provider display name in account settings
 #. Brand name label for Google social sign-in button
 #: src/features/auth/components/social-auth.tsx
@@ -9365,10 +9120,6 @@ msgstr "Ocultar"
 msgctxt "Fold an edit card"
 msgid "Hide"
 msgstr "Ocultar"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Hide contact details"
-msgstr "Ocultar dados de contacto"
 
 #: src/features/resume/editor/write/entry-row.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
@@ -9604,10 +9355,6 @@ msgstr "ID {clientId}"
 msgid "If an account uses that address, a reset link is on its way."
 msgstr "Se alguma conta usar esse endereço, está a caminho um link de reposição."
 
-#: src/features/resume/share/share-panel.tsx
-msgid "If another resume holds Primary, turn it on for this one instead."
-msgstr "Se outro currículo for o Principal, ative esta opção neste."
-
 #: src/features/homepage/remember.tsx
 msgid "If I did it again, I’d agree on the measure before the first prototype."
 msgstr "Se voltasse a fazê-lo, acordaria a métrica antes do primeiro protótipo."
@@ -9622,7 +9369,7 @@ msgstr "Se fizer parte da sua experiência, adicione-o onde pertence."
 
 #: src/features/resume/share/web-page-text.ts
 msgid "If someone sent you this link, ask them for a new one."
-msgstr "Se alguém lhe enviou este link, encomende um novo."
+msgstr ""
 
 #: src/features/auth/email-text.ts
 msgid "If the button does not work, copy and paste this link into your browser:"
@@ -9786,18 +9533,6 @@ msgstr "Melhorar funciona numa linha depois de a escrever."
 #: src/features/resume/editor/write/improve.tsx
 msgid "Improving…"
 msgstr "Melhorando…"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "In 30 days"
-msgstr "Daqui a 30 dias"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "In 7 days"
-msgstr "Daqui a 7 dias"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "In 90 days"
-msgstr "Daqui a 90 dias"
 
 #: src/features/career/workspace/fit.tsx
 msgid "In Interview prep"
@@ -10075,10 +9810,6 @@ msgstr "Pode ter sido movida ou já não existe."
 msgid "It reads the posting, your notes and what you sent, and knows you are on {tabName}."
 msgstr "Lê o anúncio, as suas notas e o que enviou, e sabe que está em {tabName}."
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "It stops opening at once. Comments already left are kept. You can make a new link anytime."
-msgstr "Deixa de abrir imediatamente. Os comentários já deixados são mantidos. Pode criar um novo link a qualquer momento."
-
 #: src/features/applications/components/interview-dialog.tsx
 msgid "It will show on the application's timeline and on the calendar."
 msgstr "Aparecerá na linha do tempo do formulário de emprego e no calendário."
@@ -10260,10 +9991,6 @@ msgstr "Manter ligação"
 msgid "Keep current connection"
 msgstr "Manter a ligação atual"
 
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Keep domain"
-msgstr "Manter domínio"
-
 #: src/features/career/schedule-sheet.tsx
 #: src/features/resume/editor/save-status.tsx
 #: src/hooks/use-form-blocker.tsx
@@ -10308,10 +10035,6 @@ msgstr "Mantenha numa página"
 #: src/features/settings/account/security.tsx
 msgid "Keep passkey"
 msgstr "Manter chave de acesso"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Keep password"
-msgstr "Manter palavra-passe"
 
 #: src/features/settings/profile.tsx
 msgid "Keep profile"
@@ -10541,23 +10264,6 @@ msgstr "Última atividade {active}"
 #: src/features/settings/account/security.tsx
 msgid "Last changed in {0}"
 msgstr "Última alteração em {0}"
-
-#. placeholder {0}: formatTimeAgo(domain.lastCheckedAt, i18n.locale)
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Last checked {0}"
-msgstr "Última verificação {0}"
-
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "Last checked {lastChecked}"
-msgstr "Última verificação {lastChecked}"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Last counted view {lastView} ago"
-msgstr "Última visualização contada há {lastView}"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Last counted view {lastView} ago. Each visitor counts once an hour."
-msgstr "Última visualização contada há {lastView}. Cada visitante conta uma vez por hora."
 
 #: src/features/documents/documents-page.tsx
 #: src/routes/builder/$resumeId/-components/document-details.tsx
@@ -10922,7 +10628,6 @@ msgid "Link an existing letter"
 msgstr "Associar uma carta existente"
 
 #: src/features/documents/document-actions.tsx
-#: src/features/resume/share/copy-link-button.tsx
 #: src/features/resume/share/web-page-text.ts
 msgid "Link copied"
 msgstr "Link copiado"
@@ -10931,17 +10636,9 @@ msgstr "Link copiado"
 msgid "Link expired"
 msgstr "Link expirado"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Link expires"
-msgstr "O link expira"
-
 #: src/components/input/url-input.tsx
 msgid "Link label"
 msgstr "Etiqueta do link"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Link made"
-msgstr "Link criado"
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Link one later"
@@ -10962,14 +10659,6 @@ msgstr "Link para formulário de emprego"
 #: src/features/documents/document-actions.tsx
 msgid "Link to application…"
 msgstr "Link para o formulário de emprego…"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Link turned off"
-msgstr "Link desativado"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Link turned off. The address is kept"
-msgstr "Link desativado. O endereço é mantido"
 
 #: src/features/resume/editor/check/issues.ts
 msgid "Link updated"
@@ -11056,11 +10745,6 @@ msgstr "A ouvir… Pare quando terminar."
 #: src/libs/locale.ts
 msgid "Lithuanian"
 msgstr "Lituano"
-
-#. placeholder {0}: url.replace(/^https?:\/\//, "")
-#: src/features/resume/share/address-field.tsx
-msgid "Live at {0}"
-msgstr "Ao vivo em {0}"
 
 #: src/features/applications/components/import-applications-sheet.tsx
 msgid "Load your stages before importing named stages. Your CSV data is kept."
@@ -11163,7 +10847,6 @@ msgstr "A carregar espaço de trabalho…"
 #: src/features/command-palette/index.tsx
 #: src/features/command-palette/pages/ask.tsx
 #: src/features/resume/editor/check/job-match.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/ai/next-steps.tsx
 #: src/features/settings/profile.tsx
 msgid "Loading…"
@@ -11285,7 +10968,7 @@ msgstr "{0} de {1} tornados públicos. As cartas não têm link público e os do
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Made with Reactive Resume"
-msgstr "Feito com o Reactive Resume"
+msgstr ""
 
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
@@ -11337,14 +11020,6 @@ msgstr "Torne-o mais específico"
 msgid "Make it shorter"
 msgstr "Torne-o mais curto"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Make link"
-msgstr "Criar link"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Make primary"
-msgstr "Tornar principal"
-
 #: src/features/documents/documents-page.tsx
 msgid "Make private"
 msgstr "Tornar privado"
@@ -11364,10 +11039,6 @@ msgstr "Faça o texto visível corresponder ao destino."
 #: src/features/ats-checker/messages.ts
 msgid "Make them visibly larger, bolder or capitalized."
 msgstr "Torne-os visivelmente maiores, em negrito ou em maiúsculas."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Make this your primary resume?"
-msgstr "Tornar este o seu currículo principal?"
 
 #: src/features/assistant/translate-resume.tsx
 msgid "Makes a copy named “{copyName}” and opens it with a request ready for the assistant. Nothing is sent until you send it."
@@ -11542,10 +11213,6 @@ msgstr "A comparar os seus factos"
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Matching, Add to Skills and hiding a term work without it."
 msgstr "A correspondência, Adicionar às Competências e ocultar um termo funcionam sem isso."
-
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "May be available"
-msgstr "Pode estar disponível"
 
 #: src/features/ai/usage.tsx
 msgid "MCP match score"
@@ -11960,11 +11627,6 @@ msgstr "A minha tarefa era descobrir porquê, sem aumentar o trabalho de suporte
 msgid "Name"
 msgstr "Nome"
 
-#: src/features/resume/share/dns-records-dialog.tsx
-msgctxt "DNS record"
-msgid "Name"
-msgstr "Nome"
-
 #: src/features/settings/ai/provider-fields.tsx
 msgid "Name and base URL"
 msgstr "Nome e URL base"
@@ -12110,14 +11772,9 @@ msgstr "Rede social"
 
 #: src/features/career/coach.tsx
 #: src/features/career/knowledge/facts.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/ai/page.tsx
 msgid "Never"
 msgstr "Nunca"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Never opened"
-msgstr "Nunca aberto"
 
 #: src/features/career/coach.tsx
 #: src/features/documents/document-card.tsx
@@ -12165,10 +11822,6 @@ msgstr "Novo documento"
 #: src/features/career/knowledge/facts.tsx
 msgid "New fact"
 msgstr "Novo facto"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "New feedback link"
-msgstr "Novo link de feedback"
 
 #: src/features/auth/pages/login.tsx
 msgid "New here?"
@@ -12369,7 +12022,6 @@ msgid "No commands match that search."
 msgstr "Nenhum comando corresponde a essa pesquisa."
 
 #: src/features/feedback/review-page.tsx
-#: src/features/resume/share/feedback-links.tsx
 msgid "No comments yet."
 msgstr "Ainda não há comentários."
 
@@ -12404,10 +12056,6 @@ msgstr "Ainda sem carta de apresentação"
 #: src/features/documents/documents-page.tsx
 msgid "No cover letters yet"
 msgstr "Ainda não há cartas de apresentação"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "No custom domain"
-msgstr "Sem domínio personalizado"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "No custom rules"
@@ -12545,10 +12193,6 @@ msgstr "Sem novas funções. A descoberta de funções volta a correr às {clock
 msgid "No offers to compare yet"
 msgstr "Ainda não há ofertas para comparar"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "No open applications."
-msgstr "Nenhuma candidatura aberta."
-
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
 msgid "No open issues"
 msgstr "Não há problemas em aberto"
@@ -12557,10 +12201,6 @@ msgstr "Não há problemas em aberto"
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "No other stage counts as {0}. Add one first, so its applications have somewhere to go."
 msgstr "Nenhuma outra fase conta como {0}. Adicione uma primeiro para poder mover as candidaturas desta fase."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "no password"
-msgstr "sem palavra-passe"
 
 #: src/features/resume/editor/check/issues.ts
 msgid "No phone number"
@@ -12809,10 +12449,6 @@ msgstr "sem autorização para trabalhar"
 msgid "Not available in this browser"
 msgstr "Não disponível neste navegador"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Not available while the resume needs a password."
-msgstr "Indisponível enquanto o currículo precisar de senha."
-
 #: src/features/settings/account/security.tsx
 msgid "Not connected"
 msgstr "Não conectado"
@@ -12820,10 +12456,6 @@ msgstr "Não conectado"
 #: src/features/settings/ai/web-access.tsx
 msgid "Not connected · finds roles and reads pages the reader can't"
 msgstr "Não ligado · encontra funções e lê páginas que o leitor não consegue"
-
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Not connected yet. Add its DNS records where you manage the domain, then check."
-msgstr "Ainda não ligado. Adicione os registos DNS dele onde gere o domínio e depois verifique."
 
 #: src/features/applications/components/insights-view.tsx
 msgid "Not enough to compare yet: this needs 3 of each."
@@ -13155,14 +12787,6 @@ msgstr "Odia"
 msgid "Off"
 msgstr "Desligado"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Off by default. Shares an editable Word file with the same visible content as your web page. Layout is simplified."
-msgstr "Desativado por predefinição. Partilha um ficheiro Word editável com o mesmo conteúdo visível da sua página web. O layout é simplificado."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Off makes the link read-only."
-msgstr "Desativado torna o link só de leitura."
-
 #: src/features/homepage/remember.tsx
 msgid "Off: the coach won’t see it or claim it."
 msgstr "Desativado: o coach não o vê nem o afirma."
@@ -13170,14 +12794,6 @@ msgstr "Desativado: o coach não o vê nem o afirma."
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Off. Edit this letter’s details below. Turning this on replaces them with the resume’s current details."
 msgstr "Desativado. Edita os dados desta carta abaixo. Ao ativar esta opção, serão substituídos pelos dados atuais do currículo."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Off. Let recruiters find you on Google by turning this on."
-msgstr "Desativado. Ative para aparecer aos recrutadores no Google."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Off. Only you can see your web page."
-msgstr "Desligado. A sua página web só é visível para si."
 
 #: src/features/applications/stages.ts
 #: src/features/career/offer-entry.tsx
@@ -13459,19 +13075,7 @@ msgstr "Só se guarda quando e quantas vezes, nunca o texto. O coach não volta 
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Only you can see this address. Publish it in Share."
-msgstr "Só você consegue ver este endereço. Publique-o em Partilhar."
-
-#: src/features/resume/share/web-page-preview.tsx
-msgid "Only you can see this page"
-msgstr "Esta página só é visível para si"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "only you see these"
-msgstr "só visíveis para si"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Only you see this."
-msgstr "Só você vê isto."
+msgstr ""
 
 #: src/libs/orpc/ai-consent.ts
 msgid "Only your recording is sent to this transcription model. The returned transcript is saved to your account."
@@ -13591,7 +13195,7 @@ msgstr "Abrir versão enviada"
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Open Share"
-msgstr "Abrir Partilhar"
+msgstr ""
 
 #: src/features/career/workspace/prepare.tsx
 msgid "Open stories"
@@ -13633,22 +13237,9 @@ msgstr "Abrir a versão enviada do currículo"
 msgid "Open Trash"
 msgstr "Abrir a Lixeira"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Open web page"
-msgstr "Abrir página web"
-
 #: src/features/settings/ai/providers.tsx
 msgid "OpenAI, Anthropic, Gemini, Ollama and more"
 msgstr "OpenAI, Anthropic, Gemini, Ollama e outros"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Opened"
-msgstr "Aberto"
-
-#. placeholder {0}: dayLabel(link.lastViewedAt, i18n.locale)
-#: src/features/resume/share/feedback-links.tsx
-msgid "Opened {0}"
-msgstr "Aberto {0}"
 
 #: src/features/homepage/remember.tsx
 msgid "Opening"
@@ -14029,18 +13620,6 @@ msgstr "Senha alterada"
 msgid "Password changed. You're signed out everywhere; sign in, then add any passkeys again."
 msgstr ""
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Password removed"
-msgstr "Senha removida"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "password set"
-msgstr "palavra-passe definida"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Password set"
-msgstr "Senha definida"
-
 #: src/dialogs/auth/set-password.tsx
 msgid "Password set. You can now sign in with it too."
 msgstr "Palavra-passe definida. Agora também pode iniciar sessão com ela."
@@ -14132,14 +13711,6 @@ msgstr "Período de pagamento"
 msgid "Pay, deadline and conditions, so you can compare and decide"
 msgstr "Remuneração, prazo e condições, para poder comparar e decidir"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "PDF download off"
-msgstr "Descarga em PDF desativada"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "PDF download on"
-msgstr "Descarga em PDF ativada"
-
 #: src/features/ai/usage.tsx
 msgid "PDF import"
 msgstr "Importação de PDF"
@@ -14203,7 +13774,6 @@ msgstr "Persa"
 #: src/features/resume/editor/check/parser-view.tsx
 #: src/features/resume/editor/write/basics-card.tsx
 #: src/features/resume/editor/write/entries.tsx
-#: src/features/resume/share/web-page-preview.tsx
 #: src/features/settings/profile.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Phone"
@@ -14651,10 +14221,6 @@ msgstr "Pré-visualizar {0}"
 msgid "Preview {name} sample PDF"
 msgstr "Visualizar exemplo PDF de {name}"
 
-#: src/features/resume/share/web-page-preview.tsx
-msgid "Preview size"
-msgstr "Tamanho da pré-visualização"
-
 #: src/features/documents/document-card.tsx
 msgid "Preview unavailable"
 msgstr "Pré-visualização indisponível"
@@ -14710,10 +14276,6 @@ msgstr "Versão anterior"
 msgid "Primary color"
 msgstr "Cor principal"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Primary resume"
-msgstr "Currículo principal"
-
 #: src/features/resume/share/download-menu.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Print"
@@ -14722,14 +14284,6 @@ msgstr "Imprimir"
 #: src/features/ats-checker/messages.ts
 msgid "Print or export the form to a flat PDF before sending it."
 msgstr "Imprima ou exporte o formulário para um PDF plano antes de o enviar."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Privacy"
-msgstr "Privacidade"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Privacy and downloads"
-msgstr "Privacidade e transferências"
 
 #: src/features/homepage/share.tsx
 msgid "Private"
@@ -14870,10 +14424,6 @@ msgstr "Teste do fornecedor"
 msgid "Public"
 msgstr "Público"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Public link"
-msgstr "Link público"
-
 #: src/features/documents/document-status.tsx
 #: src/routes/builder/$resumeId/-components/document-details.tsx
 msgid "Public, with a password"
@@ -14882,30 +14432,6 @@ msgstr "Público, com senha"
 #: src/libs/resume/section.tsx
 msgid "Publications"
 msgstr "Publicações"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish"
-msgstr "Publicar"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish it to share a link that opens on any screen. Only you can see it until then."
-msgstr "Publique-a para partilhar um link que abre em qualquer ecrã. Até lá, mais ninguém a pode ver."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish the web page first."
-msgstr "Publique primeiro a página web."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish the web page to count views and downloads. Counts are anonymous, and search engines aren't counted."
-msgstr "Publique a página web para contar visualizações e transferências. As contagens são anónimas e os motores de pesquisa não são contabilizados."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish this resume to open it at your short link and custom domain."
-msgstr "Publique este currículo para o abrir no seu link curto e domínio personalizado."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish this resume to open it at your short link."
-msgstr "Publique este currículo para o abrir no seu link curto."
 
 #: src/features/resume/editor/write/entries.tsx
 msgid "Publisher"
@@ -14938,14 +14464,6 @@ msgstr "Coloque o cursor numa linha para melhorá-lo"
 #: src/features/assistant/chat.ts
 msgid "Q: {question}"
 msgstr "P: {question}"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "QR code"
-msgstr "Código QR"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "QR code for {url}"
-msgstr "Código QR para {url}"
 
 #. Accessible title for QR code image shown during two-factor setup
 #: src/dialogs/auth/enable-two-factor.tsx
@@ -15425,10 +14943,6 @@ msgstr "Atualizar o briefing"
 msgid "Refresh usage"
 msgstr "Atualizar utilização"
 
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "Register at OlaCV"
-msgstr "Registar na OlaCV"
-
 #: src/features/career/workspace/prepare.tsx
 msgid "Rehearse aloud"
 msgstr "Ensaiar em voz alta"
@@ -15573,7 +15087,6 @@ msgid "Remote, Hybrid, a city…"
 msgstr "Remoto, híbrido, uma cidade…"
 
 #: src/features/applications/components/detail/contacts.tsx
-#: src/features/resume/share/custom-domain-field.tsx
 #: src/features/settings/account/security.tsx
 msgid "Remove"
 msgstr "Remover"
@@ -15623,10 +15136,6 @@ msgstr "Remover ligação"
 msgid "Remove connection…"
 msgstr "Remover ligação…"
 
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Remove domain"
-msgstr "Remover domínio"
-
 #: src/features/resume/editor/write/basics-card.tsx
 msgid "Remove field"
 msgstr "Remover campo"
@@ -15643,10 +15152,6 @@ msgstr "Remover link {0}"
 #: src/features/settings/account/security.tsx
 msgid "Remove passkey"
 msgstr "Remover chave de acesso"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Remove password"
-msgstr "Remover senha"
 
 #. placeholder {0}: i18n.number(index + 1)
 #: src/features/applications/components/interview-dialog.tsx
@@ -15677,14 +15182,6 @@ msgstr "Remover fase"
 #: src/features/applications/components/application-form-sheet.tsx
 msgid "Remove tag"
 msgstr "Remover etiqueta"
-
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Remove the custom domain?"
-msgstr "Remover o domínio personalizado?"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Remove the password?"
-msgstr "Remover a palavra-passe?"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Remove the web connection?"
@@ -15896,10 +15393,6 @@ msgstr "Valor pedido"
 #: src/features/settings/profile.tsx
 msgid "Requested salary"
 msgstr "Salário pretendido"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Require a password"
-msgstr "Exigir uma palavra-passe"
 
 #: src/features/career/knowledge/preferences.tsx
 #: src/features/career/workspace/fit.tsx
@@ -16656,10 +16149,6 @@ msgstr "Guardar nome"
 msgid "Save offer"
 msgstr "Guardar oferta de emprego"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Save PNG"
-msgstr "Guardar PNG"
-
 #: src/features/career/workspace/preparation.tsx
 msgid "Save posting"
 msgstr "Guardar anúncio"
@@ -16680,10 +16169,6 @@ msgstr "Guardar agendamento"
 #: src/features/career/knowledge/stories.tsx
 msgid "Save story"
 msgstr "Guardar história"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Save SVG"
-msgstr "Guardar SVG"
 
 #: src/features/documents/document-actions.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
@@ -16903,11 +16388,6 @@ msgstr "Guardado com esta candidatura. A assinatura foi deixada de fora."
 msgid "Saved: {0}. Skipped: {1}. Existing, corrected or switched-off facts stay unchanged."
 msgstr "Guardados: {0}. Ignorados: {1}. Os factos existentes, corrigidos ou desativados permanecem inalterados."
 
-#. placeholder {0}: new URL(url).host
-#: src/features/resume/share/address-field.tsx
-msgid "Saving {0}/{username}/{slug}… Copy is available after saving."
-msgstr "Guardar {0}/{username}/{slug}… A cópia está disponível após guardar."
-
 #: src/features/resume/builder/draft.ts
 msgid "Saving is taking longer than expected. Your changes are still open."
 msgstr "A gravação está a demorar mais do que o esperado. As suas alterações continuam abertas."
@@ -17069,10 +16549,6 @@ msgstr "A pesquisa abrange títulos, etiquetas e candidaturas associadas."
 #: src/features/command-palette/content.tsx
 msgid "Search documents, applications and commands"
 msgstr "Pesquisar documentos, candidaturas e comandos"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Search engines such as Google may list your web page. It can take weeks to appear, or to disappear after you turn this off."
-msgstr "Motores de pesquisa como o Google podem listar a sua página web. Pode demorar semanas a aparecer, ou a desaparecer depois de desativar esta opção."
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Search failed"
@@ -17347,11 +16823,6 @@ msgstr "Enviar"
 msgid "Send {0} again"
 msgstr "Enviar {0} novamente"
 
-#: src/features/resume/share/feedback-links.tsx
-#: src/features/resume/share/share-panel.tsx
-msgid "Send a coach or friend a private link to this version. They can comment, but can't change it or see anything else."
-msgstr "Envie a um coach ou amigo um link privado para esta versão. Pode comentar, mas não pode alterá-la nem ver mais nada."
-
 #: src/features/applications/components/calendar-view.tsx
 #: src/features/applications/next-step.ts
 msgid "Send a follow-up"
@@ -17616,21 +17087,14 @@ msgstr "Largura da sombra"
 #: src/features/homepage/footer.tsx
 #: src/features/homepage/header.tsx
 #: src/features/homepage/share.tsx
-#: src/features/resume/share/share-panel.tsx
 #: src/features/resume/share/web-page-text.ts
-#: src/routes/builder/$resumeId/-components/editor-bar.tsx
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
-#: src/routes/builder/$resumeId/-components/use-editor-hotkeys.ts
 msgid "Share"
 msgstr "Partilhar"
 
 #: src/features/homepage/share.tsx
 msgid "Share a public link, add a password or keep it private. Choose from 3 visibility options. Export to PDF or Word, or take all your data with you as JSON."
 msgstr "Partilhe um link público, adicione uma palavra-passe ou mantenha-o privado. Escolha entre 3 opções de visibilidade. Exporte para PDF ou Word ou leve todos os seus dados consigo como JSON."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Share application progress (optional)"
-msgstr "Partilhar o progresso das candidaturas (opcional)"
 
 #. placeholder {0}: provider.label
 #: src/libs/orpc/ai-consent.ts
@@ -17640,10 +17104,6 @@ msgstr "Partilhar dados com {0}?"
 #: src/features/resume/editor/chrome/download-sheet.tsx
 msgid "Share sections"
 msgstr "Partilhar seções"
-
-#: src/features/resume/share/address-field.tsx
-msgid "Share via…"
-msgstr "Partilhe por…"
 
 #: src/features/documents/document-actions.tsx
 msgid "Share…"
@@ -17691,14 +17151,6 @@ msgstr "Curto e direto. Tudo bem se o anúncio de emprego exigir brevidade."
 msgid "Short and polite, for the recruiter"
 msgstr "Curto e educado, para o recrutador"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Short link"
-msgstr "Link curto"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Short link and domain"
-msgstr "Link curto e domínio"
-
 #: src/routes/dashboard/-components/app-shell.tsx
 msgid "Shortcuts"
 msgstr "Atalhos"
@@ -17732,10 +17184,6 @@ msgstr "Mostrar"
 msgctxt "Open a folded edit card"
 msgid "Show"
 msgstr "Mostrar"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Show “Made with Reactive Resume”"
-msgstr "Mostrar «Feito com Reactive Resume»"
 
 #. placeholder {0}: i18n.number(Math.min(remaining, COLUMN_PAGE_SIZE))
 #: src/features/applications/components/board.tsx
@@ -17789,17 +17237,9 @@ msgstr "Mostrar todos os tipos"
 msgid "Show closed applications"
 msgstr "Mostrar candidaturas encerradas"
 
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Show DNS records"
-msgstr "Mostrar registos DNS"
-
 #: src/features/resume/editor/proposals/proposal-list.tsx
 msgid "Show edit {number}"
 msgstr "Mostrar edição {number}"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Show in search engines"
-msgstr "Mostrar nos motores de pesquisa"
 
 #: src/features/resume/editor/check/check-panel.tsx
 msgid "Show it again"
@@ -19177,7 +18617,7 @@ msgstr "Esse ficheiro é demasiado grande para ser verificado. PDFs até 25 MB f
 
 #: src/features/resume/share/web-page-text.ts
 msgid "That password isn't correct. Check it with the resume owner and try again."
-msgstr "Essa senha não está correta. Confirme com o proprietário do currículo e tente novamente."
+msgstr ""
 
 #: src/dialogs/auth/disable-two-factor.tsx
 #: src/features/settings/account/backup-codes.tsx
@@ -19480,10 +18920,6 @@ msgstr "A carta corresponde novamente ao desenho do currículo"
 msgid "The line changed since you asked, so it wasn't replaced."
 msgstr "A linha mudou desde o pedido, por isso não foi substituída."
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "The link opens the resume as it is now. Later edits aren't shared, so every comment is about this version."
-msgstr "O link abre o currículo tal como está agora. As edições posteriores não são partilhadas, por isso todos os comentários são sobre esta versão."
-
 #: src/features/auth/email-text.ts
 msgid "The link works for 1 hour. Resetting signs you out on every device and removes your passkeys and connected apps. If you didn't ask for this, ignore this email; your password stays the same."
 msgstr "O link é válido durante 1 hora. A reposição termina a sua sessão em todos os dispositivos e remove as suas chaves de acesso e aplicações ligadas. Se não pediu isto, ignore este email; a sua palavra-passe mantém-se."
@@ -19654,10 +19090,6 @@ msgstr "As perguntas, a escrita, a fala e Ouvir funcionam sem isso."
 msgid "The reason is kept for Insights. Linked documents aren't touched."
 msgstr "O motivo é mantido para o Insights. Os documentos vinculados não são tocados."
 
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "The records aren't visible yet. Check again later."
-msgstr "Os registos ainda não estão visíveis. Verifique novamente mais tarde."
-
 #: src/routes/builder/letter/-components/design-panel.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "the resume"
@@ -19691,10 +19123,6 @@ msgstr "O currículo que enviou {sent} · bloqueado"
 #: src/features/resume/editor/check/writing-tab.tsx
 msgid "The review couldn't finish. Try again."
 msgstr "A revisão não pôde terminar. Tente novamente."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "The reviewer sees each one's stage and dates. Notes, contacts and pay stay private."
-msgstr "O revisor vê a fase e as datas de cada uma. Notas, contactos e remuneração ficam privados."
 
 #: src/features/ats-checker/messages.ts
 msgid "The same line repeats on every page."
@@ -20195,7 +19623,7 @@ msgstr "Este currículo é longo."
 
 #: src/features/resume/share/web-page-text.ts
 msgid "This resume is password-protected"
-msgstr "Este currículo está protegido por senha"
+msgstr ""
 
 #: src/features/resume/editor/check/job-match.tsx
 msgid "This resume isn't linked to an application yet. Pick one to make a copy for it."
@@ -20203,7 +19631,7 @@ msgstr "Este currículo ainda não está associado a uma candidatura. Escolha um
 
 #: src/features/resume/share/web-page-text.ts
 msgid "This resume isn't shared right now"
-msgstr "Este currículo não está partilhado neste momento"
+msgstr ""
 
 #: src/features/resume/editor/check/job-match.tsx
 msgid "This resume stays as it is for other jobs"
@@ -20449,7 +19877,6 @@ msgstr "hoje"
 #: src/features/applications/components/calendar-view.tsx
 #: src/features/career/today.tsx
 #: src/features/command-palette/pages/navigation.tsx
-#: src/features/resume/share/share-panel.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 #: src/routes/dashboard/-components/app-shell.tsx
 #: src/routes/dashboard/index.tsx
@@ -20609,11 +20036,6 @@ msgstr "A cortar palavras"
 msgid "Trust this device for 30 days"
 msgstr "Confiar neste dispositivo durante 30 dias"
 
-#. placeholder {0}: result.suggestion
-#: src/features/resume/share/address-field.tsx
-msgid "Try {0}"
-msgstr "Experimente {0}"
-
 #: src/features/career/today.tsx
 #: src/features/documents/documents-page.tsx
 msgid "Try a sample"
@@ -20633,7 +20055,6 @@ msgstr "Experimente uma amostra"
 #: src/features/resume/editor/write/improve.tsx
 #: src/features/resume/preview/preview.browser.tsx
 #: src/features/resume/share/download-tab.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/ai/next-steps.tsx
 #: src/features/settings/ai/web-access.tsx
 #: src/features/settings/integrations/ai-provider-load-state.tsx
@@ -20690,7 +20111,6 @@ msgstr "Turco"
 
 #. Destructive action button to turn off two-factor authentication
 #: src/dialogs/auth/disable-two-factor.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/account/security.tsx
 #: src/features/settings/ai/providers.tsx
 msgid "Turn off"
@@ -20703,14 +20123,6 @@ msgstr "Desative as ligaduras discricionárias ao exportar."
 #: src/features/keyboard-shortcuts/character-shortcuts.tsx
 msgid "Turn off if you use speech input. Shortcuts with ⌘ keep working."
 msgstr "Desative se usar entrada por voz. Os atalhos com ⌘ continuam a funcionar."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Turn off link…"
-msgstr "Desativar link…"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Turn off this link?"
-msgstr "Desativar este link?"
 
 #: src/features/settings/account/security.tsx
 msgid "Turn off two-step verification"
@@ -20728,35 +20140,14 @@ msgstr "Ativar"
 msgid "Turn on two-step verification"
 msgstr "Ativar verificação em duas etapas"
 
-#: src/features/resume/share/web-page-preview.tsx
-msgid "Turn Public link on to share it."
-msgstr "Ative o Link público para o partilhar."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Turn this on to open this resume at your short link and custom domain."
-msgstr "Ative esta opção para abrir este currículo no seu link curto e domínio personalizado."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Turn this on to open this resume at your short link."
-msgstr "Ative esta opção para abrir este currículo no seu link curto."
-
 #: src/features/career/schedule-sheet.tsx
 msgid "Turn this schedule on"
 msgstr "Ativar este agendamento"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Turned off"
-msgstr "Desativado"
 
 #. placeholder {0}: provider.label
 #: src/features/settings/ai/providers.tsx
 msgid "Turned off “{0}”. Its key is kept."
 msgstr "“{0}” desativado. A chave é mantida."
-
-#. placeholder {0}: i18n.date(link.revokedAt, { day: "numeric", month: "short" })
-#: src/features/resume/share/feedback-links.tsx
-msgid "turned off {0}"
-msgstr "desativado {0}"
 
 #: src/dialogs/auth/disable-two-factor.tsx
 msgid "Turning off two-step verification…"
@@ -20792,10 +20183,6 @@ msgstr "Dois currículos feitos com o Reactive Resume"
 #: src/features/resume/editor/design/entries-group.tsx
 msgid "Two rows: company, then position"
 msgstr "Duas linhas: empresa e depois cargo"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Two shorter addresses. Both open your primary resume."
-msgstr "Dois endereços mais curtos. Ambos abrem o seu currículo principal."
 
 #: src/features/career/workspace/prepare.tsx
 msgid "Two stories"
@@ -20852,11 +20239,6 @@ msgstr "Verificação em duas etapas ativada"
 #: src/features/career/knowledge/resume-facts.tsx
 #: src/features/career/workspace/practise.tsx
 #: src/features/documents/documents-page.tsx
-msgid "Type"
-msgstr "Tipo"
-
-#: src/features/resume/share/dns-records-dialog.tsx
-msgctxt "DNS record"
 msgid "Type"
 msgstr "Tipo"
 
@@ -21205,7 +20587,6 @@ msgstr "Utilize pelo menos 8 caracteres."
 msgid "Use at least 9pt."
 msgstr "Use no mínimo 9pt."
 
-#: src/features/resume/share/address-field.tsx
 #: src/libs/error-message.ts
 msgid "Use at most 64 characters."
 msgstr "Utilize no máximo 64 caracteres."
@@ -21235,10 +20616,6 @@ msgstr "Usar em todas as candidaturas"
 #: src/features/career/knowledge/facts.tsx
 msgid "Use in coaching: {excerpt}"
 msgstr "Usar no coaching: {excerpt}"
-
-#: src/features/resume/share/address-field.tsx
-msgid "Use Latin letters a–z, numbers and single dashes."
-msgstr "Utilize letras latinas a–z, números e travessões simples."
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Use my timezone"
@@ -21428,10 +20805,6 @@ msgstr "Uzbeque"
 msgid "Valuation and dilution uncertain"
 msgstr "Avaliação e diluição incertas"
 
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "Value"
-msgstr "Valor"
-
 #: src/features/career/offers.tsx
 msgid "Value uncertain"
 msgstr "Valor incerto"
@@ -21563,38 +20936,9 @@ msgstr "Ver anúncio em {host}"
 msgid "View recorded answers"
 msgstr "Ver respostas registadas"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "views in the last 30 days"
-msgstr "visualizações nos últimos 30 dias"
-
-#. placeholder {0}: i18n.number(summary.peak)
-#: src/features/resume/share/share-panel.tsx
-msgid "Views per day, {firstLabel} to today. The busiest day had {0}."
-msgstr "Visualizações por dia, de {firstLabel} até hoje. O dia com mais teve {0}."
-
 #: src/features/homepage/share.tsx
 msgid "Visibility"
 msgstr "Visibilidade"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Visitors"
-msgstr "Visitantes"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Visitors can download the PDF"
-msgstr "Os visitantes podem descarregar o PDF"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Visitors can download Word"
-msgstr "Os visitantes podem descarregar em Word"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Visitors enter it before they see the resume. Share it only with people you trust."
-msgstr "Os visitantes introduzem a senha antes de ver o currículo. Partilhe-a apenas com pessoas em quem confia."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Visitors need the link and password to see your web page."
-msgstr "Os visitantes precisam do link e da palavra-passe para ver a sua página web."
 
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
@@ -21694,18 +21038,6 @@ msgstr "Endereço web"
 #: src/libs/orpc/ai-consent.ts
 msgid "Web destination: {0}."
 msgstr "Destino na web: {0}."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Web page"
-msgstr "Página web"
-
-#: src/features/resume/share/web-page-preview.tsx
-msgid "Web page preview"
-msgstr "Pré-visualização da página web"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Web page settings"
-msgstr "Definições da página web"
 
 #: src/features/ai/usage.tsx
 #: src/features/career/coach-thread.tsx
@@ -22162,14 +21494,6 @@ msgctxt "Template style tag"
 msgid "Whitespace"
 msgstr "Espaço em branco"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Who can find your web page, reach you from it and take a copy."
-msgstr "Quem pode encontrar a sua página web, contactá-lo a partir dela e fazer uma cópia."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Who is it for?"
-msgstr "A quem se destina?"
-
 #: src/features/homepage/prepare.tsx
 msgid "Who owns the design system today? What does success look like in 90 days?"
 msgstr "Quem é responsável pelo design system hoje? Como é o sucesso aos 90 dias?"
@@ -22249,14 +21573,6 @@ msgstr "Os ficheiros Word são lidos com IA. O ficheiro é enviado para a sua li
 #: src/features/ai/usage.tsx
 msgid "Word import"
 msgstr "Importação de Word"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Word off"
-msgstr "Word desativado"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Word on"
-msgstr "Word ativado"
 
 #: src/features/ats-checker/messages.ts
 msgid "Words run together when the text is extracted."
@@ -22509,11 +21825,6 @@ msgstr "aceitou uma oferta"
 msgid "You already saved this job: {0} at {1}."
 msgstr "Já guardou esta vaga: {0} na {1}."
 
-#. placeholder {0}: result.takenBy
-#: src/features/resume/share/address-field.tsx
-msgid "You already use this for “{0}”."
-msgstr "Já usa isso para “{0}”."
-
 #: src/features/career/schedule-sheet.tsx
 msgid "You always see results in Today."
 msgstr "Os resultados aparecem sempre em Hoje."
@@ -22735,15 +22046,6 @@ msgstr "As suas datas estão escritas de várias formas diferentes."
 msgid "Your details changed on the resume. The letter updated too."
 msgstr "Os seus dados foram alterados no currículo. A carta também foi atualizada."
 
-#: src/features/resume/share/custom-domain-field.tsx
-#: src/features/resume/share/share-panel.tsx
-msgid "Your domain"
-msgstr "O seu domínio"
-
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Your domain will stop opening your primary resume. You can reconnect it later."
-msgstr "O seu domínio deixará de abrir o seu currículo principal. Poderá voltar a ligá-lo mais tarde."
-
 #: src/features/career/coach-chat.tsx
 msgid "Your edited story is saved to Knowledge."
 msgstr "A sua história editada foi guardada no Conhecimento."
@@ -22772,10 +22074,6 @@ msgstr "O seu endereço de email está dividido em pedaços de texto."
 #: src/features/auth/pages/error.tsx
 msgid "Your email address isn't verified with the provider."
 msgstr "O seu endereço de email não está verificado junto do fornecedor."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your email, phone, location and extra header fields, and references' phone numbers, are left out of the web page, its PDF and search results. Your website stays."
-msgstr "O seu email, telefone, localização e campos extra do cabeçalho, bem como os números de telefone das referências, ficam fora da página web, do respetivo PDF e dos resultados de pesquisa. O seu site mantém-se."
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Your experience, laid out on a page."
@@ -22848,10 +22146,6 @@ msgstr "O seu nome e os dados de contacto vêm dele, e a carta pode acompanhar o
 #: src/features/resume/editor/write/outline.tsx
 msgid "Your name and how to reach you"
 msgstr "O seu nome e como o contactar"
-
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "Your name as your address, from OlaCV, the .cv registry. Code <0/> takes 50% off the first year."
-msgstr "O seu nome como o seu endereço, da OlaCV, a entidade gestora do .cv. O código <0/> dá 50% de desconto no primeiro ano."
 
 #: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Your name changed on the resume. The letter updated too."
@@ -22929,10 +22223,6 @@ msgstr "o seu currículo e esta carta"
 msgid "Your resume and your job search, in one place."
 msgstr "O seu currículo e a sua procura de emprego, num só lugar."
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Your resume as a web page"
-msgstr "O seu currículo como página web"
-
 #: src/features/resume/editor/check/issues.ts
 msgid "Your resume has a photo"
 msgstr "O seu currículo tem uma foto"
@@ -22981,42 +22271,6 @@ msgstr "O seu servidor fornece a pesquisa · ligue um serviço para ler páginas
 msgid "your server's search service"
 msgstr "o serviço de pesquisa do seu servidor"
 
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link and custom domain open “{0}”."
-msgstr "O seu link curto e domínio personalizado abrem «{0}»."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link and custom domain open this resume."
-msgstr "O seu link curto e domínio personalizado abrem este currículo."
-
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link and custom domain point to “{0}”, which isn't published."
-msgstr "O seu link curto e domínio personalizado apontam para “{0}”, que não está publicado."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link and custom domain say this resume isn't shared until you publish it again."
-msgstr "O seu link curto e domínio personalizado indicam que este currículo não está partilhado até o voltar a publicar."
-
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link opens “{0}”."
-msgstr "O seu link curto abre “{0}”."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link opens this resume."
-msgstr "O seu link curto abre este currículo."
-
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link points to “{0}”, which isn't published."
-msgstr "O seu link curto aponta para “{0}”, que não está publicado."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link says this resume isn't shared until you publish it again."
-msgstr "O seu link curto indica que este currículo não está partilhado até o publicar novamente."
-
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "Your stages changed somewhere else. They've been refreshed; try again."
 msgstr "As suas fases foram alteradas noutro local. Foram atualizadas; tente novamente."
@@ -23046,10 +22300,6 @@ msgstr "A sua apresentação de dois minutos"
 #: src/features/auth/pages/register.tsx
 msgid "Your username is made from your email. <0>Choose your own</0>"
 msgstr "O seu nome de utilizador é criado a partir do email. <0>Escolher o meu</0>"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your web page is live"
-msgstr "A sua página web está publicada"
 
 #: src/libs/orpc/ai-consent.ts
 msgid "Your web settings changed. Nothing was sent; try again."

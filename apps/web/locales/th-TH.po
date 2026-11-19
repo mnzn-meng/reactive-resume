@@ -45,14 +45,6 @@ msgstr ", กับ {0}"
 msgid "“{0}”"
 msgstr "“{0}”"
 
-#. placeholder {0}: link.resumeName
-#. placeholder {1}: date(link.createdAt)
-#. placeholder {2}: statusLabel(link.status)
-#. placeholder {3}: link.expiresAt && link.status === "active" ? `, ${t`expires ${i18n.date(link.expiresAt, { dateStyle: "medium" })}`}` : ""
-#: src/features/resume/share/feedback-links.tsx
-msgid "“{0}” as saved {1} · {2}{3}"
-msgstr "“{0}” ตามที่บันทึกไว้ {1} · {2}{3}"
-
 #. placeholder {0}: view.resumeName
 #: src/features/feedback/review-page.tsx
 msgid "“{0}” as saved on {sharedOn}."
@@ -72,11 +64,6 @@ msgstr "ล็อก “{0}” แล้ว"
 #: src/features/documents/document-actions.tsx
 msgid "“{0}” moved to Trash"
 msgstr "“{0}” ย้ายไปที่ถังขยะ"
-
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "“{0}” stops being your primary resume."
-msgstr "“{0}” จะไม่ใช่ประวัติย่อหลักของคุณอีกต่อไป"
 
 #. placeholder {0}: isolate(document.name)
 #: src/features/documents/document-actions.tsx
@@ -307,11 +294,6 @@ msgstr "{0, plural, other {อีก # วัน}}"
 #: src/features/documents/document-actions.tsx
 msgid "{0, plural, one {# moved to Trash} other {# moved to Trash}}"
 msgstr "{0, plural, other {ย้าย # รายการไปที่ถังขยะแล้ว}}"
-
-#. placeholder {0}: link.openCommentCount
-#: src/features/resume/share/feedback-links.tsx
-msgid "{0, plural, one {# new comment} other {# new comments}}"
-msgstr "{0, plural, other {ความคิดเห็นใหม่ # รายการ}}"
 
 #. placeholder {0}: notice.count
 #: src/features/career/today.tsx
@@ -751,11 +733,6 @@ msgstr "{0} จะถูกลบถาวรตอนนี้ พร้อม�
 msgid "{0} closed"
 msgstr "{0} ปิดแล้ว"
 
-#. placeholder {0}: link.commentCount
-#: src/features/resume/share/feedback-links.tsx
-msgid "{0} comments, all done"
-msgstr "{0} ความคิดเห็น เสร็จทั้งหมดแล้ว"
-
 #. placeholder {0}: props.providerLabel
 #: src/features/assistant/conversation.tsx
 msgid "{0} didn't respond."
@@ -837,16 +814,6 @@ msgstr "สัมภาษณ์{0}ที่ {1} · {2} · กับ {3}"
 #: src/features/career/workspace/overview.tsx
 msgid "{0} interview debriefed {1}"
 msgstr "สรุปผลการสัมภาษณ์{0}เมื่อ {1}"
-
-#. placeholder {0}: domain.hostname
-#: src/features/resume/share/share-panel.tsx
-msgid "{0} is connected"
-msgstr "เชื่อมต่อ {0} แล้ว"
-
-#. placeholder {0}: domain.hostname
-#: src/features/resume/share/share-panel.tsx
-msgid "{0} is not connected yet"
-msgstr "ยังไม่ได้เชื่อมต่อ {0}"
 
 #. placeholder {0}: job.company
 #: src/features/assistant/assistant-panel.tsx
@@ -1081,10 +1048,6 @@ msgstr "{active, plural, other {ใบสมัครที่ดำเนิน
 msgid "{active, plural, one {active application} other {active applications}}"
 msgstr "{active, plural, other {ใบสมัครที่ดำเนินอยู่}}"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "{active} active"
-msgstr "ใช้งานอยู่ {active}"
-
 #: src/features/career/workspace/fit-local.tsx
 msgid "{activeFacts, plural, one {# fact} other {# facts}}"
 msgstr "{activeFacts, plural, other {ข้อเท็จจริง # ข้อ}}"
@@ -1182,10 +1145,6 @@ msgstr "{connection} ผ่านการทดสอบแล้ว ลอง�
 #: src/features/career/knowledge/facts.tsx
 msgid "{correctedOn} · the original wording is kept above"
 msgstr "{correctedOn} · ถ้อยคำเดิมเก็บไว้ด้านบน"
-
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "{cost} the first year"
-msgstr "{cost} สำหรับปีแรก"
 
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "{count, plural, =0 {Its applications move to the stage you choose. Their history keeps the name “{label}”.} one {Its # application moves to the stage you choose. Its history keeps the name “{label}”.} other {Its # applications move to the stage you choose. Their history keeps the name “{label}”.}}"
@@ -1758,19 +1717,6 @@ msgstr "{sections, plural, one {ส่วน #} other {ส่วน #}}"
 msgid "{sent} sent {0}"
 msgstr "ส่ง {sent} เมื่อ {0}"
 
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "{shortLink} opens “{0}”"
-msgstr "{shortLink} เปิด “{0}”"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "{shortLink} opens no resume yet"
-msgstr "{shortLink} ยังไม่เปิดเรซูเม่ใด"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "{shortLink} opens this resume"
-msgstr "{shortLink} เปิดเรซูเม่นี้"
-
 #: src/features/applications/components/application-detail-sheet.tsx
 msgid "{since, plural, =0 {since today} one {for # day} other {for # days}}"
 msgstr "{since, plural, =0 {ตั้งแต่วันนี้} one {สำหรับวัน #} other {สำหรับ # วัน}}"
@@ -1995,10 +1941,6 @@ msgstr "0 คือซ่อน"
 msgid "06/2017 – 2021"
 msgstr "06/2017 – 2021"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "1 comment, done"
-msgstr "1 ความคิดเห็น เสร็จแล้ว"
-
 #: src/features/settings/account/security.tsx
 msgid "1 passkey · {first}"
 msgstr "1 พาสคีย์ · {first}"
@@ -2018,10 +1960,6 @@ msgstr "ฉบับ 10 นาที"
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "10–11 recommended"
 msgstr "แนะนำ 10–11"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "2 comments, both done"
-msgstr "2 ความคิดเห็น เสร็จทั้งคู่"
 
 #: src/routes/builder/letter/-components/download-sheet.tsx
 msgid "2 files"
@@ -2306,10 +2244,6 @@ msgstr "ความคิดเห็นที่สองเกี่ยวก
 msgid "A short follow-up is usually fine now"
 msgstr "การติดตามผลสั้นๆ มักจะเป็นเรื่องปกติในตอนนี้"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "A shorter address that opens your primary resume."
-msgstr "ที่อยู่ที่สั้นกว่าซึ่งเปิดเรซูเม่หลักของคุณ"
-
 #: src/features/resume/editor/design/entries-group.tsx
 msgid "A small accent line above a larger company"
 msgstr "เส้นสีเน้นเล็ก ๆ เหนือชื่อบริษัทที่ใหญ่กว่า"
@@ -2489,14 +2423,9 @@ msgstr "อัตราการเปิดใช้งานเพิ่มจ
 msgid "Activation rose from 31%…"
 msgstr "อัตราการเปิดใช้งานเพิ่มจาก 31%…"
 
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/ai/web-access.tsx
 msgid "Active"
 msgstr "คล่องแคล่ว"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Activity"
-msgstr "กิจกรรม"
 
 #: src/features/applications/components/list-view.tsx
 #: src/features/career/knowledge/facts.tsx
@@ -2653,10 +2582,6 @@ msgstr "เพิ่มคำเฉพาะเมื่อเป็นควา
 #: src/features/resume/editor/write/fields.tsx
 msgid "Add an @ and the domain, like name@example.com"
 msgstr "เพิ่ม @ และโดเมน เช่น name@example.com"
-
-#: src/features/resume/share/address-field.tsx
-msgid "Add an address."
-msgstr "เพิ่มที่อยู่"
 
 #: src/features/career/offer-entry.tsx
 #: src/features/career/schedule-sheet.tsx
@@ -2827,10 +2752,6 @@ msgstr "เพิ่มเงื่อนไขของข้อเสนอ"
 msgid "Add them as a section called “More from your file”, to sort later"
 msgstr "เพิ่มเป็นส่วนชื่อ “ข้อมูลเพิ่มเติมจากไฟล์ของคุณ” เพื่อจัดเรียงภายหลัง"
 
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "Add these records where you manage the domain, then check. Changes can take a few hours to reach everyone."
-msgstr "เพิ่มเรกคอร์ดเหล่านี้ในที่ที่คุณจัดการโดเมน แล้วตรวจสอบ การเปลี่ยนแปลงอาจใช้เวลาสองสามชั่วโมงกว่าจะมีผลกับทุกคน"
-
 #: src/features/career/knowledge/facts.tsx
 msgid "Add things you've done, with numbers when you have them, such as “Cut checkout errors by 30% in 2025”."
 msgstr "เพิ่มสิ่งที่คุณเคยทำ พร้อมตัวเลขถ้ามี เช่น “ลดข้อผิดพลาดตอนชำระเงินลง 30% ในปี 2025”"
@@ -2914,7 +2835,6 @@ msgstr "เพิ่มในคลังความรู้เป็นปร
 msgid "Added to Knowledge."
 msgstr "เพิ่มไปยัง คลังความรู้ แล้ว"
 
-#: src/features/resume/share/address-field.tsx
 #: src/features/settings/profile.tsx
 msgid "Address"
 msgstr "ที่อยู่"
@@ -3133,10 +3053,6 @@ msgstr ""
 msgid "Allow access"
 msgstr "อนุญาตให้เข้าถึง"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Allow comments"
-msgstr "อนุญาตความคิดเห็น"
-
 #: src/features/auth/pages/error.tsx
 msgid "Allow email access when the provider asks, or use another sign-in method."
 msgstr "อนุญาตการเข้าถึงอีเมลเมื่อผู้ให้บริการขอ หรือใช้วิธีเข้าสู่ระบบอื่น"
@@ -3253,10 +3169,6 @@ msgstr "และ"
 msgid "and {0} more"
 msgstr "และ {0} มากขึ้น"
 
-#: src/features/resume/share/address-field.tsx
-msgid "Another of your resumes uses this address."
-msgstr "ประวัติย่ออีกฉบับของคุณใช้ที่อยู่นี้"
-
 #: src/libs/error-message.ts
 msgid "Another resume already uses this address. Choose a different one."
 msgstr "ประวัติย่ออื่นใช้ที่อยู่นี้อยู่แล้ว เลือกที่อยู่อื่น"
@@ -3320,14 +3232,6 @@ msgstr "ประเภทใดก็ได้ ตั้งชื่อเอ�
 #: src/features/resume/builder/password-dialog.tsx
 msgid "Anyone who opens the public link needs this password."
 msgstr "ผู้ที่เปิดลิงก์สาธารณะทุกคนต้องใช้รหัสผ่านนี้"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Anyone with the link can see your web page."
-msgstr "ทุกคนที่มีลิงก์จะเห็นหน้าเว็บของคุณได้"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Anyone with the link will be able to view your resume."
-msgstr "ทุกคนที่มีลิงก์จะสามารถดูประวัติย่อของคุณได้"
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Anything that can't be placed is listed before you create it."
@@ -3525,10 +3429,6 @@ msgstr "ปรับใช้แล้ว ตั้งการติดตา�
 #: src/features/career/workspace/messages.tsx
 msgid "Applied. The application is updated."
 msgstr "ปรับใช้แล้ว อัปเดตใบสมัครแล้ว"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Applies to the web page after its own styles, at every screen size. The PDF stays as it is."
-msgstr "ใช้กับหน้าเว็บต่อจากสไตล์ของหน้าเว็บเอง ในทุกขนาดหน้าจอ PDF ยังคงเหมือนเดิม"
 
 #: src/features/resume/editor/write/section-view.tsx
 msgid "applies to the whole section"
@@ -3836,10 +3736,6 @@ msgstr "บันทึกอัตโนมัติ"
 #: src/features/resume/share/history-tab.tsx
 msgid "Autosaves are grouped by session and kept for 90 days. Named and sent versions are kept. Restoring saves the current state first, so nothing is lost."
 msgstr "การบันทึกอัตโนมัติจะจัดกลุ่มตามเซสชันและเก็บไว้ 90 วัน เวอร์ชันที่ตั้งชื่อและที่ส่งแล้วจะถูกเก็บไว้ การคืนค่าจะบันทึกสถานะปัจจุบันก่อน จึงไม่มีอะไรสูญหาย"
-
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "Available"
-msgstr "ว่าง"
 
 #: src/features/ats-checker/messages.ts
 msgid "Avoid heavy letter-spacing effects, then re-export."
@@ -4371,7 +4267,6 @@ msgstr "สแกนไม่ได้ใช่หรือไม่ ป้อ�
 #: src/features/resume/editor/check/job-match.tsx
 #: src/features/resume/editor/proposals/proposal-list.tsx
 #: src/features/resume/editor/write/picture-settings.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/account/data.tsx
 #: src/features/settings/account/profile.tsx
 #: src/features/settings/ai/providers.tsx
@@ -4429,7 +4324,6 @@ msgstr "ใบรับรอง"
 #: src/features/resume/editor/check/job-match.tsx
 #: src/features/resume/editor/check/writing-tab.tsx
 #: src/features/resume/editor/write/section-view.tsx
-#: src/features/resume/share/share-panel.tsx
 #: src/features/settings/account/profile.tsx
 #: src/features/settings/account/security.tsx
 #: src/features/settings/ai/web-access.tsx
@@ -4578,11 +4472,6 @@ msgstr "ตรวจสอบ PDF ใด ๆ โดยไม่ต้องใ�
 msgid "Check before accepting: {0}"
 msgstr "ตรวจสอบก่อนยอมรับ: {0}"
 
-#: src/features/resume/share/custom-domain-field.tsx
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "Check DNS"
-msgstr "ตรวจสอบ DNS"
-
 #: src/features/settings/profile.tsx
 msgid "Check email addresses, links, names, countries and salary. A salary amount needs currency and pay period."
 msgstr "ตรวจสอบที่อยู่อีเมล ลิงก์ ชื่อ ประเทศ และเงินเดือน จำนวนเงินเดือนต้องมีสกุลเงินและรอบการจ่าย"
@@ -4699,17 +4588,9 @@ msgstr "การตรวจสอบเค้าโครงและเนื
 msgid "Checking the exported PDF…"
 msgstr "กำลังตรวจสอบ PDF ที่ส่งออก..."
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Checking which resume opens your short link…"
-msgstr "กำลังตรวจสอบว่าเรซูเม่ใดเปิดผ่านลิงก์ย่อของคุณ…"
-
 #: src/features/career/shared.tsx
 msgid "Checking your preferences"
 msgstr "กำลังตรวจสอบการตั้งค่าที่ต้องการของคุณ"
-
-#: src/features/resume/share/address-field.tsx
-msgid "Checking… Copy is available after saving."
-msgstr "กำลังตรวจสอบ... การคัดลอกจะพร้อมใช้งานหลังจากบันทึก"
 
 #: src/features/resume/editor/check/check-panel.tsx
 msgid "Checks by category"
@@ -5022,8 +4903,6 @@ msgstr "ปิด"
 #: src/features/resume/editor/check/page-layer.tsx
 #: src/features/resume/editor/chrome/download-sheet.tsx
 #: src/features/resume/editor/write/picture-settings.tsx
-#: src/features/resume/share/dns-records-dialog.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/resume/stylesheet/editor.tsx
 #: src/features/settings/account/backup-codes.tsx
 #: src/features/settings/ai/next-steps.tsx
@@ -5150,17 +5029,12 @@ msgstr "คำสั่ง"
 msgid "Comment"
 msgstr "ความคิดเห็น"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Comment left"
-msgstr "เขียนความคิดเห็นแล้ว"
-
 #. placeholder {0}: view.ownerName
 #: src/features/feedback/review-page.tsx
 msgid "Comment sent to {0}"
 msgstr "ส่งความคิดเห็นถึง {0} แล้ว"
 
 #: src/features/feedback/review-page.tsx
-#: src/features/resume/share/feedback-links.tsx
 msgid "Comments"
 msgstr "ความคิดเห็น"
 
@@ -5265,10 +5139,6 @@ msgstr "กรอก {0} ให้ครบก่อนบันทึก"
 msgid "Compress or remove large images to keep uploads quick."
 msgstr "บีบอัดหรือลบรูปภาพขนาดใหญ่เพื่อให้อัปโหลดได้รวดเร็ว"
 
-#: src/features/resume/share/web-page-preview.tsx
-msgid "Computer"
-msgstr "คอมพิวเตอร์"
-
 #: src/features/career/offers.tsx
 msgid "Conditions not stated"
 msgstr "ไม่ระบุเงื่อนไข"
@@ -5316,19 +5186,9 @@ msgstr "ยืนยันที่อยู่อีเมลใหม่ขอ
 msgid "Confirms {time} today, by video."
 msgstr "ยืนยันวันนี้เวลา {time} ผ่านวิดีโอ"
 
-#: src/features/resume/share/custom-domain-field.tsx
 #: src/features/settings/account/security.tsx
 msgid "Connect"
 msgstr "เชื่อมต่อ"
-
-#. placeholder {0}: domain.hostname
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "Connect {0}"
-msgstr "เชื่อมต่อ {0}"
-
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "Connect {domain}"
-msgstr "เชื่อมต่อ {domain}"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Connect a search service"
@@ -5358,10 +5218,6 @@ msgstr "เชื่อมต่ออีก..."
 #: src/features/settings/ai/providers.tsx
 msgid "Connected"
 msgstr "เชื่อมต่อแล้ว"
-
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Connected. Your domain opens your primary resume."
-msgstr "เชื่อมต่อแล้ว โดเมนของคุณจะเปิดประวัติย่อหลักของคุณ"
 
 #: src/features/settings/account/auth-hooks.ts
 msgid "Connecting your {providerName} account…"
@@ -5397,14 +5253,6 @@ msgstr "ข้อมูลติดต่อและคำตอบมาตร
 #: src/features/homepage/check.tsx
 msgid "Contact details found"
 msgstr "พบรายละเอียดการติดต่อ"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Contact details hidden"
-msgstr "ซ่อนข้อมูลการติดต่อ"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Contact details shown"
-msgstr "แสดงข้อมูลการติดต่อ"
 
 #: src/features/resume/editor/check/check-panel.tsx
 msgid "Contact details, reading order, fonts, links"
@@ -5524,8 +5372,6 @@ msgid "Conversations"
 msgstr "บทสนทนา"
 
 #: src/features/homepage/share.tsx
-#: src/features/resume/share/copy-link-button.tsx
-#: src/features/resume/share/copy-text.tsx
 msgid "Copied"
 msgstr "คัดลอกแล้ว"
 
@@ -5543,13 +5389,8 @@ msgstr "คัดลอกคำถามและเปิดข้อควา
 
 #: src/features/career/coach-chat.tsx
 #: src/features/career/workspace/answer-library.tsx
-#: src/features/resume/share/copy-text.tsx
 msgid "Copy"
 msgstr "คัดลอก"
-
-#: src/features/resume/share/copy-text.tsx
-msgid "Copy {value}"
-msgstr "คัดลอก {value}"
 
 #: src/features/career/workspace/preparation.tsx
 msgid "Copy a base resume for this job"
@@ -5596,7 +5437,6 @@ msgid "Copy it for a job"
 msgstr "คัดลอกไปใช้กับงาน"
 
 #: src/features/homepage/share.tsx
-#: src/features/resume/share/copy-link-button.tsx
 msgid "Copy link"
 msgstr "คัดลอกลิงก์"
 
@@ -5709,10 +5549,6 @@ msgstr "เปลี่ยนรหัสผ่านไม่ได้ ตร�
 msgid "Couldn't check for a web search service. Retry."
 msgstr "ตรวจสอบบริการค้นหาเว็บไม่ได้ ลองอีกครั้ง"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Couldn't check which resume opens your short link. Reload the page and try again."
-msgstr "ตรวจสอบว่าเรซูเม่ใดเปิดผ่านลิงก์ย่อของคุณไม่ได้ โหลดหน้าใหม่แล้วลองอีกครั้ง"
-
 #: src/features/career/workspace/fit.tsx
 msgid "Couldn't check your evidence."
 msgstr "ตรวจสอบหลักฐานของคุณไม่ได้"
@@ -5766,8 +5602,6 @@ msgid "Couldn't copy the transcript. Try again."
 msgstr "คัดลอกข้อความถอดเสียงไม่ได้ ลองอีกครั้ง"
 
 #: src/features/career/coach-thread.tsx
-#: src/features/resume/share/copy-link-button.tsx
-#: src/features/resume/share/copy-text.tsx
 msgid "Couldn't copy to the clipboard. Try again."
 msgstr "คัดลอกไปยังคลิปบอร์ดไม่ได้ ลองอีกครั้ง"
 
@@ -5942,10 +5776,6 @@ msgstr "โหลดผลตรวจที่บันทึกไว้ไม
 msgid "Couldn't load this application. Try again."
 msgstr "โหลดใบสมัครนี้ไม่ได้ ลองอีกครั้ง"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Couldn't load this link."
-msgstr "โหลดลิงก์นี้ไม่ได้"
-
 #: src/features/applications/components/application-detail-sheet.tsx
 #: src/features/career/load-state.tsx
 #: src/features/career/workspace/practise.tsx
@@ -5960,10 +5790,6 @@ msgstr "โหลดถังขยะไม่ได้"
 #: src/features/settings/profile.tsx
 msgid "Couldn't load your application profile. Your saved data hasn't changed."
 msgstr "โหลดโปรไฟล์การสมัครงานของคุณไม่ได้ ข้อมูลที่บันทึกไว้ไม่มีการเปลี่ยนแปลง"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Couldn't load your feedback links."
-msgstr "โหลดลิงก์ความคิดเห็นของคุณไม่ได้"
 
 #: src/routes/dashboard/applications/index.tsx
 msgid "Couldn't load your stages, so the standard ones are shown."
@@ -5996,10 +5822,6 @@ msgstr "สร้างสำเนาเพื่อทำงานไม่ไ
 #: src/features/settings/account/backup-codes.tsx
 msgid "Couldn't make new codes. Try again."
 msgstr "สร้างรหัสใหม่ไม่ได้ ลองอีกครั้ง"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Couldn't make the link. Try again."
-msgstr "สร้างลิงก์ไม่ได้ ลองอีกครั้ง"
 
 #: src/features/settings/ai/providers.tsx
 msgid "Couldn't make this connection the default. Try again."
@@ -6224,10 +6046,6 @@ msgstr "บันทึกข้อเสนอไม่สำเร็จ ฉ�
 msgid "Couldn't save the posting. Try again."
 msgstr "บันทึกประกาศงานไม่ได้ ลองอีกครั้ง"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Couldn't save the QR code as PNG. Try SVG instead."
-msgstr "บันทึกคิวอาร์โค้ดเป็น PNG ไม่ได้ ลองใช้ SVG แทน"
-
 #: src/features/career/knowledge/stories.tsx
 msgid "Couldn't save the story. Try again."
 msgstr "บันทึกเรื่องราวไม่ได้ ลองอีกครั้ง"
@@ -6374,10 +6192,6 @@ msgstr "สลับโมเดลไม่ได้ ลองอีกคร�
 msgid "Couldn't transcribe. Your recording is still here."
 msgstr "ถอดเสียงไม่ได้ ไฟล์บันทึกเสียงของคุณยังอยู่ที่นี่"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Couldn't turn off the link. Try again."
-msgstr "ปิดลิงก์ไม่ได้ ลองอีกครั้ง"
-
 #. Fallback toast when disabling two-factor authentication fails
 #: src/dialogs/auth/disable-two-factor.tsx
 msgid "Couldn't turn off two-step verification. Check your password and try again."
@@ -6416,11 +6230,6 @@ msgstr "ปลดล็อกเอกสารไม่ได้ ลองอ�
 msgid "Couldn't update saved answers. Try again."
 msgstr "อัปเดตคำตอบที่บันทึกไว้ไม่ได้ ลองอีกครั้ง"
 
-#: src/features/resume/share/custom-domain-field.tsx
-#: src/features/resume/share/share-panel.tsx
-msgid "Couldn't update sharing. Try again."
-msgstr "อัปเดตการแชร์ไม่ได้ ลองอีกครั้ง"
-
 #: src/features/career/workspace/messages.tsx
 msgid "Couldn't update the application. Nothing was changed. Try again."
 msgstr "อัปเดตใบสมัครไม่ได้ ไม่มีอะไรถูกเปลี่ยนแปลง ลองอีกครั้ง"
@@ -6433,10 +6242,6 @@ msgstr "อัปเดตใบสมัครไม่ได้ ลองอ�
 #: src/features/applications/use-application-actions.ts
 msgid "Couldn't update the applications. Try again."
 msgstr "ไม่สามารถอัปเดตการสมัครงานได้ ลองอีกครั้ง"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Couldn't update the comment. Try again."
-msgstr "อัปเดตความคิดเห็นไม่ได้ ลองอีกครั้ง"
 
 #: src/features/applications/components/interview-dialog.tsx
 msgid "Couldn't update the interview. Try again."
@@ -6677,10 +6482,6 @@ msgctxt "Template style tag"
 msgid "Creative"
 msgstr "สร้างสรรค์"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Credit"
-msgstr "เครดิต"
-
 #: src/features/resume/editor/write/picture-settings.tsx
 msgid "Crop and upload"
 msgstr "ครอบตัดและอัปโหลด"
@@ -6736,7 +6537,6 @@ msgid "Custom color (hex)"
 msgstr "สีที่กำหนดเอง (ฐานสิบหก)"
 
 #: src/components/calm/category-strip.tsx
-#: src/features/resume/share/share-panel.tsx
 msgid "Custom CSS"
 msgstr "CSS กำหนดเอง"
 
@@ -7310,10 +7110,6 @@ msgstr "ขึ้นต้นด้วยสิ่งที่คุณทำห
 msgid "Does this offer meet what I want?"
 msgstr "ข้อเสนอนี้ตรงกับสิ่งที่ฉันต้องการหรือไม่"
 
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Domain connected"
-msgstr "เชื่อมต่อโดเมนแล้ว"
-
 #. placeholder {0}: chip.label
 #: src/features/assistant/conversation.tsx
 msgid "Don't send {0}"
@@ -7337,7 +7133,6 @@ msgstr "เสร็จแล้ว"
 #: src/features/career/workspace/prepare-review.tsx
 #: src/features/documents/document-actions.tsx
 #: src/features/resume/editor/write/rich-text-editor-field.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/account/backup-codes.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Done"
@@ -7430,7 +7225,7 @@ msgstr "ดาวน์โหลดตัวอย่าง PDF"
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Download Word"
-msgstr "ดาวน์โหลด Word"
+msgstr ""
 
 #: src/features/resume/editor/chrome/bar.tsx
 msgid "Download, needs a connection"
@@ -7445,14 +7240,6 @@ msgstr "ดาวน์โหลด {file} แล้ว"
 #: src/features/resume/share/download-tab.tsx
 msgid "Downloaded {file} and the cover letter"
 msgstr "ดาวน์โหลด {file} และจดหมายปะหน้าแล้ว"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "downloads"
-msgstr "ดาวน์โหลด"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Downloads"
-msgstr "ดาวน์โหลด"
 
 #: src/features/career/workspace/preparation.tsx
 msgid "draft"
@@ -8073,7 +7860,7 @@ msgstr "ป้อน URL พื้นฐานของ API บริการ�
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Enter the password the resume owner shared with you."
-msgstr "ป้อนรหัสผ่านที่เจ้าของเรซูเม่แชร์ให้คุณ"
+msgstr ""
 
 #: src/features/resume/builder/password-dialog.tsx
 msgid "Enter the same password in both fields."
@@ -8255,15 +8042,6 @@ msgstr "ประสบการณ์"
 msgid "Experience, Education and more"
 msgstr "ประสบการณ์ การศึกษา และอื่น ๆ"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Expired"
-msgstr "หมดอายุแล้ว"
-
-#. placeholder {0}: i18n.date(link.expiresAt, { dateStyle: "medium" })
-#: src/features/resume/share/feedback-links.tsx
-msgid "expires {0}"
-msgstr "หมดอายุ {0}"
-
 #: src/features/homepage/prepare.tsx
 msgid "explain one limit of the measurement clearly, without underselling the work."
 msgstr "อธิบายข้อจำกัดหนึ่งข้อของการวัดผลอย่างชัดเจน โดยไม่ลดคุณค่าของงาน"
@@ -8424,15 +8202,6 @@ msgstr "คำติชม"
 #: src/features/career/workspace/practise.tsx
 msgid "Feedback · compared with your stories and the posting"
 msgstr "คำติชม · เทียบกับเรื่องราวของคุณและประกาศงาน"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Feedback link"
-msgstr "ลิงก์ความคิดเห็น"
-
-#: src/features/resume/share/feedback-links.tsx
-#: src/features/resume/share/share-panel.tsx
-msgid "Feedback links"
-msgstr "ลิงก์ความคิดเห็น"
 
 #: src/features/career/workspace/practise.tsx
 msgid "Feedback on an answer needs AI."
@@ -8771,11 +8540,6 @@ msgstr "สำหรับงาน"
 msgid "For a promotion at the same company: its own position, dates and description."
 msgstr "สำหรับการเลื่อนตำแหน่งในบริษัทเดิม: มีตำแหน่ง วันที่ และคำอธิบายของตัวเอง"
 
-#. placeholder {0}: domain.target
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "For a root domain such as example.com, use A and AAAA records with {0}'s addresses instead of the CNAME."
-msgstr "สำหรับโดเมนราก เช่น example.com ให้ใช้เรกคอร์ด A และ AAAA ที่มีที่อยู่ของ {0} แทน CNAME"
-
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "For details the other categories don't cover. Rules apply to the page, the PDF and your public page."
 msgstr "สำหรับรายละเอียดที่หมวดอื่นไม่ครอบคลุม กฎจะใช้กับหน้า PDF และหน้าสาธารณะของคุณ"
@@ -8791,10 +8555,6 @@ msgstr "เช่น “ฉันเป็นพี่เลี้ยงให�
 #: src/features/resume/share/history-tab.tsx
 msgid "For example, Before the rewrite"
 msgstr "เช่น ก่อนเขียนใหม่"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "For example, Careers office"
-msgstr "เช่น สำนักงานแนะแนวอาชีพ"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/notes.tsx
 msgid "For example, where you sent this resume, or links to the postings."
@@ -9161,11 +8921,6 @@ msgstr "ไปที่ Reactive Resume"
 msgid "Go to Today"
 msgstr "ไปที่วันนี้"
 
-#. placeholder {0}: url.replace(/^https?:\/\//, "")
-#: src/features/resume/share/address-field.tsx
-msgid "Goes live at {0} when you publish."
-msgstr "จะใช้งานได้ที่ {0} เมื่อคุณเผยแพร่"
-
 #. Authentication provider display name in account settings
 #. Brand name label for Google social sign-in button
 #: src/features/auth/components/social-auth.tsx
@@ -9365,10 +9120,6 @@ msgstr "ซ่อน"
 msgctxt "Fold an edit card"
 msgid "Hide"
 msgstr "ซ่อน"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Hide contact details"
-msgstr "ซ่อนข้อมูลการติดต่อ"
 
 #: src/features/resume/editor/write/entry-row.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
@@ -9604,10 +9355,6 @@ msgstr "ID {clientId}"
 msgid "If an account uses that address, a reset link is on its way."
 msgstr "หากมีบัญชีที่ใช้ที่อยู่นั้น ลิงก์รีเซ็ตกำลังถูกส่งไป"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "If another resume holds Primary, turn it on for this one instead."
-msgstr "หากเรซูเม่อื่นเป็นเรซูเม่หลักอยู่ ให้สลับมาเปิดกับเรซูเม่นี้แทน"
-
 #: src/features/homepage/remember.tsx
 msgid "If I did it again, I’d agree on the measure before the first prototype."
 msgstr "ถ้าทำอีกครั้ง ฉันจะตกลงเรื่องตัวชี้วัดก่อนทำต้นแบบแรก"
@@ -9622,7 +9369,7 @@ msgstr "หากนี่เป็นส่วนหนึ่งของปร
 
 #: src/features/resume/share/web-page-text.ts
 msgid "If someone sent you this link, ask them for a new one."
-msgstr "หากมีคนส่งลิงก์นี้ให้คุณ โปรดขอลิงก์ใหม่จากพวกเขา"
+msgstr ""
 
 #: src/features/auth/email-text.ts
 msgid "If the button does not work, copy and paste this link into your browser:"
@@ -9786,18 +9533,6 @@ msgstr "การปรับปรุงจะทำงานกับบรร
 #: src/features/resume/editor/write/improve.tsx
 msgid "Improving…"
 msgstr "กำลังปรับปรุง..."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "In 30 days"
-msgstr "ใน 30 วัน"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "In 7 days"
-msgstr "ใน 7 วัน"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "In 90 days"
-msgstr "ใน 90 วัน"
 
 #: src/features/career/workspace/fit.tsx
 msgid "In Interview prep"
@@ -10075,10 +9810,6 @@ msgstr "อาจถูกย้าย หรือไม่มีอยู่�
 msgid "It reads the posting, your notes and what you sent, and knows you are on {tabName}."
 msgstr "โค้ชอ่านประกาศงาน โน้ตของคุณ และสิ่งที่คุณส่ง และรู้ว่าคุณอยู่ที่ {tabName}"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "It stops opening at once. Comments already left are kept. You can make a new link anytime."
-msgstr "ลิงก์จะหยุดทำงานทันที ความคิดเห็นที่เขียนไว้แล้วยังคงอยู่ คุณสร้างลิงก์ใหม่ได้ทุกเมื่อ"
-
 #: src/features/applications/components/interview-dialog.tsx
 msgid "It will show on the application's timeline and on the calendar."
 msgstr "โดยจะแสดงบนไทม์ไลน์การสมัครงานและในปฏิทิน"
@@ -10260,10 +9991,6 @@ msgstr "เก็บการเชื่อมต่อไว้"
 msgid "Keep current connection"
 msgstr "ใช้การเชื่อมต่อปัจจุบันต่อ"
 
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Keep domain"
-msgstr "เก็บโดเมนไว้"
-
 #: src/features/career/schedule-sheet.tsx
 #: src/features/resume/editor/save-status.tsx
 #: src/hooks/use-form-blocker.tsx
@@ -10308,10 +10035,6 @@ msgstr "เอาไว้หน้าเดียว"
 #: src/features/settings/account/security.tsx
 msgid "Keep passkey"
 msgstr "เก็บพาสคีย์ไว้"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Keep password"
-msgstr "คงรหัสผ่านเดิม"
 
 #: src/features/settings/profile.tsx
 msgid "Keep profile"
@@ -10541,23 +10264,6 @@ msgstr "ใช้งานล่าสุด {active}"
 #: src/features/settings/account/security.tsx
 msgid "Last changed in {0}"
 msgstr "การเปลี่ยนแปลงครั้งล่าสุดใน {0}"
-
-#. placeholder {0}: formatTimeAgo(domain.lastCheckedAt, i18n.locale)
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Last checked {0}"
-msgstr "ตรวจล่าสุด {0}"
-
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "Last checked {lastChecked}"
-msgstr "ตรวจล่าสุด {lastChecked}"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Last counted view {lastView} ago"
-msgstr "การเข้าชมที่นับล่าสุดเมื่อ {lastView} ที่แล้ว"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Last counted view {lastView} ago. Each visitor counts once an hour."
-msgstr "การเข้าชมที่นับล่าสุดเมื่อ {lastView} ที่แล้ว ผู้เข้าชมแต่ละคนนับหนึ่งครั้งต่อชั่วโมง"
 
 #: src/features/documents/documents-page.tsx
 #: src/routes/builder/$resumeId/-components/document-details.tsx
@@ -10922,7 +10628,6 @@ msgid "Link an existing letter"
 msgstr "ลิงก์จดหมายที่มีอยู่แล้ว"
 
 #: src/features/documents/document-actions.tsx
-#: src/features/resume/share/copy-link-button.tsx
 #: src/features/resume/share/web-page-text.ts
 msgid "Link copied"
 msgstr "คัดลอกลิงก์แล้ว"
@@ -10931,17 +10636,9 @@ msgstr "คัดลอกลิงก์แล้ว"
 msgid "Link expired"
 msgstr "ลิงก์หมดอายุ"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Link expires"
-msgstr "ลิงก์หมดอายุ"
-
 #: src/components/input/url-input.tsx
 msgid "Link label"
 msgstr "ป้ายกำกับลิงก์"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Link made"
-msgstr "สร้างลิงก์แล้ว"
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Link one later"
@@ -10962,14 +10659,6 @@ msgstr "ลิงค์สมัครงาน"
 #: src/features/documents/document-actions.tsx
 msgid "Link to application…"
 msgstr "ลิงค์สมัครงาน…"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Link turned off"
-msgstr "ปิดลิงก์แล้ว"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Link turned off. The address is kept"
-msgstr "ลิงก์ถูกปิด ที่อยู่จะถูกเก็บไว้"
 
 #: src/features/resume/editor/check/issues.ts
 msgid "Link updated"
@@ -11056,11 +10745,6 @@ msgstr "กำลังฟัง… กดหยุดเมื่อพูด�
 #: src/libs/locale.ts
 msgid "Lithuanian"
 msgstr "ลิทัวเนีย"
-
-#. placeholder {0}: url.replace(/^https?:\/\//, "")
-#: src/features/resume/share/address-field.tsx
-msgid "Live at {0}"
-msgstr "ถ่ายทอดสดที่ {0}"
 
 #: src/features/applications/components/import-applications-sheet.tsx
 msgid "Load your stages before importing named stages. Your CSV data is kept."
@@ -11163,7 +10847,6 @@ msgstr "กำลังโหลดพื้นที่ทำงาน…"
 #: src/features/command-palette/index.tsx
 #: src/features/command-palette/pages/ask.tsx
 #: src/features/resume/editor/check/job-match.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/ai/next-steps.tsx
 #: src/features/settings/profile.tsx
 msgid "Loading…"
@@ -11285,7 +10968,7 @@ msgstr "เผยแพร่ {0} จาก {1} รายการเป็น�
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Made with Reactive Resume"
-msgstr "สร้างด้วย Reactive Resume"
+msgstr ""
 
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
@@ -11337,14 +11020,6 @@ msgstr "ทำให้เจาะจงมากขึ้น"
 msgid "Make it shorter"
 msgstr "ให้สั้นลง"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Make link"
-msgstr "สร้างลิงก์"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Make primary"
-msgstr "ตั้งเป็นหลัก"
-
 #: src/features/documents/documents-page.tsx
 msgid "Make private"
 msgstr "ทำให้เป็นส่วนตัว"
@@ -11364,10 +11039,6 @@ msgstr "ทำให้ข้อความที่แสดงกับปล
 #: src/features/ats-checker/messages.ts
 msgid "Make them visibly larger, bolder or capitalized."
 msgstr "ทำให้เห็นชัดขึ้นด้วยขนาดใหญ่ขึ้น ตัวหนา หรือตัวพิมพ์ใหญ่"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Make this your primary resume?"
-msgstr "ตั้งประวัติย่อนี้เป็นประวัติย่อหลักไหม"
 
 #: src/features/assistant/translate-resume.tsx
 msgid "Makes a copy named “{copyName}” and opens it with a request ready for the assistant. Nothing is sent until you send it."
@@ -11542,10 +11213,6 @@ msgstr "กำลังจับคู่ข้อเท็จจริงขอ
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Matching, Add to Skills and hiding a term work without it."
 msgstr "การจับคู่ การเพิ่มลงทักษะ และการซ่อนคำใช้งานได้โดยไม่ต้องใช้สิ่งนี้"
-
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "May be available"
-msgstr "อาจยังว่าง"
 
 #: src/features/ai/usage.tsx
 msgid "MCP match score"
@@ -11960,11 +11627,6 @@ msgstr "หน้าที่ของฉันคือหาสาเหตุ
 msgid "Name"
 msgstr "ชื่อ"
 
-#: src/features/resume/share/dns-records-dialog.tsx
-msgctxt "DNS record"
-msgid "Name"
-msgstr "ชื่อ"
-
 #: src/features/settings/ai/provider-fields.tsx
 msgid "Name and base URL"
 msgstr "ชื่อและ base URL"
@@ -12110,14 +11772,9 @@ msgstr "ชื่อเว็บไซต์"
 
 #: src/features/career/coach.tsx
 #: src/features/career/knowledge/facts.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/ai/page.tsx
 msgid "Never"
 msgstr "ไม่เคย"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Never opened"
-msgstr "ยังไม่เคยเปิด"
 
 #: src/features/career/coach.tsx
 #: src/features/documents/document-card.tsx
@@ -12165,10 +11822,6 @@ msgstr "เอกสารใหม่"
 #: src/features/career/knowledge/facts.tsx
 msgid "New fact"
 msgstr "ข้อเท็จจริงใหม่"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "New feedback link"
-msgstr "ลิงก์ความคิดเห็นใหม่"
 
 #: src/features/auth/pages/login.tsx
 msgid "New here?"
@@ -12369,7 +12022,6 @@ msgid "No commands match that search."
 msgstr "ไม่มีคำสั่งที่ตรงกับการค้นหานั้น"
 
 #: src/features/feedback/review-page.tsx
-#: src/features/resume/share/feedback-links.tsx
 msgid "No comments yet."
 msgstr "ยังไม่มีความคิดเห็น"
 
@@ -12404,10 +12056,6 @@ msgstr "ยังไม่มีจดหมายสมัครงาน"
 #: src/features/documents/documents-page.tsx
 msgid "No cover letters yet"
 msgstr "ยังไม่มีจดหมายสมัครงาน"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "No custom domain"
-msgstr "ไม่มีโดเมนกำหนดเอง"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "No custom rules"
@@ -12545,10 +12193,6 @@ msgstr "ไม่มีตำแหน่งงานใหม่ การค�
 msgid "No offers to compare yet"
 msgstr "ยังไม่มีข้อเสนอให้เปรียบเทียบ"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "No open applications."
-msgstr "ไม่มีใบสมัครที่เปิดอยู่"
-
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
 msgid "No open issues"
 msgstr "ไม่มีปัญหาที่เปิดอยู่"
@@ -12557,10 +12201,6 @@ msgstr "ไม่มีปัญหาที่เปิดอยู่"
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "No other stage counts as {0}. Add one first, so its applications have somewhere to go."
 msgstr "ไม่มีขั้นตอนอื่นที่นับเป็น {0} โปรดเพิ่มขั้นตอนดังกล่าวก่อน เพื่อให้มีที่ย้ายใบสมัครไป"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "no password"
-msgstr "ไม่มีรหัสผ่าน"
 
 #: src/features/resume/editor/check/issues.ts
 msgid "No phone number"
@@ -12809,10 +12449,6 @@ msgstr "ไม่มีสิทธิ์ทำงาน"
 msgid "Not available in this browser"
 msgstr "ใช้ไม่ได้ในเบราว์เซอร์นี้"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Not available while the resume needs a password."
-msgstr "ใช้ไม่ได้ขณะที่ประวัติย่อต้องใช้รหัสผ่าน"
-
 #: src/features/settings/account/security.tsx
 msgid "Not connected"
 msgstr "ไม่ได้เชื่อมต่อ"
@@ -12820,10 +12456,6 @@ msgstr "ไม่ได้เชื่อมต่อ"
 #: src/features/settings/ai/web-access.tsx
 msgid "Not connected · finds roles and reads pages the reader can't"
 msgstr "ไม่ได้เชื่อมต่อ · ค้นหาตำแหน่งงานและอ่านหน้าที่ตัวอ่านอ่านไม่ได้"
-
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Not connected yet. Add its DNS records where you manage the domain, then check."
-msgstr "ยังไม่ได้เชื่อมต่อ เพิ่มเรกคอร์ด DNS ของโดเมนนี้ในที่ที่คุณจัดการโดเมน แล้วตรวจสอบ"
 
 #: src/features/applications/components/insights-view.tsx
 msgid "Not enough to compare yet: this needs 3 of each."
@@ -13155,14 +12787,6 @@ msgstr "โอเดีย"
 msgid "Off"
 msgstr "ปิด"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Off by default. Shares an editable Word file with the same visible content as your web page. Layout is simplified."
-msgstr "ปิดเป็นค่าเริ่มต้น แบ่งปันไฟล์ Word ที่แก้ไขได้ซึ่งมีเนื้อหาที่มองเห็นเหมือนกับหน้าเว็บของคุณ โดยเค้าโครงจะถูกทำให้เรียบง่ายขึ้น"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Off makes the link read-only."
-msgstr "การปิดจะทำให้ลิงก์เป็นแบบอ่านอย่างเดียว"
-
 #: src/features/homepage/remember.tsx
 msgid "Off: the coach won’t see it or claim it."
 msgstr "ปิด: โค้ชจะไม่เห็นและจะไม่อ้างถึง"
@@ -13170,14 +12794,6 @@ msgstr "ปิด: โค้ชจะไม่เห็นและจะไม�
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Off. Edit this letter’s details below. Turning this on replaces them with the resume’s current details."
 msgstr "ปิดอยู่ แก้ไขรายละเอียดของจดหมายนี้ด้านล่าง เมื่อเปิดตัวเลือกนี้ ระบบจะแทนที่รายละเอียดเหล่านี้ด้วยรายละเอียดปัจจุบันจากประวัติย่อ"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Off. Let recruiters find you on Google by turning this on."
-msgstr "ปิดอยู่ เปิดตัวเลือกนี้เพื่อให้ผู้สรรหาบุคลากรค้นหาคุณเจอบน Google"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Off. Only you can see your web page."
-msgstr "ปิดอยู่ มีเพียงคุณที่เห็นหน้าเว็บของคุณได้"
 
 #: src/features/applications/stages.ts
 #: src/features/career/offer-entry.tsx
@@ -13459,19 +13075,7 @@ msgstr "เก็บไว้เฉพาะเวลาและจำนวน
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Only you can see this address. Publish it in Share."
-msgstr "มีเพียงคุณเท่านั้นที่เห็นที่อยู่นี้ เผยแพร่ในโหมดแบ่งปัน"
-
-#: src/features/resume/share/web-page-preview.tsx
-msgid "Only you can see this page"
-msgstr "มีเพียงคุณที่เห็นหน้านี้ได้"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "only you see these"
-msgstr "มีเพียงคุณที่เห็นสิ่งเหล่านี้"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Only you see this."
-msgstr "มีเพียงคุณเท่านั้นที่เห็นสิ่งนี้"
+msgstr ""
 
 #: src/libs/orpc/ai-consent.ts
 msgid "Only your recording is sent to this transcription model. The returned transcript is saved to your account."
@@ -13591,7 +13195,7 @@ msgstr "เปิดเวอร์ชันที่ส่งแล้ว"
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Open Share"
-msgstr "เปิดโหมดแบ่งปัน"
+msgstr ""
 
 #: src/features/career/workspace/prepare.tsx
 msgid "Open stories"
@@ -13633,22 +13237,9 @@ msgstr "เปิดเวอร์ชันเรซูเม่ที่ส่
 msgid "Open Trash"
 msgstr "เปิดถังขยะ"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Open web page"
-msgstr "เปิดหน้าเว็บ"
-
 #: src/features/settings/ai/providers.tsx
 msgid "OpenAI, Anthropic, Gemini, Ollama and more"
 msgstr "OpenAI, Anthropic, Gemini, Ollama และอื่น ๆ"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Opened"
-msgstr "เปิดแล้ว"
-
-#. placeholder {0}: dayLabel(link.lastViewedAt, i18n.locale)
-#: src/features/resume/share/feedback-links.tsx
-msgid "Opened {0}"
-msgstr "เปิดเมื่อ {0}"
 
 #: src/features/homepage/remember.tsx
 msgid "Opening"
@@ -14029,18 +13620,6 @@ msgstr "เปลี่ยนรหัสผ่านแล้ว"
 msgid "Password changed. You're signed out everywhere; sign in, then add any passkeys again."
 msgstr ""
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Password removed"
-msgstr "ลบรหัสผ่านแล้ว"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "password set"
-msgstr "ตั้งรหัสผ่านแล้ว"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Password set"
-msgstr "ตั้งรหัสผ่านแล้ว"
-
 #: src/dialogs/auth/set-password.tsx
 msgid "Password set. You can now sign in with it too."
 msgstr "ตั้งรหัสผ่านแล้ว ตอนนี้คุณสามารถเข้าสู่ระบบด้วยรหัสผ่านนี้ได้ด้วย"
@@ -14132,14 +13711,6 @@ msgstr "รอบการจ่าย"
 msgid "Pay, deadline and conditions, so you can compare and decide"
 msgstr "ค่าตอบแทน กำหนดส่ง และเงื่อนไข เพื่อให้คุณเปรียบเทียบและตัดสินใจ"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "PDF download off"
-msgstr "ปิดการดาวน์โหลด PDF"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "PDF download on"
-msgstr "เปิดการดาวน์โหลด PDF"
-
 #: src/features/ai/usage.tsx
 msgid "PDF import"
 msgstr "นำเข้า PDF"
@@ -14203,7 +13774,6 @@ msgstr "เปอร์เซีย"
 #: src/features/resume/editor/check/parser-view.tsx
 #: src/features/resume/editor/write/basics-card.tsx
 #: src/features/resume/editor/write/entries.tsx
-#: src/features/resume/share/web-page-preview.tsx
 #: src/features/settings/profile.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Phone"
@@ -14651,10 +14221,6 @@ msgstr "ดูตัวอย่าง {0}"
 msgid "Preview {name} sample PDF"
 msgstr "ดูตัวอย่าง {name} PDF"
 
-#: src/features/resume/share/web-page-preview.tsx
-msgid "Preview size"
-msgstr "ขนาดตัวอย่าง"
-
 #: src/features/documents/document-card.tsx
 msgid "Preview unavailable"
 msgstr "ตัวอย่างไม่พร้อมใช้งาน"
@@ -14710,10 +14276,6 @@ msgstr "เวอร์ชันก่อนหน้า"
 msgid "Primary color"
 msgstr "สีหลัก"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Primary resume"
-msgstr "ประวัติย่อหลัก"
-
 #: src/features/resume/share/download-menu.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Print"
@@ -14722,14 +14284,6 @@ msgstr "พิมพ์"
 #: src/features/ats-checker/messages.ts
 msgid "Print or export the form to a flat PDF before sending it."
 msgstr "พิมพ์หรือส่งออกแบบฟอร์มเป็น PDF แบบแบนก่อนส่ง"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Privacy"
-msgstr "ความเป็นส่วนตัว"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Privacy and downloads"
-msgstr "ความเป็นส่วนตัวและการดาวน์โหลด"
 
 #: src/features/homepage/share.tsx
 msgid "Private"
@@ -14870,10 +14424,6 @@ msgstr "ทดสอบผู้ให้บริการ"
 msgid "Public"
 msgstr "สาธารณะ"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Public link"
-msgstr "ลิงค์สาธารณะ"
-
 #: src/features/documents/document-status.tsx
 #: src/routes/builder/$resumeId/-components/document-details.tsx
 msgid "Public, with a password"
@@ -14882,30 +14432,6 @@ msgstr "สาธารณะด้วยรหัสผ่าน"
 #: src/libs/resume/section.tsx
 msgid "Publications"
 msgstr "สิ่งตีพิมพ์"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish"
-msgstr "เผยแพร่"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish it to share a link that opens on any screen. Only you can see it until then."
-msgstr "เผยแพร่เพื่อแชร์ลิงก์ที่เปิดได้บนทุกหน้าจอ ก่อนหน้านั้นจะมีเพียงคุณที่เห็น"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish the web page first."
-msgstr "เผยแพร่หน้าเว็บก่อน"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish the web page to count views and downloads. Counts are anonymous, and search engines aren't counted."
-msgstr "เผยแพร่หน้าเว็บเพื่อนับยอดเข้าชมและการดาวน์โหลด การนับเป็นแบบไม่ระบุตัวตน และไม่นับเครื่องมือค้นหา"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish this resume to open it at your short link and custom domain."
-msgstr "เผยแพร่ประวัติย่อนี้เพื่อเปิดผ่านลิงก์สั้นและโดเมนที่กำหนดเองของคุณ"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish this resume to open it at your short link."
-msgstr "เผยแพร่เรซูเม่นี้เพื่อเปิดที่ลิงก์ย่อของคุณ"
 
 #: src/features/resume/editor/write/entries.tsx
 msgid "Publisher"
@@ -14938,14 +14464,6 @@ msgstr "ใส่เครื่องหมายรูปหมวกในบ
 #: src/features/assistant/chat.ts
 msgid "Q: {question}"
 msgstr "ถาม: {question}"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "QR code"
-msgstr "รหัส QR"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "QR code for {url}"
-msgstr "รหัส QR สำหรับ {url}"
 
 #. Accessible title for QR code image shown during two-factor setup
 #: src/dialogs/auth/enable-two-factor.tsx
@@ -15425,10 +14943,6 @@ msgstr "รีเฟรชบทสรุป"
 msgid "Refresh usage"
 msgstr "รีเฟรชการใช้งาน"
 
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "Register at OlaCV"
-msgstr "จดทะเบียนที่ OlaCV"
-
 #: src/features/career/workspace/prepare.tsx
 msgid "Rehearse aloud"
 msgstr "ซ้อมพูดออกเสียง"
@@ -15573,7 +15087,6 @@ msgid "Remote, Hybrid, a city…"
 msgstr "รีโมต, ไฮบริด, เมือง…"
 
 #: src/features/applications/components/detail/contacts.tsx
-#: src/features/resume/share/custom-domain-field.tsx
 #: src/features/settings/account/security.tsx
 msgid "Remove"
 msgstr "ลบ"
@@ -15623,10 +15136,6 @@ msgstr "ถอดการเชื่อมต่อ"
 msgid "Remove connection…"
 msgstr "ลบการเชื่อมต่อ…"
 
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Remove domain"
-msgstr "ลบโดเมน"
-
 #: src/features/resume/editor/write/basics-card.tsx
 msgid "Remove field"
 msgstr "ลบฟิลด์"
@@ -15643,10 +15152,6 @@ msgstr "ลบลิงก์ที่ {0}"
 #: src/features/settings/account/security.tsx
 msgid "Remove passkey"
 msgstr "นำพาสคีย์ออก"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Remove password"
-msgstr "นำรหัสผ่านออก"
 
 #. placeholder {0}: i18n.number(index + 1)
 #: src/features/applications/components/interview-dialog.tsx
@@ -15677,14 +15182,6 @@ msgstr "นำขั้นตอนออก"
 #: src/features/applications/components/application-form-sheet.tsx
 msgid "Remove tag"
 msgstr "ลบแท็ก"
-
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Remove the custom domain?"
-msgstr "ลบโดเมนที่กำหนดเองหรือไม่?"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Remove the password?"
-msgstr "ลบรหัสผ่าน?"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Remove the web connection?"
@@ -15896,10 +15393,6 @@ msgstr "จำนวนเงินที่ต้องการ"
 #: src/features/settings/profile.tsx
 msgid "Requested salary"
 msgstr "เงินเดือนที่ต้องการ"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Require a password"
-msgstr "ต้องใช้รหัสผ่าน"
 
 #: src/features/career/knowledge/preferences.tsx
 #: src/features/career/workspace/fit.tsx
@@ -16656,10 +16149,6 @@ msgstr "บันทึกชื่อ"
 msgid "Save offer"
 msgstr "บันทึกข้อเสนอ"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Save PNG"
-msgstr "บันทึก PNG"
-
 #: src/features/career/workspace/preparation.tsx
 msgid "Save posting"
 msgstr "บันทึกประกาศงาน"
@@ -16680,10 +16169,6 @@ msgstr "บันทึกกำหนดการ"
 #: src/features/career/knowledge/stories.tsx
 msgid "Save story"
 msgstr "บันทึกเรื่องราว"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Save SVG"
-msgstr "บันทึก SVG"
 
 #: src/features/documents/document-actions.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
@@ -16903,11 +16388,6 @@ msgstr "บันทึกไว้กับใบสมัครนี้ ไ�
 msgid "Saved: {0}. Skipped: {1}. Existing, corrected or switched-off facts stay unchanged."
 msgstr "บันทึกแล้ว: {0} ข้าม: {1} ข้อเท็จจริงเดิม ที่แก้ไข หรือที่ปิดไว้จะไม่เปลี่ยนแปลง"
 
-#. placeholder {0}: new URL(url).host
-#: src/features/resume/share/address-field.tsx
-msgid "Saving {0}/{username}/{slug}… Copy is available after saving."
-msgstr "กำลังบันทึก {0}/{username}/{slug}… การคัดลอกสามารถใช้ได้หลังจากบันทึก"
-
 #: src/features/resume/builder/draft.ts
 msgid "Saving is taking longer than expected. Your changes are still open."
 msgstr "การออมใช้เวลานานกว่าที่คาดไว้ การเปลี่ยนแปลงของคุณยังคงเปิดอยู่"
@@ -17069,10 +16549,6 @@ msgstr "การค้นหาครอบคลุมชื่อ แท็�
 #: src/features/command-palette/content.tsx
 msgid "Search documents, applications and commands"
 msgstr "ค้นหาเอกสาร ใบสมัคร และคำสั่ง"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Search engines such as Google may list your web page. It can take weeks to appear, or to disappear after you turn this off."
-msgstr "เครื่องมือค้นหาอย่าง Google อาจแสดงหน้าเว็บของคุณในผลการค้นหา อาจใช้เวลาหลายสัปดาห์กว่าจะปรากฏ หรือกว่าจะหายไปหลังจากที่คุณปิดตัวเลือกนี้"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Search failed"
@@ -17347,11 +16823,6 @@ msgstr "ส่ง"
 msgid "Send {0} again"
 msgstr "ส่ง {0} อีกครั้ง"
 
-#: src/features/resume/share/feedback-links.tsx
-#: src/features/resume/share/share-panel.tsx
-msgid "Send a coach or friend a private link to this version. They can comment, but can't change it or see anything else."
-msgstr "ส่งลิงก์ส่วนตัวของเวอร์ชันนี้ให้โค้ชหรือเพื่อน พวกเขาแสดงความคิดเห็นได้ แต่เปลี่ยนแปลงไม่ได้และไม่เห็นสิ่งอื่นใด"
-
 #: src/features/applications/components/calendar-view.tsx
 #: src/features/applications/next-step.ts
 msgid "Send a follow-up"
@@ -17616,21 +17087,14 @@ msgstr "ความกว้างของเงา"
 #: src/features/homepage/footer.tsx
 #: src/features/homepage/header.tsx
 #: src/features/homepage/share.tsx
-#: src/features/resume/share/share-panel.tsx
 #: src/features/resume/share/web-page-text.ts
-#: src/routes/builder/$resumeId/-components/editor-bar.tsx
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
-#: src/routes/builder/$resumeId/-components/use-editor-hotkeys.ts
 msgid "Share"
 msgstr "แบ่งปัน"
 
 #: src/features/homepage/share.tsx
 msgid "Share a public link, add a password or keep it private. Choose from 3 visibility options. Export to PDF or Word, or take all your data with you as JSON."
 msgstr "แชร์ลิงก์สาธารณะ เพิ่มรหัสผ่าน หรือเก็บไว้เป็นส่วนตัว เลือกจาก 3 ตัวเลือกการมองเห็น ส่งออกไปยัง PDF หรือ Word หรือนำข้อมูลทั้งหมดของคุณติดตัวไปด้วยในชื่อ JSON"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Share application progress (optional)"
-msgstr "แบ่งปันความคืบหน้าของใบสมัคร (ไม่บังคับ)"
 
 #. placeholder {0}: provider.label
 #: src/libs/orpc/ai-consent.ts
@@ -17640,10 +17104,6 @@ msgstr "แบ่งปันข้อมูลกับ {0} หรือไม�
 #: src/features/resume/editor/chrome/download-sheet.tsx
 msgid "Share sections"
 msgstr "แบ่งปันส่วนต่างๆ"
-
-#: src/features/resume/share/address-field.tsx
-msgid "Share via…"
-msgstr "แบ่งปันผ่าน..."
 
 #: src/features/documents/document-actions.tsx
 msgid "Share…"
@@ -17691,14 +17151,6 @@ msgstr "สั้นและตรง. ก็ได้ถ้าประกา�
 msgid "Short and polite, for the recruiter"
 msgstr "สั้นและสุภาพสำหรับผู้สรรหา"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Short link"
-msgstr "ลิงก์ย่อ"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Short link and domain"
-msgstr "ลิงก์สั้นและโดเมน"
-
 #: src/routes/dashboard/-components/app-shell.tsx
 msgid "Shortcuts"
 msgstr "ทางลัด"
@@ -17732,10 +17184,6 @@ msgstr "แสดง"
 msgctxt "Open a folded edit card"
 msgid "Show"
 msgstr "แสดง"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Show “Made with Reactive Resume”"
-msgstr "แสดง “สร้างด้วย Reactive Resume”"
 
 #. placeholder {0}: i18n.number(Math.min(remaining, COLUMN_PAGE_SIZE))
 #: src/features/applications/components/board.tsx
@@ -17789,17 +17237,9 @@ msgstr "แสดงทุกประเภท"
 msgid "Show closed applications"
 msgstr "แสดงใบสมัครงานที่ปิดแล้ว"
 
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Show DNS records"
-msgstr "แสดงเรกคอร์ด DNS"
-
 #: src/features/resume/editor/proposals/proposal-list.tsx
 msgid "Show edit {number}"
 msgstr "แสดงการแก้ไขที่ {number}"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Show in search engines"
-msgstr "แสดงในเครื่องมือค้นหา"
 
 #: src/features/resume/editor/check/check-panel.tsx
 msgid "Show it again"
@@ -19177,7 +18617,7 @@ msgstr "ไฟล์นั้นใหญ่เกินกว่าจะตร
 
 #: src/features/resume/share/web-page-text.ts
 msgid "That password isn't correct. Check it with the resume owner and try again."
-msgstr "รหัสผ่านไม่ถูกต้อง ตรวจสอบกับเจ้าของประวัติย่อแล้วลองอีกครั้ง"
+msgstr ""
 
 #: src/dialogs/auth/disable-two-factor.tsx
 #: src/features/settings/account/backup-codes.tsx
@@ -19480,10 +18920,6 @@ msgstr "จดหมายตรงกับดีไซน์ของเรซ
 msgid "The line changed since you asked, so it wasn't replaced."
 msgstr "บรรทัดนี้เปลี่ยนไปหลังจากที่คุณขอ จึงไม่ถูกแทนที่"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "The link opens the resume as it is now. Later edits aren't shared, so every comment is about this version."
-msgstr "ลิงก์จะเปิดเรซูเม่ตามสถานะปัจจุบัน การแก้ไขภายหลังจะไม่ถูกแบ่งปัน ความคิดเห็นทุกข้อจึงเกี่ยวกับเวอร์ชันนี้"
-
 #: src/features/auth/email-text.ts
 msgid "The link works for 1 hour. Resetting signs you out on every device and removes your passkeys and connected apps. If you didn't ask for this, ignore this email; your password stays the same."
 msgstr ""
@@ -19654,10 +19090,6 @@ msgstr "คำถาม การพิมพ์ การพูด และก
 msgid "The reason is kept for Insights. Linked documents aren't touched."
 msgstr "เหตุผลถูกเก็บไว้สำหรับ Insights เอกสารที่เชื่อมโยงจะไม่ถูกแตะต้อง"
 
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "The records aren't visible yet. Check again later."
-msgstr "ยังไม่เห็นเรกคอร์ด โปรดตรวจสอบอีกครั้งภายหลัง"
-
 #: src/routes/builder/letter/-components/design-panel.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "the resume"
@@ -19691,10 +19123,6 @@ msgstr "เรซูเม่ที่คุณส่งเมื่อ {sent} �
 #: src/features/resume/editor/check/writing-tab.tsx
 msgid "The review couldn't finish. Try again."
 msgstr "การตรวจสอบไม่สามารถเสร็จสิ้นได้ ลองอีกครั้ง"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "The reviewer sees each one's stage and dates. Notes, contacts and pay stay private."
-msgstr "ผู้ตรวจทานเห็นขั้นตอนและวันที่ของแต่ละรายการ โน้ต ผู้ติดต่อ และค่าตอบแทนเป็นส่วนตัว"
 
 #: src/features/ats-checker/messages.ts
 msgid "The same line repeats on every page."
@@ -20195,7 +19623,7 @@ msgstr "เรซูเม่นี้มีความยาวมาก"
 
 #: src/features/resume/share/web-page-text.ts
 msgid "This resume is password-protected"
-msgstr "ประวัติย่อนี้ป้องกันด้วยรหัสผ่าน"
+msgstr ""
 
 #: src/features/resume/editor/check/job-match.tsx
 msgid "This resume isn't linked to an application yet. Pick one to make a copy for it."
@@ -20203,7 +19631,7 @@ msgstr "เรซูเม่นี้ยังไม่ได้ลิงก์
 
 #: src/features/resume/share/web-page-text.ts
 msgid "This resume isn't shared right now"
-msgstr "ขณะนี้เรซูเม่นี้ไม่ได้แชร์อยู่"
+msgstr ""
 
 #: src/features/resume/editor/check/job-match.tsx
 msgid "This resume stays as it is for other jobs"
@@ -20449,7 +19877,6 @@ msgstr "วันนี้"
 #: src/features/applications/components/calendar-view.tsx
 #: src/features/career/today.tsx
 #: src/features/command-palette/pages/navigation.tsx
-#: src/features/resume/share/share-panel.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 #: src/routes/dashboard/-components/app-shell.tsx
 #: src/routes/dashboard/index.tsx
@@ -20609,11 +20036,6 @@ msgstr "กำลังตัดคำ"
 msgid "Trust this device for 30 days"
 msgstr "เชื่อถืออุปกรณ์นี้เป็นเวลา 30 วัน"
 
-#. placeholder {0}: result.suggestion
-#: src/features/resume/share/address-field.tsx
-msgid "Try {0}"
-msgstr "ลอง {0} ดูครับ"
-
 #: src/features/career/today.tsx
 #: src/features/documents/documents-page.tsx
 msgid "Try a sample"
@@ -20633,7 +20055,6 @@ msgstr "ลองตัวอย่าง"
 #: src/features/resume/editor/write/improve.tsx
 #: src/features/resume/preview/preview.browser.tsx
 #: src/features/resume/share/download-tab.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/ai/next-steps.tsx
 #: src/features/settings/ai/web-access.tsx
 #: src/features/settings/integrations/ai-provider-load-state.tsx
@@ -20690,7 +20111,6 @@ msgstr "ตุรกี"
 
 #. Destructive action button to turn off two-factor authentication
 #: src/dialogs/auth/disable-two-factor.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/account/security.tsx
 #: src/features/settings/ai/providers.tsx
 msgid "Turn off"
@@ -20703,14 +20123,6 @@ msgstr "ปิดลิเกเจอร์ตามดุลยพินิจ
 #: src/features/keyboard-shortcuts/character-shortcuts.tsx
 msgid "Turn off if you use speech input. Shortcuts with ⌘ keep working."
 msgstr "ปิดไว้หากคุณใช้การป้อนด้วยเสียง ทางลัดที่ใช้ ⌘ ยังทำงานได้"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Turn off link…"
-msgstr "ปิดลิงก์…"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Turn off this link?"
-msgstr "ปิดลิงก์นี้หรือไม่"
 
 #: src/features/settings/account/security.tsx
 msgid "Turn off two-step verification"
@@ -20728,35 +20140,14 @@ msgstr "เปิด"
 msgid "Turn on two-step verification"
 msgstr "เปิดการยืนยันแบบสองขั้นตอน"
 
-#: src/features/resume/share/web-page-preview.tsx
-msgid "Turn Public link on to share it."
-msgstr "เปิดลิงก์สาธารณะเพื่อแบ่งปัน"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Turn this on to open this resume at your short link and custom domain."
-msgstr "เปิดสิ่งนี้เพื่อให้เรซูเม่นี้เปิดที่ลิงก์ย่อและโดเมนกำหนดเองของคุณ"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Turn this on to open this resume at your short link."
-msgstr "เปิดสิ่งนี้เพื่อให้เรซูเม่นี้เปิดที่ลิงก์ย่อของคุณ"
-
 #: src/features/career/schedule-sheet.tsx
 msgid "Turn this schedule on"
 msgstr "เปิดกำหนดการนี้"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Turned off"
-msgstr "ปิดแล้ว"
 
 #. placeholder {0}: provider.label
 #: src/features/settings/ai/providers.tsx
 msgid "Turned off “{0}”. Its key is kept."
 msgstr "ปิด “{0}” แล้ว คีย์ยังถูกเก็บไว้"
-
-#. placeholder {0}: i18n.date(link.revokedAt, { day: "numeric", month: "short" })
-#: src/features/resume/share/feedback-links.tsx
-msgid "turned off {0}"
-msgstr "ปิดเมื่อ {0}"
 
 #: src/dialogs/auth/disable-two-factor.tsx
 msgid "Turning off two-step verification…"
@@ -20792,10 +20183,6 @@ msgstr "เรซูเม่สองฉบับที่สร้างด้
 #: src/features/resume/editor/design/entries-group.tsx
 msgid "Two rows: company, then position"
 msgstr "สองแถว: บริษัท แล้วตามด้วยตำแหน่ง"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Two shorter addresses. Both open your primary resume."
-msgstr "ที่อยู่ที่สั้นกว่าสองที่อยู่ ทั้งสองเปิดเรซูเม่หลักของคุณ"
 
 #: src/features/career/workspace/prepare.tsx
 msgid "Two stories"
@@ -20852,11 +20239,6 @@ msgstr "เปิดการยืนยันแบบสองขั้นต
 #: src/features/career/knowledge/resume-facts.tsx
 #: src/features/career/workspace/practise.tsx
 #: src/features/documents/documents-page.tsx
-msgid "Type"
-msgstr "ประเภท"
-
-#: src/features/resume/share/dns-records-dialog.tsx
-msgctxt "DNS record"
 msgid "Type"
 msgstr "ประเภท"
 
@@ -21205,7 +20587,6 @@ msgstr "ใช้อย่างน้อย 8 อักขระ"
 msgid "Use at least 9pt."
 msgstr "ใช้ขนาดตัวอักษรอย่างน้อย 9pt"
 
-#: src/features/resume/share/address-field.tsx
 #: src/libs/error-message.ts
 msgid "Use at most 64 characters."
 msgstr "ใช้ไม่เกิน 64 อักขระ"
@@ -21235,10 +20616,6 @@ msgstr "ใช้กับใบสมัครทั้งหมด"
 #: src/features/career/knowledge/facts.tsx
 msgid "Use in coaching: {excerpt}"
 msgstr "ใช้ในการโค้ช: {excerpt}"
-
-#: src/features/resume/share/address-field.tsx
-msgid "Use Latin letters a–z, numbers and single dashes."
-msgstr "ใช้ตัวอักษรละติน a–z ตัวเลข และขีดกลางเดี่ยว"
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Use my timezone"
@@ -21428,10 +20805,6 @@ msgstr "อุซเบก"
 msgid "Valuation and dilution uncertain"
 msgstr "มูลค่าบริษัทและการลดสัดส่วนหุ้นยังไม่แน่นอน"
 
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "Value"
-msgstr "ค่า"
-
 #: src/features/career/offers.tsx
 msgid "Value uncertain"
 msgstr "มูลค่ายังไม่แน่นอน"
@@ -21563,38 +20936,9 @@ msgstr "ดูประกาศงานบน {host}"
 msgid "View recorded answers"
 msgstr "ดูคำตอบที่บันทึกไว้"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "views in the last 30 days"
-msgstr "การเข้าชมใน 30 วันที่ผ่านมา"
-
-#. placeholder {0}: i18n.number(summary.peak)
-#: src/features/resume/share/share-panel.tsx
-msgid "Views per day, {firstLabel} to today. The busiest day had {0}."
-msgstr "การเข้าชมต่อวัน ตั้งแต่ {firstLabel} ถึงวันนี้ วันที่มีผู้เข้าชมมากที่สุดมี {0} ครั้ง"
-
 #: src/features/homepage/share.tsx
 msgid "Visibility"
 msgstr "การมองเห็น"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Visitors"
-msgstr "ผู้เยี่ยมชม"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Visitors can download the PDF"
-msgstr "ผู้เยี่ยมชมสามารถดาวน์โหลด PDF"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Visitors can download Word"
-msgstr "ผู้เยี่ยมชมดาวน์โหลด Word ได้"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Visitors enter it before they see the resume. Share it only with people you trust."
-msgstr "ผู้เยี่ยมชมต้องป้อนรหัสผ่านก่อนจึงจะเห็นประวัติย่อ แชร์รหัสผ่านนี้เฉพาะกับคนที่คุณไว้วางใจเท่านั้น"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Visitors need the link and password to see your web page."
-msgstr "ผู้เข้าชมต้องมีลิงก์และรหัสผ่านจึงจะเห็นหน้าเว็บของคุณ"
 
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
@@ -21694,18 +21038,6 @@ msgstr "ที่อยู่เว็บ"
 #: src/libs/orpc/ai-consent.ts
 msgid "Web destination: {0}."
 msgstr "ปลายทางเว็บ: {0}"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Web page"
-msgstr "หน้าเว็บ"
-
-#: src/features/resume/share/web-page-preview.tsx
-msgid "Web page preview"
-msgstr "ตัวอย่างหน้าเว็บ"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Web page settings"
-msgstr "การตั้งค่าหน้าเว็บ"
 
 #: src/features/ai/usage.tsx
 #: src/features/career/coach-thread.tsx
@@ -22162,14 +21494,6 @@ msgctxt "Template style tag"
 msgid "Whitespace"
 msgstr "พื้นที่ว่างมาก"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Who can find your web page, reach you from it and take a copy."
-msgstr "ใครหาหน้าเว็บของคุณเจอได้ ติดต่อคุณจากหน้านั้นได้ และคัดลอกได้"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Who is it for?"
-msgstr "ใช้กับใคร"
-
 #: src/features/homepage/prepare.tsx
 msgid "Who owns the design system today? What does success look like in 90 days?"
 msgstr "ตอนนี้ใครเป็นเจ้าของระบบการออกแบบ? ความสำเร็จใน 90 วันหน้าตาเป็นอย่างไร?"
@@ -22249,14 +21573,6 @@ msgstr "ไฟล์ Word จะอ่านด้วย AI ไฟล์จะ�
 #: src/features/ai/usage.tsx
 msgid "Word import"
 msgstr "นำเข้า Word"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Word off"
-msgstr "ปิด Word"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Word on"
-msgstr "เปิด Word"
 
 #: src/features/ats-checker/messages.ts
 msgid "Words run together when the text is extracted."
@@ -22509,11 +21825,6 @@ msgstr "คุณยอมรับข้อเสนอ"
 msgid "You already saved this job: {0} at {1}."
 msgstr "คุณบันทึกงานนี้ไว้แล้ว: {0} ที่ {1}"
 
-#. placeholder {0}: result.takenBy
-#: src/features/resume/share/address-field.tsx
-msgid "You already use this for “{0}”."
-msgstr "คุณได้ใช้สิ่งนี้กับ “{0}” แล้ว"
-
 #: src/features/career/schedule-sheet.tsx
 msgid "You always see results in Today."
 msgstr "คุณจะเห็นผลลัพธ์ในวันนี้เสมอ"
@@ -22735,15 +22046,6 @@ msgstr "วันที่ของคุณเขียนในหลายร
 msgid "Your details changed on the resume. The letter updated too."
 msgstr "รายละเอียดของคุณมีการเปลี่ยนแปลงในเรซูเม่ จดหมายได้รับการอัปเดตด้วย"
 
-#: src/features/resume/share/custom-domain-field.tsx
-#: src/features/resume/share/share-panel.tsx
-msgid "Your domain"
-msgstr "โดเมนของคุณ"
-
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Your domain will stop opening your primary resume. You can reconnect it later."
-msgstr "โดเมนของคุณจะไม่เปิดเรซูเม่หลักของคุณอีกต่อไป คุณสามารถเชื่อมต่อใหม่ได้ภายหลัง"
-
 #: src/features/career/coach-chat.tsx
 msgid "Your edited story is saved to Knowledge."
 msgstr "เรื่องราวที่คุณแก้ไขถูกบันทึกลงคลังความรู้แล้ว"
@@ -22772,10 +22074,6 @@ msgstr "ที่อยู่อีเมลของคุณถูกแยก
 #: src/features/auth/pages/error.tsx
 msgid "Your email address isn't verified with the provider."
 msgstr "อีเมลของคุณยังไม่ได้รับการยืนยันกับผู้ให้บริการ"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your email, phone, location and extra header fields, and references' phone numbers, are left out of the web page, its PDF and search results. Your website stays."
-msgstr "อีเมล เบอร์โทร ที่ตั้ง และช่องส่วนหัวเพิ่มเติมของคุณ รวมถึงเบอร์โทรของผู้อ้างอิง จะไม่ปรากฏในหน้าเว็บ PDF ของหน้าเว็บ และผลการค้นหา เว็บไซต์ของคุณยังคงแสดง"
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Your experience, laid out on a page."
@@ -22848,10 +22146,6 @@ msgstr "ชื่อและข้อมูลการติดต่อขอ
 #: src/features/resume/editor/write/outline.tsx
 msgid "Your name and how to reach you"
 msgstr "ชื่อของคุณและช่องทางการติดต่อ"
-
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "Your name as your address, from OlaCV, the .cv registry. Code <0/> takes 50% off the first year."
-msgstr "ใช้ชื่อของคุณเป็นที่อยู่ จาก OlaCV ผู้ดูแลทะเบียนโดเมน .cv โค้ด <0/> ลด 50% สำหรับปีแรก"
 
 #: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Your name changed on the resume. The letter updated too."
@@ -22929,10 +22223,6 @@ msgstr "เรซูเม่ของคุณและจดหมายนี
 msgid "Your resume and your job search, in one place."
 msgstr "เรซูเม่และการหางานของคุณ ในที่เดียว"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Your resume as a web page"
-msgstr "ประวัติย่อของคุณในรูปแบบหน้าเว็บ"
-
 #: src/features/resume/editor/check/issues.ts
 msgid "Your resume has a photo"
 msgstr "ประวัติย่อของคุณมีรูปถ่าย"
@@ -22981,42 +22271,6 @@ msgstr "เซิร์ฟเวอร์ของคุณมีบริกา
 msgid "your server's search service"
 msgstr "บริการค้นหาของเซิร์ฟเวอร์ของคุณ"
 
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link and custom domain open “{0}”."
-msgstr "ลิงก์สั้นและโดเมนที่กำหนดเองของคุณจะเปิด “{0}”"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link and custom domain open this resume."
-msgstr "ลิงก์สั้นและโดเมนที่กำหนดเองของคุณจะเปิดประวัติย่อนี้"
-
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link and custom domain point to “{0}”, which isn't published."
-msgstr "ลิงก์ย่อและโดเมนกำหนดเองของคุณชี้ไปที่ “{0}” ซึ่งยังไม่ได้เผยแพร่"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link and custom domain say this resume isn't shared until you publish it again."
-msgstr "ลิงก์สั้นและโดเมนที่กำหนดเองของคุณจะแจ้งว่าประวัติย่อนี้ยังไม่ได้แชร์ จนกว่าคุณจะเผยแพร่อีกครั้ง"
-
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link opens “{0}”."
-msgstr "ลิงก์ย่อของคุณเปิด “{0}”"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link opens this resume."
-msgstr "ลิงก์ย่อของคุณเปิดเรซูเม่นี้"
-
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link points to “{0}”, which isn't published."
-msgstr "ลิงก์ย่อของคุณชี้ไปที่ “{0}” ซึ่งยังไม่ได้เผยแพร่"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link says this resume isn't shared until you publish it again."
-msgstr "ลิงก์ย่อของคุณแสดงว่าเรซูเม่นี้ไม่ได้ถูกแบ่งปันจนกว่าคุณจะเผยแพร่อีกครั้ง"
-
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "Your stages changed somewhere else. They've been refreshed; try again."
 msgstr "ขั้นตอนของคุณถูกเปลี่ยนจากที่อื่น ระบบรีเฟรชให้แล้ว โปรดลองอีกครั้ง"
@@ -23046,10 +22300,6 @@ msgstr "การแนะนำตัวสองนาทีของคุณ
 #: src/features/auth/pages/register.tsx
 msgid "Your username is made from your email. <0>Choose your own</0>"
 msgstr "ชื่อผู้ใช้ของคุณสร้างจากอีเมล <0>เลือกชื่อเอง</0>"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your web page is live"
-msgstr "หน้าเว็บของคุณเผยแพร่แล้ว"
 
 #: src/libs/orpc/ai-consent.ts
 msgid "Your web settings changed. Nothing was sent; try again."

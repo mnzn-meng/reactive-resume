@@ -470,7 +470,6 @@ function KitPage() {
 									<SegmentedControlItem value="write">Write</SegmentedControlItem>
 									<SegmentedControlItem value="design">Design</SegmentedControlItem>
 									<SegmentedControlItem value="check">Check</SegmentedControlItem>
-									<SegmentedControlItem value="share">Share</SegmentedControlItem>
 								</SegmentedControl>
 							</div>
 						</Group>

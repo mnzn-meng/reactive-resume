@@ -45,14 +45,6 @@ msgstr ", {0}-ով"
 msgid "“{0}”"
 msgstr "«{0}»"
 
-#. placeholder {0}: link.resumeName
-#. placeholder {1}: date(link.createdAt)
-#. placeholder {2}: statusLabel(link.status)
-#. placeholder {3}: link.expiresAt && link.status === "active" ? `, ${t`expires ${i18n.date(link.expiresAt, { dateStyle: "medium" })}`}` : ""
-#: src/features/resume/share/feedback-links.tsx
-msgid "“{0}” as saved {1} · {2}{3}"
-msgstr "«{0}»-ը պահված է {1} · {2}{3}"
-
 #. placeholder {0}: view.resumeName
 #: src/features/feedback/review-page.tsx
 msgid "“{0}” as saved on {sharedOn}."
@@ -72,11 +64,6 @@ msgstr "«{0}»-ը կողպված է"
 #: src/features/documents/document-actions.tsx
 msgid "“{0}” moved to Trash"
 msgstr "«{0}»-ը տեղափոխվեց աղբարկղ"
-
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "“{0}” stops being your primary resume."
-msgstr "«{0}»-ը դադարում է լինել ձեր հիմնական ռեզյումեն:"
 
 #. placeholder {0}: isolate(document.name)
 #: src/features/documents/document-actions.tsx
@@ -307,11 +294,6 @@ msgstr "{0, plural, one {# օր ևս} other {# ևս օր}}"
 #: src/features/documents/document-actions.tsx
 msgid "{0, plural, one {# moved to Trash} other {# moved to Trash}}"
 msgstr "{0, plural, one {#-ը տեղափոխվեց աղբարկղ} other {#-ը տեղափոխվեց աղբարկղ}}"
-
-#. placeholder {0}: link.openCommentCount
-#: src/features/resume/share/feedback-links.tsx
-msgid "{0, plural, one {# new comment} other {# new comments}}"
-msgstr "{0, plural, one {# նոր մեկնաբանություն} other {# նոր մեկնաբանություններ}}"
 
 #. placeholder {0}: notice.count
 #: src/features/career/today.tsx
@@ -751,11 +733,6 @@ msgstr "{0}-ն այժմ ընդմիշտ ջնջվել է՝ իրենց պատմու
 msgid "{0} closed"
 msgstr "{0} փակված է"
 
-#. placeholder {0}: link.commentCount
-#: src/features/resume/share/feedback-links.tsx
-msgid "{0} comments, all done"
-msgstr "{0} մեկնաբանություններ, ամեն ինչ արված է"
-
 #. placeholder {0}: props.providerLabel
 #: src/features/assistant/conversation.tsx
 msgid "{0} didn't respond."
@@ -837,16 +814,6 @@ msgstr "{0} հարցազրույց {1}-ում · {2} · {3}-ի հետ"
 #: src/features/career/workspace/overview.tsx
 msgid "{0} interview debriefed {1}"
 msgstr "{0} հարցազրույցը ամփոփված է {1}"
-
-#. placeholder {0}: domain.hostname
-#: src/features/resume/share/share-panel.tsx
-msgid "{0} is connected"
-msgstr "{0}-ը միացված է"
-
-#. placeholder {0}: domain.hostname
-#: src/features/resume/share/share-panel.tsx
-msgid "{0} is not connected yet"
-msgstr "{0}-ը դեռ միացված չէ"
 
 #. placeholder {0}: job.company
 #: src/features/assistant/assistant-panel.tsx
@@ -1081,10 +1048,6 @@ msgstr "{active, plural, one {# ակտիվ դիմում} other {# ակտիվ դ�
 msgid "{active, plural, one {active application} other {active applications}}"
 msgstr "{active, plural, one {ակտիվ դիմում} other {ակտիվ դիմումներ}}"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "{active} active"
-msgstr "{active} ակտիվ"
-
 #: src/features/career/workspace/fit-local.tsx
 msgid "{activeFacts, plural, one {# fact} other {# facts}}"
 msgstr "{activeFacts, plural, one {# փաստ} other {# փաստեր}}"
@@ -1182,10 +1145,6 @@ msgstr "{connection}-ն անցել է իր թեստը: Փորձեք իրական
 #: src/features/career/knowledge/facts.tsx
 msgid "{correctedOn} · the original wording is kept above"
 msgstr "{correctedOn} · բնօրինակ ձևակերպումը պահվում է վերևում"
-
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "{cost} the first year"
-msgstr "{cost} առաջին տարին"
 
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "{count, plural, =0 {Its applications move to the stage you choose. Their history keeps the name “{label}”.} one {Its # application moves to the stage you choose. Its history keeps the name “{label}”.} other {Its # applications move to the stage you choose. Their history keeps the name “{label}”.}}"
@@ -1758,19 +1717,6 @@ msgstr "{sections, plural, one {# բաժին} other {# բաժինները}}"
 msgid "{sent} sent {0}"
 msgstr "{sent} ուղարկված {0}"
 
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "{shortLink} opens “{0}”"
-msgstr "{shortLink}-ը բացում է «{0}»"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "{shortLink} opens no resume yet"
-msgstr "{shortLink}-ը դեռ ռեզյումե չի բացում"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "{shortLink} opens this resume"
-msgstr "{shortLink}-ը բացում է այս ռեզյումեն"
-
 #: src/features/applications/components/application-detail-sheet.tsx
 msgid "{since, plural, =0 {since today} one {for # day} other {for # days}}"
 msgstr "{since, plural, =0 {այսօրվանից} one {# օրվա համար} other {# օրով}}"
@@ -1995,10 +1941,6 @@ msgstr "0-ը թաքցնում է այն"
 msgid "06/2017 – 2021"
 msgstr "06/2017 – 2021"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "1 comment, done"
-msgstr "1 մեկնաբանություն, արված է"
-
 #: src/features/settings/account/security.tsx
 msgid "1 passkey · {first}"
 msgstr "1 passkey · {first}"
@@ -2018,10 +1960,6 @@ msgstr "10 րոպեանոց տարբերակ"
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "10–11 recommended"
 msgstr "10-11 խորհուրդ է տրվում"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "2 comments, both done"
-msgstr "2 մեկնաբանություն, երկուսն էլ արված"
 
 #: src/routes/builder/letter/-components/download-sheet.tsx
 msgid "2 files"
@@ -2306,10 +2244,6 @@ msgstr "Երկրորդ կարծիք ձեր ձեւակերպման վերաբեր
 msgid "A short follow-up is usually fine now"
 msgstr "Կարճ հետևելը սովորաբար լավ է հիմա"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "A shorter address that opens your primary resume."
-msgstr "Ավելի կարճ հասցե, որը բացում է ձեր հիմնական ռեզյումեն:"
-
 #: src/features/resume/editor/design/entries-group.tsx
 msgid "A small accent line above a larger company"
 msgstr "Փոքր շեշտադրման գիծ ավելի մեծ ընկերության վերևում"
@@ -2489,14 +2423,9 @@ msgstr "Ակտիվացումը մեկ եռամսյակում 31%-ից հասել
 msgid "Activation rose from 31%…"
 msgstr "Ակտիվացումն աճել է 31%-ից…"
 
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/ai/web-access.tsx
 msgid "Active"
 msgstr "Ակտիվ"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Activity"
-msgstr "Գործունեություն"
 
 #: src/features/applications/components/list-view.tsx
 #: src/features/career/knowledge/facts.tsx
@@ -2653,10 +2582,6 @@ msgstr "Ավելացրեք տերմին միայն այնտեղ, որտեղ դա
 #: src/features/resume/editor/write/fields.tsx
 msgid "Add an @ and the domain, like name@example.com"
 msgstr "Ավելացնել @ և տիրույթ, օրինակ՝ name@example.com"
-
-#: src/features/resume/share/address-field.tsx
-msgid "Add an address."
-msgstr "Ավելացրեք հասցե:"
 
 #: src/features/career/offer-entry.tsx
 #: src/features/career/schedule-sheet.tsx
@@ -2827,10 +2752,6 @@ msgstr "Ավելացրեք առաջարկի պայմանները"
 msgid "Add them as a section called “More from your file”, to sort later"
 msgstr "Ավելացրեք դրանք որպես բաժին, որը կոչվում է «Ավելին ձեր ֆայլից», ավելի ուշ տեսակավորելու համար"
 
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "Add these records where you manage the domain, then check. Changes can take a few hours to reach everyone."
-msgstr "Ավելացրեք այս գրառումները, որտեղ դուք կառավարում եք տիրույթը, ապա ստուգեք. Փոփոխությունները կարող են տևել մի քանի ժամ՝ բոլորին հասնելու համար:"
-
 #: src/features/career/knowledge/facts.tsx
 msgid "Add things you've done, with numbers when you have them, such as “Cut checkout errors by 30% in 2025”."
 msgstr "Ավելացրե՛ք ձեր արած գործերը՝ նշելով թվեր, երբ դրանք ունեք, օրինակ՝ «Կտրեք վճարումների սխալները 30%-ով 2025 թվականին»:"
@@ -2914,7 +2835,6 @@ msgstr "Ավելացվեց Գիտելիքին որպես փորձ:"
 msgid "Added to Knowledge."
 msgstr "Ավելացված է Գիտելիքին:"
 
-#: src/features/resume/share/address-field.tsx
 #: src/features/settings/profile.tsx
 msgid "Address"
 msgstr "Հասցե"
@@ -3133,10 +3053,6 @@ msgstr ""
 msgid "Allow access"
 msgstr "Թույլատրել մուտքը"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Allow comments"
-msgstr "Թույլատրել մեկնաբանությունները"
-
 #: src/features/auth/pages/error.tsx
 msgid "Allow email access when the provider asks, or use another sign-in method."
 msgstr "Թույլատրել էլփոստի մուտքը, երբ մատակարարը հարցնում է, կամ օգտագործեք մուտքի այլ եղանակ:"
@@ -3253,10 +3169,6 @@ msgstr "և"
 msgid "and {0} more"
 msgstr "և {0} ավելին"
 
-#: src/features/resume/share/address-field.tsx
-msgid "Another of your resumes uses this address."
-msgstr "Ձեր մեկ այլ ռեզյումե օգտագործում է այս հասցեն:"
-
 #: src/libs/error-message.ts
 msgid "Another resume already uses this address. Choose a different one."
 msgstr "Մեկ այլ ռեզյումե արդեն օգտագործում է այս հասցեն: Ընտրեք մեկ ուրիշը:"
@@ -3320,14 +3232,6 @@ msgstr "Ցանկացած տեսակի, ձեր սեփական կոչումը"
 #: src/features/resume/builder/password-dialog.tsx
 msgid "Anyone who opens the public link needs this password."
 msgstr "Հանրային հղումը բացողին այս գաղտնաբառը պետք է:"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Anyone with the link can see your web page."
-msgstr "Բոլորը, ովքեր ունեն հղումը, կարող են տեսնել ձեր վեբ էջը:"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Anyone with the link will be able to view your resume."
-msgstr "Բոլորը, ովքեր ունեն հղումը, կկարողանան դիտել ձեր ռեզյումեն:"
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Anything that can't be placed is listed before you create it."
@@ -3525,10 +3429,6 @@ msgstr "Ուղարկվել է. Հետևողական հավաքածու {0}-ի հ
 #: src/features/career/workspace/messages.tsx
 msgid "Applied. The application is updated."
 msgstr "Ուղարկվել է. Դիմումը թարմացվում է։"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Applies to the web page after its own styles, at every screen size. The PDF stays as it is."
-msgstr "Կիրառվում է վեբ էջի վրա՝ ըստ իր ոճերի, էկրանի յուրաքանչյուր չափի: PDF-ը մնում է այնպես, ինչպես կա:"
 
 #: src/features/resume/editor/write/section-view.tsx
 msgid "applies to the whole section"
@@ -3836,10 +3736,6 @@ msgstr "ավտոմատ պահված"
 #: src/features/resume/share/history-tab.tsx
 msgid "Autosaves are grouped by session and kept for 90 days. Named and sent versions are kept. Restoring saves the current state first, so nothing is lost."
 msgstr "Ավտոպահեստները խմբավորվում են ըստ նիստերի և պահվում են 90 օր: Անվանված և ուղարկված տարբերակները պահվում են: Վերականգնումը նախ պահպանում է ներկայիս վիճակը, այնպես որ ոչինչ չի կորչում:"
-
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "Available"
-msgstr "Հասանելի է"
 
 #: src/features/ats-checker/messages.ts
 msgid "Avoid heavy letter-spacing effects, then re-export."
@@ -4371,7 +4267,6 @@ msgstr "Չե՞ք կարողանում սկանավորել: Մուտքագրեք
 #: src/features/resume/editor/check/job-match.tsx
 #: src/features/resume/editor/proposals/proposal-list.tsx
 #: src/features/resume/editor/write/picture-settings.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/account/data.tsx
 #: src/features/settings/account/profile.tsx
 #: src/features/settings/ai/providers.tsx
@@ -4429,7 +4324,6 @@ msgstr "Հավաստագրեր"
 #: src/features/resume/editor/check/job-match.tsx
 #: src/features/resume/editor/check/writing-tab.tsx
 #: src/features/resume/editor/write/section-view.tsx
-#: src/features/resume/share/share-panel.tsx
 #: src/features/settings/account/profile.tsx
 #: src/features/settings/account/security.tsx
 #: src/features/settings/ai/web-access.tsx
@@ -4578,11 +4472,6 @@ msgstr "Ստուգեք ցանկացած PDF, հաշիվ անհրաժեշտ չէ"
 msgid "Check before accepting: {0}"
 msgstr "Ստուգեք նախքան ընդունելը՝ {0}"
 
-#: src/features/resume/share/custom-domain-field.tsx
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "Check DNS"
-msgstr "Ստուգեք DNS-ը"
-
 #: src/features/settings/profile.tsx
 msgid "Check email addresses, links, names, countries and salary. A salary amount needs currency and pay period."
 msgstr "Ստուգեք էլփոստի հասցեները, հղումները, անունները, երկրները և աշխատավարձը: Աշխատավարձի գումարին անհրաժեշտ է արժույթ և վճարման ժամկետ:"
@@ -4699,17 +4588,9 @@ msgstr "Ստուգում է դասավորությունը և բովանդակո
 msgid "Checking the exported PDF…"
 msgstr "Ստուգվում է արտահանված PDF…"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Checking which resume opens your short link…"
-msgstr "Ստուգելով, թե որ ռեզյումեն է բացում ձեր կարճ հղումը…"
-
 #: src/features/career/shared.tsx
 msgid "Checking your preferences"
 msgstr "Ստուգելով ձեր նախասիրությունները"
-
-#: src/features/resume/share/address-field.tsx
-msgid "Checking… Copy is available after saving."
-msgstr "Ստուգվում է… Պատճենը հասանելի է պահպանելուց հետո:"
 
 #: src/features/resume/editor/check/check-panel.tsx
 msgid "Checks by category"
@@ -5022,8 +4903,6 @@ msgstr "փակել"
 #: src/features/resume/editor/check/page-layer.tsx
 #: src/features/resume/editor/chrome/download-sheet.tsx
 #: src/features/resume/editor/write/picture-settings.tsx
-#: src/features/resume/share/dns-records-dialog.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/resume/stylesheet/editor.tsx
 #: src/features/settings/account/backup-codes.tsx
 #: src/features/settings/ai/next-steps.tsx
@@ -5150,17 +5029,12 @@ msgstr "Հրամաններ"
 msgid "Comment"
 msgstr "Մեկնաբանություն"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Comment left"
-msgstr "Մեկնաբանությունը մնացել է"
-
 #. placeholder {0}: view.ownerName
 #: src/features/feedback/review-page.tsx
 msgid "Comment sent to {0}"
 msgstr "Մեկնաբանությունն ուղարկվել է {0}-ին"
 
 #: src/features/feedback/review-page.tsx
-#: src/features/resume/share/feedback-links.tsx
 msgid "Comments"
 msgstr "Մեկնաբանություններ"
 
@@ -5265,10 +5139,6 @@ msgstr "Պահելուց առաջ լրացրեք {0}-ը:"
 msgid "Compress or remove large images to keep uploads quick."
 msgstr "Սեղմեք կամ հեռացրեք մեծ պատկերները՝ արագ վերբեռնումները պահպանելու համար:"
 
-#: src/features/resume/share/web-page-preview.tsx
-msgid "Computer"
-msgstr "Համակարգիչ"
-
 #: src/features/career/offers.tsx
 msgid "Conditions not stated"
 msgstr "Պայմանները նշված չեն"
@@ -5316,19 +5186,9 @@ msgstr "Հաստատեք ձեր նոր էլփոստի հասցեն"
 msgid "Confirms {time} today, by video."
 msgstr "Հաստատում է {time}-ն այսօր՝ տեսանյութով:"
 
-#: src/features/resume/share/custom-domain-field.tsx
 #: src/features/settings/account/security.tsx
 msgid "Connect"
 msgstr "Միացնել"
-
-#. placeholder {0}: domain.hostname
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "Connect {0}"
-msgstr "Միացնել {0}"
-
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "Connect {domain}"
-msgstr "Միացնել {domain}"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Connect a search service"
@@ -5358,10 +5218,6 @@ msgstr "Միացրեք մեկ այլ…"
 #: src/features/settings/ai/providers.tsx
 msgid "Connected"
 msgstr "Միացված"
-
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Connected. Your domain opens your primary resume."
-msgstr "Միացված է: Ձեր տիրույթը բացում է ձեր հիմնական ռեզյումեն:"
 
 #: src/features/settings/account/auth-hooks.ts
 msgid "Connecting your {providerName} account…"
@@ -5397,14 +5253,6 @@ msgstr "Կոնտակտային տվյալներ և ստանդարտ պատասխ
 #: src/features/homepage/check.tsx
 msgid "Contact details found"
 msgstr "Կոնտակտային տվյալներ են գտնվել"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Contact details hidden"
-msgstr "Կոնտակտային տվյալները թաքցված են"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Contact details shown"
-msgstr "Կոնտակտային տվյալները ցուցադրված են"
 
 #: src/features/resume/editor/check/check-panel.tsx
 msgid "Contact details, reading order, fonts, links"
@@ -5524,8 +5372,6 @@ msgid "Conversations"
 msgstr "Զրույցներ"
 
 #: src/features/homepage/share.tsx
-#: src/features/resume/share/copy-link-button.tsx
-#: src/features/resume/share/copy-text.tsx
 msgid "Copied"
 msgstr "Պատճենվել է"
 
@@ -5543,13 +5389,8 @@ msgstr "Պատճենում է հարցերը և բացում Messages այս դ�
 
 #: src/features/career/coach-chat.tsx
 #: src/features/career/workspace/answer-library.tsx
-#: src/features/resume/share/copy-text.tsx
 msgid "Copy"
 msgstr "Պատճենել"
-
-#: src/features/resume/share/copy-text.tsx
-msgid "Copy {value}"
-msgstr "Պատճենել {value}"
 
 #: src/features/career/workspace/preparation.tsx
 msgid "Copy a base resume for this job"
@@ -5596,7 +5437,6 @@ msgid "Copy it for a job"
 msgstr "Պատճենեք այն աշխատանքի համար"
 
 #: src/features/homepage/share.tsx
-#: src/features/resume/share/copy-link-button.tsx
 msgid "Copy link"
 msgstr "Պատճենել հղումը"
 
@@ -5709,10 +5549,6 @@ msgstr "Չհաջողվեց փոխել ձեր գաղտնաբառը: Ստուգե�
 msgid "Couldn't check for a web search service. Retry."
 msgstr "Չհաջողվեց ստուգել վեբ որոնման ծառայությունը: Կրկին փորձեք:"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Couldn't check which resume opens your short link. Reload the page and try again."
-msgstr "Չհաջողվեց ստուգել, ​​թե որ ռեզյումեն է բացում ձեր կարճ հղումը: Վերբեռնեք էջը և նորից փորձեք:"
-
 #: src/features/career/workspace/fit.tsx
 msgid "Couldn't check your evidence."
 msgstr "Չհաջողվեց ստուգել ձեր ապացույցները:"
@@ -5766,8 +5602,6 @@ msgid "Couldn't copy the transcript. Try again."
 msgstr "Չհաջողվեց պատճենել տեքստը: Նորից փորձեք:"
 
 #: src/features/career/coach-thread.tsx
-#: src/features/resume/share/copy-link-button.tsx
-#: src/features/resume/share/copy-text.tsx
 msgid "Couldn't copy to the clipboard. Try again."
 msgstr "Չհաջողվեց պատճենել սեղմատախտակին: Նորից փորձեք:"
 
@@ -5942,10 +5776,6 @@ msgstr "Չհաջողվեց բեռնել պահված կարծիքը:"
 msgid "Couldn't load this application. Try again."
 msgstr "Չհաջողվեց բեռնել այս դիմումը: Նորից փորձեք:"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Couldn't load this link."
-msgstr "Չհաջողվեց բեռնել այս հղումը:"
-
 #: src/features/applications/components/application-detail-sheet.tsx
 #: src/features/career/load-state.tsx
 #: src/features/career/workspace/practise.tsx
@@ -5960,10 +5790,6 @@ msgstr "Չհաջողվեց բեռնել աղբարկղը"
 #: src/features/settings/profile.tsx
 msgid "Couldn't load your application profile. Your saved data hasn't changed."
 msgstr "Չհաջողվեց բեռնել ձեր դիմումի պրոֆիլը: Ձեր պահպանված տվյալները չեն փոխվել:"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Couldn't load your feedback links."
-msgstr "Չհաջողվեց բեռնել ձեր կարծիքի հղումները:"
 
 #: src/routes/dashboard/applications/index.tsx
 msgid "Couldn't load your stages, so the standard ones are shown."
@@ -5996,10 +5822,6 @@ msgstr "Չհաջողվեց պատճենել՝ ​​աշխատելու համա�
 #: src/features/settings/account/backup-codes.tsx
 msgid "Couldn't make new codes. Try again."
 msgstr "Չհաջողվեց ստեղծել նոր կոդեր: Նորից փորձեք:"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Couldn't make the link. Try again."
-msgstr "Չհաջողվեց ստեղծել հղումը: Նորից փորձեք:"
 
 #: src/features/settings/ai/providers.tsx
 msgid "Couldn't make this connection the default. Try again."
@@ -6224,10 +6046,6 @@ msgstr "Չհաջողվեց պահել առաջարկը: Ձեր նախագիծը 
 msgid "Couldn't save the posting. Try again."
 msgstr "Չհաջողվեց պահել հայտարարությունը: Նորից փորձեք:"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Couldn't save the QR code as PNG. Try SVG instead."
-msgstr "Չհաջողվեց պահել QR կոդը որպես PNG: Փորձեք SVG-ի փոխարեն:"
-
 #: src/features/career/knowledge/stories.tsx
 msgid "Couldn't save the story. Try again."
 msgstr "Չհաջողվեց պահպանել պատմությունը: Նորից փորձեք:"
@@ -6374,10 +6192,6 @@ msgstr "Չհաջողվեց փոխել մոդելները: Նորից փորձե�
 msgid "Couldn't transcribe. Your recording is still here."
 msgstr "Չհաջողվեց արտագրել: Ձեր ձայնագրությունը դեռ այստեղ է:"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Couldn't turn off the link. Try again."
-msgstr "Չհաջողվեց անջատել հղումը: Նորից փորձեք:"
-
 #. Fallback toast when disabling two-factor authentication fails
 #: src/dialogs/auth/disable-two-factor.tsx
 msgid "Couldn't turn off two-step verification. Check your password and try again."
@@ -6416,11 +6230,6 @@ msgstr "Չհաջողվեց ապակողպել փաստաթղթերը: Նորից
 msgid "Couldn't update saved answers. Try again."
 msgstr "Չհաջողվեց թարմացնել պահված պատասխանները: Նորից փորձեք:"
 
-#: src/features/resume/share/custom-domain-field.tsx
-#: src/features/resume/share/share-panel.tsx
-msgid "Couldn't update sharing. Try again."
-msgstr "Չհաջողվեց թարմացնել համօգտագործումը: Նորից փորձեք:"
-
 #: src/features/career/workspace/messages.tsx
 msgid "Couldn't update the application. Nothing was changed. Try again."
 msgstr "Չհաջողվեց թարմացնել դիմումը: Ոչինչ չի փոխվել։ Նորից փորձեք:"
@@ -6433,10 +6242,6 @@ msgstr "Չհաջողվեց թարմացնել դիմումը: Նորից փոր�
 #: src/features/applications/use-application-actions.ts
 msgid "Couldn't update the applications. Try again."
 msgstr "Չհաջողվեց թարմացնել դիմումները: Նորից փորձեք:"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Couldn't update the comment. Try again."
-msgstr "Չհաջողվեց թարմացնել մեկնաբանությունը: Նորից փորձեք:"
 
 #: src/features/applications/components/interview-dialog.tsx
 msgid "Couldn't update the interview. Try again."
@@ -6677,10 +6482,6 @@ msgctxt "Template style tag"
 msgid "Creative"
 msgstr "Ստեղծագործ"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Credit"
-msgstr "Վարկ"
-
 #: src/features/resume/editor/write/picture-settings.tsx
 msgid "Crop and upload"
 msgstr "Կտրել և վերբեռնել"
@@ -6736,7 +6537,6 @@ msgid "Custom color (hex)"
 msgstr "Հատուկ գույն (վեցանկյուն)"
 
 #: src/components/calm/category-strip.tsx
-#: src/features/resume/share/share-panel.tsx
 msgid "Custom CSS"
 msgstr "Հատուկ CSS"
 
@@ -7310,10 +7110,6 @@ msgstr "Արդյո՞ք այն սկսվում է ձեր արածից:"
 msgid "Does this offer meet what I want?"
 msgstr "Արդյո՞ք այս առաջարկը համապատասխանում է իմ ուզածին:"
 
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Domain connected"
-msgstr "Դոմենը միացված է"
-
 #. placeholder {0}: chip.label
 #: src/features/assistant/conversation.tsx
 msgid "Don't send {0}"
@@ -7337,7 +7133,6 @@ msgstr "կատարված է"
 #: src/features/career/workspace/prepare-review.tsx
 #: src/features/documents/document-actions.tsx
 #: src/features/resume/editor/write/rich-text-editor-field.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/account/backup-codes.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Done"
@@ -7430,7 +7225,7 @@ msgstr "Ներբեռնեք նմուշ PDF"
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Download Word"
-msgstr "Ներբեռնեք Word"
+msgstr ""
 
 #: src/features/resume/editor/chrome/bar.tsx
 msgid "Download, needs a connection"
@@ -7445,14 +7240,6 @@ msgstr "Ներբեռնված {file}"
 #: src/features/resume/share/download-tab.tsx
 msgid "Downloaded {file} and the cover letter"
 msgstr "Ներբեռնվել է {file}-ը և ուղեկցող նամակը"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "downloads"
-msgstr "ներբեռնումներ"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Downloads"
-msgstr "Ներբեռնումներ"
 
 #: src/features/career/workspace/preparation.tsx
 msgid "draft"
@@ -8073,7 +7860,7 @@ msgstr "Մուտքագրեք ձեր ծառայության API բազան URL և
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Enter the password the resume owner shared with you."
-msgstr "Մուտքագրեք գաղտնաբառը, որը ռեզյումեի սեփականատերը կիսվել է ձեզ հետ:"
+msgstr ""
 
 #: src/features/resume/builder/password-dialog.tsx
 msgid "Enter the same password in both fields."
@@ -8255,15 +8042,6 @@ msgstr "Փորձ"
 msgid "Experience, Education and more"
 msgstr "Փորձ, կրթություն և ավելին"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Expired"
-msgstr "Ժամկետանց"
-
-#. placeholder {0}: i18n.date(link.expiresAt, { dateStyle: "medium" })
-#: src/features/resume/share/feedback-links.tsx
-msgid "expires {0}"
-msgstr "լրանում է {0}"
-
 #: src/features/homepage/prepare.tsx
 msgid "explain one limit of the measurement clearly, without underselling the work."
 msgstr "պարզաբանել չափումների մեկ սահմանը՝ առանց աշխատանքը թերագնահատելու:"
@@ -8424,15 +8202,6 @@ msgstr "Հետադարձ կապ"
 #: src/features/career/workspace/practise.tsx
 msgid "Feedback · compared with your stories and the posting"
 msgstr "Հետադարձ կապ · համեմատած ձեր պատմությունների և հայտարարությունների հետ"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Feedback link"
-msgstr "Հետադարձ կապ"
-
-#: src/features/resume/share/feedback-links.tsx
-#: src/features/resume/share/share-panel.tsx
-msgid "Feedback links"
-msgstr "Հետադարձ կապեր"
 
 #: src/features/career/workspace/practise.tsx
 msgid "Feedback on an answer needs AI."
@@ -8771,11 +8540,6 @@ msgstr "Աշխատանքի համար"
 msgid "For a promotion at the same company: its own position, dates and description."
 msgstr "Նույն ընկերությունում առաջխաղացման համար՝ իր սեփական դիրքը, ամսաթվերը և նկարագրությունը:"
 
-#. placeholder {0}: domain.target
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "For a root domain such as example.com, use A and AAAA records with {0}'s addresses instead of the CNAME."
-msgstr "Արմատային տիրույթի համար, ինչպիսին է example.com-ը, CNAME-ի փոխարեն օգտագործեք A և AAAA գրառումները {0}-ի հասցեներով:"
-
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "For details the other categories don't cover. Rules apply to the page, the PDF and your public page."
 msgstr "Մանրամասների համար մյուս կատեգորիաները չեն ընդգրկում: Կանոնները կիրառվում են էջի, PDF-ի և ձեր հանրային էջի վրա:"
@@ -8791,10 +8555,6 @@ msgstr "Օրինակ՝ «2025-ին ես դաստիարակել եմ երկու �
 #: src/features/resume/share/history-tab.tsx
 msgid "For example, Before the rewrite"
 msgstr "Օրինակ, Նախքան վերաշարադրելը"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "For example, Careers office"
-msgstr "Օրինակ՝ Կարիերայի գրասենյակ"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/notes.tsx
 msgid "For example, where you sent this resume, or links to the postings."
@@ -9161,11 +8921,6 @@ msgstr "Գնալ Reactive Resume"
 msgid "Go to Today"
 msgstr "Գնացեք այսօր"
 
-#. placeholder {0}: url.replace(/^https?:\/\//, "")
-#: src/features/resume/share/address-field.tsx
-msgid "Goes live at {0} when you publish."
-msgstr "Ուղիղ հեռարձակվում է {0}-ին, երբ դուք հրապարակում եք:"
-
 #. Authentication provider display name in account settings
 #. Brand name label for Google social sign-in button
 #: src/features/auth/components/social-auth.tsx
@@ -9365,10 +9120,6 @@ msgstr "Թաքցնել"
 msgctxt "Fold an edit card"
 msgid "Hide"
 msgstr "Թաքցնել"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Hide contact details"
-msgstr "Թաքցնել կոնտակտային տվյալները"
 
 #: src/features/resume/editor/write/entry-row.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
@@ -9604,10 +9355,6 @@ msgstr "ID {clientId}"
 msgid "If an account uses that address, a reset link is on its way."
 msgstr "Եթե ​​հաշիվն օգտագործում է այդ հասցեն, ապա վերակայման հղումը պատրաստ է:"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "If another resume holds Primary, turn it on for this one instead."
-msgstr "Եթե ​​մեկ այլ ռեզյումե պահում է Հիմնականը, փոխարենը միացրեք այն այս մեկի համար:"
-
 #: src/features/homepage/remember.tsx
 msgid "If I did it again, I’d agree on the measure before the first prototype."
 msgstr "Եթե ​​ես դա նորից անեի, ես կհամաձայնեի չափման մասին առաջին նախատիպից առաջ:"
@@ -9622,7 +9369,7 @@ msgstr "Եթե ​​դա ձեր փորձի մի մասն է, ավելացրեք
 
 #: src/features/resume/share/web-page-text.ts
 msgid "If someone sent you this link, ask them for a new one."
-msgstr "Եթե ​​ինչ-որ մեկը ձեզ ուղարկել է այս հղումը, խնդրեք նրան նորը:"
+msgstr ""
 
 #: src/features/auth/email-text.ts
 msgid "If the button does not work, copy and paste this link into your browser:"
@@ -9786,18 +9533,6 @@ msgstr "Բարելավեք աշխատանքները տողի վրա, երբ գր
 #: src/features/resume/editor/write/improve.tsx
 msgid "Improving…"
 msgstr "Բարելավում…"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "In 30 days"
-msgstr "30 օրում"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "In 7 days"
-msgstr "7 օրում"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "In 90 days"
-msgstr "90 օրում"
 
 #: src/features/career/workspace/fit.tsx
 msgid "In Interview prep"
@@ -10075,10 +9810,6 @@ msgstr "Հնարավոր է՝ այն տեղափոխվել է, կամ այլևս 
 msgid "It reads the posting, your notes and what you sent, and knows you are on {tabName}."
 msgstr "Այն կարդում է գրառումը, ձեր նշումները և ձեր ուղարկածը և գիտի, որ դուք {tabName}-ում եք:"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "It stops opening at once. Comments already left are kept. You can make a new link anytime."
-msgstr "Այն միանգամից դադարում է բացվել: Արդեն թողնված մեկնաբանությունները պահվում են: Ցանկացած ժամանակ կարող եք նոր հղում կատարել:"
-
 #: src/features/applications/components/interview-dialog.tsx
 msgid "It will show on the application's timeline and on the calendar."
 msgstr "Այն կցուցադրվի դիմումի ժամանակացույցում և օրացույցում:"
@@ -10260,10 +9991,6 @@ msgstr "Պահպանեք կապը"
 msgid "Keep current connection"
 msgstr "Պահպանեք ընթացիկ կապը"
 
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Keep domain"
-msgstr "Պահպանեք տիրույթը"
-
 #: src/features/career/schedule-sheet.tsx
 #: src/features/resume/editor/save-status.tsx
 #: src/hooks/use-form-blocker.tsx
@@ -10308,10 +10035,6 @@ msgstr "Պահել մեկ էջում"
 #: src/features/settings/account/security.tsx
 msgid "Keep passkey"
 msgstr "Պահպանել passkey-ը"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Keep password"
-msgstr "Պահպանեք գաղտնաբառը"
 
 #: src/features/settings/profile.tsx
 msgid "Keep profile"
@@ -10541,23 +10264,6 @@ msgstr "Վերջին ակտիվ {active}"
 #: src/features/settings/account/security.tsx
 msgid "Last changed in {0}"
 msgstr "Վերջին անգամ փոխվել է {0}-ին"
-
-#. placeholder {0}: formatTimeAgo(domain.lastCheckedAt, i18n.locale)
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Last checked {0}"
-msgstr "Վերջին ստուգումը {0}"
-
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "Last checked {lastChecked}"
-msgstr "Վերջին ստուգումը {lastChecked}"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Last counted view {lastView} ago"
-msgstr "Վերջին հաշվված դիտումը {lastView} առաջ"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Last counted view {lastView} ago. Each visitor counts once an hour."
-msgstr "Վերջին հաշվված դիտումը {lastView} առաջ: Յուրաքանչյուր այցելու հաշվում է ժամը մեկ անգամ:"
 
 #: src/features/documents/documents-page.tsx
 #: src/routes/builder/$resumeId/-components/document-details.tsx
@@ -10922,7 +10628,6 @@ msgid "Link an existing letter"
 msgstr "Կապել գոյություն ունեցող նամակին"
 
 #: src/features/documents/document-actions.tsx
-#: src/features/resume/share/copy-link-button.tsx
 #: src/features/resume/share/web-page-text.ts
 msgid "Link copied"
 msgstr "Հղումը պատճենված է"
@@ -10931,17 +10636,9 @@ msgstr "Հղումը պատճենված է"
 msgid "Link expired"
 msgstr "Հղման ժամկետը սպառվել է"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Link expires"
-msgstr "Հղման ժամկետը լրանում է"
-
 #: src/components/input/url-input.tsx
 msgid "Link label"
 msgstr "Հղման պիտակ"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Link made"
-msgstr "Հղումը կազմված է"
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Link one later"
@@ -10962,14 +10659,6 @@ msgstr "Հղում դեպի դիմում"
 #: src/features/documents/document-actions.tsx
 msgid "Link to application…"
 msgstr "Հղում դեպի դիմում…"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Link turned off"
-msgstr "Հղումն անջատված է"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Link turned off. The address is kept"
-msgstr "Հղումն անջատված է։ Հասցեն պահպանվում է"
 
 #: src/features/resume/editor/check/issues.ts
 msgid "Link updated"
@@ -11056,11 +10745,6 @@ msgstr "Լսում… Դադարեցրեք, երբ ավարտեք:"
 #: src/libs/locale.ts
 msgid "Lithuanian"
 msgstr "լիտվաներեն"
-
-#. placeholder {0}: url.replace(/^https?:\/\//, "")
-#: src/features/resume/share/address-field.tsx
-msgid "Live at {0}"
-msgstr "Ուղիղ ժամը {0}"
 
 #: src/features/applications/components/import-applications-sheet.tsx
 msgid "Load your stages before importing named stages. Your CSV data is kept."
@@ -11163,7 +10847,6 @@ msgstr "Աշխատանքային տարածքի բեռնում…"
 #: src/features/command-palette/index.tsx
 #: src/features/command-palette/pages/ask.tsx
 #: src/features/resume/editor/check/job-match.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/ai/next-steps.tsx
 #: src/features/settings/profile.tsx
 msgid "Loading…"
@@ -11285,7 +10968,7 @@ msgstr "Պատրաստված է {0}-ից {1}-ից: Նամակները չունե
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Made with Reactive Resume"
-msgstr "Պատրաստված է Reactive Resume-ով"
+msgstr ""
 
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
@@ -11337,14 +11020,6 @@ msgstr "Դարձրեք այն ավելի կոնկրետ"
 msgid "Make it shorter"
 msgstr "Դարձրեք այն ավելի կարճ"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Make link"
-msgstr "Հղում անել"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Make primary"
-msgstr "Դարձրեք առաջնային"
-
 #: src/features/documents/documents-page.tsx
 msgid "Make private"
 msgstr "Դարձնել մասնավոր"
@@ -11364,10 +11039,6 @@ msgstr "Տեսանելի տեքստը և նպատակակետը համապատա
 #: src/features/ats-checker/messages.ts
 msgid "Make them visibly larger, bolder or capitalized."
 msgstr "Դարձրեք դրանք տեսանելիորեն ավելի մեծ, ավելի համարձակ կամ մեծատառով:"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Make this your primary resume?"
-msgstr "Դարձնե՞լ սա ձեր առաջնային ռեզյումեում:"
 
 #: src/features/assistant/translate-resume.tsx
 msgid "Makes a copy named “{copyName}” and opens it with a request ready for the assistant. Nothing is sent until you send it."
@@ -11542,10 +11213,6 @@ msgstr "Համապատասխանեցում ձեր փաստերին"
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Matching, Add to Skills and hiding a term work without it."
 msgstr "Համապատասխանեցում, ավելացրեք հմտություններին և տերմինային աշխատանք թաքցնեք առանց դրա:"
-
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "May be available"
-msgstr "Կարող է հասանելի լինել"
 
 #: src/features/ai/usage.tsx
 msgid "MCP match score"
@@ -11960,11 +11627,6 @@ msgstr "Իմ աշխատանքն էր պարզել, թե ինչու՝ առանց 
 msgid "Name"
 msgstr "Անուն"
 
-#: src/features/resume/share/dns-records-dialog.tsx
-msgctxt "DNS record"
-msgid "Name"
-msgstr "Անուն"
-
 #: src/features/settings/ai/provider-fields.tsx
 msgid "Name and base URL"
 msgstr "Անունը և հիմքը URL"
@@ -12110,14 +11772,9 @@ msgstr "Ցանց"
 
 #: src/features/career/coach.tsx
 #: src/features/career/knowledge/facts.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/ai/page.tsx
 msgid "Never"
 msgstr "Երբեք"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Never opened"
-msgstr "Երբեք չի բացվել"
 
 #: src/features/career/coach.tsx
 #: src/features/documents/document-card.tsx
@@ -12165,10 +11822,6 @@ msgstr "Նոր փաստաթուղթ"
 #: src/features/career/knowledge/facts.tsx
 msgid "New fact"
 msgstr "Նոր փաստ"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "New feedback link"
-msgstr "Հետադարձ կապի նոր հղում"
 
 #: src/features/auth/pages/login.tsx
 msgid "New here?"
@@ -12369,7 +12022,6 @@ msgid "No commands match that search."
 msgstr "Ոչ մի հրաման չի համապատասխանում այդ որոնմանը:"
 
 #: src/features/feedback/review-page.tsx
-#: src/features/resume/share/feedback-links.tsx
 msgid "No comments yet."
 msgstr "Դեռևս մեկնաբանություններ չկան:"
 
@@ -12404,10 +12056,6 @@ msgstr "Առայժմ ուղեկցող նամակ չկա"
 #: src/features/documents/documents-page.tsx
 msgid "No cover letters yet"
 msgstr "Առայժմ ուղեկցող նամակներ չկան"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "No custom domain"
-msgstr "Հատուկ տիրույթ չկա"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "No custom rules"
@@ -12545,10 +12193,6 @@ msgstr "Նոր պաշտոներ չկան։ Պաշտոների հայտնաբեր
 msgid "No offers to compare yet"
 msgstr "Համեմատելու առաջարկներ դեռ չկան"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "No open applications."
-msgstr "Բաց դիմումներ չկան:"
-
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
 msgid "No open issues"
 msgstr "Բաց հարցեր չկան"
@@ -12557,10 +12201,6 @@ msgstr "Բաց հարցեր չկան"
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "No other stage counts as {0}. Add one first, so its applications have somewhere to go."
 msgstr "Ոչ մի այլ փուլ չի համարվում {0}: Սկզբում ավելացրեք մեկը, որպեսզի դրա դիմումները գնալու տեղ ունենան:"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "no password"
-msgstr "գաղտնաբառ չկա"
 
 #: src/features/resume/editor/check/issues.ts
 msgid "No phone number"
@@ -12809,10 +12449,6 @@ msgstr "իրավասու չէ աշխատել"
 msgid "Not available in this browser"
 msgstr "Հասանելի չէ այս դիտարկիչում"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Not available while the resume needs a password."
-msgstr "Հասանելի չէ, քանի դեռ ռեզյումեն գաղտնաբառի կարիք ունի:"
-
 #: src/features/settings/account/security.tsx
 msgid "Not connected"
 msgstr "Միացված չէ"
@@ -12820,10 +12456,6 @@ msgstr "Միացված չէ"
 #: src/features/settings/ai/web-access.tsx
 msgid "Not connected · finds roles and reads pages the reader can't"
 msgstr "Միացված չէ · գտնում է պաշտոններ և կարդում էջեր, որոնք ընթերցողը չի կարողանում"
-
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Not connected yet. Add its DNS records where you manage the domain, then check."
-msgstr "Դեռ միացված չէ: Ավելացրեք իր DNS գրառումները, որտեղ դուք կառավարում եք տիրույթը, ապա ստուգեք."
 
 #: src/features/applications/components/insights-view.tsx
 msgid "Not enough to compare yet: this needs 3 of each."
@@ -13155,14 +12787,6 @@ msgstr "օրիյա"
 msgid "Off"
 msgstr "Անջատված"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Off by default. Shares an editable Word file with the same visible content as your web page. Layout is simplified."
-msgstr "Լռելյայն անջատված է: Համօգտագործում է խմբագրվող Word ֆայլը նույն տեսանելի բովանդակությամբ, ինչ ձեր վեբ էջը: Դասավորությունը պարզեցված է:"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Off makes the link read-only."
-msgstr "Off-ը հղումը դարձնում է միայն կարդալու:"
-
 #: src/features/homepage/remember.tsx
 msgid "Off: the coach won’t see it or claim it."
 msgstr "Անջատված. մարզիչը դա չի տեսնի կամ չի պահանջի:"
@@ -13170,14 +12794,6 @@ msgstr "Անջատված. մարզիչը դա չի տեսնի կամ չի պահ
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Off. Edit this letter’s details below. Turning this on replaces them with the resume’s current details."
 msgstr "Անջատված: Խմբագրել այս նամակի մանրամասները ստորև։ Սա միացնելը դրանք փոխարինում է ռեզյումեի ընթացիկ մանրամասներով:"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Off. Let recruiters find you on Google by turning this on."
-msgstr "Անջատված: Թույլ տվեք հավաքագրողներին գտնել ձեզ Google-ում՝ միացնելով սա:"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Off. Only you can see your web page."
-msgstr "Անջատված: Միայն դուք կարող եք տեսնել ձեր վեբ էջը:"
 
 #: src/features/applications/stages.ts
 #: src/features/career/offer-entry.tsx
@@ -13459,19 +13075,7 @@ msgstr "Միայն երբ և քանիսն է պահվում, երբեք ձևակ
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Only you can see this address. Publish it in Share."
-msgstr "Միայն դուք կարող եք տեսնել այս հասցեն: Հրապարակեք այն Share-ում:"
-
-#: src/features/resume/share/web-page-preview.tsx
-msgid "Only you can see this page"
-msgstr "Միայն դուք կարող եք տեսնել այս էջը"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "only you see these"
-msgstr "սրանք միայն դու ես տեսնում"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Only you see this."
-msgstr "Սա միայն դու ես տեսնում:"
+msgstr ""
 
 #: src/libs/orpc/ai-consent.ts
 msgid "Only your recording is sent to this transcription model. The returned transcript is saved to your account."
@@ -13591,7 +13195,7 @@ msgstr "Բացեք ուղարկված տարբերակը"
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Open Share"
-msgstr "Բացեք Համօգտագործումը"
+msgstr ""
 
 #: src/features/career/workspace/prepare.tsx
 msgid "Open stories"
@@ -13633,22 +13237,9 @@ msgstr "Բացեք ուղարկված ռեզյումեի տարբերակը"
 msgid "Open Trash"
 msgstr "Բացեք աղբարկղը"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Open web page"
-msgstr "Բացել վեբ էջը"
-
 #: src/features/settings/ai/providers.tsx
 msgid "OpenAI, Anthropic, Gemini, Ollama and more"
 msgstr "OpenAI, Anthropic, Gemini, Ollama և ավելին"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Opened"
-msgstr "Բացվեց"
-
-#. placeholder {0}: dayLabel(link.lastViewedAt, i18n.locale)
-#: src/features/resume/share/feedback-links.tsx
-msgid "Opened {0}"
-msgstr "Բացվել է {0}"
 
 #: src/features/homepage/remember.tsx
 msgid "Opening"
@@ -14029,18 +13620,6 @@ msgstr "Գաղտնաբառը փոխվել է"
 msgid "Password changed. You're signed out everywhere; sign in, then add any passkeys again."
 msgstr ""
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Password removed"
-msgstr "Գաղտնաբառը հեռացվեց"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "password set"
-msgstr "գաղտնաբառի հավաքածու"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Password set"
-msgstr "Գաղտնաբառերի հավաքածու"
-
 #: src/dialogs/auth/set-password.tsx
 msgid "Password set. You can now sign in with it too."
 msgstr "Գաղտնաբառերի հավաքածու: Այժմ դուք նույնպես կարող եք մուտք գործել դրա միջոցով:"
@@ -14132,14 +13711,6 @@ msgstr "Վճարման ժամկետը"
 msgid "Pay, deadline and conditions, so you can compare and decide"
 msgstr "Վճարեք, վերջնաժամկետ և պայմաններ, որպեսզի կարողանաք համեմատել և որոշել"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "PDF download off"
-msgstr "PDF ներբեռնումն անջատված է"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "PDF download on"
-msgstr "PDF ներբեռնումը միացված է"
-
 #: src/features/ai/usage.tsx
 msgid "PDF import"
 msgstr "PDF ներմուծում"
@@ -14203,7 +13774,6 @@ msgstr "պարսկերեն"
 #: src/features/resume/editor/check/parser-view.tsx
 #: src/features/resume/editor/write/basics-card.tsx
 #: src/features/resume/editor/write/entries.tsx
-#: src/features/resume/share/web-page-preview.tsx
 #: src/features/settings/profile.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Phone"
@@ -14651,10 +14221,6 @@ msgstr "Նախադիտել {0}"
 msgid "Preview {name} sample PDF"
 msgstr "Նախադիտել {name} նմուշ PDF"
 
-#: src/features/resume/share/web-page-preview.tsx
-msgid "Preview size"
-msgstr "Նախադիտման չափը"
-
 #: src/features/documents/document-card.tsx
 msgid "Preview unavailable"
 msgstr "Նախադիտումն անհասանելի է"
@@ -14710,10 +14276,6 @@ msgstr "Նախորդ տարբերակը"
 msgid "Primary color"
 msgstr "Առաջնային գույն"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Primary resume"
-msgstr "Առաջնային ռեզյումե"
-
 #: src/features/resume/share/download-menu.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Print"
@@ -14722,14 +14284,6 @@ msgstr "Տպել"
 #: src/features/ats-checker/messages.ts
 msgid "Print or export the form to a flat PDF before sending it."
 msgstr "Տպեք կամ արտահանեք ձևը հարթ PDF նախքան այն ուղարկելը:"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Privacy"
-msgstr "Գաղտնիություն"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Privacy and downloads"
-msgstr "Գաղտնիություն և ներբեռնումներ"
 
 #: src/features/homepage/share.tsx
 msgid "Private"
@@ -14870,10 +14424,6 @@ msgstr "Մատակարարի թեստ"
 msgid "Public"
 msgstr "Հանրային"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Public link"
-msgstr "Հանրային հղում"
-
 #: src/features/documents/document-status.tsx
 #: src/routes/builder/$resumeId/-components/document-details.tsx
 msgid "Public, with a password"
@@ -14882,30 +14432,6 @@ msgstr "Հանրային՝ գաղտնաբառով"
 #: src/libs/resume/section.tsx
 msgid "Publications"
 msgstr "Հրապարակումներ"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish"
-msgstr "Հրապարակել"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish it to share a link that opens on any screen. Only you can see it until then."
-msgstr "Հրապարակեք այն՝ ցանկացած էկրանին բացվող հղումով կիսվելու համար: Միայն դուք կարող եք տեսնել այն մինչ այդ:"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish the web page first."
-msgstr "Սկզբում հրապարակեք վեբ էջը:"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish the web page to count views and downloads. Counts are anonymous, and search engines aren't counted."
-msgstr "Հրապարակեք վեբ էջը՝ հաշվելու դիտումները և ներբեռնումները: Հաշվարկներն անանուն են, իսկ որոնման համակարգերը չեն հաշվվում:"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish this resume to open it at your short link and custom domain."
-msgstr "Հրապարակեք այս ռեզյումեն՝ այն բացելու ձեր կարճ հղումով և հատուկ տիրույթում:"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish this resume to open it at your short link."
-msgstr "Հրապարակեք այս ռեզյումեն՝ ձեր կարճ հղումով բացելու համար:"
 
 #: src/features/resume/editor/write/entries.tsx
 msgid "Publisher"
@@ -14938,14 +14464,6 @@ msgstr "Կարետը մի գծի մեջ դրեք այն բարելավելու �
 #: src/features/assistant/chat.ts
 msgid "Q: {question}"
 msgstr "Q: {question}"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "QR code"
-msgstr "QR կոդ"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "QR code for {url}"
-msgstr "QR կոդ {url}-ի համար"
 
 #. Accessible title for QR code image shown during two-factor setup
 #: src/dialogs/auth/enable-two-factor.tsx
@@ -15425,10 +14943,6 @@ msgstr "Թարմացրեք ճեպազրույցը"
 msgid "Refresh usage"
 msgstr "Թարմացնել օգտագործումը"
 
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "Register at OlaCV"
-msgstr "Գրանցվեք OlaCV-ում"
-
 #: src/features/career/workspace/prepare.tsx
 msgid "Rehearse aloud"
 msgstr "Բարձրաձայն փորձիր"
@@ -15573,7 +15087,6 @@ msgid "Remote, Hybrid, a city…"
 msgstr "Հեռավոր, հիբրիդ, քաղաք…"
 
 #: src/features/applications/components/detail/contacts.tsx
-#: src/features/resume/share/custom-domain-field.tsx
 #: src/features/settings/account/security.tsx
 msgid "Remove"
 msgstr "Հեռացնել"
@@ -15623,10 +15136,6 @@ msgstr "Հեռացնել կապը"
 msgid "Remove connection…"
 msgstr "Հեռացնել կապը…"
 
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Remove domain"
-msgstr "Հեռացնել տիրույթը"
-
 #: src/features/resume/editor/write/basics-card.tsx
 msgid "Remove field"
 msgstr "Հեռացնել դաշտը"
@@ -15643,10 +15152,6 @@ msgstr "Հեռացնել հղումը {0}"
 #: src/features/settings/account/security.tsx
 msgid "Remove passkey"
 msgstr "Հեռացնել Passkey-ը"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Remove password"
-msgstr "Հեռացնել գաղտնաբառը"
 
 #. placeholder {0}: i18n.number(index + 1)
 #: src/features/applications/components/interview-dialog.tsx
@@ -15677,14 +15182,6 @@ msgstr "Հեռացնել փուլը"
 #: src/features/applications/components/application-form-sheet.tsx
 msgid "Remove tag"
 msgstr "Հեռացնել պիտակը"
-
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Remove the custom domain?"
-msgstr "Հեռացնե՞լ հատուկ տիրույթը:"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Remove the password?"
-msgstr "Հեռացնե՞լ գաղտնաբառը:"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Remove the web connection?"
@@ -15896,10 +15393,6 @@ msgstr "Ցանկալի գումար"
 #: src/features/settings/profile.tsx
 msgid "Requested salary"
 msgstr "Ցանկալի աշխատավարձ"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Require a password"
-msgstr "Պահանջել գաղտնաբառ"
 
 #: src/features/career/knowledge/preferences.tsx
 #: src/features/career/workspace/fit.tsx
@@ -16656,10 +16149,6 @@ msgstr "Պահպանել անունը"
 msgid "Save offer"
 msgstr "Պահպանել առաջարկը"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Save PNG"
-msgstr "Պահպանեք PNG"
-
 #: src/features/career/workspace/preparation.tsx
 msgid "Save posting"
 msgstr "Պահպանել հայտարարությունը"
@@ -16680,10 +16169,6 @@ msgstr "Պահպանել ժամանակացույցը"
 #: src/features/career/knowledge/stories.tsx
 msgid "Save story"
 msgstr "Պահպանել պատմությունը"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Save SVG"
-msgstr "Պահպանել SVG"
 
 #: src/features/documents/document-actions.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
@@ -16903,11 +16388,6 @@ msgstr "Պահպանված է այս դիմումով: Ստորագրությո�
 msgid "Saved: {0}. Skipped: {1}. Existing, corrected or switched-off facts stay unchanged."
 msgstr "Պահված՝ {0}: Բաց թողնված՝ {1}: Առկա, շտկված կամ անջատված փաստերը մնում են անփոփոխ:"
 
-#. placeholder {0}: new URL(url).host
-#: src/features/resume/share/address-field.tsx
-msgid "Saving {0}/{username}/{slug}… Copy is available after saving."
-msgstr "Պահվում է {0}/{username}/{slug}… Պատճենը հասանելի է պահելուց հետո:"
-
 #: src/features/resume/builder/draft.ts
 msgid "Saving is taking longer than expected. Your changes are still open."
 msgstr "Պահպանումը սպասվածից ավելի երկար է տևում: Ձեր փոփոխությունները դեռ բաց են:"
@@ -17069,10 +16549,6 @@ msgstr "Որոնումը ներառում է վերնագրեր, պիտակնե�
 #: src/features/command-palette/content.tsx
 msgid "Search documents, applications and commands"
 msgstr "Որոնել փաստաթղթեր, դիմումներ և հրամաններ"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Search engines such as Google may list your web page. It can take weeks to appear, or to disappear after you turn this off."
-msgstr "Որոնման համակարգերը, ինչպիսիք են Google-ը, կարող են թվարկել ձեր վեբ էջը: Այն կարող է շաբաթներ տևել, որպեսզի այն հայտնվի կամ անհետանա այն անջատելուց հետո:"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Search failed"
@@ -17347,11 +16823,6 @@ msgstr "Ուղարկել"
 msgid "Send {0} again"
 msgstr "Նորից ուղարկեք {0}"
 
-#: src/features/resume/share/feedback-links.tsx
-#: src/features/resume/share/share-panel.tsx
-msgid "Send a coach or friend a private link to this version. They can comment, but can't change it or see anything else."
-msgstr "Ուղարկեք մարզիչին կամ ընկերոջը այս տարբերակի անձնական հղումը: Նրանք կարող են մեկնաբանել, բայց չեն կարող փոխել այն կամ այլ բան տեսնել:"
-
 #: src/features/applications/components/calendar-view.tsx
 #: src/features/applications/next-step.ts
 msgid "Send a follow-up"
@@ -17616,21 +17087,14 @@ msgstr "Ստվերի լայնությունը"
 #: src/features/homepage/footer.tsx
 #: src/features/homepage/header.tsx
 #: src/features/homepage/share.tsx
-#: src/features/resume/share/share-panel.tsx
 #: src/features/resume/share/web-page-text.ts
-#: src/routes/builder/$resumeId/-components/editor-bar.tsx
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
-#: src/routes/builder/$resumeId/-components/use-editor-hotkeys.ts
 msgid "Share"
 msgstr "Կիսվել"
 
 #: src/features/homepage/share.tsx
 msgid "Share a public link, add a password or keep it private. Choose from 3 visibility options. Export to PDF or Word, or take all your data with you as JSON."
 msgstr "Կիսվեք հանրային հղումով, ավելացրեք գաղտնաբառ կամ պահեք այն գաղտնի: Ընտրեք տեսանելիության 3 տարբերակներից: Արտահանեք PDF կամ Word, կամ վերցրեք ձեր բոլոր տվյալները ձեզ հետ որպես JSON:"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Share application progress (optional)"
-msgstr "Կիսվեք դիմումի առաջընթացով (ըստ ցանկության)"
 
 #. placeholder {0}: provider.label
 #: src/libs/orpc/ai-consent.ts
@@ -17640,10 +17104,6 @@ msgstr "Կիսվե՞լ տվյալները {0}-ի հետ:"
 #: src/features/resume/editor/chrome/download-sheet.tsx
 msgid "Share sections"
 msgstr "Կիսվեք բաժիններով"
-
-#: src/features/resume/share/address-field.tsx
-msgid "Share via…"
-msgstr "Կիսվել միջոցով…"
 
 #: src/features/documents/document-actions.tsx
 msgid "Share…"
@@ -17691,14 +17151,6 @@ msgstr "Կարճ և ուղիղ. Լավ է, եթե հայտարարություն
 msgid "Short and polite, for the recruiter"
 msgstr "Կարճ ու քաղաքավարի, հավաքագրողի համար"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Short link"
-msgstr "Կարճ հղում"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Short link and domain"
-msgstr "Կարճ հղում և տիրույթ"
-
 #: src/routes/dashboard/-components/app-shell.tsx
 msgid "Shortcuts"
 msgstr "Կարճուղիներ"
@@ -17732,10 +17184,6 @@ msgstr "Ցույց տալ"
 msgctxt "Open a folded edit card"
 msgid "Show"
 msgstr "Ցույց տալ"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Show “Made with Reactive Resume”"
-msgstr "Ցուցադրել «Պատրաստված է Reactive Resume»-ով"
 
 #. placeholder {0}: i18n.number(Math.min(remaining, COLUMN_PAGE_SIZE))
 #: src/features/applications/components/board.tsx
@@ -17789,17 +17237,9 @@ msgstr "Ցույց տալ բոլոր տեսակները"
 msgid "Show closed applications"
 msgstr "Ցույց տալ փակ դիմումները"
 
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Show DNS records"
-msgstr "Ցույց տալ DNS գրառումները"
-
 #: src/features/resume/editor/proposals/proposal-list.tsx
 msgid "Show edit {number}"
 msgstr "Ցուցադրել խմբագրումը {number}"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Show in search engines"
-msgstr "Ցույց տալ որոնման համակարգերում"
 
 #: src/features/resume/editor/check/check-panel.tsx
 msgid "Show it again"
@@ -19177,7 +18617,7 @@ msgstr "Այդ ֆայլը չափազանց մեծ է ստուգելու համա
 
 #: src/features/resume/share/web-page-text.ts
 msgid "That password isn't correct. Check it with the resume owner and try again."
-msgstr "Այդ գաղտնաբառը ճիշտ չէ: Ստուգեք այն ռեզյումեի սեփականատիրոջ հետ և նորից փորձեք:"
+msgstr ""
 
 #: src/dialogs/auth/disable-two-factor.tsx
 #: src/features/settings/account/backup-codes.tsx
@@ -19480,10 +18920,6 @@ msgstr "Նամակը կրկին համապատասխանում է ռեզյում
 msgid "The line changed since you asked, so it wasn't replaced."
 msgstr "Ձեր խնդրանքից հետո տողը փոխվեց, ուստի այն չփոխարինվեց:"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "The link opens the resume as it is now. Later edits aren't shared, so every comment is about this version."
-msgstr "Հղումը բացում է ռեզյումեն այնպես, ինչպես հիմա է: Հետագայում խմբագրումները չեն տարածվում, ուստի յուրաքանչյուր մեկնաբանություն վերաբերում է այս տարբերակին:"
-
 #: src/features/auth/email-text.ts
 msgid "The link works for 1 hour. Resetting signs you out on every device and removes your passkeys and connected apps. If you didn't ask for this, ignore this email; your password stays the same."
 msgstr ""
@@ -19654,10 +19090,6 @@ msgstr "Հարցերը, մուտքագրելը, խոսելը և լսելը աշ�
 msgid "The reason is kept for Insights. Linked documents aren't touched."
 msgstr "Պատճառը պահվում է Insights-ի համար։ Կապակցված փաստաթղթերը չեն շոշափվում:"
 
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "The records aren't visible yet. Check again later."
-msgstr "Ձայնագրությունները դեռ տեսանելի չեն: Ստուգեք ավելի ուշ:"
-
 #: src/routes/builder/letter/-components/design-panel.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "the resume"
@@ -19691,10 +19123,6 @@ msgstr "Ձեր ուղարկած ռեզյումեն {sent} · կողպված է"
 #: src/features/resume/editor/check/writing-tab.tsx
 msgid "The review couldn't finish. Try again."
 msgstr "Դիտարկումը չհաջողվեց ավարտել: Նորից փորձեք:"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "The reviewer sees each one's stage and dates. Notes, contacts and pay stay private."
-msgstr "Գրախոսը տեսնում է յուրաքանչյուրի փուլն ու ամսաթվերը: Նշումները, կոնտակտները և վճարումները մնում են գաղտնի:"
 
 #: src/features/ats-checker/messages.ts
 msgid "The same line repeats on every page."
@@ -20195,7 +19623,7 @@ msgstr "Այս ռեզյումեն երկար է։"
 
 #: src/features/resume/share/web-page-text.ts
 msgid "This resume is password-protected"
-msgstr "Այս ռեզյումեն պաշտպանված է գաղտնաբառով"
+msgstr ""
 
 #: src/features/resume/editor/check/job-match.tsx
 msgid "This resume isn't linked to an application yet. Pick one to make a copy for it."
@@ -20203,7 +19631,7 @@ msgstr "Այս ռեզյումեն դեռ կապված չէ որևէ դիմում
 
 #: src/features/resume/share/web-page-text.ts
 msgid "This resume isn't shared right now"
-msgstr "Այս ռեզյումեն այս պահին չի համօգտագործվում"
+msgstr ""
 
 #: src/features/resume/editor/check/job-match.tsx
 msgid "This resume stays as it is for other jobs"
@@ -20449,7 +19877,6 @@ msgstr "այսօր"
 #: src/features/applications/components/calendar-view.tsx
 #: src/features/career/today.tsx
 #: src/features/command-palette/pages/navigation.tsx
-#: src/features/resume/share/share-panel.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 #: src/routes/dashboard/-components/app-shell.tsx
 #: src/routes/dashboard/index.tsx
@@ -20609,11 +20036,6 @@ msgstr "Բառերի կրճատում"
 msgid "Trust this device for 30 days"
 msgstr "Վստահեք այս սարքին 30 օր"
 
-#. placeholder {0}: result.suggestion
-#: src/features/resume/share/address-field.tsx
-msgid "Try {0}"
-msgstr "Փորձեք {0}"
-
 #: src/features/career/today.tsx
 #: src/features/documents/documents-page.tsx
 msgid "Try a sample"
@@ -20633,7 +20055,6 @@ msgstr "Փորձեք նմուշ"
 #: src/features/resume/editor/write/improve.tsx
 #: src/features/resume/preview/preview.browser.tsx
 #: src/features/resume/share/download-tab.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/ai/next-steps.tsx
 #: src/features/settings/ai/web-access.tsx
 #: src/features/settings/integrations/ai-provider-load-state.tsx
@@ -20690,7 +20111,6 @@ msgstr "թուրքերեն"
 
 #. Destructive action button to turn off two-factor authentication
 #: src/dialogs/auth/disable-two-factor.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/account/security.tsx
 #: src/features/settings/ai/providers.tsx
 msgid "Turn off"
@@ -20703,14 +20123,6 @@ msgstr "Արտահանելիս անջատեք հայեցողական կապան�
 #: src/features/keyboard-shortcuts/character-shortcuts.tsx
 msgid "Turn off if you use speech input. Shortcuts with ⌘ keep working."
 msgstr "Անջատեք, եթե օգտագործում եք խոսքի մուտքագրում: ⌘-ի հետ դյուրանցումները շարունակում են աշխատել:"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Turn off link…"
-msgstr "Անջատել հղումը…"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Turn off this link?"
-msgstr "Անջատե՞լ այս հղումը:"
 
 #: src/features/settings/account/security.tsx
 msgid "Turn off two-step verification"
@@ -20728,35 +20140,14 @@ msgstr "Միացնել"
 msgid "Turn on two-step verification"
 msgstr "Միացրեք երկքայլ հաստատումը"
 
-#: src/features/resume/share/web-page-preview.tsx
-msgid "Turn Public link on to share it."
-msgstr "Միացրեք Հանրային հղումը՝ այն կիսելու համար:"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Turn this on to open this resume at your short link and custom domain."
-msgstr "Միացրեք սա՝ այս ռեզյումեն բացելու ձեր կարճ հղումով և հատուկ տիրույթում:"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Turn this on to open this resume at your short link."
-msgstr "Միացրեք սա՝ ձեր կարճ հղումով այս ռեզյումեն բացելու համար:"
-
 #: src/features/career/schedule-sheet.tsx
 msgid "Turn this schedule on"
 msgstr "Միացրեք այս ժամանակացույցը"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Turned off"
-msgstr "Անջատված է"
 
 #. placeholder {0}: provider.label
 #: src/features/settings/ai/providers.tsx
 msgid "Turned off “{0}”. Its key is kept."
 msgstr "«{0}»-ն անջատված է: Նրա բանալին պահվում է։"
-
-#. placeholder {0}: i18n.date(link.revokedAt, { day: "numeric", month: "short" })
-#: src/features/resume/share/feedback-links.tsx
-msgid "turned off {0}"
-msgstr "անջատված է {0}"
 
 #: src/dialogs/auth/disable-two-factor.tsx
 msgid "Turning off two-step verification…"
@@ -20792,10 +20183,6 @@ msgstr "Երկու ռեզյումե՝ կազմված Reactive Resume-ով"
 #: src/features/resume/editor/design/entries-group.tsx
 msgid "Two rows: company, then position"
 msgstr "Երկու շարք՝ ընկերություն, հետո պաշտոն"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Two shorter addresses. Both open your primary resume."
-msgstr "Երկու ավելի կարճ հասցե. Երկուսն էլ բացում են ձեր հիմնական ռեզյումեն:"
 
 #: src/features/career/workspace/prepare.tsx
 msgid "Two stories"
@@ -20852,11 +20239,6 @@ msgstr "Երկքայլ հաստատումը միացված է"
 #: src/features/career/knowledge/resume-facts.tsx
 #: src/features/career/workspace/practise.tsx
 #: src/features/documents/documents-page.tsx
-msgid "Type"
-msgstr "Տեսակ"
-
-#: src/features/resume/share/dns-records-dialog.tsx
-msgctxt "DNS record"
 msgid "Type"
 msgstr "Տեսակ"
 
@@ -21205,7 +20587,6 @@ msgstr "Օգտագործեք առնվազն 8 նիշ:"
 msgid "Use at least 9pt."
 msgstr "Օգտագործեք առնվազն 9 pt."
 
-#: src/features/resume/share/address-field.tsx
 #: src/libs/error-message.ts
 msgid "Use at most 64 characters."
 msgstr "Օգտագործեք առավելագույնը 64 նիշ:"
@@ -21235,10 +20616,6 @@ msgstr "Օգտագործեք բոլոր դիմումների համար"
 #: src/features/career/knowledge/facts.tsx
 msgid "Use in coaching: {excerpt}"
 msgstr "Օգտագործեք մարզչական աշխատանքում՝ {excerpt}"
-
-#: src/features/resume/share/address-field.tsx
-msgid "Use Latin letters a–z, numbers and single dashes."
-msgstr "Օգտագործեք լատիներեն a–z տառեր, թվեր և առանձին գծիկներ:"
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Use my timezone"
@@ -21428,10 +20805,6 @@ msgstr "ուզբեկերեն"
 msgid "Valuation and dilution uncertain"
 msgstr "Գնահատումը և նոսրացումը անորոշ են"
 
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "Value"
-msgstr "Արժեք"
-
 #: src/features/career/offers.tsx
 msgid "Value uncertain"
 msgstr "Արժեքը անորոշ է"
@@ -21563,38 +20936,9 @@ msgstr "Դիտել գրառումը {host}-ում"
 msgid "View recorded answers"
 msgstr "Դիտեք ձայնագրված պատասխանները"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "views in the last 30 days"
-msgstr "դիտումներ վերջին 30 օրվա ընթացքում"
-
-#. placeholder {0}: i18n.number(summary.peak)
-#: src/features/resume/share/share-panel.tsx
-msgid "Views per day, {firstLabel} to today. The busiest day had {0}."
-msgstr "Դիտումներ օրական, {firstLabel} մինչև այսօր: Ամենազբաղված օրը {0} էր:"
-
 #: src/features/homepage/share.tsx
 msgid "Visibility"
 msgstr "Տեսանելիություն"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Visitors"
-msgstr "Այցելուներ"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Visitors can download the PDF"
-msgstr "Այցելուները կարող են ներբեռնել PDF"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Visitors can download Word"
-msgstr "Այցելուները կարող են ներբեռնել Word-ը"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Visitors enter it before they see the resume. Share it only with people you trust."
-msgstr "Այցելուները մտնում են այն նախքան ռեզյումեն տեսնելը: Կիսվեք միայն այն մարդկանց հետ, ում վստահում եք:"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Visitors need the link and password to see your web page."
-msgstr "Ձեր վեբ էջը տեսնելու համար այցելուներին անհրաժեշտ է հղում և գաղտնաբառը:"
 
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
@@ -21694,18 +21038,6 @@ msgstr "Վեբ հասցե"
 #: src/libs/orpc/ai-consent.ts
 msgid "Web destination: {0}."
 msgstr "Վեբ նպատակակետ՝ {0}:"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Web page"
-msgstr "Վեբ էջ"
-
-#: src/features/resume/share/web-page-preview.tsx
-msgid "Web page preview"
-msgstr "Վեբ էջի նախադիտում"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Web page settings"
-msgstr "Վեբ էջի կարգավորումներ"
 
 #: src/features/ai/usage.tsx
 #: src/features/career/coach-thread.tsx
@@ -22162,14 +21494,6 @@ msgctxt "Template style tag"
 msgid "Whitespace"
 msgstr "Ազատ տարածություն"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Who can find your web page, reach you from it and take a copy."
-msgstr "Ով կարող է գտնել ձեր վեբ էջը, կապվել ձեզ հետ և վերցնել պատճենը:"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Who is it for?"
-msgstr "Ո՞ւմ համար է այն:"
-
 #: src/features/homepage/prepare.tsx
 msgid "Who owns the design system today? What does success look like in 90 days?"
 msgstr "Ո՞ւմ է պատկանում այսօր դիզայնի համակարգը: Ինչպիսի՞ն է հաջողությունը 90 օրվա ընթացքում:"
@@ -22249,14 +21573,6 @@ msgstr "Word ֆայլերը կարդացվում են AI-ով: Ֆայլն ուղ
 #: src/features/ai/usage.tsx
 msgid "Word import"
 msgstr "Word-ի ներմուծում"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Word off"
-msgstr "Word-ն անջատված է"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Word on"
-msgstr "Word-ը միացված է"
 
 #: src/features/ats-checker/messages.ts
 msgid "Words run together when the text is extracted."
@@ -22509,11 +21825,6 @@ msgstr "դուք ընդունեցիք առաջարկը"
 msgid "You already saved this job: {0} at {1}."
 msgstr "Դուք արդեն պահել եք այս աշխատանքը՝ {0} {1}-ում:"
 
-#. placeholder {0}: result.takenBy
-#: src/features/resume/share/address-field.tsx
-msgid "You already use this for “{0}”."
-msgstr "Դուք արդեն օգտագործում եք սա «{0}»-ի համար:"
-
 #: src/features/career/schedule-sheet.tsx
 msgid "You always see results in Today."
 msgstr "Դուք միշտ արդյունքներ եք տեսնում Այսօրվա մեջ:"
@@ -22735,15 +22046,6 @@ msgstr "Ձեր ամսաթվերը գրված են մի քանի տարբեր ձ�
 msgid "Your details changed on the resume. The letter updated too."
 msgstr "Ձեր տվյալները փոխվել են ռեզյումեում: Նամակը նույնպես թարմացվել է։"
 
-#: src/features/resume/share/custom-domain-field.tsx
-#: src/features/resume/share/share-panel.tsx
-msgid "Your domain"
-msgstr "Ձեր տիրույթը"
-
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Your domain will stop opening your primary resume. You can reconnect it later."
-msgstr "Ձեր տիրույթը կդադարի բացել ձեր հիմնական ռեզյումեն: Դուք կարող եք նորից միացնել այն ավելի ուշ:"
-
 #: src/features/career/coach-chat.tsx
 msgid "Your edited story is saved to Knowledge."
 msgstr "Ձեր խմբագրված պատմությունը պահվում է Գիտելիքում:"
@@ -22772,10 +22074,6 @@ msgstr "Ձեր էլփոստի հասցեն կոտրված է տեքստի կտո
 #: src/features/auth/pages/error.tsx
 msgid "Your email address isn't verified with the provider."
 msgstr "Ձեր էլ․ հասցեն հաստատված չէ մատակարարի հետ։"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your email, phone, location and extra header fields, and references' phone numbers, are left out of the web page, its PDF and search results. Your website stays."
-msgstr "Ձեր էլ. փոստը, հեռախոսը, գտնվելու վայրը և վերնագրի լրացուցիչ դաշտերը, ինչպես նաև երաշխավորների հեռախոսահամարները չեն ներառվում վեբ էջում, դրա PDF-ում և որոնման արդյունքներում: Ձեր կայքը մնում է:"
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Your experience, laid out on a page."
@@ -22848,10 +22146,6 @@ msgstr "Ձեր անունը և կոնտակտային տվյալները գալ�
 #: src/features/resume/editor/write/outline.tsx
 msgid "Your name and how to reach you"
 msgstr "Ձեր անունը և ինչպես հասնել ձեզ"
-
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "Your name as your address, from OlaCV, the .cv registry. Code <0/> takes 50% off the first year."
-msgstr "Ձեր անունը որպես հասցե՝ OlaCV-ից, .cv ռեեստրից։ <0/> կոդը տալիս է 50% զեղչ առաջին տարվա համար։"
 
 #: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Your name changed on the resume. The letter updated too."
@@ -22929,10 +22223,6 @@ msgstr "ձեր ռեզյումեն և այս նամակը"
 msgid "Your resume and your job search, in one place."
 msgstr "Ձեր ռեզյումեն և ձեր աշխատանքի որոնումը մեկ տեղում:"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Your resume as a web page"
-msgstr "Ձեր ռեզյումեն որպես վեբ էջ"
-
 #: src/features/resume/editor/check/issues.ts
 msgid "Your resume has a photo"
 msgstr "Ձեր ռեզյումեն ունի լուսանկար"
@@ -22981,42 +22271,6 @@ msgstr "Ձեր սերվերը ապահովում է որոնում · միացր
 msgid "your server's search service"
 msgstr "ձեր սերվերի որոնման ծառայությունը"
 
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link and custom domain open “{0}”."
-msgstr "Ձեր կարճ հղումը և հատուկ տիրույթը բացում են «{0}»:"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link and custom domain open this resume."
-msgstr "Ձեր կարճ հղումը և հատուկ տիրույթը բացում են այս ռեզյումեն:"
-
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link and custom domain point to “{0}”, which isn't published."
-msgstr "Ձեր կարճ հղումը և հատուկ տիրույթը մատնանշում են «{0}»-ը, որը հրապարակված չէ:"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link and custom domain say this resume isn't shared until you publish it again."
-msgstr "Ձեր կարճ հղումը և հատուկ տիրույթը ասում են, որ այս ռեզյումեն չի համօգտագործվում, քանի դեռ չեք հրապարակել այն:"
-
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link opens “{0}”."
-msgstr "Ձեր կարճ հղումը բացում է «{0}»:"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link opens this resume."
-msgstr "Ձեր կարճ հղումը բացում է այս ռեզյումեն:"
-
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link points to “{0}”, which isn't published."
-msgstr "Ձեր կարճ հղումը ցույց է տալիս «{0}»-ը, որը հրապարակված չէ:"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link says this resume isn't shared until you publish it again."
-msgstr "Ձեր կարճ հղումն ասում է, որ այս ռեզյումեն չի տարածվում, քանի դեռ չեք հրապարակել այն:"
-
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "Your stages changed somewhere else. They've been refreshed; try again."
 msgstr "Ձեր փուլերը փոխվել են մեկ այլ տեղ: Նրանք թարմացվել են; նորից փորձիր։"
@@ -23046,10 +22300,6 @@ msgstr "Ձեր երկու րոպեանոց ներածությունը"
 #: src/features/auth/pages/register.tsx
 msgid "Your username is made from your email. <0>Choose your own</0>"
 msgstr "Ձեր օգտանունը ստեղծվում է ձեր էլ. փոստից։ <0>Ընտրեք ձերը</0>"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your web page is live"
-msgstr "Ձեր վեբ էջը ակտիվ է"
 
 #: src/libs/orpc/ai-consent.ts
 msgid "Your web settings changed. Nothing was sent; try again."

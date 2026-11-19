@@ -7,8 +7,8 @@ import { ph, t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Plural, Trans } from "@lingui/react/macro";
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate, lazyRouteComponent } from "@tanstack/react-router";
-import { Suspense, useCallback, useLayoutEffect, useRef, useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
+import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { filterSections } from "@reactive-resume/pdf/filtering";
 import { measureOverflow } from "@reactive-resume/pdf/page-map";
 import { spillingSections } from "@reactive-resume/resume/spill";
@@ -43,8 +43,6 @@ import { orpc } from "@/libs/orpc/client";
 
 const NONE: readonly never[] = [];
 
-const WebPagePreview = lazyRouteComponent(() => import("@/features/resume/share/web-page-preview"), "WebPagePreview");
-
 /** Share shows the web page; every other mode, the PDF's pages. */
 
 /** The Download & history sheet's width on desktop (the Sheet's `sm:max-w-[440px]`). */
@@ -55,13 +53,7 @@ const ADD_PAGE_WIDTH = 140;
 const PAGE_HEIGHT = { a4: 841.89, letter: 792, "free-form": 841.89 } as const;
 const CAPTION_HEIGHT = 26;
 export function PageCanvas() {
-	const [mode] = useEditorMode();
-	if (mode !== "share") return <ResumePageCanvas />;
-	return (
-		<Suspense>
-			<WebPagePreview />
-		</Suspense>
-	);
+	return <ResumePageCanvas />;
 }
 
 /**

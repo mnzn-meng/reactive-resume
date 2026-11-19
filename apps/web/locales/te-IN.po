@@ -45,14 +45,6 @@ msgstr ", {0} తో"
 msgid "“{0}”"
 msgstr "“{0}”"
 
-#. placeholder {0}: link.resumeName
-#. placeholder {1}: date(link.createdAt)
-#. placeholder {2}: statusLabel(link.status)
-#. placeholder {3}: link.expiresAt && link.status === "active" ? `, ${t`expires ${i18n.date(link.expiresAt, { dateStyle: "medium" })}`}` : ""
-#: src/features/resume/share/feedback-links.tsx
-msgid "“{0}” as saved {1} · {2}{3}"
-msgstr "“{0}” {1} నాటికి సేవ్ చేసినట్లు · {2}{3}"
-
 #. placeholder {0}: view.resumeName
 #: src/features/feedback/review-page.tsx
 msgid "“{0}” as saved on {sharedOn}."
@@ -72,11 +64,6 @@ msgstr "“{0}” లాక్ చేయబడింది"
 #: src/features/documents/document-actions.tsx
 msgid "“{0}” moved to Trash"
 msgstr "“{0}” ట్రాష్‌కి తరలించబడింది"
-
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "“{0}” stops being your primary resume."
-msgstr "“{0}” ఇకపై మీ ప్రాథమిక రెజ్యూమ్ కాదు."
 
 #. placeholder {0}: isolate(document.name)
 #: src/features/documents/document-actions.tsx
@@ -307,11 +294,6 @@ msgstr "{0, plural, one {ఇంకా # రోజు} other {ఇంకా # ర�
 #: src/features/documents/document-actions.tsx
 msgid "{0, plural, one {# moved to Trash} other {# moved to Trash}}"
 msgstr "{0, plural, one {# ట్రాష్‌కి తరలించబడింది} other {# ట్రాష్‌కి తరలించబడ్డాయి}}"
-
-#. placeholder {0}: link.openCommentCount
-#: src/features/resume/share/feedback-links.tsx
-msgid "{0, plural, one {# new comment} other {# new comments}}"
-msgstr "{0, plural, one {# కొత్త కామెంట్} other {# కొత్త కామెంట్‌లు}}"
 
 #. placeholder {0}: notice.count
 #: src/features/career/today.tsx
@@ -751,11 +733,6 @@ msgstr "{0} ఇప్పుడే వాటి చరిత్ర మరియ�
 msgid "{0} closed"
 msgstr "{0} మూసివేయబడింది"
 
-#. placeholder {0}: link.commentCount
-#: src/features/resume/share/feedback-links.tsx
-msgid "{0} comments, all done"
-msgstr "{0} వ్యాఖ్యలు, అన్నీ పూర్తయ్యాయి"
-
 #. placeholder {0}: props.providerLabel
 #: src/features/assistant/conversation.tsx
 msgid "{0} didn't respond."
@@ -837,16 +814,6 @@ msgstr "{1} లో {0} ఇంటర్వ్యూ · {2} · {3} తో"
 #: src/features/career/workspace/overview.tsx
 msgid "{0} interview debriefed {1}"
 msgstr "{0} ఇంటర్వ్యూ డీబ్రీఫ్ {1} న చేయబడింది"
-
-#. placeholder {0}: domain.hostname
-#: src/features/resume/share/share-panel.tsx
-msgid "{0} is connected"
-msgstr "{0} కనెక్ట్ అయింది"
-
-#. placeholder {0}: domain.hostname
-#: src/features/resume/share/share-panel.tsx
-msgid "{0} is not connected yet"
-msgstr "{0} ఇంకా కనెక్ట్ కాలేదు"
 
 #. placeholder {0}: job.company
 #: src/features/assistant/assistant-panel.tsx
@@ -1081,10 +1048,6 @@ msgstr "{active, plural, one {# యాక్టివ్ దరఖాస్త�
 msgid "{active, plural, one {active application} other {active applications}}"
 msgstr "{active, plural, one {యాక్టివ్ దరఖాస్తు} other {యాక్టివ్ దరఖాస్తులు}}"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "{active} active"
-msgstr "{active} యాక్టివ్"
-
 #: src/features/career/workspace/fit-local.tsx
 msgid "{activeFacts, plural, one {# fact} other {# facts}}"
 msgstr "{activeFacts, plural, one {# వాస్తవం} other {# వాస్తవాలు}}"
@@ -1182,10 +1145,6 @@ msgstr "{connection} తన పరీక్షలో పాస్ అయిం�
 #: src/features/career/knowledge/facts.tsx
 msgid "{correctedOn} · the original wording is kept above"
 msgstr "{correctedOn} · అసలు పదాలు పైన ఉంచబడ్డాయి"
-
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "{cost} the first year"
-msgstr "మొదటి సంవత్సరానికి {cost}"
 
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "{count, plural, =0 {Its applications move to the stage you choose. Their history keeps the name “{label}”.} one {Its # application moves to the stage you choose. Its history keeps the name “{label}”.} other {Its # applications move to the stage you choose. Their history keeps the name “{label}”.}}"
@@ -1758,19 +1717,6 @@ msgstr "{sections, plural, one {# విభాగం} other {# విభాగ�
 msgid "{sent} sent {0}"
 msgstr "{sent} పంపబడింది {0}"
 
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "{shortLink} opens “{0}”"
-msgstr "{shortLink} “{0}” ను తెరుస్తుంది"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "{shortLink} opens no resume yet"
-msgstr "{shortLink} ఇంకా ఏ రెజ్యూమ్‌నూ తెరవదు"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "{shortLink} opens this resume"
-msgstr "{shortLink} ఈ రెజ్యూమ్‌ను తెరుస్తుంది"
-
 #: src/features/applications/components/application-detail-sheet.tsx
 msgid "{since, plural, =0 {since today} one {for # day} other {for # days}}"
 msgstr "{since, plural, =0 {నేటి నుండి} one {# రోజు కోసం} other {# రోజులకు}}"
@@ -1995,10 +1941,6 @@ msgstr "0 దాన్ని దాచుతుంది"
 msgid "06/2017 – 2021"
 msgstr "06/2017 – 2021"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "1 comment, done"
-msgstr "1 వ్యాఖ్య, పూర్తయింది"
-
 #: src/features/settings/account/security.tsx
 msgid "1 passkey · {first}"
 msgstr "1 పాస్‌కీ · {first}"
@@ -2018,10 +1960,6 @@ msgstr "10 నిమిషాల వెర్షన్"
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "10–11 recommended"
 msgstr "10-11 సిఫార్సు చేయబడింది"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "2 comments, both done"
-msgstr "2 వ్యాఖ్యలు, రెండూ పూర్తయ్యాయి"
 
 #: src/routes/builder/letter/-components/download-sheet.tsx
 msgid "2 files"
@@ -2306,10 +2244,6 @@ msgstr "మీ పదజాలంపై రెండవ అభిప్రాయ
 msgid "A short follow-up is usually fine now"
 msgstr "చిన్న ఫాలో-అప్ ఇప్పుడు సాధారణంగా మంచిది"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "A shorter address that opens your primary resume."
-msgstr "మీ ప్రాథమిక రెజ్యూమ్‌ను తెరిచే చిన్న చిరునామా."
-
 #: src/features/resume/editor/design/entries-group.tsx
 msgid "A small accent line above a larger company"
 msgstr "పెద్ద కంపెనీ పేరు పైన చిన్న ప్రత్యేక రంగు లైన్"
@@ -2489,14 +2423,9 @@ msgstr "ఒకే త్రైమాసికంలో యాక్టివే�
 msgid "Activation rose from 31%…"
 msgstr "యాక్టివేషన్ 31% నుండి…"
 
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/ai/web-access.tsx
 msgid "Active"
 msgstr "చురుకుగా"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Activity"
-msgstr "కార్యాచరణ"
 
 #: src/features/applications/components/list-view.tsx
 #: src/features/career/knowledge/facts.tsx
@@ -2653,10 +2582,6 @@ msgstr "మీ పనికి నిజంగా వర్తించే చ�
 #: src/features/resume/editor/write/fields.tsx
 msgid "Add an @ and the domain, like name@example.com"
 msgstr "name@example.com వంటి @ మరియు డొమైన్‌ను జోడించండి"
-
-#: src/features/resume/share/address-field.tsx
-msgid "Add an address."
-msgstr "చిరునామాను జోడించండి."
 
 #: src/features/career/offer-entry.tsx
 #: src/features/career/schedule-sheet.tsx
@@ -2827,10 +2752,6 @@ msgstr "ఆఫర్ షరతులను జోడించండి"
 msgid "Add them as a section called “More from your file”, to sort later"
 msgstr "తర్వాత క్రమబద్ధీకరించడానికి “మీ ఫైల్ నుండి మరిన్ని” అనే విభాగంగా జోడించండి"
 
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "Add these records where you manage the domain, then check. Changes can take a few hours to reach everyone."
-msgstr "మీరు డొమైన్‌ను నిర్వహించే చోట ఈ రికార్డ్‌లను జోడించి, ఆపై తనిఖీ చేయండి. మార్పులు అందరికీ చేరడానికి కొన్ని గంటలు పట్టవచ్చు."
-
 #: src/features/career/knowledge/facts.tsx
 msgid "Add things you've done, with numbers when you have them, such as “Cut checkout errors by 30% in 2025”."
 msgstr "మీరు చేసిన పనులను, సంఖ్యలు ఉంటే వాటితో జోడించండి, ఉదాహరణకు “2025 లో చెక్అవుట్ లోపాలను 30% తగ్గించాను”."
@@ -2914,7 +2835,6 @@ msgstr "నాలెడ్జ్‌లో అనుభవంగా జోడి�
 msgid "Added to Knowledge."
 msgstr "నాలెడ్జ్కి జోడించబడింది."
 
-#: src/features/resume/share/address-field.tsx
 #: src/features/settings/profile.tsx
 msgid "Address"
 msgstr "చిరునామా"
@@ -3133,10 +3053,6 @@ msgstr "మీ పత్రాలు, ఉద్యోగ దరఖాస్త�
 msgid "Allow access"
 msgstr "యాక్సెస్‌ని అనుమతించండి"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Allow comments"
-msgstr "కామెంట్‌లను అనుమతించండి"
-
 #: src/features/auth/pages/error.tsx
 msgid "Allow email access when the provider asks, or use another sign-in method."
 msgstr "ప్రొవైడర్ అడిగినప్పుడు ఈమెయిల్ యాక్సెస్ అనుమతించండి, లేదా వేరే సైన్-ఇన్ పద్ధతి ఉపయోగించండి."
@@ -3253,10 +3169,6 @@ msgstr "మరియు"
 msgid "and {0} more"
 msgstr "మరియు {0} మరిన్ని"
 
-#: src/features/resume/share/address-field.tsx
-msgid "Another of your resumes uses this address."
-msgstr "మీ రెజ్యూమ్‌లలో మరొకటి ఈ చిరునామాను ఉపయోగిస్తుంది."
-
 #: src/libs/error-message.ts
 msgid "Another resume already uses this address. Choose a different one."
 msgstr "మరొక రెజ్యూమ్ ఇప్పటికే ఈ చిరునామాను ఉపయోగిస్తోంది. వేరొకటి ఎంచుకోండి."
@@ -3320,14 +3232,6 @@ msgstr "ఏ రకమైనా, మీ సొంత శీర్షిక"
 #: src/features/resume/builder/password-dialog.tsx
 msgid "Anyone who opens the public link needs this password."
 msgstr "పబ్లిక్ లింక్ తెరిచే ఎవరైనా ఈ పాస్‌వర్డ్ అవసరం."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Anyone with the link can see your web page."
-msgstr "లింక్ ఉన్న ఎవరైనా మీ వెబ్ పేజీని చూడగలరు."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Anyone with the link will be able to view your resume."
-msgstr "లింక్‌ని కలిగి ఉన్న ఎవరైనా మీ రెజ్యూమేని వీక్షించగలరు."
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Anything that can't be placed is listed before you create it."
@@ -3525,10 +3429,6 @@ msgstr "వర్తింపజేయబడింది. ఫాలో-అప్
 #: src/features/career/workspace/messages.tsx
 msgid "Applied. The application is updated."
 msgstr "వర్తింపజేయబడింది. దరఖాస్తు నవీకరించబడింది."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Applies to the web page after its own styles, at every screen size. The PDF stays as it is."
-msgstr "వెబ్ పేజీ స్వంత శైలుల తర్వాత, ప్రతి స్క్రీన్ పరిమాణంలో వర్తిస్తుంది. PDF అలాగే ఉంటుంది."
 
 #: src/features/resume/editor/write/section-view.tsx
 msgid "applies to the whole section"
@@ -3836,10 +3736,6 @@ msgstr "స్వయంచాలకంగా సేవ్ చేయబడిం�
 #: src/features/resume/share/history-tab.tsx
 msgid "Autosaves are grouped by session and kept for 90 days. Named and sent versions are kept. Restoring saves the current state first, so nothing is lost."
 msgstr "ఆటోసేవ్‌లు సెషన్ వారీగా సమూహం చేయబడి 90 రోజులు ఉంచబడతాయి. పేరు పెట్టిన మరియు పంపిన వెర్షన్లు ఉంచబడతాయి. పునరుద్ధరించే ముందు ప్రస్తుత స్థితి సేవ్ అవుతుంది, కాబట్టి ఏదీ పోదు."
-
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "Available"
-msgstr "అందుబాటులో ఉంది"
 
 #: src/features/ats-checker/messages.ts
 msgid "Avoid heavy letter-spacing effects, then re-export."
@@ -4371,7 +4267,6 @@ msgstr "స్కాన్ చేయలేరా? యాప్‌లో ఈ క�
 #: src/features/resume/editor/check/job-match.tsx
 #: src/features/resume/editor/proposals/proposal-list.tsx
 #: src/features/resume/editor/write/picture-settings.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/account/data.tsx
 #: src/features/settings/account/profile.tsx
 #: src/features/settings/ai/providers.tsx
@@ -4429,7 +4324,6 @@ msgstr "ప్రామாணపత్రాలు"
 #: src/features/resume/editor/check/job-match.tsx
 #: src/features/resume/editor/check/writing-tab.tsx
 #: src/features/resume/editor/write/section-view.tsx
-#: src/features/resume/share/share-panel.tsx
 #: src/features/settings/account/profile.tsx
 #: src/features/settings/account/security.tsx
 #: src/features/settings/ai/web-access.tsx
@@ -4578,11 +4472,6 @@ msgstr "ఏదైనా PDFని తనిఖీ చేయండి, ఖాత�
 msgid "Check before accepting: {0}"
 msgstr "ఆమోదించే ముందు తనిఖీ చేయండి: {0}"
 
-#: src/features/resume/share/custom-domain-field.tsx
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "Check DNS"
-msgstr "DNSను తనిఖీ చేయండి"
-
 #: src/features/settings/profile.tsx
 msgid "Check email addresses, links, names, countries and salary. A salary amount needs currency and pay period."
 msgstr "ఇమెయిల్ చిరునామాలు, లింక్‌లు, పేర్లు, దేశాలు, జీతం తనిఖీ చేయండి. జీతం మొత్తానికి కరెన్సీ, చెల్లింపు కాలం అవసరం."
@@ -4699,17 +4588,9 @@ msgstr "లేఅవుట్ మరియు కంటెంట్‌ని త
 msgid "Checking the exported PDF…"
 msgstr "ఎగుమతి చేయబడిన PDFని తనిఖీ చేస్తోంది…"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Checking which resume opens your short link…"
-msgstr "మీ షార్ట్ లింక్ ఏ రెజ్యూమ్‌ను తెరుస్తుందో చూస్తున్నాం…"
-
 #: src/features/career/shared.tsx
 msgid "Checking your preferences"
 msgstr "మీ ప్రాధాన్యతలను తనిఖీ చేస్తోంది"
-
-#: src/features/resume/share/address-field.tsx
-msgid "Checking… Copy is available after saving."
-msgstr "తనిఖీ చేస్తోంది... సేవ్ చేసిన తర్వాత కాపీ అందుబాటులో ఉంటుంది."
 
 #: src/features/resume/editor/check/check-panel.tsx
 msgid "Checks by category"
@@ -5022,8 +4903,6 @@ msgstr "మూసివేయి"
 #: src/features/resume/editor/check/page-layer.tsx
 #: src/features/resume/editor/chrome/download-sheet.tsx
 #: src/features/resume/editor/write/picture-settings.tsx
-#: src/features/resume/share/dns-records-dialog.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/resume/stylesheet/editor.tsx
 #: src/features/settings/account/backup-codes.tsx
 #: src/features/settings/ai/next-steps.tsx
@@ -5150,17 +5029,12 @@ msgstr "కమాండ్‌లు"
 msgid "Comment"
 msgstr "కామెంట్"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Comment left"
-msgstr "కామెంట్ వదిలారు"
-
 #. placeholder {0}: view.ownerName
 #: src/features/feedback/review-page.tsx
 msgid "Comment sent to {0}"
 msgstr "{0}‌కు కామెంట్ పంపబడింది"
 
 #: src/features/feedback/review-page.tsx
-#: src/features/resume/share/feedback-links.tsx
 msgid "Comments"
 msgstr "కామెంట్‌లు"
 
@@ -5265,10 +5139,6 @@ msgstr "సేవ్ చేసే ముందు {0} పూర్తి చే�
 msgid "Compress or remove large images to keep uploads quick."
 msgstr "అప్‌లోడ్‌లను వేగంగా ఉంచడానికి పెద్ద చిత్రాలను కుదించండి లేదా తొలగించండి."
 
-#: src/features/resume/share/web-page-preview.tsx
-msgid "Computer"
-msgstr "కంప్యూటర్"
-
 #: src/features/career/offers.tsx
 msgid "Conditions not stated"
 msgstr "షరతులు పేర్కొనబడలేదు"
@@ -5316,19 +5186,9 @@ msgstr "మీ కొత్త ఇమెయిల్ చిరునామాన
 msgid "Confirms {time} today, by video."
 msgstr "ఈరోజు {time}కి వీడియో ద్వారా అని నిర్ధారిస్తున్నారు."
 
-#: src/features/resume/share/custom-domain-field.tsx
 #: src/features/settings/account/security.tsx
 msgid "Connect"
 msgstr "కనెక్ట్ చేయండి"
-
-#. placeholder {0}: domain.hostname
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "Connect {0}"
-msgstr "{0}ను కనెక్ట్ చేయండి"
-
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "Connect {domain}"
-msgstr "{domain}ను కనెక్ట్ చేయండి"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Connect a search service"
@@ -5358,10 +5218,6 @@ msgstr "మరొకటి కనెక్ట్ చేయండి…"
 #: src/features/settings/ai/providers.tsx
 msgid "Connected"
 msgstr "కనెక్ట్ చేయబడింది"
-
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Connected. Your domain opens your primary resume."
-msgstr "కనెక్ట్ అయింది. మీ డొమైన్ మీ ప్రాథమిక రెజ్యూమ్‌ను తెరుస్తుంది."
 
 #: src/features/settings/account/auth-hooks.ts
 msgid "Connecting your {providerName} account…"
@@ -5397,14 +5253,6 @@ msgstr "ఉద్యోగ దరఖాస్తు ఫారాల కోసం
 #: src/features/homepage/check.tsx
 msgid "Contact details found"
 msgstr "సంప్రదింపు వివరాలు కనుగొనబడ్డాయి"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Contact details hidden"
-msgstr "సంప్రదింపు వివరాలు దాచబడ్డాయి"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Contact details shown"
-msgstr "సంప్రదింపు వివరాలు చూపబడ్డాయి"
 
 #: src/features/resume/editor/check/check-panel.tsx
 msgid "Contact details, reading order, fonts, links"
@@ -5524,8 +5372,6 @@ msgid "Conversations"
 msgstr "సంభాషణలు"
 
 #: src/features/homepage/share.tsx
-#: src/features/resume/share/copy-link-button.tsx
-#: src/features/resume/share/copy-text.tsx
 msgid "Copied"
 msgstr "కాపీ చేయబడింది"
 
@@ -5543,13 +5389,8 @@ msgstr "ప్రశ్నలను కాపీ చేసి ఈ దరఖా�
 
 #: src/features/career/coach-chat.tsx
 #: src/features/career/workspace/answer-library.tsx
-#: src/features/resume/share/copy-text.tsx
 msgid "Copy"
 msgstr "కాపీ"
-
-#: src/features/resume/share/copy-text.tsx
-msgid "Copy {value}"
-msgstr "{value}ను కాపీ చేయండి"
 
 #: src/features/career/workspace/preparation.tsx
 msgid "Copy a base resume for this job"
@@ -5596,7 +5437,6 @@ msgid "Copy it for a job"
 msgstr "ఒక ఉద్యోగం కోసం కాపీ చేయండి"
 
 #: src/features/homepage/share.tsx
-#: src/features/resume/share/copy-link-button.tsx
 msgid "Copy link"
 msgstr "లింక్‌ని కాపీ చేయండి"
 
@@ -5709,10 +5549,6 @@ msgstr "మీ పాస్‌వర్డ్‌ను మార్చడం స
 msgid "Couldn't check for a web search service. Retry."
 msgstr "వెబ్ సెర్చ్ సర్వీస్‌ను తనిఖీ చేయలేకపోయాం. మళ్లీ ప్రయత్నించండి."
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Couldn't check which resume opens your short link. Reload the page and try again."
-msgstr "మీ షార్ట్ లింక్ ఏ రెజ్యూమ్‌ను తెరుస్తుందో తనిఖీ చేయలేకపోయాం. పేజీని రీలోడ్ చేసి మళ్లీ ప్రయత్నించండి."
-
 #: src/features/career/workspace/fit.tsx
 msgid "Couldn't check your evidence."
 msgstr "మీ ఎవిడెన్స్‌ను తనిఖీ చేయలేకపోయాం."
@@ -5766,8 +5602,6 @@ msgid "Couldn't copy the transcript. Try again."
 msgstr "ట్రాన్స్‌క్రిప్ట్‌ను కాపీ చేయడం సాధ్యపడలేదు. మళ్ళీ ప్రయత్నించండి."
 
 #: src/features/career/coach-thread.tsx
-#: src/features/resume/share/copy-link-button.tsx
-#: src/features/resume/share/copy-text.tsx
 msgid "Couldn't copy to the clipboard. Try again."
 msgstr "క్లిప్‌బోర్డ్‌కు కాపీ చేయడం సాధ్యపడలేదు. మళ్ళీ ప్రయత్నించండి."
 
@@ -5942,10 +5776,6 @@ msgstr "సేవ్ చేసిన రివ్యూను లోడ్ చ�
 msgid "Couldn't load this application. Try again."
 msgstr "ఈ దరఖాస్తు లోడ్ కాలేదు. మళ్లీ ప్రయత్నించండి."
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Couldn't load this link."
-msgstr "ఈ లింక్‌ను లోడ్ చేయలేకపోయాం."
-
 #: src/features/applications/components/application-detail-sheet.tsx
 #: src/features/career/load-state.tsx
 #: src/features/career/workspace/practise.tsx
@@ -5960,10 +5790,6 @@ msgstr "ట్రాష్ లోడ్ కాలేదు"
 #: src/features/settings/profile.tsx
 msgid "Couldn't load your application profile. Your saved data hasn't changed."
 msgstr "మీ దరఖాస్తు ప్రొఫైల్ లోడ్ కాలేదు. మీ సేవ్ చేసిన డేటా మారలేదు."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Couldn't load your feedback links."
-msgstr "మీ ఫీడ్‌బ్యాక్ లింక్‌లను లోడ్ చేయలేకపోయాం."
 
 #: src/routes/dashboard/applications/index.tsx
 msgid "Couldn't load your stages, so the standard ones are shown."
@@ -5996,10 +5822,6 @@ msgstr "పని చేయడానికి కాపీ తయారు చ�
 #: src/features/settings/account/backup-codes.tsx
 msgid "Couldn't make new codes. Try again."
 msgstr "కొత్త కోడ్‌లను తయారు చేయలేకపోయాం. మళ్లీ ప్రయత్నించండి."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Couldn't make the link. Try again."
-msgstr "లింక్‌ను తయారు చేయలేకపోయాం. మళ్లీ ప్రయత్నించండి."
 
 #: src/features/settings/ai/providers.tsx
 msgid "Couldn't make this connection the default. Try again."
@@ -6224,10 +6046,6 @@ msgstr "ఉద్యోగ ఆఫర్‌ను సేవ్ చేయలేక
 msgid "Couldn't save the posting. Try again."
 msgstr "ఉద్యోగ పోస్టింగ్‌ని సేవ్ చేయడం సాధ్యపడలేదు. మళ్ళీ ప్రయత్నించండి."
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Couldn't save the QR code as PNG. Try SVG instead."
-msgstr "QR కోడ్‌ను PNGగా సేవ్ చేయలేకపోయాం. బదులుగా SVG ప్రయత్నించండి."
-
 #: src/features/career/knowledge/stories.tsx
 msgid "Couldn't save the story. Try again."
 msgstr "కథను సేవ్ చేయడం సాధ్యపడలేదు. మళ్ళీ ప్రయత్నించండి."
@@ -6374,10 +6192,6 @@ msgstr "మోడల్‌లను మార్చడం సాధ్యపడ�
 msgid "Couldn't transcribe. Your recording is still here."
 msgstr "టెక్స్ట్‌గా మార్చడం సాధ్యపడలేదు. మీ రికార్డింగ్ ఇంకా ఇక్కడే ఉంది."
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Couldn't turn off the link. Try again."
-msgstr "లింక్‌ను ఆఫ్ చేయలేకపోయాం. మళ్లీ ప్రయత్నించండి."
-
 #. Fallback toast when disabling two-factor authentication fails
 #: src/dialogs/auth/disable-two-factor.tsx
 msgid "Couldn't turn off two-step verification. Check your password and try again."
@@ -6416,11 +6230,6 @@ msgstr "పత్రాలను అన్‌లాక్ చేయలేకప�
 msgid "Couldn't update saved answers. Try again."
 msgstr "సేవ్ చేసిన జవాబులను నవీకరించలేకపోయాం. మళ్లీ ప్రయత్నించండి."
 
-#: src/features/resume/share/custom-domain-field.tsx
-#: src/features/resume/share/share-panel.tsx
-msgid "Couldn't update sharing. Try again."
-msgstr "షేరింగ్‌ను నవీకరించడం సాధ్యపడలేదు. మళ్ళీ ప్రయత్నించండి."
-
 #: src/features/career/workspace/messages.tsx
 msgid "Couldn't update the application. Nothing was changed. Try again."
 msgstr "దరఖాస్తును నవీకరించడం సాధ్యపడలేదు. ఏదీ మార్చబడలేదు. మళ్ళీ ప్రయత్నించండి."
@@ -6433,10 +6242,6 @@ msgstr "దరఖాస్తును నవీకరించడం సాధ�
 #: src/features/applications/use-application-actions.ts
 msgid "Couldn't update the applications. Try again."
 msgstr "ఉద్యోగ దరఖాస్తులను అప్‌డేట్ చేయడం సాధ్యపడలేదు. మళ్లీ ప్రయత్నించండి."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Couldn't update the comment. Try again."
-msgstr "కామెంట్‌ను నవీకరించలేకపోయాం. మళ్లీ ప్రయత్నించండి."
 
 #: src/features/applications/components/interview-dialog.tsx
 msgid "Couldn't update the interview. Try again."
@@ -6677,10 +6482,6 @@ msgctxt "Template style tag"
 msgid "Creative"
 msgstr "సృజనాత్మక"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Credit"
-msgstr "క్రెడిట్"
-
 #: src/features/resume/editor/write/picture-settings.tsx
 msgid "Crop and upload"
 msgstr "చిత్రాన్ని కత్తిరించి అప్‌లోడ్ చేయండి"
@@ -6736,7 +6537,6 @@ msgid "Custom color (hex)"
 msgstr "అనుకూల రంగు (హెక్స్)"
 
 #: src/components/calm/category-strip.tsx
-#: src/features/resume/share/share-panel.tsx
 msgid "Custom CSS"
 msgstr "కస్టమ్ CSS"
 
@@ -7310,10 +7110,6 @@ msgstr "మీరు చేసిన దానితో ప్రారంభమ
 msgid "Does this offer meet what I want?"
 msgstr "ఈ ఆఫర్ నాకు కావాల్సినదేనా?"
 
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Domain connected"
-msgstr "డొమైన్ కనెక్ట్ అయింది"
-
 #. placeholder {0}: chip.label
 #: src/features/assistant/conversation.tsx
 msgid "Don't send {0}"
@@ -7337,7 +7133,6 @@ msgstr "పూర్తయింది"
 #: src/features/career/workspace/prepare-review.tsx
 #: src/features/documents/document-actions.tsx
 #: src/features/resume/editor/write/rich-text-editor-field.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/account/backup-codes.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Done"
@@ -7430,7 +7225,7 @@ msgstr "నమూనా PDFని డౌన్‌లోడ్ చేయండి
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Download Word"
-msgstr "Word డౌన్‌లోడ్ చేయండి"
+msgstr ""
 
 #: src/features/resume/editor/chrome/bar.tsx
 msgid "Download, needs a connection"
@@ -7445,14 +7240,6 @@ msgstr "{file} డౌన్‌లోడ్ చేయబడింది"
 #: src/features/resume/share/download-tab.tsx
 msgid "Downloaded {file} and the cover letter"
 msgstr "{file} మరియు కవర్ లెటర్ డౌన్‌లోడ్ చేయబడింది"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "downloads"
-msgstr "డౌన్‌లోడ్‌లు"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Downloads"
-msgstr "డౌన్‌లోడ్‌లు"
 
 #: src/features/career/workspace/preparation.tsx
 msgid "draft"
@@ -8073,7 +7860,7 @@ msgstr "మీ సర్వీస్ API బేస్ URL‌ను నమోద�
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Enter the password the resume owner shared with you."
-msgstr "రెజ్యూమ్ యజమాని మీతో పంచుకున్న పాస్‌వర్డ్‌ను నమోదు చేయండి."
+msgstr ""
 
 #: src/features/resume/builder/password-dialog.tsx
 msgid "Enter the same password in both fields."
@@ -8255,15 +8042,6 @@ msgstr "అనుభవం"
 msgid "Experience, Education and more"
 msgstr "అనుభవం, విద్య మరియు మరిన్ని"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Expired"
-msgstr "గడిచిపోయింది"
-
-#. placeholder {0}: i18n.date(link.expiresAt, { dateStyle: "medium" })
-#: src/features/resume/share/feedback-links.tsx
-msgid "expires {0}"
-msgstr "{0}న గడువు ముగుస్తుంది"
-
 #: src/features/homepage/prepare.tsx
 msgid "explain one limit of the measurement clearly, without underselling the work."
 msgstr "పనిని తక్కువ చేయకుండా, కొలమానంలోని ఒక పరిమితిని స్పష్టంగా వివరించండి."
@@ -8424,15 +8202,6 @@ msgstr "ఫీడ్‌బ్యాక్"
 #: src/features/career/workspace/practise.tsx
 msgid "Feedback · compared with your stories and the posting"
 msgstr "ఫీడ్‌బ్యాక్ · మీ కథలు మరియు పోస్టింగ్‌తో పోల్చబడింది"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Feedback link"
-msgstr "ఫీడ్‌బ్యాక్ లింక్"
-
-#: src/features/resume/share/feedback-links.tsx
-#: src/features/resume/share/share-panel.tsx
-msgid "Feedback links"
-msgstr "ఫీడ్‌బ్యాక్ లింక్‌లు"
 
 #: src/features/career/workspace/practise.tsx
 msgid "Feedback on an answer needs AI."
@@ -8771,11 +8540,6 @@ msgstr "ఒక ఉద్యోగం కోసం"
 msgid "For a promotion at the same company: its own position, dates and description."
 msgstr "అదే కంపెనీలో పదోన్నతి కోసం: దాని సొంత పదవి, తేదీలు మరియు వివరణ."
 
-#. placeholder {0}: domain.target
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "For a root domain such as example.com, use A and AAAA records with {0}'s addresses instead of the CNAME."
-msgstr "example.com వంటి రూట్ డొమైన్ కోసం, CNAMEకి బదులుగా {0} చిరునామాలతో A మరియు AAAA రికార్డ్‌లను ఉపయోగించండి."
-
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "For details the other categories don't cover. Rules apply to the page, the PDF and your public page."
 msgstr "ఇతర వర్గాలు కవర్ చేయని వివరాల కోసం. నియమాలు పేజీకి, PDF కి మరియు మీ పబ్లిక్ పేజీకి వర్తిస్తాయి."
@@ -8791,10 +8555,6 @@ msgstr "ఉదాహరణకు “2025 లో ఇద్దరు అసోస�
 #: src/features/resume/share/history-tab.tsx
 msgid "For example, Before the rewrite"
 msgstr "ఉదాహరణకు, తిరగరాతకు ముందు"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "For example, Careers office"
-msgstr "ఉదాహరణకు, Careers ఆఫీస్"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/notes.tsx
 msgid "For example, where you sent this resume, or links to the postings."
@@ -9161,11 +8921,6 @@ msgstr "Reactive Resumeకి వెళ్లండి"
 msgid "Go to Today"
 msgstr "ఈరోజుకు వెళ్లండి"
 
-#. placeholder {0}: url.replace(/^https?:\/\//, "")
-#: src/features/resume/share/address-field.tsx
-msgid "Goes live at {0} when you publish."
-msgstr "మీరు పబ్లిష్ చేసినప్పుడు {0} వద్ద లైవ్ అవుతుంది."
-
 #. Authentication provider display name in account settings
 #. Brand name label for Google social sign-in button
 #: src/features/auth/components/social-auth.tsx
@@ -9365,10 +9120,6 @@ msgstr "దాచండి"
 msgctxt "Fold an edit card"
 msgid "Hide"
 msgstr "దాచు"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Hide contact details"
-msgstr "సంప్రదింపు వివరాలను దాచండి"
 
 #: src/features/resume/editor/write/entry-row.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
@@ -9604,10 +9355,6 @@ msgstr "ID {clientId}"
 msgid "If an account uses that address, a reset link is on its way."
 msgstr "ఆ చిరునామాతో ఖాతా ఉంటే, రీసెట్ లింక్ బయలుదేరింది."
 
-#: src/features/resume/share/share-panel.tsx
-msgid "If another resume holds Primary, turn it on for this one instead."
-msgstr "వేరే రెజ్యూమ్ ప్రైమరీగా ఉంటే, దాని బదులు దీనికి ఆన్ చేయండి."
-
 #: src/features/homepage/remember.tsx
 msgid "If I did it again, I’d agree on the measure before the first prototype."
 msgstr "మళ్లీ చేస్తే, మొదటి ప్రోటోటైప్‌కు ముందే కొలమానంపై అంగీకారానికి వస్తాను."
@@ -9622,7 +9369,7 @@ msgstr "ఇది మీ అనుభవంలో భాగమైతే, అద�
 
 #: src/features/resume/share/web-page-text.ts
 msgid "If someone sent you this link, ask them for a new one."
-msgstr "ఎవరైనా మీకు ఈ లింక్‌ని పంపినట్లయితే, కొత్తది కోసం వారిని అడగండి."
+msgstr ""
 
 #: src/features/auth/email-text.ts
 msgid "If the button does not work, copy and paste this link into your browser:"
@@ -9786,18 +9533,6 @@ msgstr "మీరు ఒక లైన్ రాసిన తర్వాత మ�
 #: src/features/resume/editor/write/improve.tsx
 msgid "Improving…"
 msgstr "మెరుగుపడుతోంది..."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "In 30 days"
-msgstr "30 రోజుల్లో"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "In 7 days"
-msgstr "7 రోజుల్లో"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "In 90 days"
-msgstr "90 రోజుల్లో"
 
 #: src/features/career/workspace/fit.tsx
 msgid "In Interview prep"
@@ -10075,10 +9810,6 @@ msgstr "ఇది తరలించబడి ఉండవచ్చు, లే�
 msgid "It reads the posting, your notes and what you sent, and knows you are on {tabName}."
 msgstr "ఇది పోస్టింగ్, మీ నోట్స్ మరియు మీరు పంపినవి చదువుతుంది, మీరు {tabName} లో ఉన్నారని తెలుసు."
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "It stops opening at once. Comments already left are kept. You can make a new link anytime."
-msgstr "అది వెంటనే తెరుచుకోవడం ఆగిపోతుంది. ఇంతకుముందు వదిలిన కామెంట్‌లు ఉంటాయి. ఎప్పుడైనా కొత్త లింక్ తయారు చేయవచ్చు."
-
 #: src/features/applications/components/interview-dialog.tsx
 msgid "It will show on the application's timeline and on the calendar."
 msgstr "ఇది జాబ్ అప్లికేషన్ టైమ్‌లైన్‌లో మరియు క్యాలెండర్‌లో చూపబడుతుంది."
@@ -10260,10 +9991,6 @@ msgstr "కనెక్షన్‌ను ఉంచండి"
 msgid "Keep current connection"
 msgstr "ప్రస్తుత కనెక్షన్ ఉంచండి"
 
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Keep domain"
-msgstr "డొమైన్‌ను ఉంచండి"
-
 #: src/features/career/schedule-sheet.tsx
 #: src/features/resume/editor/save-status.tsx
 #: src/hooks/use-form-blocker.tsx
@@ -10308,10 +10035,6 @@ msgstr "ఒక పేజీలో ఉంచండి"
 #: src/features/settings/account/security.tsx
 msgid "Keep passkey"
 msgstr "పాస్‌కీ ఉంచండి"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Keep password"
-msgstr "పాస్‌వర్డ్‌ను ఉంచు"
 
 #: src/features/settings/profile.tsx
 msgid "Keep profile"
@@ -10541,23 +10264,6 @@ msgstr "చివరిగా యాక్టివ్ {active}"
 #: src/features/settings/account/security.tsx
 msgid "Last changed in {0}"
 msgstr "{0}లో చివరిగా మార్చబడింది"
-
-#. placeholder {0}: formatTimeAgo(domain.lastCheckedAt, i18n.locale)
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Last checked {0}"
-msgstr "చివరిగా {0} తనిఖీ చేయబడింది"
-
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "Last checked {lastChecked}"
-msgstr "చివరిగా {lastChecked} తనిఖీ చేయబడింది"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Last counted view {lastView} ago"
-msgstr "చివరి లెక్కించిన వీక్షణ {lastView} క్రితం"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Last counted view {lastView} ago. Each visitor counts once an hour."
-msgstr "చివరి లెక్కించిన వీక్షణ {lastView} క్రితం. ప్రతి సందర్శకుడు గంటకు ఒకసారి లెక్కించబడతారు."
 
 #: src/features/documents/documents-page.tsx
 #: src/routes/builder/$resumeId/-components/document-details.tsx
@@ -10922,7 +10628,6 @@ msgid "Link an existing letter"
 msgstr "ఉన్న లెటర్‌ను లింక్ చేయండి"
 
 #: src/features/documents/document-actions.tsx
-#: src/features/resume/share/copy-link-button.tsx
 #: src/features/resume/share/web-page-text.ts
 msgid "Link copied"
 msgstr "లింక్ కాపీ చేయబడింది"
@@ -10931,17 +10636,9 @@ msgstr "లింక్ కాపీ చేయబడింది"
 msgid "Link expired"
 msgstr "లింక్ గడువు ముగిసింది"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Link expires"
-msgstr "లింక్ గడువు"
-
 #: src/components/input/url-input.tsx
 msgid "Link label"
 msgstr "లింక్ లేబుల్"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Link made"
-msgstr "లింక్ తయారైంది"
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Link one later"
@@ -10962,14 +10659,6 @@ msgstr "ఉద్యోగ దరఖాస్తుకు లింక్"
 #: src/features/documents/document-actions.tsx
 msgid "Link to application…"
 msgstr "ఉద్యోగ దరఖాస్తుకు లింక్…"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Link turned off"
-msgstr "లింక్ ఆఫ్ చేయబడింది"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Link turned off. The address is kept"
-msgstr "లింక్ ఆఫ్ చేయబడింది. చిరునామా ఉంచబడుతుంది"
 
 #: src/features/resume/editor/check/issues.ts
 msgid "Link updated"
@@ -11056,11 +10745,6 @@ msgstr "వింటోంది… పూర్తయ్యాక ఆపండ�
 #: src/libs/locale.ts
 msgid "Lithuanian"
 msgstr "లిథువేనియన్"
-
-#. placeholder {0}: url.replace(/^https?:\/\//, "")
-#: src/features/resume/share/address-field.tsx
-msgid "Live at {0}"
-msgstr "{0}లో నివసిస్తున్నారు"
 
 #: src/features/applications/components/import-applications-sheet.tsx
 msgid "Load your stages before importing named stages. Your CSV data is kept."
@@ -11163,7 +10847,6 @@ msgstr "వర్క్‌స్పేస్‌ను లోడ్ చేస్�
 #: src/features/command-palette/index.tsx
 #: src/features/command-palette/pages/ask.tsx
 #: src/features/resume/editor/check/job-match.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/ai/next-steps.tsx
 #: src/features/settings/profile.tsx
 msgid "Loading…"
@@ -11285,7 +10968,7 @@ msgstr "{1} లో {0} పబ్లిక్ చేయబడ్డాయి. ల
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Made with Reactive Resume"
-msgstr "Reactive Resume తో తయారు చేయబడింది"
+msgstr ""
 
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
@@ -11337,14 +11020,6 @@ msgstr "దీన్ని మరింత నిర్దిష్టంగా 
 msgid "Make it shorter"
 msgstr "దానిని చిన్నదిగా చేయండి"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "Make link"
-msgstr "లింక్ తయారు చేయండి"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Make primary"
-msgstr "ప్రాథమికంగా చేయండి"
-
 #: src/features/documents/documents-page.tsx
 msgid "Make private"
 msgstr "ప్రైవేట్ చేయండి"
@@ -11364,10 +11039,6 @@ msgstr "కనిపించే టెక్స్ట్ మరియు గమ
 #: src/features/ats-checker/messages.ts
 msgid "Make them visibly larger, bolder or capitalized."
 msgstr "వాటిని కంటికి కనిపించేలా పెద్దగా, బోల్డ్‌గా లేదా క్యాపిటలైజ్డ్‌గా చేయండి."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Make this your primary resume?"
-msgstr "దీన్ని మీ ప్రాథమిక రెజ్యూమ్‌గా చేయాలా?"
 
 #: src/features/assistant/translate-resume.tsx
 msgid "Makes a copy named “{copyName}” and opens it with a request ready for the assistant. Nothing is sent until you send it."
@@ -11542,10 +11213,6 @@ msgstr "మీ వాస్తవాలను సరిపోలుస్తో�
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Matching, Add to Skills and hiding a term work without it."
 msgstr "సరిపోల్చడం, స్కిల్స్‌కు జోడించడం మరియు పదాన్ని దాచడం అది లేకుండానే పనిచేస్తాయి."
-
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "May be available"
-msgstr "అందుబాటులో ఉండవచ్చు"
 
 #: src/features/ai/usage.tsx
 msgid "MCP match score"
@@ -11960,11 +11627,6 @@ msgstr "సపోర్ట్ పనిని పెంచకుండా, క�
 msgid "Name"
 msgstr "పేరు"
 
-#: src/features/resume/share/dns-records-dialog.tsx
-msgctxt "DNS record"
-msgid "Name"
-msgstr "పేరు"
-
 #: src/features/settings/ai/provider-fields.tsx
 msgid "Name and base URL"
 msgstr "పేరు మరియు బేస్ URL"
@@ -12110,14 +11772,9 @@ msgstr "నెట్‌వర్క్"
 
 #: src/features/career/coach.tsx
 #: src/features/career/knowledge/facts.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/ai/page.tsx
 msgid "Never"
 msgstr "ఎప్పటికీ కాదు"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Never opened"
-msgstr "ఎప్పుడూ తెరవలేదు"
 
 #: src/features/career/coach.tsx
 #: src/features/documents/document-card.tsx
@@ -12165,10 +11822,6 @@ msgstr "కొత్త పత్రం"
 #: src/features/career/knowledge/facts.tsx
 msgid "New fact"
 msgstr "కొత్త వాస్తవం"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "New feedback link"
-msgstr "కొత్త ఫీడ్‌బ్యాక్ లింక్"
 
 #: src/features/auth/pages/login.tsx
 msgid "New here?"
@@ -12369,7 +12022,6 @@ msgid "No commands match that search."
 msgstr "ఆ శోధనకు సరిపోయే కమాండ్లు ఏవీ లేవు."
 
 #: src/features/feedback/review-page.tsx
-#: src/features/resume/share/feedback-links.tsx
 msgid "No comments yet."
 msgstr "ఇంకా కామెంట్‌లు లేవు."
 
@@ -12404,10 +12056,6 @@ msgstr "ఇంకా కవర్ లెటర్ లేదు"
 #: src/features/documents/documents-page.tsx
 msgid "No cover letters yet"
 msgstr "ఇంకా కవర్ లెటర్లు లేవు"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "No custom domain"
-msgstr "కస్టమ్ డొమైన్ లేదు"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "No custom rules"
@@ -12545,10 +12193,6 @@ msgstr "కొత్త పదవులు లేవు. పదవుల అన�
 msgid "No offers to compare yet"
 msgstr "పోల్చడానికి ఇంకా ఆఫర్‌లు లేవు"
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "No open applications."
-msgstr "ఓపెన్ దరఖాస్తులు లేవు."
-
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
 msgid "No open issues"
 msgstr "బహిరంగ సమస్యలు లేవు"
@@ -12557,10 +12201,6 @@ msgstr "బహిరంగ సమస్యలు లేవు"
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "No other stage counts as {0}. Add one first, so its applications have somewhere to go."
 msgstr "{0}గా పరిగణించబడే మరో దశ లేదు. దానిలోని దరఖాస్తులను తరలించడానికి ముందుగా అలాంటి దశను జోడించండి."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "no password"
-msgstr "పాస్‌వర్డ్ లేదు"
 
 #: src/features/resume/editor/check/issues.ts
 msgid "No phone number"
@@ -12809,10 +12449,6 @@ msgstr "పని చేయడానికి అనుమతి లేదు"
 msgid "Not available in this browser"
 msgstr "ఈ బ్రౌజర్‌లో అందుబాటులో లేదు"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Not available while the resume needs a password."
-msgstr "రెజ్యూమ్‌కు పాస్‌వర్డ్ అవసరమైనప్పుడు అందుబాటులో ఉండదు."
-
 #: src/features/settings/account/security.tsx
 msgid "Not connected"
 msgstr "కనెక్ట్ కాలేదు"
@@ -12820,10 +12456,6 @@ msgstr "కనెక్ట్ కాలేదు"
 #: src/features/settings/ai/web-access.tsx
 msgid "Not connected · finds roles and reads pages the reader can't"
 msgstr "కనెక్ట్ కాలేదు · పదవులను కనుగొంటుంది, రీడర్ చదవలేని పేజీలను చదువుతుంది"
-
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Not connected yet. Add its DNS records where you manage the domain, then check."
-msgstr "ఇంకా కనెక్ట్ కాలేదు. మీరు డొమైన్‌ను నిర్వహించే చోట దాని DNS రికార్డ్‌లను జోడించి, ఆపై తనిఖీ చేయండి."
 
 #: src/features/applications/components/insights-view.tsx
 msgid "Not enough to compare yet: this needs 3 of each."
@@ -13155,14 +12787,6 @@ msgstr "ఒడియా"
 msgid "Off"
 msgstr "ఆఫ్"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Off by default. Shares an editable Word file with the same visible content as your web page. Layout is simplified."
-msgstr "డిఫాల్ట్‌గా ఆఫ్. మీ వెబ్ పేజీలో కనిపించే కంటెంటే ఉన్న, సవరించగలిగే Word ఫైల్‌ను షేర్ చేస్తుంది. విన్యాసం సరళీకృతం."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Off makes the link read-only."
-msgstr "ఆఫ్ చేస్తే లింక్ చదవడానికే పరిమితమవుతుంది."
-
 #: src/features/homepage/remember.tsx
 msgid "Off: the coach won’t see it or claim it."
 msgstr "ఆఫ్: కోచ్ దీన్ని చూడదు, మీ తరఫున దీన్ని చెప్పదు."
@@ -13170,14 +12794,6 @@ msgstr "ఆఫ్: కోచ్ దీన్ని చూడదు, మీ త�
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Off. Edit this letter’s details below. Turning this on replaces them with the resume’s current details."
 msgstr "ఆఫ్‌లో ఉంది. ఈ లేఖ వివరాలను కింద సవరించండి. దీన్ని ఆన్ చేస్తే అవి రెజ్యూమ్‌లోని ప్రస్తుత వివరాలతో భర్తీ అవుతాయి."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Off. Let recruiters find you on Google by turning this on."
-msgstr "ఆఫ్‌లో ఉంది. దీన్ని ఆన్ చేస్తే రిక్రూటర్‌లు మిమ్మల్ని Googleలో కనుగొనగలరు."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Off. Only you can see your web page."
-msgstr "ఆఫ్. మీ వెబ్ పేజీని మీరు మాత్రమే చూడగలరు."
 
 #: src/features/applications/stages.ts
 #: src/features/career/offer-entry.tsx
@@ -13459,19 +13075,7 @@ msgstr "ఎప్పుడు, ఎన్ని అనేది మాత్ర�
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Only you can see this address. Publish it in Share."
-msgstr "ఈ చిరునామా మీకు మాత్రమే కనిపిస్తుంది. Share‌లో పబ్లిష్ చేయండి."
-
-#: src/features/resume/share/web-page-preview.tsx
-msgid "Only you can see this page"
-msgstr "ఈ పేజీని మీరు మాత్రమే చూడగలరు"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "only you see these"
-msgstr "ఇవి మీకు మాత్రమే కనిపిస్తాయి"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Only you see this."
-msgstr "ఇది మీకు మాత్రమే కనిపిస్తుంది."
+msgstr ""
 
 #: src/libs/orpc/ai-consent.ts
 msgid "Only your recording is sent to this transcription model. The returned transcript is saved to your account."
@@ -13591,7 +13195,7 @@ msgstr "పంపిన వెర్షన్ తెరవండి"
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Open Share"
-msgstr "Share తెరవండి"
+msgstr ""
 
 #: src/features/career/workspace/prepare.tsx
 msgid "Open stories"
@@ -13633,22 +13237,9 @@ msgstr "పంపిన రెజ్యూమ్ వెర్షన్ తెర
 msgid "Open Trash"
 msgstr "ట్రాష్ తెరవండి"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Open web page"
-msgstr "వెబ్ పేజీని తెరవండి"
-
 #: src/features/settings/ai/providers.tsx
 msgid "OpenAI, Anthropic, Gemini, Ollama and more"
 msgstr "OpenAI, Anthropic, Gemini, Ollama మరియు మరిన్ని"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Opened"
-msgstr "తెరవబడింది"
-
-#. placeholder {0}: dayLabel(link.lastViewedAt, i18n.locale)
-#: src/features/resume/share/feedback-links.tsx
-msgid "Opened {0}"
-msgstr "{0} న తెరవబడింది"
 
 #: src/features/homepage/remember.tsx
 msgid "Opening"
@@ -14029,18 +13620,6 @@ msgstr "పాస్‌వర్డ్ మార్చబడింది"
 msgid "Password changed. You're signed out everywhere; sign in, then add any passkeys again."
 msgstr ""
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Password removed"
-msgstr "పాస్‌వర్డ్ తీసివేయబడింది"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "password set"
-msgstr "పాస్‌వర్డ్ సెట్ చేయబడింది"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Password set"
-msgstr "పాస్వర్డ్ సెట్"
-
 #: src/dialogs/auth/set-password.tsx
 msgid "Password set. You can now sign in with it too."
 msgstr "పాస్‌వర్డ్ సెట్ అయింది. ఇప్పుడు దానితో కూడా సైన్ ఇన్ చేయవచ్చు."
@@ -14132,14 +13711,6 @@ msgstr "చెల్లింపు వ్యవధి"
 msgid "Pay, deadline and conditions, so you can compare and decide"
 msgstr "జీతం, గడువు, షరతులు — పోల్చి నిర్ణయించుకోవడానికి"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "PDF download off"
-msgstr "PDF డౌన్‌లోడ్ ఆఫ్"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "PDF download on"
-msgstr "PDF డౌన్‌లోడ్ ఆన్"
-
 #: src/features/ai/usage.tsx
 msgid "PDF import"
 msgstr "PDF దిగుమతి"
@@ -14203,7 +13774,6 @@ msgstr "పర్షియన్"
 #: src/features/resume/editor/check/parser-view.tsx
 #: src/features/resume/editor/write/basics-card.tsx
 #: src/features/resume/editor/write/entries.tsx
-#: src/features/resume/share/web-page-preview.tsx
 #: src/features/settings/profile.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Phone"
@@ -14651,10 +14221,6 @@ msgstr "{0} ప్రివ్యూ"
 msgid "Preview {name} sample PDF"
 msgstr "ప్రివ్యూ {name} నమూనా PDF"
 
-#: src/features/resume/share/web-page-preview.tsx
-msgid "Preview size"
-msgstr "ప్రివ్యూ పరిమాణం"
-
 #: src/features/documents/document-card.tsx
 msgid "Preview unavailable"
 msgstr "ప్రివ్యూ అందుబాటులో లేదు"
@@ -14710,10 +14276,6 @@ msgstr "పూర్వ వెర్షన్"
 msgid "Primary color"
 msgstr "ప్రాథమిక రంగు"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Primary resume"
-msgstr "ప్రాథమిక రెజ్యూమ్"
-
 #: src/features/resume/share/download-menu.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Print"
@@ -14722,14 +14284,6 @@ msgstr "ముద్రించు"
 #: src/features/ats-checker/messages.ts
 msgid "Print or export the form to a flat PDF before sending it."
 msgstr "పంపేముందు ఫారమ్‌ను ఫ్లాట్ PDFగా ప్రింట్ చేయండి లేదా ఎగుమతి చేయండి."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Privacy"
-msgstr "గోప్యత"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Privacy and downloads"
-msgstr "గోప్యత మరియు డౌన్‌లోడ్‌లు"
 
 #: src/features/homepage/share.tsx
 msgid "Private"
@@ -14870,10 +14424,6 @@ msgstr "ప్రదాత పరీక్ష"
 msgid "Public"
 msgstr "పబ్లిక్"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Public link"
-msgstr "పబ్లిక్ లింక్"
-
 #: src/features/documents/document-status.tsx
 #: src/routes/builder/$resumeId/-components/document-details.tsx
 msgid "Public, with a password"
@@ -14882,30 +14432,6 @@ msgstr "పబ్లిక్, పాస్‌వర్డ్‌తో"
 #: src/libs/resume/section.tsx
 msgid "Publications"
 msgstr "పబ్లికేషన్స్"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish"
-msgstr "ప్రచురించండి"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish it to share a link that opens on any screen. Only you can see it until then."
-msgstr "ఏ స్క్రీన్‌లోనైనా తెరుచుకునే లింక్‌ను షేర్ చేయడానికి దీన్ని ప్రచురించండి. అప్పటి వరకు మీరు మాత్రమే దీన్ని చూడగలరు."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish the web page first."
-msgstr "ముందుగా వెబ్ పేజీని ప్రచురించండి."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish the web page to count views and downloads. Counts are anonymous, and search engines aren't counted."
-msgstr "వీక్షణలు మరియు డౌన్‌లోడ్‌లను లెక్కించడానికి వెబ్ పేజీని ప్రచురించండి. లెక్కలు అనామకంగా ఉంటాయి, శోధన ఇంజిన్‌లు లెక్కించబడవు."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish this resume to open it at your short link and custom domain."
-msgstr "మీ షార్ట్ లింక్ మరియు కస్టమ్ డొమైన్‌లో తెరవడానికి ఈ రెజ్యూమ్‌ను ప్రచురించండి."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Publish this resume to open it at your short link."
-msgstr "ఈ రెజ్యూమ్‌ను మీ షార్ట్ లింక్ వద్ద తెరవడానికి పబ్లిష్ చేయండి."
 
 #: src/features/resume/editor/write/entries.tsx
 msgid "Publisher"
@@ -14938,14 +14464,6 @@ msgstr "దాన్ని మెరుగుపరచడానికి క్�
 #: src/features/assistant/chat.ts
 msgid "Q: {question}"
 msgstr "ప్రశ్న: {question}"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "QR code"
-msgstr "QR కోడ్"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "QR code for {url}"
-msgstr "{url} కోసం QR కోడ్"
 
 #. Accessible title for QR code image shown during two-factor setup
 #: src/dialogs/auth/enable-two-factor.tsx
@@ -15425,10 +14943,6 @@ msgstr "బ్రీఫింగ్ రిఫ్రెష్ చేయండి"
 msgid "Refresh usage"
 msgstr "వినియోగాన్ని రిఫ్రెష్ చేయండి"
 
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "Register at OlaCV"
-msgstr "OlaCVలో రిజిస్టర్ చేయండి"
-
 #: src/features/career/workspace/prepare.tsx
 msgid "Rehearse aloud"
 msgstr "బిగ్గరగా రిహార్సల్ చేయి"
@@ -15573,7 +15087,6 @@ msgid "Remote, Hybrid, a city…"
 msgstr "రిమోట్, హైబ్రిడ్, ఒక నగరం…"
 
 #: src/features/applications/components/detail/contacts.tsx
-#: src/features/resume/share/custom-domain-field.tsx
 #: src/features/settings/account/security.tsx
 msgid "Remove"
 msgstr "తొలగించు"
@@ -15623,10 +15136,6 @@ msgstr "కనెక్షన్‌ని తీసివేయండి"
 msgid "Remove connection…"
 msgstr "కనెక్షన్ తీసివేయండి…"
 
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Remove domain"
-msgstr "డొమైన్‌ను తీసివేయండి"
-
 #: src/features/resume/editor/write/basics-card.tsx
 msgid "Remove field"
 msgstr "ఫీల్డ్‌ను తీసివేయండి"
@@ -15643,10 +15152,6 @@ msgstr "లింక్ {0} తొలగించు"
 #: src/features/settings/account/security.tsx
 msgid "Remove passkey"
 msgstr "పాస్‌కీని తీసివేయండి"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Remove password"
-msgstr "పాస్‌వర్డ్‌ను తీసివేయండి"
 
 #. placeholder {0}: i18n.number(index + 1)
 #: src/features/applications/components/interview-dialog.tsx
@@ -15677,14 +15182,6 @@ msgstr "దశను తీసివేయండి"
 #: src/features/applications/components/application-form-sheet.tsx
 msgid "Remove tag"
 msgstr "ట్యాగ్‌ను తీసివేయండి"
-
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Remove the custom domain?"
-msgstr "అనుకూల డొమైన్‌ను తీసివేయాలా?"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Remove the password?"
-msgstr "పాస్‌వర్డ్‌ని తీసివేయాలా?"
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Remove the web connection?"
@@ -15896,10 +15393,6 @@ msgstr "అభ్యర్థించిన మొత్తం"
 #: src/features/settings/profile.tsx
 msgid "Requested salary"
 msgstr "అభ్యర్థించిన జీతం"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Require a password"
-msgstr "పాస్‌వర్డ్ అవసరం"
 
 #: src/features/career/knowledge/preferences.tsx
 #: src/features/career/workspace/fit.tsx
@@ -16656,10 +16149,6 @@ msgstr "పేరును సేవ్ చేయండి"
 msgid "Save offer"
 msgstr "ఉద్యోగ ఆఫర్‌ను సేవ్ చేయండి"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Save PNG"
-msgstr "PNG సేవ్ చేయండి"
-
 #: src/features/career/workspace/preparation.tsx
 msgid "Save posting"
 msgstr "పోస్టింగ్ సేవ్ చేయండి"
@@ -16680,10 +16169,6 @@ msgstr "షెడ్యూల్‌ను సేవ్ చేయి"
 #: src/features/career/knowledge/stories.tsx
 msgid "Save story"
 msgstr "కథను సేవ్ చేయి"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Save SVG"
-msgstr "SVG సేవ్ చేయండి"
 
 #: src/features/documents/document-actions.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
@@ -16903,11 +16388,6 @@ msgstr "ఈ దరఖాస్తుతో సేవ్ చేయబడింద
 msgid "Saved: {0}. Skipped: {1}. Existing, corrected or switched-off facts stay unchanged."
 msgstr "సేవ్ చేసినవి: {0}. దాటవేసినవి: {1}. ఉన్న, సరిదిద్దిన లేదా ఆపివేసిన వాస్తవాలు మారవు."
 
-#. placeholder {0}: new URL(url).host
-#: src/features/resume/share/address-field.tsx
-msgid "Saving {0}/{username}/{slug}… Copy is available after saving."
-msgstr "{0}/{username}/{slug} సేవ్ చేస్తోంది... సేవ్ చేసిన తర్వాత కాపీ అందుబాటులో ఉంటుంది."
-
 #: src/features/resume/builder/draft.ts
 msgid "Saving is taking longer than expected. Your changes are still open."
 msgstr "ఆదా చేయడానికి ఊహించిన దాని కంటే ఎక్కువ సమయం పడుతోంది. మీ మార్పులు ఇప్పటికీ తెరిచి ఉన్నాయి."
@@ -17069,10 +16549,6 @@ msgstr "శోధన శీర్షికలు, ట్యాగ్‌లు �
 #: src/features/command-palette/content.tsx
 msgid "Search documents, applications and commands"
 msgstr "పత్రాలు, దరఖాస్తులు మరియు కమాండ్‌లను శోధించండి"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Search engines such as Google may list your web page. It can take weeks to appear, or to disappear after you turn this off."
-msgstr "Google వంటి శోధన ఇంజిన్‌లు మీ వెబ్ పేజీని జాబితా చేయవచ్చు. ఇది కనిపించడానికి, లేదా మీరు దీన్ని ఆఫ్ చేసిన తర్వాత కనిపించకుండా పోవడానికి వారాలు పట్టవచ్చు."
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Search failed"
@@ -17347,11 +16823,6 @@ msgstr "పంపండి"
 msgid "Send {0} again"
 msgstr "{0}ను మళ్లీ పంపండి"
 
-#: src/features/resume/share/feedback-links.tsx
-#: src/features/resume/share/share-panel.tsx
-msgid "Send a coach or friend a private link to this version. They can comment, but can't change it or see anything else."
-msgstr "కోచ్‌కు లేదా స్నేహితుడికి ఈ వెర్షన్‌కు ప్రైవేట్ లింక్ పంపండి. వారు కామెంట్ చేయగలరు, కానీ మార్చలేరు లేదా ఇంకేదీ చూడలేరు."
-
 #: src/features/applications/components/calendar-view.tsx
 #: src/features/applications/next-step.ts
 msgid "Send a follow-up"
@@ -17616,21 +17087,14 @@ msgstr "నెరడు వెడల్పు"
 #: src/features/homepage/footer.tsx
 #: src/features/homepage/header.tsx
 #: src/features/homepage/share.tsx
-#: src/features/resume/share/share-panel.tsx
 #: src/features/resume/share/web-page-text.ts
-#: src/routes/builder/$resumeId/-components/editor-bar.tsx
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
-#: src/routes/builder/$resumeId/-components/use-editor-hotkeys.ts
 msgid "Share"
 msgstr "షేర్ చేయండి"
 
 #: src/features/homepage/share.tsx
 msgid "Share a public link, add a password or keep it private. Choose from 3 visibility options. Export to PDF or Word, or take all your data with you as JSON."
 msgstr "పబ్లిక్ లింక్‌ను షేర్ చేయండి, పాస్‌వర్డ్‌ను జోడించండి లేదా ప్రైవేట్‌గా ఉంచండి. 3 విజిబిలిటీ ఆప్షన్‌ల నుండి ఎంచుకోండి. PDF లేదా Wordకి ఎగుమతి చేయండి లేదా మీ మొత్తం డేటాను JSONగా తీసుకెళ్లండి."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Share application progress (optional)"
-msgstr "దరఖాస్తు పురోగతిని షేర్ చేయండి (ఐచ్ఛికం)"
 
 #. placeholder {0}: provider.label
 #: src/libs/orpc/ai-consent.ts
@@ -17640,10 +17104,6 @@ msgstr "{0}‌తో డేటా షేర్ చేయాలా?"
 #: src/features/resume/editor/chrome/download-sheet.tsx
 msgid "Share sections"
 msgstr "విభాగాలను భాగస్వామ్యం చేయండి"
-
-#: src/features/resume/share/address-field.tsx
-msgid "Share via…"
-msgstr "దీని ద్వారా భాగస్వామ్యం చేయండి…"
 
 #: src/features/documents/document-actions.tsx
 msgid "Share…"
@@ -17691,14 +17151,6 @@ msgstr "చిన్న మరియు ప్రత్యక్ష. జాబ�
 msgid "Short and polite, for the recruiter"
 msgstr "రిక్రూటర్ కోసం చిన్న మరియు మర్యాదగా"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Short link"
-msgstr "షార్ట్ లింక్"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Short link and domain"
-msgstr "షార్ట్ లింక్ మరియు డొమైన్"
-
 #: src/routes/dashboard/-components/app-shell.tsx
 msgid "Shortcuts"
 msgstr "షార్ట్‌కట్‌లు"
@@ -17732,10 +17184,6 @@ msgstr "చూపించు"
 msgctxt "Open a folded edit card"
 msgid "Show"
 msgstr "చూపు"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Show “Made with Reactive Resume”"
-msgstr "“Reactive Resumeతో తయారు చేయబడింది” చూపించు"
 
 #. placeholder {0}: i18n.number(Math.min(remaining, COLUMN_PAGE_SIZE))
 #: src/features/applications/components/board.tsx
@@ -17789,17 +17237,9 @@ msgstr "అన్ని రకాలను చూపు"
 msgid "Show closed applications"
 msgstr "మూసిన ఉద్యోగ దరఖాస్తులను చూపించు"
 
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Show DNS records"
-msgstr "DNS రికార్డ్‌లను చూపించు"
-
 #: src/features/resume/editor/proposals/proposal-list.tsx
 msgid "Show edit {number}"
 msgstr "సవరణ {number} చూపు"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Show in search engines"
-msgstr "శోధన ఇంజిన్‌లలో చూపించు"
 
 #: src/features/resume/editor/check/check-panel.tsx
 msgid "Show it again"
@@ -19177,7 +18617,7 @@ msgstr "ఆ ఫైల్ తనిఖీ చేయడానికి చాల�
 
 #: src/features/resume/share/web-page-text.ts
 msgid "That password isn't correct. Check it with the resume owner and try again."
-msgstr "ఆ పాస్‌వర్డ్ సరైనది కాదు. రెజ్యూమ్ యజమానితో దాన్ని నిర్ధారించుకుని మళ్ళీ ప్రయత్నించండి."
+msgstr ""
 
 #: src/dialogs/auth/disable-two-factor.tsx
 #: src/features/settings/account/backup-codes.tsx
@@ -19480,10 +18920,6 @@ msgstr "లేఖ మళ్లీ రెజ్యూమ్ డిజైన్‌
 msgid "The line changed since you asked, so it wasn't replaced."
 msgstr "మీరు అడిగిన తర్వాత లైన్ మారింది, కాబట్టి అది భర్తీ చేయబడలేదు."
 
-#: src/features/resume/share/feedback-links.tsx
-msgid "The link opens the resume as it is now. Later edits aren't shared, so every comment is about this version."
-msgstr "లింక్ రెజ్యూమ్‌ను ప్రస్తుత స్థితిలో తెరుస్తుంది. తర్వాతి సవరణలు షేర్ కావు కాబట్టి, ప్రతి కామెంట్ ఈ వెర్షన్ గురించే ఉంటుంది."
-
 #: src/features/auth/email-text.ts
 msgid "The link works for 1 hour. Resetting signs you out on every device and removes your passkeys and connected apps. If you didn't ask for this, ignore this email; your password stays the same."
 msgstr "లింక్ ఒక గంట పాటు పనిచేస్తుంది. రీసెట్ చేయడం వల్ల మీరు ప్రతి పరికరం నుంచీ సైన్ అవుట్ అవుతారు; మీ పాస్‌కీలు, కనెక్టెడ్ యాప్‌లు తొలగించబడతాయి. ఇది మీరు అడగలేదా అనుకుంటే, ఈ ఇమెయిల్ వదిలివేయండి; మీ పాస్‌వర్డ్ అలాగే ఉంటుంది."
@@ -19654,10 +19090,6 @@ msgstr "ప్రశ్నలు, టైపింగ్, మాట్లాడ�
 msgid "The reason is kept for Insights. Linked documents aren't touched."
 msgstr "కారణం అంతర్దృష్టుల కోసం ఉంచబడింది. లింక్ చేసిన పత్రాలు తాకబడవు."
 
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "The records aren't visible yet. Check again later."
-msgstr "రికార్డ్‌లు ఇంకా కనిపించడం లేదు. తర్వాత మళ్లీ తనిఖీ చేయండి."
-
 #: src/routes/builder/letter/-components/design-panel.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 msgid "the resume"
@@ -19691,10 +19123,6 @@ msgstr "మీరు {sent} పంపిన రెజ్యూమ్ · లా�
 #: src/features/resume/editor/check/writing-tab.tsx
 msgid "The review couldn't finish. Try again."
 msgstr "సమీక్ష పూర్తి కాలేదు. మళ్లీ ప్రయత్నించండి."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "The reviewer sees each one's stage and dates. Notes, contacts and pay stay private."
-msgstr "రివ్యూయర్ ఒక్కో దరఖాస్తు దశ, తేదీలు చూస్తారు. నోట్స్, పరిచయాలు, జీతం ప్రైవేట్‌గానే ఉంటాయి."
 
 #: src/features/ats-checker/messages.ts
 msgid "The same line repeats on every page."
@@ -20195,7 +19623,7 @@ msgstr "ఈ రెజ్యూమ్ పొడవుగా ఉంది."
 
 #: src/features/resume/share/web-page-text.ts
 msgid "This resume is password-protected"
-msgstr "ఈ రెజ్యూమ్ పాస్‌వర్డ్‌తో రక్షించబడింది"
+msgstr ""
 
 #: src/features/resume/editor/check/job-match.tsx
 msgid "This resume isn't linked to an application yet. Pick one to make a copy for it."
@@ -20203,7 +19631,7 @@ msgstr "ఈ రెజ్యూమ్ ఇంకా దరఖాస్తుకు
 
 #: src/features/resume/share/web-page-text.ts
 msgid "This resume isn't shared right now"
-msgstr "ఈ రెజ్యూమ్ ప్రస్తుతం షేర్ చేయబడలేదు"
+msgstr ""
 
 #: src/features/resume/editor/check/job-match.tsx
 msgid "This resume stays as it is for other jobs"
@@ -20449,7 +19877,6 @@ msgstr "ఈరోజు"
 #: src/features/applications/components/calendar-view.tsx
 #: src/features/career/today.tsx
 #: src/features/command-palette/pages/navigation.tsx
-#: src/features/resume/share/share-panel.tsx
 #: src/routes/builder/letter/-components/write-panel.tsx
 #: src/routes/dashboard/-components/app-shell.tsx
 #: src/routes/dashboard/index.tsx
@@ -20609,11 +20036,6 @@ msgstr "పదాలను తగ్గిస్తోంది"
 msgid "Trust this device for 30 days"
 msgstr "ఈ పరికరాన్ని 30 రోజుల పాటు విశ్వసించండి"
 
-#. placeholder {0}: result.suggestion
-#: src/features/resume/share/address-field.tsx
-msgid "Try {0}"
-msgstr "{0}ని ప్రయత్నించండి"
-
 #: src/features/career/today.tsx
 #: src/features/documents/documents-page.tsx
 msgid "Try a sample"
@@ -20633,7 +20055,6 @@ msgstr "నమూనా ప్రయత్నించండి"
 #: src/features/resume/editor/write/improve.tsx
 #: src/features/resume/preview/preview.browser.tsx
 #: src/features/resume/share/download-tab.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/ai/next-steps.tsx
 #: src/features/settings/ai/web-access.tsx
 #: src/features/settings/integrations/ai-provider-load-state.tsx
@@ -20690,7 +20111,6 @@ msgstr "టర్కిష్"
 
 #. Destructive action button to turn off two-factor authentication
 #: src/dialogs/auth/disable-two-factor.tsx
-#: src/features/resume/share/feedback-links.tsx
 #: src/features/settings/account/security.tsx
 #: src/features/settings/ai/providers.tsx
 msgid "Turn off"
@@ -20703,14 +20123,6 @@ msgstr "ఎగుమతి చేసేటప్పుడు డిస్క్�
 #: src/features/keyboard-shortcuts/character-shortcuts.tsx
 msgid "Turn off if you use speech input. Shortcuts with ⌘ keep working."
 msgstr "మీరు స్పీచ్ ఇన్‌పుట్ ఉపయోగిస్తే ఆఫ్ చేయండి. ⌘ తో ఉన్న షార్ట్‌కట్‌లు పనిచేస్తూనే ఉంటాయి."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Turn off link…"
-msgstr "లింక్ ఆఫ్ చేయండి…"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Turn off this link?"
-msgstr "ఈ లింక్ ఆఫ్ చేయాలా?"
 
 #: src/features/settings/account/security.tsx
 msgid "Turn off two-step verification"
@@ -20728,35 +20140,14 @@ msgstr "ఆన్ చేయండి"
 msgid "Turn on two-step verification"
 msgstr "రెండు-దశల ధృవీకరణను ఆన్ చేయండి"
 
-#: src/features/resume/share/web-page-preview.tsx
-msgid "Turn Public link on to share it."
-msgstr "షేర్ చేయడానికి పబ్లిక్ లింక్‌ను ఆన్ చేయండి."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Turn this on to open this resume at your short link and custom domain."
-msgstr "మీ షార్ట్ లింక్, కస్టమ్ డొమైన్ వద్ద ఈ రెజ్యూమ్ తెరుచుకోవడానికి దీన్ని ఆన్ చేయండి."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Turn this on to open this resume at your short link."
-msgstr "మీ షార్ట్ లింక్ వద్ద ఈ రెజ్యూమ్ తెరుచుకోవడానికి దీన్ని ఆన్ చేయండి."
-
 #: src/features/career/schedule-sheet.tsx
 msgid "Turn this schedule on"
 msgstr "ఈ షెడ్యూల్‌ను ఆన్ చేయి"
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Turned off"
-msgstr "ఆఫ్ చేయబడింది"
 
 #. placeholder {0}: provider.label
 #: src/features/settings/ai/providers.tsx
 msgid "Turned off “{0}”. Its key is kept."
 msgstr "“{0}” ఆఫ్ చేయబడింది. దాని కీ ఉంచబడింది."
-
-#. placeholder {0}: i18n.date(link.revokedAt, { day: "numeric", month: "short" })
-#: src/features/resume/share/feedback-links.tsx
-msgid "turned off {0}"
-msgstr "{0} న ఆఫ్ చేయబడింది"
 
 #: src/dialogs/auth/disable-two-factor.tsx
 msgid "Turning off two-step verification…"
@@ -20792,10 +20183,6 @@ msgstr "Reactive Resume తో తయారు చేసిన రెండు �
 #: src/features/resume/editor/design/entries-group.tsx
 msgid "Two rows: company, then position"
 msgstr "రెండు వరుసలు: కంపెనీ, తర్వాత పదవి"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Two shorter addresses. Both open your primary resume."
-msgstr "రెండు చిన్న చిరునామాలు. రెండూ మీ ప్రాథమిక రెజ్యూమ్‌ను తెరుస్తాయి."
 
 #: src/features/career/workspace/prepare.tsx
 msgid "Two stories"
@@ -20852,11 +20239,6 @@ msgstr "రెండు-దశల ధృవీకరణ ఆన్ చేయబ�
 #: src/features/career/knowledge/resume-facts.tsx
 #: src/features/career/workspace/practise.tsx
 #: src/features/documents/documents-page.tsx
-msgid "Type"
-msgstr "రకం"
-
-#: src/features/resume/share/dns-records-dialog.tsx
-msgctxt "DNS record"
 msgid "Type"
 msgstr "రకం"
 
@@ -21205,7 +20587,6 @@ msgstr "కనీసం 8 అక్షరాలను ఉపయోగించ�
 msgid "Use at least 9pt."
 msgstr "కనీసం 9pt ఉపయోగించండి."
 
-#: src/features/resume/share/address-field.tsx
 #: src/libs/error-message.ts
 msgid "Use at most 64 characters."
 msgstr "గరిష్టంగా 64 అక్షరాలను ఉపయోగించండి."
@@ -21235,10 +20616,6 @@ msgstr "అన్ని దరఖాస్తులకు ఉపయోగిం�
 #: src/features/career/knowledge/facts.tsx
 msgid "Use in coaching: {excerpt}"
 msgstr "కోచింగ్‌లో ఉపయోగించు: {excerpt}"
-
-#: src/features/resume/share/address-field.tsx
-msgid "Use Latin letters a–z, numbers and single dashes."
-msgstr "లాటిన్ అక్షరాలు a–z, సంఖ్యలు మరియు సింగిల్ డాష్‌లను ఉపయోగించండి."
 
 #: src/features/career/knowledge/search-regions-field.tsx
 msgid "Use my timezone"
@@ -21428,10 +20805,6 @@ msgstr "ఉజ్‌బెక్"
 msgid "Valuation and dilution uncertain"
 msgstr "విలువ నిర్ధారణ, డైల్యూషన్ అనిశ్చితం"
 
-#: src/features/resume/share/dns-records-dialog.tsx
-msgid "Value"
-msgstr "విలువ"
-
 #: src/features/career/offers.tsx
 msgid "Value uncertain"
 msgstr "విలువ అనిశ్చితం"
@@ -21563,38 +20936,9 @@ msgstr "{host} లో పోస్టింగ్ చూడండి"
 msgid "View recorded answers"
 msgstr "నమోదైన జవాబులను చూడండి"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "views in the last 30 days"
-msgstr "గత 30 రోజుల్లో వీక్షణలు"
-
-#. placeholder {0}: i18n.number(summary.peak)
-#: src/features/resume/share/share-panel.tsx
-msgid "Views per day, {firstLabel} to today. The busiest day had {0}."
-msgstr "{firstLabel} నుండి ఈరోజు వరకు రోజువారీ వీక్షణలు. అత్యధిక రద్దీ రోజున {0} ఉన్నాయి."
-
 #: src/features/homepage/share.tsx
 msgid "Visibility"
 msgstr "దృశ్యమానత"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Visitors"
-msgstr "సందర్శకులు"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Visitors can download the PDF"
-msgstr "సందర్శకులు PDFని డౌన్‌లోడ్ చేసుకోవచ్చు"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Visitors can download Word"
-msgstr "సందర్శకులు Word డౌన్‌లోడ్ చేయగలరు"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Visitors enter it before they see the resume. Share it only with people you trust."
-msgstr "సందర్శకులు రెజ్యూమ్‌ని చూసే ముందు పాస్‌వర్డ్‌ను నమోదు చేస్తారు. మీరు విశ్వసించే వ్యక్తులతో మాత్రమే దీన్ని భాగస్వామ్యం చేయండి."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Visitors need the link and password to see your web page."
-msgstr "మీ వెబ్ పేజీని చూడటానికి సందర్శకులకు లింక్ మరియు పాస్‌వర్డ్ అవసరం."
 
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
@@ -21694,18 +21038,6 @@ msgstr "వెబ్ చిరునామా"
 #: src/libs/orpc/ai-consent.ts
 msgid "Web destination: {0}."
 msgstr "వెబ్ గమ్యం: {0}."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Web page"
-msgstr "వెబ్ పేజీ"
-
-#: src/features/resume/share/web-page-preview.tsx
-msgid "Web page preview"
-msgstr "వెబ్ పేజీ ప్రివ్యూ"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Web page settings"
-msgstr "వెబ్ పేజీ సెట్టింగులు"
 
 #: src/features/ai/usage.tsx
 #: src/features/career/coach-thread.tsx
@@ -22162,14 +21494,6 @@ msgctxt "Template style tag"
 msgid "Whitespace"
 msgstr "విశాలమైన ఖాళీ"
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Who can find your web page, reach you from it and take a copy."
-msgstr "మీ వెబ్ పేజీని ఎవరు కనుగొనగలరు, దాని నుండి మిమ్మల్ని సంప్రదించగలరు మరియు కాపీ తీసుకోగలరు."
-
-#: src/features/resume/share/feedback-links.tsx
-msgid "Who is it for?"
-msgstr "ఇది ఎవరికోసం?"
-
 #: src/features/homepage/prepare.tsx
 msgid "Who owns the design system today? What does success look like in 90 days?"
 msgstr "ఈరోజు డిజైన్ సిస్టమ్ బాధ్యత ఎవరిది? 90 రోజుల్లో విజయం ఎలా ఉంటుంది?"
@@ -22249,14 +21573,6 @@ msgstr "Word ఫైల్‌లు AI తో చదవబడతాయి. ఫై
 #: src/features/ai/usage.tsx
 msgid "Word import"
 msgstr "Word దిగుమతి"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Word off"
-msgstr "Word ఆఫ్"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Word on"
-msgstr "Word ఆన్"
 
 #: src/features/ats-checker/messages.ts
 msgid "Words run together when the text is extracted."
@@ -22509,11 +21825,6 @@ msgstr "మీరు ఒక ఆఫర్ అంగీకరించారు"
 msgid "You already saved this job: {0} at {1}."
 msgstr "మీరు ఇప్పటికే ఈ ఉద్యోగాన్ని సేవ్ చేశారు: {1} లో {0}."
 
-#. placeholder {0}: result.takenBy
-#: src/features/resume/share/address-field.tsx
-msgid "You already use this for “{0}”."
-msgstr "మీరు దీన్ని ఇప్పటికే “{0}” కోసం ఉపయోగిస్తున్నారు."
-
 #: src/features/career/schedule-sheet.tsx
 msgid "You always see results in Today."
 msgstr "మీరు ఎల్లప్పుడూ ఫలితాలను ఈరోజులో చూస్తారు."
@@ -22735,15 +22046,6 @@ msgstr "మీ తేదీలు అనేక వేర్వేరు రూ�
 msgid "Your details changed on the resume. The letter updated too."
 msgstr "రెజ్యూమేలో మీ వివరాలు మార్చబడ్డాయి. లేఖ కూడా నవీకరించబడింది."
 
-#: src/features/resume/share/custom-domain-field.tsx
-#: src/features/resume/share/share-panel.tsx
-msgid "Your domain"
-msgstr "మీ డొమైన్"
-
-#: src/features/resume/share/custom-domain-field.tsx
-msgid "Your domain will stop opening your primary resume. You can reconnect it later."
-msgstr "మీ డొమైన్ ఇకపై మీ ప్రధాన రెజ్యూమేను తెరవదు. తర్వాత దాన్ని మళ్లీ కనెక్ట్ చేయవచ్చు."
-
 #: src/features/career/coach-chat.tsx
 msgid "Your edited story is saved to Knowledge."
 msgstr "మీ సవరించిన కథ Knowledge‌లో సేవ్ చేయబడింది."
@@ -22772,10 +22074,6 @@ msgstr "మీ ఇమెయిల్ చిరునామా టెక్స్
 #: src/features/auth/pages/error.tsx
 msgid "Your email address isn't verified with the provider."
 msgstr "మీ ఈమెయిల్ చిరునామా ప్రొవైడర్ వద్ద ధృవీకరించబడలేదు."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your email, phone, location and extra header fields, and references' phone numbers, are left out of the web page, its PDF and search results. Your website stays."
-msgstr "మీ ఇమెయిల్, ఫోన్, స్థలం, అదనపు హెడర్ ఫీల్డ్‌లు, రిఫరెన్స్‌ల ఫోన్ నంబర్‌లు వెబ్ పేజీ, దాని PDF, శోధన ఫలితాల్లో ఉండవు. మీ వెబ్‌సైట్ ఉంటుంది."
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "Your experience, laid out on a page."
@@ -22848,10 +22146,6 @@ msgstr "మీ పేరు మరియు సంప్రదింపు వ�
 #: src/features/resume/editor/write/outline.tsx
 msgid "Your name and how to reach you"
 msgstr "మీ పేరు మరియు మిమ్మల్ని ఎలా సంప్రదించాలి"
-
-#: src/features/resume/share/cv-domain-card.tsx
-msgid "Your name as your address, from OlaCV, the .cv registry. Code <0/> takes 50% off the first year."
-msgstr "మీ పేరే మీ చిరునామా, .cv రిజిస్ట్రీ అయిన OlaCV నుండి. <0/> కోడ్ మొదటి సంవత్సరానికి 50% తగ్గింపు ఇస్తుంది."
 
 #: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Your name changed on the resume. The letter updated too."
@@ -22929,10 +22223,6 @@ msgstr "మీ రెజ్యూమ్ మరియు ఈ లేఖ"
 msgid "Your resume and your job search, in one place."
 msgstr "మీ రెజ్యూమ్ మరియు మీ ఉద్యోగ శోధన, ఒకే చోట."
 
-#: src/features/resume/share/share-panel.tsx
-msgid "Your resume as a web page"
-msgstr "వెబ్ పేజీగా మీ రెజ్యూమ్"
-
 #: src/features/resume/editor/check/issues.ts
 msgid "Your resume has a photo"
 msgstr "మీ రెజ్యూమేలో ఫోటో ఉంది"
@@ -22981,42 +22271,6 @@ msgstr "మీ సర్వర్ శోధన అందిస్తుంది
 msgid "your server's search service"
 msgstr "మీ సర్వర్ సెర్చ్ సర్వీస్"
 
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link and custom domain open “{0}”."
-msgstr "మీ షార్ట్ లింక్ మరియు కస్టమ్ డొమైన్ “{0}”ను తెరుస్తాయి."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link and custom domain open this resume."
-msgstr "మీ షార్ట్ లింక్ మరియు కస్టమ్ డొమైన్ ఈ రెజ్యూమ్‌ను తెరుస్తాయి."
-
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link and custom domain point to “{0}”, which isn't published."
-msgstr "మీ షార్ట్ లింక్, కస్టమ్ డొమైన్ “{0}”‌ను చూపుతున్నాయి; అది పబ్లిష్ కాలేదు."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link and custom domain say this resume isn't shared until you publish it again."
-msgstr "మీరు మళ్లీ ప్రచురించే వరకు ఈ రెజ్యూమ్ షేర్ చేయబడలేదని మీ షార్ట్ లింక్ మరియు కస్టమ్ డొమైన్ చూపిస్తాయి."
-
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link opens “{0}”."
-msgstr "మీ షార్ట్ లింక్ “{0}”‌ను తెరుస్తుంది."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link opens this resume."
-msgstr "మీ షార్ట్ లింక్ ఈ రెజ్యూమ్‌ను తెరుస్తుంది."
-
-#. placeholder {0}: current.name
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link points to “{0}”, which isn't published."
-msgstr "మీ షార్ట్ లింక్ “{0}”‌ను చూపుతోంది; అది పబ్లిష్ కాలేదు."
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your short link says this resume isn't shared until you publish it again."
-msgstr "మీరు మళ్లీ పబ్లిష్ చేసే వరకు ఈ రెజ్యూమ్ షేర్‌లో లేదని మీ షార్ట్ లింక్ చెబుతోంది."
-
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "Your stages changed somewhere else. They've been refreshed; try again."
 msgstr "మీ దశలు మరోచోట మార్చబడ్డాయి. అవి నవీకరించబడ్డాయి; మళ్లీ ప్రయత్నించండి."
@@ -23046,10 +22300,6 @@ msgstr "మీ రెండు నిమిషాల పరిచయం"
 #: src/features/auth/pages/register.tsx
 msgid "Your username is made from your email. <0>Choose your own</0>"
 msgstr "మీ యూజర్‌నేమ్ మీ ఈమెయిల్ నుండి తయారు చేయబడింది. <0>మీ సొంతది ఎంచుకోండి</0>"
-
-#: src/features/resume/share/share-panel.tsx
-msgid "Your web page is live"
-msgstr "మీ వెబ్ పేజీ లైవ్‌లో ఉంది"
 
 #: src/libs/orpc/ai-consent.ts
 msgid "Your web settings changed. Nothing was sent; try again."

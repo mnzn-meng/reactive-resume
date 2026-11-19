@@ -41,10 +41,6 @@ export function useEditorHotkeys(setMode: (mode: EditorMode) => void) {
 		enabled: characterShortcuts,
 		meta: { name: t`Check` },
 	});
-	useHotkey("4", () => switchModeInstantly(() => setMode("share")), {
-		enabled: characterShortcuts,
-		meta: { name: t`Share` },
-	});
 
 	useHotkey(
 		"Mod+Z",

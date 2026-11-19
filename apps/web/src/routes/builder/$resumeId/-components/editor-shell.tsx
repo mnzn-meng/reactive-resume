@@ -243,7 +243,6 @@ function MobileBody({ mode, onModeChange }: MobileBodyProps) {
 					{ view: "write", icon: "pencil-simple", label: t`Write` },
 					{ view: "design", icon: "palette", label: t`Design` },
 					{ view: "check", icon: "list-checks", label: t`Check` },
-					{ view: "share", icon: "globe-hemisphere-west", label: t`Share` },
 					{ view: "page", icon: "file-text", label: t`Page` },
 				]}
 				view={view}
