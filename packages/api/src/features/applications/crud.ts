@@ -280,7 +280,7 @@ export const crudRouter = {
 			applicationService.update({
 				userId: context.user.id,
 				...input,
-				canDeleteAttachments: context.authentication?.permissions.includes("delete") ?? false,
+				canDeleteAttachments: true,
 			}),
 		),
 
@@ -332,7 +332,7 @@ export const crudRouter = {
 			applicationService.attachDocument({
 				userId: context.user.id,
 				...input,
-				canDeleteAttachments: context.authentication?.permissions.includes("delete") ?? false,
+				canDeleteAttachments: true,
 			}),
 		),
 

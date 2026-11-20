@@ -8,28 +8,15 @@ import { bodyLimit } from "hono/body-limit";
 import { compress } from "hono/compress";
 import { prepareStagedBody, withStagedBody } from "@reactive-resume/api/features/storage/transport";
 import { env } from "@reactive-resume/env/server";
-import { prepareMcpDiscovery } from "@reactive-resume/mcp";
-import { handleMcp } from "../mcp/handler";
 import { handleOpenApi, handleOpenApiDocument } from "../openapi/handler";
-import {
-	handleAgentCatalog,
-	handleApiCatalog,
-	handleIntegrations,
-	handleMcpServerCard,
-	handleOAuthAuthorizationServer,
-	handleOAuthProtectedResource,
-	handleOpenIdConfiguration,
-	handleOpenAiAppsChallenge,
-	handleWellKnownFallback,
-} from "../openapi/metadata";
+import { handleApiCatalog, handleWellKnownFallback } from "../openapi/metadata";
 import { handleRpc } from "../rpc/handler";
-import { handleAgentSkillArchive, handleAgentSkillsIndex } from "../static/agent-skills";
 import { handleSchemaJson } from "../static/schema";
 import { handleLlms, handlePagesSitemap, handleRobots, handleSitemap } from "../static/seo";
 import { handleUpload } from "../static/uploads";
 import { handleWebApp, serveWebDistStatic } from "../static/web";
 import { handleAlias } from "./alias";
-import { handleAuth, handleOAuth } from "./auth";
+import { handleAuth } from "./auth";
 import { handleCareerJobs } from "./career-jobs";
 import { handleHealth } from "./health";
 import { handleResumePdfDownload } from "./resume-pdf";
@@ -64,7 +51,6 @@ type AppOptions = {
 };
 
 export function createApp(options: AppOptions = {}) {
-	prepareMcpDiscovery();
 	const app = new Hono<ServerEnvironment>();
 	const proxies = new BlockList();
 	for (const range of env.TRUSTED_PROXIES) {
@@ -118,7 +104,6 @@ export function createApp(options: AppOptions = {}) {
 	app.post("/api/storage/stage", (c) => prepareStagedBody(c.req.raw));
 	app.all("/api/rpc/*", (c) => withStagedBody(c.req.raw, (request) => handleRpc(request, client(c))));
 	app.all("/api/openapi/*", (c) => handleOpenApi(c.req.raw, client(c)));
-	app.get("/api/auth/oauth", (c) => handleOAuth(c.req.raw));
 	app.all("/api/auth/*", (c) => handleAuth(c.req.raw, client(c)));
 	app.get("/api/health", () => handleHealth());
 	app.on(["GET", "POST"], "/api/career/run", (c) => handleCareerJobs(c.req.raw));
@@ -127,19 +112,8 @@ export function createApp(options: AppOptions = {}) {
 	app.get("/uploads/*", (c) => handleUpload(c.req.raw));
 	app.get("/schema.json", () => handleSchemaJson());
 	app.get("/openapi.json", () => handleOpenApiDocument());
-	app.all("/mcp/*", (c) => handleMcp(c.req.raw, client(c)));
-
-	app.get("/.well-known/integrations.json", () => handleIntegrations());
 	// Hono answers HEAD by running the GET route and dropping the body, headers kept.
 	app.get("/.well-known/api-catalog", () => handleApiCatalog());
-	app.get("/.well-known/agent-skills/index.json", () => handleAgentSkillsIndex());
-	app.get("/.well-known/agent-skills/:filename", (c) => handleAgentSkillArchive(c.req.param("filename")));
-	app.get("/.well-known/mcp/server-card.json", () => handleMcpServerCard());
-	app.on("GET", ["/.well-known/ard.json", "/.well-known/ai-catalog.json"], () => handleAgentCatalog());
-	app.get("/.well-known/oauth-authorization-server/*", (c) => handleOAuthAuthorizationServer(c.req.raw));
-	app.get("/.well-known/openid-configuration", (c) => handleOpenIdConfiguration(c.req.raw));
-	app.get("/.well-known/oauth-protected-resource/*", () => handleOAuthProtectedResource());
-	app.get("/.well-known/openai-apps-challenge", () => handleOpenAiAppsChallenge());
 	app.all("/.well-known/*", () => handleWellKnownFallback());
 
 	app.get("/robots.txt", () => handleRobots());
@@ -148,7 +122,7 @@ export function createApp(options: AppOptions = {}) {
 	app.get("/llms.txt", () => handleLlms());
 
 	// Compresses only the web app's files and HTML shells: every route registered above answers before reaching
-	// it, so API, MCP, and upload streams are never buffered or re-encoded. Where a CDN serves the static files
+	// it, so API and upload streams are never buffered or re-encoded. Where a CDN serves the static files
 	// (Vercel), it also compresses at its edge.
 	if (options.serveStatic !== false) app.use("/*", compress());
 

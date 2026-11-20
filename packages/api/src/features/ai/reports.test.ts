@@ -17,7 +17,7 @@ const report = createProcedureClient(reportAiContent, {
 	context: {
 		locale: "en-US",
 		reqHeaders: new Headers(),
-		authentication: { user: owner, method: "bearer", permissions: ["write"] },
+		user: owner,
 	},
 });
 beforeEach(() => {
@@ -55,7 +55,7 @@ it.each(["", " ", "x".repeat(20_001)])("rejects empty or oversized content witho
 
 it("rejects an unauthenticated submission", async () => {
 	const anonymous = createProcedureClient(reportAiContent, {
-		context: { locale: "en-US", reqHeaders: new Headers(), authentication: null },
+		context: { locale: "en-US", reqHeaders: new Headers(), user: null },
 	});
 	await expect(anonymous({ source: "other", reason: "other", content: "Fictional answer" })).rejects.toMatchObject({
 		code: "UNAUTHORIZED",

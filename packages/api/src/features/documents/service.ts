@@ -19,7 +19,7 @@ type DocumentSelection = Pick<DocumentRef, "type" | "id">;
 // Trash keeps documents this long before deleting them for good.
 const TRASH_RETENTION_MS = 30 * 24 * 60 * 60 * 1000;
 
-// Resumes keep their existing error code, which API and MCP clients already handle.
+// Resumes keep their existing error code, which API clients already handle.
 const locked = (type: DocumentType) =>
 	type === "resume"
 		? new ORPCError("RESUME_LOCKED", { status: 403 })

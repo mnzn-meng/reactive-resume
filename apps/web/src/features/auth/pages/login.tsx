@@ -12,11 +12,10 @@ import { Icon } from "@reactive-resume/ui/components/icon";
 import { Input } from "@reactive-resume/ui/components/input";
 import { toast } from "@reactive-resume/ui/components/toast";
 import { AuthTitle } from "../components/auth-page";
-import { ConnectingClient } from "../components/connecting-client";
 import { GuestTransferNote } from "../components/guest-banner";
 import { SocialAuth } from "../components/social-auth";
 import { authErrorMessage } from "../error";
-import { getAuthRedirectOptions, getOAuthPasskeyOptions, getOAuthSignInOptions, isOAuthRedirect } from "../redirect";
+import { getAuthRedirectOptions, isRedirectResponse } from "../redirect";
 import { List, ListRow } from "@/components/calm/list-row";
 import { PasswordInput } from "@/components/input/password-input";
 import { authClient } from "@/libs/auth/client";
@@ -66,16 +65,8 @@ async function submitLogin({
 		const isEmail = value.identifier.includes("@");
 
 		const result = isEmail
-			? await authClient.signIn.email({
-					email: value.identifier,
-					password: value.password,
-					...getOAuthSignInOptions(callbackURL),
-				})
-			: await authClient.signIn.username({
-					username: value.identifier,
-					password: value.password,
-					...getOAuthSignInOptions(callbackURL),
-				});
+			? await authClient.signIn.email({ email: value.identifier, password: value.password })
+			: await authClient.signIn.username({ username: value.identifier, password: value.password });
 
 		if (result.error) {
 			if (result.error.code === "INVALID_EMAIL_OR_PASSWORD" || result.error.code === "INVALID_USERNAME_OR_PASSWORD") {
@@ -104,7 +95,7 @@ async function submitLogin({
 		}
 
 		toast.close(toastId);
-		if (isOAuthRedirect(result.data)) return;
+		if (isRedirectResponse(result.data)) return;
 		await queryClient.invalidateQueries({ queryKey: sessionQueryKey });
 		await router.invalidate();
 		void navigate(getAuthRedirectOptions(callbackURL));
@@ -172,11 +163,8 @@ export function LoginPage({ disableEmailAuth, disableSignups, allowGuestLogin, i
 		void PublicKeyCredential.isConditionalMediationAvailable().then(async (isAvailable) => {
 			if (!isAvailable) return;
 
-			const { data, error } = await authClient.signIn.passkey({
-				autoFill: true,
-				...getOAuthPasskeyOptions(callbackURL),
-			});
-			if (error || isOAuthRedirect(data)) return;
+			const { data, error } = await authClient.signIn.passkey({ autoFill: true });
+			if (error || isRedirectResponse(data)) return;
 
 			await queryClient.invalidateQueries({ queryKey: sessionQueryKey });
 			await router.invalidate();
@@ -184,16 +172,16 @@ export function LoginPage({ disableEmailAuth, disableSignups, allowGuestLogin, i
 		});
 	}, [providers, router, navigate, callbackURL, queryClient]);
 
-	const guestOffered = allowGuestLogin && !getOAuthSignInOptions(callbackURL).oauth_query;
+	const guestOffered = allowGuestLogin;
 
 	return (
 		<>
 			<AuthTitle>
 				<Trans comment="Title on the login page">Welcome back</Trans>
 			</AuthTitle>
-			<ConnectingClient callbackURL={callbackURL}>
+			<p className="text-center text-sm text-ink-2">
 				<Trans>Sign in to pick up where you left off.</Trans>
-			</ConnectingClient>
+			</p>
 
 			{isGuest && <GuestTransferNote />}
 

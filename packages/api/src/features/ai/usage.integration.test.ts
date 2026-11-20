@@ -327,10 +327,7 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 		});
 	});
 	const run = (operation: () => Promise<void>) => withDatabasePool(pool, operation);
-	const client = (
-		permissions: ("read" | "write" | "delete")[] = ["read", "write", "delete"],
-		reqHeaders = new Headers(),
-	) =>
+	const client = (reqHeaders = new Headers()) =>
 		createRouterClient(
 			{
 				ai: aiRouter,
@@ -347,7 +344,7 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 				context: {
 					locale: "en-US",
 					reqHeaders,
-					authentication: { user, method: "bearer", permissions },
+					user: user,
 				},
 			},
 		);
@@ -548,14 +545,11 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 				expect(JSON.stringify(requestMessages)).not.toContain(data.metadata.notes);
 			}),
 	);
-	it("rejects invalid, declined and read-only Prepare before any copy or model request", () =>
+	it("rejects invalid and declined Prepare before any copy or model request", () =>
 		run(async () => {
 			const { api, id } = await reviewFixture();
-			await expect(client(["read"]).applicationAi.prepare({ id, questions: [] })).rejects.toMatchObject({
-				code: "FORBIDDEN",
-			});
 			await expect(
-				client(undefined, new Headers({ "x-ai-destination": "none" })).applicationAi.prepare({ id, questions: [] }),
+				client(new Headers({ "x-ai-destination": "none" })).applicationAi.prepare({ id, questions: [] }),
 			).rejects.toMatchObject({ code: "CONFLICT" });
 			await expect(api.applicationAi.prepare({ id, questions: Array(6).fill("Question") })).rejects.toMatchObject({
 				code: "BAD_REQUEST",
@@ -567,7 +561,7 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 			expect(await api.resume.list({})).toHaveLength(1);
 		}));
 
-	it.each(["saved", "applied"] as const)("keeps %s MCP/REST tailoring pending until reviewed", (stage) =>
+	it.each(["saved", "applied"] as const)("keeps %s API tailoring pending until reviewed", (stage) =>
 		run(async () => {
 			const connection = await provider();
 			const api = client();
@@ -655,7 +649,7 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 		}),
 	);
 
-	it("refuses unauthorized, declined and already-cancelled tailoring before creating a copy or sending data", () =>
+	it("refuses declined and already-cancelled tailoring before creating a copy or sending data", () =>
 		run(async () => {
 			await provider();
 			const api = client();
@@ -671,9 +665,8 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 				.values({ userId: "usage-bob", company: "Fictional Birch", role: "Engineer" })
 				.returning();
 			if (!foreign) throw new Error("Missing fictional application");
-			await expect(client(["read"]).applicationAi.tailorResume({ id })).rejects.toMatchObject({ code: "FORBIDDEN" });
 			await expect(
-				client(undefined, new Headers({ "x-ai-destination": "none" })).applicationAi.tailorResume({ id }),
+				client(new Headers({ "x-ai-destination": "none" })).applicationAi.tailorResume({ id }),
 			).rejects.toMatchObject({ code: "CONFLICT" });
 			await expect(api.applicationAi.tailorResume({ id: foreign.id })).rejects.toMatchObject({ code: "NOT_FOUND" });
 			const controller = new AbortController();
@@ -1082,10 +1075,7 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 				});
 			});
 			try {
-				const api = client(
-					undefined,
-					new Headers({ "x-ai-native-search": "1", "x-ai-destination": aiDestination(current) }),
-				);
+				const api = client(new Headers({ "x-ai-native-search": "1", "x-ai-destination": aiDestination(current) }));
 				const thread = await api.agent.threads.start({ scope: "career", aiProviderId: current.id });
 				const send = async (message: UIMessage) => {
 					const stream = await api.agent.messages.send({
@@ -1148,12 +1138,12 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 				provider: connection.provider,
 				model: connection.model,
 			});
-			const legacy = await client(["read"]).ai.usage({});
+			const legacy = await client().ai.usage({});
 			expect(legacy.requests).toBe(3);
 			expect(legacy.groups).toEqual([
 				expect.objectContaining({ action: "assistant", requests: 3, providerId: connection.id }),
 			]);
-			const detailed = await client(["read"]).ai.usage({ includeWebSearch: true });
+			const detailed = await client().ai.usage({ includeWebSearch: true });
 			expect(detailed.requests).toBe(3);
 			expect(detailed.groups).toHaveLength(2);
 			expect(detailed.groups).toEqual(
@@ -1162,7 +1152,7 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 					expect.objectContaining({ action: "web-search", requests: 2 }),
 				]),
 			);
-			const exported = await client(["read"]).auth.exportData({});
+			const exported = await client().auth.exportData({});
 			expect(exported.career.aiRequests?.filter((row) => row.action === "web-search")).toHaveLength(2);
 			expect(JSON.stringify(exported)).not.toContain("foreign-search");
 			await authService.deleteAccount({ userId: user.id });
@@ -1408,7 +1398,7 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 			}),
 	);
 
-	it("uses the canonical letter prompt for MCP/REST cover-letter drafts", () =>
+	it("uses the canonical letter prompt for API cover-letter drafts", () =>
 		run(async () => {
 			await provider();
 			const api = client();
@@ -1457,10 +1447,10 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 			expect(letter.aiOperationIds).toEqual([]);
 			expect(letter.style.metadata.page.locale).toBe("de-DE");
 			await expect(
-				client(["read"]).applicationAi.draftMessage({ id: application.id, kind: "cover-letter" }),
+				client().applicationAi.draftMessage({ id: application.id, kind: "cover-letter" }),
 			).rejects.toMatchObject({ code: "FORBIDDEN" });
 			await expect(
-				client(undefined, new Headers({ "x-ai-destination": "none" })).applicationAi.draftMessage({
+				client(new Headers({ "x-ai-destination": "none" })).applicationAi.draftMessage({
 					id: application.id,
 					kind: "cover-letter",
 				}),
@@ -1773,7 +1763,7 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 				sessionId: "reviewed",
 			});
 			expect(saved.aiUsage).toEqual(expected);
-			await expect(client(["read"]).resume.import({ data, aiOperationIds })).rejects.toMatchObject({
+			await expect(client().resume.import({ data, aiOperationIds })).rejects.toMatchObject({
 				code: "FORBIDDEN",
 			});
 			for (const [operationId, userId, action] of [
@@ -1823,7 +1813,7 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 			const restored = await api.resume.restoreVersion({ resumeId: id, versionId: first.id, proposalSafety: "v1" });
 			expect(restored.aiUsage).toEqual(expected);
 			expect(restored.data.summary.content).toBe(data.summary.content);
-			const exported = await client(["read"]).auth.exportData({});
+			const exported = await client().auth.exportData({});
 			expect(exported.resumes.find((row) => row.id === id)?.aiOperationIds).toEqual(aiOperationIds);
 			expect(exported.documentVersions?.resumes.find((row) => row.id === first.id)?.aiOperationIds).toEqual(
 				aiOperationIds,
@@ -1921,12 +1911,10 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 			}
 			expect((await api.letters.getById({ id: letter.id })).content).toBe("<p>Edited draft</p>");
 			await expect(
-				client(["read"]).letters.update({ id: letter.id, expectedRevision: edited.revision, aiOperationIds: [] }),
+				client().letters.update({ id: letter.id, expectedRevision: edited.revision, aiOperationIds: [] }),
 			).rejects.toMatchObject({ code: "FORBIDDEN" });
 			const named = await api.letters.createVersion({ id: letter.id, name: "Kept draft" });
-			expect((await client(["read"]).letters.getVersion({ id: letter.id, versionId: named.id })).aiUsage).toEqual(
-				expected,
-			);
+			expect((await client().letters.getVersion({ id: letter.id, versionId: named.id })).aiUsage).toEqual(expected);
 			const reused = await api.letters.create({
 				name: "New employer",
 				sourceLetterId: letter.id,
@@ -1950,7 +1938,7 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 				api.letters.import({ document: portable, aiOperationIds: ["foreign-letter"] }),
 			).rejects.toMatchObject({ code: "BAD_REQUEST" });
 			await aiProvidersService.delete({ userId: user.id, id: connection.id });
-			expect((await client(["read"]).letters.getById({ id: letter.id })).aiUsage).toEqual(expected);
+			expect((await client().letters.getById({ id: letter.id })).aiUsage).toEqual(expected);
 			await pool.query("update cover_letter_version set data=data-'aiOperationIds' where id=$1", [created.id]);
 			const restored = await api.letters.restoreVersion({ id: letter.id, versionId: created.id, proposalSafety: "v1" });
 			expect(restored.aiOperationIds).toEqual([]);
@@ -1959,7 +1947,7 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 			const before = history.find((version) => version.kind === "before-restore");
 			if (!before) throw new Error("Missing before-restore version");
 			expect((await api.letters.getVersion({ id: letter.id, versionId: before.id })).aiUsage).toEqual(expected);
-			const exportData = await client(["read"]).auth.exportData({});
+			const exportData = await client().auth.exportData({});
 			expect(JSON.stringify(exportData.coverLetters)).toContain(source.aiOperationId);
 			expect(
 				exportData.documentVersions?.letters.find((version) => version.id === before.id)?.data.aiOperationIds,
@@ -2010,7 +1998,7 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 				findings: [],
 				passages: [],
 			});
-			const writing = await client(["read"]).ai.writingReview({ resumeId: resume.id });
+			const writing = await client().ai.writingReview({ resumeId: resume.id });
 			expect(writing?.review.summary).toBe("Fictional saved wording review");
 			expect(writing?.aiOperationIds).toEqual([expect.any(String)]);
 			expect(writing?.aiUsage).toEqual(saved[0]?.aiUsage);
@@ -2019,14 +2007,14 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 			expect((await client().career.savedItems({ applicationId: application.id }))[0]?.aiUsage).toEqual(
 				saved[0]?.aiUsage,
 			);
-			expect((await client(["read"]).ai.writingReview({ resumeId: resume.id }))?.aiUsage).toEqual(writing?.aiUsage);
-			expect((await client(["read"]).ai.writingReview({ resumeId: resume.id }))?.aiOperationIds).toEqual(
+			expect((await client().ai.writingReview({ resumeId: resume.id }))?.aiUsage).toEqual(writing?.aiUsage);
+			expect((await client().ai.writingReview({ resumeId: resume.id }))?.aiOperationIds).toEqual(
 				writing?.aiOperationIds,
 			);
-			const report = await client(["read"]).ai.usage({ userId: "usage-bob" } as {});
+			const report = await client().ai.usage({ userId: "usage-bob" } as {});
 			expect(report.requests).toBe(2);
 			expect(report.groups[0]).toMatchObject({ action: "reply", label: "Fictional connection", model: "main-model" });
-			const exported = await client(["read"]).auth.exportData({});
+			const exported = await client().auth.exportData({});
 			expect(exported.career.aiRequests).toHaveLength(2);
 			expect(exported.career.writingReviews).toHaveLength(1);
 			const archive = unzipSync(buildAccountZip(exported));

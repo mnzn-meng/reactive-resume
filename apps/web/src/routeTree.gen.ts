@@ -20,7 +20,6 @@ import { Route as AgentIndexRouteImport } from "./routes/agent/index";
 import { Route as AgentThreadIdRouteImport } from "./routes/agent/$threadId";
 import { Route as AgentNewRouteImport } from "./routes/agent/new";
 import { Route as AuthIndexRouteImport } from "./routes/auth/index";
-import { Route as AuthConsentRouteImport } from "./routes/auth/consent";
 import { Route as AuthErrorRouteImport } from "./routes/auth/error";
 import { Route as AuthForgotPasswordRouteImport } from "./routes/auth/forgot-password";
 import { Route as AuthLoginRouteImport } from "./routes/auth/login";
@@ -113,11 +112,6 @@ const AgentNewRoute = AgentNewRouteImport.update({
 const AuthIndexRoute = AuthIndexRouteImport.update({
   id: "/",
   path: "/",
-  getParentRoute: () => AuthRouteRoute,
-} as any);
-const AuthConsentRoute = AuthConsentRouteImport.update({
-  id: "/consent",
-  path: "/consent",
   getParentRoute: () => AuthRouteRoute,
 } as any);
 const AuthErrorRoute = AuthErrorRouteImport.update({
@@ -345,7 +339,6 @@ export interface FileRoutesByFullPath {
   "/resume-templates": typeof HomeResumeTemplatesRoute;
   "/agent/$threadId": typeof AgentThreadIdRoute;
   "/agent/new": typeof AgentNewRoute;
-  "/auth/consent": typeof AuthConsentRoute;
   "/auth/error": typeof AuthErrorRoute;
   "/auth/forgot-password": typeof AuthForgotPasswordRoute;
   "/auth/login": typeof AuthLoginRoute;
@@ -390,7 +383,6 @@ export interface FileRoutesByTo {
   "/resume-templates": typeof HomeResumeTemplatesRoute;
   "/agent/$threadId": typeof AgentThreadIdRoute;
   "/agent/new": typeof AgentNewRoute;
-  "/auth/consent": typeof AuthConsentRoute;
   "/auth/error": typeof AuthErrorRoute;
   "/auth/forgot-password": typeof AuthForgotPasswordRoute;
   "/auth/login": typeof AuthLoginRoute;
@@ -444,7 +436,6 @@ export interface FileRoutesById {
   "/_home/resume-templates": typeof HomeResumeTemplatesRoute;
   "/agent/$threadId": typeof AgentThreadIdRoute;
   "/agent/new": typeof AgentNewRoute;
-  "/auth/consent": typeof AuthConsentRoute;
   "/auth/error": typeof AuthErrorRoute;
   "/auth/forgot-password": typeof AuthForgotPasswordRoute;
   "/auth/login": typeof AuthLoginRoute;
@@ -499,7 +490,6 @@ export interface FileRouteTypes {
     | "/resume-templates"
     | "/agent/$threadId"
     | "/agent/new"
-    | "/auth/consent"
     | "/auth/error"
     | "/auth/forgot-password"
     | "/auth/login"
@@ -544,7 +534,6 @@ export interface FileRouteTypes {
     | "/resume-templates"
     | "/agent/$threadId"
     | "/agent/new"
-    | "/auth/consent"
     | "/auth/error"
     | "/auth/forgot-password"
     | "/auth/login"
@@ -597,7 +586,6 @@ export interface FileRouteTypes {
     | "/_home/resume-templates"
     | "/agent/$threadId"
     | "/agent/new"
-    | "/auth/consent"
     | "/auth/error"
     | "/auth/forgot-password"
     | "/auth/login"
@@ -727,13 +715,6 @@ declare module "@tanstack/react-router" {
       path: "/";
       fullPath: "/auth/";
       preLoaderRoute: typeof AuthIndexRouteImport;
-      parentRoute: typeof AuthRouteRoute;
-    };
-    "/auth/consent": {
-      id: "/auth/consent";
-      path: "/consent";
-      fullPath: "/auth/consent";
-      preLoaderRoute: typeof AuthConsentRouteImport;
       parentRoute: typeof AuthRouteRoute;
     };
     "/auth/error": {
@@ -1045,7 +1026,6 @@ const AgentRouteRouteWithChildren = AgentRouteRoute._addFileChildren(
 );
 
 interface AuthRouteRouteChildren {
-  AuthConsentRoute: typeof AuthConsentRoute;
   AuthErrorRoute: typeof AuthErrorRoute;
   AuthForgotPasswordRoute: typeof AuthForgotPasswordRoute;
   AuthLoginRoute: typeof AuthLoginRoute;
@@ -1057,7 +1037,6 @@ interface AuthRouteRouteChildren {
 }
 
 const AuthRouteRouteChildren: AuthRouteRouteChildren = {
-  AuthConsentRoute: AuthConsentRoute,
   AuthErrorRoute: AuthErrorRoute,
   AuthForgotPasswordRoute: AuthForgotPasswordRoute,
   AuthLoginRoute: AuthLoginRoute,

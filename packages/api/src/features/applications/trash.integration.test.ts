@@ -41,16 +41,12 @@ describe.skipIf(!databaseUrl)("application Trash: real retained rows, storage an
 		if (!fixture.db) throw new Error("Fixture unavailable");
 		return fixture.db;
 	};
-	const api = (
-		userId = "alice",
-		permissions: ("read" | "write" | "delete")[] = ["read", "write", "delete"],
-		headers = new Headers(),
-	) =>
+	const api = (userId = "alice", headers = new Headers()) =>
 		createRouterClient(router, {
 			context: {
 				locale: "en-US",
 				reqHeaders: headers,
-				authentication: { user: { id: userId }, method: "session", permissions },
+				user: { id: userId },
 			} as never,
 		});
 	beforeAll(async () => {
@@ -103,7 +99,7 @@ describe.skipIf(!databaseUrl)("application Trash: real retained rows, storage an
 	const contents = (row: Record<string, unknown>) =>
 		Object.fromEntries(Object.entries(row).filter(([key]) => !["trashed_at", "updated_at"].includes(key)));
 
-	it("removes only the reviewed contact and refuses stale, unauthorized or invalid removal", async () => {
+	it("removes only the reviewed contact and refuses stale or invalid removal", async () => {
 		const contact = {
 			name: "Fictional Sam",
 			role: "Recruiter",
@@ -122,10 +118,9 @@ describe.skipIf(!databaseUrl)("application Trash: real retained rows, storage an
 		if (!reviewed.contactsVersion) throw new Error("Missing review version");
 		const input = { id, index: 1, expectedVersion: reviewed.contactsVersion };
 		await expect(api("bob").deleteContact(input)).rejects.toMatchObject({ code: "NOT_FOUND" });
-		await expect(api("alice", ["read", "write"]).deleteContact(input)).rejects.toMatchObject({ code: "FORBIDDEN" });
 		await expect(api().deleteContact({ ...input, index: -1 })).rejects.toMatchObject({ code: "BAD_REQUEST" });
 		await expect(api().deleteContact({ ...input, index: 8 })).rejects.toMatchObject({ code: "CONFLICT" });
-		await expect(api("alice", ["delete"]).deleteContact(input)).resolves.toBeUndefined();
+		await expect(api("alice").deleteContact(input)).resolves.toBeUndefined();
 		await expect(api().deleteContact(input)).rejects.toMatchObject({ code: "CONFLICT" });
 		const saved = await api().getById({ id });
 		expect(saved.contacts).toEqual([contact, contacts[2]]);
@@ -419,17 +414,13 @@ describe.skipIf(!databaseUrl)("application Trash: real retained rows, storage an
 		expect((await pool.query("SELECT id FROM cover_letter WHERE id=$1", [letter.id])).rows).toHaveLength(1);
 	});
 
-	it("keeps bulk deletion recoverable, owner-scoped and delete-permission protected, including old DELETE aliases", async () => {
+	it("keeps bulk deletion recoverable and owner-scoped, including old DELETE aliases", async () => {
 		const first = await api().create({ company: "First", role: "Lead" });
 		const second = await api().create({ company: "Second", role: "Lead" });
 		const foreign = await api("bob").create({ company: "Other account", role: "Lead" });
-		await expect(api("alice", ["read", "write"]).trash({ id: first })).rejects.toMatchObject({ code: "FORBIDDEN" });
-		await expect(api("alice", ["read", "write"]).bulkTrash({ ids: [first] })).rejects.toMatchObject({
-			code: "FORBIDDEN",
+		await expect(api("alice", new Headers({ "x-account-id": "bob" })).trash({ id: first })).rejects.toMatchObject({
+			code: "CONFLICT",
 		});
-		await expect(
-			api("alice", undefined, new Headers({ "x-account-id": "bob" })).trash({ id: first }),
-		).rejects.toMatchObject({ code: "CONFLICT" });
 		expect(await api().bulkDelete({ ids: [first, second, foreign] })).toEqual({ deleted: 2 });
 		expect((await api().listTrash({ limit: 1, offset: 1 })).items).toHaveLength(1);
 		expect((await api().listTrash({})).total).toBe(2);
@@ -594,7 +585,6 @@ describe.skipIf(!databaseUrl)("application Trash: real retained rows, storage an
 		const other = await api("bob").create({ company: "Fictional Other", role: "Kept" });
 		await api().trash({ id: gone });
 		await api("bob").trash({ id: other });
-		await expect(api("alice", ["read", "write"]).emptyTrash({})).rejects.toMatchObject({ code: "FORBIDDEN" });
 		await expect(api().emptyTrash({})).resolves.toEqual({ deleted: 1 });
 		expect(await raw(gone)).toBeUndefined();
 		expect(await raw(kept)).toBeDefined();

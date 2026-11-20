@@ -22,15 +22,11 @@ export function handleRobots() {
 		"Allow: /",
 		"Disallow: /api/rpc",
 		"Disallow: /api/auth",
-		"Disallow: /mcp",
 		"Disallow: /.well-known",
 		// PDF and Word downloads are rendered per request; keep crawlers off them.
 		"Disallow: /api/resumes/",
-		// Discovery documents meant for agents and API directories.
-		"Allow: /.well-known/integrations.json",
+		// The API catalog tells directories where the OpenAPI document lives.
 		"Allow: /.well-known/api-catalog",
-		"Allow: /.well-known/mcp/server-card.json",
-		"Allow: /.well-known/agent-skills/",
 		"",
 		`Sitemap: ${baseUrl}/sitemap.xml`,
 		"",
@@ -114,9 +110,7 @@ export function handleLlms() {
 		"",
 		`- [OpenAPI specification](${baseUrl}/openapi.json)`,
 		`- [Resume JSON schema](${baseUrl}/schema.json)`,
-		`- [MCP server](${baseUrl}/mcp): connect any MCP client with OAuth.`,
-		`- [Agent skills](${baseUrl}/.well-known/agent-skills/index.json): resume and job-search skills.`,
-		`- [Integrations](${baseUrl}/.well-known/integrations.json): every API and MCP surface with its authentication.`,
+		`- [API catalog](${baseUrl}/.well-known/api-catalog): where the API and its health endpoint are documented.`,
 		"",
 	].join("\n");
 

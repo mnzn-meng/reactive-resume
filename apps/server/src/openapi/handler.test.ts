@@ -5,8 +5,6 @@ vi.mock("@reactive-resume/auth/config", () => ({
 	auth: {
 		api: { getSession: vi.fn().mockResolvedValue(null) },
 	},
-	verifyOAuthToken: vi.fn().mockRejectedValue(new Error("invalid token")),
-	isCustomOAuthProviderEnabled: () => false,
 }));
 const { handleOpenApi } = await import("./handler");
 const { handleRpc } = await import("../rpc/handler");

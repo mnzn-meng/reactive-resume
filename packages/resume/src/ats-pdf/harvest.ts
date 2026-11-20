@@ -6,7 +6,7 @@ import { summarizePageOperators } from "./analyze/operators";
 // Structural views of the reader API.
 //
 // Nothing here names pdf.js. The browser glue passes a real PDFDocumentProxy;
-// a Node or MCP adapter can pass anything with the same shape, and every layer
+// a Node adapter can pass anything with the same shape, and every layer
 // above this file only ever sees the plain JSON that comes out.
 // ---------------------------------------------------------------------------
 

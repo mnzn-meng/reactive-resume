@@ -99,12 +99,8 @@ export const feedbackRouter = {
 		.use(feedbackViewRateLimit)
 		.output(feedbackDto.view.output)
 		.handler(({ context, input }) =>
-			// A credential that may read the owner's resumes sees the owner's unredacted copy.
-			feedbackService.view({
-				token: input.token,
-				viewerId:
-					context.user?.id && context.authentication?.permissions.includes("read") ? context.user.id : undefined,
-			}),
+			// The signed-in owner sees their unredacted copy; a reviewer sees the saved snapshot.
+			feedbackService.view({ token: input.token, viewerId: context.user?.id }),
 		),
 
 	comment: publicProcedure

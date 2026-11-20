@@ -152,13 +152,11 @@ export const authRouter = {
 			operationId: "setPassword",
 			summary: "Set a password",
 			description:
-				"Adds a password to an account that signs in another way (a social account or passkey). Unlike a password reset, it keeps other devices signed in and keeps API keys, passkeys and connected apps. Requires a recent browser session.",
+				"Adds a password to an account that signs in another way (a social account or passkey). Unlike a password reset, it keeps other devices signed in and keeps passkeys. Requires a recent browser session.",
 		})
 		.input(z.object({ newPassword: z.string().min(8).max(64) }))
 		.output(z.void())
 		.handler(async ({ context, input }) => {
-			if (context.authentication?.method !== "session")
-				throw new ORPCError("FORBIDDEN", { message: "Set a password from Settings in a web browser." });
 			if (env.FLAG_DISABLE_EMAIL_AUTH)
 				throw new ORPCError("FORBIDDEN", { message: "Password sign-in is turned off on this server." });
 			await assertRecentSignIn(context.reqHeaders);
@@ -307,14 +305,12 @@ export const authRouter = {
 			operationId: "deleteAccount",
 			summary: "Delete user account",
 			description:
-				"Permanently deletes the authenticated user's account, including all resumes, uploaded files (profile pictures, screenshots, PDFs), and associated data. This action is irreversible. Requires a browser session; keys and OAuth tokens cannot delete accounts.",
+				"Permanently deletes the authenticated user's account, including all resumes, uploaded files (profile pictures, screenshots, PDFs), and associated data. This action is irreversible. Requires a recent browser session.",
 			successDescription: "The user account and all associated data have been successfully deleted.",
 		})
 		.input(z.object({}).optional())
 		.output(z.void())
 		.handler(async ({ context }) => {
-			if (context.authentication?.method !== "session")
-				throw new ORPCError("FORBIDDEN", { message: "Delete your account from Settings in a web browser." });
 			await assertRecentSignIn(context.reqHeaders);
 			await authService.deleteAccount({ userId: context.user.id });
 		}),

@@ -265,17 +265,13 @@ describe.skipIf(!process.env.INTEGRATIONS_TEST_DATABASE_URL)(
 		const context = (destination?: string) => ({
 			locale: "en-US" as const,
 			reqHeaders: new Headers(destination ? { "x-ai-destination": destination } : {}),
-			authentication: {
-				user: {
-					id: "alice",
-					name: "Alice Example",
-					email: "alice@example.test",
-					emailVerified: true,
-					createdAt: new Date(),
-					updatedAt: new Date(),
-				},
-				method: "session" as const,
-				permissions: ["read", "write", "delete"] as const,
+			user: {
+				id: "alice",
+				name: "Alice Example",
+				email: "alice@example.test",
+				emailVerified: true,
+				createdAt: new Date(),
+				updatedAt: new Date(),
 			},
 		});
 		async function add(label: string, provider: "openai" | "openai-compatible" = "openai-compatible") {
@@ -663,17 +659,9 @@ describe.skipIf(!process.env.INTEGRATIONS_TEST_DATABASE_URL)(
 			},
 		);
 
-		it("read-only grants, cross-owner recipient and cancellation cannot transmit", async () => {
+		it("a cross-owner recipient and cancellation cannot transmit", async () => {
 			const provider = await add("scoped");
 			requests.length = 0;
-			const readContext = context(aiDestination(provider));
-			const readOnly = createRouterClient(router, {
-				context: {
-					...readContext,
-					authentication: { ...readContext.authentication, method: "bearer" as const, permissions: ["read"] },
-				},
-			});
-			await expect(readOnly.autofill({ jobDescription: marker })).rejects.toMatchObject({ code: "FORBIDDEN" });
 			const foreign = await ai.create({
 				userId: "bob",
 				label: "Foreign",

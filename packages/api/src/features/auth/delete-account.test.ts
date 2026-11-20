@@ -8,35 +8,23 @@ vi.mock("@reactive-resume/auth/config", () => ({
 vi.mock("./service", () => ({ authService: { deleteAccount } }));
 const { authRouter } = await import("./router");
 
-it.each(["bearer", "session"] as const)("requires a browser session to delete an account: %s", async (method) => {
+it("deletes the signed-in account", async () => {
 	deleteAccount.mockReset().mockResolvedValue(undefined);
 	const remove = createProcedureClient(authRouter.deleteAccount, {
 		context: {
 			locale: "en-US",
 			reqHeaders: new Headers(),
-			authentication: {
-				user: {
-					id: "owner",
-					name: "Owner",
-					email: "owner@example.test",
-					emailVerified: true,
-					createdAt: new Date(),
-					updatedAt: new Date(),
-				},
-				method,
-				permissions: ["read", "write", "delete"],
+			user: {
+				id: "owner",
+				name: "Owner",
+				email: "owner@example.test",
+				emailVerified: true,
+				createdAt: new Date(),
+				updatedAt: new Date(),
 			},
 		},
 	});
 
-	if (method === "session") {
-		await expect(remove({})).resolves.toBeUndefined();
-		expect(deleteAccount).toHaveBeenCalledWith({ userId: "owner" });
-	} else {
-		await expect(remove({})).rejects.toMatchObject({
-			code: "FORBIDDEN",
-			message: "Delete your account from Settings in a web browser.",
-		});
-		expect(deleteAccount).not.toHaveBeenCalled();
-	}
+	await expect(remove({})).resolves.toBeUndefined();
+	expect(deleteAccount).toHaveBeenCalledWith({ userId: "owner" });
 });

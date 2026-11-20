@@ -25,14 +25,6 @@ export const rateLimitConfig = {
 				"/is-username-available": { window: 60, max: 20 },
 			},
 		},
-		oauthProvider: {
-			register: { window: 60, max: 5 },
-			authorize: { window: 60, max: 30 },
-			token: { window: 60, max: 20 },
-			introspect: { window: 60, max: 60 },
-			revoke: { window: 60, max: 30 },
-			userinfo: { window: 60, max: 60 },
-		},
 		apiKey: {
 			enabled: true,
 			timeWindow: 60 * 60 * 1000,

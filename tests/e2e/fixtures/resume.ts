@@ -49,33 +49,3 @@ export async function openDownloadDialog(page: Page) {
 	await expect(menu.getByRole("textbox", { name: "File name" })).toBeVisible();
 	return menu;
 }
-
-/** From Share's first level, opens Privacy and downloads (password, search engines, downloads, credit). */
-export async function openSharePrivacy(page: Page) {
-	await page.getByRole("button", { name: /^Privacy and downloads/ }).click();
-	await expect(page.getByRole("heading", { name: "Privacy and downloads", level: 2 })).toBeVisible();
-}
-
-/** Back from a Share sub-page to its first level. */
-export async function backToShare(page: Page) {
-	await page
-		.getByRole("navigation", { name: "Breadcrumb" })
-		.getByRole("button", { name: "Share", exact: true })
-		.click();
-	await expect(page.getByRole("textbox", { name: "Address" })).toBeVisible();
-}
-
-/** Publishes the web page in Share mode and returns its address. */
-export async function makeResumePublic(page: Page) {
-	await openSidebarSection(page, "Sharing");
-	await page.getByRole("button", { name: "Publish", exact: true }).click();
-	await expect(page.getByRole("switch", { name: "Public link" })).toBeChecked();
-	return getPublicUrl(page);
-}
-
-/** The web page's address, from Share's "Open web page" (it fills in once the session has loaded). */
-export async function getPublicUrl(page: Page) {
-	const link = page.getByRole("link", { name: "Open web page" });
-	await expect(link).toHaveAttribute("href", /\/e2e_/);
-	return (await link.getAttribute("href")) as string;
-}

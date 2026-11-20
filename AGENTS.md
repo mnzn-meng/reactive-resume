@@ -72,24 +72,23 @@ pnpm check:agent-docs                            # paths named in agent docs exi
 
 ## Ownership map
 
-| Area                                                       | Owner                                                   |
-| ---------------------------------------------------------- | ------------------------------------------------------- |
-| Web routes and workflows                                   | `apps/web/src/routes`, `apps/web/src/features`          |
-| Server HTTP, startup, static pages, MCP transport, OpenAPI | `apps/server/src/{http,rpc,mcp,openapi,static,startup}` |
-| API routers and business logic                             | `packages/api/src/features/<feature>`                   |
-| API input/output DTOs                                      | `packages/api/src/dto/<feature>.ts`                     |
-| Auth                                                       | `packages/auth` (Better Auth)                           |
-| DB schema and client                                       | `packages/db/src/schema/<area>.ts`                      |
-| Server env validation                                      | `packages/env/src/server.ts`                            |
-| Resume, template and application schemas                   | `packages/schema`                                       |
-| Pure resume behaviour (JSON Patch, icons)                  | `packages/resume`                                       |
-| PDF rendering                                              | `packages/pdf` (templates through `src/forme`)          |
-| PDF.js viewer and canvas UI                                | `apps/web/src/features/resume/preview`                  |
-| DOCX export                                                | `packages/docx`                                         |
-| MCP tools, prompts, server card                            | `packages/mcp`                                          |
-| Generic UI primitives and styles                           | `packages/ui`                                           |
-| Other support packages                                     | `packages/{fonts,email,import,ai,utils,config}`         |
-| Dev-only scripts                                           | `tooling/`, never `packages/`                           |
+| Area                                        | Owner                                               |
+| ------------------------------------------- | --------------------------------------------------- |
+| Web routes and workflows                    | `apps/web/src/routes`, `apps/web/src/features`      |
+| Server HTTP, startup, static pages, OpenAPI | `apps/server/src/{http,rpc,openapi,static,startup}` |
+| API routers and business logic              | `packages/api/src/features/<feature>`               |
+| API input/output DTOs                       | `packages/api/src/dto/<feature>.ts`                 |
+| Auth                                        | `packages/auth` (Better Auth)                       |
+| DB schema and client                        | `packages/db/src/schema/<area>.ts`                  |
+| Server env validation                       | `packages/env/src/server.ts`                        |
+| Resume, template and application schemas    | `packages/schema`                                   |
+| Pure resume behaviour (JSON Patch, icons)   | `packages/resume`                                   |
+| PDF rendering                               | `packages/pdf` (templates through `src/forme`)      |
+| PDF.js viewer and canvas UI                 | `apps/web/src/features/resume/preview`              |
+| DOCX export                                 | `packages/docx`                                     |
+| Generic UI primitives and styles            | `packages/ui`                                       |
+| Other support packages                      | `packages/{fonts,email,import,ai,utils,config}`     |
+| Dev-only scripts                            | `tooling/`, never `packages/`                       |
 
 Details behind those rows:
 
@@ -102,7 +101,6 @@ Details behind those rows:
   `packages/schema/src/resume/sample.ts`.
 - The PDF.js viewer and ATS checker are `apps/web/src/features/{resume/preview,ats-checker}`; they never import
   `packages/pdf`. Shared filtering lives in `packages/pdf/src/templates/shared/filtering.ts`.
-- MCP tool annotations are reviewed in `packages/mcp/src/fixtures/tool-annotations.md`.
 - UI styles are in `packages/ui/src/styles/`; web design rules are in `apps/web/DESIGN.md`.
 
 `packages/utils` takes a helper only when no domain package owns it: JSON Patch belongs in `@reactive-resume/resume`,

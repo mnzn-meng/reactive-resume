@@ -25,20 +25,12 @@ export const authSearchSchema = z.object({
 
 export function getAuthRedirectOptions(value: unknown) {
 	const callbackURL = safeCallbackURL(value);
-	// OAuth callbacks are server endpoints; they must run through a document request.
+	// Server callbacks are endpoints, not pages; they must run through a document request.
 	const isServerCallback = callbackURL !== undefined && callbackURL.startsWith("/api/");
 	return { href: callbackURL ?? "/dashboard", reloadDocument: isServerCallback, replace: true } as const;
 }
 
-export function getOAuthSignInOptions(callback: unknown) {
-	const callbackURL = safeCallbackURL(callback);
-	if (!callbackURL) return {};
-	const url = new URL(callbackURL, "https://callback.invalid");
-	if (url.pathname !== "/api/auth/oauth" || !url.searchParams.has("sig")) return {};
-	return { oauth_query: url.search.slice(1) };
-}
-
-export function isOAuthRedirect(data: unknown) {
+export function isRedirectResponse(data: unknown) {
 	return (
 		typeof data === "object" &&
 		data !== null &&
@@ -47,18 +39,4 @@ export function isOAuthRedirect(data: unknown) {
 		"url" in data &&
 		typeof data.url === "string"
 	);
-}
-
-export function getOAuthPasskeyOptions(callbackURL: unknown) {
-	const oauthOptions = getOAuthSignInOptions(callbackURL);
-	return {
-		fetchOptions: {
-			onRequest(context: { body?: unknown }) {
-				if (!oauthOptions.oauth_query) return;
-				// The passkey client forwards fetchOptions, but drops extra top-level fields.
-				const body: unknown = typeof context.body === "string" ? JSON.parse(context.body) : context.body;
-				if (body && typeof body === "object") context.body = JSON.stringify({ ...body, ...oauthOptions });
-			},
-		},
-	};
 }

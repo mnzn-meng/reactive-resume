@@ -101,7 +101,7 @@ describe.skipIf(!databaseUrl)("application and document letter-link reconciliati
 							context: {
 								locale: "en-US",
 								reqHeaders: req.headers,
-								authentication: { user, method: "session", permissions: ["read", "write", "delete"] },
+								user: user,
 							},
 						});
 						if (!result.matched) throw new Error(`HTTP route did not match: ${req.url}`);

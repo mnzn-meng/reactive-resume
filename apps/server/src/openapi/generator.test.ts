@@ -2,10 +2,9 @@ import { describe, expect, it, vi } from "vite-plus/test";
 import z from "zod";
 import { createResumeDataJsonSchema } from "@reactive-resume/schema/resume/json-schema";
 
-// Spec generation reads procedure contracts without executing authentication. Keep the
-// provider's resource seeding out of this unit test; real OAuth initialization is covered
-// by the opt-in PostgreSQL integration suite after migrations run.
-vi.mock("@reactive-resume/auth/config", () => ({ auth: {}, verifyOAuthToken: vi.fn() }));
+// Spec generation reads procedure contracts without executing authentication, so this unit test
+// stands in a bare auth instance. Real sign-in is covered by the opt-in PostgreSQL integration suite.
+vi.mock("@reactive-resume/auth/config", () => ({ auth: {} }));
 
 type GeneratedSpecView = {
 	components?: { schemas?: Record<string, unknown> };
@@ -179,11 +178,10 @@ describe("generateOpenApiSpec", () => {
 	});
 });
 
-it("documents anonymous routes, all supported credentials, and additive PATCH routes", async () => {
+it("documents anonymous routes, session credentials, and additive PATCH routes", async () => {
 	const spec = await generateSpec();
 	expect(spec.paths?.["/flags"]?.get?.security).toEqual([]);
-	expect(spec.paths?.["/resumes/{username}/{slug}"]?.get?.security).toEqual([]);
-	expect(spec.paths?.["/resumes"]?.get?.security).toEqual([{ bearerAuth: [] }, { cookieAuth: [] }]);
+	expect(spec.paths?.["/resumes"]?.get?.security).toEqual([{ cookieAuth: [] }]);
 	expect(spec.paths?.["/auth/account"]?.delete?.security).toEqual([{ cookieAuth: [] }]);
 	expect(spec.paths?.["/auth/account"]?.delete).toHaveProperty(
 		"x-codeSamples.0.source",

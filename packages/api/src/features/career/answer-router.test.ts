@@ -12,9 +12,9 @@ const user = {
 	createdAt: new Date(),
 	updatedAt: new Date(),
 };
-const client = (permissions: ("read" | "write" | "delete")[]) =>
+const client = () =>
 	createRouterClient(answerRouter, {
-		context: { locale: "en-US", reqHeaders: new Headers(), authentication: { user, method: "bearer", permissions } },
+		context: { locale: "en-US", reqHeaders: new Headers(), user: user },
 	});
 beforeEach(() => {
 	vi.clearAllMocks();
@@ -22,40 +22,9 @@ beforeEach(() => {
 });
 it("requires authentication and delegates reads with the credential owner", async () => {
 	const anonymous = createRouterClient(answerRouter, {
-		context: { locale: "en-US", reqHeaders: new Headers(), authentication: null },
+		context: { locale: "en-US", reqHeaders: new Headers(), user: null },
 	});
 	await expect(anonymous.list({ applicationId: "app" })).rejects.toMatchObject({ code: "UNAUTHORIZED" });
-	await expect(client(["read"]).list({ applicationId: "app" })).resolves.toEqual([]);
+	await expect(client().list({ applicationId: "app" })).resolves.toEqual([]);
 	expect(service.list).toHaveBeenCalledWith("owner", "app");
-});
-it("rejects delegated read-only writes and requires delete permission separately", async () => {
-	await expect(
-		client(["read"]).save({
-			applicationId: "app",
-			question: "Why?",
-			answer: "My answer",
-			source: "manual",
-			scope: "employer",
-			factIds: [],
-			storyIds: [],
-			expectedEvidence: [],
-			reviewed: true,
-			noEmployerWording: false,
-		}),
-	).rejects.toMatchObject({ code: "FORBIDDEN" });
-	await expect(
-		client(["read"]).reuse({
-			id: "answer",
-			applicationId: "app",
-			answer: "Reviewed answer",
-			expectedRevision: 1,
-			reviewed: true,
-		}),
-	).rejects.toMatchObject({ code: "FORBIDDEN" });
-	await expect(client(["write"]).delete({ id: "answer", expectedRevision: 1 })).rejects.toMatchObject({
-		code: "FORBIDDEN",
-	});
-	expect(service.save).not.toHaveBeenCalled();
-	expect(service.reuse).not.toHaveBeenCalled();
-	expect(service.delete).not.toHaveBeenCalled();
 });

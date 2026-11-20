@@ -1,6 +1,5 @@
 import type { auth } from "@reactive-resume/auth/config";
 import { dashClient } from "@better-auth/infra/client";
-import { oauthProviderClient } from "@better-auth/oauth-provider/client";
 import { passkeyClient } from "@better-auth/passkey/client";
 import {
 	adminClient,
@@ -50,7 +49,6 @@ export const authClient = createAuthClient({
 				window.location.href = `/auth/verify-2fa${search}`;
 			},
 		}),
-		oauthProviderClient(),
 		inferAdditionalFields<typeof auth>(),
 	],
 });

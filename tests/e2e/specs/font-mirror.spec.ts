@@ -1,12 +1,8 @@
 import { execFileSync } from "node:child_process";
-import { makeResumePublic } from "../fixtures/resume";
 import { expect, test } from "../fixtures/test";
 
 // Operator smoke gate: run against the mirror prepared in docs/self-hosting/fonts.mdx.
-test("uses the configured mirror for browser PDF, server PDF and public HTML", async ({
-	browser,
-	authPage: page,
-}, testInfo) => {
+test("uses the configured mirror for browser and server PDFs", async ({ authPage: page }, testInfo) => {
 	test.skip(!process.env.FONT_MIRROR_URL, "Requires a prepared FONT_MIRROR_URL (see the font self-hosting guide).");
 	test.setTimeout(180_000);
 	const mirror = process.env.FONT_MIRROR_URL ?? "";
@@ -60,26 +56,5 @@ test("uses the configured mirror for browser PDF, server PDF and public HTML", a
 		)
 		.toBe(true);
 	await page.keyboard.press("Escape");
-	const publicUrl = await makeResumePublic(page);
-	const anonymous = await browser.newContext();
-	try {
-		await anonymous.route(hostPattern, async (route) => {
-			external.push(route.request().url());
-			await route.abort();
-		});
-		const visitor = await anonymous.newPage();
-		const response = await visitor.goto(publicUrl);
-		expect(response?.headers()["content-security-policy"]).toContain(new URL(mirror).origin);
-		await visitor.evaluate(() => document.fonts.ready.then(() => undefined));
-		expect(await visitor.evaluate(() => [...document.fonts].some((font) => font.status === "loaded"))).toBe(true);
-		await expect(visitor.getByRole("heading", { name: "Font mirror", exact: true })).toBeVisible();
-		const sources = await visitor.locator("style").allTextContents();
-		const fonts = [...sources.join("\n").matchAll(/src:url\("([^"]+)"\)/g)].map((match) => match[1]);
-		expect(fonts.length).toBeGreaterThan(0);
-		expect(fonts.every((source) => source?.startsWith(mirror))).toBe(true);
-		await visitor.screenshot({ path: testInfo.outputPath("mirrored-public-resume.png"), fullPage: true });
-	} finally {
-		await anonymous.close();
-	}
 	expect(external).toEqual([]);
 });

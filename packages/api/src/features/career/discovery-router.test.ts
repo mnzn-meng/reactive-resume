@@ -21,20 +21,14 @@ const user = {
 	createdAt: new Date(),
 	updatedAt: new Date(),
 };
-const client = (permissions: ("read" | "write" | "delete")[]) =>
+const client = () =>
 	createRouterClient(careerRouter, {
-		context: { locale: "en-US", reqHeaders: new Headers(), authentication: { user, method: "bearer", permissions } },
+		context: { locale: "en-US", reqHeaders: new Headers(), user: user },
 	});
 beforeEach(() => vi.clearAllMocks());
-it("requires write for provider disclosure and track, delete for dismiss", async () => {
+it("suggests target roles for the signed-in account", async () => {
 	const input = { providerId: "connection", recipientVersion: "a".repeat(64), resumeId: null, includeKnowledge: true };
-	await expect(client(["read"]).suggestTargetRoles(input)).rejects.toMatchObject({ code: "FORBIDDEN" });
-	await expect(client(["read"]).trackOpportunity({ id: "role" })).rejects.toMatchObject({ code: "FORBIDDEN" });
-	await expect(client(["write"]).dismissOpportunity({ id: "role" })).rejects.toMatchObject({ code: "FORBIDDEN" });
-	expect(service.suggest).not.toHaveBeenCalled();
-	expect(service.track).not.toHaveBeenCalled();
-	expect(service.dismiss).not.toHaveBeenCalled();
 	service.suggest.mockResolvedValue({ suggestions: [] });
-	await expect(client(["write"]).suggestTargetRoles(input)).resolves.toEqual({ suggestions: [] });
+	await expect(client().suggestTargetRoles(input)).resolves.toEqual({ suggestions: [] });
 	expect(service.suggest).toHaveBeenCalledWith("owner", { ...input, locale: "en-US" }, undefined);
 });

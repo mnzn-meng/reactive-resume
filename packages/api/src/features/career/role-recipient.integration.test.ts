@@ -106,14 +106,14 @@ describe.skipIf(!databaseUrl)("role recipient approval through router, PostgreSQ
 	let a: Awaited<ReturnType<typeof localProvider>>;
 	let b: Awaited<ReturnType<typeof localProvider>>;
 	let user: typeof tables.user.$inferSelect;
-	const client = (permissions: ("read" | "write" | "delete")[] = ["read", "write", "delete"]) =>
+	const client = () =>
 		createRouterClient(
 			{ career: careerRouter, providers: aiProvidersRouter },
 			{
 				context: {
 					locale: "en-US",
 					reqHeaders: new Headers(),
-					authentication: { user, method: "bearer", permissions },
+					user: user,
 				},
 			},
 		);
@@ -241,9 +241,6 @@ describe.skipIf(!databaseUrl)("role recipient approval through router, PostgreSQ
 			const { recipientVersion: _version, ...oldInput } = input(disclosed);
 			await expect(client().career.suggestTargetRoles(oldInput as ReturnType<typeof input>)).rejects.toMatchObject({
 				code: "BAD_REQUEST",
-			});
-			await expect(client(["read"]).career.suggestTargetRoles(input(disclosed))).rejects.toMatchObject({
-				code: "FORBIDDEN",
 			});
 			const bob = (await db.select().from(tables.user)).find((row) => row.id === "bob");
 			assert(bob);

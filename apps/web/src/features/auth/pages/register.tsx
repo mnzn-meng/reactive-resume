@@ -10,10 +10,9 @@ import { FormControl, FormDescription, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@reactive-resume/ui/components/input";
 import { toast } from "@reactive-resume/ui/components/toast";
 import { AuthFoot, AuthTitle } from "../components/auth-page";
-import { ConnectingClient } from "../components/connecting-client";
 import { GuestTransferNote } from "../components/guest-banner";
 import { SocialAuth } from "../components/social-auth";
-import { getAuthRedirectOptions, getOAuthSignInOptions, isOAuthRedirect } from "../redirect";
+import { getAuthRedirectOptions, isRedirectResponse } from "../redirect";
 import { PasswordInput } from "@/components/input/password-input";
 import { authClient } from "@/libs/auth/client";
 import { sessionQueryKey } from "@/libs/root-context";
@@ -71,8 +70,6 @@ export function RegisterPage({ disableEmailAuth, isGuest = false }: Props) {
 		onSubmit: async ({ value }) => {
 			const toastId = toast.add({ type: "loading", description: t`Signing up…` });
 
-			const oauthOptions = getOAuthSignInOptions(callbackURL);
-			const createPrompt = new URLSearchParams(oauthOptions.oauth_query).get("prompt")?.split(" ").includes("create");
 			const { data, error } = await authClient.signUp.email({
 				name: value.name.trim(),
 				email: value.email,
@@ -81,7 +78,6 @@ export function RegisterPage({ disableEmailAuth, isGuest = false }: Props) {
 				username: value.username,
 				displayUsername: value.username,
 				callbackURL: callbackURL ?? "/dashboard",
-				...(!createPrompt ? oauthOptions : {}),
 			});
 
 			if (error) {
@@ -98,15 +94,7 @@ export function RegisterPage({ disableEmailAuth, isGuest = false }: Props) {
 				return;
 			}
 
-			if (isOAuthRedirect(data)) return;
-			if (createPrompt && oauthOptions.oauth_query) {
-				const continuation = await authClient.oauth2.continue({ created: true, oauth_query: oauthOptions.oauth_query });
-				if (continuation.error) {
-					toast.add({ type: "error", description: continuation.error.message, id: toastId });
-					return;
-				}
-				if (isOAuthRedirect(continuation.data)) return;
-			}
+			if (isRedirectResponse(data)) return;
 			await queryClient.invalidateQueries({ queryKey: sessionQueryKey });
 			await router.invalidate();
 			// Straight to the dashboard (or the page that sent them here); verifying the email can wait.
@@ -136,7 +124,7 @@ export function RegisterPage({ disableEmailAuth, isGuest = false }: Props) {
 					<Trans comment="Title on the registration page">Start your resume</Trans>
 				)}
 			</AuthTitle>
-			<ConnectingClient callbackURL={callbackURL} register>
+			<p className="text-center text-sm text-ink-2">
 				{isGuest ? (
 					<Trans>Create an account and what you made as a guest moves into it.</Trans>
 				) : (
@@ -144,7 +132,7 @@ export function RegisterPage({ disableEmailAuth, isGuest = false }: Props) {
 						Free, with no ads and no paywall.
 					</Trans>
 				)}
-			</ConnectingClient>
+			</p>
 
 			{isGuest && <GuestTransferNote signUp />}
 

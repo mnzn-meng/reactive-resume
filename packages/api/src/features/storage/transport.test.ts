@@ -16,7 +16,6 @@ const mocks = vi.hoisted(() => ({
 vi.mock("@vercel/blob", () => mocks.blob);
 vi.mock("@reactive-resume/env/server", () => ({ env: mocks.env }));
 vi.mock("../../context", () => ({
-	resolveAuthenticationFromRequestHeaders: mocks.authentication,
 	resolveUserFromRequestHeaders: async (headers: Headers) => (await mocks.authentication(headers))?.user ?? null,
 }));
 vi.mock("../../redis", () => ({ createRateLimiter: () => ({ limit: mocks.limit }) }));
@@ -86,15 +85,6 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllEnvs());
 
 describe("staged RPC transport", () => {
-	it("denies read-only credentials before granting an upload or consuming an existing staged body", async () => {
-		mocks.authentication.mockResolvedValue({ user: { id: "user-1" }, permissions: ["read"] });
-		expect((await prepareStagedBody(prepareRequest({}, { "x-api-key": "read-only" }))).status).toBe(403);
-		expect(mocks.blob.issueSignedToken).not.toHaveBeenCalled();
-		const handle = vi.fn();
-		expect((await withStagedBody(stageRequest({ "x-api-key": "read-only" }), handle)).status).toBe(403);
-		expect(mocks.redis.getdel).not.toHaveBeenCalled();
-		expect(handle).not.toHaveBeenCalled();
-	});
 	it("issues only a private path-scoped PUT URL with the exact declared size", async () => {
 		const result = await prepareStagedBody(prepareRequest());
 		expect(result.status).toBe(200);

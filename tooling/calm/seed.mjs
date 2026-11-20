@@ -349,35 +349,6 @@ async function boardData(seed) {
 		 values ($1, 'MacBook Pro', 'calm-not-a-real-public-key', 'calm-not-a-real-credential', 0, 'multiDevice', true, 'internal,hybrid', $2, $3, $3)`,
 		[randomUUID(), userId, at("2026-09-20", "11:30")],
 	);
-
-	// S5: the keys' dates, and Claude connected on 2 Nov with read and write access and offline access.
-	await sql(
-		"update apikey set created_at = $2, updated_at = $2, last_request = $3, expires_at = $4 where reference_id = $1 and name = 'Claude Desktop'",
-		[userId, at("2026-11-02", "14:10"), at("2026-11-06", "21:40"), at("2027-01-31", "23:59")],
-	);
-	await sql(
-		"update apikey set created_at = $2, updated_at = $2, last_request = null, expires_at = null where reference_id = $1 and name = 'Portfolio site'",
-		[userId, at("2026-10-14", "16:00")],
-	);
-	const scopes = ["openid", "profile", "email", "offline_access", "api:read", "api:write"];
-	await sql(
-		`insert into oauth_client (id, client_id, name, redirect_uris, token_endpoint_auth_method, grant_types, response_types, public, require_pkce, scopes, created_at, updated_at)
-		 values ($1, $2, 'Claude', $3, 'none', $4, $5, true, true, $6, $7, $7)`,
-		[
-			randomUUID(),
-			`calm-claude-${userId}`,
-			["https://claude.ai/api/mcp/auth_callback"],
-			["authorization_code", "refresh_token"],
-			["code"],
-			scopes,
-			at("2026-11-02", "14:30"),
-		],
-	);
-	await sql(
-		`insert into oauth_consent (id, client_id, user_id, scopes, created_at, updated_at)
-		 values ($1, $2, $3, $4, $5, $5)`,
-		[randomUUID(), `calm-claude-${userId}`, userId, scopes, at("2026-11-02", "14:31")],
-	);
 }
 
 /** The workspace results, last: career.generate saves them against the account's dates as they now are. */

@@ -125,8 +125,6 @@ export const env = createEnv({
 				message: "AUTH_SECRET must be at least 32 characters in production. Generate one with openssl rand -hex 32.",
 			}),
 		BETTER_AUTH_API_KEY: z.string().min(1).optional(),
-		// Domain verification token from the OpenAI plugin portal, served at /.well-known/openai-apps-challenge.
-		OPENAI_APPS_CHALLENGE_TOKEN: z.string().trim().min(1).optional(),
 
 		// Social Auth (Apple): client secret is a pre-signed Apple JWT.
 		APPLE_CLIENT_ID: z.string().min(1).optional(),
@@ -210,7 +208,6 @@ export const env = createEnv({
 		FLAG_DISABLE_IMAGE_PROCESSING: z.stringbool().default(false),
 		FLAG_DISABLE_API_RATE_LIMIT: z.stringbool().default(false),
 		FLAG_ALLOW_UNSAFE_AI_BASE_URL: z.stringbool().default(false),
-		FLAG_ALLOW_UNSAFE_OAUTH_REDIRECT_URI: z.stringbool().default(false),
 	},
 	runtimeEnv: deploymentEnvironment(process.env),
 	emptyStringAsUndefined: true,

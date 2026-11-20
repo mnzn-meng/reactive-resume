@@ -637,11 +637,7 @@ describe.skipIf(!process.env.OAUTH_TEST_DATABASE_URL)("account wrapper ownership
 					locale: "en-US",
 					reqHeaders: new Headers(),
 					resHeaders: new Headers(),
-					authentication: {
-						user: { ...owner, name: "Stale session name" },
-						method: "bearer",
-						permissions: ["read", "write", "delete"],
-					},
+					user: { ...owner, name: "Stale session name" },
 				},
 			});
 			const suppliedIdentity = { userId: other.id };
@@ -694,7 +690,7 @@ describe.skipIf(!process.env.OAUTH_TEST_DATABASE_URL)("account wrapper ownership
 					locale: "en-US",
 					reqHeaders: new Headers(),
 					resHeaders: new Headers(),
-					authentication: { user: owner, method: "bearer", permissions: ["read", "write", "delete"] },
+					user: owner,
 				},
 			});
 			await expect(client.updateProfile({ timezone: "Asia/Kolkata" })).resolves.toEqual({ status: true });
@@ -746,7 +742,7 @@ describe.skipIf(!process.env.OAUTH_TEST_DATABASE_URL)("account wrapper ownership
 							locale: "en-US",
 							reqHeaders: headers,
 							resHeaders,
-							authentication: { user, method, permissions: ["read", "write", "delete"] },
+							user: user,
 						},
 					});
 					const username = `saved-${method.toLowerCase()}`;

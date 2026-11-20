@@ -168,7 +168,6 @@ OIDC trust policies; the repository URL alone does not describe the subject.
 ## Independent migration items
 
 - GitHub Sponsors stays `AmruthPillai`; Open Collective stays `reactive-resume`.
-- `server.json` keeps MCP registry identifier `io.github.amruthpillai/reactive-resume`.
   Changing that identifier creates a separate registry identity and requires its own migration.
 - The old GitHub repository redirects to the new repository. Never recreate the old repository.
 - The old Pages address `https://amruthpillai.github.io/reactive-resume/` returned 404 on

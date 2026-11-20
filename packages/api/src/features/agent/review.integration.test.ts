@@ -743,7 +743,7 @@ describe.skipIf(!databaseUrl)("document assistant review on PostgreSQL", () => {
 		const { resumeRouter } = await import("../resume/router");
 		return createRouterClient(resumeRouter, {
 			context: {
-				authentication: { user: { id: userId }, method: "session", permissions: ["read", "write", "delete"] },
+				user: { id: userId },
 				reqHeaders: new Headers(),
 				resHeaders: new Headers(),
 			} as never,

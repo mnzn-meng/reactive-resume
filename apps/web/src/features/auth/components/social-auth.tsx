@@ -10,7 +10,7 @@ import { Skeleton } from "@reactive-resume/ui/components/skeleton";
 import { toast } from "@reactive-resume/ui/components/toast";
 import { cn } from "@reactive-resume/utils/style";
 import { authErrorMessage } from "../error";
-import { getAuthRedirectOptions, getOAuthPasskeyOptions, getOAuthSignInOptions, isOAuthRedirect } from "../redirect";
+import { getAuthRedirectOptions, isRedirectResponse } from "../redirect";
 import { AuthOr } from "./auth-page";
 import { authClient } from "@/libs/auth/client";
 import { ENTER_CLASS } from "@/libs/motion";
@@ -73,7 +73,7 @@ function SocialAuthButtons({ providers }: SocialAuthButtonsProps) {
 			return;
 		}
 		toast.close(toastId);
-		if (isOAuthRedirect(data)) return;
+		if (isRedirectResponse(data)) return;
 		await queryClient.invalidateQueries({ queryKey: sessionQueryKey });
 		await router.invalidate();
 		if (isPasskey) void router.navigate(getAuthRedirectOptions(callbackURL));
@@ -101,12 +101,7 @@ function SocialAuthButtons({ providers }: SocialAuthButtonsProps) {
 					variant="secondary"
 					size="lg"
 					className="col-span-2 leading-5"
-					onClick={() =>
-						runSignIn(
-							() => authClient.signIn.passkey({ autoFill: false, ...getOAuthPasskeyOptions(callbackURL) }),
-							true,
-						)
-					}
+					onClick={() => runSignIn(() => authClient.signIn.passkey({ autoFill: false }), true)}
 				>
 					<Icon name="fingerprint" />
 					<Trans comment="Label for passkey sign-in button">Continue with a passkey</Trans>
@@ -124,13 +119,7 @@ function SocialAuthButtons({ providers }: SocialAuthButtonsProps) {
 						shown.length % 2 === 1 && shown.at(-1) === provider && "col-span-2",
 					)}
 					onClick={() =>
-						runSignIn(() =>
-							authClient.signIn.social({
-								provider,
-								callbackURL: callbackURL ?? "/dashboard",
-								...getOAuthSignInOptions(callbackURL),
-							}),
-						)
+						runSignIn(() => authClient.signIn.social({ provider, callbackURL: callbackURL ?? "/dashboard" }))
 					}
 				>
 					{mark[provider]}

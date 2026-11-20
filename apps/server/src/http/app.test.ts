@@ -4,22 +4,14 @@ import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 const mocks = vi.hoisted(() => ({
 	trustedProxies: [] as string[],
 	handleAuth: vi.fn(),
-	handleOAuth: vi.fn(),
 	handleRpc: vi.fn(),
 	handleOpenApi: vi.fn(),
 	handleOpenApiDocument: vi.fn(),
 	handleHealth: vi.fn(),
 	handleUpload: vi.fn(),
-	handleMcp: vi.fn(),
 	handleResumePdfDownload: vi.fn(),
-	handleMcpServerCard: vi.fn(),
-	handleIntegrations: vi.fn(),
 	handleApiCatalog: vi.fn(),
-	handleOAuthAuthorizationServer: vi.fn(),
-	handleOAuthProtectedResource: vi.fn(),
-	handleOpenIdConfiguration: vi.fn(),
 	handleWellKnownFallback: vi.fn(),
-	handleAgentCatalog: vi.fn(),
 	handleRobots: vi.fn(),
 	handleSitemap: vi.fn(),
 	handleLlms: vi.fn(),
@@ -34,7 +26,6 @@ vi.mock("@reactive-resume/env/server", async (original) => {
 
 vi.mock("./auth", () => ({
 	handleAuth: mocks.handleAuth,
-	handleOAuth: mocks.handleOAuth,
 }));
 
 vi.mock("./health", () => ({
@@ -51,14 +42,8 @@ vi.mock("../openapi/handler", () => ({
 }));
 
 vi.mock("../openapi/metadata", () => ({
-	handleMcpServerCard: mocks.handleMcpServerCard,
-	handleIntegrations: mocks.handleIntegrations,
 	handleApiCatalog: mocks.handleApiCatalog,
-	handleOAuthAuthorizationServer: mocks.handleOAuthAuthorizationServer,
-	handleOAuthProtectedResource: mocks.handleOAuthProtectedResource,
-	handleOpenIdConfiguration: mocks.handleOpenIdConfiguration,
 	handleWellKnownFallback: mocks.handleWellKnownFallback,
-	handleAgentCatalog: mocks.handleAgentCatalog,
 }));
 
 vi.mock("../static/uploads", () => ({
@@ -76,10 +61,6 @@ vi.mock("../static/web", () => ({
 	handleWebApp: mocks.handleWebApp,
 }));
 
-vi.mock("../mcp/handler", () => ({
-	handleMcp: mocks.handleMcp,
-}));
-
 vi.mock("./resume-pdf", () => ({
 	handleResumePdfDownload: mocks.handleResumePdfDownload,
 }));
@@ -93,22 +74,14 @@ beforeEach(() => {
 	vi.clearAllMocks();
 	mocks.trustedProxies.length = 0;
 	mocks.handleAuth.mockResolvedValue(new Response("auth"));
-	mocks.handleOAuth.mockResolvedValue(new Response("oauth"));
 	mocks.handleRpc.mockResolvedValue(new Response("rpc"));
 	mocks.handleOpenApi.mockResolvedValue(new Response("openapi"));
 	mocks.handleHealth.mockReturnValue(new Response("health"));
 	mocks.handleUpload.mockResolvedValue(new Response("upload"));
-	mocks.handleMcp.mockResolvedValue(new Response("mcp"));
 	mocks.handleResumePdfDownload.mockResolvedValue(new Response("pdf"));
-	mocks.handleMcpServerCard.mockReturnValue(new Response("server-card"));
-	mocks.handleIntegrations.mockReturnValue(new Response("integrations"));
 	mocks.handleApiCatalog.mockReturnValue(new Response("api-catalog"));
 	mocks.handleOpenApiDocument.mockResolvedValue(new Response("openapi-document"));
-	mocks.handleOAuthAuthorizationServer.mockReturnValue(new Response("oauth-authorization-server"));
-	mocks.handleOAuthProtectedResource.mockReturnValue(new Response("oauth-protected-resource"));
-	mocks.handleOpenIdConfiguration.mockReturnValue(new Response("openid-configuration"));
 	mocks.handleWellKnownFallback.mockReturnValue(new Response("well-known"));
-	mocks.handleAgentCatalog.mockImplementation(() => new Response("agent-catalog"));
 	mocks.handleRobots.mockReturnValue(new Response("robots"));
 	mocks.handleSitemap.mockReturnValue(new Response("sitemap"));
 	mocks.handleLlms.mockReturnValue(new Response("llms"));
@@ -152,18 +125,6 @@ describe("createApp", () => {
 		15_000,
 	);
 
-	it("routes /api/auth/oauth to the OAuth bridge before the Better Auth wildcard", async () => {
-		const { createApp } = await import("./app");
-		const app = createApp();
-		const request = new Request("http://localhost:3001/api/auth/oauth?client_id=test-client");
-
-		const response = await app.fetch(request);
-
-		await expect(response.text()).resolves.toBe("oauth");
-		expect(mocks.handleOAuth).toHaveBeenCalledWith(request);
-		expect(mocks.handleAuth).not.toHaveBeenCalled();
-	});
-
 	it("passes the transport address to RPC and OpenAPI and fails closed when it is unavailable", async () => {
 		const { createApp } = await import("./app");
 		const app = createApp();
@@ -189,11 +150,7 @@ describe("createApp", () => {
 
 	it.each([
 		["/openapi.json", "openapi-document"],
-		["/.well-known/integrations.json", "integrations"],
 		["/.well-known/api-catalog", "api-catalog"],
-		["/.well-known/mcp/server-card.json", "server-card"],
-		["/.well-known/ard.json", "agent-catalog"],
-		["/.well-known/ai-catalog.json", "agent-catalog"],
 	])("routes discovery document %s before the well-known fallback", async (path, body) => {
 		const { createApp } = await import("./app");
 
@@ -213,24 +170,22 @@ describe("createApp", () => {
 		const stream = () => new Response("data: x\n\n".repeat(500), { headers: { "Content-Type": "application/json" } });
 		mocks.handleWebApp.mockImplementation(async () => htmlResponse());
 		mocks.handleRpc.mockImplementation(async () => stream());
-		mocks.handleMcp.mockImplementation(async () => stream());
 		const headers = { "Accept-Encoding": "br, gzip" };
 
 		const page = await createApp().request("http://localhost:3000/", { headers });
 		const rpc = await createApp().request("http://localhost:3000/api/rpc/agent/chat", { headers });
-		const mcp = await createApp().request("http://localhost:3000/mcp", { headers });
 		const vercelPage = await createApp({ serveStatic: false }).request("http://localhost:3000/", { headers });
 
 		expect(page.headers.get("content-encoding")).toBe("gzip");
 		expect(page.headers.get("vary")).toBe("Cookie, Accept-Encoding");
 		expect(page.headers.get("cache-control")).toBe("private, no-store");
 		expect(gunzipSync(Buffer.from(await page.arrayBuffer())).toString()).toBe(html);
-		for (const response of [rpc, mcp, vercelPage]) expect(response.headers.get("content-encoding")).toBeNull();
+		for (const response of [rpc, vercelPage]) expect(response.headers.get("content-encoding")).toBeNull();
 		expect(vercelPage.headers.get("vary")).toBe("Cookie");
 	});
 });
 
-it.each(["/auth/consent", "/auth/consent/", "/auth/login"])("prevents framing or caching %s", async (path) => {
+it.each(["/auth/register", "/auth/register/", "/auth/login"])("prevents framing or caching %s", async (path) => {
 	const { createApp } = await import("./app");
 	mocks.serveWebDistStatic.mockImplementationOnce(async (_context: unknown, next: () => Promise<void>) => {
 		await next();
@@ -247,7 +202,7 @@ it.each(["/auth/consent", "/auth/consent/", "/auth/login"])("prevents framing or
 it.each([
 	{ path: "/api/openapi/files", limit: 40 * 1024 * 1024, handler: mocks.handleOpenApi },
 	{ path: "/api/rpc/resume/import", limit: 160 * 1024 * 1024, handler: mocks.handleRpc },
-	{ path: "/api/auth/oauth2/register", limit: 1024 * 1024, handler: mocks.handleAuth },
+	{ path: "/api/auth/sign-in/email", limit: 1024 * 1024, handler: mocks.handleAuth },
 ])("rejects oversized bodies for $path before parsing them", async ({ path, limit, handler }) => {
 	const { createApp } = await import("./app");
 	const response = await createApp().request(`http://localhost:3000${path}`, {

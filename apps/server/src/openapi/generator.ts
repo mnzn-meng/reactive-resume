@@ -160,12 +160,6 @@ export async function generateOpenApiSpec({ appUrl, version }: GenerateOpenApiSp
 		},
 		components: {
 			securitySchemes: {
-				bearerAuth: {
-					type: "http",
-					scheme: "bearer",
-					bearerFormat: "JWT",
-					description: "An OAuth access token issued by this instance for its API/MCP resource.",
-				},
 				cookieAuth: {
 					type: "apiKey",
 					in: "cookie",
@@ -175,7 +169,7 @@ export async function generateOpenApiSpec({ appUrl, version }: GenerateOpenApiSp
 				},
 			},
 		},
-		security: [{ bearerAuth: [] }, { cookieAuth: [] }],
+		security: [{ cookieAuth: [] }],
 		filter: ({ contract }) => !contract["~orpc"].route.tags?.includes("Internal"),
 	});
 	// Void results have no HTTP body; Zod's impossible JSON schema is not a response payload.
@@ -299,13 +293,7 @@ function addCurlSamples(spec: OpenAPI.Document) {
 			// Double quotes work in POSIX shells, PowerShell and cmd alike.
 			const args = method === "get" ? [`"${url}"`] : [`--request ${method.toUpperCase()}`, `"${url}"`];
 			const security = operation.security ?? spec.security;
-			if (security?.length) {
-				args.push(
-					security.some((requirement) => "bearerAuth" in requirement)
-						? `--header "Authorization: Bearer <access-token>"`
-						: `--cookie "<session-cookie>"`,
-				);
-			}
+			if (security?.length) args.push(`--cookie "<session-cookie>"`);
 
 			const body = operation.requestBody && !("$ref" in operation.requestBody) ? operation.requestBody.content : {};
 			const json = body["application/json"];

@@ -67,15 +67,13 @@ export const ciEnv = {
 	FLAG_ALLOW_UNSAFE_AI_BASE_URL: "true",
 };
 
-const unitDatabases = [databaseName("test"), databaseName("oauth_test")];
-const [testUrl, oauthUrl] = unitDatabases.map(databaseUrl);
+const unitDatabases = [databaseName("test")];
+const [testUrl] = unitDatabases.map(databaseUrl);
 const unitEnv = {
 	...ciEnv,
 	DATABASE_URL: testUrl,
 	COVER_LETTER_TEST_DATABASE_URL: testUrl,
 	INTEGRATIONS_TEST_DATABASE_URL: testUrl,
-	// The OAuth suites write signing keys, so they get a database of their own.
-	OAUTH_TEST_DATABASE_URL: oauthUrl,
 	REQUIRE_DB_TESTS: "1",
 };
 

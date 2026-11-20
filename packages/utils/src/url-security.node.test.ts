@@ -1,11 +1,6 @@
 import { createServer } from "node:http";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vite-plus/test";
-import {
-	fetchPublic,
-	fetchWorkerPublicUrl,
-	isAllowedOAuthRedirectUri,
-	isPrivateOrLoopbackHost,
-} from "./url-security.node";
+import { fetchPublic, fetchWorkerPublicUrl, isPrivateOrLoopbackHost } from "./url-security.node";
 
 const dns = vi.hoisted(() => ({ lookup: vi.fn(), resolve4: vi.fn(), resolve6: vi.fn() }));
 vi.mock("node:dns/promises", () => dns);
@@ -118,67 +113,6 @@ describe("isPrivateOrLoopbackHost", () => {
 		it("returns false for public domain", () => {
 			expect(isPrivateOrLoopbackHost("example.com")).toBe(false);
 		});
-	});
-});
-
-describe("isAllowedOAuthRedirectUri", () => {
-	const trustedOrigins = ["https://app.example.com"];
-
-	it("returns false for malformed URI", () => {
-		expect(isAllowedOAuthRedirectUri("nope", trustedOrigins)).toBe(false);
-	});
-
-	it("returns false when credentials present", () => {
-		expect(isAllowedOAuthRedirectUri("https://u:p@app.example.com", trustedOrigins)).toBe(false);
-	});
-
-	it("returns false when fragment present", () => {
-		expect(isAllowedOAuthRedirectUri("https://app.example.com/cb#x", trustedOrigins)).toBe(false);
-	});
-
-	it("rejects http for non-loopback hosts", () => {
-		expect(isAllowedOAuthRedirectUri("http://example.com/cb", trustedOrigins)).toBe(false);
-	});
-
-	it.each(["ftp://example.com/cb", "ws://example.com/cb", "about:blank", "mailto:a@example.com"])(
-		"rejects the network or browser scheme %s",
-		(uri) => {
-			expect(isAllowedOAuthRedirectUri(uri, trustedOrigins)).toBe(false);
-		},
-	);
-
-	it.each(["cursor://anysphere.cursor-mcp/oauth/callback", "com.example.app:/callback"])(
-		"allows a custom-scheme client callback %s",
-		(uri) => {
-			expect(isAllowedOAuthRedirectUri(uri, trustedOrigins)).toBe(true);
-		},
-	);
-
-	it.each([
-		"cursor://anysphere.cursor-mcp",
-		"cursor://anysphere.cursor-mcp?x=1",
-		"cursor://u:p@anysphere.cursor-mcp/cb",
-		"cursor://anysphere.cursor-mcp/cb#x",
-		"myapp:/callback",
-		"com.example.app://",
-	])("rejects the malformed native callback %s", (uri) => {
-		expect(isAllowedOAuthRedirectUri(uri, trustedOrigins)).toBe(false);
-	});
-
-	it("allows a trusted origin on a private network, for LAN-only self-hosted deployments", () => {
-		expect(isAllowedOAuthRedirectUri("https://192.168.1.5/cb", ["https://192.168.1.5"])).toBe(true);
-	});
-
-	it.each(["javascript:alert(1)", "data:text/html,x", "vbscript:x", "file:///etc/passwd", "blob:https://a.example/x"])(
-		"rejects %s even in unsafe mode",
-		(uri) => {
-			expect(isAllowedOAuthRedirectUri(uri, trustedOrigins, { allowUnsafe: true })).toBe(false);
-		},
-	);
-
-	it("allows public https hosts outside trusted origins, so dynamic client registration works", () => {
-		expect(isAllowedOAuthRedirectUri("https://api.example.com/cb", trustedOrigins)).toBe(true);
-		expect(isAllowedOAuthRedirectUri("https://claude.ai/api/mcp/auth_callback", trustedOrigins)).toBe(true);
 	});
 });
 

@@ -1,4 +1,3 @@
-import { ORPCError } from "@orpc/server";
 import {
 	applicationPacketSchema,
 	approvePacketSchema,
@@ -8,16 +7,8 @@ import {
 import { protectedProcedure } from "../../context";
 import { applicationPackets } from "./packet";
 
-// Deliberately absent from the MCP allowlist: private profile export needs direct, explicit user review.
-const packetProcedure = protectedProcedure.use(({ context, next }) => {
-	if (!context.authentication?.permissions.includes("read"))
-		throw new ORPCError("FORBIDDEN", {
-			message: "Reviewing/exporting a packet requires both api:read and api:write permissions.",
-		});
-	return next();
-});
 export const packetRouter = {
-	review: packetProcedure
+	review: protectedProcedure
 		.route({
 			method: "POST",
 			path: "/applications/{applicationId}/packet-review",
@@ -31,7 +22,7 @@ export const packetRouter = {
 			context.resHeaders?.set("Cache-Control", "private, no-store");
 			return applicationPackets.review(context.user.id, input);
 		}),
-	export: packetProcedure
+	export: protectedProcedure
 		.route({
 			method: "POST",
 			path: "/applications/packets",

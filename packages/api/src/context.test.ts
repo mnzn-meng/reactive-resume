@@ -1,4 +1,3 @@
-import type { RequestAuthentication } from "./context";
 import { describe, expect, it, vi } from "vite-plus/test";
 import { createProcedureClient } from "@orpc/server";
 import { env } from "@reactive-resume/env/server";
@@ -8,16 +7,12 @@ const authMock = vi.hoisted(() => ({
 		getSession: vi.fn(),
 	},
 }));
-const verifyOAuthTokenMock = vi.hoisted(() => vi.fn());
 
 const dbMock = vi.hoisted(() => ({
 	select: vi.fn(),
 }));
 
-vi.mock("@reactive-resume/auth/config", () => ({
-	auth: authMock,
-	verifyOAuthToken: verifyOAuthTokenMock,
-}));
+vi.mock("@reactive-resume/auth/config", () => ({ auth: authMock }));
 vi.mock("@reactive-resume/db/client", () => ({ db: dbMock }));
 vi.mock("@reactive-resume/db/schema", () => ({ user: { __table: "user" } }));
 vi.mock("drizzle-orm", () => ({ eq: () => "EQ" }));
@@ -26,8 +21,7 @@ vi.mock("@reactive-resume/env/server", async (importOriginal) => {
 	return { env: { ...env, APP_ALIAS_URL: "https://rx.cv" } };
 });
 
-const { resolveUserFromRequestHeaders, resolveAuthenticationFromRequestHeaders, publicProcedure, protectedProcedure } =
-	await import("./context");
+const { resolveUserFromRequestHeaders, publicProcedure, protectedProcedure } = await import("./context");
 
 const setupDbResolves = (userResult: unknown) => {
 	dbMock.select.mockReturnValueOnce({
@@ -41,21 +35,36 @@ const setupDbResolves = (userResult: unknown) => {
 
 const reset = () => {
 	authMock.api.getSession.mockReset();
-	verifyOAuthTokenMock.mockReset();
 	dbMock.select.mockReset();
 };
 
 describe("resolveUserFromRequestHeaders", () => {
-	it("uses Bearer token when present and no api key", async () => {
+	it("returns the account behind a valid session cookie", async () => {
 		reset();
-		verifyOAuthTokenMock.mockResolvedValueOnce({ sub: "user-bearer" });
-		setupDbResolves({ id: "user-bearer", name: "Bob" });
+		authMock.api.getSession.mockResolvedValue({ user: { id: "owner" } });
+		setupDbResolves({ id: "owner", name: "Ada" });
 
-		const headers = new Headers({ authorization: "Bearer xxx.yyy.zzz" });
-		const user = await resolveUserFromRequestHeaders(headers);
+		const user = await resolveUserFromRequestHeaders(new Headers({ cookie: "session=valid" }));
 
-		expect(verifyOAuthTokenMock).toHaveBeenCalledWith("xxx.yyy.zzz");
-		expect(user).toMatchObject({ id: "user-bearer", name: "Bob" });
+		expect(user).toMatchObject({ id: "owner", name: "Ada" });
+	});
+
+	it.each([
+		{ banned: true, banExpires: null, allowed: false },
+		{ banned: true, banExpires: new Date("2999-01-01"), allowed: false },
+		{ banned: true, banExpires: new Date("2000-01-01"), allowed: true },
+	])("enforces active bans: %j", async ({ banned, banExpires, allowed }) => {
+		reset();
+		authMock.api.getSession.mockResolvedValue({ user: { id: "owner" } });
+		setupDbResolves({ id: "owner", banned, banExpires });
+		const result = await resolveUserFromRequestHeaders(new Headers({ cookie: "session=valid" }));
+		expect(result?.id ?? null).toBe(allowed ? "owner" : null);
+	});
+
+	it("treats a failed session lookup as signed out", async () => {
+		reset();
+		authMock.api.getSession.mockRejectedValue(new Error("down"));
+		await expect(resolveUserFromRequestHeaders(new Headers({ cookie: "session=valid" }))).resolves.toBeNull();
 	});
 });
 
@@ -95,20 +104,13 @@ describe("cookie request origins", () => {
 		await expect(protectedOperation(undefined)).rejects.toMatchObject({ code: "UNAUTHORIZED" });
 	});
 
-	it("accepts same-origin cookies and explicit bearer credentials from other origins", async () => {
+	it("accepts same-origin cookies", async () => {
 		reset();
 		authMock.api.getSession.mockResolvedValue({ user: { id: "session-user" } });
 		setupDbResolves({ id: "session-user" });
 		await expect(
 			resolveUserFromRequestHeaders(new Headers({ cookie: "session=valid", origin: new URL(env.APP_URL).origin })),
 		).resolves.toMatchObject({ id: "session-user" });
-		verifyOAuthTokenMock.mockResolvedValueOnce({ sub: "token-user" });
-		setupDbResolves({ id: "token-user" });
-		await expect(
-			resolveUserFromRequestHeaders(
-				new Headers({ authorization: "Bearer token", cookie: "session=valid", origin: "https://client.example" }),
-			),
-		).resolves.toMatchObject({ id: "token-user" });
 	});
 
 	it("accepts loopback alias origins for session cookies", async () => {
@@ -123,87 +125,15 @@ describe("cookie request origins", () => {
 	});
 });
 
-describe("credential authorization", () => {
-	it.each([
-		{ banned: true, banExpires: null, allowed: false },
-		{ banned: true, banExpires: new Date("2999-01-01"), allowed: false },
-		{ banned: true, banExpires: new Date("2000-01-01"), allowed: true },
-	])("enforces active bans for explicit credentials: %j", async ({ banned, banExpires, allowed }) => {
-		reset();
-		verifyOAuthTokenMock.mockResolvedValue({ sub: "owner" });
-		setupDbResolves({ id: "owner", banned, banExpires });
-		const result = await resolveUserFromRequestHeaders(new Headers({ authorization: "Bearer token" }));
-		expect(result?.id ?? null).toBe(allowed ? "owner" : null);
-	});
-
-	it.each([
-		{ permissions: { api: ["read"] }, method: "GET" as const, allowed: true },
-		{ permissions: { api: ["read"] }, method: "POST" as const, allowed: false },
-		{ permissions: { api: ["write"] }, method: "DELETE" as const, allowed: false },
-		{ permissions: null, method: "POST" as const, allowed: true },
-		{ permissions: {}, method: "GET" as const, allowed: false },
-		// Moving to Trash deletes the document from view, then for good after 30 days.
-		{ permissions: { api: ["write"] }, method: "POST" as const, operationId: "trashDocument", allowed: false },
-		{ permissions: { api: ["write"] }, method: "PUT" as const, operationId: "putDocumentTrash", allowed: false },
-		{ permissions: { api: ["delete"] }, method: "POST" as const, operationId: "trashDocument", allowed: true },
-		{ permissions: { api: ["write"] }, method: "POST" as const, operationId: "restoreDocuments", allowed: true },
-		{ permissions: { api: ["write"] }, method: "POST" as const, operationId: "purgeDocuments", allowed: false },
-		{ permissions: { api: ["delete"] }, method: "POST" as const, operationId: "purgeDocuments", allowed: true },
-		{ permissions: { api: ["write"] }, method: "DELETE" as const, operationId: "emptyDocumentTrash", allowed: false },
-		{ permissions: { api: ["delete"] }, method: "DELETE" as const, operationId: "emptyDocumentTrash", allowed: true },
-	])("enforces scoped credentials at procedure execution: %j", async ({ permissions, method, allowed, ...route }) => {
-		reset();
-		setupDbResolves({ id: "owner" });
-		const granted = permissions === null ? ["read", "write", "delete"] : (permissions.api ?? []);
-		const operation = createProcedureClient(
-			protectedProcedure.route({ method, ...route }).handler(() => "executed"),
-			{
-				context: {
-					locale: "en-US",
-					reqHeaders: new Headers(),
-					authentication: {
-						user: { id: "owner" },
-						method: "bearer",
-						permissions: granted,
-					} as unknown as RequestAuthentication,
-				},
-			},
-		);
-		if (allowed) await expect(operation(undefined)).resolves.toBe("executed");
-		else await expect(operation(undefined)).rejects.toMatchObject({ code: "FORBIDDEN" });
-	});
-
-	it("preserves OAuth read-only scope when another identity cookie is present", async () => {
-		reset();
-		verifyOAuthTokenMock.mockResolvedValue({ sub: "owner", scope: "api:read" });
-		setupDbResolves({ id: "owner" });
-		const authentication = await resolveAuthenticationFromRequestHeaders(
-			new Headers({ authorization: "Bearer token", cookie: "session=other" }),
-		);
-		const operation = createProcedureClient(
-			protectedProcedure.route({ method: "POST" }).handler(() => "executed"),
-			{
-				context: { locale: "en-US", reqHeaders: new Headers(), authentication },
-			},
-		);
-		await expect(operation(undefined)).rejects.toMatchObject({ code: "FORBIDDEN" });
-		expect(authMock.api.getSession).not.toHaveBeenCalled();
-	});
-});
-
 describe("account scope binding", () => {
-	const authentication = {
-		user: { id: "bob" },
-		method: "session" as const,
-		permissions: ["read", "write", "delete"] as const,
-	} as unknown as RequestAuthentication;
+	const signedIn = { id: "bob" } as never;
 	const operation = (
 		headers: Record<string, string>,
 		method: "GET" | "POST" | "DELETE",
 		handler = vi.fn(() => "executed"),
 	) =>
 		createProcedureClient(protectedProcedure.route({ method }).handler(handler), {
-			context: { locale: "en-US" as const, reqHeaders: new Headers(headers), authentication },
+			context: { locale: "en-US" as const, reqHeaders: new Headers(headers), user: signedIn },
 		});
 
 	it.each(["POST", "DELETE"] as const)(
@@ -235,11 +165,7 @@ describe("account scope binding", () => {
 });
 
 describe("per-item account binding", () => {
-	const authentication = {
-		user: { id: "bob" },
-		method: "session" as const,
-		permissions: ["read", "write", "delete"] as const,
-	} as unknown as RequestAuthentication;
+	const signedIn = { id: "bob" } as never;
 	const itemOperation = (
 		envelope: string | undefined,
 		item: string | undefined,
@@ -251,7 +177,7 @@ describe("per-item account binding", () => {
 				locale: "en-US" as const,
 				reqHeaders: new Headers(envelope ? { "x-account-id": envelope } : {}),
 				...(item ? { rpcItemAccountId: item } : {}),
-				authentication,
+				user: signedIn,
 			},
 		});
 

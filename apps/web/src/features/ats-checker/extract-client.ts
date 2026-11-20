@@ -4,7 +4,7 @@ import type { HarvestProgress, RawExtraction } from "@reactive-resume/resume/ats
  * The only file in the app that talks to PDF.js for the ATS checker.
  *
  * Everything downstream works on the plain JSON this produces, which is what lets the analysis
- * itself live in a universal package, and what would let a server or MCP adapter reuse all of it
+ * itself live in a universal package, and what would let a server reuse all of it
  * without a browser.
  *
  * The file never leaves the browser. It is read into an ArrayBuffer, handed to PDF.js, and the

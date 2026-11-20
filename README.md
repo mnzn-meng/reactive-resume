@@ -74,7 +74,7 @@ You own your data. No tracking, no ads, and no paid tier. Optional AI features u
 - Import Reactive Resume JSON, JSON Resume, LinkedIn data exports, PDF, and Word files
 - JSON, LinkedIn, and readable PDF imports work without AI; Word imports require a connected provider
 - Export resumes and letters as PDF, Word (DOCX), Markdown, or JSON
-- REST API and MCP server for document management, imports, exports, checks, and application workflows
+- REST API for document management, imports, exports, checks, and application workflows
 
 **Privacy and Control**
 
@@ -199,7 +199,7 @@ This builds the checked-out source. For a deployment using published images, fol
 | Language         | TypeScript                               |
 | Monorepo         | pnpm and Turborepo                       |
 | Database         | PostgreSQL with Drizzle ORM              |
-| API              | oRPC, OpenAPI REST, and MCP              |
+| API              | oRPC and OpenAPI REST                    |
 | Auth             | Better Auth                              |
 | Styling          | Tailwind CSS                             |
 | UI Components    | Base UI + shared UI package              |
@@ -212,21 +212,21 @@ This builds the checked-out source. For a deployment using published images, fol
 
 The full documentation lives at [docs.rxresu.me](https://docs.rxresu.me):
 
-| Guide                                                                                                            | Description                                                     |
-| ---------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| [Getting started](https://docs.rxresu.me/getting-started)                                                        | First-time setup and basic usage                                |
-| [What's new in v6](https://docs.rxresu.me/guides/whats-new-in-v6)                                                | Changes and where familiar features moved                       |
-| [Checking your resume](https://docs.rxresu.me/guides/checking-your-resume)                                       | Readability, job match, and writing reviews                     |
-| [Using the assistant](https://docs.rxresu.me/guides/using-the-assistant)                                         | Ask for changes and review proposed edits                       |
-| [Resume and career agent skills](plugins/reactive-resume/README.md)                                              | 32 skills for resume writing, specific roles and the job search |
-| [Writing a cover letter](https://docs.rxresu.me/guides/writing-a-cover-letter)                                   | Create a letter and link it to a resume                         |
-| [Tracking job applications](https://docs.rxresu.me/guides/tracking-job-applications)                             | Saved jobs, stages, interviews, and insights                    |
-| [Exporting your resume](https://docs.rxresu.me/guides/exporting-your-resume)                                     | PDF, Word, Markdown, and JSON downloads                         |
-| [API](https://docs.rxresu.me/guides/using-the-api) and [MCP](https://docs.rxresu.me/guides/using-the-mcp-server) | Connect scripts and external assistants                         |
-| [Self-hosting](https://docs.rxresu.me/self-hosting/docker)                                                       | Deploy on your own infrastructure                               |
-| [Migrating from v5](https://docs.rxresu.me/self-hosting/upgrading-to-v6)                                         | Migrations and integration changes                              |
-| [Development setup](https://docs.rxresu.me/contributing/development)                                             | Local development environment                                   |
-| [Project architecture](https://docs.rxresu.me/contributing/architecture)                                         | Codebase structure and package boundaries                       |
+| Guide                                                                                | Description                                                     |
+| ------------------------------------------------------------------------------------ | --------------------------------------------------------------- |
+| [Getting started](https://docs.rxresu.me/getting-started)                            | First-time setup and basic usage                                |
+| [What's new in v6](https://docs.rxresu.me/guides/whats-new-in-v6)                    | Changes and where familiar features moved                       |
+| [Checking your resume](https://docs.rxresu.me/guides/checking-your-resume)           | Readability, job match, and writing reviews                     |
+| [Using the assistant](https://docs.rxresu.me/guides/using-the-assistant)             | Ask for changes and review proposed edits                       |
+| [Resume and career agent skills](plugins/reactive-resume/README.md)                  | 32 skills for resume writing, specific roles and the job search |
+| [Writing a cover letter](https://docs.rxresu.me/guides/writing-a-cover-letter)       | Create a letter and link it to a resume                         |
+| [Tracking job applications](https://docs.rxresu.me/guides/tracking-job-applications) | Saved jobs, stages, interviews, and insights                    |
+| [Exporting your resume](https://docs.rxresu.me/guides/exporting-your-resume)         | PDF, Word, Markdown, and JSON downloads                         |
+| [API](https://docs.rxresu.me/guides/using-the-api)                                   | Connect scripts and external tools                              |
+| [Self-hosting](https://docs.rxresu.me/self-hosting/docker)                           | Deploy on your own infrastructure                               |
+| [Migrating from v5](https://docs.rxresu.me/self-hosting/upgrading-to-v6)             | Migrations and integration changes                              |
+| [Development setup](https://docs.rxresu.me/contributing/development)                 | Local development environment                                   |
+| [Project architecture](https://docs.rxresu.me/contributing/architecture)             | Codebase structure and package boundaries                       |
 
 ## Self-Hosting
 
@@ -288,7 +288,7 @@ Every setting is listed in the [environment variables reference](https://docs.rx
 
 ### Upgrading from v5
 
-Back up your database and uploads and stop all v5 instances before applying v6 migrations. Old visual style rules require a manual conversion; API and MCP integrations also have changes. Follow [Migrating from v5](https://docs.rxresu.me/self-hosting/upgrading-to-v6).
+Back up your database and uploads and stop all v5 instances before applying v6 migrations. Old visual style rules require a manual conversion; API integrations also have changes. Follow [Migrating from v5](https://docs.rxresu.me/self-hosting/upgrading-to-v6).
 
 ## Contributing
 

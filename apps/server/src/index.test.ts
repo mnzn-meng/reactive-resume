@@ -38,7 +38,7 @@ vi.mock("./startup/storage-cleanup", () => ({ startStorageCleanupScheduler: () =
 afterEach(() => vi.restoreAllMocks());
 
 describe("server startup", () => {
-	it("finishes migrations before importing auth and seeding OAuth resources", async () => {
+	it("finishes migrations before importing auth", async () => {
 		vi.spyOn(process, "on").mockReturnValue(process);
 		vi.spyOn(process, "once").mockReturnValue(process);
 		const entry = await import("./index");

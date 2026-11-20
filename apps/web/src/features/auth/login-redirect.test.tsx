@@ -7,7 +7,7 @@ import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
 
 const mocks = vi.hoisted(() => ({
-	callbackURL: "/api/auth/oauth?client_id=client&resource=https%3A%2F%2Fresume.example%2Fmcp&exp=123&sig=456",
+	callbackURL: "/builder/resume-123",
 	navigate: vi.fn(),
 	invalidate: vi.fn(),
 	email: vi.fn(),
@@ -18,15 +18,13 @@ const mocks = vi.hoisted(() => ({
 	verifyBackupCode: vi.fn(),
 	signup: vi.fn(),
 	requestPasswordReset: vi.fn(),
-	continueOAuth: vi.fn(),
 	queryClient: { invalidateQueries: vi.fn(async () => {}) },
 }));
 
 vi.mock("@tanstack/react-query", () => ({
-	useQuery: (options: { queryKey?: unknown[] }) =>
-		options.queryKey?.[0] === "oauth-client-name"
-			? { data: "Docs example client" }
-			: { data: { google: "Google", github: "GitHub", linkedin: "LinkedIn", custom: "SSO", passkey: true } },
+	useQuery: () => ({
+		data: { google: "Google", github: "GitHub", linkedin: "LinkedIn", custom: "SSO", passkey: true },
+	}),
 	useQueryClient: () => mocks.queryClient,
 	useMutation: () => ({ mutate: vi.fn(), isPending: false }),
 }));
@@ -45,7 +43,6 @@ vi.mock("@/libs/auth/client", () => ({
 	authClient: {
 		requestPasswordReset: mocks.requestPasswordReset,
 		signUp: { email: mocks.signup },
-		oauth2: { continue: mocks.continueOAuth },
 		twoFactor: { verifyTotp: mocks.verifyTotp, verifyBackupCode: mocks.verifyBackupCode },
 		signIn: { email: mocks.email, username: mocks.username, social: mocks.social, passkey: mocks.passkey },
 	},
@@ -59,7 +56,7 @@ import { VerifyTwoFactorBackupPage, VerifyTwoFactorPage } from "./pages/verify-2
 
 beforeEach(() => {
 	vi.clearAllMocks();
-	mocks.callbackURL = "/api/auth/oauth?client_id=client&resource=https%3A%2F%2Fresume.example%2Fmcp&exp=123&sig=456";
+	mocks.callbackURL = "/builder/resume-123";
 	i18n.loadAndActivate({ locale: "en-US", messages: {} });
 	mocks.invalidate.mockResolvedValue(undefined);
 	for (const signIn of [
@@ -71,7 +68,6 @@ beforeEach(() => {
 		mocks.verifyBackupCode,
 		mocks.signup,
 		mocks.requestPasswordReset,
-		mocks.continueOAuth,
 	])
 		signIn.mockResolvedValue({ data: {}, error: null });
 });
@@ -95,7 +91,7 @@ function submitLogin(container: HTMLElement, identifier: string, passwordValue =
 	fireEvent.submit(form);
 }
 
-describe("OAuth callback after sign-in", () => {
+describe("sign-in with a callback", () => {
 	it("accepts a legacy password and prevents duplicate sign-in until a failed request finishes", async () => {
 		let finish: (() => void) | undefined;
 		mocks.email.mockReturnValue(
@@ -135,38 +131,16 @@ describe("OAuth callback after sign-in", () => {
 			const { container } = renderLogin();
 			submitLogin(container, identifier);
 			await waitFor(() =>
-				expect(mocks.navigate).toHaveBeenCalledWith({ href: mocks.callbackURL, reloadDocument: true, replace: true }),
+				expect(mocks.navigate).toHaveBeenCalledWith({ href: mocks.callbackURL, reloadDocument: false, replace: true }),
 			);
 		},
 	);
-
-	it.each([
-		["Google", "google"],
-		["GitHub", "github"],
-		["LinkedIn", "linkedin"],
-		["SSO", "custom"],
-	])("passes the callback to %s sign-in", async (label, provider) => {
-		renderLogin();
-		fireEvent.click(screen.getByRole("button", { name: label }));
-		await waitFor(() =>
-			expect(mocks.social).toHaveBeenCalledWith({
-				provider,
-				callbackURL: mocks.callbackURL,
-				oauth_query: mocks.callbackURL.split("?")[1],
-			}),
-		);
-	});
-
-	it("names the application waiting for the sign-in", () => {
-		renderLogin();
-		expect(screen.getByText("Sign in to connect Docs example client.")).toBeTruthy();
-	});
 
 	it("resumes the callback after passkey sign-in", async () => {
 		renderLogin();
 		fireEvent.click(screen.getByRole("button", { name: "Continue with a passkey" }));
 		await waitFor(() =>
-			expect(mocks.navigate).toHaveBeenCalledWith({ href: mocks.callbackURL, reloadDocument: true, replace: true }),
+			expect(mocks.navigate).toHaveBeenCalledWith({ href: mocks.callbackURL, reloadDocument: false, replace: true }),
 		);
 	});
 
@@ -182,24 +156,9 @@ describe("OAuth callback after sign-in", () => {
 			}),
 		);
 	});
-
-	it("lets the provider finish its validated redirect after fresh authentication", async () => {
-		mocks.email.mockResolvedValueOnce({
-			data: { redirect: true, url: "http://127.0.0.1:1234/callback?code=code" },
-			error: null,
-		});
-		const { container } = renderLogin();
-		submitLogin(container, "john@example.com");
-		await waitFor(() =>
-			expect(mocks.email).toHaveBeenCalledWith(
-				expect.objectContaining({ oauth_query: mocks.callbackURL.split("?")[1] }),
-			),
-		);
-		expect(mocks.navigate).not.toHaveBeenCalled();
-	});
 });
 
-describe("OAuth callback after two-factor verification", () => {
+describe("two-factor verification with a callback", () => {
 	it.each(["82cNKqaOiN", "82cNK-qaOiN"])("submits a complete backup code entered as %s", async (code) => {
 		const { container } = render(
 			<I18nProvider i18n={i18n}>
@@ -233,7 +192,7 @@ describe("OAuth callback after two-factor verification", () => {
 		fireEvent.change(input, { target: { value: "abcde12345" } });
 		fireEvent.submit(form);
 		await waitFor(() =>
-			expect(mocks.navigate).toHaveBeenCalledWith({ href: mocks.callbackURL, reloadDocument: true, replace: true }),
+			expect(mocks.navigate).toHaveBeenCalledWith({ href: mocks.callbackURL, reloadDocument: false, replace: true }),
 		);
 		expect(mocks.verifyBackupCode.mock.calls.map(([options]) => options.code)).toEqual(["abcde-12345", "ABCDE-12345"]);
 	});
@@ -267,12 +226,12 @@ describe("OAuth callback after two-factor verification", () => {
 		fireEvent.change(input, { target: { value: backup ? "abcde12345" : "123456" } });
 		fireEvent.submit(form);
 		await waitFor(() =>
-			expect(mocks.navigate).toHaveBeenCalledWith({ href: mocks.callbackURL, reloadDocument: true, replace: true }),
+			expect(mocks.navigate).toHaveBeenCalledWith({ href: mocks.callbackURL, reloadDocument: false, replace: true }),
 		);
 	});
 });
 
-describe("OAuth account creation", () => {
+describe("account creation with a callback", () => {
 	it("rejects a seven-character new password before contacting auth", async () => {
 		const { container } = render(
 			<I18nProvider i18n={i18n}>
@@ -293,39 +252,6 @@ describe("OAuth account creation", () => {
 		fireEvent.submit(form);
 		await waitFor(() => expect(screen.getByText("Use at least 8 characters.")).toBeDefined());
 		expect(mocks.signup).not.toHaveBeenCalled();
-	});
-	it("continues a create prompt only after successful signup with a trimmed one-character name", async () => {
-		mocks.callbackURL += "&prompt=create";
-		mocks.signup.mockResolvedValueOnce({ data: { token: "session" }, error: null });
-		mocks.continueOAuth.mockResolvedValueOnce({
-			data: { redirect: true, url: "/api/auth/oauth?sig=next" },
-			error: null,
-		});
-		const { container } = render(
-			<I18nProvider i18n={i18n}>
-				<RegisterPage disableEmailAuth={false} />
-			</I18nProvider>,
-		);
-		// The username field shows only when asked for.
-		fireEvent.click(screen.getByRole("button", { name: "Choose your own" }));
-		for (const [name, value] of Object.entries({
-			name: " A ",
-			username: "newuser",
-			email: "new@example.com",
-			password: "password123",
-		})) {
-			const input = container.querySelector(`input[name="${name}"]`);
-			if (!input) throw new Error(`Missing ${name} field`);
-			fireEvent.change(input, { target: { value } });
-		}
-		const form = container.querySelector("form");
-		if (!form) throw new Error("Missing registration form");
-		fireEvent.submit(form);
-		await waitFor(() =>
-			expect(mocks.continueOAuth).toHaveBeenCalledWith({ created: true, oauth_query: mocks.callbackURL.split("?")[1] }),
-		);
-		expect(mocks.signup.mock.calls[0]?.[0]).not.toHaveProperty("oauth_query");
-		expect(mocks.signup).toHaveBeenCalledWith(expect.objectContaining({ name: "A" }));
 	});
 	it("signs up without a username and goes straight to the page that sent them", async () => {
 		mocks.signup.mockResolvedValueOnce({ data: { token: "session" }, error: null });

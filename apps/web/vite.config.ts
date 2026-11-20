@@ -9,7 +9,6 @@ import { devtools } from "@tanstack/devtools-vite";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import viteReact, { reactCompilerPreset } from "@vitejs/plugin-react";
 import { defineConfig } from "vite-plus";
-import { RESERVED_SEGMENTS } from "@reactive-resume/utils/app-paths";
 
 const rootPackageJsonPath = new URL("../../package.json", import.meta.url);
 const rootPackageJson = JSON.parse(readFileSync(rootPackageJsonPath, "utf-8")) as { version: string | undefined };
@@ -125,30 +124,7 @@ const linguiPlugin = () =>
 
 // First path segments that are never a username: the app's own, plus Vite's in development. `.well-known` needs its dot
 // escaped; the lookahead takes regex fragments.
-const ownSegments = [
-	...RESERVED_SEGMENTS.map((segment) => segment.replaceAll(".", "\\.")),
-	"assets",
-	"src",
-	"node_modules",
-	"@[a-z-]+",
-	"__[^/]*",
-	// A feedback link's page (`/feedback/<id>~<signature>`) is the app's.
-	"feedback/[^/]*~[^/]*",
-].join("|");
-
-const serverPaths = [
-	"/api",
-	"/mcp",
-	"/uploads",
-	"/.well-known",
-	"/schema.json",
-	"/openapi.json",
-	"/cards",
-	// A resume's web page, `/<username>` (the primary resume) or `/<username>/<slug>`, is rendered by the server: any
-	// one- or two-segment address outside the app's own sections, without a file extension. A query alone is not a
-	// segment: `/?locale=xx` is the app's own page, not a profile.
-	`^/(?!(?:${ownSegments})(?:/|\\?|$))[^/.?]+(?:/[^/.?]+)?/?(?:\\?.*)?$`,
-] as const;
+const serverPaths = ["/api", "/uploads", "/.well-known", "/schema.json", "/openapi.json"] as const;
 
 const serverProxy = serverPaths.reduce(
 	(acc, path) => {

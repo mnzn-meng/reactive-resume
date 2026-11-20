@@ -570,7 +570,7 @@ function convertNode(node: HostNode, parentContext: Context, key: number): React
 				tagNode(element, props, context);
 				return element;
 			}
-			// Resume links come from any client (API, MCP, imports), so only web, mail and phone links reach the PDF:
+			// Resume links come from any client (API, imports), so only web, mail and phone links reach the PDF:
 			// desktop viewers would otherwise follow `file:`, `javascript:` or custom-scheme links.
 			const href =
 				node.type === HOST.link && typeof props.src === "string" ? (toSafeLink(props.src) ?? undefined) : undefined;

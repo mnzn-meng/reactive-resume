@@ -68,7 +68,7 @@ describe("credential enrollment and recovery", () => {
 		const { options } = await securityHooks();
 		await expect(options.hooks.before({ path: "/sign-in/username" })).rejects.toMatchObject({ status: "FORBIDDEN" });
 	});
-	it.each(["/passkey/generate-register-options", "/passkey/verify-registration", "/api-key/create"])(
+	it.each(["/passkey/generate-register-options", "/passkey/verify-registration"])(
 		"requires a recent session for HTTP %s",
 		async (path) => {
 			const { instance, options } = await securityHooks();

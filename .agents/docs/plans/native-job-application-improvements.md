@@ -102,7 +102,7 @@ P0: first implementation phase. P1: next phase. P2: research and a limited colla
 - Existing API/MCP consumers retain the behavior of the operation they call.
 - Match scores are described as editing aids, not hiring probabilities or guaranteed ATS acceptance.
 
-**Likely owners:** existing document assistant and application API features, `packages/schema`, `packages/mcp`, web/mobile assistant UI.
+**Likely owners:** existing document assistant and application API features, `packages/schema`, web assistant UI.
 
 ## APP-04: Guided application preparation
 

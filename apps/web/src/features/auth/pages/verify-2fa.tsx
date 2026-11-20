@@ -14,7 +14,7 @@ import { OTPField, OTPFieldInput } from "@reactive-resume/ui/components/otp-fiel
 import { toast } from "@reactive-resume/ui/components/toast";
 import { AuthFoot, AuthLead, AuthTitle } from "../components/auth-page";
 import { authErrorMessage } from "../error";
-import { getAuthRedirectOptions, getOAuthSignInOptions, isOAuthRedirect } from "../redirect";
+import { getAuthRedirectOptions, isRedirectResponse } from "../redirect";
 import { authClient } from "@/libs/auth/client";
 import { sessionQueryKey } from "@/libs/root-context";
 import { useAppForm } from "@/libs/tanstack-form";
@@ -55,7 +55,7 @@ function TwoFactorVerificationPage({ backupCode = false }: TwoFactorVerification
 			});
 			const rawCode = value.code.trim().replaceAll("-", "");
 			const code = backupCode ? `${rawCode.slice(0, 5)}-${rawCode.slice(5)}` : value.code;
-			const options = { code, trustDevice: value.trustDevice, ...getOAuthSignInOptions(callbackURL) };
+			const options = { code, trustDevice: value.trustDevice };
 			let { data, error } = backupCode
 				? await authClient.twoFactor.verifyBackupCode(options)
 				: await authClient.twoFactor.verifyTotp(options);
@@ -86,7 +86,7 @@ function TwoFactorVerificationPage({ backupCode = false }: TwoFactorVerification
 			}
 
 			toast.close(toastId);
-			if (isOAuthRedirect(data)) return;
+			if (isRedirectResponse(data)) return;
 			await queryClient.invalidateQueries({ queryKey: sessionQueryKey });
 			await router.invalidate();
 			void navigate(getAuthRedirectOptions(callbackURL));

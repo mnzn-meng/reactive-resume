@@ -191,11 +191,11 @@ it.skipIf(!databaseUrl)(
 				const context = {
 					locale: "en-US" as const,
 					reqHeaders: new Headers({ "x-account-id": ownerId }),
-					authentication: { method: "session" as const, user: owner, permissions: ["read"] as const },
+					user: owner,
 				};
 				const reads = vi.spyOn(storage, "read");
 				await expect(
-					call(authRouter.exportData, { includeUploads: true }, { context: { ...context, authentication: null } }),
+					call(authRouter.exportData, { includeUploads: true }, { context: { ...context, user: null } }),
 				).rejects.toMatchObject({ code: "UNAUTHORIZED" });
 				await expect(
 					call(

@@ -157,11 +157,7 @@ it("requires the upload owner before serving application PDFs, including conditi
 		data: new TextEncoder().encode("private application PDF"),
 		contentType: "application/pdf",
 	});
-	for (const viewer of [
-		null,
-		{ user: { id: "other-user" }, permissions: ["read"] },
-		{ user: { id: "user-1" }, permissions: ["write"] },
-	]) {
+	for (const viewer of [null, { user: { id: "other-user" } }]) {
 		resolveAuthentication.mockResolvedValue(viewer);
 		const response = await handleUpload(
 			new Request(`${envMock.APP_URL}/api/${key}`, { headers: { "If-None-Match": '"test-etag"' } }),
