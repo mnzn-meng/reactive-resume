@@ -51,7 +51,6 @@ const emptyForm = () => ({
 	/** A lane picked in this form; null keeps the current one (Saved for a new application). */
 	laneId: null as string | null,
 	resumeId: "",
-	coverLetterId: "",
 	tags: [] as string[],
 	sourceUrl: "",
 	stageEnteredAt: todayInputValue(),
@@ -61,7 +60,6 @@ const emptyForm = () => ({
 	followUpNote: "",
 	notes: "",
 	resumeFile: null as FileAttachment | File | null,
-	coverLetter: null as FileAttachment | File | null,
 	postingFile: null as FileAttachment | File | null,
 });
 
@@ -79,7 +77,6 @@ function toForm(app: Application, timeZone: string): FormState {
 		source: app.source ?? "",
 		laneId: null,
 		resumeId: app.resumeId ?? "",
-		coverLetterId: app.coverLetterId ?? "",
 		tags: app.tags,
 		sourceUrl: app.sourceUrl ?? "",
 		stageEnteredAt: "",
@@ -93,7 +90,6 @@ function toForm(app: Application, timeZone: string): FormState {
 		followUpNote: app.followUpNote ?? "",
 		notes: app.notes ?? "",
 		resumeFile: toAttachment(app.resumeFileUrl, app.resumeFileName),
-		coverLetter: toAttachment(app.coverLetterUrl, app.coverLetterName),
 		postingFile: toAttachment(app.postingFileUrl, app.postingFileName),
 	};
 }
@@ -114,7 +110,6 @@ function toPayload(form: FormState, timeZone: string, application: Application |
 		salary: form.salary.trim() || null,
 		source: form.source.trim() || null,
 		resumeId: form.resumeId || null,
-		coverLetterId: form.coverLetterId || null,
 		tags: form.tags,
 		sourceUrl: form.sourceUrl.trim() || null,
 		jobDescription: form.jobDescription.trim() || null,
@@ -129,9 +124,6 @@ function toPayload(form: FormState, timeZone: string, application: Application |
 		resumeFileUrl: form.resumeFile instanceof File ? null : (form.resumeFile?.url ?? null),
 		...(form.resumeFile instanceof File ? { resumeFile: form.resumeFile } : {}),
 		resumeFileName: form.resumeFile?.name ?? null,
-		coverLetterUrl: form.coverLetter instanceof File ? null : (form.coverLetter?.url ?? null),
-		...(form.coverLetter instanceof File ? { coverLetterFile: form.coverLetter } : {}),
-		coverLetterName: form.coverLetter?.name ?? null,
 		postingFileUrl: form.postingFile instanceof File ? null : (form.postingFile?.url ?? null),
 		...(form.postingFile instanceof File ? { postingFile: form.postingFile } : {}),
 		postingFileName: form.postingFile?.name ?? null,
@@ -252,7 +244,6 @@ export function ApplicationFormSheet({ open, onOpenChange, application: requeste
 		setForm(application ? toForm(application, timeZone) : emptyForm());
 	}
 
-	const { data: documents } = useQuery(orpc.documents.list.queryOptions({ input: { trashed: false } }));
 	const { data: resumes } = useQuery(orpc.resume.list.queryOptions());
 	const resumeOptions = (resumes ?? []).map((resume) => ({ value: resume.id, label: resume.name }));
 
@@ -500,40 +491,6 @@ export function ApplicationFormSheet({ open, onOpenChange, application: requeste
 								<p className="text-xs text-ink-3">
 									<Trans>Link a Reactive Resume to use a fit check against each requirement and tailoring.</Trans>
 								</p>
-							</div>
-						)}
-					</Field>
-
-					{/* The attach button below names itself; the file picker has no labelable control. */}
-					<Field label={t`Cover letter`}>
-						{() => (
-							<div className="grid gap-2">
-								<select
-									aria-label={t`Link an existing letter`}
-									value={form.coverLetterId}
-									disabled={Boolean(application?.sentCoverLetterVersionId)}
-									onChange={(event) => set("coverLetterId", event.target.value)}
-									className="h-9 rounded-md border border-control-border bg-surface px-2 text-sm"
-								>
-									<option value="">{t`No letter`}</option>
-									{documents
-										?.filter(
-											(item) =>
-												item.type === "letter" &&
-												(item.id === form.coverLetterId ||
-													(!item.isLocked && (!item.application || item.application.id === application?.id))),
-										)
-										.map((item) => (
-											<option key={item.id} value={item.id}>
-												{item.name}
-											</option>
-										))}
-								</select>
-								<FileAttachmentField
-									value={form.coverLetter}
-									attachLabel={t`Attach a cover letter (PDF, up to 10 MB)`}
-									onChange={(value) => set("coverLetter", value)}
-								/>
 							</div>
 						)}
 					</Field>

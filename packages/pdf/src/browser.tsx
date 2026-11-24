@@ -1,4 +1,3 @@
-import type { ResumeRenderOptions } from "./context";
 import type { PageMap } from "./page-map";
 import type { ResumeData } from "@reactive-resume/schema/resume/data";
 import type { Template } from "@reactive-resume/schema/templates";
@@ -14,7 +13,6 @@ export type CreateResumePdfBlobOptions = {
 	data: ResumeData;
 	fontMirrorUrl?: string | undefined;
 	template?: Template | undefined;
-	renderOptions?: ResumeRenderOptions | undefined;
 	/** Receives the header, section and item boxes of this render (see `page-map.ts`). */
 	onPageMap?: ((pageMap: PageMap) => void) | undefined;
 	/**

@@ -18,8 +18,7 @@ export type ImportKind =
 	| "linkedin"
 	| "reactive-resume-json"
 	| "reactive-resume-v4-json"
-	| "json-resume-json"
-	| "cover-letter-json";
+	| "json-resume-json";
 
 type ResumeJsonKind = "reactive-resume-json" | "reactive-resume-v4-json" | "json-resume-json";
 
@@ -36,9 +35,6 @@ export function detectJsonImportKind(parsed: unknown): ImportKind | null {
 	if (data.data && typeof data.data === "object" && !("sections" in data) && !("metadata" in data)) {
 		return detectJsonImportKind(data.data);
 	}
-
-	// A saved cover letter exported from Reactive Resume.
-	if (data.format === "reactive-resume-cover-letter") return "cover-letter-json";
 
 	// JSON Resume standard: top-level `basics`, without Reactive Resume's `sections`/`metadata`.
 	if ("basics" in data && !("sections" in data) && !("metadata" in data)) return "json-resume-json";
@@ -138,7 +134,7 @@ function fileToBase64(file: File): Promise<string> {
  */
 export async function readResumeFile(
 	file: File,
-	kind: Exclude<ImportKind, "cover-letter-json">,
+	kind: ImportKind,
 	options: {
 		aiAvailable: boolean;
 		signal?: AbortSignal;

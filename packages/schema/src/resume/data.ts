@@ -346,13 +346,6 @@ export const volunteerItemSchema = baseItemSchema.extend({
 		.describe("The description of the volunteer experience. This should be a HTML-formatted string."),
 });
 
-export const coverLetterItemSchema = baseItemSchema.extend({
-	recipient: z.string().describe("The recipient's address block as HTML (name, title, company, address, email)."),
-	content: z.string().describe("The cover letter body as HTML (salutation, paragraphs, closing, signature)."),
-});
-
-export type CoverLetterItem = z.infer<typeof coverLetterItemSchema>;
-
 const baseSectionSchema = z.object({
 	title: z.string().describe("The title of the section."),
 	icon: z
@@ -446,15 +439,12 @@ export const sectionTypeSchema = z.enum([
 	"publications",
 	"volunteer",
 	"references",
-	"cover-letter",
 ]);
 
 export type CustomSectionType = z.infer<typeof sectionTypeSchema>;
 
 // Correlation protects renderer requirements; it does not make otherwise-overlapping item shapes exclusive.
-// Keep cover-letter before summary so the overlapping content shapes retain their established precedence.
 export const customSectionItemDefinitionByType = {
-	"cover-letter": { schemaName: "coverLetterItemSchema", schema: coverLetterItemSchema.catchall(z.any()) },
 	summary: { schemaName: "summaryItemSchema", schema: summaryItemSchema.catchall(z.any()) },
 	profiles: { schemaName: "profileItemSchema", schema: profileItemSchema.catchall(z.any()) },
 	experience: { schemaName: "experienceItemSchema", schema: experienceItemSchema.catchall(z.any()) },
@@ -850,8 +840,52 @@ export const resumeDataSchema = z.looseObject({
 
 export type ResumeData = z.infer<typeof resumeDataSchema>;
 
+/**
+ * Data saved before cover letters were removed can still carry a `cover-letter` custom section. Drop it, and its
+ * layout entries, so the resume imports with everything else instead of failing validation.
+ */
+const withoutRemovedSectionTypes = (data: unknown) => {
+	if (!data || typeof data !== "object" || !("customSections" in data)) return data;
+	const { customSections, metadata } = data as {
+		customSections?: unknown;
+		metadata?: { layout?: { pages?: { main?: string[]; sidebar?: string[] }[] } };
+	};
+	if (!Array.isArray(customSections)) return data;
+	const removed = new Set(
+		customSections
+			.filter(
+				(section): section is { id: string } =>
+					typeof section === "object" && section !== null && (section as { type?: unknown }).type === "cover-letter",
+			)
+			.map((section) => section.id),
+	);
+	if (removed.size === 0) return data;
+	const pages = metadata?.layout?.pages;
+	return {
+		...data,
+		customSections: customSections.filter(
+			(section) => !(typeof section === "object" && section !== null && removed.has((section as { id: string }).id)),
+		),
+		...(pages
+			? {
+					metadata: {
+						...metadata,
+						layout: {
+							...metadata?.layout,
+							pages: pages.map((page) => ({
+								...page,
+								main: (page.main ?? []).filter((id) => !removed.has(id)),
+								sidebar: (page.sidebar ?? []).filter((id) => !removed.has(id)),
+							})),
+						},
+					},
+				}
+			: {}),
+	};
+};
+
 export const parseResumeData = (data: unknown): ResumeData => {
-	const parsed = resumeDataSchema.parse(data);
+	const parsed = resumeDataSchema.parse(withoutRemovedSectionTypes(data));
 	parsed.summary.showHeading ??= true;
 	for (const section of Object.values(parsed.sections)) section.showHeading ??= true;
 	for (const section of parsed.customSections) section.showHeading ??= true;

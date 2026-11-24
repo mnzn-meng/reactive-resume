@@ -17,7 +17,6 @@ import {
 import { Icon } from "@reactive-resume/ui/components/icon";
 import { Input } from "@reactive-resume/ui/components/input";
 import { Label } from "@reactive-resume/ui/components/label";
-import { NativeSelect } from "@reactive-resume/ui/components/native-select";
 import { RadioGroup, RadioGroupItem } from "@reactive-resume/ui/components/radio-group";
 import { SegmentedControl, SegmentedControlItem } from "@reactive-resume/ui/components/segmented-control";
 import { SheetContent } from "@reactive-resume/ui/components/sheet";
@@ -43,15 +42,15 @@ import { formatRelativeTime } from "@/libs/locale";
 import { ENTER_CLASS } from "@/libs/motion";
 import { orpc } from "@/libs/orpc/client";
 
-export type NewDocumentContext = "documents" | "letters" | "applications" | "career";
+export type NewDocumentContext = "documents" | "applications" | "career";
 
 export type NewDocumentDialogData = {
-	/** The section New was opened from: Cover letter leads when it was opened for a letter. */
+	/** The section New was opened from. */
 	context?: NewDocumentContext;
 	/** Open on a step other than the choices. */
 	step?: "copy";
 	destination?: "job-match";
-	/** Copy for a job: the resume to start from. A letter: the resume it goes with. */
+	/** Copy for a job: the resume to start from. */
 	sourceResumeId?: string;
 	/** The application the new document is for. */
 	applicationId?: string;
@@ -67,8 +66,8 @@ type NewDocumentDialogProps = { data?: NewDocumentDialogData | undefined; mobile
 const textActionClassName = "rounded-xs text-sm font-medium text-accent-text hover:underline disabled:opacity-45";
 
 /**
- * New document: Resume or Cover letter first, then how to start. A file is imported on its own page
- * (`/dashboard/documents/import`); this dialog only sends you there.
+ * New document: how to start. A file is imported on its own page (`/dashboard/documents/import`);
+ * this dialog only sends you there.
  */
 export function NewDocumentDialog({ data, mobileSheet = false }: NewDocumentDialogProps) {
 	if (data?.file) return <ImportHandOver file={data.file} />;
@@ -104,45 +103,26 @@ function NewDocument({ data, mobileSheet = false }: NewDocumentDialogProps) {
 	const nameRef = useRef<HTMLInputElement>(null);
 
 	const [step, setStep] = useState<"choose" | "copy">(data?.step ?? "choose");
-	const [kind, setKind] = useState<"resume" | "letter">(context === "letters" ? "letter" : "resume");
 	const [from, setFrom] = useState<"blank" | "copy" | "import">("blank");
 	/** `null` until typed: the field follows the suggested name. */
 	const [name, setName] = useState<string | null>(null);
 	const [moreOpen, setMoreOpen] = useState(false);
 	const [locale, setLocale] = useState<Locale>();
 	const [pageSize, setPageSize] = useState<PageSize>("a4");
-	const [jobId, setJobId] = useState(data?.applicationId ?? "");
-	const [letterResumeId, setLetterResumeId] = useState(data?.sourceResumeId ?? "");
-	const [letterFrom, setLetterFrom] = useState<"blank" | "letter">("blank");
-	const [letterSourceId, setLetterSourceId] = useState("");
-	const [choosingLetter, setChoosingLetter] = useState(false);
 
 	const { data: documents } = useQuery(orpc.documents.list.queryOptions({ input: { trashed: false } }));
-	const { data: applications } = useQuery(applicationsListQueryOptions());
-	const resumes = (documents ?? []).filter((document) => document.type === "resume");
-	const letters = (documents ?? []).filter((document) => document.type === "letter");
-	const jobs = (applications ?? []).filter(
-		(application) => application.status !== "closed" || application.id === data?.applicationId,
-	);
+	const resumes = documents ?? [];
 	const copySource = defaultCopySource(resumes);
-	const letterSource = letters.find((letter) => letter.id === letterSourceId) ?? letters[0];
-	const job = jobs.find((application) => application.id === jobId);
 
-	const { startBlank, trySample, newLetter, creating } = useStartDocument(data?.applicationId, locale);
+	const { startBlank, trySample, creating } = useStartDocument(data?.applicationId, locale);
 	const { mutateAsync: copyResume, isPending: copying } = useMutation(orpc.documents.copyForJob.mutationOptions());
 	const busy = creating || copying;
 
 	const suggestedName =
-		kind === "letter"
-			? job
-				? [job.company, job.role.trim()].filter(Boolean).join(" · ")
-				: t`Untitled letter`
-			: from === "copy" && copySource
-				? t`${copySource.name.split(" — ")[0] ?? ""} (copy)`
-				: t`Untitled resume`;
+		from === "copy" && copySource ? t`${copySource.name.split(" — ")[0] ?? ""} (copy)` : t`Untitled resume`;
 	const typedName = name?.trim().slice(0, 100) ?? "";
 	const finalName = typedName || suggestedName;
-	const importing = kind === "resume" && from === "import";
+	const importing = from === "import";
 
 	// A copy made for a job opens with the assistant ready to tailor it.
 	const openResume = (resumeId: string, { withAssistant = false, checkTab }: OpenResumeOptions = {}) => {
@@ -179,13 +159,7 @@ function NewDocument({ data, mobileSheet = false }: NewDocumentDialogProps) {
 	};
 
 	const create = () => {
-		if (kind === "letter") {
-			void newLetter(letterResumeId || null, (letterFrom === "letter" && letterSource?.id) || null, {
-				applicationId: jobId || undefined,
-				// A letter with no job and no typed name is numbered ("Untitled letter 2") like before.
-				name: typedName || (job ? suggestedName : undefined),
-			});
-		} else if (from === "import") {
+		if (from === "import") {
 			closeDialog();
 			void navigate({
 				to: "/dashboard/documents/import",
@@ -246,312 +220,148 @@ function NewDocument({ data, mobileSheet = false }: NewDocumentDialogProps) {
 				>
 					<DialogHeader className="pe-9">
 						<DialogTitle>
-							<Trans>New document</Trans>
+							<Trans>New resume</Trans>
 						</DialogTitle>
 						<DialogDescription className="sr-only">
-							<Trans>Start a resume or a cover letter: blank, from a copy, or from a file.</Trans>
+							<Trans>Start a resume: blank, from a copy, or from a file.</Trans>
 						</DialogDescription>
 					</DialogHeader>
 
-					<RadioGroup
-						aria-label={t`Kind`}
-						value={kind}
-						onValueChange={(value) => {
-							setKind(value as typeof kind);
-							setName(null);
-						}}
-						className="grid grid-cols-1 gap-3 sm:grid-cols-2"
-					>
-						<KindCard
-							id={`${id}-resume`}
-							value="resume"
-							title={<Trans>Resume</Trans>}
-							description={<Trans>Your experience, laid out on a page.</Trans>}
+					<Field id={`${id}-name`} label={<Trans>Name</Trans>}>
+						<Input
+							ref={nameRef}
+							id={`${id}-name`}
+							value={importing ? "" : (name ?? suggestedName)}
+							placeholder={importing ? t`Named from the file` : undefined}
+							maxLength={100}
+							disabled={importing}
+							onChange={(event) => setName(event.target.value)}
 						/>
-						<KindCard
-							id={`${id}-letter`}
-							value="letter"
-							title={<Trans>Cover letter</Trans>}
-							description={<Trans>A letter for one job, matched to a resume.</Trans>}
-						/>
-					</RadioGroup>
-
-					{kind === "letter" && (
-						<>
-							<Field
-								id={`${id}-job`}
-								label={<Trans>For which job</Trans>}
-								hint={
-									<Trans>
-										The letter is linked to the application, so its posting is at hand. “No job yet” is on the list.
-									</Trans>
-								}
-							>
-								{/* The chosen job's stage dot sits in the field, before its name, as in the list's rows. */}
-								<div className="relative w-full">
-									{job && (
-										<StageDot
-											status={job.status}
-											className="pointer-events-none absolute inset-s-3 top-1/2 z-10 -translate-y-1/2"
-										>
-											{null}
-										</StageDot>
-									)}
-									<NativeSelect
-										id={`${id}-job`}
-										value={jobId}
-										disabled={busy}
-										className={cn(job && "ps-7")}
-										onChange={(event) => {
-											setJobId(event.target.value);
-											setName(null);
-										}}
-									>
-										<option value="">{t`No job yet`}</option>
-										{jobs.map((application) => {
-											const label = [application.company, application.role.trim()].filter(Boolean).join(" · ");
-											// A job whose letter has gone out can't take another (L3).
-											const sent =
-												Boolean(application.sentCoverLetterVersionId) && application.id !== data?.applicationId;
-											return (
-												<option key={application.id} value={application.id} disabled={sent}>
-													{sent ? t`${label} — Letter already sent` : label}
-												</option>
-											);
-										})}
-									</NativeSelect>
-								</div>
-							</Field>
-							<Field
-								id={`${id}-letter-resume`}
-								label={<Trans>Resume</Trans>}
-								hint={<Trans>Your name and contact details come from it, and the letter can match its design.</Trans>}
-							>
-								<NativeSelect
-									id={`${id}-letter-resume`}
-									value={letterResumeId}
-									disabled={busy}
-									onChange={(event) => setLetterResumeId(event.target.value)}
-								>
-									<option value="">{t`No resume`}</option>
-									{resumes.map((resume) => (
-										<option key={resume.id} value={resume.id}>
-											{resume.name}
-										</option>
-									))}
-								</NativeSelect>
-							</Field>
-						</>
-					)}
-
-					{kind === "resume" && (
-						<Field id={`${id}-name`} label={<Trans>Name</Trans>}>
-							<Input
-								ref={nameRef}
-								id={`${id}-name`}
-								value={importing ? "" : (name ?? suggestedName)}
-								placeholder={importing ? t`Named from the file` : undefined}
-								maxLength={100}
-								disabled={importing}
-								onChange={(event) => setName(event.target.value)}
-							/>
-						</Field>
-					)}
+					</Field>
 
 					<div className="flex min-w-0 flex-col gap-1.5">
 						<Label id={`${id}-from`}>
 							<Trans>Start from</Trans>
 						</Label>
-						{kind === "resume" ? (
-							<RadioGroup
-								aria-labelledby={`${id}-from`}
-								value={from}
-								onValueChange={(value) => {
-									setFrom(value as typeof from);
-									setName(null);
-								}}
-								className="block"
-							>
-								<List cap>
+						<RadioGroup
+							aria-labelledby={`${id}-from`}
+							value={from}
+							onValueChange={(value) => {
+								setFrom(value as typeof from);
+								setName(null);
+							}}
+							className="block"
+						>
+							<List cap>
+								<StartRow
+									id={`${id}-blank`}
+									value="blank"
+									title={<Trans>Blank</Trans>}
+									subtitle={<Trans>Opens on your name and contact details. Nothing to fill in first.</Trans>}
+								/>
+								{copySource && (
 									<StartRow
-										id={`${id}-blank`}
-										value="blank"
-										title={<Trans>Blank</Trans>}
-										subtitle={<Trans>Opens on your name and contact details. Nothing to fill in first.</Trans>}
+										id={`${id}-copy`}
+										value="copy"
+										title={<Trans>A copy of “{copySource.name}”</Trans>}
+										subtitle={<Trans>Resume · edited {formatRelativeTime(copySource.editedAt, i18n.locale)}</Trans>}
+										action={
+											<button type="button" className={textActionClassName} onClick={() => setStep("copy")}>
+												<Trans>Choose another</Trans>
+											</button>
+										}
 									/>
-									{copySource && (
-										<StartRow
-											id={`${id}-copy`}
-											value="copy"
-											title={<Trans>A copy of “{copySource.name}”</Trans>}
-											subtitle={<Trans>Resume · edited {formatRelativeTime(copySource.editedAt, i18n.locale)}</Trans>}
-											action={
-												<button type="button" className={textActionClassName} onClick={() => setStep("copy")}>
-													<Trans>Choose another</Trans>
-												</button>
-											}
-										/>
-									)}
-									<StartRow
-										id={`${id}-import`}
-										value="import"
-										title={<Trans>Import a PDF, Word or JSON file</Trans>}
-										subtitle={<Trans>Anything that can't be placed is listed before you create it.</Trans>}
-									/>
-								</List>
-							</RadioGroup>
-						) : (
-							<RadioGroup
-								aria-labelledby={`${id}-from`}
-								value={letterFrom}
-								onValueChange={(value) => setLetterFrom(value as typeof letterFrom)}
-								className="block"
-							>
-								<List cap>
-									<StartRow
-										id={`${id}-blank-letter`}
-										value="blank"
-										title={<Trans>Blank letter</Trans>}
-										subtitle={<Trans>Recipient, date and greeting are filled in. The body is yours.</Trans>}
-									/>
-									{letterSource && (
-										<StartRow
-											id={`${id}-from-letter`}
-											value="letter"
-											title={<Trans>The body of “{letterSource.name}”</Trans>}
-											subtitle={<Trans>The new letter keeps its own recipient, date and history.</Trans>}
-											action={
-												letters.length > 1 && (
-													<button
-														type="button"
-														className={textActionClassName}
-														aria-expanded={choosingLetter}
-														onClick={() => {
-															setLetterFrom("letter");
-															setChoosingLetter(true);
-														}}
-													>
-														<Trans>Choose another</Trans>
-													</button>
-												)
-											}
-										/>
-									)}
-								</List>
-							</RadioGroup>
-						)}
-						{kind === "letter" && choosingLetter && letterSource && (
-							<NativeSelect
-								aria-label={t`Start from an earlier letter`}
-								value={letterSource.id}
-								disabled={busy}
-								onChange={(event) => setLetterSourceId(event.target.value)}
-							>
-								{letters.map((letter) => (
-									<option key={letter.id} value={letter.id}>
-										{letter.application ? t`${letter.name} — ${letter.application.company}` : letter.name}
-									</option>
-								))}
-							</NativeSelect>
-						)}
+								)}
+								<StartRow
+									id={`${id}-import`}
+									value="import"
+									title={<Trans>Import a PDF, Word or JSON file</Trans>}
+									subtitle={<Trans>Anything that can't be placed is listed before you create it.</Trans>}
+								/>
+							</List>
+						</RadioGroup>
 					</div>
 
-					{kind === "letter" && (
-						<Field id={`${id}-name`} label={<Trans>Name</Trans>}>
-							<Input
-								ref={nameRef}
-								id={`${id}-name`}
-								value={name ?? suggestedName}
-								maxLength={100}
-								onChange={(event) => setName(event.target.value)}
+					<div className="flex flex-col gap-3">
+						<button
+							type="button"
+							aria-expanded={moreOpen}
+							aria-controls={`${id}-more`}
+							onClick={() => setMoreOpen((open) => !open)}
+							className="flex h-7 items-center gap-2.5 rounded-xs text-start text-sm text-ink-2 hover:text-ink"
+						>
+							<Icon
+								name="caret-right"
+								size={16}
+								className={cn("transition-[rotate] duration-quick rtl:-scale-x-100", moreOpen && "rotate-90")}
 							/>
-						</Field>
-					)}
-
-					{kind === "resume" && (
-						<div className="flex flex-col gap-3">
-							<button
-								type="button"
-								aria-expanded={moreOpen}
-								aria-controls={`${id}-more`}
-								onClick={() => setMoreOpen((open) => !open)}
-								className="flex h-7 items-center gap-2.5 rounded-xs text-start text-sm text-ink-2 hover:text-ink"
-							>
-								<Icon
-									name="caret-right"
-									size={16}
-									className={cn("transition-[rotate] duration-quick rtl:-scale-x-100", moreOpen && "rotate-90")}
-								/>
-								<span className="flex-1">
-									<Trans>More options</Trans>
+							<span className="flex-1">
+								<Trans>More options</Trans>
+							</span>
+							{from === "blank" && (
+								<span className="text-[13px]/[18px] text-ink-3">
+									{languageName} · {PAGE_SIZES[pageSize]}
 								</span>
-								{from === "blank" && (
-									<span className="text-[13px]/[18px] text-ink-3">
-										{languageName} · {PAGE_SIZES[pageSize]}
-									</span>
-								)}
-							</button>
-							{moreOpen && (
-								<div id={`${id}-more`} className={cn(ENTER_CLASS, "grid gap-4 ps-[26px]")}>
-									<Field
-										id={`${id}-language`}
-										label={<Trans>Resume language</Trans>}
-										hint={
-											from === "blank" ? (
-												<Trans>
-													Sets section titles, date words and text direction. Your content isn't translated.
-												</Trans>
-											) : from === "copy" ? (
-												<Trans>A copy keeps the language and page size of the resume it's made from.</Trans>
-											) : (
-												<Trans>For a file, the language is chosen when you import it.</Trans>
-											)
-										}
-									>
-										<Combobox
-											id={`${id}-language`}
-											className="min-w-0"
-											options={[
-												{ value: "", label: getLanguageName(localeSchema.parse(i18n.locale)) },
-												...getLocaleOptions().filter((option) => option.value !== i18n.locale),
-											]}
-											value={locale ?? ""}
-											disabled={busy || from !== "blank"}
-											onValueChange={(value) => setLocale(localeSchema.safeParse(value).data)}
-										/>
-									</Field>
-									<div className="flex flex-col gap-1.5">
-										<Label id={`${id}-size`}>
-											<Trans>Page size</Trans>
-										</Label>
-										<SegmentedControl
-											aria-labelledby={`${id}-size`}
-											value={pageSize}
-											disabled={busy || from !== "blank"}
-											onValueChange={(value) => setPageSize(value as PageSize)}
-											className="w-fit"
-										>
-											<SegmentedControlItem value="a4">{PAGE_SIZES.a4}</SegmentedControlItem>
-											<SegmentedControlItem value="letter">{PAGE_SIZES.letter}</SegmentedControlItem>
-										</SegmentedControl>
-									</div>
-									<div className="flex flex-wrap gap-x-5 gap-y-2">
-										<button
-											type="button"
-											className={textActionClassName}
-											disabled={busy}
-											onClick={() => void trySample()}
-										>
-											<Trans>Try with a sample resume</Trans>
-										</button>
-										<button type="button" className={textActionClassName} onClick={saveJob}>
-											<Trans>Save a job instead</Trans>
-										</button>
-									</div>
-								</div>
 							)}
-						</div>
-					)}
+						</button>
+						{moreOpen && (
+							<div id={`${id}-more`} className={cn(ENTER_CLASS, "grid gap-4 ps-[26px]")}>
+								<Field
+									id={`${id}-language`}
+									label={<Trans>Resume language</Trans>}
+									hint={
+										from === "blank" ? (
+											<Trans>Sets section titles, date words and text direction. Your content isn't translated.</Trans>
+										) : from === "copy" ? (
+											<Trans>A copy keeps the language and page size of the resume it's made from.</Trans>
+										) : (
+											<Trans>For a file, the language is chosen when you import it.</Trans>
+										)
+									}
+								>
+									<Combobox
+										id={`${id}-language`}
+										className="min-w-0"
+										options={[
+											{ value: "", label: getLanguageName(localeSchema.parse(i18n.locale)) },
+											...getLocaleOptions().filter((option) => option.value !== i18n.locale),
+										]}
+										value={locale ?? ""}
+										disabled={busy || from !== "blank"}
+										onValueChange={(value) => setLocale(localeSchema.safeParse(value).data)}
+									/>
+								</Field>
+								<div className="flex flex-col gap-1.5">
+									<Label id={`${id}-size`}>
+										<Trans>Page size</Trans>
+									</Label>
+									<SegmentedControl
+										aria-labelledby={`${id}-size`}
+										value={pageSize}
+										disabled={busy || from !== "blank"}
+										onValueChange={(value) => setPageSize(value as PageSize)}
+										className="w-fit"
+									>
+										<SegmentedControlItem value="a4">{PAGE_SIZES.a4}</SegmentedControlItem>
+										<SegmentedControlItem value="letter">{PAGE_SIZES.letter}</SegmentedControlItem>
+									</SegmentedControl>
+								</div>
+								<div className="flex flex-wrap gap-x-5 gap-y-2">
+									<button
+										type="button"
+										className={textActionClassName}
+										disabled={busy}
+										onClick={() => void trySample()}
+									>
+										<Trans>Try with a sample resume</Trans>
+									</button>
+									<button type="button" className={textActionClassName} onClick={saveJob}>
+										<Trans>Save a job instead</Trans>
+									</button>
+								</div>
+							</div>
+						)}
+					</div>
 
 					<DialogFooter className="mt-1 sm:items-center">
 						{/* Opened from Applications or Career, saving a job is as likely as a document. */}
@@ -564,37 +374,12 @@ function NewDocument({ data, mobileSheet = false }: NewDocumentDialogProps) {
 							<Trans>Cancel</Trans>
 						</Button>
 						<Button type="submit" disabled={busy || (!importing && finalName.length === 0)}>
-							{kind === "letter" ? (
-								<Trans>Create letter</Trans>
-							) : importing ? (
-								<Trans>Continue</Trans>
-							) : (
-								<Trans>Create resume</Trans>
-							)}
+							{importing ? <Trans>Continue</Trans> : <Trans>Create resume</Trans>}
 						</Button>
 					</DialogFooter>
 				</form>
 			)}
 		</Content>
-	);
-}
-
-type KindCardProps = { id: string; value: "resume" | "letter"; title: ReactNode; description: ReactNode };
-
-/** Resume or Cover letter: a card that is one radio, with the sheet it makes at the start. */
-function KindCard({ id, value, title, description }: KindCardProps) {
-	return (
-		<label
-			htmlFor={id}
-			className="flex min-w-0 cursor-pointer items-center gap-3.5 rounded-lg bg-raised py-3.5 ps-3.5 pe-4 shadow-[inset_0_0_0_1px_var(--line-2)] transition-[background-color,box-shadow] duration-quick has-data-checked:bg-accent-soft has-data-checked:shadow-[inset_0_0_0_2px_var(--accent)]"
-		>
-			<DocumentThumb kind={value} className="h-14 w-10" />
-			<span className="flex min-w-0 flex-1 flex-col">
-				<span className="t-label">{title}</span>
-				<span className="text-[13px]/[18px] text-ink-3">{description}</span>
-			</span>
-			<RadioGroupItem id={id} value={value} className="self-start" />
-		</label>
 	);
 }
 
@@ -653,7 +438,7 @@ function CopyForJob({ initialSourceId, initialJobId, onBack, onCancel, onCreated
 	const queryClient = useQueryClient();
 	const { data: documents } = useQuery(orpc.documents.list.queryOptions({ input: { trashed: false } }));
 	const applications = useQuery(applicationsListQueryOptions());
-	const resumes = (documents ?? []).filter((document) => document.type === "resume");
+	const resumes = documents ?? [];
 	const jobs = (applications.data ?? []).filter(
 		(application) => application.status !== "closed" || application.id === initialJobId,
 	);
@@ -747,7 +532,7 @@ function CopyForJob({ initialSourceId, initialJobId, onBack, onCancel, onCreated
 				{!changingSource && source ? (
 					<List cap>
 						<ListRow
-							leading={<DocumentThumb kind="resume" />}
+							leading={<DocumentThumb />}
 							title={source.name}
 							subtitle={<Trans>Resume · edited {formatEdited(source.editedAt, i18n.locale)} · it stays as it is</Trans>}
 							trailing={

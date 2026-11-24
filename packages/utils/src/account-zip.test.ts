@@ -6,7 +6,6 @@ const base = {
 	exportedAt: "2030-01-01T00:00:00.000Z",
 	user: { id: "owner" },
 	resumes: [],
-	coverLetters: [],
 	applications: [],
 	career: {},
 	aiContentReports: [],
@@ -17,7 +16,7 @@ it("preserves binary files, individual raw versions and omission reasons in an o
 	const files = unzipSync(
 		buildAccountZip({
 			...base,
-			documentVersions: { resumes: [version], letters: [] },
+			documentVersions: { resumes: [version] },
 			feedback: { comments: [{ body: "Clear writing" }] },
 			uploads: {
 				files: [{ key: "uploads/owner/pictures/photo.png", base64: "AP9QSw==" }],
@@ -29,7 +28,6 @@ it("preserves binary files, individual raw versions and omission reasons in an o
 	expect(JSON.parse(strFromU8(files["versions/resumes/resume/v1.json"] ?? new Uint8Array()))).toEqual(version);
 	expect(JSON.parse(strFromU8(files["document-versions.json"] ?? new Uint8Array()))).toEqual({
 		resumes: [version],
-		letters: [],
 	});
 	expect(JSON.parse(strFromU8(files["feedback.json"] ?? new Uint8Array()))).toEqual({
 		comments: [{ body: "Clear writing" }],
@@ -57,7 +55,7 @@ it("encodes document/version identifiers so they cannot create traversal paths",
 		buildAccountZip({
 			...base,
 			resumes: [{ id: "../../escape", name: "../../Resume" }],
-			documentVersions: { resumes: [{ id: "../version", resumeId: "../resume" }], letters: [] },
+			documentVersions: { resumes: [{ id: "../version", resumeId: "../resume" }] },
 		}),
 	);
 	expect(Object.keys(files)).toContain("resumes/resume-%2E%2E%2F%2E%2E%2Fescape.json");

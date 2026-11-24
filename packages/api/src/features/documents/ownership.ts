@@ -101,16 +101,11 @@ export async function recordCreateRequest(tx: DbOrTx, { id, userId, request }: O
 }
 
 /** Revalidate a document already selected for sharing, using the caller's owner-locked transaction. */
-export async function assertDocumentVersion(
-	reader: DbOrTx,
-	userId: string,
-	expected: { kind: "resume" | "letter"; id: string; updatedAt: Date },
-) {
-	const table = expected.kind === "resume" ? schema.resume : schema.coverLetter;
+export async function assertDocumentVersion(reader: DbOrTx, userId: string, expected: { id: string; updatedAt: Date }) {
 	const [current] = await reader
-		.select({ updatedAt: table.updatedAt })
-		.from(table)
-		.where(and(eq(table.id, expected.id), eq(table.userId, userId), isNull(table.trashedAt)))
+		.select({ updatedAt: schema.resume.updatedAt })
+		.from(schema.resume)
+		.where(and(eq(schema.resume.id, expected.id), eq(schema.resume.userId, userId), isNull(schema.resume.trashedAt)))
 		.for("share");
 	if (!current) throw new ORPCError("NOT_FOUND");
 	if (current.updatedAt.getTime() !== expected.updatedAt.getTime())
@@ -123,10 +118,10 @@ export async function assertSharedDocument(
 	expected: { source: { kind: string; id: string }; version: string },
 ) {
 	const { kind, id } = expected.source;
-	if (kind === "resume" || kind === "letter")
-		return assertDocumentVersion(reader, userId, { kind, id, updatedAt: new Date(expected.version) });
-	if (kind !== "resume-version" && kind !== "letter-version") throw new ORPCError("BAD_REQUEST");
-	const table = kind === "resume-version" ? schema.resumeVersion : schema.coverLetterVersion;
+	if (kind === "resume") return assertDocumentVersion(reader, userId, { id, updatedAt: new Date(expected.version) });
+	// Snapshots saved before cover letters were removed can still name a letter; that document no longer exists.
+	if (kind !== "resume-version") throw new ORPCError("NOT_FOUND");
+	const table = schema.resumeVersion;
 	const [current] = await reader
 		.select({ id: table.id })
 		.from(table)

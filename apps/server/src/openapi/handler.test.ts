@@ -81,26 +81,21 @@ describe("REST boundary", () => {
 		"/documents",
 		"/ai-providers",
 		"/agent/threads",
-		"/cover-letters",
 		"/resumes/private/exports/json",
-		"/cover-letters/private/exports/pdf",
 	])("rejects unauthenticated private reads: %s", async (path) => {
 		const response = await request(path);
 		expect(response.status).toBe(401);
 		expect(await response.json()).toMatchObject({ code: "UNAUTHORIZED", status: 401 });
 	});
-	it.each(["/resumes/pdf-renders", "/cover-letters/pdf-renders"])(
-		"rejects unauthenticated renders: %s",
-		async (path) => {
-			const response = await request(path, {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: "{}",
-			});
-			expect(response.status).toBe(401);
-			expect(await response.json()).toMatchObject({ code: "UNAUTHORIZED", status: 401 });
-		},
-	);
+	it.each(["/resumes/pdf-renders"])("rejects unauthenticated renders: %s", async (path) => {
+		const response = await request(path, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: "{}",
+		});
+		expect(response.status).toBe(401);
+		expect(await response.json()).toMatchObject({ code: "UNAUTHORIZED", status: 401 });
+	});
 	it("decodes multipart public checks and returns structured errors for invalid PDF content", async () => {
 		const form = new FormData();
 		form.set("file", new File(["not a PDF"], "resume.pdf", { type: "application/pdf" }));

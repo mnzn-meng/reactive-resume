@@ -268,16 +268,14 @@ export function describeNextStepLine(
 
 export type SentLine = { text: string; sent: boolean };
 
-/** The Sent column in words: "Resume, letter · 2 Nov", or "Not sent" before the job is applied to. */
+/** The Sent column in words: "Resume · 2 Nov", or "Not sent" before the job is applied to. */
 export function describeSent(
-	application: LineSource & Pick<ApplicationSummary, "resumeId" | "coverLetterId" | "resumeFileUrl" | "coverLetterUrl">,
+	application: LineSource & Pick<ApplicationSummary, "resumeId" | "resumeFileUrl">,
 	locale: string,
 	timeZone: string,
 ): SentLine {
 	if (!hasApplicationSubmission(application)) return { text: t`Not sent`, sent: false };
-	const resume = Boolean(application.resumeId || application.resumeFileUrl);
-	const letter = Boolean(application.coverLetterId || application.coverLetterUrl);
-	const what = resume && letter ? t`Resume, letter` : resume ? t`Resume` : letter ? t`Letter` : t`No documents`;
+	const what = application.resumeId || application.resumeFileUrl ? t`Resume` : t`No documents`;
 	const sentAt = applicationSentAt(application);
 	return { text: sentAt ? `${what} · ${stepDate(sentAt, locale, timeZone)}` : what, sent: true };
 }

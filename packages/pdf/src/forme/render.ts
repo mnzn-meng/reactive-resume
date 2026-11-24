@@ -1,4 +1,3 @@
-import type { ResumeRenderOptions } from "../context";
 import type { PageMap } from "../page-map";
 import type { ConvertedDocument } from "./to-forme";
 import type { ElementInfo, RenderWithLayoutResult } from "@formepdf/core";
@@ -29,7 +28,6 @@ export type RenderResumeInput = {
 	/** Parsed with `parseResumeData`: the entry points check data at their boundary. */
 	data: ResumeData;
 	template?: Template | undefined;
-	renderOptions?: ResumeRenderOptions | undefined;
 	readImage?: ((source: string) => Promise<Uint8Array>) | undefined;
 	/** Computer Modern mirror supplied by the server entry; browser callers leave it unset. */
 	webFontBaseUrl?: string | undefined;
@@ -371,7 +369,6 @@ export function renderResume(engine: FormeEngine, input: RenderResumeInput): Pro
 		createElement(ResumeDocument, {
 			data,
 			template: input.template ?? data.metadata.template,
-			...(input.renderOptions ? { renderOptions: input.renderOptions } : {}),
 		}),
 		input.readImage,
 		input.webFontBaseUrl,

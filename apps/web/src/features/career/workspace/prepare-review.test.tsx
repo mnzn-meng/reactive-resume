@@ -37,7 +37,6 @@ it("keeps a prepared answer beside the existing answers", async () => {
 		generationStatus: "ready",
 		resume: { id: "resume", data: defaultResumeData, updatedAt: new Date(), isLocked: false },
 		sets: [],
-		letter: null,
 		answers: [{ question: "Notice period?", answer: { answer: "Two weeks", factIds: [] }, note: null }],
 		failed: [],
 	};

@@ -60,7 +60,7 @@ describe("Trash", () => {
 	it("won't move a locked document, and keeps the resume's error code", async () => {
 		dbMock.select.mockReturnValueOnce(rows([{ isLocked: true, trashedAt: null }]));
 
-		await expect(documentsService.trash({ userId: "u1", type: "resume", id: "r1" })).rejects.toMatchObject({
+		await expect(documentsService.trash({ userId: "u1", id: "r1" })).rejects.toMatchObject({
 			code: "RESUME_LOCKED",
 			status: 403,
 		});
@@ -69,12 +69,12 @@ describe("Trash", () => {
 
 	it("deletes for good only what is already in Trash", async () => {
 		dbMock.select.mockReturnValueOnce(rows([{ isLocked: false, trashedAt: null }]));
-		await expect(documentsService.purge({ userId: "u1", type: "resume", id: "r1" })).rejects.toMatchObject({
+		await expect(documentsService.purge({ userId: "u1", id: "r1" })).rejects.toMatchObject({
 			code: "BAD_REQUEST",
 		});
 
 		dbMock.select.mockReturnValueOnce(rows([{ isLocked: false, trashedAt: new Date() }]));
-		await documentsService.purge({ userId: "u1", type: "resume", id: "r1" });
+		await documentsService.purge({ userId: "u1", id: "r1" });
 		expect(resumeServiceMock.delete).toHaveBeenCalledWith({
 			id: "r1",
 			userId: "u1",
@@ -85,9 +85,9 @@ describe("Trash", () => {
 	it("propagates a failed batch delete so the caller can report it", async () => {
 		resumeServiceMock.deleteTrashedMany.mockRejectedValueOnce(new Error("database unavailable"));
 
-		await expect(
-			documentsService.purgeMany({ userId: "u1", documents: [{ type: "resume", id: "r1" }] }),
-		).rejects.toThrow("database unavailable");
+		await expect(documentsService.purgeMany({ userId: "u1", documents: [{ id: "r1" }] })).rejects.toThrow(
+			"database unavailable",
+		);
 	});
 });
 
@@ -147,7 +147,6 @@ describe("linkApplication", () => {
 		await expect(
 			documentsService.linkApplication({
 				userId: "u1",
-				type: "resume",
 				id: "new",
 				applicationId: "a1",
 				expectedUpdatedAt,

@@ -81,10 +81,7 @@ export function ApplicationOverview({
 	const count = fit?.data.requirements.length ?? 0;
 	const sent = formatList(
 		time.locale,
-		[
-			application.sentResumeVersionId || application.resumeFileUrl ? t`Resume` : "",
-			application.sentCoverLetterVersionId || application.coverLetterUrl ? t`letter` : "",
-		].filter(Boolean),
+		[application.sentResumeVersionId || application.resumeFileUrl ? t`Resume` : ""].filter(Boolean),
 	);
 	// The Notes field holds one note per line; dated notes from Debrief are counted when there are none.
 	const notes =

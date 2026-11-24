@@ -62,7 +62,7 @@ export const downloadResumePdfProcedure = protectedProcedure
 			target: z
 				.literal("resume")
 				.optional()
-				.describe("Deprecated, only `resume`: cover letters are documents of their own (`/cover-letters`)."),
+				.describe("Deprecated and ignored: a resume is the only document this exports."),
 		}),
 	)
 	.output(

@@ -201,10 +201,7 @@ function PrepWithoutAi({ application, interview, now, go }: PrepWithoutAiProps) 
 	const done = rows.reduce((sum, row, index) => sum + (ticks.ticked.includes(String(index)) ? row.minutes : 0), 0);
 	const sent = [
 		application.sentResumeVersionId && application.resumeId
-			? { id: application.resumeId, kind: "resume" as const, label: t`Resume · kept as sent` }
-			: null,
-		application.sentCoverLetterVersionId && application.coverLetterId
-			? { id: application.coverLetterId, kind: "letter" as const, label: t`Cover letter · kept as sent` }
+			? { id: application.resumeId, label: t`Resume · kept as sent` }
 			: null,
 	].flatMap((entry) => {
 		const document = entry && documents.data?.find((item) => item.id === entry.id);
@@ -290,14 +287,8 @@ function PrepWithoutAi({ application, interview, now, go }: PrepWithoutAiProps) 
 								{sent.map((entry) => (
 									<ListRow
 										key={entry.id}
-										render={
-											entry.kind === "resume" ? (
-												<Link to="/builder/$resumeId" params={{ resumeId: entry.id }} />
-											) : (
-												<Link to="/builder/letter/$coverLetterId" params={{ coverLetterId: entry.id }} />
-											)
-										}
-										leading={<DocumentThumb kind={entry.kind === "resume" ? "resume" : "letter"} />}
+										render={<Link to="/builder/$resumeId" params={{ resumeId: entry.id }} />}
+										leading={<DocumentThumb />}
 										className="min-h-[65px]"
 										title={entry.name}
 										subtitle={entry.label}

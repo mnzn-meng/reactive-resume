@@ -14,7 +14,6 @@ const routes = {
 	today: () => import("./index"),
 	documents: () => import("./documents"),
 	resumes: () => import("./resumes/index"),
-	letters: () => import("./cover-letters"),
 	applicationTrash: () => import("./applications/trash"),
 	ai: () => import("./settings/ai"),
 	jobSearch: () => import("./settings/job-search"),
@@ -46,13 +45,11 @@ async function destination(route: keyof typeof routes, { search = {}, hash = "" 
 	return null;
 }
 
-const documents = { type: "all", q: "", tags: [], sort: "edited" };
+const documents = { q: "", tags: [], sort: "edited" };
 
 it.each<[string, Record<string, unknown>, object]>([
-	["a type", { type: "letter" }, { ...documents, type: "letter" }],
 	["a search", { q: "design", tags: ["lead"] }, { ...documents, q: "design", tags: ["lead"] }],
 	["filters", { sort: "name", view: "list" }, { ...documents, sort: "name", view: "list" }],
-	["an old letter link", { letter: "letter-1" }, { ...documents, letter: "letter-1" }],
 	["a blank resume to start", { new: "resume" }, { ...documents, new: "resume" }],
 	["a template to start from", { template: "onyx" }, { ...documents, template: "onyx" }],
 ])("sends /dashboard with %s on to Documents, search kept", async (_, search, kept) => {
@@ -66,24 +63,10 @@ it("opens Today at /dashboard, with or without a schedule", async () => {
 	expect(await destination("today", { search: { schedule: "new" } })).toBeNull();
 });
 
-it("opens an old letter link in the letter editor from Documents", async () => {
-	expect(await destination("documents", { search: { letter: "letter-1" } })).toEqual({
-		to: "/builder/letter/$coverLetterId",
-		params: { coverLetterId: "letter-1" },
-		replace: true,
-	});
-	expect(await destination("documents", { search: { type: "resume" } })).toBeNull();
-});
-
-it("sends the old resume and cover-letter libraries to Documents", async () => {
+it("sends the old resume library to Documents", async () => {
 	expect(await destination("resumes", { search: { tags: ["lead"], sort: "createdAt", view: "list" } })).toEqual({
 		to: "/dashboard/documents",
-		search: { type: "resume", tags: ["lead"], sort: "created", view: "list" },
-		replace: true,
-	});
-	expect(await destination("letters")).toEqual({
-		to: "/dashboard/documents",
-		search: { type: "letter" },
+		search: { tags: ["lead"], sort: "created", view: "list" },
 		replace: true,
 	});
 });

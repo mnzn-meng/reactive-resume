@@ -75,7 +75,6 @@ const application = (over: Partial<Application> = {}): Application =>
 		followUpAt: null,
 		followUpNote: null,
 		resumeId: null,
-		coverLetterId: null,
 		closedReason: null,
 		tags: [],
 		...over,
@@ -211,14 +210,13 @@ it("writes what was sent in words and marks only owed steps as Needs you", () =>
 			id: "owed",
 			company: "Owed Co",
 			resumeId: "resume",
-			coverLetterId: "letter",
 			appliedAt: sent,
 			activity: [{ id: "s", type: "stage", stage: "applied", at: sent }] as Application["activity"],
 		}),
 		application({ id: "saved", company: "Saved Co", status: "saved" }),
 	]);
 
-	expect(screen.getByText(/^Resume, letter · /)).toBeTruthy();
+	expect(screen.getByText(/^Resume · /)).toBeTruthy();
 	expect(screen.getByText("Not sent")).toBeTruthy();
 	expect(screen.getByText("Send a follow-up")).toBeTruthy();
 	expect(screen.getAllByText("Needs you")).toHaveLength(1);

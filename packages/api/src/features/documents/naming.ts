@@ -1,21 +1,16 @@
 import { ORPCError } from "@orpc/client";
 import { and, eq, isNull } from "drizzle-orm";
 import { db } from "@reactive-resume/db/client";
-import { coverLetter, resume } from "@reactive-resume/db/schema";
+import { resume } from "@reactive-resume/db/schema";
 
 /** A name-only lookup across the owner's whole library, independent of the visible page and filters. */
-export async function suggestDuplicateName(input: { userId: string; type: "resume" | "letter"; id: string }) {
-	const table = input.type === "resume" ? resume : coverLetter;
+export async function suggestDuplicateName(input: { userId: string; id: string }) {
 	const [source] = await db
-		.select({ name: table.name })
-		.from(table)
-		.where(and(eq(table.userId, input.userId), eq(table.id, input.id), isNull(table.trashedAt)));
-	if (!source) throw new ORPCError("NOT_FOUND");
-	const rows = await db
 		.select({ name: resume.name })
 		.from(resume)
-		.where(eq(resume.userId, input.userId))
-		.unionAll(db.select({ name: coverLetter.name }).from(coverLetter).where(eq(coverLetter.userId, input.userId)));
+		.where(and(eq(resume.userId, input.userId), eq(resume.id, input.id), isNull(resume.trashedAt)));
+	if (!source) throw new ORPCError("NOT_FOUND");
+	const rows = await db.select({ name: resume.name }).from(resume).where(eq(resume.userId, input.userId));
 	const names = new Set(rows.map(({ name }) => name.toLowerCase()));
 	let base = source.name.trim().replace(/(?: \(copy\))+$/i, "");
 	const numbered = /^(.*) ([1-9]\d*)$/.exec(base);

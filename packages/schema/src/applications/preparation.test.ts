@@ -7,17 +7,15 @@ const application = {
 	activity: [],
 	jobDescription: "Posting",
 	resumeId: "resume",
-	coverLetterId: null,
 	resumeFileUrl: null,
-	coverLetterUrl: null,
 };
 
-it("guides missing work in order, with optional letters and answers acknowledged by existing review checks", () => {
+it("guides missing work in order, with answers acknowledged by existing review checks", () => {
 	expect(nextPreparationStep({ ...application, jobDescription: "  " }, EMPTY_WORKSPACE)).toBe("posting");
 	expect(nextPreparationStep({ ...application, resumeId: null }, EMPTY_WORKSPACE)).toBe("resume");
 	expect(nextPreparationStep(application, EMPTY_WORKSPACE, [])).toBe("resume");
 	expect(nextPreparationStep(application, EMPTY_WORKSPACE)).toBe("tailor");
-	expect(nextPreparationStep(application, { answers: [], checklist: [1] })).toBe("letter");
+	expect(nextPreparationStep(application, { answers: [], checklist: [1] })).toBe("review");
 	expect(nextPreparationStep(application, { answers: [], checklist: [0, 1] })).toBe("review");
 	expect(nextPreparationStep(application, { answers: [], checklist: [0, 1, 2] })).toBe("review");
 	expect(
@@ -44,9 +42,9 @@ it("keeps submitted and closed applications out of pre-submission guidance", () 
 
 it("tailors only a resume copied for this job, and offers the copy until documents load", () => {
 	const job = { id: "job", resumeId: "resume" };
-	expect(isJobCopy(job, [{ id: "resume", type: "resume", application: { id: "job" } }])).toBe(true);
-	expect(isJobCopy(job, [{ id: "resume", type: "resume", application: null }])).toBe(false);
-	expect(isJobCopy(job, [{ id: "resume", type: "resume", application: { id: "other-job" } }])).toBe(false);
+	expect(isJobCopy(job, [{ id: "resume", application: { id: "job" } }])).toBe(true);
+	expect(isJobCopy(job, [{ id: "resume", application: null }])).toBe(false);
+	expect(isJobCopy(job, [{ id: "resume", application: { id: "other-job" } }])).toBe(false);
 	expect(isJobCopy(job)).toBe(false);
 });
 

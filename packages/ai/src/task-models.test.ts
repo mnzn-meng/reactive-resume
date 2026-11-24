@@ -38,7 +38,6 @@ describe("task models", () => {
 		expect(aiTaskForOperation("ai.parsePdf")).toBe("fast");
 		expect(aiTaskForOperation("applications.ai.parsePosting")).toBe("fast");
 		expect(aiTaskForOperation("agent.messages.send")).toBe("capable");
-		expect(aiTaskForOperation("coverLetters.draft")).toBe("capable");
 		expect(aiTaskForOperation("applications.ai.draftMessage")).toBe("capable");
 		expect(aiTaskForOperation("applications.ai.tailorResume")).toBe("capable");
 		expect(aiTaskForOperation("ai.atsReview")).toBeUndefined();

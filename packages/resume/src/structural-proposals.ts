@@ -13,7 +13,7 @@ export const resumeFieldTargetSchema = z.strictObject({
 	field: z.string(),
 });
 const why = z.string().trim().min(1).max(240);
-export const resumeEntryTypeSchema = sectionTypeSchema.exclude(["cover-letter"]);
+export const resumeEntryTypeSchema = sectionTypeSchema;
 
 /** Typed structural payloads are validated separately from prose, independent of document language. */
 export const resumeChangeSchema = z.discriminatedUnion("kind", [
@@ -77,7 +77,6 @@ function sectionAt(data: ResumeData, id: string) {
 	const index = data.customSections.findIndex((section) => section.id === id);
 	const section = data.customSections[index];
 	if (!section) throw new Error("This section no longer exists. Open Write to choose a section.");
-	if (section.type === "cover-letter") throw new Error("Create or open cover letters in Documents.");
 	if (section.hidden) throw new Error("This section is hidden. Show it in Write before asking for changes.");
 	return { section, type: section.type, path: `/customSections/${index}` };
 }

@@ -10,16 +10,10 @@ export type AccountExportData = {
 	career: unknown;
 	applicationProfile?: unknown;
 	feedback?: unknown;
-	documentVersions?:
-		| {
-				resumes: readonly { id: string; resumeId: string }[];
-				letters: readonly { id: string; coverLetterId: string }[];
-		  }
-		| undefined;
+	documentVersions?: { resumes: readonly { id: string; resumeId: string }[] } | undefined;
 	uploads?: AccountExportUploads | undefined;
 	aiContentReports: unknown;
 	resumes: readonly { id: string; name: string }[];
-	coverLetters: readonly { id: string; name: string }[];
 };
 
 export const accountBackupLimits = {
@@ -66,7 +60,7 @@ const fileName = (name: string, id: string) => `${slugify(name)}-${component(id)
 
 /**
  * "Export everything" as one zip, the same on web and mobile: account, documents, applications with their stages, and
- * career records. Extract it to import individual resumes and letters; the other files are records. New servers can
+ * career records. Extract it to import individual resumes; the other files are records. New servers can
  * include referenced upload bytes; the manifest makes every omission explicit.
  */
 export function buildAccountZip(data: AccountExportData): Uint8Array {
@@ -97,17 +91,8 @@ export function buildAccountZip(data: AccountExportData): Uint8Array {
 	if (data.feedback) addJson("feedback.json", data.feedback);
 	addJson("ai-content-reports.json", data.aiContentReports);
 	for (const resume of data.resumes) addJson(`resumes/${fileName(resume.name, resume.id)}`, resume);
-	for (const letter of data.coverLetters) {
-		addJson(`letters/${fileName(letter.name, letter.id)}`, {
-			...letter,
-			format: "reactive-resume-cover-letter",
-			version: 1,
-		});
-	}
 	for (const version of data.documentVersions?.resumes ?? [])
 		addJson(`versions/resumes/${component(version.resumeId)}/${component(version.id)}.json`, version);
-	for (const version of data.documentVersions?.letters ?? [])
-		addJson(`versions/letters/${component(version.coverLetterId)}/${component(version.id)}.json`, version);
 	if (data.uploads) {
 		const userId = data.user && typeof data.user === "object" && "id" in data.user ? data.user.id : undefined;
 		const included: { key: string; path: string; bytes: number }[] = [];

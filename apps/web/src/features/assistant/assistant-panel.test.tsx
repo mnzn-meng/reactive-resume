@@ -73,7 +73,6 @@ vi.mock("./chat", async (importOriginal) => ({
 import { AssistantPanel } from "./assistant-panel";
 
 const document: AssistantDocument = {
-	kind: "resume",
 	id: "resume-1",
 	name: "Resume",
 	locked: false,
@@ -109,7 +108,6 @@ it("keeps task titles and shows the original message in history, with old-server
 	const thread = {
 		id: "history-thread",
 		workingResumeId: document.id,
-		coverLetterId: null,
 		aiProviderId: "provider-1",
 		title: "Tailor summary to payments roles",
 		firstMessage: "I'm applying for payments roles. Please tailor my summary.",
@@ -184,9 +182,7 @@ it("keeps first-message text and attachments when the draft appears in a backgro
 	if (!input) throw new Error("First-message attachment picker missing");
 	fireEvent.change(input, { target: { files: [new File(["foo"], "posting.txt", { type: "text/plain" })] } });
 	await waitFor(() => expect(screen.getByText("posting.txt")).toBeDefined());
-	mocks.threads = [
-		{ id: "draft-thread", workingResumeId: "resume-1", coverLetterId: null, aiProviderId: "provider-1" },
-	];
+	mocks.threads = [{ id: "draft-thread", workingResumeId: "resume-1", aiProviderId: "provider-1" }];
 	rerender(
 		<I18nProvider i18n={i18n}>
 			<AssistantPanel document={document} onClose={() => {}} />

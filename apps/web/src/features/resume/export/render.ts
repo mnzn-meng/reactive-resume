@@ -4,18 +4,16 @@ import { createResumePdfBlob } from "@reactive-resume/pdf/browser";
 
 export type RenderInput = {
 	data: ResumeData;
-	renderOptions?: { includeCoverLetterHeader?: boolean } | undefined;
 	fontMirrorUrl?: string | undefined;
 };
 export type Rendered = { blob: Blob; pageMap: PageMap | undefined; lostCharacters: string[] | undefined };
 
 /** One render with its page map and lost characters; runs in the PDF worker, or on the main thread without one. */
-export async function renderResumePdf({ data, renderOptions, fontMirrorUrl }: RenderInput): Promise<Rendered> {
+export async function renderResumePdf({ data, fontMirrorUrl }: RenderInput): Promise<Rendered> {
 	let pageMap: PageMap | undefined;
 	let lostCharacters: string[] | undefined;
 	const blob = await createResumePdfBlob({
 		data,
-		renderOptions,
 		fontMirrorUrl,
 		onPageMap: (map) => {
 			pageMap = map;

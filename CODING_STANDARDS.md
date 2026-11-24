@@ -25,7 +25,7 @@ its file and line.
 - Errors are impersonal and name a recovery step: "Couldn't save your changes. Try again." Avoid "We couldn't",
   "Please", "successfully", "Oops", "Something went wrong".
 - Sentence case for every element; feature names (Check, Fit, Knowledge) keep their capitals. US spelling in source
-  strings. Terms: "Two-step verification", "photo", "timezone".
+  strings. Terms: "photo", "timezone".
 - Rewording an existing msgid drops its translations in every locale; the change refills them or explains why not.
 
 ## Tests

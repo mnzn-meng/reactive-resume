@@ -49,7 +49,7 @@ export function useDocumentRemovalMotion({ container, scope, trashed, data, fetc
 			const removes = trashed ? effect !== "trash" : effect === "trash";
 			if (!removes) return;
 			if (document.hidden || !container.current) return;
-			const ids = documents && new Set(documents.map((item) => `${item.type}:${item.id}`));
+			const ids = documents && new Set(documents.map((item) => item.id));
 			const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 			const elements = [...container.current.querySelectorAll<HTMLElement>("[data-document-key]")].filter(
 				(element) => !ids || ids.has(element.dataset.documentKey ?? ""),

@@ -194,7 +194,6 @@ export async function generateOpenApiSpec({ appUrl, version }: GenerateOpenApiSp
 				// Application files are optional; existing JSON clients keep sending record fields only.
 				if ((path === "/applications" || path === "/applications/{id}") && json && "properties" in json) {
 					delete json.properties?.resumeFile;
-					delete json.properties?.coverLetterFile;
 				} else delete body.content["application/json"];
 			}
 			operation.responses ??= {};

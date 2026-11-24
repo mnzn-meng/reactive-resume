@@ -5,7 +5,7 @@
 
   <h1>Reactive Resume</h1>
 
-  <p>Reactive Resume is a free resume builder for writing resumes and cover letters, checking your work, and tracking job applications.</p>
+  <p>Reactive Resume is a free resume builder for writing resumes, checking your work, and tracking job applications.</p>
 
   <p>
     <a href="https://rxresu.me"><strong>Get Started</strong></a>
@@ -45,11 +45,10 @@ You own your data. No tracking, no ads, and no paid tier. Optional AI features u
 - Checks on the exported PDF, plus an optional AI writing review
 - A public [ATS checker](https://rxresu.me/ats-checker) that reads PDFs in your browser without an account
 
-**Documents and Cover Letters**
+**Documents**
 
-- One searchable library for resumes and letters, with tags, sorting, and grid or list views
-- Standalone cover letters with their own editor, exports, and version history
-- Link a letter to a resume to keep its sender details and design in sync, or customize it independently
+- One searchable library for resumes, with tags, sorting, and grid or list views
+- Link a resume to an application to keep its details in one place
 - Automatic and named versions you can preview and restore
 - Trash with Undo and a 30-day recovery window
 
@@ -57,7 +56,7 @@ You own your data. No tracking, no ads, and no paid tier. Optional AI features u
 
 - List, Board, Insights, and Calendar views for tracking applications from Saved to Offer
 - Save jobs from a URL or pasted posting; optional keyword search through Firecrawl, Tavily, or Exa
-- Tailor a resume and draft a cover letter for a saved job
+- Tailor a resume for a saved job
 - Track contacts, notes, follow-ups, application outcomes, and the documents you sent
 - Schedule interviews, export calendar events, and import or export applications as CSV
 
@@ -80,7 +79,7 @@ You own your data. No tracking, no ads, and no paid tier. Optional AI features u
 
 - Self-host with Docker, Vercel, Cloudflare Workers, or a 1-click deploy on Hostinger
 - No tracking or ads; export your account data or delete your account
-- Passkeys, two-factor authentication, and linked sign-in providers
+- Passkeys and linked sign-in providers
 - Multiple interface languages, light/dark/system themes, and reduced-motion support
 
 ## Templates
@@ -219,7 +218,6 @@ The full documentation lives at [docs.rxresu.me](https://docs.rxresu.me):
 | [Checking your resume](https://docs.rxresu.me/guides/checking-your-resume)           | Readability, job match, and writing reviews                     |
 | [Using the assistant](https://docs.rxresu.me/guides/using-the-assistant)             | Ask for changes and review proposed edits                       |
 | [Resume and career agent skills](plugins/reactive-resume/README.md)                  | 32 skills for resume writing, specific roles and the job search |
-| [Writing a cover letter](https://docs.rxresu.me/guides/writing-a-cover-letter)       | Create a letter and link it to a resume                         |
 | [Tracking job applications](https://docs.rxresu.me/guides/tracking-job-applications) | Saved jobs, stages, interviews, and insights                    |
 | [Exporting your resume](https://docs.rxresu.me/guides/exporting-your-resume)         | PDF, Word, Markdown, and JSON downloads                         |
 | [API](https://docs.rxresu.me/guides/using-the-api)                                   | Connect scripts and external tools                              |

@@ -20,12 +20,7 @@ import { tags } from "@lezer/highlight";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import {
-	buildSemanticTree,
-	getTemplateSemanticManifest,
-	semanticNodeKeys,
-	shouldShowResumeHeader,
-} from "@reactive-resume/pdf/semantic-tree";
+import { buildSemanticTree, getTemplateSemanticManifest, semanticNodeKeys } from "@reactive-resume/pdf/semantic-tree";
 import { isFatalStylesheetDiagnostic } from "@reactive-resume/resume/stylesheet";
 import { Icon } from "@reactive-resume/ui/components/icon";
 import { PopoverTrigger } from "@reactive-resume/ui/components/popover";
@@ -368,7 +363,7 @@ const createEditorMetadata = (data: ResumeData): SemanticCssEditorMetadata => {
 			template: data.metadata.template,
 			page,
 			pageNumber: index + 1,
-			showHeader: shouldShowResumeHeader(data, index),
+			showHeader: index === 0,
 		}),
 	);
 	const semanticTree: SemanticNode = {

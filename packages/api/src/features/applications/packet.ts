@@ -6,15 +6,11 @@ import { and, eq, isNull } from "drizzle-orm";
 import { db } from "@reactive-resume/db/client";
 import * as tables from "@reactive-resume/db/schema";
 import { env } from "@reactive-resume/env/server";
-import { getResumeExportData } from "@reactive-resume/resume/export-sections";
-import { buildMarkdown } from "@reactive-resume/resume/markdown";
 import { packetReviewSchema } from "@reactive-resume/schema/applications/autofill";
 import { consumePdfExportLimit } from "../../middleware/rate-limit";
 import { applicationProfileService } from "../application-profile/service";
 import { reviewedAnswers } from "../career/answers";
-import { coverLetterService } from "../cover-letters/service";
-import { writeLetterVersion } from "../cover-letters/versions";
-import { fileResponse, letterExportData } from "../documents/exports";
+import { fileResponse } from "../documents/exports";
 import { lockUser } from "../documents/ownership";
 import { resumeService } from "../resume/service";
 import { writeVersion } from "../resume/version-history";
@@ -29,7 +25,7 @@ const changed = () =>
 		message: "Application, profile, documents or answer evidence changed. Reload and review the packet again.",
 	});
 
-/** Caller holds the existing owner mutex. Reads stay on its connection, including live letter links/evidence. */
+/** Caller holds the existing owner mutex. Reads stay on its connection, including live answer evidence. */
 async function snapshot(tx: DbOrTx, userId: string, selection: PacketSelection) {
 	const [application] = await tx
 		.select()
@@ -54,52 +50,6 @@ async function snapshot(tx: DbOrTx, userId: string, selection: PacketSelection) 
 			message: "Selected resume unavailable. Restore it or explicitly select another resume.",
 		});
 	const resume = await resumeService.getById({ id: application.resumeId, userId }, tx);
-	let letter = null;
-	if (application.coverLetterId) {
-		const [activeLetter] = await tx
-			.select({
-				id: tables.coverLetter.id,
-				sourceResumeId: tables.coverLetter.sourceResumeId,
-				senderLinked: tables.coverLetter.senderLinked,
-				designLinked: tables.coverLetter.designLinked,
-			})
-			.from(tables.coverLetter)
-			.where(
-				and(
-					eq(tables.coverLetter.id, application.coverLetterId),
-					eq(tables.coverLetter.userId, userId),
-					isNull(tables.coverLetter.trashedAt),
-				),
-			)
-			.for("share");
-		if (!activeLetter)
-			throw new ORPCError("NOT_FOUND", {
-				message: "Selected letter unavailable. Restore it or explicitly change the selection.",
-			});
-		if (activeLetter.sourceResumeId && (activeLetter.senderLinked || activeLetter.designLinked)) {
-			const [source] = await tx
-				.select({ id: tables.resume.id })
-				.from(tables.resume)
-				.where(
-					and(
-						eq(tables.resume.id, activeLetter.sourceResumeId),
-						eq(tables.resume.userId, userId),
-						isNull(tables.resume.trashedAt),
-					),
-				)
-				.for("share");
-			if (!source)
-				throw new ORPCError("NOT_FOUND", {
-					message:
-						"The letter's linked sender/design resume is unavailable. Restore it or unlink it explicitly before reviewing.",
-				});
-		}
-		letter = await coverLetterService.getById({ id: application.coverLetterId, userId }, tx);
-		if (!selection.letterWords || selection.letterWords.locale !== letter.style.metadata.page.locale)
-			throw new ORPCError("CONFLICT", {
-				message: "Reload the letter's document-language wording before reviewing this packet.",
-			});
-	}
 	const profile = selection.includeContact ? await applicationProfileService.get(userId, tx) : null;
 	if (selection.includeContact && !profile)
 		throw new ORPCError("BAD_REQUEST", {
@@ -115,7 +65,7 @@ async function snapshot(tx: DbOrTx, userId: string, selection: PacketSelection) 
 			});
 		return row;
 	});
-	const fingerprint = revision([userId, selection, application, profile, resume, letter, answers]);
+	const fingerprint = revision([userId, selection, application, profile, resume, answers]);
 	const experience = resume.data.sections.experience;
 	const showExperience =
 		!experience.hidden &&
@@ -153,7 +103,6 @@ async function snapshot(tx: DbOrTx, userId: string, selection: PacketSelection) 
 					)
 					.join("\n\n")
 					.slice(0, 30000),
-		letterText: letter ? buildMarkdown(letterExportData(letter, selection.letterWords ?? undefined)) : "",
 		answers: answers.map((row) => ({
 			id: row.id,
 			revision: row.revision,
@@ -165,15 +114,13 @@ async function snapshot(tx: DbOrTx, userId: string, selection: PacketSelection) 
 		})),
 		documents: [
 			{
-				kind: "resume",
 				id: resume.id,
 				name: resume.name,
 				revision: revision([resume.name, resume.data, resume.updatedAt]),
 			},
-			...(letter ? [{ kind: "letter", id: letter.id, name: letter.name, revision: revision(letter) }] : []),
 		],
 	});
-	return { review, resume, letter };
+	return { review, resume };
 }
 
 function read(userId: string, selection: PacketSelection) {
@@ -194,27 +141,12 @@ export const applicationPackets = {
 		if (captured.review.fingerprint !== input.fingerprint) throw changed();
 		for (const document of captured.review.documents)
 			await consumePdfExportLimit({ id: document.id, userId, ...(resHeaders ? { resHeaders } : {}) });
-		const resumeFile = (
-			await fileResponse(getResumeExportData(captured.resume.data, "resume"), captured.resume.name, "pdf", null)
-		).body;
-		const letterFile = captured.letter
-			? (
-					await fileResponse(
-						letterExportData(captured.letter, input.selection.letterWords ?? undefined),
-						captured.letter.name,
-						"pdf",
-						null,
-						true,
-						"cover-letter",
-					)
-				).body
-			: null;
-		if (resumeFile.size + (letterFile?.size ?? 0) > 2 * 1024 * 1024)
+		const resumeFile = (await fileResponse(captured.resume.data, captured.resume.name, "pdf", null)).body;
+		if (resumeFile.size > 2 * 1024 * 1024)
 			throw new ORPCError("BAD_REQUEST", {
 				message: "These PDFs exceed the 2 MiB packet limit. Download and attach the documents manually instead.",
 			});
 		const resumeBytes = new Uint8Array(await resumeFile.arrayBuffer());
-		const letterBytes = letterFile ? new Uint8Array(await letterFile.arrayBuffer()) : null;
 		return db.transaction(async (tx) => {
 			await lockUser(tx, userId);
 			const current = await snapshot(tx, userId, input.selection);
@@ -229,7 +161,6 @@ export const applicationPackets = {
 			});
 			const documents: ApplicationPacket["documents"] = [
 				{
-					kind: "resume",
 					id: captured.resume.id,
 					versionId: resumeVersion.id,
 					name: captured.resume.name,
@@ -238,23 +169,6 @@ export const applicationPackets = {
 					base64: Buffer.from(resumeBytes).toString("base64"),
 				},
 			];
-			if (captured.letter && letterBytes) {
-				const version = await writeLetterVersion(tx, {
-					userId,
-					letter: captured.letter,
-					kind: "named",
-					name: `Autofill packet — ${captured.review.application.company}`,
-				});
-				documents.push({
-					kind: "letter",
-					id: captured.letter.id,
-					versionId: version.id,
-					name: captured.letter.name,
-					filename: `letter-${version.id}.pdf`,
-					sha256: digest(letterBytes),
-					base64: Buffer.from(letterBytes).toString("base64"),
-				});
-			}
 			return {
 				format: "reactive-resume-application-packet",
 				version: 1,

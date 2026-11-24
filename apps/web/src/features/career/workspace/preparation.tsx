@@ -4,7 +4,7 @@ import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { useId, useRef, useState } from "react";
+import { useId, useState } from "react";
 import { nextPreparationStep } from "@reactive-resume/schema/applications/preparation";
 import { Button, buttonVariants } from "@reactive-resume/ui/components/button";
 import {
@@ -25,7 +25,6 @@ import { DocumentThumb } from "@/components/calm/document-thumb";
 import { SectionHeading } from "@/components/calm/section-heading";
 import { Combobox } from "@/components/ui/combobox";
 import { useDialogStore } from "@/dialogs/store";
-import { FileAttachmentField } from "@/features/applications/components/file-attachment-field";
 import { useInvalidateApplications } from "@/features/applications/use-application-actions";
 import { useDocumentDownload } from "@/features/applications/use-document-download";
 import { toastError } from "@/libs/error-message";
@@ -50,7 +49,6 @@ export function Preparation({ application, disabled }: PreparationProps) {
 	const [postingOpen, setPostingOpen] = useState(false);
 	const { download, downloading } = useDocumentDownload();
 	const id = useId();
-	const letterFile = useRef<HTMLInputElement>(null);
 	const update = useMutation({
 		...orpc.applications.update.mutationOptions(),
 		onSuccess: () => invalidate(application.id),
@@ -61,13 +59,7 @@ export function Preparation({ application, disabled }: PreparationProps) {
 	const busy = disabled || update.isPending;
 	const copyResume = () =>
 		openDialog("document.new", {
-			...(documents.data?.some((document) => document.type === "resume") ? { step: "copy" as const } : {}),
-			applicationId: application.id,
-			...(application.resumeId ? { sourceResumeId: application.resumeId } : {}),
-		});
-	const writeLetter = () =>
-		openDialog("document.new", {
-			context: "letters",
+			...(documents.data?.length ? { step: "copy" as const } : {}),
 			applicationId: application.id,
 			...(application.resumeId ? { sourceResumeId: application.resumeId } : {}),
 		});
@@ -159,104 +151,19 @@ export function Preparation({ application, disabled }: PreparationProps) {
 						<Trans>Loading linked documents…</Trans>
 					</p>
 				) : (
-					(["resume", "letter"] as const).map((kind) => {
-						const selected = kind === "resume" ? application.resumeId : application.coverLetterId;
-						const choices = documents.data.filter((document) => document.type === kind);
+					(() => {
+						const selected = application.resumeId;
+						const choices = documents.data;
 						const document = choices.find((item) => item.id === selected);
-						const label = kind === "resume" ? t`Resume` : t`Cover letter`;
-						const fieldId = `${id}-${kind}`;
-						const select = (value: string | null) =>
-							update.mutate({
-								id: application.id,
-								...(kind === "resume" ? { resumeId: value } : { coverLetterId: value }),
-							});
-						// No letter yet: the ways to get one are visible actions, not a menu.
-						if (editing && kind === "letter" && !selected)
-							return (
-								<Row
-									key={kind}
-									label={
-										<>
-											<DocumentThumb kind="letter" />
-											<Label htmlFor={fieldId} className="sr-only">
-												{label}
-											</Label>
-										</>
-									}
-								>
-									<div className="min-w-0 @md:col-span-2">
-										<p className="truncate text-[15px]/[22px] font-medium">
-											<Trans>No cover letter yet</Trans>
-										</p>
-										<p className="text-[13px]/[18px] text-ink-3">
-											<Trans>Optional</Trans>
-										</p>
-									</div>
-									<div className="col-span-full grid justify-items-start gap-1.5 pt-1.5">
-										<div className="flex flex-wrap items-center gap-1.5">
-											<Button size="sm" variant="secondary" disabled={busy} onClick={() => void writeLetter()}>
-												<Icon name="envelope-simple" />
-												<Trans>Write a letter</Trans>
-											</Button>
-											{choices.length > 0 && (
-												<Combobox
-													id={fieldId}
-													value={null}
-													options={choices.map((item) => ({ value: item.id, label: item.name }))}
-													placeholder={t`Use an existing letter…`}
-													disabled={busy}
-													aria-label={t`Use an existing letter`}
-													render={<Button size="sm" variant="ghost" className="font-normal [&_svg]:hidden!" />}
-													onValueChange={select}
-												/>
-											)}
-										</div>
-										{application.coverLetterUrl ? (
-											<FileAttachmentField
-												value={{
-													url: application.coverLetterUrl,
-													name: application.coverLetterName || t`Cover letter file`,
-												}}
-												attachLabel={t`Attach a file`}
-												disabled={busy}
-												onChange={(file) =>
-													update.mutate({
-														id: application.id,
-														...(file ? { coverLetterFile: file } : { coverLetterUrl: null, coverLetterName: null }),
-													})
-												}
-											/>
-										) : (
-											<Button size="sm" variant="ghost" disabled={busy} onClick={() => letterFile.current?.click()}>
-												<Icon name="paperclip" />
-												<Trans>Attach a file</Trans>
-											</Button>
-										)}
-										<input
-											ref={letterFile}
-											type="file"
-											accept="application/pdf"
-											className="hidden"
-											onChange={(event) => {
-												const file = event.target.files?.[0];
-												event.target.value = "";
-												if (file) update.mutate({ id: application.id, coverLetterFile: file });
-											}}
-										/>
-										<p className="text-[13px]/[18px] text-ink-3">
-											<Trans>A file is a PDF up to 10 MB that you wrote elsewhere.</Trans>
-										</p>
-									</div>
-								</Row>
-							);
+						const fieldId = `${id}-resume`;
+						const select = (value: string | null) => update.mutate({ id: application.id, resumeId: value });
 						return (
 							<Row
-								key={kind}
 								label={
 									<>
-										<DocumentThumb kind={kind === "letter" ? "letter" : "resume"} />
+										<DocumentThumb />
 										<Label htmlFor={fieldId} className="sr-only">
-											{label}
+											<Trans>Resume</Trans>
 										</Label>
 									</>
 								}
@@ -267,9 +174,9 @@ export function Preparation({ application, disabled }: PreparationProps) {
 											id={fieldId}
 											value={selected}
 											options={choices.map((item) => ({ value: item.id, label: item.name }))}
-											placeholder={kind === "letter" ? t`Optional · none selected` : t`None selected`}
+											placeholder={t`None selected`}
 											disabled={busy}
-											aria-label={label}
+											aria-label={t`Resume`}
 											className="h-[22px] w-full min-w-0 border-transparent bg-transparent p-0 text-[15px]/[22px] font-medium shadow-none [&_svg]:hidden!"
 											onValueChange={select}
 										/>
@@ -279,7 +186,7 @@ export function Preparation({ application, disabled }: PreparationProps) {
 										</span>
 									)}
 									<p className="truncate text-[13px]/[18px] text-ink-3">
-										{label} · {document?.isLocked ? t`locked` : t`draft`}
+										<Trans>Resume</Trans> · {document?.isLocked ? t`locked` : t`draft`}
 										{document && (
 											<>
 												{" "}
@@ -294,41 +201,26 @@ export function Preparation({ application, disabled }: PreparationProps) {
 									</p>
 								</div>
 								<div className="flex items-center gap-3.5">
-									{selected &&
-										document &&
-										(kind === "resume" ? (
-											<Link
-												to="/builder/$resumeId"
-												params={{ resumeId: selected }}
-												search={{ applicationId: application.id }}
-												aria-label={t`Edit resume`}
-												className={buttonVariants({
-													variant: "link",
-													className: "h-auto p-0 text-sm/5 text-accent-text",
-												})}
-											>
-												<Trans>Edit</Trans>
-											</Link>
-										) : (
-											<Link
-												to="/builder/letter/$coverLetterId"
-												params={{ coverLetterId: selected }}
-												search={{ applicationId: application.id }}
-												aria-label={t`Edit cover letter`}
-												className={buttonVariants({
-													variant: "link",
-													className: "h-auto p-0 text-sm/5 text-accent-text",
-												})}
-											>
-												<Trans>Edit</Trans>
-											</Link>
-										))}
+									{selected && document && (
+										<Link
+											to="/builder/$resumeId"
+											params={{ resumeId: selected }}
+											search={{ applicationId: application.id }}
+											aria-label={t`Edit resume`}
+											className={buttonVariants({
+												variant: "link",
+												className: "h-auto p-0 text-sm/5 text-accent-text",
+											})}
+										>
+											<Trans>Edit</Trans>
+										</Link>
+									)}
 									<DropdownMenu>
 										<DropdownMenuTrigger
 											render={
 												<IconButton
 													icon="dots-three"
-													label={kind === "resume" ? t`Resume options` : t`Cover letter options`}
+													label={t`Resume options`}
 													size="icon-sm"
 													iconSize={16}
 													disabled={busy}
@@ -340,19 +232,19 @@ export function Preparation({ application, disabled }: PreparationProps) {
 											{selected && (
 												<DropdownMenuItem
 													disabled={downloading !== null || !document}
-													onClick={() => void download(kind, selected)}
+													onClick={() => void download(selected)}
 												>
 													<Icon name="download-simple" size={18} />
 													{downloading === selected ? <Trans>Generating PDF…</Trans> : <Trans>Download PDF</Trans>}
 												</DropdownMenuItem>
 											)}
-											{editing && kind === "resume" && (
+											{editing && (
 												<DropdownMenuItem onClick={copyResume}>
 													<Icon name="copy" size={18} />
 													<Trans>Copy a base resume for this job</Trans>
 												</DropdownMenuItem>
 											)}
-											{editing && kind === "resume" && connection.provider && selected && (
+											{editing && connection.provider && selected && (
 												<DropdownMenuItem
 													onClick={() =>
 														void navigate({
@@ -369,7 +261,7 @@ export function Preparation({ application, disabled }: PreparationProps) {
 											{editing && selected && (
 												<DropdownMenuItem onClick={() => select(null)}>
 													<Icon name="x" size={18} />
-													{kind === "resume" ? <Trans>Clear resume</Trans> : <Trans>Clear cover letter</Trans>}
+													<Trans>Clear resume</Trans>
 												</DropdownMenuItem>
 											)}
 										</DropdownMenuContent>
@@ -382,7 +274,7 @@ export function Preparation({ application, disabled }: PreparationProps) {
 								)}
 							</Row>
 						);
-					})
+					})()
 				)}
 			</div>
 		</section>

@@ -79,7 +79,6 @@ msgid "“{invalidText}” isn't saved. Use a month and year, like Mar 2025, or 
 msgstr "„{invalidText}“ ist nicht gespeichert. Verwenden Sie Monat und Jahr, etwa Mär. 2025, oder nur ein Jahr. Für anderen Wortlaut aktivieren Sie „Eigener Text“."
 
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "“{name}” moved to Trash"
 msgstr "„{name}“ wurde in den Papierkorb verschoben"
 
@@ -424,10 +423,8 @@ msgstr "{0, plural, one {# Wort · gesprochen etwa 90 Sekunden anpeilen} other {
 msgid "{0, plural, one {# word or detail nothing checked backs} other {# words or details nothing checked backs}}"
 msgstr "{0, plural, one {# Wort oder Detail ohne Beleg} other {# Wörter oder Details ohne Beleg}}"
 
-#. placeholder {0}: review.letter.text.trim().split(/\s+/).filter(Boolean).length
 #. placeholder {0}: row.answer.trim().split(/\s+/).filter(Boolean).length
 #: src/features/career/workspace/answer-library.tsx
-#: src/features/career/workspace/prepare-review.tsx
 msgid "{0, plural, one {# word} other {# words}}"
 msgstr "{0, plural, one {# Wort} other {# Wörter}}"
 
@@ -611,12 +608,6 @@ msgstr "{0, plural, one {An {company} schreiben · # Frage} other {An {company} 
 msgid "{0, plural, one {Your selected font can't display {list}. It shows as “?”. In Design, choose a font that has it.} other {Your selected font can't display {list}. They show as “?”. In Design, choose a font that has them.}}"
 msgstr "{0, plural, one {Ihre gewählte Schriftart kann {list} nicht darstellen. Es wird als “?” angezeigt. Wählen Sie unter Design eine Schriftart, die es enthält.} other {Ihre gewählte Schriftart kann {list} nicht darstellen. Sie werden als “?” angezeigt. Wählen Sie unter Design eine Schriftart, die sie enthält.}}"
 
-#. placeholder {0}: letter.name
-#. placeholder {1}: letter.application.company
-#: src/features/documents/new-document-dialog.tsx
-msgid "{0} — {1}"
-msgstr "{0} — {1}"
-
 #. placeholder {0}: application.company
 #. placeholder {0}: getStageLabel(application.status)
 #. placeholder {1}: application.role
@@ -636,8 +627,8 @@ msgstr "{0} · {1} von {2}"
 #. placeholder {0}: application.company
 #. placeholder {1}: application.role
 #: src/features/applications/components/application-detail-sheet.tsx
-msgid "{0} · {1}. Choose what you sent; those versions are kept as sent and never change."
-msgstr "{0} · {1}. Wählen Sie, was Sie gesendet haben; diese Versionen bleiben wie gesendet erhalten und ändern sich nie."
+msgid "{0} · {1}. Choose the resume you sent; that version is kept as sent and never changes."
+msgstr ""
 
 #. placeholder {0}: when(runAt)
 #: src/features/career/workspace/prepare.tsx
@@ -654,11 +645,6 @@ msgstr "{0} · nur hinzufügen, wenn zutreffend"
 #: src/features/ai/set-up-ai.tsx
 msgid "{0} · Connected · {1} ms"
 msgstr "{0} · Verbunden · {1} ms"
-
-#. placeholder {0}: i18n.date(sentVersion.createdAt, { weekday: "short", day: "numeric", month: "short" })
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "{0} · kept in History"
-msgstr "{0} · im Verlauf gespeichert"
 
 #. Mode tab tooltip: the mode, then the key that opens it
 #. placeholder {0}: labels[mode]
@@ -701,16 +687,9 @@ msgid "{0} (copy)"
 msgstr "{0} (Kopie)"
 
 #. placeholder {0}: current.name
-#. placeholder {0}: letter.name
-#: src/features/letters/store.ts
 #: src/features/resume/builder/draft.ts
 msgid "{0} (mine)"
 msgstr "{0} (meins)"
-
-#. placeholder {0}: i18n._(accent.label)
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "{0} accent"
-msgstr "Akzent {0}"
 
 #. placeholder {0}: accent ? i18n._(accent.label) : t`Custom`
 #. placeholder {1}: rgbaToHex(metadata.design.colors.text) ?? metadata.design.colors.text
@@ -839,15 +818,14 @@ msgid "{0} new"
 msgstr "{0} neu"
 
 #. placeholder {0}: found.length
-#. placeholder {0}: i18n.number(index + 1)
 #. placeholder {0}: i18n.number(outcomes.base.replied)
-#. placeholder {1}: i18n.number(all.length)
+#. placeholder {0}: i18n.number(outcomes.heardBack)
 #. placeholder {1}: i18n.number(outcomes.base.sent)
 #. placeholder {1}: i18n.number(outcomes.sent)
+#. placeholder {1}: i18n.number(outcomes.tailored.sent)
 #: src/features/applications/components/insights-view.tsx
 #: src/features/career/workspace/fit-local.tsx
 #: src/features/career/workspace/fit.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "{0} of {1}"
 msgstr "{0} von {1}"
 
@@ -964,11 +942,6 @@ msgstr "{0} ausgewählt"
 #: src/features/ats-checker/report/score-header.tsx
 msgid "{0} skipped"
 msgstr "{0} übersprungen"
-
-#. placeholder {0}: rgbaToHex(metadata.design.colors.text) ?? metadata.design.colors.text
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "{0} text"
-msgstr "Text {0}"
 
 #. placeholder {0}: i18n.number(findings.length)
 #: src/features/ats-checker/report/report-view.tsx
@@ -1247,10 +1220,6 @@ msgstr "{count, plural, one {# Punkt zu prüfen} other {# Punkte zu prüfen}}"
 msgid "{count, plural, one {# unlocked} other {# unlocked}}"
 msgstr "{count, plural, one {# entsperrt} other {# entsperrt}}"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "{count, plural, one {# word} other {# words}}"
-msgstr "{count, plural, one {# Wort} other {# Wörter}}"
-
 #: src/features/applications/components/list-view.tsx
 msgid "{count, plural, one {Add a tag to # application} other {Add a tag to # applications}}"
 msgstr "{count, plural, one {Stichwort zu # Bewerbung hinzufügen} other {Stichwort zu # Bewerbungen hinzufügen}}"
@@ -1462,10 +1431,6 @@ msgstr "{kind} bei {company}"
 msgid "{kind} interview"
 msgstr "{kind}-Interview"
 
-#: src/features/documents/new-document-dialog.tsx
-msgid "{label} — Letter already sent"
-msgstr "{label} — Anschreiben bereits gesendet"
-
 #: src/features/career/coach-thread.tsx
 msgid "{label} connection"
 msgstr "{label}-Verbindung"
@@ -1614,25 +1579,12 @@ msgstr "{pageCount, plural, one {# Seite · nie hochgeladen} other {# Seiten · 
 
 #: src/features/resume/editor/save-status.tsx
 #: src/routes/builder/$resumeId/-components/document-details.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "{pageCount, plural, one {# page} other {# pages}}"
 msgstr "{pageCount, plural, one {# Seite} other {# Seiten}}"
 
 #: src/routes/builder/$resumeId/-components/page-canvas.tsx
 msgid "{pageCount, plural, one {Runs to # page} other {Runs to # pages}}"
 msgstr "{pageCount, plural, one {Umfasst # Seite} other {Umfasst # Seiten}}"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "{pages, plural, one {# page} other {# pages}}"
-msgstr "{pages, plural, one {# Seite} other {# Seiten}}"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "{pairing} type"
-msgstr "{pairing}-Typ"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "{paragraphs, plural, one {# paragraph} other {# paragraphs}}"
-msgstr "{paragraphs, plural, one {# Absatz} other {# Absätze}}"
 
 #: src/features/career/workspace/fit.tsx
 msgid "{partial, plural, one {# partly supported} other {# partly supported}}"
@@ -1712,14 +1664,6 @@ msgstr "{size} pt"
 #: src/features/applications/components/import-applications-sheet.tsx
 msgid "{skipped, plural, one {# row had no company or role and was skipped.} other {# rows had no company or role and were skipped.}}"
 msgstr "{skipped, plural, one {# Zeile hatte keine Firma oder Rolle und wurde übersprungen.} other {# Zeilen hatten keine Firma oder Rolle und wurden übersprungen.}}"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "{stage} · letter sent {sentOn}"
-msgstr "{stage} · Anschreiben gesendet {sentOn}"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "{stage} · not applied yet"
-msgstr "{stage} · noch nicht beworben"
 
 #: src/features/documents/page-navigation.tsx
 msgid "{start}–{end} of {total}"
@@ -1863,7 +1807,6 @@ msgid "{who} didn't respond. Nothing was changed; try again."
 msgstr "{who} hat nicht geantwortet. Es wurde nichts geändert; versuchen Sie es erneut."
 
 #: src/features/career/workspace/apply.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "{words, plural, one {# word} other {# words}}"
 msgstr "{words, plural, one {# Wort} other {# Wörter}}"
 
@@ -1896,8 +1839,8 @@ msgid "<0>Posting asks for:</0> {requirement}"
 msgstr "<0>Die Stellenanzeige verlangt:</0> {requirement}"
 
 #: src/features/auth/components/guest-banner.tsx
-msgid "<0>You're using a guest account.</0> Everything you make is lost when you sign out or this session ends. Create an account and your resumes, cover letters, applications and Career knowledge move into it."
-msgstr "<0>Sie nutzen ein Gastkonto.</0> Alles, was Sie erstellen, geht verloren, wenn Sie sich abmelden oder diese Sitzung endet. Erstellen Sie ein Konto, dann werden Ihre Lebensläufe, Anschreiben, Bewerbungen und Ihr Karriere-Wissen übernommen."
+msgid "<0>You're using a guest account.</0> Everything you make is lost when you sign out or this session ends. Create an account and your resumes, applications and Career knowledge move into it."
+msgstr ""
 
 #: src/features/auth/components/session-recovery.tsx
 msgid "<0>Your session ended.</0> Sign in again to keep working. Nothing on this page is lost."
@@ -1935,10 +1878,6 @@ msgstr "10-Minuten-Version"
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "10–11 recommended"
 msgstr "10–11 empfohlen"
-
-#: src/routes/builder/letter/-components/download-sheet.tsx
-msgid "2 files"
-msgstr "2 Dateien"
 
 #: src/features/career/schedule-sheet.tsx
 #: src/features/career/schedules.tsx
@@ -1981,6 +1920,10 @@ msgstr "3 belegt · 1 teilweise · 1 fehlend"
 msgid "40% faster reviews"
 msgstr "40 % schnellere Bewertungen"
 
+#: src/features/homepage/tailor.tsx
+msgid "6 of 7 requirements met"
+msgstr ""
+
 #: src/features/homepage/remember.tsx
 msgid "A"
 msgstr "A"
@@ -1989,10 +1932,6 @@ msgstr "A"
 msgid "A accepts and R rejects the focused edit. ↑ and ↓ move between edits."
 msgstr "A akzeptiert und R lehnt die fokussierte Bearbeitung ab. ↑ und ↓ bewegen sich zwischen den Bearbeitungen."
 
-#: src/routes/builder/letter/-components/download-sheet.tsx
-msgid "A backup of this letter. Imports back into Reactive Resume as a letter."
-msgstr "Eine Sicherungskopie dieses Briefes. Wird als Brief zurück in Reactive Resume importiert."
-
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "A bullet"
 msgstr "Ein Aufzählungspunkt"
@@ -2000,10 +1939,6 @@ msgstr "Ein Aufzählungspunkt"
 #: src/features/resume/editor/check/issues.ts
 msgid "A city and country let roles be matched to where you are."
 msgstr "In einer Stadt und einem Land können die Rollen an Ihren Standort angepasst werden."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "A comfortable length, and it fits on one page."
-msgstr "Eine angenehme Länge, und es passt auf eine Seite."
 
 #: src/features/resume/share/download-tab.tsx
 msgid "A complete backup. Imports back into Reactive Resume."
@@ -2050,14 +1985,6 @@ msgstr "Ein Zeitraum ist in einer Form geschrieben, die die meiste Software nich
 msgid "A date won't be read"
 msgstr "Ein Datum wird nicht gelesen"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "A draft needs AI."
-msgstr "Ein Entwurf braucht KI."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "A draft to review"
-msgstr "Ein Entwurf zur Prüfung"
-
 #: src/features/career/knowledge/stories.tsx
 msgid "A fact changed. Review this story."
 msgstr "Ein Fakt hat sich geändert. Prüfen Sie diese Geschichte."
@@ -2085,10 +2012,6 @@ msgstr "Ein Fakt, den Sie inzwischen vergessen haben"
 #: src/features/documents/import/import-page.tsx
 msgid "A file exported from this app, version 4 included. Comes in exactly as it is."
 msgstr "Eine aus dieser App exportierte Datei, auch Version 4. Wird genau so übernommen."
-
-#: src/features/career/workspace/preparation.tsx
-msgid "A file is a PDF up to 10 MB that you wrote elsewhere."
-msgstr "Eine Datei ist ein PDF bis 10 MB, das Sie anderswo geschrieben haben."
 
 #: src/features/career/workspace/fit-local.tsx
 #: src/features/career/workspace/fit.tsx
@@ -2124,14 +2047,6 @@ msgstr "Eine Lücke ist kein Problem. Fügen Sie bei Bedarf eine einzeilige Erkl
 msgid "A high bar for accessibility"
 msgstr "Hohe Ansprüche an Barrierefreiheit"
 
-#: src/features/documents/import/import-page.tsx
-msgid "A letter exported from this app comes in as a letter."
-msgstr "Ein aus dieser App exportiertes Anschreiben wird als Anschreiben übernommen."
-
-#: src/features/documents/new-document-dialog.tsx
-msgid "A letter for one job, matched to a resume."
-msgstr "Ein Anschreiben für eine Stelle, passend zu einem Lebenslauf."
-
 #: src/features/resume/editor/design/entries-group.tsx
 msgid "A line under each header, a bar beside it, or a tint behind it."
 msgstr "Eine Linie unter jeder Überschrift, ein Balken daneben oder eine Tönung dahinter."
@@ -2164,10 +2079,6 @@ msgstr "Ein Name hilft Ihnen, Passkeys voneinander zu unterscheiden, z. B. „Ar
 #: src/features/settings/ai/page.tsx
 msgid "A new fact is saved to Knowledge only after you agree"
 msgstr "Ein neuer Fakt wird erst nach Ihrer Zustimmung im Wissen gespeichert"
-
-#: src/features/assistant/assistant-panel.tsx
-msgid "A new version of the whole letter, as edits to accept"
-msgstr "Eine neue Version des gesamten Briefs, als Änderungen zum Annehmen"
 
 #: src/features/ats-checker/messages.ts
 msgid "A numeric date reads differently in different countries."
@@ -2320,7 +2231,6 @@ msgstr "Akzentfarben"
 #: src/features/career/workspace/apply.tsx
 #: src/features/homepage/write.tsx
 #: src/features/resume/editor/proposals/proposal-list.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Accept"
 msgstr "Akzeptieren"
 
@@ -2345,10 +2255,6 @@ msgstr "Akzeptiert"
 #: src/features/applications/stages.ts
 msgid "Accepted another offer"
 msgstr "Habe ein anderes Angebot angenommen"
-
-#: src/features/assistant/assistant-panel.tsx
-msgid "Accepted edits change this letter; history keeps each version."
-msgstr "Akzeptierte Änderungen ändern dieses Anschreiben; der Verlauf behält jede Version."
 
 #: src/features/applications/stages.ts
 msgid "Accepted offer"
@@ -2976,7 +2882,6 @@ msgstr "alle"
 
 #: src/features/career/knowledge/facts.tsx
 #: src/features/career/workspace/saved.tsx
-#: src/features/documents/documents-page.tsx
 #: src/features/resume/editor/design/template-group.tsx
 #: src/features/templates/gallery.tsx
 #: src/features/trash/trash-page.tsx
@@ -3055,12 +2960,6 @@ msgstr "Schon auf der Seite einer Stellenanzeige? Der <0>Browser-Helfer</0> spei
 #: src/features/resume/editor/check/check-panel.tsx
 msgid "Also check the exported PDF"
 msgstr "Überprüfen Sie auch den exportierten PDF"
-
-#. placeholder {0}: linkedLetter.company
-#: src/features/resume/share/download-menu.tsx
-#: src/features/resume/share/download-tab.tsx
-msgid "Also download the {0} cover letter"
-msgstr "Laden Sie auch das Anschreiben {0} herunter"
 
 #. placeholder {0}: user?.email ?? ""
 #: src/features/career/schedule-sheet.tsx
@@ -3232,7 +3131,6 @@ msgstr "Apple"
 #: src/features/command-palette/pages/resumes.tsx
 #: src/features/documents/document-actions.tsx
 #: src/features/documents/documents-page.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Application"
 msgstr "Bewerbung"
 
@@ -3456,10 +3354,6 @@ msgstr "Abschnitte anordnen…"
 msgid "Arrange sections"
 msgstr "Abschnitte anordnen"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "As written on the page"
-msgstr "Wie auf der Seite geschrieben"
-
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
 msgid "Asian style"
@@ -3575,7 +3469,6 @@ msgstr "Seitenverhältnis"
 #: src/features/resume/editor/chrome/bar.tsx
 #: src/features/resume/editor/chrome/shell.tsx
 #: src/routes/builder/$resumeId/-components/use-editor-hotkeys.ts
-#: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Assistant"
 msgstr "Assistent"
 
@@ -3626,17 +3519,8 @@ msgstr "ATS Lesbarkeit"
 msgid "ATS-safe"
 msgstr "ATS-sicher"
 
-#: src/features/applications/components/application-form-sheet.tsx
-msgid "Attach a cover letter (PDF, up to 10 MB)"
-msgstr "Anschreiben anhängen (PDF, bis zu 10 MB)"
-
-#: src/features/applications/components/detail/sent-documents.tsx
-msgid "Attach a cover letter file (PDF, up to 10 MB)"
-msgstr "Anschreibendatei anhängen (PDF, bis zu 10 MB)"
-
 #: src/features/assistant/conversation.tsx
 #: src/features/career/coach-thread.tsx
-#: src/features/career/workspace/preparation.tsx
 msgid "Attach a file"
 msgstr "Hängen Sie eine Datei an"
 
@@ -3756,10 +3640,8 @@ msgid "Back to now"
 msgstr "Zurück ins Jetzt"
 
 #. Action returning the visitor to the sign-in page after a failed sign-in
-#. Navigation link on 2FA verification screen
 #: src/features/auth/pages/error.tsx
 #: src/features/auth/pages/forgot-password.tsx
-#: src/features/auth/pages/verify-2fa.tsx
 msgid "Back to sign in"
 msgstr "Zurück zur Anmeldung"
 
@@ -3793,20 +3675,6 @@ msgstr "Hintergrund"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Background color"
 msgstr "Hintergrundfarbe"
-
-#: src/features/auth/pages/verify-2fa.tsx
-#: src/routes/auth/verify-2fa-backup.tsx
-msgid "Backup code"
-msgstr "Backup-Code"
-
-#: src/features/settings/account/backup-codes.tsx
-msgid "Backup codes"
-msgstr "Wiederherstellungscodes"
-
-#: src/dialogs/auth/enable-two-factor.tsx
-#: src/features/settings/account/backup-codes.tsx
-msgid "Backup codes copied"
-msgstr "Backup-Codes kopiert"
 
 #: src/features/resume/editor/design/presets.ts
 msgid "Balanced"
@@ -3931,10 +3799,6 @@ msgstr "leer"
 msgid "Blank"
 msgstr "Leer"
 
-#: src/features/documents/new-document-dialog.tsx
-msgid "Blank letter"
-msgstr "Leerer Brief"
-
 #: src/features/ats-checker/messages.ts
 msgid "Blocker"
 msgstr "Blocker"
@@ -3950,12 +3814,6 @@ msgstr "Kanban-Board"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
 msgid "Body"
 msgstr "Fließtext"
-
-#. placeholder {0}: body.fontFamily
-#. placeholder {1}: body.fontSize
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "Body in {0}, {1} pt"
-msgstr "Fließtext in {0}, {1} pt"
 
 #: src/features/resume/editor/check/issues.ts
 msgid "Body text is very small"
@@ -4013,14 +3871,6 @@ msgstr "Beide Konten haben ein privates Bewerbungsprofil. Exportiere und lösche
 #: src/features/auth/error.ts
 msgid "Both accounts have duplicate saved application answers. Export and delete one copy before linking, so neither is silently overwritten."
 msgstr "Beide Konten haben doppelte gespeicherte Bewerbungsantworten. Exportiere und lösche vor dem Verknüpfen eine Kopie, damit nichts überschrieben wird."
-
-#: src/features/applications/components/application-detail-sheet.tsx
-msgid "Both are optional. Leave one unselected if you didn't send it."
-msgstr "Beides ist optional. Lassen Sie eines leer, wenn Sie es nicht gesendet haben."
-
-#: src/features/applications/components/add-application-dialog.tsx
-msgid "Both are optional. What you pick is kept as it was sent and never changes; your drafts stay editable."
-msgstr "Beides ist optional. Was Sie wählen, bleibt wie gesendet erhalten und ändert sich nie; Ihre Entwürfe bleiben bearbeitbar."
 
 #: src/components/calm/crumb.tsx
 msgid "Breadcrumb"
@@ -4181,14 +4031,7 @@ msgstr "Ruhig"
 msgid "Can software read your resume?"
 msgstr "Kann Software Ihren Lebenslauf lesen?"
 
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Can't scan? Enter this key in the app:"
-msgstr "Scan nicht möglich? Geben Sie diesen Schlüssel in der App ein:"
-
-#. Secondary action button to close two-factor setup dialog
-#. Secondary action button to close two-factor setup dialog
 #: src/dialogs/auth/change-password.tsx
-#: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/set-password.tsx
 #: src/dialogs/resume/index.tsx
 #: src/features/ai/set-up-ai.tsx
@@ -4285,17 +4128,9 @@ msgstr "Zertifizierungen"
 msgid "Change"
 msgstr "Ändern"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Change application"
-msgstr "Bewerbung ändern"
-
 #: src/features/career/coach-chat.tsx
 msgid "Change connection"
 msgstr "Verbindung ändern"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Change it in Design."
-msgstr "Ändern Sie es im Design."
 
 #: src/features/homepage/sections.tsx
 msgid "Change language"
@@ -4316,10 +4151,6 @@ msgstr "Passwort ändern"
 msgid "Change photo"
 msgstr "Foto ändern"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Change resume"
-msgstr "Lebenslauf ändern"
-
 #: src/features/applications/components/detail/next-step-card.tsx
 msgid "Change the follow-up…"
 msgstr "Ändern Sie das Follow-up…"
@@ -4327,10 +4158,6 @@ msgstr "Ändern Sie das Follow-up…"
 #: src/features/resume/editor/write/section-view.tsx
 msgid "Change the icon of {title}"
 msgstr "Symbol von {title} ändern"
-
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "Change the resume's design"
-msgstr "Ändern Sie das Design des Lebenslaufs"
 
 #: src/features/command-palette/pages/preferences/index.tsx
 msgid "Change theme to…"
@@ -4628,10 +4455,6 @@ msgstr "Wählen Sie eine PDF-Datei."
 msgid "Choose a resume"
 msgstr "Lebenslauf auswählen"
 
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "Choose a resume in Write to match its design. Until then, the letter has its own."
-msgstr "Wählen Sie in Write einen Lebenslauf aus, der zu seinem Design passt. Bis dahin hat der Brief seinen eigenen."
-
 #: src/features/applications/components/import-applications-sheet.tsx
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "Choose a stage"
@@ -4707,8 +4530,8 @@ msgid "Choose…"
 msgstr "Wählen …"
 
 #: src/features/applications/components/add-application-dialog.tsx
-msgid "Choosing Applied asks which resume and letter you sent."
-msgstr "Bei „Beworben“ werden Sie gefragt, welchen Lebenslauf und welches Anschreiben Sie gesendet haben."
+msgid "Choosing Applied asks which resume you sent."
+msgstr ""
 
 #: src/features/resume/editor/design/entries-group.tsx
 msgid "Circle"
@@ -4750,10 +4573,6 @@ msgstr "Klare Typografie"
 msgid "Clear"
 msgstr "Löschen"
 
-#: src/features/career/workspace/preparation.tsx
-msgid "Clear cover letter"
-msgstr "Anschreiben entfernen"
-
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "Clear custom CSS"
 msgstr "Eigenes CSS löschen"
@@ -4788,10 +4607,6 @@ msgstr "Abschnitt löschen"
 msgid "Clear selection"
 msgstr "Auswahl löschen"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Clear the greeting or sign-off to omit it. Clearing the sign-off also removes the automatic signature."
-msgstr "Leere die Anrede oder Grußformel, um sie wegzulassen. Eine leere Grußformel entfernt auch die automatische Unterschrift."
-
 #: src/features/resume/editor/write/write-panel.tsx
 msgid "Click any block on the page to edit it."
 msgstr "Klicken Sie auf einen Block der Seite, um ihn zu bearbeiten."
@@ -4811,8 +4626,6 @@ msgid "close"
 msgstr "schließen"
 
 #: src/dialogs/auth/change-password.tsx
-#: src/dialogs/auth/disable-two-factor.tsx
-#: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/set-password.tsx
 #: src/dialogs/resume/index.tsx
 #: src/features/ai/set-up-ai.tsx
@@ -4851,7 +4664,6 @@ msgstr "schließen"
 #: src/features/resume/editor/chrome/download-sheet.tsx
 #: src/features/resume/editor/write/picture-settings.tsx
 #: src/features/resume/stylesheet/editor.tsx
-#: src/features/settings/account/backup-codes.tsx
 #: src/features/settings/ai/next-steps.tsx
 #: src/features/settings/ai/providers.tsx
 #: src/features/settings/ai/web-access.tsx
@@ -4929,7 +4741,6 @@ msgstr "Code"
 
 #: src/components/calm/category-strip.tsx
 #: src/features/applications/components/manage-lanes-sheet.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
 msgid "Color"
 msgstr "Farbe"
 
@@ -5011,7 +4822,6 @@ msgid "Compact"
 msgstr "Kompakt"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
 msgid "compact density"
 msgstr "kompakte Dichte"
 
@@ -5027,7 +4837,6 @@ msgstr "Kompakte Kopfzeilen"
 #: src/features/resume/editor/check/job-match.tsx
 #: src/features/resume/editor/write/entries.tsx
 #: src/features/settings/profile.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Company"
 msgstr "Unternehmen"
 
@@ -5260,8 +5069,6 @@ msgstr "Content Creator"
 msgid "Content is laid out in a grid."
 msgstr "Der Inhalt ist als Raster angeordnet."
 
-#. Primary action button to proceed to next step in two-factor setup
-#: src/dialogs/auth/enable-two-factor.tsx
 #: src/features/assistant/conversation.tsx
 #: src/features/career/coach-chat.tsx
 #: src/features/documents/new-document-dialog.tsx
@@ -5351,12 +5158,6 @@ msgstr "Kopieren und als beantwortet protokollieren"
 msgid "Copy answers"
 msgstr "Antworten kopieren"
 
-#. Action button to copy two-factor backup codes to clipboard
-#: src/dialogs/auth/enable-two-factor.tsx
-#: src/features/settings/account/backup-codes.tsx
-msgid "Copy codes"
-msgstr "Codes kopieren"
-
 #: src/features/career/coach.tsx
 msgid "Copy conversation"
 msgstr "Unterhaltung kopieren"
@@ -5386,10 +5187,6 @@ msgstr "Fragen kopieren"
 #: src/features/career/workspace/messages.tsx
 msgid "Copy reply"
 msgstr "Antwort kopieren"
-
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Copy secret"
-msgstr "Geheimnis kopieren"
 
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Copy stylesheet"
@@ -5453,10 +5250,6 @@ msgstr "Der Hauptschlüssel konnte nicht hinzugefügt werden. Versuchen Sie es e
 #: src/features/career/coach-thread.tsx
 msgid "Couldn't attach the file. Try again."
 msgstr "Die Datei konnte nicht angehängt werden. Versuchen Sie es erneut."
-
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "Couldn't change the design. Try again."
-msgstr "Das Design konnte nicht geändert werden. Versuchen Sie es erneut."
 
 #: src/features/settings/account/profile.tsx
 msgid "Couldn't change the email. Try again."
@@ -5612,7 +5405,6 @@ msgstr "Dieser Fakt konnte nicht vergessen werden. Versuchen Sie es erneut."
 
 #: src/features/applications/use-document-download.ts
 #: src/features/resume/export/use-resume-export.ts
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Couldn't generate the PDF. Try again."
 msgstr "Die PDF-Datei konnte nicht erstellt werden. Versuchen Sie es erneut."
 
@@ -5674,10 +5466,6 @@ msgstr "Dokumente konnten nicht geladen werden. Versuchen Sie es erneut."
 #: src/features/career/knowledge/stories.tsx
 msgid "Couldn't load interviews. Retry"
 msgstr "Interviews konnten nicht geladen werden. Erneut versuchen"
-
-#: src/features/command-palette/pages/resumes.tsx
-msgid "Couldn't load letters. Try again."
-msgstr "Anschreiben konnten nicht geladen werden. Versuche es erneut."
 
 #: src/features/career/knowledge/resume-facts.tsx
 msgid "Couldn't load or save resume facts. Try again."
@@ -5745,10 +5533,6 @@ msgstr "Die Nachfrage konnte nicht erfasst werden. Prüfe den Verlauf, bevor du 
 #: src/features/assistant/accept-on-copy.ts
 msgid "Couldn't make a copy to work on."
 msgstr "Es konnte keine Arbeitskopie erstellt werden."
-
-#: src/features/settings/account/backup-codes.tsx
-msgid "Couldn't make new codes. Try again."
-msgstr "Neue Codes konnten nicht erstellt werden. Versuchen Sie es erneut."
 
 #: src/features/settings/ai/providers.tsx
 msgid "Couldn't make this connection the default. Try again."
@@ -5916,7 +5700,6 @@ msgstr "Diese Änderung konnte nicht gespeichert werden. Prüfen Sie Ihre Verbin
 #: src/features/career/workspace/apply.tsx
 #: src/features/career/workspace/preparation.tsx
 #: src/features/career/workspace/prepare-review.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Couldn't save that change. Try again."
 msgstr "Diese Änderung konnte nicht gespeichert werden. Versuchen Sie es erneut."
 
@@ -5994,12 +5777,8 @@ msgstr "Diese Stelle konnte nicht in den Bewerbungen gespeichert werden. Versuch
 msgid "Couldn't save this schedule. Try again."
 msgstr "Dieser Zeitplan konnte nicht gespeichert werden. Versuchen Sie es erneut."
 
-#: src/features/letters/store.ts
 #: src/features/resume/builder/draft.ts
 #: src/features/resume/share/history-tab.tsx
-#: src/routes/builder/letter/-components/download-sheet.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
-#: src/routes/builder/letter/$coverLetterId.tsx
 msgid "Couldn't save your changes. Try again before continuing."
 msgstr "Ihre Änderungen konnten nicht gespeichert werden. Versuchen Sie es erneut, bevor Sie fortfahren."
 
@@ -6051,10 +5830,6 @@ msgstr "Ihr Kommentar konnte nicht gesendet werden. Versuchen Sie es erneut."
 #: src/features/resume/builder/password-dialog.tsx
 msgid "Couldn't set the password. Try again."
 msgstr "Das Passwort konnte nicht festgelegt werden. Versuchen Sie es erneut."
-
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Couldn't set up two-step verification. Try again."
-msgstr "Die zweistufige Verifizierung konnte nicht eingerichtet werden. Versuchen Sie es erneut."
 
 #: src/dialogs/auth/set-password.tsx
 msgid "Couldn't set your password. Try again."
@@ -6119,16 +5894,6 @@ msgstr "Modell konnte nicht gewechselt werden. Versuchen Sie es erneut."
 msgid "Couldn't transcribe. Your recording is still here."
 msgstr "Transkription fehlgeschlagen. Ihre Aufnahme ist noch da."
 
-#. Fallback toast when disabling two-factor authentication fails
-#: src/dialogs/auth/disable-two-factor.tsx
-msgid "Couldn't turn off two-step verification. Check your password and try again."
-msgstr "Die zweistufige Verifizierung konnte nicht deaktiviert werden. Prüfen Sie Ihr Passwort und versuchen Sie es erneut."
-
-#. Fallback toast when enabling two-factor authentication fails
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Couldn't turn on two-step verification. Check your password and try again."
-msgstr "Die zweistufige Verifizierung konnte nicht aktiviert werden. Prüfen Sie Ihr Passwort und versuchen Sie es erneut."
-
 #: src/features/settings/ai/providers.tsx
 msgid "Couldn't turn the connection on or off. Try again."
 msgstr "Die Verbindung konnte nicht ein- oder ausgeschaltet werden. Versuchen Sie es erneut."
@@ -6174,10 +5939,6 @@ msgstr "Die Bewerbungen konnten nicht aktualisiert werden. Versuchen Sie es erne
 msgid "Couldn't update the interview. Try again."
 msgstr "Das Interview konnte nicht aktualisiert werden. Versuchen Sie es erneut."
 
-#: src/routes/builder/letter/-components/letter-bar.tsx
-msgid "Couldn't update the letter. Try again."
-msgstr "Das Anschreiben konnte nicht aktualisiert werden. Versuchen Sie es erneut."
-
 #: src/features/applications/components/add-application-dialog.tsx
 msgid "Couldn't update the posting. Try again."
 msgstr "Die Stellenanzeige konnte nicht aktualisiert werden. Versuchen Sie es erneut."
@@ -6190,10 +5951,6 @@ msgstr "Die Vorschau konnte nicht aktualisiert werden. Die letzte funktionierend
 msgid "Couldn't update the timeline. Try again."
 msgstr "Die Zeitleiste konnte nicht aktualisiert werden. Versuchen Sie es erneut."
 
-#: src/routes/builder/letter/-components/download-sheet.tsx
-msgid "Couldn't update this letter's versions. Try again."
-msgstr "Die Versionen dieses Anschreibens konnten nicht aktualisiert werden. Versuchen Sie es erneut."
-
 #: src/features/resume/editor/write/picture-settings.tsx
 msgid "Couldn't upload the photo. Choose a readable PNG, JPEG, WebP or GIF photo up to 10 MB, then try again."
 msgstr "Das Foto konnte nicht hochgeladen werden. Wähle ein lesbares Foto im Format PNG, JPEG, WebP oder GIF bis zu 10 MB und versuche es erneut."
@@ -6201,19 +5958,6 @@ msgstr "Das Foto konnte nicht hochgeladen werden. Wähle ein lesbares Foto im Fo
 #: src/features/settings/account/profile.tsx
 msgid "Couldn't upload the photo. Try again."
 msgstr "Das Foto konnte nicht hochgeladen werden. Versuchen Sie es erneut."
-
-#. Fallback toast when verifying two-factor setup code fails
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Couldn't verify the code. Enter the current code from your authenticator app."
-msgstr "Der Code konnte nicht verifiziert werden. Geben Sie den aktuellen Code aus Ihrer Authenticator-App ein."
-
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Couldn't verify your backup code. Check the code and try again."
-msgstr "Ihr Backup-Code konnte nicht verifiziert werden. Prüfen Sie den Code und versuchen Sie es erneut."
-
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Couldn't verify your code. Check the code and try again."
-msgstr "Ihr Code konnte nicht verifiziert werden. Prüfen Sie den Code und versuchen Sie es erneut."
 
 #: src/features/career/workspace/apply.tsx
 msgid "Count characters"
@@ -6254,71 +5998,6 @@ msgstr "Zählt jede Bewerbung, die eine Phase erreicht hat."
 msgid "Cover"
 msgstr "Ausfüllen"
 
-#: src/features/applications/components/application-form-sheet.tsx
-#: src/features/applications/components/detail/sent-documents.tsx
-#: src/features/career/workspace/preparation.tsx
-#: src/features/command-palette/pages/navigation.tsx
-#: src/features/command-palette/pages/resumes.tsx
-#: src/features/documents/document-card.tsx
-#: src/features/documents/import/import-page.tsx
-#: src/features/documents/new-document-dialog.tsx
-msgid "Cover letter"
-msgstr "Anschreiben"
-
-#: src/libs/resume/section.tsx
-msgid "Cover Letter"
-msgstr "Anschreiben"
-
-#: src/features/career/workspace/application-packet.tsx
-msgid "Cover letter · current version"
-msgstr "Anschreiben · aktuelle Version"
-
-#: src/features/career/today.tsx
-#: src/features/documents/document-card.tsx
-msgid "Cover letter · edited {edited}"
-msgstr "Anschreiben · bearbeitet {edited}"
-
-#: src/features/homepage/tailor.tsx
-msgid "Cover letter · Fieldnote"
-msgstr "Anschreiben · Fieldnote"
-
-#: src/features/career/workspace/prepare.tsx
-msgid "Cover letter · kept as sent"
-msgstr "Anschreiben · wie gesendet"
-
-#. placeholder {0}: i18n.date(item.document.editedAt, { day: "numeric", month: "short" })
-#: src/features/trash/trash-page.tsx
-msgid "Cover letter · last edited {0}"
-msgstr "Anschreiben · zuletzt bearbeitet {0}"
-
-#. placeholder {0}: writtenFor(item.document)
-#: src/features/trash/trash-page.tsx
-msgid "Cover letter · written for {0}"
-msgstr "Anschreiben · geschrieben für {0}"
-
-#: src/features/applications/components/detail/sent-documents.tsx
-#: src/features/career/workspace/apply.tsx
-#: src/features/career/workspace/preparation.tsx
-msgid "Cover letter file"
-msgstr "Anschreiben-Datei"
-
-#: src/features/documents/import/use-resume-import.ts
-msgid "Cover letter imported"
-msgstr "Anschreiben importiert"
-
-#: src/features/applications/components/detail/sent-documents.tsx
-#: src/features/career/workspace/preparation.tsx
-msgid "Cover letter options"
-msgstr "Anschreiben-Optionen"
-
-#: src/features/applications/components/application-detail-sheet.tsx
-msgid "Cover letter you sent"
-msgstr "Gesendetes Anschreiben"
-
-#: src/features/command-palette/pages/navigation.tsx
-msgid "Cover letters"
-msgstr "Anschreiben"
-
 #: src/features/command-palette/content.tsx
 #: src/features/command-palette/pages/navigation.tsx
 #: src/features/command-palette/pages/resumes.tsx
@@ -6330,8 +6009,8 @@ msgid "Create a new resume"
 msgstr "Einen neuen Lebenslauf erstellen"
 
 #: src/features/command-palette/pages/ask.tsx
-msgid "Create a resume or letter first."
-msgstr "Erstellen Sie zuerst einen Lebenslauf oder Brief."
+msgid "Create a resume first."
+msgstr ""
 
 #. Primary action button label on registration form
 #: src/features/auth/components/guest-banner.tsx
@@ -6355,10 +6034,6 @@ msgstr "Erstellen und öffnen"
 #: src/features/assistant/translate-resume.tsx
 msgid "Create language copy"
 msgstr "Sprachkopie erstellen"
-
-#: src/features/documents/new-document-dialog.tsx
-msgid "Create letter"
-msgstr "Anschreiben erstellen"
 
 #: src/features/auth/email-text.ts
 msgid "Create new password"
@@ -6539,7 +6214,6 @@ msgstr "Datenfreigabe abgebrochen. Es wurde nichts an den KI-Anbieter gesendet."
 #: src/features/applications/components/interview-dialog.tsx
 #: src/features/resume/editor/proposals/proposal-list.tsx
 #: src/features/resume/editor/write/dates-field.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Date"
 msgstr "Datum"
 
@@ -6598,18 +6272,6 @@ msgstr "Termine werden nicht gelesen"
 #: src/features/ats-checker/checker.tsx
 msgid "Dates, headings, email, phone and links, checked for the forms parsers expect."
 msgstr "Daten, Überschriften, E-Mail, Telefon und Links, geprüft auf die Formate, die Parser erwarten."
-
-#: src/features/letters/compose.ts
-msgid "Dear {name},"
-msgstr "Guten Tag {name},"
-
-#: src/features/homepage/tailor.tsx
-msgid "Dear Fieldnote team,"
-msgstr "Liebes Fieldnote-Team,"
-
-#: src/features/letters/compose.ts
-msgid "Dear hiring team,"
-msgstr "Sehr geehrte Damen und Herren,"
 
 #: src/features/ai/usage.tsx
 #: src/features/career/shared.tsx
@@ -6842,9 +6504,6 @@ msgstr "Beschreibung der Rolle {0}"
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
 #: src/routes/builder/$resumeId/-components/use-editor-hotkeys.ts
-#: src/routes/builder/letter/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
-#: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Design"
 msgstr "Design"
 
@@ -6880,11 +6539,6 @@ msgstr "Details"
 #: src/features/settings/root.tsx
 msgid "Details for job forms"
 msgstr "Angaben für Bewerbungsformulare"
-
-#. placeholder {0}: resume.name
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Details from “{0}”"
-msgstr "Angaben aus „{0}“"
 
 #. Label before the raw error text forwarded by the identity provider
 #: src/features/auth/pages/error.tsx
@@ -6928,11 +6582,6 @@ msgstr "Andere Währung, nicht verglichen"
 msgid "Different pay period, not compared"
 msgstr "Anderer Zahlungszeitraum, nicht verglichen"
 
-#: src/dialogs/auth/enable-two-factor.tsx
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Digit {position} of {total}"
-msgstr "Ziffer {position} von {total}"
-
 #: src/features/career/schedule-sheet.tsx
 #: src/features/career/workspace/prepare-review.tsx
 msgid "Discard"
@@ -6962,17 +6611,12 @@ msgstr "Die Verknüpfung Ihres {providerName}-Kontos wird aufgehoben…"
 #: src/features/career/workspace/messages.tsx
 #: src/features/resume/editor/write/write-panel.tsx
 #: src/features/settings/ai/next-steps.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Dismiss"
 msgstr "Ausblenden"
 
 #: src/features/resume/editor/chrome.tsx
 msgid "Document menu: {name}"
 msgstr "Dokumentmenü: {name}"
-
-#: src/features/documents/documents-page.tsx
-msgid "Document type"
-msgstr "Dokumenttyp"
 
 #: src/features/command-palette/pages/navigation.tsx
 #: src/features/command-palette/pages/resumes.tsx
@@ -7026,8 +6670,6 @@ msgstr "Nicht teilen"
 msgid "done"
 msgstr "erledigt"
 
-#. Final action button after saving backup codes
-#: src/dialogs/auth/enable-two-factor.tsx
 #: src/features/ai/set-up-ai.tsx
 #: src/features/career/knowledge/facts.tsx
 #: src/features/career/knowledge/resume-facts.tsx
@@ -7035,7 +6677,6 @@ msgstr "erledigt"
 #: src/features/career/workspace/prepare-review.tsx
 #: src/features/documents/document-actions.tsx
 #: src/features/resume/editor/write/rich-text-editor-field.tsx
-#: src/features/settings/account/backup-codes.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Done"
 msgstr "Erledigt"
@@ -7054,7 +6695,6 @@ msgstr "Erledigt · {0}"
 #: src/features/resume/share/web-page-text.ts
 #: src/features/settings/account/data.tsx
 #: src/routes/builder/$resumeId/-components/download-sheet.tsx
-#: src/routes/builder/letter/-components/download-sheet.tsx
 msgid "Download"
 msgstr "Herunterladen"
 
@@ -7067,7 +6707,6 @@ msgid "Download {name} sample PDF"
 msgstr "Laden Sie das Beispiel-PDF für {name} herunter"
 
 #: src/features/resume/editor/chrome/download-sheet.tsx
-#: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Download & history"
 msgstr "Download & Verlauf"
 
@@ -7084,12 +6723,6 @@ msgstr "Genehmigtes PDF herunterladen: {0}"
 msgid "Download cancellation"
 msgstr "Absage herunterladen"
 
-#. Action button to download two-factor backup codes as a text file
-#: src/dialogs/auth/enable-two-factor.tsx
-#: src/features/settings/account/backup-codes.tsx
-msgid "Download codes"
-msgstr "Codes herunterladen"
-
 #: src/features/applications/components/export-applications-sheet.tsx
 msgid "Download CSV"
 msgstr "CSV herunterladen"
@@ -7100,7 +6733,6 @@ msgstr "Aktuelles PDF herunterladen"
 
 #: src/features/resume/share/download-menu.tsx
 #: src/features/resume/share/download-tab.tsx
-#: src/routes/builder/letter/-components/download-sheet.tsx
 msgid "Download failed. Try again."
 msgstr "Download fehlgeschlagen. Versuchen Sie es erneut."
 
@@ -7113,7 +6745,6 @@ msgstr "Paket herunterladen"
 #: src/features/resume/editor/chrome/bar.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/routes/builder/$resumeId/-components/use-editor-hotkeys.ts
-#: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Download PDF"
 msgstr "PDF herunterladen"
 
@@ -7136,13 +6767,8 @@ msgstr "Download, braucht eine Verbindung"
 
 #: src/features/resume/share/download-menu.tsx
 #: src/features/resume/share/download-tab.tsx
-#: src/routes/builder/letter/-components/download-sheet.tsx
 msgid "Downloaded {file}"
 msgstr "{file} heruntergeladen"
-
-#: src/features/resume/share/download-tab.tsx
-msgid "Downloaded {file} and the cover letter"
-msgstr "{file} und das Anschreiben heruntergeladen"
 
 #: src/features/career/workspace/preparation.tsx
 msgid "draft"
@@ -7153,13 +6779,8 @@ msgstr "Entwurf"
 #: src/features/resume/editor/save-status.tsx
 #: src/features/resume/editor/write/entry-row.tsx
 #: src/features/resume/editor/write/entry-view.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Draft"
 msgstr "Dokumentenentwurf"
-
-#: src/routes/builder/letter/-components/letter-page.tsx
-msgid "Draft · not kept yet"
-msgstr "Entwurf · noch nicht behalten"
 
 #: src/features/assistant/assistant-panel.tsx
 msgid "Draft a follow-up email"
@@ -7173,21 +6794,9 @@ msgstr "Notiz entwerfen"
 msgid "Draft a summary"
 msgstr "Erstellen Sie eine Zusammenfassung"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Draft from the posting"
-msgstr "Entwurf aus der Stellenausschreibung"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Draft from your resume"
-msgstr "Entwurf aus Ihrem Lebenslauf"
-
 #: src/features/homepage/remember.tsx
 msgid "Draft it as"
 msgstr "Entwerfen als"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Draft kept. Edit anything you like."
-msgstr "Entwurf beibehalten. Bearbeiten Sie alles, was Ihnen gefällt."
 
 #: src/features/career/workspace/prepare.tsx
 msgid "Draft story"
@@ -7208,15 +6817,6 @@ msgstr "Antwortentwürfe brauchen KI."
 #: src/features/career/shared.tsx
 msgid "Drafting questions"
 msgstr "Fragen werden entworfen"
-
-#. placeholder {0}: draft.provider
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Drafting stopped: {0} didn't respond. Nothing on the page changed."
-msgstr "Entwurf gestoppt: {0} hat nicht geantwortet. Auf der Seite hat sich nichts geändert."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Drafting stopped. Nothing on the page changed."
-msgstr "Die Ausarbeitung wurde gestoppt. Auf der Seite hat sich nichts geändert."
 
 #. placeholder {0}: application.company
 #. placeholder {1}: application.role
@@ -7266,13 +6866,8 @@ msgstr "Zum Importieren ablegen"
 #: src/features/documents/document-actions.tsx
 #: src/features/resume/editor/write/entry-row.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Duplicate"
 msgstr "Duplizieren"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Duplicate as a new letter"
-msgstr "Als neues Anschreiben duplizieren"
 
 #: src/features/applications/components/add-application-dialog.tsx
 msgid "Duplicate check unavailable. Retry before saving; your server may need updating."
@@ -7393,10 +6988,6 @@ msgstr "Farbe bearbeiten {0}"
 #: src/features/settings/ai/providers.tsx
 msgid "Edit connection"
 msgstr "Verbindung bearbeiten"
-
-#: src/features/career/workspace/preparation.tsx
-msgid "Edit cover letter"
-msgstr "Anschreiben bearbeiten"
 
 #: src/features/applications/components/detail/sent-documents.tsx
 #: src/features/resume/share/history-tab.tsx
@@ -7546,7 +7137,6 @@ msgid "Editor"
 msgstr "Editor"
 
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Editor mode"
 msgstr "Editormodus"
 
@@ -7586,7 +7176,6 @@ msgstr "Effizient"
 #: src/features/resume/editor/write/basics-card.tsx
 #: src/features/settings/account/profile.tsx
 #: src/features/settings/profile.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Email"
 msgstr "E-Mail"
 
@@ -7638,10 +7227,6 @@ msgstr "Arbeitgeber"
 msgid "Employer-form packet"
 msgstr "Paket für Arbeitgeberformulare"
 
-#: src/features/documents/document-card.tsx
-msgid "Empty letter"
-msgstr "Leerer Brief"
-
 #: src/features/trash/trash-page.tsx
 msgid "Empty Trash"
 msgstr "Papierkorb leeren"
@@ -7684,10 +7269,6 @@ msgstr "Erweiterte Lesefunktion nicht verfügbar; Ich habe den eingebauten Leser
 #: src/features/applications/components/add-application-dialog.tsx
 msgid "Enhanced reading was unavailable. The built-in reader retrieved this posting."
 msgstr "Die erweiterte Lesefunktion war nicht verfügbar. Der integrierte Reader hat diese Stellenausschreibung abgerufen."
-
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Enter a backup code."
-msgstr "Geben Sie einen Backup-Code ein."
 
 #: src/features/career/offer-entry.tsx
 msgid "Enter a full amount, such as 95000, or leave blank."
@@ -7736,22 +7317,9 @@ msgstr "Gib eine Basis-URL mit http:// oder https:// ein."
 msgid "Enter any model ID supported by your endpoint."
 msgstr "Gib eine beliebige Modell-ID ein, die dein Endpunkt unterstützt."
 
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Enter one of the backup codes you saved."
-msgstr "Geben Sie einen Ihrer gespeicherten Backup-Codes ein."
-
 #: src/features/documents/documents-page.tsx
 msgid "Enter opens the first result. Down arrow moves to the results. Escape clears."
 msgstr "Enter öffnet das erste Ergebnis. Der Abwärtspfeil springt zu den Ergebnissen. Esc leert die Eingabe."
-
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Enter the 6-digit code from your authenticator app."
-msgstr "Geben Sie den 6-stelligen Code aus Ihrer Authenticator-App ein."
-
-#: src/dialogs/auth/enable-two-factor.tsx
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Enter the 6-digit code."
-msgstr "Geben Sie den 6-stelligen Code ein."
 
 #: src/features/settings/profile.tsx
 msgid "Enter the amount as a number."
@@ -7781,28 +7349,10 @@ msgstr "Geben Sie Ihr aktuelles Passwort ein und wählen Sie dann ein neues."
 msgid "Enter your current password."
 msgstr "Geben Sie Ihr aktuelles Passwort ein."
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Enter your details below. Choosing a resume replaces them and links its design."
-msgstr "Gib unten deine Angaben ein. Wenn du einen Lebenslauf auswählst, werden sie ersetzt und dessen Design wird verknüpft."
-
 #: src/features/auth/pages/register.tsx
 msgid "Enter your name."
 msgstr "Geben Sie Ihren Namen ein."
 
-#: src/features/settings/account/backup-codes.tsx
-msgid "Enter your password to replace your backup codes. Codes you saved before stop working."
-msgstr "Geben Sie Ihr Passwort ein, um Ihre Wiederherstellungscodes zu ersetzen. Zuvor gespeicherte Codes funktionieren danach nicht mehr."
-
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Enter your password to set up two-step verification. Once it's on, you need a code from your authenticator app every time you sign in."
-msgstr "Geben Sie Ihr Passwort ein, um die zweistufige Verifizierung einzurichten. Sobald sie aktiv ist, benötigen Sie bei jeder Anmeldung einen Code aus Ihrer Authenticator-App."
-
-#: src/dialogs/auth/disable-two-factor.tsx
-msgid "Enter your password to turn off two-step verification. Without it, your password alone can sign in to your account."
-msgstr "Geben Sie Ihr Passwort ein, um die zweistufige Verifizierung zu deaktivieren. Danach genügt Ihr Passwort allein, um sich bei Ihrem Konto anzumelden."
-
-#: src/dialogs/auth/disable-two-factor.tsx
-#: src/dialogs/auth/enable-two-factor.tsx
 #: src/features/auth/pages/login.tsx
 msgid "Enter your password."
 msgstr "Geben Sie Ihr Passwort ein."
@@ -7959,7 +7509,6 @@ msgstr "erklären Sie eine Grenze der Messung klar, ohne die Arbeit kleinzureden
 #: src/features/homepage/share.tsx
 #: src/features/settings/profile.tsx
 #: src/libs/resume/section.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Export"
 msgstr "Exportieren"
 
@@ -8184,10 +7733,6 @@ msgstr "Dateien dürfen bis zu 25 MB groß sein."
 msgid "Fill fields"
 msgstr "Felder ausfüllen"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Filled from the application. The greeting follows the name."
-msgstr "Ausgefüllt aus der Bewerbung. Nach dem Namen folgt die Begrüßung."
-
 #: src/features/applications/components/application-form-sheet.tsx
 msgid "Filled in what we could from the posting."
 msgstr "Aus der Ausschreibung wurde ausgefüllt, was möglich war."
@@ -8274,6 +7819,10 @@ msgstr "Anpassung"
 msgctxt "Application workspace tab: how well a job fits your experience"
 msgid "Fit"
 msgstr "Passung"
+
+#: src/features/homepage/tailor.tsx
+msgid "Fit check · Fieldnote"
+msgstr ""
 
 #: src/features/career/workspace/saved.tsx
 msgid "Fit checks, briefings, practice feedback, debriefs, answers, replies and offers land here as you save them."
@@ -8389,10 +7938,6 @@ msgstr "Nachfassen für {0} geplant"
 msgid "Followed up"
 msgstr "Nachgefasst"
 
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "Follows the resume"
-msgstr "Folgt dem Lebenslauf"
-
 #: src/features/settings/preferences.tsx
 msgid "Follows your device"
 msgstr "Folgt Ihrem Gerät"
@@ -8431,13 +7976,8 @@ msgid "for {company}"
 msgstr "für {company}"
 
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "For {company}"
 msgstr "Für {company}"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "For {company} · {role}"
-msgstr "Für {company} · {role}"
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "For a file, the language is chosen when you import it."
@@ -8499,10 +8039,6 @@ msgstr "Für die nächste Runde:"
 #: src/features/resume/editor/check/job-match.tsx
 msgid "For this visit only"
 msgstr "Nur für diesen Besuch"
-
-#: src/features/documents/new-document-dialog.tsx
-msgid "For which job"
-msgstr "Für welche Stelle"
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "For which job?"
@@ -8603,8 +8139,6 @@ msgstr "Frei anpassbar, mit PDF- und Word-Downloads und ohne Wasserzeichen. Wech
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 #: src/routes/builder/$resumeId/-components/page-canvas.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/letter-page.tsx
 msgid "Free-form"
 msgstr "Freiform"
 
@@ -8630,7 +8164,6 @@ msgid "French"
 msgstr "Französisch"
 
 #: src/features/homepage/prepare.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "From"
 msgstr "Aus"
 
@@ -8716,7 +8249,6 @@ msgid "Frozen"
 msgstr "Eingefroren"
 
 #: src/features/resume/editor/write/basics-card.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Full name"
 msgstr "Vollständiger Name"
 
@@ -8738,14 +8270,9 @@ msgstr "Stufen in voller Breite"
 msgid "General question"
 msgstr "Allgemeine Frage"
 
-#: src/features/settings/account/backup-codes.tsx
-msgid "Generate new codes"
-msgstr "Neue Codes generieren"
-
 #: src/features/applications/components/detail/sent-documents.tsx
 #: src/features/career/workspace/preparation.tsx
 #: src/features/resume/export/use-resume-export.ts
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Generating PDF…"
 msgstr "PDF wird erstellt…"
 
@@ -8781,10 +8308,6 @@ msgstr "Jeden Morgen neue Stellen hier erhalten"
 #: src/features/career/today.tsx
 msgid "Get ready in the workspace: likely questions, who you'll meet and stories to tell."
 msgstr "Bereiten Sie sich im Arbeitsbereich vor: wahrscheinliche Fragen, wen Sie treffen, und Geschichten zum Erzählen."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Getting long. Try “Shorter”, or cut the least specific paragraph."
-msgstr "Wird lang. Versuchen Sie es mit „Kürzer“ oder schneiden Sie den am wenigsten spezifischen Absatz ab."
 
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "Ghosted"
@@ -8859,14 +8382,6 @@ msgstr "Griechisch"
 msgid "Green"
 msgstr "Grün"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Greeting"
-msgstr "Anrede"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Greeting and sign-off"
-msgstr "Anrede und Grußformel"
-
 #: src/features/documents/documents-page.tsx
 msgid "Grid"
 msgstr "Rasteransicht"
@@ -8927,12 +8442,6 @@ msgstr "Schriftstärke Überschriften"
 msgid "Headings"
 msgstr "Überschriften"
 
-#. placeholder {0}: heading.fontFamily
-#. placeholder {1}: heading.fontSize
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "Headings in {0}, {1} pt"
-msgstr "Überschriften in {0}, {1} pt"
-
 #. placeholder {0}: metadata.typography.heading.fontFamily
 #. placeholder {1}: metadata.typography.heading.fontSize
 #. placeholder {2}: metadata.typography.body.fontFamily
@@ -8944,7 +8453,6 @@ msgstr "Überschriften in {0}, {1} pt\n"
 "Fließtext in {2}, {3} pt"
 
 #: src/features/resume/editor/write/basics-card.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Headline"
 msgstr "Berufsbezeichnung"
 
@@ -9083,18 +8591,12 @@ msgstr "Einstellungsmanager"
 msgid "Hiring software turns a PDF into plain text before anyone reads it. This does the same and shows you what came out."
 msgstr "Bewerbungssoftware wandelt ein PDF in reinen Text um, bevor es jemand liest. Dies tut dasselbe und zeigt Ihnen das Ergebnis."
 
-#: src/features/letters/compose.ts
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Hiring team"
-msgstr "Einstellungsteam"
-
 #: src/features/career/workspace/apply.tsx
 msgid "Historical review checks unavailable."
 msgstr "Frühere Prüfmarkierungen sind nicht verfügbar."
 
 #: src/features/resume/share/history-tab.tsx
 #: src/routes/builder/$resumeId/-components/download-sheet.tsx
-#: src/routes/builder/letter/-components/download-sheet.tsx
 msgid "History"
 msgstr "Verlauf"
 
@@ -9186,17 +8688,17 @@ msgstr "Worttrennung"
 
 #. placeholder {0}: document.posting.company
 #: src/features/assistant/assistant-panel.tsx
-msgid "I can see this {kind} and the {0} posting. Ask how you fit, or get a follow-up email or interview prep."
-msgstr "Ich sehe {kind} und die Stellenanzeige von {0}. Fragen Sie, wie gut Sie passen, oder holen Sie sich eine Nachfass-E-Mail oder die Interviewvorbereitung."
+msgid "I can see this resume and the {0} posting. Ask how you fit, or get a follow-up email or interview prep."
+msgstr ""
 
 #. placeholder {0}: document.posting.company
 #: src/features/assistant/assistant-panel.tsx
-msgid "I can see this {kind} and the {0} posting. Suggestions come back as edits you can review before accepting."
-msgstr "Ich sehe {kind} und die Stellenanzeige von {0}. Vorschläge kommen als Änderungen zurück, die Sie prüfen können, bevor Sie sie annehmen."
+msgid "I can see this resume and the {0} posting. Suggestions come back as edits you can review before accepting."
+msgstr ""
 
 #: src/features/assistant/assistant-panel.tsx
-msgid "I can see this {kind}. Suggestions come back as edits you can review before accepting."
-msgstr "Ich sehe {kind}. Vorschläge kommen als Änderungen zurück, die Sie prüfen können, bevor Sie sie annehmen."
+msgid "I can see this resume. Suggestions come back as edits you can review before accepting."
+msgstr ""
 
 #: src/features/resume/editor/write/improve.tsx
 msgid "I don't have one yet"
@@ -9306,10 +8808,6 @@ msgstr "Wenn Sie das nicht angefordert haben, ignorieren Sie diese E-Mail; Ihr K
 msgid "If you didn't ask for this, you can ignore this email."
 msgstr "Wenn Sie das nicht angefordert haben, können Sie diese E-Mail ignorieren."
 
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "If you never verified your email address, resetting your password turns two-step verification off. Otherwise, ask the person who runs this server to turn it off for your account."
-msgstr "Wenn Sie Ihre E-Mail-Adresse nie bestätigt haben, schaltet das Zurücksetzen des Passworts die Zwei-Schritt-Verifizierung aus. Andernfalls bitten Sie die Person, die diesen Server betreibt, sie für Ihr Konto auszuschalten."
-
 #: src/features/auth/pages/forgot-password.tsx
 msgid "If your account is linked to it"
 msgstr "Falls Ihr Konto damit verknüpft ist"
@@ -9385,10 +8883,6 @@ msgid "Import the one you have and every section is laid out for you to refine, 
 msgstr "Importieren Sie Ihren vorhandenen Lebenslauf, und jeder Abschnitt wird zum Verfeinern angelegt, oder beginnen Sie mit einer leeren Seite. Sie können auch eine PDF-, Word- oder JSON-Datei irgendwo in diesem Fenster ablegen."
 
 #: src/features/documents/documents-page.tsx
-msgid "Import the one you have, or start blank."
-msgstr "Importieren Sie Ihren vorhandenen Lebenslauf oder starten Sie von Null."
-
-#: src/features/documents/documents-page.tsx
 msgid "Import the resume you have and every section is laid out for you to refine, or start from a blank page. Choose a PDF, Word or JSON file."
 msgstr "Importieren Sie Ihren vorhandenen Lebenslauf, und jeder Abschnitt wird zum Verfeinern angelegt, oder beginnen Sie mit einer leeren Seite. Wählen Sie eine PDF-, Word- oder JSON-Datei."
 
@@ -9427,10 +8921,6 @@ msgstr "Verbessern braucht KI."
 #: src/features/settings/ai/next-steps.tsx
 msgid "Improve selected line"
 msgstr "Ausgewählte Zeile verbessern"
-
-#: src/features/resume/editor/write/improve.tsx
-msgid "Improve this paragraph"
-msgstr "Diesen Absatz verbessern"
 
 #: src/features/resume/editor/write/rich-text-editor-field.tsx
 msgid "Improve works on a line once you have written one."
@@ -9696,10 +9186,6 @@ msgstr "Es hat Einträge, ist aber nicht auf einer Seite platziert."
 msgid "It is probably a scan: start a blank resume, or import the Word version."
 msgstr "Vermutlich ein Scan: Beginnen Sie einen leeren Lebenslauf oder importieren Sie die Word-Version."
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "It is recorded as sent to {company} on {sentOn}. Its application link stays with that submission."
-msgstr "Es ist als am {sentOn} an {company} gesendet erfasst. Seine Bewerbungsverknüpfung bleibt bei dieser Einreichung."
-
 #: src/features/career/knowledge/stories.tsx
 msgid "It may have been deleted. Choose another story or add a new one."
 msgstr "Sie wurde möglicherweise gelöscht. Wählen Sie eine andere Geschichte oder fügen Sie eine neue hinzu."
@@ -9715,6 +9201,14 @@ msgstr "Er liest die Stellenanzeige, Ihre Notizen und was Sie gesendet haben, un
 #: src/features/applications/components/interview-dialog.tsx
 msgid "It will show on the application's timeline and on the calendar."
 msgstr "Es wird in der Chronik der Bewerbung und im Kalender angezeigt."
+
+#: src/features/applications/components/application-detail-sheet.tsx
+msgid "It's optional. Leave it unselected if you didn't send one."
+msgstr ""
+
+#: src/features/applications/components/add-application-dialog.tsx
+msgid "It's optional. What you pick is kept as it was sent and never changes; your draft stays editable."
+msgstr ""
 
 #: src/features/applications/components/detail/activity.tsx
 msgid "It's removed from the timeline for good."
@@ -9743,14 +9237,6 @@ msgstr "Ihre Verbindung ist nicht verfügbar. Wählen und genehmigen Sie eine Ve
 #: src/features/assistant/assistant-panel.tsx
 msgid "Its messages and attachments are deleted. Edits you accepted stay in the document."
 msgstr "Seine Nachrichten und Anhänge werden gelöscht. Von Ihnen akzeptierte Änderungen bleiben im Dokument erhalten."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Its own design ({summary})."
-msgstr "Eigenes Design ({summary})."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Its own details"
-msgstr "Eigene Angaben"
 
 #: src/features/settings/ai/providers.tsx
 msgid "Its saved key is deleted. Conversations that used it need another connection before you can continue them."
@@ -9860,7 +9346,6 @@ msgid "Keep {currentLabel}"
 msgstr "{currentLabel} behalten"
 
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Keep a copy and reload"
 msgstr "Kopie behalten und neu laden"
 
@@ -9903,26 +9388,14 @@ msgstr "Im Papierkorb aufbewahren"
 msgid "Keep it honest"
 msgstr "Bleiben Sie ehrlich"
 
-#: src/dialogs/auth/disable-two-factor.tsx
-msgid "Keep it on"
-msgstr "Eingeschaltet lassen"
-
 #: src/features/ats-checker/messages.ts
 msgid "Keep it under 2.5 MB, usually by removing or shrinking images."
 msgstr "Halten Sie sie unter 2,5 MB, meist durch Entfernen oder Verkleinern von Bildern."
-
-#: src/features/career/workspace/prepare-review.tsx
-msgid "Keep letter"
-msgstr "Anschreiben übernehmen"
 
 #: src/features/homepage/write.tsx
 #: src/features/resume/editor/write/improve.tsx
 msgid "Keep mine"
 msgstr "Behalte meins"
-
-#: src/features/settings/account/backup-codes.tsx
-msgid "Keep my codes"
-msgstr "Meine Codes behalten"
 
 #. Layout editor toggle that prevents a section from splitting across pages
 #: src/features/resume/editor/write/section-view.tsx
@@ -9975,10 +9448,6 @@ msgstr "Damit behalten"
 msgid "Keep your work"
 msgstr "Ihre Arbeit behalten"
 
-#: src/features/assistant/assistant-panel.tsx
-msgid "Keeps the most specific parts"
-msgstr "Behält die spezifischsten Teile"
-
 #: src/features/career/workspace/prepare-review.tsx
 msgid "Kept"
 msgstr "Behalten"
@@ -10026,7 +9495,6 @@ msgstr "Tastatur"
 #: src/features/keyboard-shortcuts/index.tsx
 #: src/features/resume/editor/chrome/bar.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Keyboard shortcuts"
 msgstr "Tastenkombinationen"
 
@@ -10043,14 +9511,9 @@ msgstr "Stichwörter"
 msgid "Khmer"
 msgstr "Khmer"
 
-#: src/features/documents/new-document-dialog.tsx
 #: src/features/resume/editor/write/section-view.tsx
 msgid "Kind"
 msgstr "Art"
-
-#: src/features/letters/compose.ts
-msgid "Kind regards,"
-msgstr "Mit freundlichen Grüßen"
 
 #: src/features/assistant/conversation.tsx
 #: src/features/career/career-page.tsx
@@ -10119,8 +9582,6 @@ msgstr "Querformat"
 #: src/features/settings/preferences.tsx
 #: src/routes/builder/$resumeId/-components/document-details.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Language"
 msgstr "Sprache"
 
@@ -10221,10 +9682,6 @@ msgstr "Leitender Produktdesigner"
 msgid "Lead with the result and give it a scale."
 msgstr "Gehen Sie vom Ergebnis aus und geben Sie ihm eine Skala."
 
-#: src/features/assistant/assistant-panel.tsx
-msgid "Leads with why you fit"
-msgstr "Führt dazu, warum Sie passen"
-
 #: src/features/career/offer-entry.tsx
 #: src/features/career/offers.tsx
 #: src/features/career/workspace/messages.tsx
@@ -10300,7 +9757,6 @@ msgid "Legal"
 msgstr "Recht"
 
 #: src/routes/builder/$resumeId/-components/document-details.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Length"
 msgstr "Länge"
 
@@ -10328,73 +9784,20 @@ msgstr "Ermöglicht Bewerbungen, dem Coach und dem Assistenten die Websuche und 
 msgid "Lets the coach search public pages through your web search service"
 msgstr "Lässt den Coach öffentliche Seiten über Ihren Websuchdienst durchsuchen"
 
-#: src/features/assistant/assistant-panel.tsx
-#: src/features/career/workspace/overview.tsx
-msgid "letter"
-msgstr "Brief"
-
-#: src/features/applications/next-step.ts
-#: src/features/assistant/conversation.tsx
-#: src/features/assistant/document.ts
-#: src/features/command-palette/pages/navigation.tsx
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Letter"
 msgstr "Brief"
 
 #: src/features/resume/editor/design/style-groups.tsx
 #: src/routes/builder/$resumeId/-components/page-canvas.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
-#: src/routes/builder/letter/-components/letter-page.tsx
 msgctxt "US Letter paper size (8.5 × 11 in), shown beside A4"
 msgid "Letter"
 msgstr "US Letter"
 
-#: src/features/documents/document-actions.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Letter already sent"
-msgstr "Brief bereits gesendet"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Letter body"
-msgstr "Briefkörper"
-
-#: src/routes/builder/letter/-components/letter-page.tsx
-msgid "Letter content"
-msgstr "Briefinhalt"
-
-#: src/routes/builder/letter/-components/letter-shell.tsx
-msgid "Letter details"
-msgstr "Briefdetails"
-
 #: src/features/ai/usage.tsx
-#: src/features/career/workspace/prepare-review.tsx
 msgid "Letter draft"
 msgstr "Briefentwurf"
-
-#: src/routes/builder/letter/-components/letter-bar.tsx
-msgid "Letter duplicated"
-msgstr "Anschreiben dupliziert"
-
-#: src/routes/builder/letter/-components/letter-page.tsx
-msgid "Letter page"
-msgstr "Briefseite"
-
-#: src/features/career/workspace/application-packet.tsx
-msgid "Letter PDF"
-msgstr "Anschreiben-PDF"
-
-#: src/features/career/workspace/apply.tsx
-msgid "Letter recorded as sent"
-msgstr "Anschreiben als gesendet erfasst"
-
-#: src/features/applications/components/add-application-dialog.tsx
-msgid "Letter you sent"
-msgstr "Gesendetes Anschreiben"
-
-#: src/features/documents/documents-page.tsx
-msgid "Letters"
-msgstr "Briefe"
 
 #: src/features/resume/editor/write/entries.tsx
 msgid "Level"
@@ -10509,17 +9912,12 @@ msgid "Link address"
 msgstr "Linkadresse"
 
 #: src/features/resume/editor/check/job-match.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Link an application"
 msgstr "Verlinken Sie eine Bewerbung"
 
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Link an application…"
 msgstr "Stellenbewerbung verlinken…"
-
-#: src/features/applications/components/application-form-sheet.tsx
-msgid "Link an existing letter"
-msgstr "Bestehenden Brief verknüpfen"
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Link copied"
@@ -10580,14 +9978,6 @@ msgstr "Verknüpfte Belege seit der Prüfung unverändert"
 #: src/features/applications/components/detail/sent-documents.tsx
 msgid "Linked resume"
 msgstr "Verlinkter Lebenslauf"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Linked to the resume again"
-msgstr "Nochmals verlinkt zum Lebenslauf"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Linked. The header (name, contact details, links and photo) updates when the resume does."
-msgstr "Verknüpft. Die Kopfzeile (Name, Kontaktdaten, Links und Foto) aktualisiert sich mit dem Lebenslauf."
 
 #. Authentication provider display name in account settings
 #. Brand name label for LinkedIn social sign-in button
@@ -10744,7 +10134,6 @@ msgstr "Laden…"
 #: src/features/resume/editor/check/parser-view.tsx
 #: src/features/resume/editor/write/basics-card.tsx
 #: src/features/resume/editor/write/entries.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Location"
 msgstr "Standort"
 
@@ -10755,7 +10144,6 @@ msgstr "Orte"
 #: src/features/documents/document-actions.tsx
 #: src/features/documents/documents-page.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Lock editing"
 msgstr "Bearbeitung sperren"
 
@@ -10765,12 +10153,10 @@ msgstr "gesperrt"
 
 #: src/features/documents/document-card.tsx
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Locked"
 msgstr "Gesperrt"
 
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Locked · unlock to save"
 msgstr "Gesperrt · entsperren, um zu speichern"
 
@@ -10868,10 +10254,6 @@ msgstr "Kopie erstellen"
 msgid "Make a copy for this job"
 msgstr "Eine Kopie für diese Stelle erstellen"
 
-#: src/features/settings/account/backup-codes.tsx
-msgid "Make a new set if you've used them up or lost them. The old ones stop working."
-msgstr "Erstellen Sie einen neuen Satz, wenn Sie sie aufgebraucht oder verloren haben. Die alten funktionieren dann nicht mehr."
-
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Make another"
 msgstr "Weitere erstellen"
@@ -10884,18 +10266,9 @@ msgstr "Machen Sie eines davon zu Ihrem."
 msgid "Make default"
 msgstr "Als Standard festlegen"
 
-#: src/features/assistant/assistant-panel.tsx
-msgid "Make it more specific"
-msgstr "Machen Sie es konkreter"
-
-#: src/features/assistant/assistant-panel.tsx
 #: src/features/resume/editor/write/improve.tsx
 msgid "Make it shorter"
 msgstr "Machen Sie es kürzer"
-
-#: src/features/assistant/assistant-panel.tsx
-msgid "Make the opening stronger"
-msgstr "Machen Sie die Öffnung stärker"
 
 #: src/features/ats-checker/messages.ts
 msgid "Make the visible text and the destination match."
@@ -11031,11 +10404,6 @@ msgctxt "Template style tag"
 msgid "Marketing"
 msgstr "Marketing"
 
-#. placeholder {0}: resume?.name ?? t`the resume`
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "Match “{0}”"
-msgstr "Übereinstimmung mit „{0}“"
-
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Match against a job"
 msgstr "Match gegen einen Job"
@@ -11070,10 +10438,6 @@ msgstr "passt zu {0}"
 #: src/features/career/today.tsx
 msgid "Matches are words your preferences share with the posting, not a checked salary, workplace or eligibility. Track it, then open Fit."
 msgstr "Treffer sind Wörter, die Ihre Präferenzen mit der Stellenanzeige teilen, kein geprüftes Gehalt, Arbeitsort oder Berechtigung. Verfolgen Sie sie, und öffnen Sie dann Passung."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Matches the resume ({summary})."
-msgstr "Entspricht dem Lebenslauf ({summary})."
 
 #: src/features/career/shared.tsx
 msgid "Matching your facts"
@@ -11251,10 +10615,6 @@ msgstr "Weitere Inhalte aus Ihrer Datei"
 msgid "More options"
 msgstr "Weitere Optionen"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "More personal"
-msgstr "Persönlicher"
-
 #: src/features/career/workspace/answer-library.tsx
 msgid "More saved answer actions"
 msgstr "Weitere Aktionen für gespeicherte Antworten"
@@ -11292,10 +10652,6 @@ msgstr "Die meisten Einträge haben kein Datum."
 #: src/features/homepage/remember.tsx
 msgid "Most new teams at Northwind Labs stalled during setup and never reached activation."
 msgstr "Die meisten neuen Teams bei Northwind Labs blieben bei der Einrichtung stecken und erreichten nie die Aktivierung."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Most recruiters read 180–320 words. The shaded band shows the range."
-msgstr "Die meisten Personalvermittler lesen 180–320 Wörter. Das schattierte Band zeigt den Bereich."
 
 #: src/features/resume/editor/check/issues.ts
 msgid "Most systems file candidates by email address."
@@ -11397,7 +10753,6 @@ msgstr "In die Seitenleiste verschieben"
 #: src/features/documents/document-actions.tsx
 #: src/features/documents/documents-page.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Move to Trash"
 msgstr "In den Papierkorb verschieben"
 
@@ -11505,14 +10860,6 @@ msgstr "Name von {label}"
 msgid "Name of person {0}"
 msgstr "Name von Person {0}"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Name or team"
-msgstr "Name oder Team"
-
-#: src/routes/builder/letter/-components/download-sheet.tsx
-msgid "Name the letter as it is now"
-msgstr "Anschreiben im aktuellen Stand benennen"
-
 #: src/features/homepage/prepare.tsx
 msgid "Name the problem, what you led and how activation was measured."
 msgstr "Nennen Sie das Problem, was Sie geleitet haben und wie die Aktivierung gemessen wurde."
@@ -11576,13 +10923,8 @@ msgstr "Eng"
 
 #: src/features/resume/editor/design/fit.ts
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
 msgid "narrow margins"
 msgstr "schmale Ränder"
-
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "near-black text on white"
-msgstr "fast schwarzer Text auf Weiß"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "Near-black text on white prints cleanly and is what applicant tracking systems expect."
@@ -11647,27 +10989,12 @@ msgstr "Neu"
 msgid "New application"
 msgstr "Neue Bewerbung"
 
-#: src/features/settings/account/backup-codes.tsx
-msgid "New backup codes"
-msgstr "Neue Wiederherstellungscodes"
-
-#: src/features/settings/account/backup-codes.tsx
-msgid "New codes"
-msgstr "Neue Codes"
-
 #: src/features/assistant/assistant-panel.tsx
 #: src/features/career/coach-thread.tsx
 #: src/features/career/coach.tsx
 #: src/features/career/workspace/coach-sheet.tsx
 msgid "New conversation"
 msgstr "Neues Gespräch"
-
-#: src/features/command-palette/pages/navigation.tsx
-#: src/features/documents/documents-page.tsx
-#: src/features/settings/ai/next-steps.tsx
-#: src/routes/dashboard/-components/app-shell.tsx
-msgid "New cover letter"
-msgstr "Neues Anschreiben"
 
 #: src/features/resume/editor/proposals/proposal-list.tsx
 #: src/features/resume/editor/write/improve.tsx
@@ -11676,7 +11003,6 @@ msgstr "Neues Detail: Prüfen Sie, ob es stimmt"
 
 #: src/features/command-palette/pages/navigation.tsx
 #: src/features/documents/documents-page.tsx
-#: src/features/documents/new-document-dialog.tsx
 msgid "New document"
 msgstr "Neues Dokument"
 
@@ -11704,7 +11030,7 @@ msgid "New password"
 msgstr "Neues Passwort"
 
 #: src/features/command-palette/pages/navigation.tsx
-#: src/features/documents/documents-page.tsx
+#: src/features/documents/new-document-dialog.tsx
 #: src/routes/dashboard/-components/app-shell.tsx
 msgid "New resume"
 msgstr "Neuer Lebenslauf"
@@ -11807,10 +11133,6 @@ msgstr "Nächste Vorlage"
 msgid "Next time, I’d agree how to measure success before the first prototype."
 msgstr "Nächstes Mal würde ich vor dem ersten Prototyp vereinbaren, wie Erfolg gemessen wird."
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Next version"
-msgstr "Nächste Version"
-
 #: src/features/settings/profile.tsx
 msgid "No"
 msgstr "Nein"
@@ -11839,10 +11161,6 @@ msgstr "Diese Woche wurden keine KI-Anfrageversuche aufgezeichnet."
 msgid "No amount stated · value uncertain"
 msgstr "Kein Betrag genannt · Wert unsicher"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "No application"
-msgstr "Keine Bewerbung"
-
 #. placeholder {0}: query.trim()
 #: src/routes/dashboard/applications/index.tsx
 msgid "No applications match “{0}”."
@@ -11856,14 +11174,6 @@ msgstr "Noch keine Bewerbungen"
 #: src/features/settings/ai/next-steps.tsx
 msgid "No applications yet."
 msgstr "Noch keine Bewerbungen."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "No applications yet. Add one in Applications first."
-msgstr "Noch keine Bewerbungen. Fügen Sie eines zuerst in Ihre Bewerbungen ein."
-
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "No backup codes either?"
-msgstr "Auch keine Wiederherstellungscodes?"
 
 #: src/features/settings/ai/provider-model.tsx
 msgid "No built-in suggestions for this provider."
@@ -11906,25 +11216,9 @@ msgstr "Noch keine Gespräche über dieses Dokument."
 msgid "No country matches."
 msgstr "Keine Länder gefunden."
 
-#: src/features/applications/components/application-detail-sheet.tsx
-msgid "No cover letter selected"
-msgstr "Kein Anschreiben ausgewählt"
-
-#: src/features/career/workspace/preparation.tsx
-msgid "No cover letter yet"
-msgstr "Noch kein Anschreiben"
-
-#: src/features/documents/documents-page.tsx
-msgid "No cover letters yet"
-msgstr "Noch keine Anschreiben vorhanden"
-
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "No custom rules"
 msgstr "Keine eigenen Regeln"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "No date"
-msgstr "Kein Datum"
 
 #: src/features/ats-checker/messages.ts
 msgid "No dates were found."
@@ -12017,10 +11311,6 @@ msgstr "Kein Vorstellungsgespräch angesetzt"
 msgid "No job yet"
 msgstr "Noch kein Job"
 
-#: src/features/applications/components/application-form-sheet.tsx
-msgid "No letter"
-msgstr "Kein Anschreiben"
-
 #: src/features/ats-checker/messages.ts
 msgid "No lines look like a job title paired with an employer."
 msgstr "Keine Zeile sieht wie eine Jobbezeichnung in Kombination mit einem Arbeitgeber aus."
@@ -12041,10 +11331,6 @@ msgstr "Keine passenden Bewerbungen"
 #: src/features/career/workspace/answer-library.tsx
 msgid "No matching saved answers. Clear the search to see all answers."
 msgstr "Keine passenden gespeicherten Antworten. Leeren Sie die Suche, um alle Antworten zu sehen."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "No name yet, so the greeting reads “Dear hiring team”."
-msgstr "Noch kein Name, daher lautet die Anrede „Sehr geehrtes Recruiting-Team“."
 
 #: src/features/career/today.tsx
 msgid "No new roles. Role discovery runs again at {clock}."
@@ -12112,16 +11398,10 @@ msgstr "Keine Antwort"
 msgid "No results found."
 msgstr "Keine Ergebnisse gefunden."
 
-#: src/features/documents/new-document-dialog.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "No resume"
-msgstr "Kein Lebenslauf"
-
 #: src/features/applications/components/application-detail-sheet.tsx
 msgid "No resume selected"
 msgstr "Kein Lebenslauf ausgewählt"
 
-#: src/features/documents/documents-page.tsx
 #: src/features/settings/ai/next-steps.tsx
 msgid "No resumes yet"
 msgstr "Noch keine Lebensläufe"
@@ -12251,13 +11531,11 @@ msgid "Normal"
 msgstr "Normal"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
 msgid "normal density"
 msgstr "normale Dichte"
 
 #: src/features/resume/editor/design/fit.ts
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
 msgid "normal margins"
 msgstr "normale Ränder"
 
@@ -12352,7 +11630,6 @@ msgid "Not linked"
 msgstr "Nicht verknüpft"
 
 #: src/features/documents/new-document-dialog.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Not linked to a job"
 msgstr "Nicht mit einer Stelle verknüpft"
 
@@ -12392,7 +11669,6 @@ msgstr "Noch nicht geprüft · kann nicht aufgenommen werden"
 
 #: src/features/career/knowledge/preferences.tsx
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Not saved"
 msgstr "Nicht gespeichert"
 
@@ -12402,7 +11678,6 @@ msgid "Not saved — this fact was forgotten before."
 msgstr "Nicht gespeichert — dieser Fakt wurde schon einmal vergessen."
 
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Not saved · Sign in to save"
 msgstr "Nicht gespeichert · Zum Speichern anmelden"
 
@@ -12436,7 +11711,6 @@ msgid "Not sent"
 msgstr "Nicht gesendet"
 
 #: src/features/settings/account/profile.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Not set"
 msgstr "Nicht festgelegt"
 
@@ -12643,7 +11917,6 @@ msgstr "Ocker"
 msgid "Odia"
 msgstr "Odia"
 
-#: src/features/settings/account/security.tsx
 #: src/features/settings/ai/providers.tsx
 msgid "Off"
 msgstr "Aus"
@@ -12651,10 +11924,6 @@ msgstr "Aus"
 #: src/features/homepage/remember.tsx
 msgid "Off: the coach won’t see it or claim it."
 msgstr "Aus: Der Coach sieht es nicht und behauptet es nicht."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Off. Edit this letter’s details below. Turning this on replaces them with the resume’s current details."
-msgstr "Aus. Bearbeite unten die Angaben dieses Anschreibens. Wenn du dies einschaltest, werden sie durch die aktuellen Angaben aus dem Lebenslauf ersetzt."
 
 #: src/features/applications/stages.ts
 #: src/features/career/offer-entry.tsx
@@ -12743,13 +12012,8 @@ msgid "Office days not stated"
 msgstr "Bürotage nicht angegeben"
 
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Offline · saved on this device"
 msgstr "Offline · auf diesem Gerät gespeichert"
-
-#: src/features/settings/account/security.tsx
-msgid "On · a code from your authenticator app at sign-in"
-msgstr "An · ein Code aus Ihrer Authenticator-App bei der Anmeldung"
 
 #: src/features/keyboard-shortcuts/index.tsx
 msgid "On a row"
@@ -12791,7 +12055,6 @@ msgstr "Nach dem Speichern"
 #: src/features/resume/editor/design/template-group.tsx
 #: src/features/templates/gallery.tsx
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
 msgid "One column"
 msgstr "Eine Spalte"
 
@@ -12963,7 +12226,6 @@ msgstr "öffnen"
 #: src/features/career/workspace/application-packet.tsx
 #: src/features/documents/document-actions.tsx
 #: src/features/trash/trash-page.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Open"
 msgstr "Öffnen"
 
@@ -13022,10 +12284,6 @@ msgstr "Interviewvorbereitung öffnen"
 msgid "Open it, or update only its posting details from this link."
 msgstr "Öffnen Sie sie oder aktualisieren Sie nur die Angaben zur Stellenanzeige über diesen Link."
 
-#: src/features/applications/components/detail/sent-documents.tsx
-msgid "Open letter"
-msgstr "Brief öffnen"
-
 #: src/features/career/workspace/overview.tsx
 msgid "Open Library"
 msgstr "Bibliothek öffnen"
@@ -13078,10 +12336,6 @@ msgstr "Öffnen Sie die exportierte Datei und bestätigen Sie, dass Sie jeden Te
 msgid "Open the full plan"
 msgstr "Ganzen Plan öffnen"
 
-#: src/features/applications/components/detail/sent-documents.tsx
-msgid "Open the letter version sent"
-msgstr "Die gesendete Brief-Version öffnen"
-
 #: src/features/career/workspace/apply.tsx
 msgid "Open the posting"
 msgstr "Stellenanzeige öffnen"
@@ -13120,15 +12374,10 @@ msgstr "Operations"
 msgid "optional"
 msgstr "optional"
 
-#: src/features/career/workspace/preparation.tsx
 #: src/features/resume/editor/write/entries.tsx
 #: src/features/settings/ai/provider-fields.tsx
 msgid "Optional"
 msgstr "Optional"
-
-#: src/features/career/workspace/preparation.tsx
-msgid "Optional · none selected"
-msgstr "Optional · nichts ausgewählt"
 
 #: src/components/ui/combobox.tsx
 #: src/features/documents/documents-page.tsx
@@ -13285,8 +12534,6 @@ msgstr "Paket bereit"
 #: src/components/calm/category-strip.tsx
 #: src/libs/resume/section.tsx
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Page"
 msgstr "Seite"
 
@@ -13345,10 +12592,6 @@ msgstr "Seite {page} von {pages} · {formatLabel} · schreibgeschützt"
 msgid "Page {page}, {column}"
 msgstr "Seite {page}, {column}"
 
-#: src/routes/builder/letter/-components/letter-page.tsx
-msgid "Page {pageNumber}"
-msgstr "Seite {pageNumber}"
-
 #: src/features/resume/preview/localization.test.tsx
 #: src/features/resume/preview/preview.shared.tsx
 msgid "Page {pageNumber} of {pageCount}"
@@ -13362,14 +12605,6 @@ msgstr "Seite {pageNumber} von {totalPages}"
 #: src/features/applications/components/attachment-preview.tsx
 msgid "Page 1"
 msgstr "Seite 1"
-
-#: src/routes/builder/letter/-components/letter-page.tsx
-msgid "Page 1 of {pages} · {formatLabel}"
-msgstr "Seite 1 von {pages} · {formatLabel}"
-
-#: src/routes/builder/letter/-components/letter-page.tsx
-msgid "Page 1 of {pages} · {formatLabel} · read-only"
-msgstr "Seite 1 von {pages} · {formatLabel} · schreibgeschützt"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Page added"
@@ -13451,15 +12686,12 @@ msgstr "Passkeys benötigen eine bestätigte E-Mail-Adresse, die dieser Server n
 #. Authentication provider display name in account settings
 #. Label for password input on login form
 #. Label for password input on registration form
-#: src/dialogs/auth/disable-two-factor.tsx
-#: src/dialogs/auth/enable-two-factor.tsx
 #: src/features/auth/pages/login.tsx
 #: src/features/auth/pages/register.tsx
 #: src/features/command-palette/pages/navigation.tsx
 #: src/features/resume/builder/password-dialog.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/features/settings/account/auth-hooks.ts
-#: src/features/settings/account/backup-codes.tsx
 #: src/features/settings/account/security.tsx
 msgid "Password"
 msgstr "Passwort"
@@ -13486,8 +12718,8 @@ msgid "Paste a job link. The posting is kept, so Check, the assistant and your l
 msgstr "Fügen Sie einen Link zur Stelle ein. Die Stellenanzeige wird gespeichert, damit Prüfung, Assistent und Ihr Anschreiben sie nutzen können."
 
 #: src/features/homepage/tailor.tsx
-msgid "Paste a job posting once. It feeds a tailored copy of your resume, a fit check against each requirement, a cover letter draft and a place to track the role."
-msgstr "Fügen Sie eine Stellenanzeige einmal ein. Daraus entstehen eine angepasste Kopie Ihres Lebenslaufs, eine Eignungsprüfung gegen jede Anforderung, ein Anschreiben-Entwurf und ein Ort, um die Stelle zu verfolgen."
+msgid "Paste a job posting once. It feeds a tailored copy of your resume, a fit check against each requirement and a place to track the role."
+msgstr ""
 
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Paste a job posting…"
@@ -13627,7 +12859,6 @@ msgstr "Persisch"
 #: src/features/resume/editor/write/basics-card.tsx
 #: src/features/resume/editor/write/entries.tsx
 #: src/features/settings/profile.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Phone"
 msgstr "Telefon"
 
@@ -13653,12 +12884,10 @@ msgid "Photo hidden"
 msgstr "Foto ausgeblendet"
 
 #: src/features/resume/editor/write/picture-settings.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Photo hidden from the page."
 msgstr "Foto auf der Seite ausgeblendet."
 
 #: src/features/resume/editor/write/picture-settings.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Photo on the page."
 msgstr "Foto auf der Seite."
 
@@ -13729,10 +12958,6 @@ msgstr "Nur Text (.txt)"
 #: src/features/resume/share/download-tab.tsx
 msgid "Plain text with headings, to paste into forms and notes."
 msgstr "Reiner Text mit Überschriften, zum Einfügen in Formulare und Notizen."
-
-#: src/routes/builder/letter/-components/download-sheet.tsx
-msgid "Plain text. Paste into application forms and emails."
-msgstr "Klartext. Fügen Sie ihn in Bewerbungsformulare und E-Mails ein."
 
 #: src/features/career/workspace/prepare.tsx
 msgid "Plan again"
@@ -14073,18 +13298,9 @@ msgstr "Vorschau {0}"
 msgid "Preview {name} sample PDF"
 msgstr "Vorschau der Beispiel-PDF für {name}"
 
-#: src/features/documents/document-card.tsx
-msgid "Preview unavailable"
-msgstr "Vorschau nicht verfügbar"
-
 #: src/features/resume/editor/design/template-group.tsx
 msgid "Previewing"
 msgstr "Vorschau"
-
-#. placeholder {0}: templates[previewTemplate].name
-#: src/routes/builder/letter/-components/letter-page.tsx
-msgid "Previewing {0} · click to apply"
-msgstr "Vorschau {0} · Klicken Sie zum Übernehmen"
 
 #: src/features/command-palette/pages/resumes.tsx
 #: src/features/documents/page-navigation.tsx
@@ -14119,10 +13335,6 @@ msgstr "Vorherige Frage"
 #: src/features/templates/gallery.tsx
 msgid "Previous template"
 msgstr "Vorherige Vorlage"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Previous version"
-msgstr "Vorherige Version"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Primary color"
@@ -14228,10 +13440,6 @@ msgstr "Vorgeschlagene Änderungen"
 msgid "Proposed edits"
 msgstr "Vorgeschlagene Änderungen"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Proposes a draft. Your text stays until you accept."
-msgstr "Schlägt einen Entwurf vor. Ihr Text bleibt, bis Sie akzeptieren."
-
 #: src/features/resume/builder/password-dialog.tsx
 msgid "Protect your resume with a password"
 msgstr "Schützen Sie Ihren Lebenslauf mit einem Passwort"
@@ -14295,11 +13503,6 @@ msgstr "Setzen Sie das Caretzeichen in eine Zeile, um es zu verbessern"
 #: src/features/assistant/chat.ts
 msgid "Q: {question}"
 msgstr "F: {question}"
-
-#. Accessible title for QR code image shown during two-factor setup
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "QR code for two-step verification"
-msgstr "QR-Code für die zweistufige Verifizierung"
 
 #: src/features/career/workspace/answer-library.tsx
 msgid "Question"
@@ -14463,10 +13666,6 @@ msgid "Read the attachment"
 msgstr "Lesen Sie den Anhang"
 
 #: src/features/assistant/conversation.tsx
-msgid "Read the letter"
-msgstr "Lesen Sie den Brief"
-
-#: src/features/assistant/conversation.tsx
 msgid "Read the page"
 msgstr "Lesen Sie die Seite"
 
@@ -14479,8 +13678,8 @@ msgid "Read the resume"
 msgstr "Lebenslauf gelesen"
 
 #: src/features/career/workspace/apply.tsx
-msgid "Read the resume and letter once more in their editors"
-msgstr "Lebenslauf und Anschreiben noch einmal in ihren Editoren lesen"
+msgid "Read the resume once more in its editor"
+msgstr ""
 
 #: src/features/documents/import/import-page.tsx
 msgid "Read with AI"
@@ -14609,14 +13808,6 @@ msgstr "Neueste"
 msgid "Recent conversations"
 msgstr "Letzte Gespräche"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Recipient"
-msgstr "Empfänger"
-
-#: src/features/documents/new-document-dialog.tsx
-msgid "Recipient, date and greeting are filled in. The body is yours."
-msgstr "Empfänger, Datum und Anrede sind ausgefüllt. Der Text gehört Ihnen."
-
 #: src/features/settings/ai/provider-model.tsx
 msgid "Recommended"
 msgstr "Empfohlen"
@@ -14679,10 +13870,6 @@ msgstr "Antwort des Recruiters"
 msgid "Recruiters see this name. The ending follows the format you pick."
 msgstr "Recruiter sehen diesen Namen. Die Endung folgt dem gewählten Format."
 
-#: src/routes/builder/letter/-components/download-sheet.tsx
-msgid "Recruiters see this name. Your name plus “Cover Letter” works well."
-msgstr "Personalvermittler sehen diesen Namen. Ihr Name plus „Anschreiben“ funktioniert gut."
-
 #: src/features/resume/share/download-tab.tsx
 msgid "Recruiters see this name. Your name plus “Resume” works well."
 msgstr "Personalvermittler sehen diesen Namen. Ihr Name plus „Lebenslauf“ funktioniert gut."
@@ -14701,8 +13888,6 @@ msgstr "Rot"
 
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
 #: src/routes/builder/$resumeId/-components/use-editor-hotkeys.ts
-#: src/routes/builder/letter/-components/letter-bar.tsx
-#: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Redo"
 msgstr "Wiederholen"
 
@@ -14713,10 +13898,6 @@ msgstr "Wiederholen Sie die Lebenslaufänderung"
 #: src/features/career/workspace/messages.tsx
 msgid "Redraft"
 msgstr "Neu entwerfen"
-
-#: src/features/assistant/assistant-panel.tsx
-msgid "Redraft from the posting"
-msgstr "Anhand der Stellenanzeige neu formulieren"
 
 #: src/features/command-palette/pages/navigation.tsx
 #: src/features/settings/profile.tsx
@@ -14780,7 +13961,6 @@ msgstr "Üben Sie eine Meinungsverschiedenheit mit dem Engineering-Team und wie 
 
 #: src/features/career/workspace/apply.tsx
 #: src/features/resume/editor/proposals/proposal-list.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Reject"
 msgstr "Ablehnen"
 
@@ -14802,12 +13982,10 @@ msgstr "Beziehung"
 
 #: src/components/layout/error-screen.tsx
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Reload"
 msgstr "Neu laden"
 
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Reload the saved version?"
 msgstr "Gespeicherte Version neu laden?"
 
@@ -15040,7 +14218,6 @@ msgstr "Entfernt Ihre Unterlagen, Bewerbungen und Ihr Wissen. Dies kann nicht r�
 #: src/features/resume/editor/write/section-view.tsx
 #: src/features/resume/share/history-tab.tsx
 #: src/features/settings/account/security.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Rename"
 msgstr "Umbenennen"
 
@@ -15051,10 +14228,6 @@ msgstr "{label} umbenennen"
 #: src/features/settings/account/security.tsx
 msgid "Rename {name}"
 msgstr "{name} umbenennen"
-
-#: src/routes/builder/letter/-components/letter-bar.tsx
-msgid "Rename letter"
-msgstr "Buchstaben umbenennen"
 
 #: src/features/resume/share/history-tab.tsx
 msgid "Rename or delete {title}"
@@ -15074,7 +14247,6 @@ msgstr "Version umbenennen"
 
 #: src/features/resume/share/history-tab.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Rename…"
 msgstr "Umbenennen…"
 
@@ -15351,12 +14523,7 @@ msgstr "Ergebnis"
 msgid "Result left out: no fact backs it. Switch it on, or add one, and it comes back."
 msgstr "Ergebnis weggelassen: Kein Fakt stützt es. Schalten Sie einen ein oder fügen Sie einen hinzu, dann kommt es zurück."
 
-#: src/features/assistant/assistant-panel.tsx
-msgid "resume"
-msgstr "Lebenslauf"
-
 #: src/features/applications/components/application-form-sheet.tsx
-#: src/features/applications/components/detail/sent-documents.tsx
 #: src/features/applications/next-step.ts
 #: src/features/assistant/conversation.tsx
 #: src/features/career/knowledge/resume-facts.tsx
@@ -15364,10 +14531,7 @@ msgstr "Lebenslauf"
 #: src/features/career/workspace/preparation.tsx
 #: src/features/command-palette/pages/navigation.tsx
 #: src/features/command-palette/pages/resumes.tsx
-#: src/features/documents/document-card.tsx
-#: src/features/documents/new-document-dialog.tsx
 #: src/features/feedback/review-page.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Resume"
 msgstr "Lebenslauf"
 
@@ -15398,10 +14562,6 @@ msgstr "Lebenslauf · wie gesendet"
 #: src/features/trash/trash-page.tsx
 msgid "Resume · last edited {0}"
 msgstr "Lebenslauf · zuletzt bearbeitet {0}"
-
-#: src/routes/builder/letter/-components/download-sheet.tsx
-msgid "Resume + letter"
-msgstr "Lebenslauf + Anschreiben"
 
 #: src/features/homepage/tailor.tsx
 msgid "Resume attached"
@@ -15478,13 +14638,8 @@ msgstr "Als Beleg zu verwendender Lebenslauf"
 msgid "Resume you sent"
 msgstr "Gesendeter Lebenslauf"
 
-#: src/features/applications/next-step.ts
-msgid "Resume, letter"
-msgstr "Lebenslauf, Anschreiben"
-
 #: src/features/command-palette/pages/navigation.tsx
 #: src/features/command-palette/pages/resumes.tsx
-#: src/features/documents/documents-page.tsx
 msgid "Resumes"
 msgstr "Lebensläufe"
 
@@ -15508,7 +14663,6 @@ msgstr "Lege vor dem Zusammenführen ungenutzte Bewerbungsspalten still; zusamme
 #: src/features/resume/editor/check/job-match.tsx
 #: src/features/resume/editor/check/writing-tab.tsx
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Retry"
 msgstr "Wiederholen"
 
@@ -15534,7 +14688,6 @@ msgid "Retry saved answers"
 msgstr "Gespeicherte Antworten erneut versuchen"
 
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Retry saving"
 msgstr "Speichern Sie erneut"
 
@@ -15618,7 +14771,6 @@ msgid "Review readiness and record your submission"
 msgstr "Bereitschaft prüfen und Ihre Einreichung aufzeichnen"
 
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Review saved version"
 msgstr "Gespeicherte Version prüfen"
 
@@ -15730,7 +14882,6 @@ msgid "Roomy"
 msgstr "Geräumig"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
 msgid "roomy density"
 msgstr "großzügige Dichte"
 
@@ -15860,7 +15011,6 @@ msgstr "Beispiele zeigen 3 von 5"
 #: src/features/settings/account/profile.tsx
 #: src/features/settings/profile.tsx
 #: src/routes/builder/$resumeId/-components/use-editor-hotkeys.ts
-#: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Save"
 msgstr "Speichern"
 
@@ -16006,10 +15156,6 @@ msgstr "Die Stellenanzeige speichern"
 msgid "Save these offer terms to compare"
 msgstr "Diese Angebotskonditionen zum Vergleichen speichern"
 
-#: src/features/settings/account/backup-codes.tsx
-msgid "Save these somewhere safe. Each works once, and they won't be shown again."
-msgstr "Speichern Sie diese an einem sicheren Ort. Jeder funktioniert einmal und wird nicht erneut angezeigt."
-
 #. placeholder {0}: item.text
 #: src/features/career/knowledge/resume-facts.tsx
 msgid "Save this fact: {0}"
@@ -16046,10 +15192,6 @@ msgstr "Version speichern"
 msgid "Save wording"
 msgstr "Formulierung speichern"
 
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Save your backup codes"
-msgstr "Speichern Sie Ihre Backup-Codes"
-
 #: src/features/resume/share/format.ts
 msgid "saved"
 msgstr "gespeichert"
@@ -16060,7 +15202,6 @@ msgstr "gespeichert"
 #: src/features/homepage/tailor.tsx
 #: src/features/resume/editor/save-status.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Saved"
 msgstr "Gespeichert"
 
@@ -16224,7 +15365,6 @@ msgstr "Speichern, Schreiben, Kopieren und Erfassen funktionieren auch ohne."
 #: src/features/resume/editor/proposals/proposal-list.tsx
 #: src/features/resume/editor/save-status.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Saving…"
 msgstr "Speichern…"
 
@@ -16239,14 +15379,6 @@ msgstr "Sagen Sie, wonach Sie suchen"
 #: src/features/career/workspace/fit.tsx
 msgid "Say what you did, where and when, and what it led to. It is saved to Knowledge as a fact for all applications."
 msgstr "Sagen Sie, was Sie wo und wann getan haben und wozu es führte. Es wird als Fakt im Wissen gespeichert, für alle Bewerbungen."
-
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Scan the QR code with your authenticator app, or copy the secret and paste it into the app."
-msgstr "Scannen Sie den QR-Code mit Ihrer Authenticator-App oder kopieren Sie das Geheimnis und fügen Sie es in die App ein."
-
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Scan this with your authenticator app."
-msgstr "Scannen Sie dies mit Ihrer Authenticator-App."
 
 #: src/features/applications/components/interview-dialog.tsx
 msgid "Schedule an interview"
@@ -16495,10 +15627,6 @@ msgstr "Suche im Internet…"
 msgid "Searching your Knowledge…"
 msgstr "Ihr Wissen wird durchsucht …"
 
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Secret copied"
-msgstr "Geheimnis kopiert"
-
 #: src/features/resume/editor/check/issues.ts
 msgid "Section headings"
 msgstr "Abschnittsüberschriften"
@@ -16684,14 +15812,6 @@ msgstr "Senden Sie den Lebenslauf selbst statt einer Portfolio-Hülle."
 msgid "Send this exact query to your web search provider?"
 msgstr "Genau diese Suchanfrage an deinen Websuchanbieter senden?"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Sender"
-msgstr "Absender"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Sender details copied into the letter"
-msgstr "Absenderangaben in den Brief übernommen"
-
 #: src/features/auth/pages/forgot-password.tsx
 msgid "Sending password reset email…"
 msgstr "E-Mail zum Zurücksetzen des Passworts wird gesendet…"
@@ -16754,13 +15874,8 @@ msgid "Sent to {0}"
 msgstr "Gesendet an {0}"
 
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Sent to {company}"
 msgstr "An {company} gesendet"
-
-#: src/routes/builder/letter/-components/letter-bar.tsx
-msgid "Sent to {company} {sentOn}"
-msgstr "An {company} gesendet {sentOn}"
 
 #: src/features/resume/editor/write/write-panel.tsx
 msgid "Sent to {company} on {date}. The version they received stays in History whatever you change."
@@ -16809,10 +15924,6 @@ msgstr "Legen Sie ein Follow-up fest ..."
 msgid "Set a password"
 msgstr "Legen Sie ein Passwort fest"
 
-#: src/features/settings/account/security.tsx
-msgid "Set a password to turn on two-step verification."
-msgstr "Lege ein Passwort fest, um die Bestätigung in zwei Schritten zu aktivieren."
-
 #: src/features/career/workspace/messages.tsx
 msgid "Set by you"
 msgstr "Von Ihnen festgelegt"
@@ -16828,7 +15939,6 @@ msgid "Set the document language when exporting."
 msgstr "Legen Sie beim Export die Dokumentsprache fest."
 
 #: src/features/career/schedules.tsx
-#: src/features/settings/account/security.tsx
 #: src/features/settings/ai/web-access.tsx
 msgid "Set up"
 msgstr "Einrichten"
@@ -16839,10 +15949,6 @@ msgstr "Einrichten"
 msgid "Set up AI"
 msgstr "KI einrichten"
 
-#: src/features/settings/account/security.tsx
-msgid "Set up two-step verification"
-msgstr "Zwei-Schritt-Verifizierung einrichten"
-
 #: src/features/settings/ai/web-access.tsx
 msgid "Set up web access"
 msgstr "Webzugriff einrichten"
@@ -16850,10 +15956,6 @@ msgstr "Webzugriff einrichten"
 #: src/libs/orpc/ai-consent.ts
 msgid "Set up web search in Settings before enabling discovery. AI is not required."
 msgstr "Richten Sie die Websuche in den Einstellungen ein, bevor Sie die Entdeckung aktivieren. KI ist nicht erforderlich."
-
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Set up your authenticator app"
-msgstr "Authenticator-App einrichten"
 
 #: src/features/career/career-page.tsx
 #: src/features/career/today.tsx
@@ -16872,10 +15974,6 @@ msgstr "Legt Abschnittstitel, Datumswörter und Textrichtung fest. Ihr eigener T
 #: src/features/career/workspace/messages.tsx
 msgid "Sets the application's follow-up date, in case you haven't heard back by then."
 msgstr "Setzt das Nachfass-Datum der Bewerbung, für den Fall, dass Sie bis dahin keine Rückmeldung erhalten haben."
-
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "Sets the greeting, sign-off and date"
-msgstr "Legt Anrede, Grußformel und Datum fest"
 
 #: src/dialogs/auth/set-password.tsx
 msgid "Setting your password…"
@@ -16948,10 +16046,6 @@ msgstr "Checkout-Abläufe ausgeliefert, die WCAG 2.1 AA erfüllen."
 msgid "Shipped checkout for iOS"
 msgstr "Versand der Kasse für iOS"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Short and direct. Fine if the posting asks for brevity."
-msgstr "Kurz und direkt. Gut, wenn in der Stellenausschreibung nach Kürze gefragt wird."
-
 #: src/features/assistant/assistant-panel.tsx
 msgid "Short and polite, for the recruiter"
 msgstr "Kurz und höflich für den Personalvermittler"
@@ -16967,11 +16061,6 @@ msgstr "Tastenkürzel auf {page}"
 #: src/features/career/workspace/apply.tsx
 msgid "Shorten questions to 2,000 characters and answers to 6,000 characters before marking this applied."
 msgstr "Kürzen Sie Fragen auf 2.000 und Antworten auf 6.000 Zeichen, bevor Sie dies als beworben markieren."
-
-#: src/features/resume/editor/write/improve.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Shorter"
-msgstr "Kürzer"
 
 #: src/features/career/career-page.tsx
 msgid "Should I take the {company} offer?"
@@ -17027,10 +16116,6 @@ msgid "Show all conversations"
 msgstr "Alle Unterhaltungen anzeigen"
 
 #: src/features/command-palette/pages/resumes.tsx
-msgid "Show all letters"
-msgstr "Alle Anschreiben anzeigen"
-
-#: src/features/command-palette/pages/resumes.tsx
 msgid "Show all resumes"
 msgstr "Alle Lebensläufe anzeigen"
 
@@ -17081,7 +16166,6 @@ msgid "Show password"
 msgstr "Passwort anzeigen"
 
 #: src/features/resume/editor/write/picture-settings.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Show photo"
 msgstr "Foto anzeigen"
 
@@ -17169,7 +16253,6 @@ msgid "Sign in to pick up where you left off."
 msgstr "Melden Sie sich an, um dort weiterzumachen, wo Sie aufgehört haben."
 
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Sign in to save"
 msgstr "Zum Speichern anmelden"
 
@@ -17222,10 +16305,6 @@ msgstr "Anmeldung nicht abgeschlossen"
 #: src/features/auth/components/session-recovery.tsx
 msgid "Sign-in opens in a new tab. This page carries on and saves once you are signed in."
 msgstr "Die Anmeldung öffnet sich in einem neuen Tab. Diese Seite läuft weiter und speichert, sobald Sie angemeldet sind."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Sign-off"
-msgstr "Grußformel"
 
 #: src/features/settings/account/sessions.tsx
 msgid "Signed out of that device."
@@ -17645,8 +16724,8 @@ msgid "Start a debrief"
 msgstr "Nachbereitung starten"
 
 #: src/features/documents/new-document-dialog.tsx
-msgid "Start a resume or a cover letter: blank, from a copy, or from a file."
-msgstr "Beginnen Sie einen Lebenslauf oder ein Anschreiben: leer, als Kopie oder aus einer Datei."
+msgid "Start a resume: blank, from a copy, or from a file."
+msgstr ""
 
 #: src/features/career/today.tsx
 #: src/features/documents/documents-page.tsx
@@ -17666,10 +16745,6 @@ msgstr "Beginnen Sie jeden mit einem konkreten Verb: built, led, reduced, migrat
 msgid "Start from"
 msgstr "Beginnen Sie mit"
 
-#: src/features/documents/new-document-dialog.tsx
-msgid "Start from an earlier letter"
-msgstr "Von einem früheren Brief ausgehen"
-
 #: src/features/homepage/sections.tsx
 msgid "Start from scratch or import what you have. It takes a few minutes, and you can come back to it anytime."
 msgstr "Fangen Sie bei null an oder importieren Sie, was Sie haben. Es dauert ein paar Minuten, und Sie können jederzeit zurückkehren."
@@ -17680,41 +16755,9 @@ msgstr "Fangen Sie bei null an oder importieren Sie, was Sie haben. Es dauert ei
 msgid "Start on a new page"
 msgstr "Beginnen Sie auf einer neuen Seite"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start the next one from this. The copy opens unlocked, with its own recipient, date and history."
-msgstr "Beginnen Sie das nächste hiermit. Die Kopie öffnet sich entsperrt, mit eigenem Empfänger, Datum und Verlauf."
-
 #: src/features/ats-checker/messages.ts
 msgid "Start the resume with your name on its own line."
 msgstr "Beginnen Sie den Lebenslauf mit Ihrem Namen in einer eigenen Zeile."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing, or connect an AI provider to draft from the {company} posting and your resume."
-msgstr "Beginnen Sie zu tippen oder verbinden Sie einen KI-Anbieter, um aus der Stellenanzeige von {company} und Ihrem Lebenslauf zu entwerfen."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing, or connect an AI provider to draft from the {company} posting."
-msgstr "Beginnen Sie zu tippen oder verbinden Sie einen KI-Anbieter, um aus der Stellenanzeige von {company} zu entwerfen."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing, or connect an AI provider to draft from your resume."
-msgstr "Beginnen Sie zu tippen oder verbinden Sie einen KI-Anbieter, um aus Ihrem Lebenslauf zu entwerfen."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing, or draft from the {company} posting and your resume."
-msgstr "Beginnen Sie zu tippen oder entwerfen Sie aus der Stellenanzeige von {company} und Ihrem Lebenslauf."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing, or draft from the {company} posting."
-msgstr "Beginnen Sie zu tippen oder entwerfen Sie aus der Stellenanzeige von {company}."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing, or draft from your resume."
-msgstr "Beginnen Sie zu tippen oder entwerfen Sie aus Ihrem Lebenslauf."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing. To draft one, link a resume or an application first."
-msgstr "Beginnen Sie mit der Eingabe. Um einen zu erstellen, verlinken Sie zunächst einen Lebenslauf oder eine Bewerbung."
 
 #: src/features/resume/editor/write/add-section.tsx
 msgid "Start with the sections most resumes have."
@@ -17764,15 +16807,10 @@ msgstr "Statistiken"
 msgid "Stay here"
 msgstr "Bleib hier"
 
-#. placeholder {0}: step === "enable" ? 1 : step === "verify" ? 2 : 3
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Step {0} of 3"
-msgstr "Schritt {0} von 3"
-
 #. placeholder {0}: stepIndex + 1
 #: src/features/career/workspace/apply.tsx
-msgid "Step {0} of 6"
-msgstr "Schritt {0} von 6"
+msgid "Step {0} of 5"
+msgstr ""
 
 #: src/features/resume/builder/draft.ts
 msgid "Still saving your latest changes. They're kept on this device if you leave now."
@@ -17792,7 +16830,6 @@ msgstr "Läuft noch"
 #: src/features/career/workspace/practise.tsx
 #: src/features/career/workspace/prepare-review.tsx
 #: src/features/homepage/prepare.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Stop"
 msgstr "Stoppen"
 
@@ -17821,17 +16858,9 @@ msgstr "Vor der Antwort abgebrochen."
 msgid "Stopped before the answer finished."
 msgstr "Abgebrochen, bevor die Antwort fertig war."
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Stopped before the end. Accept it and finish it yourself, or reject it."
-msgstr "Vor dem Ende abgebrochen. Nehmen Sie es an und machen Sie es selbst fertig oder lehnen Sie es ab."
-
 #: src/features/assistant/conversation.tsx
 msgid "Stopped. No edits were proposed."
 msgstr "Angehalten. Es wurden keine Änderungen vorgeschlagen."
-
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Store these backup codes somewhere safe. Each one signs you in once if you lose your device, and they won't be shown again."
-msgstr "Bewahren Sie diese Backup-Codes sicher auf. Jeder meldet Sie einmal an, falls Sie Ihr Gerät verlieren, und sie werden nicht erneut angezeigt."
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Stored encrypted and used only for your requests. The service may charge."
@@ -17921,11 +16950,6 @@ msgstr "Selbst auf der Bewerbungsseite von {0} einreichen"
 #: src/features/career/workspace/apply.tsx
 msgid "Submit through the employer's application page yourself."
 msgstr "Reichen Sie die Bewerbung selbst über die Bewerbungsseite des Arbeitgebers ein."
-
-#. placeholder {0}: application.coverLetterName ?? "PDF"
-#: src/features/applications/components/application-detail-sheet.tsx
-msgid "Submitted attached cover letter: {0}"
-msgstr "Anbei eingereichtes Anschreiben: {0}"
 
 #. placeholder {0}: application.resumeFileName ?? "PDF"
 #: src/features/applications/components/application-detail-sheet.tsx
@@ -18233,7 +17257,6 @@ msgstr "Telugu"
 #: src/features/resume/editor/design/template-group.tsx
 #: src/libs/resume/section.tsx
 #: src/routes/builder/$resumeId/-components/document-details.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
 msgid "Template"
 msgstr "Vorlage"
 
@@ -18249,10 +17272,6 @@ msgstr "Vorlagenfarbe"
 #: src/features/resume/editor/design/template-group.tsx
 msgid "Template preview"
 msgstr "Vorlagenvorschau"
-
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "Template, type and colors follow the resume, so the pair always matches."
-msgstr "Vorlage, Typ und Farben orientieren sich am Lebenslauf, sodass das Paar immer zusammenpasst."
 
 #: src/features/homepage/design.tsx
 #: src/features/homepage/marketing-layout.tsx
@@ -18382,10 +17401,6 @@ msgstr "Danke, Sam. Hier ist eines: Bei Northwind Labs habe ich das Onboarding-R
 msgid "That account's password changed and it's signed out everywhere. This browser is still signed in as {0}."
 msgstr "Das Passwort dieses Kontos wurde geändert und es wurde überall abgemeldet. Dieser Browser ist weiterhin als {0} angemeldet."
 
-#: src/features/auth/error.ts
-msgid "That code doesn't match. Check it and try again."
-msgstr "Der Code stimmt nicht. Prüfe ihn und versuche es erneut."
-
 #: src/features/ai/set-up-ai.tsx
 #: src/features/settings/ai/providers.tsx
 msgid "That connection isn't valid. Check the base URL."
@@ -18418,11 +17433,6 @@ msgstr "Diese Datei ist zu groß, um sie zu überprüfen. PDFs bis zu 25 MB funk
 #: src/features/resume/share/web-page-text.ts
 msgid "That password isn't correct. Check it with the resume owner and try again."
 msgstr ""
-
-#: src/dialogs/auth/disable-two-factor.tsx
-#: src/features/settings/account/backup-codes.tsx
-msgid "That password isn't right. Try again or reset it."
-msgstr "Dieses Passwort ist nicht richtig. Versuchen Sie es erneut oder setzen Sie es zurück."
 
 #: src/features/auth/pages/error.tsx
 msgid "That provider account is already linked to another account."
@@ -18536,11 +17546,6 @@ msgstr "Der Assistent braucht KI."
 msgid "The bar shows the application's stage · times in {timeZone}"
 msgstr "Der Balken zeigt die Phase der Bewerbung · Zeiten in {timeZone}"
 
-#. placeholder {0}: letterSource.name
-#: src/features/documents/new-document-dialog.tsx
-msgid "The body of “{0}”"
-msgstr "Der Text von „{0}“"
-
 #: src/features/career/offers.tsx
 msgid "The bonus depends on conditions."
 msgstr "Der Bonus hängt von Bedingungen ab."
@@ -18640,10 +17645,6 @@ msgstr "Das Datenarchiv, das LinkedIn Ihnen sendet. Wird auf diesem Gerät geles
 msgid "The details"
 msgstr "Die Details"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "The draft sits on the page with a green wash. Nothing is kept until you accept, and it never replaces text you typed."
-msgstr "Der Entwurf steht grün hinterlegt auf der Seite. Nichts wird behalten, bis Sie akzeptieren, und er ersetzt nie Text, den Sie getippt haben."
-
 #: src/features/applications/components/application-detail-sheet.tsx
 msgid "The employer may have changed it since."
 msgstr "Der Arbeitgeber könnte die Anzeige inzwischen geändert haben."
@@ -18672,14 +17673,6 @@ msgstr "Die erste Verbindung ist der Standard. Jede Aufgabe fragt, bevor sie Ihr
 msgid "The form's exact address"
 msgstr "Die genaue Adresse des Formulars"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "The greeting follows the name."
-msgstr "Nach dem Namen folgt die Begrüßung."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "The greeting follows the recipient's name. Clear either one to leave it out; clearing the sign-off also removes your name under it."
-msgstr "Die Anrede folgt dem Namen des Empfängers. Leeren Sie eines davon, um es wegzulassen; das Leeren der Grußformel entfernt auch Ihren Namen darunter."
-
 #: src/features/settings/ai/providers.tsx
 msgid "The key is encrypted on the server and never shown again. Saving tests the connection."
 msgstr "Der Schlüssel wird auf dem Server verschlüsselt und nie wieder angezeigt. Beim Speichern wird die Verbindung getestet."
@@ -18696,26 +17689,6 @@ msgstr "Die Art wird beim Hinzufügen des Abschnitts gewählt und kann jede der 
 msgid "The label prints in place of the address. Empty prints the address."
 msgstr "Die Bezeichnung wird anstelle der Adresse gedruckt. Leer druckt die Adresse."
 
-#: src/routes/builder/letter/-components/download-sheet.tsx
-msgid "The letter as it is"
-msgstr "Der Brief so wie er ist"
-
-#: src/features/documents/new-document-dialog.tsx
-msgid "The letter is linked to the application, so its posting is at hand. “No job yet” is on the list."
-msgstr "Das Anschreiben ist mit der Bewerbung verknüpft, damit deren Stellenanzeige griffbereit ist. „Noch keine Stelle“ steht in der Liste."
-
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "The letter keeps a design of its own."
-msgstr "Der Brief behält sein eigenes Design."
-
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "The letter keeps this design as its own"
-msgstr "Der Brief behält dieses Design als sein eigenes"
-
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "The letter matches the resume's design again"
-msgstr "Der Brief passt wieder zum Design des Lebenslaufs"
-
 #: src/features/resume/editor/write/improve.tsx
 msgid "The line changed since you asked, so it wasn't replaced."
 msgstr "Die Zeile hat sich seit Ihrer Anfrage geändert und wurde daher nicht ersetzt."
@@ -18723,10 +17696,6 @@ msgstr "Die Zeile hat sich seit Ihrer Anfrage geändert und wurde daher nicht er
 #: src/features/auth/email-text.ts
 msgid "The link works for 1 hour. Resetting signs you out on every device and removes your passkeys and connected apps. If you didn't ask for this, ignore this email; your password stays the same."
 msgstr "Der Link ist 1 Stunde gültig. Das Zurücksetzen meldet Sie auf jedem Gerät ab und entfernt Ihre Passkeys und verbundenen Apps. Wenn Sie das nicht angefordert haben, ignorieren Sie diese E-Mail; Ihr Passwort bleibt unverändert."
-
-#: src/features/career/workspace/messages.tsx
-msgid "the linked cover letter"
-msgstr "das verknüpfte Anschreiben"
 
 #: src/features/career/workspace/messages.tsx
 msgid "the linked resume"
@@ -18751,10 +17720,6 @@ msgstr "Das Modell war nicht verfügbar oder konnte den Test nicht abschließen.
 #: src/features/career/schedule-sheet.tsx
 msgid "The morning of the interview has passed, so the briefing runs now."
 msgstr "Der Morgen des Interviews ist vorbei, daher läuft das Briefing jetzt."
-
-#: src/features/documents/new-document-dialog.tsx
-msgid "The new letter keeps its own recipient, date and history."
-msgstr "Das neue Anschreiben behält eigenen Empfänger, Datum und Verlauf."
 
 #: src/features/career/offers.tsx
 msgid "The offer doesn't mention a bonus."
@@ -18890,11 +17855,6 @@ msgstr "Die Fragen, Tippen, Sprechen und „Anhören“ funktionieren auch ohne.
 msgid "The reason is kept for Insights. Linked documents aren't touched."
 msgstr "Der Grund wird für Insights beibehalten. Verlinkte Dokumente werden nicht berührt."
 
-#: src/routes/builder/letter/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "the resume"
-msgstr "der Lebenslauf"
-
 #. placeholder {0}: shownResume?.name ?? ""
 #: src/features/career/role-suggestions.tsx
 msgid "The resume “{0}”"
@@ -18949,10 +17909,6 @@ msgstr "Die Punktzahl ist wegen eines blockierenden Problems begrenzt: {0}"
 msgid "The selected line, surrounding field text, and your rewrite instructions."
 msgstr "Die ausgewählte Zeile, der umgebende Feldtext und Ihre Anweisungen zum Umschreiben."
 
-#: src/libs/orpc/ai-consent.ts
-msgid "The selected resume and this letter's recipient and posting information."
-msgstr "Der ausgewählte Lebenslauf sowie Empfänger und Stelleninfos dieses Briefs."
-
 #: src/features/settings/ai/test-error.ts
 msgid "The service couldn't be reached. Check the address and connection, then try again."
 msgstr "Der Dienst war nicht erreichbar. Prüfe Adresse und Verbindung und versuche es erneut."
@@ -19006,10 +17962,6 @@ msgstr "Die beiden Kopfzeilen, wie sie gedruckt werden"
 msgid "The upload didn't finish ({0}). Try again."
 msgstr "Der Upload wurde nicht abgeschlossen ({0}). Versuche es erneut."
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "The version sent"
-msgstr "Die gesendete Version"
-
 #: src/features/resume/share/history-tab.tsx
 msgid "The version sent on {sentOn} · it never changes"
 msgstr "Die am {sentOn} gesendete Version · ändert sich nie"
@@ -19027,10 +17979,6 @@ msgstr "Der Text des Word-Dokuments."
 #: src/features/settings/preferences.tsx
 msgid "Theme"
 msgstr "Design"
-
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Then enter the 6-digit code from the app."
-msgstr "Geben Sie dann den 6-stelligen Code aus der App ein."
 
 #: src/features/ats-checker/messages.ts
 msgid "There is a gap between two dated roles."
@@ -19063,10 +18011,6 @@ msgstr "Diese Änderungen stammen aus der Zeit, bevor der Assistent erfasste, we
 #: src/features/assistant/conversation.tsx
 msgid "These edits use a job posting, so they go to a copy of this resume made for that job. Copy it for the job and ask again there; this resume stays unchanged."
 msgstr "Diese Änderungen verwenden eine Stellenanzeige und gehen daher an eine Kopie dieses Lebenslaufs für die Stelle. Erstellen Sie eine Kopie für die Stelle und fragen Sie dort erneut; dieser Lebenslauf bleibt unverändert."
-
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "These four follow the resume. Turn matching off to set them for this letter only; it starts from the values above."
-msgstr "Diese vier folgen dem Lebenslauf. Schalten Sie den Abgleich aus, um sie nur für dieses Anschreiben festzulegen; es beginnt mit den Werten oben."
 
 #: src/features/career/workspace/apply.tsx
 msgid "These versions are kept as sent and never change. Your drafts stay editable."
@@ -19169,10 +18113,6 @@ msgstr "Die KI-Verbindung dieser Unterhaltung ist nicht verfügbar. Ihr Verlauf 
 msgid "This conversation's connection is off or was removed. Choose the one it uses next."
 msgstr "Die Verbindung dieser Unterhaltung ist deaktiviert oder wurde entfernt. Wählen Sie, welche sie als Nächstes verwendet."
 
-#: src/features/trash/trash-page.tsx
-msgid "This cover letter and its version history are deleted for good. Keeping it leaves it in Trash for {kept}."
-msgstr "Dieses Anschreiben und sein Versionsverlauf werden endgültig gelöscht. Behalten lässt es noch {kept} im Papierkorb."
-
 #: src/features/applications/components/application-form-sheet.tsx
 #: src/features/applications/components/detail/next-step-card.tsx
 msgid "This date or time does not exist in your timezone. Choose another time."
@@ -19274,30 +18214,6 @@ msgstr "Dies ist keine übliche Seitengröße für einen Lebenslauf."
 #: src/features/documents/import/use-resume-import.ts
 msgid "This JSON isn't a Reactive Resume or JSON Resume file."
 msgstr "Dieses JSON ist keine Reactive-Resume- oder JSON-Resume-Datei."
-
-#: src/routes/builder/letter/-components/download-sheet.tsx
-msgid "This letter and “{resumeName}” as two PDFs, named to match."
-msgstr "Dieser Buchstabe und „{resumeName}“ als zwei PDFs, passend benannt."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "This letter changed in another tab. Reload above to keep editing; your edits stay in a copy."
-msgstr "Dieser Brief wurde in einem anderen Tab geändert. Laden Sie oben neu, um weiter zu bearbeiten; Ihre Änderungen bleiben in einer Kopie."
-
-#: src/routes/builder/letter/$coverLetterId.tsx
-msgid "This letter has an unkept draft. Click Keep to save it, or Discard to leave without it."
-msgstr "Dieser Brief hat einen ungesicherten Entwurf. Klicken Sie auf „Behalten“, um ihn zu speichern, oder auf „Verwerfen“, um ohne ihn zu gehen."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "This letter is locked."
-msgstr "Dieses Anschreiben ist gesperrt."
-
-#: src/features/documents/document-actions.tsx
-msgid "This letter is recorded as sent. Its application link stays with that submission."
-msgstr "Dieser Brief ist als gesendet aufgezeichnet. Seine Bewerbungsverknüpfung bleibt bei dieser Einreichung."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "This letter keeps its recipient as written."
-msgstr "Dieser Brief behält seinen Empfänger so, wie er geschrieben wurde."
 
 #: src/features/feedback/review-page.tsx
 msgid "This link doesn't open"
@@ -19501,10 +18417,6 @@ msgstr "Dieser Server verwendet die Standardphasen. Daher bleiben die Phasenname
 msgid "This sign-in attempt expired or was already used."
 msgstr "Dieser Anmeldeversuch ist abgelaufen oder wurde bereits verwendet."
 
-#: src/features/auth/error.ts
-msgid "This sign-in step expired. Sign in again."
-msgstr "Dieser Anmeldeschritt ist abgelaufen. Melde dich erneut an."
-
 #: src/features/auth/pages/reset-password.tsx
 msgid "This signs you out everywhere and removes your passkeys and connected apps."
 msgstr "Dadurch werden Sie überall abgemeldet und Ihre Passkeys und verbundenen Apps entfernt."
@@ -19556,10 +18468,6 @@ msgstr "drei Geschichten"
 #: src/features/career/knowledge/facts.tsx
 msgid "Ticked facts can be sent to your AI connection when you use the coach, a fit check or interview prep. The rest stay here and are never sent."
 msgstr "Angehakte Fakten können an Ihre KI-Verbindung gesendet werden, wenn Sie den Coach, eine Passungsprüfung oder die Interviewvorbereitung nutzen. Der Rest bleibt hier und wird nie gesendet."
-
-#: src/features/resume/editor/write/improve.tsx
-msgid "Tie to the posting"
-msgstr "An die Stellenanzeige anpassen"
 
 #: src/features/career/workspace/apply.tsx
 msgid "Tighten"
@@ -19651,16 +18559,6 @@ msgstr "Tipp"
 msgid "Title"
 msgstr "Titel"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "To"
-msgstr "Zu"
-
-#. A letter's recipient under its name in the library
-#. placeholder {0}: document.recipient
-#: src/features/documents/document-card.tsx
-msgid "To {0}"
-msgstr "An {0}"
-
 #: src/libs/dnd.ts
 msgid "To pick it up, press Space or Enter. Use the arrow keys to move it, Space or Enter to drop it, or Escape to cancel."
 msgstr "Zum Aufnehmen Leertaste oder Eingabetaste drücken. Mit den Pfeiltasten verschieben, mit Leertaste oder Eingabetaste ablegen oder mit Escape abbrechen."
@@ -19673,7 +18571,6 @@ msgstr "heute"
 #: src/features/applications/components/calendar-view.tsx
 #: src/features/career/today.tsx
 #: src/features/command-palette/pages/navigation.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 #: src/routes/dashboard/-components/app-shell.tsx
 #: src/routes/dashboard/index.tsx
 msgid "Today"
@@ -19828,10 +18725,6 @@ msgstr "Der Papierkorb war bereits leer"
 msgid "Trimming words"
 msgstr "Wörter werden gekürzt"
 
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Trust this device for 30 days"
-msgstr "Diesem Gerät 30 Tage lang vertrauen"
-
 #: src/features/career/today.tsx
 #: src/features/documents/documents-page.tsx
 msgid "Try a sample"
@@ -19856,7 +18749,6 @@ msgstr "Probieren Sie eine Probe aus"
 #: src/features/settings/integrations/ai-provider-load-state.tsx
 #: src/features/settings/profile.tsx
 #: src/features/trash/trash-page.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 #: src/routes/dashboard/applications/index.tsx
 msgid "Try again"
 msgstr "Versuchen Sie es erneut"
@@ -19905,9 +18797,6 @@ msgstr "Versuchen Sie es mit einem Musterlebenslauf"
 msgid "Turkish"
 msgstr "Türkisch"
 
-#. Destructive action button to turn off two-factor authentication
-#: src/dialogs/auth/disable-two-factor.tsx
-#: src/features/settings/account/security.tsx
 #: src/features/settings/ai/providers.tsx
 msgid "Turn off"
 msgstr "Deaktivieren"
@@ -19920,21 +18809,9 @@ msgstr "Deaktivieren Sie diskretionäre Ligaturen beim Export."
 msgid "Turn off if you use speech input. Shortcuts with ⌘ keep working."
 msgstr "Schalten Sie sie aus, wenn Sie Spracheingabe nutzen. Kürzel mit ⌘ funktionieren weiter."
 
-#: src/features/settings/account/security.tsx
-msgid "Turn off two-step verification"
-msgstr "Zweistufige Verifizierung deaktivieren"
-
-#: src/dialogs/auth/disable-two-factor.tsx
-msgid "Turn off two-step verification?"
-msgstr "Zweistufige Verifizierung deaktivieren?"
-
 #: src/features/settings/ai/providers.tsx
 msgid "Turn on"
 msgstr "Einschalten"
-
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Turn on two-step verification"
-msgstr "Zweistufige Verifizierung aktivieren"
 
 #: src/features/career/schedule-sheet.tsx
 msgid "Turn this schedule on"
@@ -19945,18 +18822,9 @@ msgstr "Diesen Zeitplan einschalten"
 msgid "Turned off “{0}”. Its key is kept."
 msgstr "„{0}“ ausgeschaltet. Der Schlüssel bleibt erhalten."
 
-#: src/dialogs/auth/disable-two-factor.tsx
-msgid "Turning off two-step verification…"
-msgstr "Zweistufige Verifizierung wird deaktiviert…"
-
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Turning on two-step verification…"
-msgstr "Zweistufige Verifizierung wird aktiviert…"
-
 #: src/features/resume/editor/design/template-group.tsx
 #: src/features/templates/gallery.tsx
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
 msgid "Two columns"
 msgstr "Zwei Spalten"
 
@@ -20012,29 +18880,10 @@ msgstr "Zweispaltig mit Akzentfarben und klarer Typografie; ausgewogene Wahl fü
 msgid "Two-column, minimal with light gray sidebar and subtle icons; professional and understated for legal, finance, or executive roles."
 msgstr "Zweispaltig, minimalistisch mit hellgrauer Seitenleiste und dezenten Icons; professionell und zurückhaltend für Rechtswesen, Finanz- oder Führungspositionen."
 
-#: src/routes/auth/verify-2fa.tsx
-msgid "Two-factor authentication"
-msgstr "Zwei-Faktor-Authentifizierung"
-
-#: src/features/auth/pages/verify-2fa.tsx
-#: src/features/command-palette/pages/navigation.tsx
-#: src/features/settings/account/security.tsx
-msgid "Two-step verification"
-msgstr "Zweistufige Verifizierung"
-
-#: src/dialogs/auth/disable-two-factor.tsx
-msgid "Two-step verification turned off"
-msgstr "Zweistufige Verifizierung deaktiviert"
-
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Two-step verification turned on"
-msgstr "Zweistufige Verifizierung aktiviert"
-
 #: src/features/applications/components/interview-dialog.tsx
 #: src/features/career/knowledge/facts.tsx
 #: src/features/career/knowledge/resume-facts.tsx
 #: src/features/career/workspace/practise.tsx
-#: src/features/documents/documents-page.tsx
 msgid "Type"
 msgstr "Typ"
 
@@ -20057,7 +18906,6 @@ msgstr "Die Angaben einzutippen funktioniert immer."
 
 #: src/components/calm/category-strip.tsx
 #: src/libs/resume/section.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
 msgid "Typography"
 msgstr "Typografie"
 
@@ -20080,7 +18928,6 @@ msgid "Understated"
 msgstr "Zurückhaltend"
 
 #: src/features/applications/use-application-actions.ts
-#: src/features/assistant/document.ts
 #: src/features/career/coach-chat.tsx
 #: src/features/career/shared.tsx
 #: src/features/career/today.tsx
@@ -20097,8 +18944,6 @@ msgstr "Zurückhaltend"
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
 #: src/routes/builder/$resumeId/-components/use-editor-hotkeys.ts
-#: src/routes/builder/letter/-components/letter-bar.tsx
-#: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Undo"
 msgstr "Rückgängig machen"
 
@@ -20141,7 +18986,6 @@ msgstr "Verknüpfung dieser Stellenbewerbung aufheben"
 #: src/features/assistant/assistant-panel.tsx
 #: src/features/resume/editor/write/write-panel.tsx
 #: src/features/resume/share/web-page-text.ts
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Unlock"
 msgstr "Entsperren"
 
@@ -20150,7 +18994,6 @@ msgstr "Entsperren"
 #: src/features/documents/documents-page.tsx
 #: src/features/resume/editor/write/write-panel.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Unlock editing"
 msgstr "Bearbeitung freischalten"
 
@@ -20171,11 +19014,6 @@ msgstr "Ohne Titel"
 #: src/libs/dnd.ts
 msgid "Untitled item"
 msgstr "Unbenanntes Element"
-
-#: src/features/documents/new-document-dialog.tsx
-#: src/features/documents/use-start-document.ts
-msgid "Untitled letter"
-msgstr "Brief ohne Titel"
 
 #: src/features/documents/new-document-dialog.tsx
 #: src/features/documents/use-start-document.ts
@@ -20256,15 +19094,13 @@ msgctxt "Template style tag"
 msgid "Uppercase headings"
 msgstr "Überschriften in Großbuchstaben"
 
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "US Letter"
-msgstr "US Letter"
-
 #: src/features/command-palette/pages/navigation.tsx
 msgid "Usage"
 msgstr "Nutzung"
 
+#. placeholder {0}: document.name
 #. placeholder {0}: fallback.label
+#: src/features/applications/components/detail/sent-documents.tsx
 #: src/features/assistant/connection-notice.tsx
 msgid "Use {0}"
 msgstr "{0} verwenden"
@@ -20290,10 +19126,6 @@ msgstr "Verwenden Sie den Punkt {minimum}"
 msgid "Use {minimum} pt margins"
 msgstr "Verwenden Sie {minimum} pt-Ränder"
 
-#: src/features/applications/components/detail/sent-documents.tsx
-msgid "Use {name}"
-msgstr "{name} verwenden"
-
 #: src/features/resume/editor/check/issues.ts
 msgid "Use {url}"
 msgstr "Verwenden Sie {url}"
@@ -20303,19 +19135,12 @@ msgid "Use 3 to 64 Latin letters a–z, numbers, dots, hyphens and underscores."
 msgstr "Verwenden Sie 3 bis 64 lateinische Buchstaben a–z, Zahlen, Punkte, Bindestriche und Unterstriche."
 
 #: src/dialogs/auth/change-password.tsx
-#: src/dialogs/auth/disable-two-factor.tsx
-#: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/set-password.tsx
 #: src/features/auth/pages/login.tsx
 #: src/features/auth/pages/register.tsx
 #: src/features/auth/pages/reset-password.tsx
 msgid "Use 64 characters or fewer."
 msgstr "Verwenden Sie höchstens 64 Zeichen."
-
-#. Link to backup-code verification flow when authenticator app is unavailable
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Use a backup code"
-msgstr "Backup-Code verwenden"
 
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Use a darker shade"
@@ -20354,16 +19179,6 @@ msgstr "Verwenden Sie eine einzelne Spalte für alles, was in Reihenfolge gelese
 msgid "Use A4 or US Letter so the layout survives being re-rendered."
 msgstr "Verwenden Sie A4 oder US Letter, damit das Layout ein erneutes Rendern übersteht."
 
-#: src/features/applications/components/detail/sent-documents.tsx
-#: src/features/career/workspace/preparation.tsx
-msgid "Use an existing letter"
-msgstr "Einen bestehenden Brief verwenden"
-
-#: src/features/applications/components/detail/sent-documents.tsx
-#: src/features/career/workspace/preparation.tsx
-msgid "Use an existing letter…"
-msgstr "Einen bestehenden Brief verwenden …"
-
 #: src/features/auth/pages/error.tsx
 msgid "Use another sign-in method."
 msgstr "Verwenden Sie eine andere Anmeldemethode."
@@ -20394,15 +19209,6 @@ msgstr "Verwenden Sie zwischen 6 und 64 Zeichen."
 #: src/components/input/color-picker.tsx
 msgid "Use color {color}"
 msgstr "Verwenden Sie die Farbe {color}"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Use default"
-msgstr "Standard verwenden"
-
-#. placeholder {0}: resume?.name ?? t`the resume`
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Use details from “{0}”"
-msgstr "Details aus „{0}“ verwenden"
 
 #: src/features/career/coach-chat.tsx
 #: src/features/career/knowledge/facts.tsx
@@ -20482,10 +19288,6 @@ msgstr "Diese Vorlage verwenden"
 msgid "Use web access?"
 msgstr "Webzugriff verwenden?"
 
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Use your authenticator app"
-msgstr "Authenticator-App verwenden"
-
 #: src/features/ats-checker/messages.ts
 msgid "Use your editor's normal bullet list, so stray glyphs do not land mid-sentence."
 msgstr "Verwenden Sie die normale Aufzählungsliste Ihres Editors, damit keine störenden Zeichen mitten im Satz landen."
@@ -20543,22 +19345,6 @@ msgstr "Nutzerforschung"
 #: src/features/settings/account/profile.tsx
 msgid "Username"
 msgstr "Benutzername"
-
-#: src/features/assistant/assistant-panel.tsx
-msgid "Uses facts from your resume"
-msgstr "Verwendet Fakten aus Ihrem Lebenslauf"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Uses only the posting"
-msgstr "Nutzt nur die Stellenanzeige"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Uses only your resume"
-msgstr "Nutzt nur Ihren Lebenslauf"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Uses only your resume and the posting"
-msgstr "Nutzt nur Ihren Lebenslauf und die Stellenanzeige"
 
 #: src/features/resume/editor/design/entries-group.tsx
 msgid "Uses the accent color"
@@ -20620,20 +19406,9 @@ msgstr "Mündlich"
 msgid "Verbal offer"
 msgstr "Mündliches Angebot"
 
-#: src/dialogs/auth/enable-two-factor.tsx
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Verification code"
-msgstr "Bestätigungscode"
-
 #: src/features/settings/account/profile.tsx
 msgid "Verified"
 msgstr "Bestätigt"
-
-#. Primary action button to submit 2FA code
-#. Primary action button to submit backup code
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Verify"
-msgstr "Verifizieren"
 
 #: src/features/auth/email-text.ts
 msgid "Verify email"
@@ -20659,15 +19434,6 @@ msgstr "Bestätigen Sie zuerst Ihre E-Mail-Adresse in den Einstellungen"
 #: src/features/settings/account/security.tsx
 msgid "Verify your email to add a passkey."
 msgstr "Bestätigen Sie Ihre E-Mail, um einen Passkey hinzuzufügen."
-
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Verifying backup code…"
-msgstr "Backup-Code wird verifiziert…"
-
-#: src/dialogs/auth/enable-two-factor.tsx
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Verifying code…"
-msgstr "Code wird verifiziert…"
 
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
@@ -20765,10 +19531,6 @@ msgstr "Warten auf Feedback zum Vorstellungsgespräch"
 msgid "Waiting to hear back"
 msgstr "Warten auf Antwort"
 
-#: src/features/resume/editor/write/improve.tsx
-msgid "Warmer"
-msgstr "Freundlicher"
-
 #: src/features/ats-checker/messages.ts
 msgid "Warning"
 msgstr "Warnung"
@@ -20864,7 +19626,6 @@ msgstr "Websuchen suchen Arbeit in diesen Ländern, bis zu drei."
 #: src/features/command-palette/pages/navigation.tsx
 #: src/features/resume/editor/write/basics-card.tsx
 #: src/features/resume/editor/write/fields.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Website"
 msgstr "Webseite"
 
@@ -21310,7 +20071,6 @@ msgstr "Breit"
 
 #: src/features/resume/editor/design/fit.ts
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
 msgid "wide margins"
 msgstr "breite Ränder"
 
@@ -21339,10 +20099,6 @@ msgid "With {0} · {1}.{2}"
 msgstr "Mit {0} · {1}.{2}"
 
 #: src/features/assistant/assistant-panel.tsx
-msgid "With a connection, the assistant proposes edits to this letter. You accept or reject each one, and nothing changes until you do."
-msgstr "Mit einer Verbindung schlägt der Assistent Änderungen an diesem Anschreiben vor. Sie akzeptieren oder lehnen jede ab, und nichts ändert sich, bis Sie es tun."
-
-#: src/features/assistant/assistant-panel.tsx
 msgid "With a connection, the assistant proposes numbered edits. You accept or reject each one, and nothing changes until you do."
 msgstr "Mit einer Verbindung schlägt der Assistent nummerierte Änderungen vor. Sie akzeptieren oder lehnen jede ab, und nichts ändert sich, bis Sie es tun."
 
@@ -21353,10 +20109,6 @@ msgstr "Mit KI"
 #: src/features/homepage/remember.tsx
 msgid "Within a quarter, activation went from 31% to 44%."
 msgstr "Innerhalb eines Quartals stieg die Aktivierung von 31 % auf 44 %."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Without one, you fill in the recipient yourself and drafting uses only your resume."
-msgstr "Ohne einen tragen Sie den Empfänger selbst ein und für die Erstellung wird nur Ihr Lebenslauf verwendet."
 
 #: src/features/documents/import/import-page.tsx
 msgid "Word files and scanned PDFs are read with AI."
@@ -21430,27 +20182,12 @@ msgstr "Nachfragen lohnt sich"
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
 #: src/routes/builder/$resumeId/-components/use-editor-hotkeys.ts
-#: src/routes/builder/letter/-components/letter-bar.tsx
-#: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Write"
 msgstr "Schreiben"
 
 #: src/features/ats-checker/messages.ts
 msgid "Write \"Present\" as the end date of your current role."
 msgstr "Schreiben Sie \"Present\" als Enddatum Ihrer aktuellen Rolle."
-
-#: src/features/career/workspace/apply.tsx
-msgid "Write a cover letter if required"
-msgstr "Falls erforderlich, ein Anschreiben schreiben"
-
-#: src/features/applications/components/detail/sent-documents.tsx
-#: src/features/career/workspace/preparation.tsx
-msgid "Write a letter"
-msgstr "Brief schreiben"
-
-#: src/features/documents/document-actions.tsx
-msgid "Write a letter…"
-msgstr "Einen Brief schreiben …"
 
 #: src/features/career/workspace/messages.tsx
 msgid "Write a new reply in {languageName}"
@@ -21488,10 +20225,6 @@ msgstr "Schreiben Sie es als ein ununterbrochenes Stück ohne besondere Abständ
 msgid "Write it down while it’s fresh"
 msgstr "Schreiben Sie es auf, solange es frisch ist"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Write it myself"
-msgstr "Schreibe es selbst"
-
 #: src/features/career/workspace/practise.tsx
 msgid "Write numbers as digits"
 msgstr "Zahlen als Ziffern schreiben"
@@ -21499,10 +20232,6 @@ msgstr "Zahlen als Ziffern schreiben"
 #: src/features/career/knowledge/stories.tsx
 msgid "Write one about something you did, in five parts. Leave Result and Reflection blank until you can support them."
 msgstr "Schreibe eine Geschichte in fünf Teilen über etwas, das du getan hast. Lass Ergebnis und Reflexion leer, bis du sie belegen kannst."
-
-#: src/features/documents/documents-page.tsx
-msgid "Write one for a job, or start from your latest resume."
-msgstr "Schreiben Sie einen für eine Stelle oder gehen Sie von Ihrem neuesten Lebenslauf aus."
 
 #: src/features/ats-checker/messages.ts
 msgid "Write the full address so it is recognized as a link."
@@ -21542,10 +20271,6 @@ msgstr "Schreibt ein Briefing vor einem Interview"
 msgid "Writes a briefing before an interview: likely questions, who you'll meet and stories to tell."
 msgstr "Schreibt ein Briefing vor einem Interview: wahrscheinliche Fragen, wen Sie treffen, und Geschichten zum Erzählen."
 
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "Writes the greeting, sign-off and date, and the language a new draft uses. Your own words stay as you wrote them."
-msgstr "Bestimmt Anrede, Grußformel und Datum sowie die Sprache, die ein neuer Entwurf verwendet. Ihre eigenen Worte bleiben, wie Sie sie geschrieben haben."
-
 #: src/features/ats-checker/checker.tsx
 #: src/features/ats-checker/messages.ts
 #: src/features/resume/editor/check/check-panel.tsx
@@ -21553,17 +20278,9 @@ msgstr "Bestimmt Anrede, Grußformel und Datum sowie die Sprache, die ein neuer 
 msgid "Writing"
 msgstr "Schreibstil"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Writing a draft"
-msgstr "Entwurf wird geschrieben"
-
 #: src/features/career/coach-chat.tsx
 msgid "Writing an answer…"
 msgstr "Antwort wird geschrieben…"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Writing it yourself works without it."
-msgstr "Selbst schreiben funktioniert auch ohne."
 
 #: src/features/ai/usage.tsx
 msgid "Writing review"
@@ -21706,10 +20423,6 @@ msgstr "Du bist offline. Stellen Sie erneut eine Verbindung her, um Ihre Änderu
 msgid "You're up to date"
 msgstr "Sie sind auf dem neuesten Stand"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "You're viewing an earlier version. Go back to now in History to edit."
-msgstr "Sie sehen eine frühere Version. Gehen Sie im Verlauf zur aktuellen Version zurück, um zu bearbeiten."
-
 #: src/features/resume/builder/undo-toast.ts
 msgid "You've made changes since. Use Undo to step back through them."
 msgstr "Sie haben seitdem Änderungen gemacht. Nutzen Sie „Rückgängig“, um sie Schritt für Schritt zurückzunehmen."
@@ -21789,10 +20502,6 @@ msgstr "Ihr Browser"
 msgid "Your browser can't take dictation here. Type your answer instead."
 msgstr "Ihr Browser kann hier kein Diktat aufnehmen. Tippen Sie Ihre Antwort stattdessen."
 
-#: src/features/letters/webmcp.ts
-msgid "Your browser's AI agent edited this letter."
-msgstr "Der KI-Agent Ihres Browsers hat dieses Anschreiben bearbeitet."
-
 #: src/features/resume/editor/webmcp.ts
 msgid "Your browser's AI agent edited this resume."
 msgstr "Der KI-Agent Ihres Browsers hat diesen Lebenslauf bearbeitet."
@@ -21806,7 +20515,6 @@ msgid "Your bullets are drawn with unusual characters."
 msgstr "Ihre Aufzählungspunkte sind mit ungewöhnlichen Zeichen gestaltet."
 
 #: src/routes/builder/$resumeId/-components/use-editor-hotkeys.ts
-#: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Your changes are saved automatically."
 msgstr "Deine Änderungen werden automatisch gespeichert."
 
@@ -21838,30 +20546,13 @@ msgstr "Ihre Daten bleiben Ihre."
 msgid "Your dates are written several different ways."
 msgstr "Ihre Daten sind auf mehrere unterschiedliche Arten geschrieben."
 
-#: src/routes/builder/letter/-components/letter-shell.tsx
-msgid "Your details changed on the resume. The letter updated too."
-msgstr "Ihre Angaben im Lebenslauf haben sich geändert. Auch der Brief wurde aktualisiert."
-
 #: src/features/career/coach-chat.tsx
 msgid "Your edited story is saved to Knowledge."
 msgstr "Ihre bearbeitete Geschichte wird im Wissen gespeichert."
 
-#. placeholder {0}: copy.name
-#: src/routes/builder/letter/-components/letter-bar.tsx
-msgid "Your edits were kept as “{0}”."
-msgstr "Ihre Änderungen wurden als „{0}“ aufbewahrt."
-
-#: src/routes/builder/letter/-components/letter-bar.tsx
-msgid "Your edits will be kept as a separate letter in Documents before loading the saved version."
-msgstr "Ihre Änderungen werden vor dem Laden der gespeicherten Version als separater Brief in den Unterlagen aufbewahrt."
-
 #: src/features/resume/editor/save-status.tsx
 msgid "Your edits will be kept as a separate resume in Documents before loading the saved version."
 msgstr "Ihre Änderungen werden vor dem Laden der gespeicherten Version als separater Lebenslauf in den Unterlagen aufbewahrt."
-
-#: src/routes/builder/letter/-components/letter-shell.tsx
-msgid "Your email address changed on the resume. The letter updated too."
-msgstr "Ihre E-Mail-Adresse hat sich im Lebenslauf geändert. Auch der Brief wurde aktualisiert."
 
 #: src/features/ats-checker/messages.ts
 msgid "Your email address is broken across pieces of text."
@@ -21870,10 +20561,6 @@ msgstr "Ihre E-Mail-Adresse ist über mehrere Textteile aufgeteilt."
 #: src/features/auth/pages/error.tsx
 msgid "Your email address isn't verified with the provider."
 msgstr "Ihre E-Mail-Adresse ist beim Anbieter nicht bestätigt."
-
-#: src/features/documents/new-document-dialog.tsx
-msgid "Your experience, laid out on a page."
-msgstr "Ihre Erfahrung, auf einer Seite angeordnet."
 
 #: src/features/ats-checker/checker.tsx
 msgid "Your file"
@@ -21888,36 +20575,24 @@ msgid "Your guest documents and applications are in this account."
 msgstr "Ihre Gast-Dokumente und -Bewerbungen liegen in diesem Konto."
 
 #: src/features/auth/components/guest-banner.tsx
-msgid "Your guest resumes, cover letters, applications and Career knowledge move to this account, except facts it already has. Different Career profiles stop sign-in and keep your guest work. Assistant conversations don't move."
-msgstr "Deine Lebensläufe, Anschreiben, Bewerbungen und dein Karrierewissen aus dem Gastkonto werden in dieses Konto verschoben, außer bereits vorhandenen Fakten. Unterschiedliche Karriereprofile stoppen die Anmeldung und erhalten deine Gastarbeit. Gespräche mit dem Assistenten werden nicht verschoben."
+msgid "Your guest resumes, applications and Career knowledge move to this account, except facts it already has. Different Career profiles stop sign-in and keep your guest work. Assistant conversations don't move."
+msgstr ""
 
 #: src/features/auth/components/guest-banner.tsx
-msgid "Your guest resumes, cover letters, applications and Career knowledge move to this account. Assistant conversations don't move."
-msgstr "Ihre Gast-Lebensläufe, Anschreiben, Bewerbungen und Ihr Karriere-Wissen werden in dieses Konto übernommen. Assistenten-Gespräche werden nicht übernommen."
+msgid "Your guest resumes, applications and Career knowledge move to this account. Assistant conversations don't move."
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "Your headings look the same as your body text."
 msgstr "Ihre Überschriften sehen genauso aus wie Ihr Fließtext."
 
-#: src/routes/builder/letter/-components/letter-shell.tsx
-msgid "Your headline changed on the resume. The letter updated too."
-msgstr "Ihre Überschrift im Lebenslauf hat sich geändert. Auch der Brief wurde aktualisiert."
-
 #: src/features/career/workspace/debrief.tsx
 msgid "your Knowledge"
 msgstr "Ihr Wissen"
 
-#: src/features/letters/store.ts
-msgid "Your letter changed while reloading. Your edits are still open. Reload again to keep a new copy."
-msgstr "Ihr Brief wurde während des Neuladens geändert. Ihre Änderungen sind noch offen. Laden Sie erneut, um eine neue Kopie zu behalten."
-
 #: src/features/ats-checker/messages.ts
 msgid "Your lines are packed very tightly."
 msgstr "Deine Zeilen sind sehr dicht gepackt."
-
-#: src/routes/builder/letter/-components/letter-shell.tsx
-msgid "Your location changed on the resume. The letter updated too."
-msgstr "Ihr Standort hat sich im Lebenslauf geändert. Auch der Brief wurde aktualisiert."
 
 #: src/features/ats-checker/messages.ts
 msgid "Your margins are very narrow."
@@ -21935,17 +20610,9 @@ msgstr "Dein Name"
 msgid "Your name and contact details"
 msgstr "Ihr Name und Ihre Kontaktdaten"
 
-#: src/features/documents/new-document-dialog.tsx
-msgid "Your name and contact details come from it, and the letter can match its design."
-msgstr "Ihr Name und Ihre Kontaktdaten stammen daraus, und das Anschreiben kann sein Design übernehmen."
-
 #: src/features/resume/editor/write/outline.tsx
 msgid "Your name and how to reach you"
 msgstr "Ihr Name und wie man Sie erreicht"
-
-#: src/routes/builder/letter/-components/letter-shell.tsx
-msgid "Your name changed on the resume. The letter updated too."
-msgstr "Ihr Name wurde im Lebenslauf geändert. Auch der Brief wurde aktualisiert."
 
 #: src/features/resume/editor/check/issues.ts
 msgid "Your name is missing"
@@ -21966,10 +20633,6 @@ msgstr "Ihre Onboarding-Geschichte"
 #: src/features/career/workspace/prepare.tsx
 msgid "Your opening"
 msgstr "Ihr Einstieg"
-
-#: src/routes/builder/letter/-components/letter-shell.tsx
-msgid "Your phone number changed on the resume. The letter updated too."
-msgstr "Ihre Telefonnummer hat sich im Lebenslauf geändert. Auch der Brief wurde aktualisiert."
 
 #: src/features/ats-checker/messages.ts
 msgid "Your phone number is written in an unusual shape."
@@ -21999,14 +20662,6 @@ msgstr "Ihre Anfrage sowie das zugehörige Dokument, die Stellenanzeige, Notizen
 msgid "Your requirements, checked for each offer"
 msgstr "Ihre Anforderungen, für jedes Angebot geprüft"
 
-#: src/routes/builder/letter/-components/download-sheet.tsx
-msgid "your resume"
-msgstr "Ihr Lebenslauf"
-
-#: src/routes/builder/letter/-components/download-sheet.tsx
-msgid "your resume and this letter"
-msgstr "Ihr Lebenslauf und dieses Anschreiben"
-
 #: src/features/auth/layout.tsx
 msgid "Your resume and your job search, in one place."
 msgstr "Ihr Lebenslauf und Ihre Jobsuche an einem Ort."
@@ -22032,8 +20687,8 @@ msgid "Your resume uses \"I\" and \"my\"."
 msgstr "Ihr Lebenslauf verwendet \"I\" und \"my\"."
 
 #: src/features/documents/documents-page.tsx
-msgid "Your resumes and cover letters live here"
-msgstr "Hier liegen Ihre Lebensläufe und Anschreiben"
+msgid "Your resumes live here"
+msgstr ""
 
 #: src/features/ai/set-up-ai.tsx
 msgid "Your saved connections need attention. Fix them in <0>Settings › AI</0>, or add one here."

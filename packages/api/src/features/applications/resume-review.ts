@@ -30,7 +30,7 @@ export async function reviewApplicationResume(input: ResumeReviewInput) {
 	const check: AiUsage["check"] = async (tx) => {
 		await input.check?.(tx);
 		await assertApplicationVersion(tx, input.userId, application);
-		await assertDocumentVersion(tx, input.userId, { kind: "resume", ...resume });
+		await assertDocumentVersion(tx, input.userId, { ...resume });
 	};
 	assertAgentEnvironment();
 	const provider = await aiProvidersService.getDefaultRunnable({ userId: input.userId });

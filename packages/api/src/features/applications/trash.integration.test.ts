@@ -220,15 +220,6 @@ describe.skipIf(!databaseUrl)("application Trash: real retained rows, storage an
 			sourceUrl: "https://jobs.example.test/cedar",
 		});
 		await client.addNote({ id, text: "Retain this timeline" });
-		const letter = await (
-			await import("../cover-letters/service")
-		).coverLetterService.create({
-			userId: "alice",
-			name: "Fictional letter",
-			applicationId: id,
-			resumeId: "resume",
-			content: "<p>Retain submitted letter.</p>",
-		});
 		await client.update({ id, status: "applied" });
 		await getDb()
 			.insert(tables.careerStory)
@@ -344,8 +335,6 @@ describe.skipIf(!databaseUrl)("application Trash: real retained rows, storage an
 					"agent_messages",
 					"agent_attachments",
 					"resume_version",
-					"cover_letter",
-					"cover_letter_version",
 				].map(async (table) => (await pool.query(`SELECT * FROM ${table} ORDER BY 1`)).rows),
 			);
 		const relationships = await related();
@@ -394,7 +383,6 @@ describe.skipIf(!databaseUrl)("application Trash: real retained rows, storage an
 		await api().restore(entry);
 		expect(contents(await raw(id))).toEqual(contents(before));
 		expect((await api().getById({ id })).sentResumeVersionId).toBe(before.sent_resume_version_id);
-		expect((await api().getById({ id })).sentCoverLetterVersionId).toBe(before.sent_cover_letter_version_id);
 		expect(await career.facts({ userId: "alice", all: true })).toHaveLength(1);
 		expect(await career.savedItems({ userId: "alice", kind: "fit" })).toHaveLength(1);
 		expect(await opportunities()).toMatchObject([{ id }]);
@@ -411,7 +399,6 @@ describe.skipIf(!databaseUrl)("application Trash: real retained rows, storage an
 		expect(await storage.read(privateFile)).toBeNull();
 		expect((await pool.query("SELECT id FROM resume WHERE id='resume'")).rows).toHaveLength(1);
 		expect((await pool.query("SELECT id FROM resume_version WHERE resume_id='resume'")).rows.length).toBeGreaterThan(0);
-		expect((await pool.query("SELECT id FROM cover_letter WHERE id=$1", [letter.id])).rows).toHaveLength(1);
 	});
 
 	it("keeps bulk deletion recoverable and owner-scoped, including old DELETE aliases", async () => {

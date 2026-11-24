@@ -14,7 +14,6 @@ import {
 	TextRun,
 	WidthType,
 } from "docx";
-import { isCoverLetterOnlyDocument } from "@reactive-resume/resume/export-sections";
 import { entryHeaderOf } from "@reactive-resume/schema/resume/data";
 import { assertResumeRenderBudget } from "@reactive-resume/schema/resume/limits";
 import { templateLayouts } from "@reactive-resume/schema/templates";
@@ -99,8 +98,6 @@ function blendWithWhite(hex: string, opacity: number): string {
 
 /** Resolves a section's (usually empty) stored title from its id — locale-aware, supplied by the caller. */
 export type SectionTitleResolver = (sectionId: string) => string | undefined;
-
-export type DocxRenderOptions = { includeCoverLetterHeader?: boolean };
 
 function renderSection(
 	sectionId: string,
@@ -283,11 +280,7 @@ function buildTwoColumnTable(
  * - Page margins and fixed DOCX page format from `metadata.page`; free-form exports as A4
  * - Primary, text, and background colors from `metadata.design.colors`
  */
-export function buildDocument(
-	data: ResumeData,
-	resolveTitle?: SectionTitleResolver,
-	options: DocxRenderOptions = {},
-): Document {
+export function buildDocument(data: ResumeData, resolveTitle?: SectionTitleResolver): Document {
 	assertResumeRenderBudget(data);
 	const colorHex = getColorHex(data.metadata.design.colors.primary, "DC2626");
 	const textColorHex = getColorHex(data.metadata.design.colors.text, "000000");
@@ -331,13 +324,13 @@ export function buildDocument(
 		// Only the row order carries over: header layouts and accents don't apply to DOCX (plain, ATS-first).
 		lead: entryHeaderOf(data.metadata.design).lead,
 	};
-	const showHeader = options.includeCoverLetterHeader || !isCoverLetterOnlyDocument(data);
+	const showHeader = true;
 	// The header prints once, with the first page, as in the PDF. It sits in a column only when that page splits:
-	// standalone letters and single-column first pages print it across the page.
+	// a single-column first page prints it across the page.
 	const firstPage = data.metadata.layout.pages.at(0);
 	const firstPageSplits =
 		firstPage !== undefined && planPageColumns(firstPage, data.metadata.template).kind === "split";
-	const headerPlacement = options.includeCoverLetterHeader || !firstPageSplits ? "full-width" : layout.headerPlacement;
+	const headerPlacement = !firstPageSplits ? "full-width" : layout.headerPlacement;
 
 	// Header placement depends on template
 	if (headerPlacement === "full-width" && showHeader) {

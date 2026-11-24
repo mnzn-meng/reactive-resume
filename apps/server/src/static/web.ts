@@ -157,7 +157,7 @@ const FEATURE_LIST = [
 	"Import from PDF, LinkedIn and JSON Resume, or Word with an AI provider",
 	"ATS readability checker",
 	"Public or password-protected sharing links",
-	"Cover letters and a job application tracker",
+	"A job application tracker",
 	"Optional AI assistant with your own API key",
 	"Self-hosting with Docker",
 ];

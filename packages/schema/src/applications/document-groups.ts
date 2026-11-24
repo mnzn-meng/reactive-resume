@@ -1,7 +1,6 @@
 import type { ApplicationStatus } from "./data";
 
 type GroupableDocument = {
-	type: "resume" | "letter";
 	id: string;
 	application: { id: string; company: string; role: string; status: ApplicationStatus } | null;
 };
@@ -26,13 +25,13 @@ export type DocumentGroup<T extends GroupableDocument> =
 
 /** A stable key for a group's heading, used for expansion state and list keys. */
 export function documentGroupKey(document: GroupableDocument): string {
-	return document.application ? `application:${document.application.id}` : `document:${document.type}:${document.id}`;
+	return document.application ? `application:${document.application.id}` : `document:${document.id}`;
 }
 
 /**
- * Groups each application's resume and letter under the job they share, leaving other documents in place. The
- * library's order is kept: a group appears where its first document does, and documents inside it keep their order.
- * Filters, page boundaries and selection stay the caller's; this only arranges the documents it is given.
+ * Groups each application's resumes under the job they share, leaving other documents in place. The library's order
+ * is kept: a group appears where its first document does, and documents inside it keep their order. Filters, page
+ * boundaries and selection stay the caller's; this only arranges the documents it is given.
  */
 export function groupDocumentsByApplication<T extends GroupableDocument>(documents: readonly T[]): DocumentGroup<T>[] {
 	const groups = new Map<string, DocumentGroup<T>>();

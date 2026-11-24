@@ -144,16 +144,13 @@ export function renderSection(sectionId: string, data: ResumeData, resolveTitle?
 	const custom = data.customSections.find((candidate) => candidate.id === sectionId);
 	if (!custom || custom.hidden) return [];
 
-	// Summary and cover-letter sections print their own rich text; a letter prints no heading.
-	if (custom.type === "summary" || custom.type === "cover-letter") {
+	// Summary sections print their own rich text, under their heading.
+	if (custom.type === "summary") {
 		const blocks = custom.items
 			.filter((item) => !item.hidden)
-			.flatMap((item) => [
-				...("recipient" in item ? htmlToOdtBlocks(item.recipient) : []),
-				...("content" in item ? htmlToOdtBlocks(item.content) : []),
-			]);
+			.flatMap((item) => ("content" in item ? htmlToOdtBlocks(item.content) : []));
 		if (blocks.length === 0) return [];
-		return custom.type === "summary" ? [...heading(custom, titleOf(custom.title)), ...blocks] : blocks;
+		return [...heading(custom, titleOf(custom.title)), ...blocks];
 	}
 
 	// Other custom sections share a built-in type's item shape, so they reuse its renderer.

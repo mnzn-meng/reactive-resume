@@ -176,7 +176,7 @@ describe("AI chat service", () => {
 			baseURL,
 		};
 		const tools = buildAgentTools({
-			document: "resume",
+			document: true,
 			externalSearch: false,
 			signal: new AbortController().signal,
 			handlers: {

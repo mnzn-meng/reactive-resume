@@ -1,10 +1,9 @@
 import { expect, it } from "vite-plus/test";
 import { defaultResumeData } from "@reactive-resume/schema/resume/default";
 import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
-import { copyCoverLetterStyle, createCoverLetterResumeData } from "./cover-letter";
 import { buildMarkdown, resumeFactProposals } from "./markdown";
 
-it("retains visible excerpts while excluding header fields, hidden content and letters", () => {
+it("retains visible excerpts while excluding header fields and hidden content", () => {
 	const data = structuredClone(defaultResumeData);
 	data.basics.email = "private-contact@example.test";
 	data.summary.content = "<p>Built reliable tools with a team of twelve.</p>";
@@ -32,14 +31,6 @@ it("retains visible excerpts while excluding header fields, hidden content and l
 	];
 	data.sections.experience.hidden = true;
 	data.sections.experience.items = sampleResumeData.sections.experience.items;
-	const letter = createCoverLetterResumeData({
-		name: "Cover letter",
-		recipient: "<p>Hiring Manager</p>",
-		content: "<p>Letter-only confidential statement.</p>",
-		style: copyCoverLetterStyle(data, "letter-section", "letter-item"),
-	});
-	data.customSections.push(...letter.customSections);
-	data.metadata.layout.pages.push({ fullWidth: true, main: ["letter-section"], sidebar: [] });
 	const result = resumeFactProposals(data);
 	expect(result).toEqual({
 		omitted: 0,
@@ -53,7 +44,6 @@ it("retains visible excerpts while excluding header fields, hidden content and l
 		],
 	});
 	const markdown = buildMarkdown(data);
-	expect(markdown).toContain("Letter-only confidential statement.");
 	for (const proposal of result.proposals) expect(markdown).toContain(proposal.quote);
 });
 

@@ -445,17 +445,17 @@ describe("agentService.messages.send", () => {
 			"private-marker@example.test",
 		);
 		expect(vi.mocked(buildAgentTools).mock.calls[0]?.[0]).toMatchObject({
-			document: "resume",
+			document: true,
 		});
 		expect(vi.mocked(buildAgentInstructions).mock.calls[0]?.[0]).toMatchObject({
-			document: { kind: "resume" },
+			document: { name: "Resume" },
 		});
 		expect(documentMock.findPosting).toHaveBeenCalledTimes(1);
 
 		await send({ document: false, posting: false });
 		expect(vi.mocked(convertToModelMessages).mock.calls.at(-1)?.[0]).toEqual([persistedMessage.uiMessage]);
 		expect(vi.mocked(buildAgentTools).mock.calls[1]?.[0]).toMatchObject({
-			document: null,
+			document: false,
 		});
 		expect(vi.mocked(buildAgentInstructions).mock.calls[1]?.[0]).toMatchObject({
 			document: null,

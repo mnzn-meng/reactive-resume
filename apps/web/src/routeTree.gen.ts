@@ -25,19 +25,15 @@ import { Route as AuthForgotPasswordRouteImport } from "./routes/auth/forgot-pas
 import { Route as AuthLoginRouteImport } from "./routes/auth/login";
 import { Route as AuthRegisterRouteImport } from "./routes/auth/register";
 import { Route as AuthResetPasswordRouteImport } from "./routes/auth/reset-password";
-import { Route as AuthVerify2faRouteImport } from "./routes/auth/verify-2fa";
-import { Route as AuthVerify2faBackupRouteImport } from "./routes/auth/verify-2fa-backup";
 import { Route as BuilderResumeIdRouteRouteImport } from "./routes/builder/$resumeId/route";
 import { Route as BuilderKitRouteImport } from "./routes/builder/kit";
 import { Route as DashboardIndexRouteImport } from "./routes/dashboard/index";
 import { Route as DashboardCareerRouteRouteImport } from "./routes/dashboard/career/route";
-import { Route as DashboardCoverLettersRouteImport } from "./routes/dashboard/cover-letters";
 import { Route as DashboardDocumentsRouteImport } from "./routes/dashboard/documents";
 import { Route as DashboardSettingsRouteRouteImport } from "./routes/dashboard/settings/route";
 import { Route as DashboardTrashRouteImport } from "./routes/dashboard/trash";
 import { Route as FeedbackTokenRouteImport } from "./routes/feedback/$token";
 import { Route as BuilderResumeIdIndexRouteImport } from "./routes/builder/$resumeId/index";
-import { Route as BuilderLetterCoverLetterIdRouteImport } from "./routes/builder/letter/$coverLetterId";
 import { Route as DashboardApplicationsIndexRouteImport } from "./routes/dashboard/applications/index";
 import { Route as DashboardApplicationsTrashRouteImport } from "./routes/dashboard/applications/trash";
 import { Route as DashboardCareerIndexRouteImport } from "./routes/dashboard/career/index";
@@ -139,16 +135,6 @@ const AuthResetPasswordRoute = AuthResetPasswordRouteImport.update({
   path: "/reset-password",
   getParentRoute: () => AuthRouteRoute,
 } as any);
-const AuthVerify2faRoute = AuthVerify2faRouteImport.update({
-  id: "/verify-2fa",
-  path: "/verify-2fa",
-  getParentRoute: () => AuthRouteRoute,
-} as any);
-const AuthVerify2faBackupRoute = AuthVerify2faBackupRouteImport.update({
-  id: "/verify-2fa-backup",
-  path: "/verify-2fa-backup",
-  getParentRoute: () => AuthRouteRoute,
-} as any);
 const BuilderResumeIdRouteRoute = BuilderResumeIdRouteRouteImport.update({
   id: "/builder/$resumeId",
   path: "/builder/$resumeId",
@@ -167,11 +153,6 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
 const DashboardCareerRouteRoute = DashboardCareerRouteRouteImport.update({
   id: "/career",
   path: "/career",
-  getParentRoute: () => DashboardRouteRoute,
-} as any);
-const DashboardCoverLettersRoute = DashboardCoverLettersRouteImport.update({
-  id: "/cover-letters",
-  path: "/cover-letters",
   getParentRoute: () => DashboardRouteRoute,
 } as any);
 const DashboardDocumentsRoute = DashboardDocumentsRouteImport.update({
@@ -199,12 +180,6 @@ const BuilderResumeIdIndexRoute = BuilderResumeIdIndexRouteImport.update({
   path: "/",
   getParentRoute: () => BuilderResumeIdRouteRoute,
 } as any);
-const BuilderLetterCoverLetterIdRoute =
-  BuilderLetterCoverLetterIdRouteImport.update({
-    id: "/builder/letter/$coverLetterId",
-    path: "/builder/letter/$coverLetterId",
-    getParentRoute: () => rootRouteImport,
-  } as any);
 const DashboardApplicationsIndexRoute =
   DashboardApplicationsIndexRouteImport.update({
     id: "/applications/",
@@ -344,10 +319,7 @@ export interface FileRoutesByFullPath {
   "/auth/login": typeof AuthLoginRoute;
   "/auth/register": typeof AuthRegisterRoute;
   "/auth/reset-password": typeof AuthResetPasswordRoute;
-  "/auth/verify-2fa": typeof AuthVerify2faRoute;
-  "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
   "/builder/kit": typeof BuilderKitRoute;
-  "/dashboard/cover-letters": typeof DashboardCoverLettersRoute;
   "/dashboard/documents": typeof DashboardDocumentsRoute;
   "/dashboard/trash": typeof DashboardTrashRoute;
   "/feedback/$token": typeof FeedbackTokenRoute;
@@ -356,7 +328,6 @@ export interface FileRoutesByFullPath {
   "/dashboard/": typeof DashboardIndexRoute;
   "/dashboard/career/knowledge": typeof DashboardCareerKnowledgeRouteRouteWithChildren;
   "/dashboard/settings/integrations": typeof DashboardSettingsIntegrationsRouteRoute;
-  "/builder/letter/$coverLetterId": typeof BuilderLetterCoverLetterIdRoute;
   "/dashboard/applications/trash": typeof DashboardApplicationsTrashRoute;
   "/dashboard/career/offers": typeof DashboardCareerOffersRoute;
   "/dashboard/career/schedules": typeof DashboardCareerSchedulesRoute;
@@ -388,10 +359,7 @@ export interface FileRoutesByTo {
   "/auth/login": typeof AuthLoginRoute;
   "/auth/register": typeof AuthRegisterRoute;
   "/auth/reset-password": typeof AuthResetPasswordRoute;
-  "/auth/verify-2fa": typeof AuthVerify2faRoute;
-  "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
   "/builder/kit": typeof BuilderKitRoute;
-  "/dashboard/cover-letters": typeof DashboardCoverLettersRoute;
   "/dashboard/documents": typeof DashboardDocumentsRoute;
   "/dashboard/trash": typeof DashboardTrashRoute;
   "/feedback/$token": typeof FeedbackTokenRoute;
@@ -401,7 +369,6 @@ export interface FileRoutesByTo {
   "/dashboard": typeof DashboardIndexRoute;
   "/dashboard/career/knowledge": typeof DashboardCareerKnowledgeRouteRouteWithChildren;
   "/dashboard/settings/integrations": typeof DashboardSettingsIntegrationsRouteRoute;
-  "/builder/letter/$coverLetterId": typeof BuilderLetterCoverLetterIdRoute;
   "/dashboard/applications/trash": typeof DashboardApplicationsTrashRoute;
   "/dashboard/career/offers": typeof DashboardCareerOffersRoute;
   "/dashboard/career/schedules": typeof DashboardCareerSchedulesRoute;
@@ -441,10 +408,7 @@ export interface FileRoutesById {
   "/auth/login": typeof AuthLoginRoute;
   "/auth/register": typeof AuthRegisterRoute;
   "/auth/reset-password": typeof AuthResetPasswordRoute;
-  "/auth/verify-2fa": typeof AuthVerify2faRoute;
-  "/auth/verify-2fa-backup": typeof AuthVerify2faBackupRoute;
   "/builder/kit": typeof BuilderKitRoute;
-  "/dashboard/cover-letters": typeof DashboardCoverLettersRoute;
   "/dashboard/documents": typeof DashboardDocumentsRoute;
   "/dashboard/trash": typeof DashboardTrashRoute;
   "/feedback/$token": typeof FeedbackTokenRoute;
@@ -454,7 +418,6 @@ export interface FileRoutesById {
   "/dashboard/": typeof DashboardIndexRoute;
   "/dashboard/career/knowledge": typeof DashboardCareerKnowledgeRouteRouteWithChildren;
   "/dashboard/settings/integrations": typeof DashboardSettingsIntegrationsRouteRoute;
-  "/builder/letter/$coverLetterId": typeof BuilderLetterCoverLetterIdRoute;
   "/dashboard/applications/trash": typeof DashboardApplicationsTrashRoute;
   "/dashboard/career/offers": typeof DashboardCareerOffersRoute;
   "/dashboard/career/schedules": typeof DashboardCareerSchedulesRoute;
@@ -495,10 +458,7 @@ export interface FileRouteTypes {
     | "/auth/login"
     | "/auth/register"
     | "/auth/reset-password"
-    | "/auth/verify-2fa"
-    | "/auth/verify-2fa-backup"
     | "/builder/kit"
-    | "/dashboard/cover-letters"
     | "/dashboard/documents"
     | "/dashboard/trash"
     | "/feedback/$token"
@@ -507,7 +467,6 @@ export interface FileRouteTypes {
     | "/dashboard/"
     | "/dashboard/career/knowledge"
     | "/dashboard/settings/integrations"
-    | "/builder/letter/$coverLetterId"
     | "/dashboard/applications/trash"
     | "/dashboard/career/offers"
     | "/dashboard/career/schedules"
@@ -539,10 +498,7 @@ export interface FileRouteTypes {
     | "/auth/login"
     | "/auth/register"
     | "/auth/reset-password"
-    | "/auth/verify-2fa"
-    | "/auth/verify-2fa-backup"
     | "/builder/kit"
-    | "/dashboard/cover-letters"
     | "/dashboard/documents"
     | "/dashboard/trash"
     | "/feedback/$token"
@@ -552,7 +508,6 @@ export interface FileRouteTypes {
     | "/dashboard"
     | "/dashboard/career/knowledge"
     | "/dashboard/settings/integrations"
-    | "/builder/letter/$coverLetterId"
     | "/dashboard/applications/trash"
     | "/dashboard/career/offers"
     | "/dashboard/career/schedules"
@@ -591,10 +546,7 @@ export interface FileRouteTypes {
     | "/auth/login"
     | "/auth/register"
     | "/auth/reset-password"
-    | "/auth/verify-2fa"
-    | "/auth/verify-2fa-backup"
     | "/builder/kit"
-    | "/dashboard/cover-letters"
     | "/dashboard/documents"
     | "/dashboard/trash"
     | "/feedback/$token"
@@ -604,7 +556,6 @@ export interface FileRouteTypes {
     | "/dashboard/"
     | "/dashboard/career/knowledge"
     | "/dashboard/settings/integrations"
-    | "/builder/letter/$coverLetterId"
     | "/dashboard/applications/trash"
     | "/dashboard/career/offers"
     | "/dashboard/career/schedules"
@@ -635,7 +586,6 @@ export interface RootRouteChildren {
   BuilderResumeIdRouteRoute: typeof BuilderResumeIdRouteRouteWithChildren;
   BuilderKitRoute: typeof BuilderKitRoute;
   FeedbackTokenRoute: typeof FeedbackTokenRoute;
-  BuilderLetterCoverLetterIdRoute: typeof BuilderLetterCoverLetterIdRoute;
 }
 
 declare module "@tanstack/react-router" {
@@ -752,20 +702,6 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AuthResetPasswordRouteImport;
       parentRoute: typeof AuthRouteRoute;
     };
-    "/auth/verify-2fa": {
-      id: "/auth/verify-2fa";
-      path: "/verify-2fa";
-      fullPath: "/auth/verify-2fa";
-      preLoaderRoute: typeof AuthVerify2faRouteImport;
-      parentRoute: typeof AuthRouteRoute;
-    };
-    "/auth/verify-2fa-backup": {
-      id: "/auth/verify-2fa-backup";
-      path: "/verify-2fa-backup";
-      fullPath: "/auth/verify-2fa-backup";
-      preLoaderRoute: typeof AuthVerify2faBackupRouteImport;
-      parentRoute: typeof AuthRouteRoute;
-    };
     "/builder/$resumeId": {
       id: "/builder/$resumeId";
       path: "/builder/$resumeId";
@@ -792,13 +728,6 @@ declare module "@tanstack/react-router" {
       path: "/career";
       fullPath: "/dashboard/career";
       preLoaderRoute: typeof DashboardCareerRouteRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
-    };
-    "/dashboard/cover-letters": {
-      id: "/dashboard/cover-letters";
-      path: "/cover-letters";
-      fullPath: "/dashboard/cover-letters";
-      preLoaderRoute: typeof DashboardCoverLettersRouteImport;
       parentRoute: typeof DashboardRouteRoute;
     };
     "/dashboard/documents": {
@@ -835,13 +764,6 @@ declare module "@tanstack/react-router" {
       fullPath: "/builder/$resumeId/";
       preLoaderRoute: typeof BuilderResumeIdIndexRouteImport;
       parentRoute: typeof BuilderResumeIdRouteRoute;
-    };
-    "/builder/letter/$coverLetterId": {
-      id: "/builder/letter/$coverLetterId";
-      path: "/builder/letter/$coverLetterId";
-      fullPath: "/builder/letter/$coverLetterId";
-      preLoaderRoute: typeof BuilderLetterCoverLetterIdRouteImport;
-      parentRoute: typeof rootRouteImport;
     };
     "/dashboard/applications/": {
       id: "/dashboard/applications/";
@@ -1031,8 +953,6 @@ interface AuthRouteRouteChildren {
   AuthLoginRoute: typeof AuthLoginRoute;
   AuthRegisterRoute: typeof AuthRegisterRoute;
   AuthResetPasswordRoute: typeof AuthResetPasswordRoute;
-  AuthVerify2faRoute: typeof AuthVerify2faRoute;
-  AuthVerify2faBackupRoute: typeof AuthVerify2faBackupRoute;
   AuthIndexRoute: typeof AuthIndexRoute;
 }
 
@@ -1042,8 +962,6 @@ const AuthRouteRouteChildren: AuthRouteRouteChildren = {
   AuthLoginRoute: AuthLoginRoute,
   AuthRegisterRoute: AuthRegisterRoute,
   AuthResetPasswordRoute: AuthResetPasswordRoute,
-  AuthVerify2faRoute: AuthVerify2faRoute,
-  AuthVerify2faBackupRoute: AuthVerify2faBackupRoute,
   AuthIndexRoute: AuthIndexRoute,
 };
 
@@ -1125,7 +1043,6 @@ const DashboardSettingsRouteRouteWithChildren =
 interface DashboardRouteRouteChildren {
   DashboardCareerRouteRoute: typeof DashboardCareerRouteRouteWithChildren;
   DashboardSettingsRouteRoute: typeof DashboardSettingsRouteRouteWithChildren;
-  DashboardCoverLettersRoute: typeof DashboardCoverLettersRoute;
   DashboardDocumentsRoute: typeof DashboardDocumentsRoute;
   DashboardTrashRoute: typeof DashboardTrashRoute;
   DashboardIndexRoute: typeof DashboardIndexRoute;
@@ -1139,7 +1056,6 @@ interface DashboardRouteRouteChildren {
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
   DashboardCareerRouteRoute: DashboardCareerRouteRouteWithChildren,
   DashboardSettingsRouteRoute: DashboardSettingsRouteRouteWithChildren,
-  DashboardCoverLettersRoute: DashboardCoverLettersRoute,
   DashboardDocumentsRoute: DashboardDocumentsRoute,
   DashboardTrashRoute: DashboardTrashRoute,
   DashboardIndexRoute: DashboardIndexRoute,
@@ -1174,7 +1090,6 @@ const rootRouteChildren: RootRouteChildren = {
   BuilderResumeIdRouteRoute: BuilderResumeIdRouteRouteWithChildren,
   BuilderKitRoute: BuilderKitRoute,
   FeedbackTokenRoute: FeedbackTokenRoute,
-  BuilderLetterCoverLetterIdRoute: BuilderLetterCoverLetterIdRoute,
 };
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

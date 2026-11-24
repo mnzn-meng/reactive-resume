@@ -31,9 +31,9 @@ vi.mock("@/libs/orpc/client", async (importOriginal) => {
 			...actual.orpc,
 			documents: {
 				page: {
-					queryOptions: ({ input }: { input: { type: "resume" | "letter" } }) => ({
-						queryKey: ["tag-suggestions", input.type],
-						queryFn: () => api.page(input.type),
+					queryOptions: () => ({
+						queryKey: ["tag-suggestions"],
+						queryFn: () => api.page(),
 					}),
 				},
 				setTags: { mutationOptions: () => ({ mutationFn: api.setTags }) },
@@ -49,7 +49,6 @@ vi.mock("@/libs/orpc/client", async (importOriginal) => {
 				key: () => ["documents"],
 			},
 			resume: { list: { key: () => ["resumes"] }, duplicate: mutation(api.duplicate), update: mutation(vi.fn()) },
-			coverLetters: { duplicate: mutation(vi.fn()) },
 		},
 	};
 });
@@ -60,7 +59,6 @@ vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: api.toast
 i18n.loadAndActivate({ locale: "en", messages: {} });
 
 const document = (overrides: Partial<DocumentSummary> = {}): DocumentSummary => ({
-	type: "resume",
 	id: "r1",
 	name: "Fictional resume",
 	tags: ["design"],
@@ -69,7 +67,6 @@ const document = (overrides: Partial<DocumentSummary> = {}): DocumentSummary => 
 	createdAt: new Date(),
 	updatedAt: new Date(),
 	editedAt: new Date(),
-	recipient: null,
 	application: null,
 	...overrides,
 });
@@ -79,10 +76,8 @@ afterEach(() => {
 	vi.clearAllMocks();
 });
 
-it("offers only existing tags for the document's type and saves a picked one", async () => {
-	api.page.mockImplementation((type: "resume" | "letter") =>
-		Promise.resolve({ tags: type === "resume" ? ["design", "remote"] : ["support"] }),
-	);
+it("offers only existing tags and saves a picked one", async () => {
+	api.page.mockResolvedValue({ tags: ["design", "remote"] });
 	api.setTags.mockResolvedValue(undefined);
 	const onClose = vi.fn();
 	render(
@@ -101,10 +96,7 @@ it("offers only existing tags for the document's type and saves a picked one", a
 	fireEvent.click(remote);
 	fireEvent.click(screen.getByRole("button", { name: "Save tags" }));
 	await waitFor(() =>
-		expect(api.setTags).toHaveBeenCalledWith(
-			{ type: "resume", id: "r1", tags: ["design", "remote"] },
-			expect.anything(),
-		),
+		expect(api.setTags).toHaveBeenCalledWith({ id: "r1", tags: ["design", "remote"] }, expect.anything()),
 	);
 	await waitFor(() => expect(onClose).toHaveBeenCalled());
 });
@@ -117,7 +109,7 @@ it.each([
 	],
 	["a selection", (documents: DocumentSummary[]) => renderActions(useBatchActions).trash(documents)],
 ])("restores %s from the Trash toast's Undo", async (_, trash) => {
-	const documents = [document(), document({ type: "letter", id: "l1" })];
+	const documents = [document(), document({ id: "l1" })];
 	api.trash.mockResolvedValue(undefined);
 	api.restoreMany.mockImplementation(async ({ documents }: { documents: unknown[] }) => ({
 		restored: documents.length,

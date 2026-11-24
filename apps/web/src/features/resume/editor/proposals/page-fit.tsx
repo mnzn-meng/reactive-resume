@@ -19,7 +19,7 @@ export function ProposalPageFit({ resumeId, proposals }: ProposalPageFitProps) {
 			if (!data) throw new Error("Resume not open");
 			return measureProposalPageFit(data, proposals, async (candidate) => {
 				let map: PageMap | undefined;
-				await createResumePdfBlob(candidate, undefined, {
+				await createResumePdfBlob(candidate, {
 					onPageMap: (value) => {
 						map = value;
 					},

@@ -9,7 +9,6 @@ import type { UIMessage } from "ai";
 import { ORPCError } from "@orpc/client";
 import { and, desc, eq, isNull } from "drizzle-orm";
 import {
-	proposeEditsInputSchema,
 	proposeResumeEditsInputSchema,
 	REVOKED_PASSAGE,
 	tailoringAllows,
@@ -23,7 +22,6 @@ import {
 	applyResumeProposals,
 	blockText,
 	canApplyTo,
-	collectLetterPassages,
 	collectPassages,
 	entryText,
 	readTarget,
@@ -34,22 +32,16 @@ import {
 import { applyResumeStructureChange, resumeEntryTypeSchema } from "@reactive-resume/resume/structural-proposals";
 import { syncResumeDates, upgradeResumeDates } from "@reactive-resume/schema/resume/dates";
 import { generateId } from "@reactive-resume/utils/string";
-import { coverLetterService } from "../cover-letters/service";
 import { resumeService } from "../resume/service";
 import { assertResumeChangeProse } from "./prose";
 import { entryReview } from "./review";
 import { proposeTranslation, translationView } from "./translation";
 
 /** The one document a conversation is about. */
-export type AssistantDocument = { kind: "resume" | "letter"; id: string };
+export type AssistantDocument = { id: string };
 
-export const documentOf = (thread: {
-	workingResumeId: string | null;
-	coverLetterId: string | null;
-}): AssistantDocument | null => {
-	if (thread.coverLetterId) return { kind: "letter", id: thread.coverLetterId };
-	return thread.workingResumeId ? { kind: "resume", id: thread.workingResumeId } : null;
-};
+export const documentOf = (thread: { workingResumeId: string | null }): AssistantDocument | null =>
+	thread.workingResumeId ? { id: thread.workingResumeId } : null;
 
 // The model reads passage locations in English; the editor shows its own, translated.
 const LABELS = {
@@ -92,75 +84,42 @@ function sectionLocation(data: ResumeData, sectionId: string) {
 }
 
 type LoadedDocument = {
-	kind: AssistantDocument["kind"];
 	name: string;
 	updatedAt: Date;
 	locked: boolean;
-	sourceResume?: { id: string; updatedAt: Date } | undefined;
 	applicationId: string | null;
 	passages: Passage[];
 	/** The field a proposal targets, as it reads now. */
 	read: (target: ProposalTarget) => string | undefined;
 	/** Everything the targeted entry says (a letter has none beyond the passage): what new figures are checked against. */
 	entry: (target: ProposalTarget) => string;
-	/** What read_resume / read_letter returns to the model. */
+	/** What read_resume returns to the model. */
 	view: Record<string, unknown>;
 	resume?: ResumeData;
 };
 
 export async function loadDocument(userId: string, document: AssistantDocument): Promise<LoadedDocument> {
-	if (document.kind === "resume") {
-		const resume = await resumeService.getById({ id: document.id, userId });
-		const passages = collectPassages(resume.data, {
-			...LABELS,
-			sectionTitle: (sectionId) => sectionLocation(resume.data, sectionId),
-			entryTitle,
-		});
-
-		return {
-			kind: "resume",
-			resume: resume.data,
-			name: resume.name,
-			updatedAt: resume.updatedAt,
-			locked: resume.isLocked,
-			applicationId: resume.applicationId,
-			passages,
-			read: (target) => readTarget(resume.data, target),
-			entry: (target) => entryText(resume.data, target),
-			view: {
-				resume: buildMarkdown(resume.data),
-				structure: getVisibleResumeStructure(resume.data),
-				...translationView(resume.data, resume.data.metadata.page.locale),
-				entryTemplates: Object.fromEntries(resumeEntryTypeSchema.options.map((type) => [type, createEntry(type)])),
-			},
-		};
-	}
-
-	const letter = await coverLetterService.getById({ id: document.id, userId });
-	const passages = collectLetterPassages(letter.content, { ...LABELS, body: "Letter" });
-	// The letter's facts come from its resume.
-	const resume = letter.sourceResumeId
-		? await resumeService.getById({ id: letter.sourceResumeId, userId }).catch(() => null)
-		: null;
+	const resume = await resumeService.getById({ id: document.id, userId });
+	const passages = collectPassages(resume.data, {
+		...LABELS,
+		sectionTitle: (sectionId) => sectionLocation(resume.data, sectionId),
+		entryTitle,
+	});
 
 	return {
-		kind: "letter",
-		sourceResume: resume ? { id: resume.id, updatedAt: resume.updatedAt } : undefined,
-		name: letter.name,
-		updatedAt: letter.updatedAt,
-		locked: letter.isLocked,
-		applicationId: letter.sourceApplicationId,
+		resume: resume.data,
+		name: resume.name,
+		updatedAt: resume.updatedAt,
+		locked: resume.isLocked,
+		applicationId: resume.applicationId,
 		passages,
-		read: (target) => (target.field === "content" ? letter.content : undefined),
-		entry: () => "",
+		read: (target) => readTarget(resume.data, target),
+		entry: (target) => entryText(resume.data, target),
 		view: {
-			sender: letter.style.basics.name,
-			recipient:
-				letter.layout === "structured"
-					? { name: letter.recipientName, company: letter.recipientCompany, date: letter.letterDate }
-					: blockText(letter.recipient),
-			note: "The greeting and sign-off are added around the body automatically; propose edits to the body only.",
-			...(resume ? { resume: buildMarkdown(resume.data) } : {}),
+			resume: buildMarkdown(resume.data),
+			structure: getVisibleResumeStructure(resume.data),
+			...translationView(resume.data, resume.data.metadata.page.locale),
+			entryTemplates: Object.fromEntries(resumeEntryTypeSchema.options.map((type) => [type, createEntry(type)])),
 		},
 	};
 }
@@ -187,12 +146,11 @@ export function documentView(document: LoadedDocument) {
 export async function findPosting(
 	userId: string,
 	documentId: string,
-	loaded: Pick<LoadedDocument, "kind" | "applicationId">,
+	loaded: Pick<LoadedDocument, "applicationId">,
 	applicationId?: string,
 ) {
 	// A resume made for an application says so; otherwise, the latest application it's linked to.
 	const selectedId = applicationId ?? loaded.applicationId;
-	if (!selectedId && loaded.kind === "letter") return null;
 	const table = schema.application;
 	const [application] = await db
 		.select({
@@ -306,14 +264,13 @@ function reviewer(document: LoadedDocument, review: ReviewContext) {
  * other jobs share), and the posting's requirements as the assistant read them.
  */
 function reviewedSet(
-	document: LoadedDocument,
 	review: ReviewContext,
 	requirements: ProposeEditsInput["requirements"],
 	addressed: readonly (string | undefined)[],
 	cite: Cite,
 ) {
 	return {
-		...(document.kind === "resume" ? { tailoredFor: review.posting?.applicationId ?? null } : {}),
+		tailoredFor: review.posting?.applicationId ?? null,
 		...coverage(requirements, review, addressed, cite),
 	};
 }
@@ -373,7 +330,6 @@ export function resolveEdits(
 		edits,
 		skipped,
 		...reviewedSet(
-			document,
 			review,
 			input.requirements,
 			edits.map((edit) => edit.requirement),
@@ -457,10 +413,9 @@ export function resolveDocumentEdits(
 	review: ReviewContext = NO_REVIEW_CONTEXT,
 ): ProposeEditsOutput {
 	// Tailoring never edits a resume other jobs share: only the copy made for the posting's application.
-	if (document.kind === "resume" && review.posting && document.applicationId !== review.posting.applicationId)
+	if (review.posting && document.applicationId !== review.posting.applicationId)
 		throw new ORPCError("BAD_REQUEST", { message: NOT_JOB_COPY_MESSAGE });
-	const schema = document.kind === "resume" ? proposeResumeEditsInputSchema : proposeEditsInputSchema;
-	const parsed = schema.safeParse(input);
+	const parsed = proposeResumeEditsInputSchema.safeParse(input);
 	if (!parsed.success)
 		throw new ORPCError("BAD_REQUEST", {
 			message: "This suggestion couldn't be prepared. Read the document again, or edit it in Write.",
@@ -632,7 +587,6 @@ function resolveResumeEdits(
 			edits: textEdits,
 			skipped,
 			...reviewedSet(
-				document,
 				review,
 				input.requirements,
 				textEdits.map((edit) => edit.requirement),
@@ -677,6 +631,6 @@ function resolveResumeEdits(
 				]
 			: [],
 		skipped,
-		...reviewedSet(document, review, input.requirements, changed ? addressed : [], cite),
+		...reviewedSet(review, input.requirements, changed ? addressed : [], cite),
 	};
 }

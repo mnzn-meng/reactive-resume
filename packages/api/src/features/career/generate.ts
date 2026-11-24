@@ -244,7 +244,6 @@ export async function generateCareer(input: GenerateInput) {
 		facts: promptFacts,
 		stories: promptStories,
 		resume: context.resume?.text.slice(0, 10_000),
-		letter: context.letter?.text.slice(0, 6_000),
 		input:
 			task.task === "reply" ? { message, ...(task.replyLocale ? { replyLocale: task.replyLocale } : {}) } : taskInput,
 		contextMayBeExcerpted: true,
@@ -259,9 +258,7 @@ export async function generateCareer(input: GenerateInput) {
 				version: context.knowledgeVersion,
 				...(application ? { pipelineRevision: context.pipelineRevision } : {}),
 				...(application ? { application } : {}),
-				documents: [context.resume, context.letter].filter(
-					(entry): entry is NonNullable<typeof entry> => entry !== null,
-				),
+				documents: [context.resume].filter((entry): entry is NonNullable<typeof entry> => entry !== null),
 				...(input.jobId && input.jobLease && input.providerVersion
 					? { job: { id: input.jobId, lease: input.jobLease, providerVersion: input.providerVersion } }
 					: {}),

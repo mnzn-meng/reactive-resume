@@ -46,23 +46,23 @@ it("keeps documents load failures distinct from empty state and retries", async 
 	loadDocuments
 		.mockReset()
 		.mockRejectedValueOnce(new Error("Network unavailable"))
-		.mockResolvedValue({ items: [], total: 0, counts: { resume: 0, letter: 0 }, tags: [], hasPublic: false });
-	loadCounts.mockReset().mockResolvedValue({ resume: 0, letter: 0, trash: 0 });
+		.mockResolvedValue({ items: [], total: 0, tags: [], hasPublic: false });
+	loadCounts.mockReset().mockResolvedValue({ active: 0, trash: 0 });
 	const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
 	const view = render(
 		<I18nProvider i18n={i18n}>
 			<QueryClientProvider client={queryClient}>
 				<DocumentLibraryProvider>
-					<DocumentsPage search={{ type: "all", q: "", tags: [], sort: "edited" }} onSearchChange={vi.fn()} />
+					<DocumentsPage search={{ q: "", tags: [], sort: "edited" }} onSearchChange={vi.fn()} />
 				</DocumentLibraryProvider>
 			</QueryClientProvider>
 		</I18nProvider>,
 	);
 
 	expect(await screen.findByRole("alert")).toHaveTextContent("Couldn't load documents");
-	expect(screen.queryByText("Your resumes and cover letters live here")).not.toBeInTheDocument();
+	expect(screen.queryByText("Your resumes live here")).not.toBeInTheDocument();
 	fireEvent.click(screen.getByRole("button", { name: "Try again" }));
-	expect(await screen.findByText("Your resumes and cover letters live here")).toBeVisible();
+	expect(await screen.findByText("Your resumes live here")).toBeVisible();
 	expect(screen.queryByRole("alert")).not.toBeInTheDocument();
 	view.unmount();
 	queryClient.clear();
@@ -77,17 +77,14 @@ it("offers clearing filters after a first-load failure without tag facets", asyn
 		<I18nProvider i18n={i18n}>
 			<QueryClientProvider client={queryClient}>
 				<DocumentLibraryProvider>
-					<DocumentsPage
-						search={{ type: "all", q: "", tags: ["design"], sort: "edited" }}
-						onSearchChange={onSearchChange}
-					/>
+					<DocumentsPage search={{ q: "", tags: ["design"], sort: "edited" }} onSearchChange={onSearchChange} />
 				</DocumentLibraryProvider>
 			</QueryClientProvider>
 		</I18nProvider>,
 	);
 	expect(await screen.findByRole("alert")).toBeVisible();
 	fireEvent.click(screen.getByRole("button", { name: "Clear search and filters" }));
-	expect(onSearchChange).toHaveBeenCalledWith({ q: "", tags: [], type: "all" });
+	expect(onSearchChange).toHaveBeenCalledWith({ q: "", tags: [] });
 	view.unmount();
 	queryClient.clear();
 });

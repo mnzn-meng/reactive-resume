@@ -722,11 +722,7 @@ function KitPage() {
 
 						<Group title="Root header" note="root-title 34 · one accent button">
 							<Frame className="px-4 py-3.5">
-								<RootHeader
-									title="Documents"
-									subtitle="3 resumes · 2 cover letters"
-									actions={<Button>New document</Button>}
-								/>
+								<RootHeader title="Documents" subtitle="3 resumes" actions={<Button>New document</Button>} />
 							</Frame>
 						</Group>
 
@@ -1124,7 +1120,6 @@ function KitPage() {
 						</Row>
 						<Row className="gap-3">
 							<DocumentThumb />
-							<DocumentThumb kind="letter" />
 							<span className="flex items-center gap-1.5 t-small text-ink-2">
 								<WarnDot />3 things to review
 							</span>

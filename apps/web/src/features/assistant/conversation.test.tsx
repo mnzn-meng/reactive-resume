@@ -61,7 +61,6 @@ import { Composer, Conversation } from "./conversation";
 import { setAccountScope } from "@/libs/auth/account-scope";
 
 const document: AssistantDocument = {
-	kind: "resume",
 	id: "resume-1",
 	name: "Resume",
 	locked: false,

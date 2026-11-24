@@ -187,7 +187,7 @@ it("documents anonymous routes, session credentials, and additive PATCH routes",
 		"x-codeSamples.0.source",
 		expect.stringContaining('--cookie "<session-cookie>"'),
 	);
-	for (const path of ["/applications/{id}", "/cover-letters/{id}", "/career/profile"]) {
+	for (const path of ["/applications/{id}", "/career/profile"]) {
 		expect(spec.paths?.[path]?.put?.requestBody).toBeDefined();
 		expect(spec.paths?.[path]?.patch?.requestBody).toBeDefined();
 	}

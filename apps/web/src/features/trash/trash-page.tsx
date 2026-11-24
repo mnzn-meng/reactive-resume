@@ -68,9 +68,6 @@ const applicationLine = (application: { role: string; location: string | null; s
 		: t`Application · ${application.role} · was at ${stage}`;
 };
 
-/** The company a letter was written for: its job's, else its recipient. */
-const writtenFor = (letter: DocumentSummary) => letter.application?.company ?? letter.recipient;
-
 type TrashPageProps = { kind: TrashKind; onKindChange: (kind: TrashKind) => void };
 
 /**
@@ -243,9 +240,7 @@ export function TrashPage({ kind, onKindChange }: TrashPageProps) {
 					? t`They are deleted for good now, with their history and timelines. Keeping them leaves them in Trash. This can't be undone.`
 					: only.kind === "application"
 						? t`Its timeline, notes and contacts go with it. Linked documents are kept. Keeping it leaves it in Trash for ${kept}.`
-						: only.document.type === "resume"
-							? t`This resume, its version history and its feedback links are deleted for good. Keeping it leaves it in Trash for ${kept}.`
-							: t`This cover letter and its version history are deleted for good. Keeping it leaves it in Trash for ${kept}.`,
+						: t`This resume, its version history and its feedback links are deleted for good. Keeping it leaves it in Trash for ${kept}.`,
 				confirmText: t`Delete permanently`,
 				cancelText: t`Keep in Trash`,
 				variant: "danger",
@@ -432,7 +427,7 @@ export function TrashPage({ kind, onKindChange }: TrashPageProps) {
 											)}
 										>
 											{item.kind === "document" ? (
-												<DocumentThumb kind={item.document.type} />
+												<DocumentThumb />
 											) : (
 												<IconTile aria-hidden="true" className="size-8 rounded-sm text-xs">
 													{companyInitials(item.name)}
@@ -445,11 +440,7 @@ export function TrashPage({ kind, onKindChange }: TrashPageProps) {
 								subtitle={
 									item.kind === "application"
 										? applicationLine(item.application)
-										: item.document.type === "resume"
-											? t`Resume · last edited ${i18n.date(item.document.editedAt, { day: "numeric", month: "short" })}`
-											: writtenFor(item.document)
-												? t`Cover letter · written for ${writtenFor(item.document)}`
-												: t`Cover letter · last edited ${i18n.date(item.document.editedAt, { day: "numeric", month: "short" })}`
+										: t`Resume · last edited ${i18n.date(item.document.editedAt, { day: "numeric", month: "short" })}`
 								}
 								value={
 									<>

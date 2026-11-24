@@ -70,7 +70,7 @@ const shortLabel = (text: string) => {
 /** The review checks, by their persisted checklist index. Submitting yourself (3) is moot once a submission is recorded. */
 const checklistItems = () =>
 	[
-		t`Read the resume and letter once more in their editors`,
+		t`Read the resume once more in its editor`,
 		t`Check every claim, date and result against your experience`,
 		t`Review the form answers and remove anything you can't support`,
 		t`Submit through the employer's application page yourself.`,
@@ -244,14 +244,13 @@ export function ApplyTab({ application, version, go }: WorkspaceTabProps) {
 			<Trans>Add a question</Trans>
 		</button>
 	);
-	const steps = ["posting", "resume", "tailor", "letter", "answers", "review"] as const;
+	const steps = ["posting", "resume", "tailor", "answers", "review"] as const;
 	const next = nextPreparationStep(application, workspace.data, documents.data);
 	const stepIndex = steps.indexOf(next as (typeof steps)[number]);
 	const stepLabels = {
 		posting: t`Save the job posting`,
 		resume: t`Choose a base resume`,
 		tailor: t`Tailor and review your resume`,
-		letter: t`Write a cover letter if required`,
 		answers: t`Write and review your form answers`,
 		review: t`Review readiness and record your submission`,
 	};
@@ -276,7 +275,7 @@ export function ApplyTab({ application, version, go }: WorkspaceTabProps) {
 			/>
 			{stepIndex >= 0 && !version && (
 				<div className="flex flex-wrap items-center gap-3 pt-2">
-					<div className="flex h-1 w-36 gap-1" role="img" aria-label={t`Step ${stepIndex + 1} of 6`}>
+					<div className="flex h-1 w-36 gap-1" role="img" aria-label={t`Step ${stepIndex + 1} of 5`}>
 						{steps.map((step, index) => (
 							<span
 								key={step}
@@ -288,7 +287,7 @@ export function ApplyTab({ application, version, go }: WorkspaceTabProps) {
 						))}
 					</div>
 					<span className="text-[13px]/[18px] text-ink-2">
-						{t`Step ${stepIndex + 1} of 6`} · {stepLabels[steps[stepIndex] ?? "posting"]}
+						{t`Step ${stepIndex + 1} of 5`} · {stepLabels[steps[stepIndex] ?? "posting"]}
 					</span>
 				</div>
 			)}
@@ -989,12 +988,9 @@ function Checklist({
 	const done = items.filter(({ index }) => ticked.includes(index)).length;
 	// Recording the submission is the one emphasised action only once preparation has nothing left to guide.
 	const resumeName =
-		documents?.find((document) => document.type === "resume" && document.id === application.resumeId)?.name ??
+		documents?.find((document) => document.id === application.resumeId)?.name ??
 		(application.resumeFileUrl ? application.resumeFileName || t`Resume file` : null);
-	const letterName =
-		documents?.find((document) => document.type === "letter" && document.id === application.coverLetterId)?.name ??
-		(application.coverLetterUrl ? application.coverLetterName || t`Cover letter file` : null);
-	const names = [resumeName, letterName].filter((name): name is string => name !== null);
+	const names = [resumeName].filter((name): name is string => name !== null);
 	const records = [
 		...(names.length > 0 ? names : [t`no documents`]),
 		plural(answerCount, { one: "# answer", other: "# answers" }),
@@ -1016,7 +1012,7 @@ function Checklist({
 				applicationId: application.id,
 				answers,
 				expectedAnswers: currentWorkspace.answers,
-				expectedDocuments: { resumeId: application.resumeId, coverLetterId: application.coverLetterId },
+				expectedDocuments: { resumeId: application.resumeId },
 			});
 			await queryClient.invalidateQueries({
 				queryKey: orpc.career.workspace.queryKey({ input: { applicationId: application.id } }),
@@ -1070,30 +1066,21 @@ function Checklist({
 					<p className="pb-1 text-[13px]/[18px] text-ink-2">
 						<Trans>Recorded as sent</Trans>
 					</p>
-					{(["resume", "letter"] as const).map((kind) => (
-						<div key={kind} className="flex h-[30px] items-center gap-2">
-							<Icon name={kind === "resume" ? "file-text" : "envelope-simple"} size={16} className="text-ink-3" />
-							<label className="sr-only" htmlFor={`record-${application.id}-${kind}`}>
-								{kind === "resume" ? t`Resume recorded as sent` : t`Letter recorded as sent`}
-							</label>
-							<Combobox
-								id={`record-${application.id}-${kind}`}
-								value={kind === "resume" ? application.resumeId : application.coverLetterId}
-								options={(documents ?? [])
-									.filter((document) => document.type === kind)
-									.map((document) => ({ value: document.id, label: document.name }))}
-								placeholder={t`None selected`}
-								disabled={submitting || selectDocument.isPending}
-								onValueChange={(value) =>
-									selectDocument.mutate({
-										id: application.id,
-										...(kind === "resume" ? { resumeId: value } : { coverLetterId: value }),
-									})
-								}
-								className="h-[30px] min-w-0 flex-1 border-transparent bg-transparent p-0 text-[13px]/[18px] font-normal shadow-none"
-							/>
-						</div>
-					))}
+					<div className="flex h-[30px] items-center gap-2">
+						<Icon name="file-text" size={16} className="text-ink-3" />
+						<label className="sr-only" htmlFor={`record-${application.id}-resume`}>
+							<Trans>Resume recorded as sent</Trans>
+						</label>
+						<Combobox
+							id={`record-${application.id}-resume`}
+							value={application.resumeId}
+							options={(documents ?? []).map((document) => ({ value: document.id, label: document.name }))}
+							placeholder={t`None selected`}
+							disabled={submitting || selectDocument.isPending}
+							onValueChange={(value) => selectDocument.mutate({ id: application.id, resumeId: value })}
+							className="h-[30px] min-w-0 flex-1 border-transparent bg-transparent p-0 text-[13px]/[18px] font-normal shadow-none"
+						/>
+					</div>
 					<p className="flex h-[30px] items-center gap-2 text-[13px]/[18px]">
 						<Icon name="pencil-line" size={16} className="text-ink-3" />
 						<span className="flex-1">

@@ -20,7 +20,6 @@ import { useReducedMotion } from "motion/react";
 import { useCallback, useId, useState } from "react";
 import { match } from "ts-pattern";
 import { filterSections } from "@reactive-resume/pdf/filtering";
-import { shouldShowResumeHeader } from "@reactive-resume/pdf/semantic-tree";
 import { templateLayouts } from "@reactive-resume/schema/templates";
 import { Button } from "@reactive-resume/ui/components/button";
 import {
@@ -296,7 +295,7 @@ export function LayoutPages() {
 							main: filterSections(page.main, resume.data),
 							sidebar: filterSections(page.sidebar, resume.data),
 						}}
-						showHeader={shouldShowResumeHeader(resume.data, pageIndex)}
+						showHeader={pageIndex === 0}
 						headerPlacement={templateLayouts[template].headerPlacement}
 						canDelete={layout.pages.length > 1}
 						sidebarPosition={templateSidebarPosition}

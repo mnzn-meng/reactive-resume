@@ -16,7 +16,6 @@ export const restAliases = {
 	matchResume,
 	importResumeFile,
 	previewPdfImport,
-	updateCoverLetter: router.coverLetters.update.route({ method: "PATCH", operationId: "patchCoverLetter" }),
 	updateApplication: router.applications.update.route({ method: "PATCH", operationId: "patchApplication" }),
 	updateInterview: router.applications.updateInterview.route({
 		method: "PATCH",
@@ -42,59 +41,39 @@ export const restAliases = {
 		path: "/resumes/{resumeId}/versions/{versionId}/restorations",
 		operationId: "createResumeRestoration",
 	}),
-	letterCopy: router.coverLetters.duplicate.route({
-		path: "/cover-letters/{id}/copies",
-		operationId: "createCoverLetterCopy",
-	}),
-	letterImport: router.coverLetters.import.route({
-		path: "/cover-letters/imports",
-		operationId: "createCoverLetterImport",
-	}),
-	letterStyle: router.coverLetters.refreshStyle.route({
-		path: "/cover-letters/{id}/style-refreshes",
-		operationId: "createCoverLetterStyleRefresh",
-	}),
-	letterDraft: router.coverLetters.draft.route({
-		path: "/cover-letters/{id}/drafts",
-		operationId: "createCoverLetterDraft",
-	}),
-	letterRestoration: router.coverLetters.restoreVersion.route({
-		path: "/cover-letters/{id}/versions/{versionId}/restorations",
-		operationId: "createCoverLetterRestoration",
-	}),
 	documentName: router.documents.rename.route({
 		method: "PATCH",
-		path: "/documents/{type}/{id}/name",
+		path: "/documents/{id}/name",
 		operationId: "patchDocumentName",
 	}),
 	documentTags: router.documents.setTags.route({
 		method: "PUT",
-		path: "/documents/{type}/{id}/tags",
+		path: "/documents/{id}/tags",
 		operationId: "putDocumentTags",
 	}),
 	documentLock: router.documents.setLocked.route({
 		method: "PUT",
-		path: "/documents/{type}/{id}/lock",
+		path: "/documents/{id}/lock",
 		operationId: "putDocumentLock",
 	}),
 	documentApplication: router.documents.linkApplication.route({
 		method: "PUT",
-		path: "/documents/{type}/{id}/application",
+		path: "/documents/{id}/application",
 		operationId: "putDocumentApplication",
 	}),
 	documentTrash: router.documents.trash.route({
 		method: "PUT",
-		path: "/documents/{type}/{id}/trash",
+		path: "/documents/{id}/trash",
 		operationId: "putDocumentTrash",
 	}),
 	documentRestore: router.documents.restore.route({
 		method: "DELETE",
-		path: "/documents/{type}/{id}/trash",
+		path: "/documents/{id}/trash",
 		operationId: "deleteDocumentTrash",
 	}),
 	documentPurge: router.documents.purge.route({
 		method: "DELETE",
-		path: "/documents/{type}/{id}",
+		path: "/documents/{id}",
 		operationId: "deleteDocumentPermanently",
 	}),
 	documentCopy: router.documents.copyForJob.route({ path: "/documents/copies", operationId: "createDocumentCopy" }),

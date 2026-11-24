@@ -191,13 +191,11 @@ export function FitTab({ application, version, now, go }: WorkspaceTabProps) {
 								onChange={(event) => setResumeChoice(event.target.value)}
 							>
 								<option value="">{t`Choose a resume`}</option>
-								{documents.data
-									?.filter((d) => d.type === "resume")
-									.map((d) => (
-										<option key={d.id} value={d.id}>
-											{d.name}
-										</option>
-									))}
+								{documents.data?.map((d) => (
+									<option key={d.id} value={d.id}>
+										{d.name}
+									</option>
+								))}
 							</select>
 							<Button
 								type="button"

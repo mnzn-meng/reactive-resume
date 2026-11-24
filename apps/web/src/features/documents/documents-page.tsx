@@ -1,7 +1,6 @@
-import type { DocumentSort, DocumentSummary, DocumentTypeFilter } from "./filter";
+import type { DocumentSort, DocumentSummary } from "./filter";
 import type { QueryClient } from "@tanstack/react-query";
 import type { KeyboardEvent } from "react";
-import { i18n } from "@lingui/core";
 import { t } from "@lingui/core/macro";
 import { Plural, Trans, useLingui } from "@lingui/react/macro";
 import { useHotkey } from "@tanstack/react-hotkeys";
@@ -27,7 +26,6 @@ import { Icon } from "@reactive-resume/ui/components/icon";
 import { IconButton } from "@reactive-resume/ui/components/icon-button";
 import { SegmentedControl, SegmentedControlItem } from "@reactive-resume/ui/components/segmented-control";
 import { Skeleton } from "@reactive-resume/ui/components/skeleton";
-import { Tabs, TabsCount, TabsList, TabsTrigger } from "@reactive-resume/ui/components/tabs";
 import { useBreakpoint } from "@reactive-resume/ui/hooks/use-breakpoint";
 import { cn } from "@reactive-resume/utils/style";
 import { LinkApplicationDialog, TagsDialog, useBatchActions } from "./document-actions";
@@ -58,7 +56,6 @@ import { isImeComposing } from "@/libs/keyboard";
 import { orpc } from "@/libs/orpc/client";
 
 export type DocumentsSearch = {
-	type: DocumentTypeFilter;
 	q: string;
 	tags: string[];
 	/** Only resumes whose public link is on. */
@@ -73,8 +70,8 @@ type DocumentsPageProps = {
 };
 
 /**
- * Documents: every resume and letter in one library, with type tabs, a filter (/), chips from the data, sort, and
- * a grid or a list. A file dropped anywhere on the page opens import confirmation.
+ * Documents: every resume in one library, with a filter (/), chips from the data, sort, and a grid or a list.
+ * A file dropped anywhere on the page opens import confirmation.
  */
 export function DocumentsPage({ search, onSearchChange }: DocumentsPageProps) {
 	const { t } = useLingui();
@@ -103,7 +100,7 @@ export function DocumentsPage({ search, onSearchChange }: DocumentsPageProps) {
 	const [viewSwitched, setViewSwitched] = useState(false);
 	const searchText = search.q.slice(0, 500);
 	const [query, setQuery] = useDebounceValue(searchText, 300);
-	const filterKey = JSON.stringify([search.type, searchText, search.tags, search.public ?? false, search.sort]);
+	const filterKey = JSON.stringify([searchText, search.tags, search.public ?? false, search.sort]);
 	const [page, setPage] = useState({ filterKey, offset: 0, total: 0 });
 	const offset = page.filterKey === filterKey ? page.offset : 0;
 	const changePage = (next: number) => {
@@ -111,7 +108,6 @@ export function DocumentsPage({ search, onSearchChange }: DocumentsPageProps) {
 		setPage({ filterKey, offset: next, total: pageData?.total ?? page.total });
 	};
 	const input = {
-		type: search.type,
 		q: searchText,
 		tags: search.tags,
 		sort: search.sort,
@@ -193,7 +189,7 @@ export function DocumentsPage({ search, onSearchChange }: DocumentsPageProps) {
 	const shown = displayed?.items ?? [];
 	const shownIndex = new Map(shown.map((document, index) => [documentKey(document), index]));
 	const failed = isError && !displayed;
-	const filtered = search.type !== "all" || search.q.trim() !== "" || search.tags.length > 0 || search.public === true;
+	const filtered = search.q.trim() !== "" || search.tags.length > 0 || search.public === true;
 	const {
 		data: libraryCounts,
 		isPending: countsPending,
@@ -203,26 +199,10 @@ export function DocumentsPage({ search, onSearchChange }: DocumentsPageProps) {
 	} = useQuery(orpc.documents.counts.queryOptions());
 	const trashCount = libraryCounts?.trash ?? 0;
 	const hadDocuments = useDocumentHistory(
-		shown.length > 0 || (libraryCounts ? libraryCounts.resume + libraryCounts.letter + libraryCounts.trash > 0 : false),
+		shown.length > 0 || (libraryCounts ? libraryCounts.active + libraryCounts.trash > 0 : false),
 	);
 	const firstRun = rowsCurrent && !filtered && offset === 0 && pageData?.total === 0 && !hadDocuments;
 	const tags = displayed?.tags ?? [];
-	const counts = {
-		all: (displayed?.counts.resume ?? 0) + (displayed?.counts.letter ?? 0),
-		resume: displayed?.counts.resume ?? 0,
-		letter: displayed?.counts.letter ?? 0,
-	};
-	// No count at zero, and none while the library loads (it would read 0).
-	const tabCount = (count: number) => (count > 0 ? <TabsCount>{i18n.number(count)}</TabsCount> : null);
-	// A type tab with nothing of its kind is empty, not filtered: it offers to make one.
-	const emptyType =
-		search.type !== "all" &&
-		search.q.trim() === "" &&
-		search.tags.length === 0 &&
-		offset === 0 &&
-		counts[search.type] === 0
-			? search.type
-			: null;
 	// A job with more than one document here gets a chip, in place of the group headings the library had.
 	// The chip narrows by the job's name through the filter text; an exact filter needs an application filter on
 	// `documents.page` (API).
@@ -263,8 +243,7 @@ export function DocumentsPage({ search, onSearchChange }: DocumentsPageProps) {
 
 	const openDocument = (document: DocumentSummary) => {
 		markOpened(document.id);
-		if (document.type === "resume") void navigate({ to: "/builder/$resumeId", params: { resumeId: document.id } });
-		else void navigate({ to: "/builder/letter/$coverLetterId", params: { coverLetterId: document.id } });
+		void navigate({ to: "/builder/$resumeId", params: { resumeId: document.id } });
 	};
 
 	// Replacement requests cannot inherit an earlier Enter, even when their search text is identical.
@@ -311,7 +290,7 @@ export function DocumentsPage({ search, onSearchChange }: DocumentsPageProps) {
 	};
 
 	const sortLabels: Record<DocumentSort, string> = { edited: t`Last edited`, name: t`Name`, created: t`Created` };
-	const clearFilters = () => onSearchChange({ q: "", tags: [], type: "all" });
+	const clearFilters = () => onSearchChange({ q: "", tags: [] });
 
 	const newDocumentButton = (
 		<Button
@@ -356,27 +335,6 @@ export function DocumentsPage({ search, onSearchChange }: DocumentsPageProps) {
 
 				{!firstRun && (
 					<>
-						<Tabs
-							value={search.type}
-							onValueChange={(type) => onSearchChange({ type: type as DocumentTypeFilter })}
-							className="mt-4"
-						>
-							<TabsList variant="line" aria-label={t`Document type`} className="w-full justify-start">
-								<TabsTrigger value="all">
-									<Trans>All</Trans>
-									{tabCount(counts.all)}
-								</TabsTrigger>
-								<TabsTrigger value="resume">
-									<Trans>Resumes</Trans>
-									{tabCount(counts.resume)}
-								</TabsTrigger>
-								<TabsTrigger value="letter">
-									<Trans>Letters</Trans>
-									{tabCount(counts.letter)}
-								</TabsTrigger>
-							</TabsList>
-						</Tabs>
-
 						<FilterBar
 							end={
 								<>
@@ -589,8 +547,6 @@ export function DocumentsPage({ search, onSearchChange }: DocumentsPageProps) {
 								) : undefined
 							}
 						/>
-					) : emptyType ? (
-						<TypeEmpty type={emptyType} />
 					) : (
 						<EmptyState
 							className="mt-5"
@@ -617,7 +573,7 @@ export function DocumentsPage({ search, onSearchChange }: DocumentsPageProps) {
 						aria-label={t`Documents`}
 						columns="var(--cols)"
 						className={cn(
-							"mt-3 [--cols:minmax(0,1fr)_44px] sm:[--cols:36px_minmax(0,1.7fr)_104px_minmax(0,1fr)_132px_28px]",
+							"mt-3 [--cols:minmax(0,1fr)_44px] sm:[--cols:36px_minmax(0,1.7fr)_minmax(0,1fr)_132px_28px]",
 							viewEnter,
 						)}
 					>
@@ -634,9 +590,6 @@ export function DocumentsPage({ search, onSearchChange }: DocumentsPageProps) {
 								</DataTableHeaderCell>
 								<DataTableHeaderCell>
 									<Trans>Name</Trans>
-								</DataTableHeaderCell>
-								<DataTableHeaderCell className="max-sm:hidden">
-									<Trans>Type</Trans>
 								</DataTableHeaderCell>
 								<DataTableHeaderCell className="max-sm:hidden">
 									<Trans>Application</Trans>
@@ -764,7 +717,7 @@ function FirstRun({ onFile, trashCount }: FirstRunProps) {
 				}}
 			/>
 			<EmptyState
-				title={<Trans>Your resumes and cover letters live here</Trans>}
+				title={<Trans>Your resumes live here</Trans>}
 				description={
 					// Touch can't drop files, so it reads "Choose" there.
 					<>
@@ -834,38 +787,6 @@ function TrashLink() {
 			</span>
 			<Icon name="caret-right" size={22} className="text-ink-3" />
 		</Link>
-	);
-}
-
-/** Resumes or Letters with none of that kind yet: the way to make the first one. */
-function TypeEmpty({ type }: { type: "resume" | "letter" }) {
-	const openDialog = useDialogStore((state) => state.openDialog);
-	const { newLetter, creating } = useStartDocument();
-
-	return type === "letter" ? (
-		<EmptyState
-			className="mt-5"
-			title={<Trans>No cover letters yet</Trans>}
-			description={<Trans>Write one for a job, or start from your latest resume.</Trans>}
-			action={
-				<Button disabled={creating} onClick={() => void newLetter()}>
-					<Icon name="envelope-simple" />
-					<Trans>New cover letter</Trans>
-				</Button>
-			}
-		/>
-	) : (
-		<EmptyState
-			className="mt-5"
-			title={<Trans>No resumes yet</Trans>}
-			description={<Trans>Import the one you have, or start blank.</Trans>}
-			action={
-				<Button onClick={() => openDialog("document.new", undefined)}>
-					<Icon name="plus" />
-					<Trans>New resume</Trans>
-				</Button>
-			}
-		/>
 	);
 }
 

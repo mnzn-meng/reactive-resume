@@ -19,8 +19,6 @@ export { generateJson, generatePlainText } from "../ai/application-generation";
 import { getModel } from "../ai/service";
 import { createAiUsage, readAiUsage } from "../ai/usage";
 import { careerService } from "../career/service";
-import { draftLetterBody } from "../cover-letters/draft";
-import { coverLetterService } from "../cover-letters/service";
 import { assertDocumentVersion } from "../documents/ownership";
 import { resumeService } from "../resume/service";
 import { webAccessService } from "../web-access/credentials";
@@ -415,7 +413,7 @@ export const aiRouter = {
 			const resume = await resumeService.getById({ id: application.resumeId, userId: context.user.id });
 			const check: AiUsage["check"] = async (tx) => {
 				await assertApplicationVersion(tx, context.user.id, application);
-				if (resume) await assertDocumentVersion(tx, context.user.id, { kind: "resume", ...resume });
+				if (resume) await assertDocumentVersion(tx, context.user.id, { ...resume });
 			};
 			const { model, provider, usage } = await resolveModel(context.user.id, "match-score", undefined, check);
 			await aiProvidersService.authorize({ userId: context.user.id, id: provider.id }, check);
@@ -446,7 +444,7 @@ export const aiRouter = {
 			return { ...result, aiOperationIds: [usage.operationId], aiUsage };
 		}),
 
-	// Generate a cover letter or recruiter follow-up from the application + resume context.
+	// Generate a recruiter follow-up from the application + resume context.
 	draftMessage: protectedProcedure
 		.route({
 			method: "POST",
@@ -454,16 +452,14 @@ export const aiRouter = {
 			operationId: "aiDraftApplicationMessage",
 			summary: "Draft a message about this application",
 			description:
-				"Drafts a cover letter or follow-up message using your AI provider. Cover-letter text is returned for review with a new empty linked letter's ID; reviewRequired means the body has not been saved. Save approved text through the letter update endpoint with its aiOperationIds. A follow-up is returned as text. Nothing is sent.",
+				"Drafts a follow-up message using your AI provider, from the posting and the linked resume. Nothing is sent.",
 			...reserved,
 		})
-		.input(z.object({ id: z.string(), kind: z.enum(["cover-letter", "follow-up"]) }))
+		.input(z.object({ id: z.string(), kind: z.literal("follow-up") }))
 		.use(aiRequestRateLimit)
 		.output(
 			z.object({
 				text: z.string(),
-				coverLetterId: z.string().optional(),
-				reviewRequired: z.literal(true).optional(),
 				aiOperationIds: aiOperationIdsSchema.optional(),
 				aiUsage: aiUsageSummarySchema.nullable().optional(),
 			}),
@@ -476,40 +472,8 @@ export const aiRouter = {
 				: null;
 			const check: AiUsage["check"] = async (tx) => {
 				await assertApplicationVersion(tx, context.user.id, application);
-				if (resume) await assertDocumentVersion(tx, context.user.id, { kind: "resume", ...resume });
+				if (resume) await assertDocumentVersion(tx, context.user.id, { ...resume });
 			};
-			if (input.kind === "cover-letter") {
-				const draft = await draftLetterBody({
-					application,
-					resume,
-					userId: context.user.id,
-					variant: "draft",
-					includeProvenance: true,
-					signal,
-				});
-				let text = "";
-				const aiOperationIds: string[] = [];
-				for await (const part of draft) {
-					if (typeof part === "string") text += part;
-					else aiOperationIds.push(part.aiOperationId);
-				}
-				signal?.throwIfAborted();
-				const aiUsage = await readAiUsage(context.user.id, aiOperationIds);
-				const letter = await coverLetterService.create({
-					userId: context.user.id,
-					name: `${application.company} — ${application.role}`.slice(0, 100),
-					content: "",
-					applicationId: input.id,
-					...(resume ? { resumeId: resume.id } : {}),
-				});
-				return {
-					text: text.trim(),
-					coverLetterId: letter.id,
-					reviewRequired: true as const,
-					aiOperationIds,
-					aiUsage,
-				};
-			}
 			const { model, provider } = await resolveModel(context.user.id, "draft-message", "capable", check);
 
 			const context_ = `${dataBlock("POSTING", JSON.stringify({ role: application.role, company: application.company, location: application.location, description: application.jobDescription }))}${resume ? `\nCANDIDATE RESUME:\n${buildMarkdown(resume.data)}` : ""}`;
@@ -529,7 +493,7 @@ export const aiRouter = {
 			operationId: "prepareApplicationReview",
 			summary: "Prepare an application for review",
 			description:
-				"Generates pending assistant tailoring proposals, an unsaved letter draft, and drafts for up to five pasted form questions. Existing document and answer update endpoints save explicit approvals. Nothing is submitted to an employer.",
+				"Generates pending assistant tailoring proposals and drafts for up to five pasted form questions. Existing document and answer update endpoints save explicit approvals. Nothing is submitted to an employer.",
 			...reserved,
 		})
 		.input(prepareInput)

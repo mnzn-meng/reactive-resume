@@ -23,18 +23,6 @@ export const applicationReviewSchema = z.object({
 			aiOperationIds: aiOperationIdsSchema,
 		}),
 	),
-	letter: z
-		.object({
-			document: z.object({
-				id: z.string(),
-				revision: z.number().int().positive(),
-				content: z.string(),
-				aiOperationIds: aiOperationIdsSchema.optional(),
-			}),
-			text: z.string(),
-			aiOperationIds: aiOperationIdsSchema,
-		})
-		.nullable(),
 	answers: z.array(
 		z.object({
 			question: z.string(),

@@ -32,14 +32,7 @@ type BlankOptions = {
 	pageSize?: "a4" | "letter" | undefined;
 };
 
-type LetterOptions = {
-	/** The job the letter is for, when it was chosen in the dialog rather than known from where it opened. */
-	applicationId?: string | undefined;
-	/** A name the person typed or the job suggested. Without one the letter is "Untitled letter", numbered. */
-	name?: string | undefined;
-};
-
-/** Start blank, try a sample, or a new letter: each creates the document at once and opens it. */
+/** Start blank or try a sample: each creates the resume at once and opens it. */
 export function useStartDocument(applicationId?: string, locale?: Locale) {
 	const navigate = useNavigate();
 	const queryClient = useQueryClient();
@@ -47,11 +40,10 @@ export function useStartDocument(applicationId?: string, locale?: Locale) {
 	const markNew = useNewDocumentsStore((state) => state.markNew);
 	const [creating, setCreating] = useState(false);
 	const { mutateAsync: createResume } = useMutation(orpc.resume.create.mutationOptions());
-	const { mutateAsync: createLetter } = useMutation(orpc.coverLetters.create.mutationOptions());
 
-	const created = async (id: string, type: "resume" | "letter", forJob = applicationId) => {
-		// `create` links a new letter to its application in the same transaction; only resumes need this call.
-		if (applicationId && type === "resume") await client.documents.linkApplication({ type, id, applicationId });
+	const created = async (id: string, forJob = applicationId) => {
+		// A resume started for a job is linked once it exists; the editor already has no job to fill in.
+		if (applicationId) await client.documents.linkApplication({ id, applicationId });
 		markNew(id);
 		void queryClient.invalidateQueries({ queryKey: orpc.documents.key() });
 		if (forJob) void queryClient.invalidateQueries({ queryKey: orpc.applications.key() });
@@ -93,45 +85,21 @@ export function useStartDocument(applicationId?: string, locale?: Locale) {
 						id: resumeId,
 						operations: [{ op: "replace", path: "/metadata/page/format", value: pageSize }],
 					});
-				await created(resumeId, "resume");
+				await created(resumeId);
 				void navigate({ to: "/builder/$resumeId", params: { resumeId } });
 			}),
 		trySample: () =>
 			start(async () => {
 				// Named as what it is, not a random slug, so it's never mistaken for the person's own resume.
-				const resumes = await client.documents.list({ type: "resume", q: t`Sample resume` });
+				const resumes = await client.documents.list({ q: t`Sample resume` });
 				const name = freeName(
 					t`Sample resume`,
 					resumes.map((resume) => resume.name),
 				);
 				const resumeId = await createResume({ name, tags: [], withSampleData: true, ...(locale ? { locale } : {}) });
-				await created(resumeId, "resume");
+				await created(resumeId);
 				toast.add({ description: t`Sample resume added. Delete it anytime.` });
 				void navigate({ to: "/builder/$resumeId", params: { resumeId } });
-			}),
-		newLetter: (resumeId: string | null = null, sourceLetterId: string | null = null, options: LetterOptions = {}) =>
-			start(async () => {
-				const forJob = options.applicationId ?? applicationId;
-				const base = t`Untitled letter`;
-				const letters = options.name ? [] : await client.documents.list({ type: "letter", q: base });
-				const input = {
-					name:
-						options.name ??
-						freeName(
-							base,
-							letters.map((letter) => letter.name),
-						),
-					recipient: "",
-					content: "",
-					...(resumeId ? { resumeId } : {}),
-					// The application fills the recipient and links the letter in the create transaction.
-					...(forJob ? { applicationId: forJob } : {}),
-					// The server copies the selected letter's body and keeps both letters' histories separate.
-					...(sourceLetterId ? { sourceLetterId } : {}),
-				};
-				const letter = await createLetter(input);
-				await created(letter.id, "letter", forJob);
-				void navigate({ to: "/builder/letter/$coverLetterId", params: { coverLetterId: letter.id } });
 			}),
 	};
 }

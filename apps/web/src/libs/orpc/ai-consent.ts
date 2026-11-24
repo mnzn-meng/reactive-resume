@@ -35,7 +35,6 @@ export async function authorizeAiRequest(
 			path[1] !== "usage"
 		) &&
 		!(path[0] === "applications" && path[1] === "ai") &&
-		operation !== "coverLetters.draft" &&
 		operation !== "career.generate" &&
 		operation !== "career.suggestTargetRoles" &&
 		operation !== "career.voice.speak" &&
@@ -155,9 +154,7 @@ export async function authorizeAiRequest(
 														? t`The posting text or retrieved page. Links also go to the reader and the site being read.`
 														: operation === "applications.ai.searchPostings"
 															? t`Only your search query and search countries go to this AI connection if web access rejects its key or quota. No document, Knowledge or application context is added. The provider's search may charge.`
-															: operation === "coverLetters.draft"
-																? t`The selected resume and this letter's recipient and posting information.`
-																: t`Your request and the relevant document, posting, notes, selected Knowledge, conversation history and attachments enabled for this action.`);
+															: t`Your request and the relevant document, posting, notes, selected Knowledge, conversation history and attachments enabled for this action.`);
 		if ((await api.auth.getProfile({}, options)).id !== accountId) throw new Error(t`The account changed. Try again.`);
 		signal?.throwIfAborted();
 		const reader = access?.provider;

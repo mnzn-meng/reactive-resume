@@ -146,7 +146,6 @@ export function ResumePreviewClient({
 	renderPageCaption,
 	renderPageOverlay,
 	onRender,
-	includeCoverLetterHeader = false,
 	contentLabel,
 }: ResumePreviewProps) {
 	const builderResumeData = useResumeData();
@@ -175,14 +174,13 @@ export function ResumePreviewClient({
 		const delay = !hasPreviewRef.current ? 0 : isEditableElementFocused() ? TYPING_DEBOUNCE_MS : UPDATE_DEBOUNCE_MS;
 
 		const stale = () => cancelled || requestId !== requestIdRef.current;
-		const renderOptions = includeCoverLetterHeader ? { includeCoverLetterHeader } : undefined;
 
 		const generatePdfPreview = async () => {
 			try {
 				if (stale()) return;
 				let pageMap: PageMap | undefined;
 				let lost: string[] | null = null;
-				const blob = await createResumePdfBlob(resumeData, renderOptions, {
+				const blob = await createResumePdfBlob(resumeData, {
 					onPageMap: (map) => {
 						pageMap = map;
 					},
@@ -225,7 +223,7 @@ export function ResumePreviewClient({
 			cancelled = true;
 			window.clearTimeout(timeoutId);
 		};
-	}, [paused, resumeData, includeCoverLetterHeader, attempt]);
+	}, [paused, resumeData, attempt]);
 
 	const activeLayer = getActivePreviewLayer(previewLayers);
 	const activePageCount = activeLayer?.numPages ?? 0;

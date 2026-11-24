@@ -7,7 +7,6 @@ describe("session intent paths", () => {
 		"/api/auth/sign-up/email",
 		"/api/auth/sign-out",
 		"/api/auth/callback/google",
-		"/api/auth/two-factor/verify-totp",
 		"/api/auth/reset-password",
 		"/api/auth/forget-password",
 		"/api/auth/anonymous",
@@ -26,7 +25,6 @@ describe("session intent paths", () => {
 		"/api/auth/unlink-account",
 		"/api/auth/passkey/update-passkey",
 		"/other/api/auth/sign-in/email",
-		"/api/auth/two-factor/enable",
 		"/api/auth/send-verification-email",
 		"/api/rpc/career/saveProfile",
 	])("keeps %s account-bound", (path) => {

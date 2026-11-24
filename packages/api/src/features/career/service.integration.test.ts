@@ -7,7 +7,6 @@ import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 import * as tables from "@reactive-resume/db/schema";
-import { copyCoverLetterStyle } from "@reactive-resume/resume/cover-letter";
 import { reviewedAnswerEvidence, reviewedAnswerInputSchema } from "@reactive-resume/schema/application-answers";
 import {
 	careerOfferInputSchema,
@@ -333,10 +332,9 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 		const { applicationPackets } = await import("../applications/packet");
 		const { applicationProfileService: profiles } = await import("../application-profile/service");
 		const { applicationProfileDataSchema } = await import("@reactive-resume/schema/application-profile");
-		const { coverLetterService: letters } = await import("../cover-letters/service");
 		await getDb()
 			.update(tables.application)
-			.set({ status: "saved", activity: [], sentResumeVersionId: null, sentCoverLetterVersionId: null })
+			.set({ status: "saved", activity: [], sentResumeVersionId: null })
 			.where(eq(tables.application.id, "alice-app"));
 		const packetResume = resumeData("LIVE UNSUBMITTED DRAFT");
 		packetResume.metadata.notes = "PRIVATE_NOTES_NOT_EXPORTED";
@@ -374,13 +372,6 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 			}),
 			expectedRevision: null,
 		});
-		const letter = await letters.create({
-			userId: "alice",
-			name: "Reviewed letter",
-			resumeId: "shared-resume",
-			applicationId: "alice-app",
-			content: "<p>I build accessible tools.</p>",
-		});
 		const evidence = await fact("alice", "I restored the service.");
 		const answer = await reviewedAnswers.save(
 			"alice",
@@ -394,15 +385,8 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 			targetUrl: "http://127.0.0.1:3075/greenhouse",
 			includeContact: true,
 			answerIds: [answer.id],
-			letterWords: {
-				locale: "en-US",
-				greeting: "Dear {name},",
-				teamGreeting: "Dear hiring team,",
-				hiringTeam: "Hiring team",
-				signOff: "Kind regards,",
-			},
 		};
-		return { applicationPackets, profiles, profile, letter, selection, answer, evidence };
+		return { applicationPackets, profiles, profile, selection, answer, evidence };
 	}
 
 	it("exports reviewed account packet as exact named versions without submission or private sensitive fields", async () => {
@@ -421,9 +405,8 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 			fingerprint: review.fingerprint,
 			reviewed: true,
 		});
-		expect(packet.documents.map((document) => document.kind)).toEqual(["resume", "letter"]);
+		expect(packet.documents.map((document) => document.versionId)).toHaveLength(1);
 		expect(Buffer.from(packet.documents[0]?.base64 ?? "", "base64").toString()).toBe("EXACT-SYNTHETIC-Current");
-		expect(Buffer.from(packet.documents[1]?.base64 ?? "", "base64").toString()).toBe("EXACT-SYNTHETIC-Reviewed letter");
 		const versions = await getDb()
 			.select()
 			.from(tables.resumeVersion)
@@ -434,30 +417,17 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 			kind: "named",
 			data: { basics: { headline: "LIVE UNSUBMITTED DRAFT" } },
 		});
-		const letterVersions = await getDb()
-			.select()
-			.from(tables.coverLetterVersion)
-			.where(eq(tables.coverLetterVersion.id, packet.documents[1]?.versionId ?? "missing"));
-		expect(letterVersions[0]).toMatchObject({
-			userId: "alice",
-			kind: "named",
-			data: { content: "<p>I build accessible tools.</p>" },
-		});
 		const [application] = await getDb().select().from(tables.application).where(eq(tables.application.id, "alice-app"));
 		expect(application).toMatchObject({
 			status: "saved",
 			activity: [],
 			sentResumeVersionId: null,
-			sentCoverLetterVersionId: null,
 		});
 		expect(await getDb().select().from(tables.careerArtifact)).toHaveLength(0);
 		expect(fixture.generate).not.toHaveBeenCalled();
 		await getDb().delete(tables.user).where(eq(tables.user.id, "alice"));
 		expect(
 			await getDb().select().from(tables.resumeVersion).where(eq(tables.resumeVersion.userId, "alice")),
-		).toHaveLength(0);
-		expect(
-			await getDb().select().from(tables.coverLetterVersion).where(eq(tables.coverLetterVersion.userId, "alice")),
 		).toHaveLength(0);
 	}, 20_000);
 
@@ -474,26 +444,20 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 		expect(fixture.packetRender).not.toHaveBeenCalled();
 	});
 
-	it.each(["resume", "letter"] as const)("rejects selected trashed %s without replacement", async (kind) => {
-		const { applicationPackets, selection, letter } = await packetFixture();
+	it("rejects a selected trashed resume without replacement", async () => {
+		const { applicationPackets, selection } = await packetFixture();
 		const review = await applicationPackets.review("alice", selection);
-		if (kind === "resume")
-			await getDb().update(tables.resume).set({ trashedAt: new Date() }).where(eq(tables.resume.id, "shared-resume"));
-		else
-			await getDb()
-				.update(tables.coverLetter)
-				.set({ trashedAt: new Date() })
-				.where(eq(tables.coverLetter.id, letter.id));
+		await getDb().update(tables.resume).set({ trashedAt: new Date() }).where(eq(tables.resume.id, "shared-resume"));
 		await expect(
 			applicationPackets.export("alice", { selection, fingerprint: review.fingerprint, reviewed: true }),
 		).rejects.toMatchObject({ code: "NOT_FOUND" });
 		expect(fixture.packetRender).not.toHaveBeenCalled();
 	});
 
-	it.each(["profile", "resume", "letter", "answer", "evidence"] as const)(
+	it.each(["profile", "resume", "answer", "evidence"] as const)(
 		"rejects %s changed during PDF rendering and writes no packet versions",
 		async (kind) => {
-			const { applicationPackets, selection, profile, profiles, letter, answer, evidence } = await packetFixture();
+			const { applicationPackets, selection, profile, profiles, answer, evidence } = await packetFixture();
 			const review = await applicationPackets.review("alice", selection);
 			fixture.packetRender.mockImplementationOnce(async () => {
 				if (kind === "profile")
@@ -506,11 +470,6 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 						.update(tables.resume)
 						.set({ data: resumeData("Changed content") })
 						.where(eq(tables.resume.id, "shared-resume"));
-				if (kind === "letter")
-					await getDb()
-						.update(tables.coverLetter)
-						.set({ content: "<p>Changed letter</p>" })
-						.where(eq(tables.coverLetter.id, letter.id));
 				if (kind === "answer")
 					await getDb()
 						.update(tables.careerAnswer)
@@ -528,9 +487,6 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 			).rejects.toMatchObject({ code: "CONFLICT" });
 			expect(
 				await getDb().select().from(tables.resumeVersion).where(eq(tables.resumeVersion.kind, "named")),
-			).toHaveLength(0);
-			expect(
-				await getDb().select().from(tables.coverLetterVersion).where(eq(tables.coverLetterVersion.kind, "named")),
 			).toHaveLength(0);
 		},
 	);
@@ -904,50 +860,19 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 				text: "TypeScript",
 				status: "active",
 				applicationId: null,
-				source: { kind: "resume", id: "shared-resume", quote: "- **TypeScript**" },
+				source: { id: "shared-resume", quote: "- **TypeScript**" },
 			});
 			expect(await service.saveResumeFacts("alice", input)).toEqual({ saved: 0, skipped: 2 });
 		},
 	);
 
-	it("resolves each application's submitted versions and verifies quotations against that version", async () => {
-		const style = copyCoverLetterStyle(defaultResumeData);
-		await getDb().insert(tables.coverLetter).values({
-			id: "alice-letter",
-			userId: "alice",
-			name: "Current letter",
-			content: "<p>UNSENT LETTER EDIT</p>",
-			style,
-		});
-		await getDb()
-			.insert(tables.coverLetterVersion)
-			.values({
-				id: "sent-letter",
-				userId: "alice",
-				coverLetterId: "alice-letter",
-				kind: "sent",
-				data: {
-					name: "Sent letter",
-					recipient: "ACME",
-					content: "<p>I coordinated recovery.</p>",
-					style,
-					layout: "freeform",
-					recipientName: "",
-					recipientCompany: "ACME",
-					letterDate: null,
-				},
-			});
-		await getDb()
-			.update(tables.application)
-			.set({ coverLetterId: "alice-letter", sentCoverLetterVersionId: "sent-letter" })
-			.where(eq(tables.application.id, "alice-app"));
+	it("resolves each application's submitted resume and verifies quotations against that version", async () => {
 		const acme = await service.context({ userId: "alice", applicationId: "alice-app", interviewId: "alice-round" });
 		const nova = await service.context({ userId: "alice", applicationId: "alice-other", interviewId: "nova-round" });
 		expect(acme).toMatchObject({
 			application: { company: "ACME" },
 			interview: { id: "alice-round", notes: "Reliability discussion" },
 			resume: { submitted: true, version: "sent-acme", source: { kind: "resume-version", id: "sent-acme" } },
-			letter: { submitted: true, version: "sent-letter", text: "<p>I coordinated recovery.</p>" },
 		});
 		expect(nova).toMatchObject({
 			application: { company: "NOVA" },
@@ -1364,7 +1289,7 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 		await service.applyReply("alice", reply.id, [0], {
 			answers,
 			expectedAnswers: answers,
-			expectedDocuments: { resumeId: app.resumeId, coverLetterId: app.coverLetterId },
+			expectedDocuments: { resumeId: app.resumeId },
 		});
 		const after = await applications.getById({ userId: "alice", id: "alice-app" });
 		expect(after.status).toBe("interview");
@@ -1379,7 +1304,7 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 			service.applyReply("alice", reply.id, [0], {
 				answers,
 				expectedAnswers: answers,
-				expectedDocuments: { resumeId: app.resumeId, coverLetterId: app.coverLetterId },
+				expectedDocuments: { resumeId: app.resumeId },
 			}),
 		).resolves.toEqual({ stages: [] });
 		expect((await applications.getById({ userId: "alice", id: "alice-app" })).status).toBe("interview");
@@ -1421,7 +1346,7 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 			applying = service.applyReply("alice", reply.id, [0], {
 				answers: [],
 				expectedAnswers: [],
-				expectedDocuments: { resumeId: app.resumeId, coverLetterId: app.coverLetterId },
+				expectedDocuments: { resumeId: app.resumeId },
 			});
 			// Observe the actual SQL wait, rather than guessing when Apply acquired its owner lock.
 			let applyPid: number | undefined;
@@ -1532,7 +1457,7 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 			service.applyReply("alice", reply.id, [0], {
 				answers,
 				expectedAnswers: answers,
-				expectedDocuments: { resumeId: "another-resume", coverLetterId: null },
+				expectedDocuments: { resumeId: "another-resume" },
 			}),
 		).rejects.toMatchObject({ code: "CONFLICT" });
 		const after = await applications.getById({ userId: "alice", id: "alice-app" });
@@ -1955,7 +1880,6 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 		const after = await applications.getById({ userId: "alice", id: applicationId });
 		expect(after.activity).toEqual(before.activity);
 		expect(after.sentResumeVersionId).toBe(before.sentResumeVersionId);
-		expect(after.sentCoverLetterVersionId).toBe(before.sentCoverLetterVersionId);
 	});
 
 	it("adopts the device country on the first search without a Preferences visit", async () => {
@@ -2279,7 +2203,7 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 				await service.applyReply("alice", reply.id, [0], {
 					answers,
 					expectedAnswers: answers,
-					expectedDocuments: { resumeId: null, coverLetterId: null },
+					expectedDocuments: { resumeId: null },
 				});
 			} else await applications.update({ userId: "alice", id: "review-job", status: "applied" });
 			const review = (await service.workspace("alice", "review-job")).submissionReview;
@@ -2395,42 +2319,18 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 			.update(tables.application)
 			.set({ sentResumeVersionId: null })
 			.where(eq(tables.application.id, "alice-app"));
-		await getDb()
-			.insert(tables.coverLetter)
-			.values({
-				id: "submit-letter",
-				userId: "alice",
-				name: "For ACME",
-				content: "<p>Final letter</p>",
-				style: copyCoverLetterStyle(defaultResumeData),
-				sourceResumeId: "shared-resume",
-				senderLinked: true,
-			});
-		await getDb()
-			.update(tables.application)
-			.set({ coverLetterId: "submit-letter" })
-			.where(eq(tables.application.id, "alice-app"));
 		const answers = [{ id: "why", question: "Why ACME?", answer: "Final keystroke", factIds: [] }];
 		await service.submitApplication("alice", "alice-app", answers, []);
 		await service.submitApplication("alice", "alice-app", answers, []);
 		const submitted = await applications.getById({ userId: "alice", id: "alice-app" });
 		expect(submitted.status).toBe("applied");
 		expect(submitted.activity.filter((entry) => entry.type === "stage" && entry.stage === "applied")).toHaveLength(1);
-		if (!submitted.sentResumeVersionId || !submitted.sentCoverLetterVersionId)
-			throw new Error("Missing submitted documents.");
+		if (!submitted.sentResumeVersionId) throw new Error("Missing submitted resume.");
 		const [resume] = await getDb()
 			.select()
 			.from(tables.resumeVersion)
 			.where(eq(tables.resumeVersion.id, submitted.sentResumeVersionId));
-		const [letter] = await getDb()
-			.select()
-			.from(tables.coverLetterVersion)
-			.where(eq(tables.coverLetterVersion.id, submitted.sentCoverLetterVersionId));
 		expect(resume?.data.basics.headline).toBe("LIVE UNSUBMITTED DRAFT");
-		expect(letter?.data).toMatchObject({
-			content: "<p>Final letter</p>",
-			style: { basics: { headline: "LIVE UNSUBMITTED DRAFT" } },
-		});
 		expect(await service.savedItems({ userId: "alice", applicationId: "alice-app", kind: "answers" })).toMatchObject([
 			{ data: { answers }, outdated: false, submission: true },
 		]);
@@ -2543,13 +2443,7 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 
 	it("rejects submission when the selected documents changed in another client", async () => {
 		await expect(
-			service.submitApplication("alice", "alice-app", [], [], { resumeId: "old-selection", coverLetterId: null }),
-		).rejects.toMatchObject({ code: "CONFLICT" });
-		await expect(
-			service.submitApplication("alice", "alice-app", [], [], {
-				resumeId: "shared-resume",
-				coverLetterId: "old-letter",
-			}),
+			service.submitApplication("alice", "alice-app", [], [], { resumeId: "old-selection" }),
 		).rejects.toMatchObject({ code: "CONFLICT" });
 		expect((await applications.getById({ userId: "alice", id: "alice-app" })).status).toBe("saved");
 	});
@@ -3167,24 +3061,11 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 		);
 		expect((await service.workspace("alice", "alice-app")).answers[0]?.factIds).toHaveLength(10);
 	});
-	it.each(["resume deletion", "letter purge", "resume relink", "application deletion"] as const)(
+	it.each(["resume deletion", "resume relink", "application deletion"] as const)(
 		"orders %s before document locks when an application submission owns the application",
 		async (operation) => {
 			const { documentsService } = await import("../documents/service");
 			const { resumeService } = await import("../resume/service");
-			await getDb()
-				.insert(tables.coverLetter)
-				.values({
-					id: "contended-letter",
-					userId: "alice",
-					name: "Contended",
-					style: copyCoverLetterStyle(defaultResumeData),
-					trashedAt: new Date(),
-				});
-			await getDb()
-				.update(tables.application)
-				.set({ coverLetterId: "contended-letter" })
-				.where(eq(tables.application.id, "alice-app"));
 			await getDb()
 				.update(tables.resume)
 				.set({ applicationId: "alice-app" })
@@ -3205,14 +3086,11 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 						? applications.delete({ userId: "alice", id: "alice-app" })
 						: operation === "resume deletion"
 							? resumeService.delete({ userId: "alice", id: "shared-resume" })
-							: operation === "letter purge"
-								? documentsService.purge({ userId: "alice", type: "letter", id: "contended-letter" })
-								: documentsService.linkApplication({
-										userId: "alice",
-										type: "resume",
-										id: "shared-resume",
-										applicationId: "alice-app",
-									});
+							: documentsService.linkApplication({
+									userId: "alice",
+									id: "shared-resume",
+									applicationId: "alice-app",
+								});
 				completion = work.then(
 					() => ({ error: null }),
 					(error: unknown) => ({ error }),
@@ -3229,8 +3107,6 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 				);
 				if (operation === "application deletion")
 					await editor.query("SELECT id FROM application WHERE id = 'alice-app' FOR UPDATE");
-				else if (operation === "letter purge")
-					await editor.query("SELECT id FROM cover_letter WHERE id = 'contended-letter' FOR UPDATE");
 				else await editor.query("SELECT id FROM resume WHERE id = 'shared-resume' FOR UPDATE");
 				await editor.query("COMMIT");
 				expect(await completion).toEqual({ error: null });

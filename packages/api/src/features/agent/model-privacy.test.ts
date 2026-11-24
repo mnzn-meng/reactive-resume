@@ -88,7 +88,7 @@ async function loaded() {
 		isLocked: false,
 		applicationId: null,
 	});
-	return { data, document: await loadDocument("owner", { kind: "resume", id: "resume" }) };
+	return { data, document: await loadDocument("owner", { id: "resume" }) };
 }
 const headline = {
 	title: "Headline",
@@ -122,7 +122,7 @@ it("keeps full UI snapshots while the actual SDK provider sees no hidden data in
 	const captures: string[] = [];
 	let step = 0;
 	const tools = buildAgentTools({
-		document: "resume",
+		document: true,
 		externalSearch: false,
 		signal: new AbortController().signal,
 		handlers: {

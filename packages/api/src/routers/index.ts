@@ -5,7 +5,6 @@ import { applicationProfileRouter } from "../features/application-profile/router
 import { applicationsRouter } from "../features/applications/router";
 import { authRouter } from "../features/auth/router";
 import { careerRouter } from "../features/career/router";
-import { coverLettersRouter } from "../features/cover-letters/router";
 import { documentsRouter } from "../features/documents/router";
 import { feedbackRouter } from "../features/feedback/router";
 import { flagsRouter } from "../features/flags/router";
@@ -22,7 +21,6 @@ export default {
 	applications: applicationsRouter,
 	auth: authRouter,
 	career: careerRouter,
-	coverLetters: coverLettersRouter,
 	documents: documentsRouter,
 	feedback: feedbackRouter,
 	flags: flagsRouter,

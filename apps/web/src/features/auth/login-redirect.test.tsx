@@ -14,8 +14,6 @@ const mocks = vi.hoisted(() => ({
 	username: vi.fn(),
 	social: vi.fn(),
 	passkey: vi.fn(),
-	verifyTotp: vi.fn(),
-	verifyBackupCode: vi.fn(),
 	signup: vi.fn(),
 	requestPasswordReset: vi.fn(),
 	queryClient: { invalidateQueries: vi.fn(async () => {}) },
@@ -43,7 +41,6 @@ vi.mock("@/libs/auth/client", () => ({
 	authClient: {
 		requestPasswordReset: mocks.requestPasswordReset,
 		signUp: { email: mocks.signup },
-		twoFactor: { verifyTotp: mocks.verifyTotp, verifyBackupCode: mocks.verifyBackupCode },
 		signIn: { email: mocks.email, username: mocks.username, social: mocks.social, passkey: mocks.passkey },
 	},
 }));
@@ -52,7 +49,6 @@ vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: vi.fn(), 
 import { ForgotPasswordPage } from "./pages/forgot-password";
 import { LoginPage } from "./pages/login";
 import { RegisterPage } from "./pages/register";
-import { VerifyTwoFactorBackupPage, VerifyTwoFactorPage } from "./pages/verify-2fa";
 
 beforeEach(() => {
 	vi.clearAllMocks();
@@ -64,8 +60,6 @@ beforeEach(() => {
 		mocks.username,
 		mocks.social,
 		mocks.passkey,
-		mocks.verifyTotp,
-		mocks.verifyBackupCode,
 		mocks.signup,
 		mocks.requestPasswordReset,
 	])
@@ -139,92 +133,6 @@ describe("sign-in with a callback", () => {
 	it("resumes the callback after passkey sign-in", async () => {
 		renderLogin();
 		fireEvent.click(screen.getByRole("button", { name: "Continue with a passkey" }));
-		await waitFor(() =>
-			expect(mocks.navigate).toHaveBeenCalledWith({ href: mocks.callbackURL, reloadDocument: false, replace: true }),
-		);
-	});
-
-	it("carries the callback into two-factor verification", async () => {
-		mocks.email.mockResolvedValueOnce({ data: { twoFactorRedirect: true }, error: null });
-		const { container } = renderLogin();
-		submitLogin(container, "john@example.com");
-		await waitFor(() =>
-			expect(mocks.navigate).toHaveBeenCalledWith({
-				to: "/auth/verify-2fa",
-				search: { callbackURL: mocks.callbackURL },
-				replace: true,
-			}),
-		);
-	});
-});
-
-describe("two-factor verification with a callback", () => {
-	it.each(["82cNKqaOiN", "82cNK-qaOiN"])("submits a complete backup code entered as %s", async (code) => {
-		const { container } = render(
-			<I18nProvider i18n={i18n}>
-				<VerifyTwoFactorBackupPage />
-			</I18nProvider>,
-		);
-		const input = container.querySelector<HTMLInputElement>('input[name="code"]');
-		const form = container.querySelector("form");
-		if (!input || !form) throw new Error("Verification form is missing");
-		expect(input.maxLength).toBeGreaterThanOrEqual(code.length);
-		fireEvent.change(input, { target: { value: code } });
-		fireEvent.submit(form);
-		await waitFor(() =>
-			expect(mocks.verifyBackupCode).toHaveBeenCalledWith(
-				expect.objectContaining({ code: "82cNK-qaOiN", trustDevice: false }),
-			),
-		);
-	});
-
-	// Older backup codes mix cases; a lower-case entry that didn't match gets one retry in capitals, not a lockout.
-	it("retries a lower-case backup code once in capitals", async () => {
-		mocks.verifyBackupCode.mockResolvedValueOnce({ data: null, error: { code: "INVALID_BACKUP_CODE" } });
-		const { container } = render(
-			<I18nProvider i18n={i18n}>
-				<VerifyTwoFactorBackupPage />
-			</I18nProvider>,
-		);
-		const input = container.querySelector<HTMLInputElement>('input[name="code"]');
-		const form = container.querySelector("form");
-		if (!input || !form) throw new Error("Verification form is missing");
-		fireEvent.change(input, { target: { value: "abcde12345" } });
-		fireEvent.submit(form);
-		await waitFor(() =>
-			expect(mocks.navigate).toHaveBeenCalledWith({ href: mocks.callbackURL, reloadDocument: false, replace: true }),
-		);
-		expect(mocks.verifyBackupCode.mock.calls.map(([options]) => options.code)).toEqual(["abcde-12345", "ABCDE-12345"]);
-	});
-
-	it.each([false, true])("trusts the device only when selected (backup: %s)", async (backup) => {
-		const { container } = render(
-			<I18nProvider i18n={i18n}>{backup ? <VerifyTwoFactorBackupPage /> : <VerifyTwoFactorPage />}</I18nProvider>,
-		);
-		const input = container.querySelector('input[name="code"]');
-		const checkbox = screen.getByRole("checkbox", { name: "Trust this device for 30 days" });
-		const form = container.querySelector("form");
-		if (!input || !form) throw new Error("Verification form is missing");
-
-		fireEvent.change(input, { target: { value: backup ? "82cNK-qaOiN" : "123456" } });
-		fireEvent.click(checkbox);
-		fireEvent.submit(form);
-		await waitFor(() =>
-			expect(backup ? mocks.verifyBackupCode : mocks.verifyTotp).toHaveBeenCalledWith(
-				expect.objectContaining({ code: backup ? "82cNK-qaOiN" : "123456", trustDevice: true }),
-			),
-		);
-	});
-
-	it.each([false, true])("resumes the callback after verifying a code (backup: %s)", async (backup) => {
-		const { container } = render(
-			<I18nProvider i18n={i18n}>{backup ? <VerifyTwoFactorBackupPage /> : <VerifyTwoFactorPage />}</I18nProvider>,
-		);
-		const input = container.querySelector('input[name="code"]');
-		const form = container.querySelector("form");
-		if (!input || !form) throw new Error("Verification form is missing");
-		fireEvent.change(input, { target: { value: backup ? "abcde12345" : "123456" } });
-		fireEvent.submit(form);
 		await waitFor(() =>
 			expect(mocks.navigate).toHaveBeenCalledWith({ href: mocks.callbackURL, reloadDocument: false, replace: true }),
 		);

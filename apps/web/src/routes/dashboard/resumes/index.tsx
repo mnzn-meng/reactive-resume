@@ -14,7 +14,6 @@ export const Route = createFileRoute("/dashboard/resumes/")({
 		throw redirect({
 			to: "/dashboard/documents",
 			search: {
-				type: "resume",
 				...(search.tags?.length ? { tags: search.tags } : {}),
 				...(search.sort ? { sort: SORTS[search.sort] } : {}),
 				...(search.view === "list" ? { view: "list" as const } : {}),

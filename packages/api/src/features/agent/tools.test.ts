@@ -27,7 +27,7 @@ function build(externalSearch = false, signal = new AbortController().signal) {
 	return {
 		handlers,
 		tools: buildAgentTools({
-			document: "resume",
+			document: true,
 			externalSearch,
 			signal,
 			handlers,
@@ -128,7 +128,7 @@ describe("assistant web tools", () => {
 
 	it("routes language requests to a separate copy and requires complete reviewed translations", () => {
 		const instructions = buildAgentInstructions({
-			document: { kind: "resume", name: "Resume" },
+			document: { name: "Resume" },
 			posting: null,
 			searchTool: null,
 			canReadPage: true,
@@ -151,12 +151,12 @@ describe("assistant web tools", () => {
 			searchWeb: vi.fn(),
 			readPage: vi.fn(),
 		};
-		expect(buildAgentTools({ document: "resume", externalSearch: false, signal, handlers })).not.toHaveProperty(
+		expect(buildAgentTools({ document: true, externalSearch: false, signal, handlers })).not.toHaveProperty(
 			"read_knowledge",
 		);
 		expect(
 			buildAgentTools({
-				document: "resume",
+				document: true,
 				externalSearch: false,
 				signal,
 				handlers: { ...handlers, readKnowledge: vi.fn() },
@@ -165,7 +165,7 @@ describe("assistant web tools", () => {
 
 		const posting = { role: "Designer", company: "Lumen", text: "Design systems", jobCopy: false };
 		const instructions = buildAgentInstructions({
-			document: { kind: "resume", name: "Base" },
+			document: { name: "Base" },
 			posting,
 			searchTool: null,
 			canReadPage: false,
@@ -183,10 +183,10 @@ describe("assistant web tools", () => {
 			searchWeb: vi.fn(),
 			readPage: vi.fn(),
 		};
-		const locked = buildAgentTools({ document: "resume", canEdit: false, externalSearch: false, signal, handlers });
+		const locked = buildAgentTools({ document: true, canEdit: false, externalSearch: false, signal, handlers });
 		expect(locked).toHaveProperty("read_resume");
 		expect(locked).not.toHaveProperty("propose_edits");
-		expect(buildAgentTools({ document: "resume", externalSearch: false, signal, handlers })).toHaveProperty(
+		expect(buildAgentTools({ document: true, externalSearch: false, signal, handlers })).toHaveProperty(
 			"propose_edits",
 		);
 

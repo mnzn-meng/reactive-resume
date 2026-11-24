@@ -17,7 +17,7 @@ import { agentConversationSchema } from "./agent";
 const MAX_APPLICATION_JOB_DESCRIPTION_CHARS = 20_000;
 const MAX_APPLICATION_DOCUMENT_BYTES = 10 * 1024 * 1024;
 
-const applicationDocumentKindSchema = z.enum(["resume", "cover-letter", "posting"]);
+const applicationDocumentKindSchema = z.enum(["resume", "posting"]);
 const timelineDateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Enter the date as YYYY-MM-DD.");
 // Interviews carry a full timestamp (with offset) so the scheduled time survives timezones.
 const interviewAtSchema = z.iso.datetime({ offset: true }).describe("Scheduled start, as an ISO 8601 date-time.");
@@ -29,7 +29,6 @@ const applicationDocumentFileSchema = z
 
 const documentFilesShape = {
 	resumeFile: applicationDocumentFileSchema.optional(),
-	coverLetterFile: applicationDocumentFileSchema.optional(),
 	postingFile: applicationDocumentFileSchema.optional(),
 };
 
@@ -50,16 +49,11 @@ const applicationSchema = createSelectSchema(schema.application, {
 		.nullable()
 		.describe("Why a closed application ended: accepted, not-selected, withdrew, accepted-other or no-response."),
 	resumeId: z.string().nullable().describe("The linked Reactive Resume, if any."),
-	coverLetterId: z.string().nullable().describe("The linked saved cover letter, if any."),
 	sentResumeVersionId: z
 		.string()
 		.nullable()
 		.describe("The version of the linked resume saved when the application was sent (reached Applied)."),
 	sentCheckScore: z.number().int().nullable().describe("The resume's Check score when it was sent, out of 100."),
-	sentCoverLetterVersionId: z
-		.string()
-		.nullable()
-		.describe("The version of the linked letter saved when the application was sent."),
 	requirements: z.array(z.string()).describe("What the posting asks for, as read when the application was added."),
 	source: z.string().trim().nullable(),
 	sourceUrl: httpUrlSchema.nullable(),
@@ -81,11 +75,6 @@ const applicationSchema = createSelectSchema(schema.application, {
 		.refine((value) => /^(https?:\/\/|\/)/.test(value), "Resume file URL must be http(s) or a relative path.")
 		.nullable(),
 	resumeFileName: z.string().nullable(),
-	coverLetterUrl: z
-		.string()
-		.refine((value) => /^(https?:\/\/|\/)/.test(value), "Cover letter URL must be http(s) or a relative path.")
-		.nullable(),
-	coverLetterName: z.string().nullable(),
 	followUpAt: z.date().nullable(),
 	followUpNote: z.string().trim().nullable(),
 	followUpDateOnly: z
@@ -139,9 +128,7 @@ const applicationSummarySchema = applicationSchema.pick({
 	laneId: true,
 	closedReason: true,
 	resumeId: true,
-	coverLetterId: true,
 	resumeFileUrl: true,
-	coverLetterUrl: true,
 	source: true,
 	tags: true,
 	sourceUrl: true,
@@ -159,7 +146,6 @@ const applicationSummarySchema = applicationSchema.pick({
 const applicationSummaryWithInitialDetailSchema = applicationSummarySchema.extend({
 	// Optional for clients connecting to older servers without submission hints.
 	sentResumeVersionId: applicationSchema.shape.sentResumeVersionId.optional(),
-	sentCoverLetterVersionId: applicationSchema.shape.sentCoverLetterVersionId.optional(),
 	/** A small number of full rows can be attached to the initial list response for eager detail rendering. */
 	initialDetail: applicationSchema.omit({ userId: true }).optional(),
 });
@@ -181,14 +167,11 @@ const editableSchema = applicationSchema.pick({
 	notes: true,
 	resumeFileUrl: true,
 	resumeFileName: true,
-	coverLetterUrl: true,
-	coverLetterName: true,
 	followUpAt: true,
 	followUpNote: true,
 	followUpDateOnly: true,
 	contacts: true,
 	resumeId: true,
-	coverLetterId: true,
 	requirements: true,
 	tags: true,
 });

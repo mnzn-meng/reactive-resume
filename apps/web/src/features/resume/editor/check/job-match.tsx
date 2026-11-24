@@ -402,7 +402,7 @@ function useLinkApplication() {
 			// The next autosave builds on the linked revision instead of conflicting with it.
 			saveResumeMetadata(resumeId, async (expectedUpdatedAt, options) => {
 				const resume = await orpc.documents.linkApplication.call(
-					{ type: "resume", id: resumeId, applicationId, expectedUpdatedAt },
+					{ id: resumeId, applicationId, expectedUpdatedAt },
 					options,
 				);
 				if (!resume) throw new Error(t`Couldn't link the application. Try again.`);

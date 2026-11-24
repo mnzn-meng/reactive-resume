@@ -2,7 +2,6 @@ import type { RouterOutput } from "@/libs/orpc/client";
 import { formatRelativeTime } from "@/libs/locale";
 
 export type DocumentSummary = RouterOutput["documents"]["list"][number];
-export type DocumentTypeFilter = "all" | "resume" | "letter";
 export type DocumentSort = "edited" | "name" | "created";
 
 /**
@@ -18,7 +17,7 @@ export function defaultCopySource<
 	return recent.find((resume) => !resume.application) ?? recent[0];
 }
 
-export const documentKey = (document: Pick<DocumentSummary, "type" | "id">) => `${document.type}:${document.id}`;
+export const documentKey = (document: Pick<DocumentSummary, "id">) => document.id;
 
 const startOfDay = (value: number | Date) => new Date(value).setHours(0, 0, 0, 0);
 

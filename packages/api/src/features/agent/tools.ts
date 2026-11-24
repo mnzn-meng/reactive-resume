@@ -10,7 +10,6 @@ import z from "zod";
 import { assistantSystemPromptTemplate } from "@reactive-resume/ai/prompts";
 import {
 	askUserQuestionInputSchema,
-	proposeEditsInputSchema,
 	proposeResumeEditsInputSchema,
 	readPageInputSchema,
 	readPageOutputSchema,
@@ -21,11 +20,9 @@ import { dataBlock } from "../ai/data-block";
 
 export const MAX_AGENT_WEB_CALLS = 6;
 
-type DocumentKind = "resume" | "letter";
-
 type BuildAgentToolsInput = {
-	/** The open document's kind, or null when the user left it out of this message. */
-	document: DocumentKind | null;
+	/** Whether the open document is part of this message. */
+	document: boolean;
 	/** False while the document is locked: it can be read, but no edits are proposed. */
 	canEdit?: boolean;
 	externalSearch: boolean;
@@ -41,10 +38,8 @@ type BuildAgentToolsInput = {
 	};
 };
 
-const readToolName = (document: DocumentKind) => (document === "letter" ? "read_letter" : "read_resume");
-
 type InstructionsInput = {
-	document: { kind: DocumentKind; name: string } | null;
+	document: { name: string } | null;
 	/** The document is locked: answer and draft, but propose no edits. */
 	locked?: boolean;
 	posting: {
@@ -53,7 +48,7 @@ type InstructionsInput = {
 		text: string;
 		notes?: string;
 		requirements?: readonly string[];
-		/** The open resume is the copy made for this job (letters always are). */
+		/** The open resume is the copy made for this job. */
 		jobCopy: boolean;
 	} | null;
 	knowledge?: boolean;
@@ -79,13 +74,11 @@ export function buildAgentInstructions({
 }: InstructionsInput) {
 	const fill: Record<string, string> = {
 		DOCUMENT: document
-			? `the ${document.kind === "letter" ? "cover letter" : "resume"} "${document.name}"`
+			? `the resume "${document.name}"`
 			: "which the user chose not to share with this message, so you can't read or edit it now",
-		READ_TOOL: document ? `\`${readToolName(document.kind)}\`` : "not available this time",
+		READ_TOOL: document ? "`read_resume`" : "not available this time",
 		EDIT_SCOPE:
-			document?.kind === "resume"
-				? "For resumes, propose typed changes: text rewrites/additional bullets within an existing entry; field edits for names, headlines, section titles and other string fields; entry additions in the matching section; and custom sections with typed entries (use publications for Patents). Read structure and entryTemplates before proposing changes. Hidden summary, sections and entries are excluded; never target their IDs or guess their contents. Create or open cover letters through Documents, never as resume sections. Never put a requested section, entry or field change inside Summary or an unrelated description. For mixed requests, propose each supported change and explain any unsupported part separately. Requests involving fields, entries or sections are accepted together; text-only requests keep individual cards. For a translation into another language, direct the user to Translate into… in the document menu or assistant: it creates a separate language copy, leaving the original untouched. On that copy, read pageLocale and translationFields, then propose one translation change alone with the matching locale and EVERY field (id, before, text), including unchanged proper names. Translate all visible text including nested roles, keywords, custom fields and explicit headings. Preserve names, numbers, facts and meaning; output plain text only, without markup. Localize place names without changing the actual location. Formatting, link destinations, email addresses, phone numbers, structured dates and hidden/private content cannot be changed through translation. Changed name fields require the user to confirm them before accepting. Generated headings and date words follow the copy page locale. Never claim completion before review/acceptance; hidden content is retained untranslated. Unsupported fields: route to Write (Basics for name/headline/contact details, relevant section for entries and fields); Design owns page language. Use plain language with users: never explain limitations using tool names, API, passage, exposed or editable-target jargon. If edits are rejected, explain the actual reason and next step; don't claim completion."
-				: "For cover letters, edit the body only. Recipient, sender, greeting and sign-off belong in Write.",
+			"For resumes, propose typed changes: text rewrites/additional bullets within an existing entry; field edits for names, headlines, section titles and other string fields; entry additions in the matching section; and custom sections with typed entries (use publications for Patents). Read structure and entryTemplates before proposing changes. Hidden summary, sections and entries are excluded; never target their IDs or guess their contents. Never put a requested section, entry or field change inside Summary or an unrelated description. For mixed requests, propose each supported change and explain any unsupported part separately. Requests involving fields, entries or sections are accepted together; text-only requests keep individual cards. For a translation into another language, direct the user to Translate into… in the document menu or assistant: it creates a separate language copy, leaving the original untouched. On that copy, read pageLocale and translationFields, then propose one translation change alone with the matching locale and EVERY field (id, before, text), including unchanged proper names. Translate all visible text including nested roles, keywords, custom fields and explicit headings. Preserve names, numbers, facts and meaning; output plain text only, without markup. Localize place names without changing the actual location. Formatting, link destinations, email addresses, phone numbers, structured dates and hidden/private content cannot be changed through translation. Changed name fields require the user to confirm them before accepting. Generated headings and date words follow the copy page locale. Never claim completion before review/acceptance; hidden content is retained untranslated. Unsupported fields: route to Write (Basics for name/headline/contact details, relevant section for entries and fields); Design owns page language. Use plain language with users: never explain limitations using tool names, API, passage, exposed or editable-target jargon. If edits are rejected, explain the actual reason and next step; don't claim completion.",
 		LOCKED: document && locked ? LOCKED : "",
 		POSTING: posting
 			? `\n## The job posting\n\nThe user is applying for the role in this posting.\n\n${dataBlock("POSTING", `Role: ${posting.role}\nCompany: ${posting.company}${posting.text ? `\n\n${posting.text}` : ""}`)}${posting.requirements?.length ? `\n\nIts listed requirements, to use word for word in \`requirements\`:\n\n${dataBlock("REQUIREMENTS", posting.requirements.map((item) => `- ${item}`).join("\n"))}` : ""}${posting.notes ? `\n\nThe user's notes on this application:\n\n${dataBlock("NOTES", posting.notes)}` : ""}\n${posting.jobCopy ? "" : NOT_JOB_COPY}`
@@ -114,8 +107,8 @@ export function buildAgentTools(input: BuildAgentToolsInput): ToolSet {
 	};
 	const documentTools: ToolSet = input.document
 		? {
-				[readToolName(input.document)]: tool({
-					description: `Read the open ${input.document === "letter" ? "cover letter" : "resume"}: its text and every passage an edit can target, each with an id.`,
+				read_resume: tool({
+					description: "Read the open resume: its text and every passage an edit can target, each with an id.",
 					inputSchema: z.object({}),
 					execute: input.handlers.readDocument,
 				}),
@@ -124,10 +117,8 @@ export function buildAgentTools(input: BuildAgentToolsInput): ToolSet {
 					: {
 							propose_edits: tool({
 								description:
-									input.document === "resume"
-										? "Propose typed resume changes for review: text within existing entries, string fields, new typed entries, or new custom sections. Match visible section IDs/types from read_resume. Hidden content cannot be edited here. Create or open cover letters through Documents. Use separate field/entry/section operations, never describe new sections or entries inside a text edit. A set is accepted together and becomes stale if the resume changes. For a language copy, use one translation operation alone: locale must match pageLocale; include every translationFields id/before/plain-text value, keeping unchanged proper names. Missing fields are rejected; nothing changes until accepted."
-										: "Propose edits to the letter body for review. Rewrite a passage by its read-tool id, or add a paragraph after it. Nothing changes until accepted.",
-								inputSchema: input.document === "resume" ? proposeResumeEditsInputSchema : proposeEditsInputSchema,
+									"Propose typed resume changes for review: text within existing entries, string fields, new typed entries, or new custom sections. Match visible section IDs/types from read_resume. Hidden content cannot be edited here. Use separate field/entry/section operations, never describe new sections or entries inside a text edit. A set is accepted together and becomes stale if the resume changes. For a language copy, use one translation operation alone: locale must match pageLocale; include every translationFields id/before/plain-text value, keeping unchanged proper names. Missing fields are rejected; nothing changes until accepted.",
+								inputSchema: proposeResumeEditsInputSchema,
 								execute: input.handlers.proposeEdits,
 							}),
 						}),

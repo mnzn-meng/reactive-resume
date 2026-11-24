@@ -1,10 +1,5 @@
-import type { BetterAuthPlugin, User } from "better-auth";
-import type {
-	AnonymousOptions,
-	GenericOAuthConfig,
-	GenericOAuthUserInfo,
-	UserWithAnonymous,
-} from "better-auth/plugins";
+import type { User } from "better-auth";
+import type { AnonymousOptions, GenericOAuthConfig, GenericOAuthUserInfo } from "better-auth/plugins";
 import { AsyncLocalStorage } from "node:async_hooks";
 import { isDeepStrictEqual } from "node:util";
 import { drizzleAdapter } from "@better-auth/drizzle-adapter/relations-v2";
@@ -12,17 +7,10 @@ import { dash } from "@better-auth/infra";
 import { passkey } from "@better-auth/passkey";
 import { compare, hash } from "bcryptjs";
 import { APIError, betterAuth } from "better-auth";
-import {
-	addOAuthServerContext,
-	createAuthMiddleware,
-	getOAuthState,
-	getSessionFromCtx,
-	isAPIError,
-} from "better-auth/api";
-import { deleteSessionCookie, parseCookies, parseSetCookieHeader, setSessionCookie } from "better-auth/cookies";
+import { addOAuthServerContext, createAuthMiddleware, getOAuthState, isAPIError } from "better-auth/api";
+import { deleteSessionCookie, parseCookies, setSessionCookie } from "better-auth/cookies";
 import { admin, anonymous, jwt, openAPI } from "better-auth/plugins";
 import { genericOAuth } from "better-auth/plugins/generic-oauth";
-import { twoFactor } from "better-auth/plugins/two-factor";
 import { username } from "better-auth/plugins/username";
 import { and, eq, inArray, ne, sql } from "drizzle-orm";
 import { createDefaultOwnedApplicationLanes, MAX_APPLICATION_LANES } from "@reactive-resume/db/application-lanes";
@@ -40,7 +28,6 @@ import { defaultLocale, isLocale, localeSchema } from "@reactive-resume/utils/lo
 import { rateLimitConfig } from "@reactive-resume/utils/rate-limit";
 import { generateId, toUsername } from "@reactive-resume/utils/string";
 import { timezoneSchema } from "@reactive-resume/utils/timezone";
-import { generateBackupCodes } from "./backup-codes";
 import {
 	allocateUniqueUsername,
 	createGithubProfileMapper,
@@ -219,22 +206,6 @@ export async function linkAnonymousAccount({
 			})
 			.where(eq(schema.resumeVersion.userId, fromUserId));
 
-		await tx
-			.update(schema.coverLetter)
-			.set({
-				userId: toUserId,
-				style: rewriteUploadsJson(schema.coverLetter.style),
-			})
-			.where(eq(schema.coverLetter.userId, fromUserId));
-
-		await tx
-			.update(schema.coverLetterVersion)
-			.set({
-				userId: toUserId,
-				data: rewriteUploadsJson(schema.coverLetterVersion.data),
-			})
-			.where(eq(schema.coverLetterVersion.userId, fromUserId));
-
 		const applications = await tx
 			.select()
 			.from(schema.application)
@@ -254,7 +225,6 @@ export async function linkAnonymousAccount({
 							: entry,
 					),
 					resumeFileUrl: rewriteUploadsUrl(schema.application.resumeFileUrl),
-					coverLetterUrl: rewriteUploadsUrl(schema.application.coverLetterUrl),
 					postingFileUrl: rewriteUploadsUrl(schema.application.postingFileUrl),
 				})
 				.where(and(eq(schema.application.id, application.id), eq(schema.application.userId, fromUserId)));
@@ -405,97 +375,6 @@ async function moveGuestWork({ anonymousUser, newUser, ctx }: GuestLink): Promis
 		});
 	}
 }
-
-// Better Auth 1.7 keeps this name internal to its two-factor plugin.
-const TWO_FACTOR_COOKIE = "two_factor";
-const guestLinkIdentifier = (userId: string, challenge: string) => `guest-link:${userId}:${challenge}`;
-const isTwoFactorVerification = (path: string | undefined) =>
-	path === "/two-factor/verify-totp" || path === "/two-factor/verify-backup-code" || path === "/two-factor/verify-otp";
-
-/** Read before a verification request runs; it carries the guest through to that request's after-hook. */
-type GuestHandoff = { userId: string; challengeId: string; guestId: string };
-
-// The anonymous plugin moves guest work only when a sign-in reply sets a session. With two-step verification,
-// the password step sets none and the verification step is outside the plugin's matcher. This plugin stores the
-// guest's id server-side, keyed by the account and the signed, single-use two-factor challenge, and moves the
-// work when that challenge succeeds for that account.
-const twoFactorGuestLink = {
-	id: "two-factor-guest-link",
-	hooks: {
-		before: [
-			{
-				matcher: (ctx) => isTwoFactorVerification(ctx.path),
-				handler: createAuthMiddleware(async (ctx) => {
-					// Read the handoff before the endpoint accepts the challenge. Both expire together, so a challenge the
-					// endpoint accepts had a live handoff here, even if the deadline passes while its session is created.
-					const challengeId = await ctx.getSignedCookie(
-						ctx.context.createAuthCookie(TWO_FACTOR_COOKIE).name,
-						ctx.context.secret,
-					);
-					if (!challengeId) return;
-					const internal = ctx.context.internalAdapter;
-					// These lookups return expired rows too.
-					const challenge = await internal.findVerificationValue(challengeId);
-					if (!challenge || challenge.expiresAt <= new Date()) return;
-					const link = await internal.findVerificationValue(guestLinkIdentifier(challenge.value, challengeId));
-					if (!link || link.expiresAt <= new Date()) return;
-					const guestHandoff: GuestHandoff = { userId: challenge.value, challengeId, guestId: link.value };
-					return { context: { context: { guestHandoff } } };
-				}),
-			},
-		],
-		after: [
-			{
-				matcher: (ctx) => ctx.path === "/sign-in/email" || ctx.path === "/sign-in/username",
-				handler: createAuthMiddleware(async (ctx) => {
-					const cookieName = ctx.context.createAuthCookie(TWO_FACTOR_COOKIE).name;
-					// Our own reply's signed value: `<identifier>.<signature>`, URL-encoded.
-					const signed = parseSetCookieHeader(ctx.context.responseHeaders?.get("set-cookie") ?? "").get(cookieName);
-					const challengeId = signed && decodeURIComponent(signed.value).split(".")[0];
-					if (!challengeId) return;
-					const challenge = await ctx.context.internalAdapter.findVerificationValue(challengeId);
-					if (!challenge) return;
-					const guest = await getSessionFromCtx(ctx, { disableRefresh: true });
-					if (!guest?.user.isAnonymous) return;
-					await ctx.context.internalAdapter.createVerificationValue({
-						identifier: guestLinkIdentifier(challenge.value, challengeId),
-						value: guest.user.id,
-						expiresAt: challenge.expiresAt,
-					});
-				}),
-			},
-			{
-				matcher: (ctx) => isTwoFactorVerification(ctx.path),
-				handler: createAuthMiddleware(async (ctx) => {
-					const { guestHandoff: handoff } = ctx.context as { guestHandoff?: GuestHandoff };
-					const newUser = ctx.context.newSession;
-					if (!handoff || newUser?.user.id !== handoff.userId) return;
-					const internal = ctx.context.internalAdapter;
-					// The endpoint consumes the challenge, atomically, before it signs in. A challenge still stored means
-					// this request did not accept it; one gone means this request was its only acceptance.
-					if (await internal.findVerificationValue(handoff.challengeId)) return;
-					// The anonymous plugin's schema adds this column; the adapter types only the core user.
-					const user = (await internal.findUserById(handoff.guestId)) as UserWithAnonymous | null;
-					if (!user?.isAnonymous) return;
-					// Like the anonymous plugin, only a guest that can still sign in is linked, and kept on failure.
-					const [session] = await internal.listSessions(user.id, { onlyActiveSessions: true });
-					if (!session) return;
-					try {
-						await moveGuestWork({ anonymousUser: { user, session }, newUser, ctx });
-						await internal.deleteUser(user.id).catch((error: unknown) => {
-							ctx.context.logger.error("Failed to delete the linked guest account", { userId: user.id, error });
-						});
-					} finally {
-						// The consumed challenge prevents replay; expiring bookkeeping must not undo a transfer or its recovery.
-						await internal
-							.deleteVerificationByIdentifier(guestLinkIdentifier(handoff.userId, handoff.challengeId))
-							.catch(() => ctx.context.logger.warn("Failed to clean up completed guest-link marker"));
-					}
-				}),
-			},
-		],
-	},
-} satisfies BetterAuthPlugin;
 
 const getAuthConfig = () => {
 	const authConfigs: GenericOAuthConfig[] = [];
@@ -703,15 +582,11 @@ const getAuthConfig = () => {
 					await tx.delete(schema.passkey).where(eq(schema.passkey.userId, user.id));
 					// Nobody had proved this address before: whoever signed up with it may have added other ways in.
 					if (!user.emailVerified) {
-						await tx.delete(schema.twoFactor).where(eq(schema.twoFactor.userId, user.id));
 						await tx
 							.delete(schema.account)
 							.where(and(eq(schema.account.userId, user.id), ne(schema.account.providerId, "credential")));
 					}
-					await tx
-						.update(schema.user)
-						.set({ emailVerified: true, ...(user.emailVerified ? {} : { twoFactorEnabled: false }) })
-						.where(eq(schema.user.id, user.id));
+					await tx.update(schema.user).set({ emailVerified: true }).where(eq(schema.user.id, user.id));
 				});
 			},
 			password: {
@@ -830,11 +705,6 @@ const getAuthConfig = () => {
 			admin(),
 			passkey(),
 			genericOAuth({ config: authConfigs }),
-			twoFactor({
-				issuer: "Reactive Resume",
-				// Capitals without look-alike characters; the sign-in form also tries what's typed in capitals.
-				backupCodeOptions: { customBackupCodesGenerate: () => generateBackupCodes() },
-			}),
 			username({
 				minUsernameLength: 3,
 				maxUsernameLength: 64,
@@ -843,9 +713,6 @@ const getAuthConfig = () => {
 				usernameValidator: (username) => /^[a-z0-9._-]+$/.test(username),
 				validationOrder: { username: "post-normalization", displayUsername: "post-normalization" },
 			}),
-			// After twoFactor, whose sign-in hook creates the challenge this binds the guest to. Like the anonymous plugin,
-			// it runs late so a sign-in never continues with the guest session a failed move restores.
-			twoFactorGuestLink,
 			anonymous({
 				emailDomainName: "reactive-resume.local",
 				generateName: () => "Guest",

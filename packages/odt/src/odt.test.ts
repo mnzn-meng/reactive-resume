@@ -1,6 +1,5 @@
 import { describe, expect, it } from "vite-plus/test";
 import { strFromU8, unzipSync } from "fflate";
-import { getResumeExportData } from "@reactive-resume/resume/export-sections";
 import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
 import { buildOdtFiles, ODT_MIME_TYPE } from "./builder";
 import { htmlToOdtBlocks } from "./html-to-odt";
@@ -46,27 +45,6 @@ describe("buildOdtFiles", () => {
 		for (const character of ["\u0001", "\u0002", "\uFFFE"]) expect(content).not.toContain(character);
 		expect(content).toContain("mailto:david@email.com");
 		expect(content).toContain("Ships games");
-	});
-
-	it("prints only the letter, without the resume header, for a cover-letter export", () => {
-		const data = structuredClone(sampleResumeData);
-		data.customSections.push({
-			id: "letter",
-			type: "cover-letter",
-			title: "Cover Letter",
-			icon: "mail",
-			columns: 1,
-			hidden: false,
-			showHeading: true,
-			keepTogether: false,
-			startOnNewPage: false,
-			items: [
-				{ id: "item", hidden: false, recipient: "<p>Hiring Manager</p>", content: "<p>Dear Hiring Manager,</p>" },
-			],
-		});
-		data.metadata.layout.pages.push({ fullWidth: true, main: ["letter"], sidebar: [] });
-
-		expect(contentText(getResumeExportData(data, "cover-letter"))).toBe("Hiring Manager\nDear Hiring Manager,");
 	});
 });
 

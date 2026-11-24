@@ -10,32 +10,22 @@ const job = (id: string, status: "saved" | "applied" | "closed") => ({
 
 const resume = (id: string, applicationId: string | null, status: "saved" | "applied" | "closed" = "applied") => ({
 	id,
-	type: "resume" as const,
 	application: applicationId ? job(applicationId, status) : null,
 });
 
-const letter = (id: string, applicationId: string | null, status: "saved" | "applied" | "closed" = "applied") => ({
-	id,
-	type: "letter" as const,
-	application: applicationId ? job(applicationId, status) : null,
-});
-
-it("puts each job's resume and letter together where its first document appears, even when jobs alternate", () => {
+it("puts each job's resumes together where its first document appears, even when jobs alternate", () => {
 	const groups = groupDocumentsByApplication([
 		resume("base", null),
 		resume("job-resume", "northwind"),
 		resume("two", "second"),
-		letter("loose", null),
-		letter("job-letter", "northwind"),
-		letter("two-letter", "second"),
+		resume("job-copy", "northwind"),
 	]);
 
-	expect(groups.map((group) => group.kind)).toEqual(["document", "application", "application", "document"]);
+	expect(groups.map((group) => group.kind)).toEqual(["document", "application", "application"]);
 	expect(groups.map((group) => group.documents.map((document) => document.id))).toEqual([
 		["base"],
-		["job-resume", "job-letter"],
-		["two", "two-letter"],
-		["loose"],
+		["job-resume", "job-copy"],
+		["two"],
 	]);
 });
 

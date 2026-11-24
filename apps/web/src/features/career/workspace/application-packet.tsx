@@ -1,5 +1,5 @@
 import type { Application } from "@/features/applications/types";
-import type { ApplicationPacket, PacketReview, PacketSelection } from "@reactive-resume/schema/applications/autofill";
+import type { ApplicationPacket, PacketReview } from "@reactive-resume/schema/applications/autofill";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { useQuery } from "@tanstack/react-query";
@@ -15,7 +15,6 @@ import { Textarea } from "@reactive-resume/ui/components/textarea";
 import { downloadWithAnchor } from "@reactive-resume/utils/file";
 import { useWorkspace } from "../hooks";
 import { IconTile, ListRow } from "@/components/calm/list-row";
-import { createLetterWordsForLocale } from "@/features/letters/compose";
 import { getReadableErrorMessage } from "@/libs/error-message";
 import { client, orpc } from "@/libs/orpc/client";
 
@@ -88,24 +87,11 @@ function PacketForm({ application, onClose }: ApplicationPacketPanelProps & { on
 		if (!application.resumeId || !packetTargetSchema.safeParse(targetUrl).success) return;
 		let cancelled = false;
 		void (async () => {
-			let letterWords: PacketSelection["letterWords"] = null;
-			if (application.coverLetterId) {
-				const letter = await client.coverLetters.getById({ id: application.coverLetterId });
-				const words = await createLetterWordsForLocale(letter.style.metadata.page.locale);
-				letterWords = {
-					locale: letter.style.metadata.page.locale,
-					greeting: words.greeting("{name}"),
-					teamGreeting: words.teamGreeting,
-					hiringTeam: words.hiringTeam,
-					signOff: words.signOff,
-				};
-			}
 			const result = await client.applications.packet.review({
 				applicationId: application.id,
 				targetUrl,
 				includeContact,
 				answerIds,
-				letterWords,
 			});
 			if (!cancelled) setReview(result);
 		})()
@@ -119,7 +105,7 @@ function PacketForm({ application, onClose }: ApplicationPacketPanelProps & { on
 		return () => {
 			cancelled = true;
 		};
-	}, [application.id, application.resumeId, application.coverLetterId, targetUrl, includeContact, answerIds]);
+	}, [application.id, application.resumeId, targetUrl, includeContact, answerIds]);
 	const approve = () =>
 		run(async () => {
 			if (!review || !reviewed || busy) return;
@@ -172,33 +158,22 @@ function PacketForm({ application, onClose }: ApplicationPacketPanelProps & { on
 							</Link>
 						</label>
 						{review?.documents.map((document) => (
-							<div key={document.kind} className="flex min-h-[52px] items-center gap-3 border-b border-line py-2">
+							<div key={document.id} className="flex min-h-[52px] items-center gap-3 border-b border-line py-2">
 								<Checkbox checked readOnly aria-label={t`${document.name} included`} />
 								<span className="min-w-0 flex-1">
 									<span className="block">{document.name}</span>
 									<span className="t-small text-ink-3">
-										{document.kind === "resume" ? t`Resume · current version` : t`Cover letter · current version`}
+										<Trans>Resume · current version</Trans>
 									</span>
 								</span>
-								{document.kind === "resume" ? (
-									<Link
-										to="/builder/$resumeId"
-										params={{ resumeId: document.id }}
-										target="_blank"
-										className="t-small text-accent-text"
-									>
-										<Trans>Open</Trans>
-									</Link>
-								) : (
-									<Link
-										to="/builder/letter/$coverLetterId"
-										params={{ coverLetterId: document.id }}
-										target="_blank"
-										className="t-small text-accent-text"
-									>
-										<Trans>Open</Trans>
-									</Link>
-								)}
+								<Link
+									to="/builder/$resumeId"
+									params={{ resumeId: document.id }}
+									target="_blank"
+									className="t-small text-accent-text"
+								>
+									<Trans>Open</Trans>
+								</Link>
 							</div>
 						))}
 						{answers.isError ? (
@@ -268,7 +243,6 @@ function PacketForm({ application, onClose }: ApplicationPacketPanelProps & { on
 							</summary>
 							<div className="grid gap-3 py-2 whitespace-pre-wrap">
 								<p>{review.experience}</p>
-								{review.letterText && <p>{review.letterText}</p>}
 								{review.answers.map((answer) => (
 									<div key={answer.id}>
 										<p>{answer.question}</p>
@@ -335,7 +309,7 @@ function PacketForm({ application, onClose }: ApplicationPacketPanelProps & { on
 						</Button>
 						{packet.documents.map((document) => (
 							<Button
-								key={document.kind}
+								key={document.id}
 								variant="ghost"
 								onClick={() =>
 									downloadWithAnchor(
@@ -347,7 +321,7 @@ function PacketForm({ application, onClose }: ApplicationPacketPanelProps & { on
 								}
 								aria-label={t`Download approved PDF: ${document.name}`}
 							>
-								{document.kind === "resume" ? <Trans>Resume PDF</Trans> : <Trans>Letter PDF</Trans>}
+								<Trans>Resume PDF</Trans>
 							</Button>
 						))}
 					</div>

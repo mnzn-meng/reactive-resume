@@ -11,7 +11,7 @@ type Props = {
 	// A saved attachment, a locally picked file, or nothing.
 	value: FileAttachment | File | null;
 	onChange: (value: File | null) => void;
-	// Copy for the empty-state button, e.g. "Attach a cover letter (PDF, up to 10 MB)".
+	// Copy for the empty-state button, e.g. "Attach a resume (PDF, up to 10 MB)".
 	attachLabel: string;
 	disabled?: boolean;
 };

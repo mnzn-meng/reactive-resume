@@ -9,7 +9,6 @@ import type {
 import { MAX_RESUME_FACT_CHARACTERS } from "@reactive-resume/schema/career";
 import { assertResumeRenderBudget, assertRichTextComplexity } from "@reactive-resume/schema/resume/limits";
 import { toSafeLink } from "@reactive-resume/utils/link";
-import { isCoverLetterOnlyDocument } from "./export-sections";
 
 type Sections = ResumeData["sections"];
 
@@ -24,13 +23,12 @@ export type SectionTitleResolver = (sectionId: string) => string | undefined;
 const printedSectionIds = (page: LayoutPage) => [...page.main, ...(page.fullWidth ? [] : page.sidebar)];
 
 /**
- * Serializes resume data to Markdown — a compact, readable format well suited for feeding
- * into AI agents. Scope the input first with `getResumeExportData(data, target)` to emit only
- * the resume or the cover letter.
+ * Serializes resume data to Markdown — a compact, readable format well suited for feeding into
+ * AI agents.
  */
 export function buildMarkdown(data: ResumeData, resolveTitle?: SectionTitleResolver): string {
 	assertResumeRenderBudget(data);
-	const blocks: string[] = isCoverLetterOnlyDocument(data) ? [] : [...renderHeader(data.basics)];
+	const blocks: string[] = [...renderHeader(data.basics)];
 
 	for (const page of data.metadata.layout.pages) {
 		for (const sectionId of printedSectionIds(page)) {
@@ -46,13 +44,12 @@ export function buildMarkdown(data: ResumeData, resolveTitle?: SectionTitleResol
 		.trim()}\n`;
 }
 
-/** Visible career excerpts, excluding header fields, References and cover letters; no inferred claims or redaction. */
+/** Visible career excerpts, excluding header fields and References; no inferred claims or redaction. */
 export function resumeFactProposals(data: ResumeData) {
 	assertResumeRenderBudget(data);
 	const proposals: { text: string; category: FactCategory; quote: string }[] = [];
 	let omitted = 0;
 	const seen = new Set<string>();
-	if (isCoverLetterOnlyDocument(data)) return { proposals, omitted };
 	for (const page of data.metadata.layout.pages) {
 		for (const id of printedSectionIds(page)) {
 			const section =
@@ -196,7 +193,7 @@ export function getVisibleResumeStructure(data: ResumeStructure) {
 		...(data.summary && !data.summary.hidden ? { summary: data.summary } : {}),
 		sections,
 		customSections: data.customSections
-			.filter((section) => !section.hidden && section.type !== "cover-letter")
+			.filter((section) => !section.hidden)
 			.map((section) => ({ ...section, items: visibleItems(section) })),
 	};
 }
@@ -381,15 +378,6 @@ function renderCustomSection(section: CustomSection): string[] {
 	if (sectionType === "summary") {
 		const blocks = [heading(section.title)];
 		for (const item of items) if ("content" in item && item.content) blocks.push(htmlToMarkdown(item.content));
-		return blocks.filter(Boolean);
-	}
-
-	if (sectionType === "cover-letter") {
-		const blocks: string[] = [];
-		for (const item of items) {
-			if ("recipient" in item && item.recipient) blocks.push(htmlToMarkdown(item.recipient));
-			if ("content" in item && item.content) blocks.push(htmlToMarkdown(item.content));
-		}
 		return blocks.filter(Boolean);
 	}
 

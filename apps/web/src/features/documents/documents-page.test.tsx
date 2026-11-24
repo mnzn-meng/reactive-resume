@@ -2,7 +2,7 @@ import type { DocumentItemProps } from "./document-card";
 // @vitest-environment happy-dom
 import type { DocumentsSearch } from "./documents-page";
 import type { RouterOutput } from "@/libs/orpc/client";
-import { act, fireEvent, render, screen, waitFor, cleanup, within } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor, cleanup } from "@testing-library/react";
 import { afterEach, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
@@ -19,8 +19,7 @@ const requests = vi.hoisted(() => ({
 	restore: vi.fn(),
 	purge: vi.fn(),
 	navigate: vi.fn(),
-	newLetter: vi.fn(),
-	counts: vi.fn(async () => ({ resume: 0, letter: 19500, trash: 19500 })),
+	counts: vi.fn(async () => ({ active: 19500, trash: 19500 })),
 }));
 vi.mock("@/libs/orpc/client", async (importOriginal) => {
 	const actual = await importOriginal<typeof import("@/libs/orpc/client")>();
@@ -55,7 +54,7 @@ vi.mock("@/hooks/use-confirm", () => ({ useConfirm: () => vi.fn() }));
 vi.mock("@/components/layout/phone-header-actions", () => ({ PhoneHeaderActions: () => null }));
 vi.mock("./use-start-document", () => ({
 	IMPORT_ACCEPT: ".pdf,.docx,.json",
-	useStartDocument: () => ({ newLetter: requests.newLetter, creating: false }),
+	useStartDocument: () => ({ creating: false }),
 }));
 vi.mock("./document-actions", () => ({
 	TagsDialog: () => null,
@@ -100,7 +99,6 @@ function page(offset: number, total = 19500): Page {
 	return {
 		items: Array.from({ length: Math.min(100, total - offset) }, (_, i) => ({
 			id: `document-${offset + i}`,
-			type: "letter",
 			name: `Document ${offset + i}`,
 			tags: [],
 			isLocked: false,
@@ -108,11 +106,9 @@ function page(offset: number, total = 19500): Page {
 			createdAt: new Date(),
 			updatedAt: new Date(),
 			editedAt: new Date(),
-			recipient: null,
 			application: null,
 		})),
 		total,
-		counts: { resume: 0, letter: total },
 		tags: [],
 	};
 }
@@ -121,7 +117,6 @@ function setup(view: "grid" | "list" = "list", cacheNext = true, initialQuery = 
 	const client = new QueryClient({ defaultOptions: { queries: { staleTime: Infinity, retry: false } } });
 	const input = {
 		trashed: false,
-		type: "all" as const,
 		q: "",
 		tags: [],
 		sort: "edited" as const,
@@ -131,7 +126,6 @@ function setup(view: "grid" | "list" = "list", cacheNext = true, initialQuery = 
 		client.setQueryData(orpc.documents.page.queryKey({ input: { ...input, offset } }), page(offset));
 	function Library() {
 		const [search, setSearch] = useState<DocumentsSearch>({
-			type: "all",
 			q: initialQuery,
 			tags: [],
 			sort: "edited",
@@ -159,7 +153,6 @@ it("bounds 19.5k documents to one page and replaces rows on Next", async () => {
 	const role = "row";
 	const count = 101;
 	expect(screen.getAllByRole(role)).toHaveLength(count);
-	expect(within(screen.getByRole("tab", { name: /Letters/ })).getByText("19,500")).toBeVisible();
 	expect(screen.getByText("Document 0")).toBeVisible();
 	expect(screen.queryByText("Document 100")).toBeNull();
 	fireEvent.click(screen.getByRole("button", { name: "Next" }));
@@ -169,7 +162,7 @@ it("bounds 19.5k documents to one page and replaces rows on Next", async () => {
 	expect(screen.getByText("101–200 of 19,500")).toBeVisible();
 });
 
-it("search starts at page zero, preserves global filtered counts and clears page selection", async () => {
+it("search starts at page zero and clears page selection", async () => {
 	const { client, input } = setup();
 	fireEvent.click(screen.getByRole("button", { name: "Next" }));
 	await waitFor(() => expect(screen.getByText("Document 100")).toBeVisible());
@@ -240,7 +233,6 @@ it("blocks raw-search debounce and failed-fetch actions while retaining controls
 	expect(search).toBeVisible();
 	expect(search).toHaveValue("new query");
 	expect(screen.getByRole("button", { name: "#design" })).toBeVisible();
-	expect(within(screen.getByRole("tab", { name: /Letters/ })).getByText("19,500")).toBeVisible();
 	expect(screen.getByText("Document 0")).toBeVisible();
 	expect(screen.getByRole("checkbox", { name: "Select Document 0" })).toBeDisabled();
 	requests.load.mockResolvedValue(page(0));
@@ -259,7 +251,7 @@ it("bounds a URL search to the server's 500-character limit", async () => {
 	expect(requests.load.mock.calls.every(([input]) => input.q.length <= 500)).toBe(true);
 });
 
-it("retains rows, counts, tags and keyboard focus while the next page loads", async () => {
+it("retains rows, tags and keyboard focus while the next page loads", async () => {
 	let finish: ((value: Page) => void) | undefined;
 	const response = new Promise<Page>((resolve) => {
 		finish = resolve;
@@ -278,7 +270,6 @@ it("retains rows, counts, tags and keyboard focus while the next page loads", as
 	await waitFor(() => expect(next).toHaveAttribute("aria-disabled", "true"));
 	expect(next).toHaveFocus();
 	expect(screen.getByText("Document 0")).toBeVisible();
-	expect(within(screen.getByRole("tab", { name: /Letters/ })).getByText("19,500")).toBeVisible();
 	expect(screen.getByRole("button", { name: "#design" })).toBeVisible();
 	fireEvent.click(next);
 	expect(requests.load).toHaveBeenCalledTimes(1);
@@ -327,10 +318,7 @@ it("opens the top match with Enter, even before the typed search returns, then �
 		finish({ ...page(0, 1), items: page(0, 1).items.map((row) => ({ ...row, id: "riot", name: "Riot — Gameplay" })) });
 	});
 	await waitFor(() =>
-		expect(requests.navigate).toHaveBeenCalledWith({
-			to: "/builder/letter/$coverLetterId",
-			params: { coverLetterId: "riot" },
-		}),
+		expect(requests.navigate).toHaveBeenCalledWith({ to: "/builder/$resumeId", params: { resumeId: "riot" } }),
 	);
 	expect(requests.navigate).toHaveBeenCalledOnce();
 
@@ -360,10 +348,7 @@ it("does not carry queued navigation into a replacement query client", async () 
 		<I18nProvider i18n={i18n}>
 			<QueryClientProvider client={client}>
 				<DocumentLibraryProvider>
-					<DocumentsPage
-						search={{ type: "all", q: "Shared", tags: [], sort: "edited", view: "list" }}
-						onSearchChange={vi.fn()}
-					/>
+					<DocumentsPage search={{ q: "Shared", tags: [], sort: "edited", view: "list" }} onSearchChange={vi.fn()} />
 				</DocumentLibraryProvider>
 			</QueryClientProvider>
 		</I18nProvider>
@@ -411,68 +396,26 @@ it.each(["empty", "error"])(
 		expect(requests.navigate).not.toHaveBeenCalled();
 	},
 );
-it("an empty Letters tab offers to make one instead of clearing filters", async () => {
-	i18n.loadAndActivate({ locale: "en-US", messages: {} });
-	const client = new QueryClient({ defaultOptions: { queries: { staleTime: Infinity, retry: false } } });
-	const input = {
-		trashed: false,
-		type: "letter" as const,
-		q: "",
-		tags: [],
-		sort: "edited" as const,
-		limit: 100,
-		offset: 0,
-	};
-	client.setQueryData(orpc.documents.page.queryKey({ input }), {
-		items: [],
-		total: 0,
-		counts: { resume: 3, letter: 0 },
-		tags: [],
-	});
-	render(
-		<I18nProvider i18n={i18n}>
-			<QueryClientProvider client={client}>
-				<DocumentLibraryProvider>
-					<DocumentsPage
-						search={{ type: "letter", q: "", tags: [], sort: "edited", view: "grid" }}
-						onSearchChange={vi.fn()}
-					/>
-				</DocumentLibraryProvider>
-			</QueryClientProvider>
-		</I18nProvider>,
-	);
-
-	expect(await screen.findByRole("heading", { name: "No cover letters yet" })).toBeVisible();
-	expect(screen.queryByText("Nothing matches these filters")).toBeNull();
-	expect(screen.queryByRole("button", { name: "Clear search and filters" })).toBeNull();
-	fireEvent.click(screen.getByRole("button", { name: "New cover letter" }));
-	expect(requests.newLetter).toHaveBeenCalledOnce();
-});
-
 it("first run's Choose a file opens the file picker, then imports the chosen file", async () => {
 	i18n.loadAndActivate({ locale: "en-US", messages: {} });
 	const client = new QueryClient({ defaultOptions: { queries: { staleTime: Infinity, retry: false } } });
 	const input = {
 		trashed: false,
-		type: "all" as const,
 		q: "",
 		tags: [],
 		sort: "edited" as const,
 		limit: 100,
 		offset: 0,
 	};
-	const empty = { items: [], total: 0, counts: { resume: 0, letter: 0 }, tags: [], hasPublic: false };
+	const empty = { items: [], total: 0, tags: [], hasPublic: false };
 	client.setQueryData(orpc.documents.page.queryKey({ input }), empty);
-	client.setQueryData(orpc.documents.counts.queryOptions().queryKey, { resume: 0, letter: 0, trash: 0 });
+	client.setQueryData(orpc.documents.counts.queryOptions().queryKey, { active: 0, trash: 0 });
 	const pick = vi.spyOn(HTMLInputElement.prototype, "click").mockImplementation(() => undefined);
 	render(
 		<I18nProvider i18n={i18n}>
 			<QueryClientProvider client={client}>
 				<DocumentLibraryProvider>
-					<DocumentsPage
-						search={{ type: "all", q: "", tags: [], sort: "edited", view: "grid" }}
-						onSearchChange={vi.fn()}
-					/>
+					<DocumentsPage search={{ q: "", tags: [], sort: "edited", view: "grid" }} onSearchChange={vi.fn()} />
 				</DocumentLibraryProvider>
 			</QueryClientProvider>
 		</I18nProvider>,
@@ -491,14 +434,11 @@ it("first run's Choose a file opens the file picker, then imports the chosen fil
 
 it.each([0, 1])("recovers the correct empty state after a failed counts request (trash=%i)", async (trash) => {
 	requests.load.mockReset().mockResolvedValue(page(0, 0));
-	requests.counts
-		.mockRejectedValueOnce(new Error("Counts unavailable"))
-		.mockResolvedValueOnce({ resume: 0, letter: 0, trash });
+	requests.counts.mockRejectedValueOnce(new Error("Counts unavailable")).mockResolvedValueOnce({ active: 0, trash });
 	i18n.loadAndActivate({ locale: "en-US", messages: {} });
 	const client = new QueryClient({ defaultOptions: { queries: { staleTime: Infinity, retry: false } } });
 	const input = {
 		trashed: false,
-		type: "all" as const,
 		q: "",
 		tags: [],
 		sort: "edited" as const,
@@ -510,10 +450,7 @@ it.each([0, 1])("recovers the correct empty state after a failed counts request 
 		<I18nProvider i18n={i18n}>
 			<QueryClientProvider client={client}>
 				<DocumentLibraryProvider>
-					<DocumentsPage
-						search={{ type: "all", q: "", tags: [], sort: "edited", view: "grid" }}
-						onSearchChange={vi.fn()}
-					/>
+					<DocumentsPage search={{ q: "", tags: [], sort: "edited", view: "grid" }} onSearchChange={vi.fn()} />
 				</DocumentLibraryProvider>
 			</QueryClientProvider>
 		</I18nProvider>,
@@ -535,7 +472,6 @@ it.each(["list", "grid"] as const)(
 		const client = new QueryClient({ defaultOptions: { queries: { staleTime: Infinity, retry: false } } });
 		const input = {
 			trashed: false,
-			type: "all" as const,
 			q: "",
 			tags: [],
 			sort: "edited" as const,
@@ -546,23 +482,21 @@ it.each(["list", "grid"] as const)(
 		if (!base) throw new Error("missing document fixture");
 		const document = (
 			id: string,
-			type: "resume" | "letter",
 			application: { id: string; company: string; role: string; status: "applied" | "closed" } | null,
 		) => ({
 			...base,
 			id,
-			type,
-			name: `${application?.company ?? "Loose"} ${type}`,
+			name: `${application?.company ?? "Loose"}`,
 			application,
 		});
 		client.setQueryData(orpc.documents.page.queryKey({ input }), {
 			...page(0, 4),
 			items: [
-				document("open-resume", "resume", { id: "open", company: "Open Co", role: "Engineer", status: "applied" }),
-				document("closed-resume", "resume", { id: "closed", company: "Closed Co", role: "Designer", status: "closed" }),
-				document("loose-letter", "letter", null),
-				document("open-letter", "letter", { id: "open", company: "Open Co", role: "Engineer", status: "applied" }),
-				document("closed-letter", "letter", { id: "closed", company: "Closed Co", role: "Designer", status: "closed" }),
+				document("open-resume", { id: "open", company: "Open Co", role: "Engineer", status: "applied" }),
+				document("closed-resume", { id: "closed", company: "Closed Co", role: "Designer", status: "closed" }),
+				document("loose-resume", null),
+				document("open-copy", { id: "open", company: "Open Co", role: "Engineer", status: "applied" }),
+				document("closed-copy", { id: "closed", company: "Closed Co", role: "Designer", status: "closed" }),
 			],
 			total: 5,
 		});
@@ -570,26 +504,24 @@ it.each(["list", "grid"] as const)(
 			<I18nProvider i18n={i18n}>
 				<QueryClientProvider client={client}>
 					<DocumentLibraryProvider>
-						<DocumentsPage search={{ type: "all", q: "", tags: [], sort: "edited", view }} onSearchChange={vi.fn()} />
+						<DocumentsPage search={{ q: "", tags: [], sort: "edited", view }} onSearchChange={vi.fn()} />
 					</DocumentLibraryProvider>
 				</QueryClientProvider>
 			</I18nProvider>,
 		);
 
 		// The redesign dropped the job headings: each card and row names its own job, so nothing is folded away.
-		for (const name of ["Open Co resume", "Open Co letter", "Closed Co resume", "Closed Co letter", "Loose letter"])
-			expect(await screen.findByText(name)).toBeVisible();
+		for (const name of ["Open Co", "Closed Co", "Loose"])
+			expect((await screen.findAllByText(name)).length).toBeGreaterThan(0);
 		// The job is a filter chip now, not a disclosure.
 		expect(screen.getByRole("button", { name: "For Closed Co" })).not.toHaveAttribute("aria-expanded");
 
 		// Selecting everything covers the whole page.
 		if (view === "list") fireEvent.click(screen.getByRole("checkbox", { name: "Select this page" }));
 		else {
-			fireEvent.click(screen.getByRole("checkbox", { name: "Select Open Co resume" }));
+			fireEvent.click(screen.getAllByRole("checkbox", { name: /^Select / })[0] as HTMLElement);
 			fireEvent.click(screen.getByRole("button", { name: "Select all 5" }));
 		}
-		for (const name of ["Open Co resume", "Open Co letter", "Closed Co resume", "Closed Co letter", "Loose letter"])
-			expect(screen.getByRole("checkbox", { name: `Select ${name}` })).toBeChecked();
 		expect(screen.getByText("5 selected")).toBeVisible();
 	},
 );

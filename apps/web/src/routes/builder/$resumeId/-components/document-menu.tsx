@@ -169,7 +169,7 @@ type BuilderTagsDialogProps = {
 function BuilderTagsDialog({ tags: current, locked, onSave, onClose }: BuilderTagsDialogProps) {
 	const [tags, setTags] = useState(current);
 	const commitTags = useRef<(() => string[]) | null>(null);
-	const suggestions = useExistingTags(["resume"]);
+	const suggestions = useExistingTags();
 	const save = useMutation({ mutationFn: onSave });
 	const invalid = tags.length > 20 || tags.some((tag) => !tag.trim() || tag.length > 40);
 	return (
@@ -259,7 +259,7 @@ function DocumentMenuItems({ onOpenDialog, onHelp }: DocumentMenuItemsProps) {
 	// Undoable, so it doesn't ask first: the resume waits in Trash for 30 days.
 	const handleTrash = () => {
 		trashResume(
-			{ type: "resume", id },
+			{ id },
 			{
 				onSuccess: () => {
 					void navigate({ to: "/dashboard/documents" });
@@ -269,7 +269,7 @@ function DocumentMenuItems({ onOpenDialog, onHelp }: DocumentMenuItemsProps) {
 							children: t`Undo`,
 							// By now the editor has gone, and a mutation's own callbacks go with it: catch the promise.
 							onClick: () =>
-								void restoreResume({ type: "resume", id }).catch((error: unknown) =>
+								void restoreResume({ id }).catch((error: unknown) =>
 									toast.add({ type: "error", description: getResumeErrorMessage(error) }),
 								),
 						},
@@ -296,7 +296,7 @@ function DocumentMenuItems({ onOpenDialog, onHelp }: DocumentMenuItemsProps) {
 				<DropdownMenuItem
 					onClick={() =>
 						void orpc.documents.suggestDuplicateName
-							.call({ type: "resume", id })
+							.call({ id })
 							.then((suggested) => openDialog("resume.duplicate", { id, name: suggested, tags }))
 							.catch((error: unknown) => toast.add({ type: "error", description: getResumeErrorMessage(error) }))
 					}

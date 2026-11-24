@@ -2,23 +2,22 @@ import type { ProposedEdit, ProposeEditsOutput } from "@reactive-resume/ai/tools
 import type { DbOrTx } from "@reactive-resume/db/client";
 import type { ProposalApplications } from "@reactive-resume/resume/proposals";
 import type { UIMessage } from "ai";
-import { and, asc, eq, inArray, isNull, sql } from "drizzle-orm";
+import { and, asc, eq, inArray, sql } from "drizzle-orm";
 import { tailoringAllows } from "@reactive-resume/ai/tools/agent-tool-contracts";
 import * as schema from "@reactive-resume/db/schema";
-import { appliedApplications, canApplyTo, holdsProposal } from "@reactive-resume/resume/proposals";
+import { appliedApplications, holdsProposal } from "@reactive-resume/resume/proposals";
 import { aiOperationIds, aiOperationIdsSchema } from "@reactive-resume/schema/ai-usage";
 import { availableApplicationContext } from "../applications/access";
 import { parseStoredResumeData } from "../resume/resume-data-validation";
 import { lockThreadMessages, proposedEditsOf, withEditStatuses } from "./messages-persistence";
 
-type ProposalDocument = { kind: "resume" | "letter"; id: string };
+type ProposalDocument = { id: string };
 type Reader = Pick<DbOrTx, "select">;
 
 type HeldEdit = Pick<ProposedEdit, "id" | "after" | "target" | "snapshot">;
 
-/** The document as it reads in this transaction: whether it holds an edit as proposed, and the job a resume was made for. */
+/** The document as it reads in this transaction: whether it holds an edit as proposed, and the job it was made for. */
 export type DocumentReader = {
-	kind: ProposalDocument["kind"];
 	madeFor: string | null;
 	pageLocale?: string;
 	aiOperationIds?: string[];
@@ -30,36 +29,21 @@ export async function documentReader(
 	userId: string,
 	document: ProposalDocument,
 ): Promise<DocumentReader | null> {
-	if (document.kind === "resume") {
-		const [row] = await tx
-			.select({
-				data: schema.resume.data,
-				applicationId: schema.resume.applicationId,
-				aiOperationIds: schema.resume.aiOperationIds,
-			})
-			.from(schema.resume)
-			.where(and(eq(schema.resume.id, document.id), eq(schema.resume.userId, userId)));
-		if (!row) return null;
-		const data = parseStoredResumeData(row.data);
-		return {
-			kind: "resume",
-			madeFor: row.applicationId,
-			pageLocale: data.metadata.page.locale,
-			aiOperationIds: row.aiOperationIds,
-			holds: (edit) => holdsProposal(data, edit),
-		};
-	}
 	const [row] = await tx
-		.select({ content: schema.coverLetter.content, aiOperationIds: schema.coverLetter.aiOperationIds })
-		.from(schema.coverLetter)
-		.where(and(eq(schema.coverLetter.id, document.id), eq(schema.coverLetter.userId, userId)));
+		.select({
+			data: schema.resume.data,
+			applicationId: schema.resume.applicationId,
+			aiOperationIds: schema.resume.aiOperationIds,
+		})
+		.from(schema.resume)
+		.where(and(eq(schema.resume.id, document.id), eq(schema.resume.userId, userId)));
 	if (!row) return null;
+	const data = parseStoredResumeData(row.data);
 	return {
-		kind: "letter",
-		madeFor: null,
+		madeFor: row.applicationId,
+		pageLocale: data.metadata.page.locale,
 		aiOperationIds: row.aiOperationIds,
-		holds: (edit) =>
-			!edit.snapshot && edit.target.field === "content" && canApplyTo(row.content, { before: edit.after }),
+		holds: (edit) => holdsProposal(data, edit),
 	};
 }
 
@@ -82,7 +66,7 @@ export function acceptedEditAllowed(
 	reader: DocumentReader,
 	reviewed: string | true,
 ) {
-	if (reader.kind === "resume" && edit.snapshot) {
+	if (edit.snapshot) {
 		try {
 			const { locale } = JSON.parse(edit.snapshot.before);
 			if (locale !== undefined && locale !== reader.pageLocale) return false;
@@ -91,7 +75,7 @@ export function acceptedEditAllowed(
 		}
 	}
 	return (
-		(reader.kind !== "resume" || tailoringAllows(message, output, reader.madeFor)) &&
+		tailoringAllows(message, output, reader.madeFor) &&
 		(typeof reviewed === "string"
 			? reviewed === edit.after || reviewed === appliedApplications([edit])[edit.id]
 			: reader.holds(edit))
@@ -102,14 +86,7 @@ const documentThreads = (tx: Reader, userId: string, document: ProposalDocument)
 	tx
 		.select({ id: schema.agentThread.id })
 		.from(schema.agentThread)
-		.where(
-			and(
-				eq(schema.agentThread.userId, userId),
-				document.kind === "letter"
-					? eq(schema.agentThread.coverLetterId, document.id)
-					: and(eq(schema.agentThread.workingResumeId, document.id), isNull(schema.agentThread.coverLetterId)),
-			),
-		)
+		.where(and(eq(schema.agentThread.userId, userId), eq(schema.agentThread.workingResumeId, document.id)))
 		.orderBy(asc(schema.agentThread.id));
 
 const proposalSets = (message: UIMessage) =>
@@ -216,7 +193,7 @@ export async function saveProposalApplications(
 		[...new Set([...current, ...[...afterSources].filter((id) => recorded.has(id))])].filter((id) => !removed.has(id)),
 	);
 	if (JSON.stringify(next) === JSON.stringify(current)) return current;
-	const table = input.document.kind === "resume" ? schema.resume : schema.coverLetter;
+	const table = schema.resume;
 	// Receipt, wording and sources share the caller's revision; this metadata write must not create another revision.
 	await tx
 		.update(table)
@@ -257,7 +234,6 @@ export async function assertCurrentClientWrite(
 			for (const output of proposalSets(message)) {
 				const reworded = output.edits.some((edit) => edit.edited);
 				const blockedTailoring =
-					input.document.kind === "resume" &&
 					!tailoringAllows(message, output, reader?.madeFor ?? null) &&
 					output.edits.some((edit) => edit.status !== "accepted");
 				if (reworded || blockedTailoring) throw new CurrentClientRequired();

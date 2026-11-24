@@ -119,10 +119,9 @@ export function translationFields(data: TranslationData): TranslationField[] {
 	visit(data.basics, "/basics");
 	visit(data.summary, "/summary");
 	for (const [key, section] of Object.entries(data.sections)) visit(section, `/sections/${pointer(key)}`);
-	data.customSections.forEach((section, index) => {
-		if (section.type !== "cover-letter")
-			visit(section, `/customSections/${index}`, "", `/customSections/${pointer(section.id)}`);
-	});
+	data.customSections.forEach((section, index) =>
+		visit(section, `/customSections/${index}`, "", `/customSections/${pointer(section.id)}`),
+	);
 	return fields;
 }
 

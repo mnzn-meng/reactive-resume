@@ -35,7 +35,7 @@ export function JumpItems() {
 			</CommandItem>
 			<CommandItem
 				disabled={!session}
-				keywords={[t`Documents`, t`Resumes`, t`Cover letters`]}
+				keywords={[t`Documents`, t`Resumes`]}
 				value="navigation.documents"
 				onSelect={() => go("/dashboard/documents")}
 			>
@@ -82,13 +82,13 @@ export function JumpItems() {
 	);
 }
 
-/** Create: a resume, a cover letter (both the New document form), a saved job, each with its N chord. */
+/** Create: a resume (the New document form), a saved job, each with its N chord. */
 export function CreateItems({ forceMount = false }: { forceMount?: boolean }) {
 	const navigate = useNavigate();
 	const { session } = useRouteContext({ strict: false });
 	const reset = useCommandPaletteStore((state) => state.reset);
 	const characterShortcuts = useShortcutSettings((state) => state.characterShortcuts);
-	// The shell binds N R, N L and N J; each key is its own chip, as in the shortcuts list.
+	// The shell binds N R and N J; each key is its own chip, as in the shortcuts list.
 	const chord = (key: string) =>
 		characterShortcuts ? (
 			<span data-slot="command-shortcut" className="ms-auto inline-flex shrink-0 gap-1 max-sm:hidden">
@@ -112,20 +112,6 @@ export function CreateItems({ forceMount = false }: { forceMount?: boolean }) {
 				<Icon name="file-text" />
 				<Trans>New resume</Trans>
 				{chord("R")}
-			</CommandItem>
-			<CommandItem
-				forceMount={forceMount}
-				disabled={!session}
-				keywords={[t`Cover letter`, t`Letter`, t`Create`]}
-				value="navigation.letters.new"
-				onSelect={() => {
-					reset();
-					useDialogStore.getState().openDialog("document.new", { context: "letters" });
-				}}
-			>
-				<Icon name="envelope-simple" />
-				<Trans>New cover letter</Trans>
-				{chord("L")}
 			</CommandItem>
 			<CommandItem
 				forceMount={forceMount}
@@ -201,7 +187,6 @@ export function MoreItems() {
 							t`Username`,
 							t`Photo`,
 							t`Password`,
-							t`Two-step verification`,
 							t`Passkeys`,
 							t`Export data`,
 							t`Delete account`,

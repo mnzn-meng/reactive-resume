@@ -28,16 +28,6 @@ export const packetSelectionSchema = z.strictObject({
 		.array(z.string().min(1))
 		.max(20)
 		.refine((ids) => new Set(ids).size === ids.length),
-	letterWords: z
-		.strictObject({
-			locale: z.string().max(50),
-			greeting: z.string().max(500),
-			teamGreeting: z.string().max(500),
-			hiringTeam: z.string().max(500),
-			signOff: z.string().max(500),
-		})
-		.nullable()
-		.default(null),
 });
 const answer = z.strictObject({
 	id: z.string(),
@@ -56,13 +46,8 @@ export const packetReviewSchema = z.strictObject({
 	profileRevision: z.string().nullable(),
 	profileReviewedAt: z.string().nullable(),
 	experience: z.string().max(30000),
-	letterText: z.string().max(130000),
 	answers: z.array(answer).max(20),
-	documents: z
-		.array(
-			z.strictObject({ kind: z.enum(["resume", "letter"]), id: z.string(), name: z.string(), revision: z.string() }),
-		)
-		.max(2),
+	documents: z.array(z.strictObject({ id: z.string(), name: z.string(), revision: z.string() })).max(1),
 });
 export const applicationPacketSchema = z.strictObject({
 	format: z.literal("reactive-resume-application-packet"),
@@ -72,7 +57,6 @@ export const applicationPacketSchema = z.strictObject({
 	documents: z
 		.array(
 			z.strictObject({
-				kind: z.enum(["resume", "letter"]),
 				id: z.string(),
 				versionId: z.string(),
 				name: z.string(),
@@ -84,7 +68,7 @@ export const applicationPacketSchema = z.strictObject({
 					.regex(/^[A-Za-z0-9+/]*={0,2}$/),
 			}),
 		)
-		.max(2),
+		.max(1),
 });
 export const approvePacketSchema = z.strictObject({
 	selection: packetSelectionSchema,
@@ -140,7 +124,7 @@ export function packetFillPlan(packet: ApplicationPacket): FormFillPlan | null {
 	fields.push({
 		selector: 'textarea#experience,textarea[name="work_history"]',
 		value: review.experience,
-		source: `Resume ${packet.documents.find((document) => document.kind === "resume")?.versionId ?? "unavailable"}`,
+		source: `Resume ${packet.documents[0]?.versionId ?? "unavailable"}`,
 	});
 	for (const answer of review.answers)
 		fields.push({
@@ -152,14 +136,11 @@ export function packetFillPlan(packet: ApplicationPacket): FormFillPlan | null {
 		targetUrl: review.selection.targetUrl,
 		fields,
 		files: packet.documents.map((document) => ({
-			selector:
-				document.kind === "resume"
-					? 'input[type="file"][name="resume"],input[type="file"]#resume'
-					: 'input[type="file"][name="letter"],input[type="file"][name="cover_letter"],input[type="file"]#cover_letter',
+			selector: 'input[type="file"][name="resume"],input[type="file"]#resume',
 			filename: document.filename,
 			base64: document.base64,
 			sha256: document.sha256,
-			source: `${document.kind} ${document.id} version ${document.versionId}; SHA-256 ${document.sha256}`,
+			source: `Resume ${document.id} version ${document.versionId}; SHA-256 ${document.sha256}`,
 		})),
 	};
 }

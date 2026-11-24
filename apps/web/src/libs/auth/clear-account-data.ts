@@ -3,7 +3,6 @@ import { broadcastAccountChange, invalidateAccountScope, subscribeAccountChange 
 import { useSessionRecovery } from "./session-recovery";
 import { useNewDocumentsStore } from "@/features/documents/new-documents";
 import { clearStoredThumbnails } from "@/features/documents/thumbnail-store";
-import { useLetterEditorStore } from "@/features/letters/store";
 import { clearResumeDrafts } from "@/features/resume/builder/draft";
 
 export { getAccountGeneration } from "./account-scope";
@@ -40,7 +39,6 @@ export function syncAccountDataAcrossTabs(queryClient: QueryClient) {
 function forgetAccountState(queryClient: QueryClient) {
 	useSessionRecovery.setState({ accountId: null });
 	clearResumeDrafts();
-	useLetterEditorStore.getState().reset();
 	queryClient.clear();
 	useNewDocumentsStore.setState({ ids: [] });
 	for (const kind of ["localStorage", "sessionStorage"] as const) {

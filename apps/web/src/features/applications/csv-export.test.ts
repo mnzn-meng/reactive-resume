@@ -17,9 +17,7 @@ const application: Application = {
 	role: "Engineer",
 	status: "interview",
 	closedReason: null,
-	coverLetterId: null,
 	sentResumeVersionId: null,
-	sentCoverLetterVersionId: null,
 	sentCheckScore: null,
 	requirements: [],
 	location: "Berlin",
@@ -46,8 +44,6 @@ const application: Application = {
 	aiMetadata: null,
 	resumeFileUrl: null,
 	resumeFileName: null,
-	coverLetterUrl: null,
-	coverLetterName: null,
 	followUpAt: null,
 	followUpNote: null,
 };

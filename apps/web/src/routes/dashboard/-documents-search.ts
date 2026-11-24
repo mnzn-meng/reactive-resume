@@ -3,14 +3,12 @@ import z from "zod";
 import { templateSchema } from "@reactive-resume/schema/templates";
 
 export const documentsSearchDefaults = {
-	type: "all",
 	q: "",
 	tags: [],
 	sort: "edited",
 } satisfies DocumentsSearch;
 
 export const documentsSearchSchema = z.object({
-	type: z.enum(["all", "resume", "letter"]).default("all").catch("all"),
 	q: z
 		.string()
 		.transform((value) => value.slice(0, 500))
@@ -24,8 +22,6 @@ export const documentsSearchSchema = z.object({
 	sort: z.enum(["edited", "name", "created"]).default("edited").catch("edited"),
 	// Without one, the page uses the last view picked on this device.
 	view: z.enum(["grid", "list"]).optional().catch(undefined),
-	// Older links opened letters here; they open in the letter editor now.
-	letter: z.string().optional().catch(undefined),
 	// A blank resume to start once signed in: "Use this template" in the gallery (with its template) and the ATS
 	// checker's "Start a blank resume".
 	new: z.literal("resume").optional().catch(undefined),

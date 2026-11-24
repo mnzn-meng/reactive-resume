@@ -6,7 +6,6 @@ import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 import * as tables from "@reactive-resume/db/schema";
-import { copyCoverLetterStyle } from "@reactive-resume/resume/cover-letter";
 import { defaultResumeData } from "@reactive-resume/schema/resume/default";
 import { truncateCascade } from "../../test-database";
 import { runStorageCleanup } from "../storage/cleanup";
@@ -121,7 +120,6 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 	});
 
 	const trashedAt = () => new Date(Date.now() - 60_000);
-	const style = () => copyCoverLetterStyle(defaultResumeData);
 	const resumeFiles = (userId: string, resumeId: string) => [
 		`uploads/${userId}/screenshots/${resumeId}/preview.png`,
 		`uploads/${userId}/pdfs/${resumeId}/public-cache.pdf`,
@@ -174,24 +172,6 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 					data: structuredClone(defaultResumeData),
 				},
 			]);
-		await getDb()
-			.insert(tables.coverLetter)
-			.values([
-				{
-					id: "alice-letter",
-					userId: "alice",
-					name: "Letter",
-					style: style(),
-					trashedAt: trashedAt(),
-				},
-				{
-					id: "bob-letter",
-					userId: "bob",
-					name: "Bob letter",
-					style: style(),
-					trashedAt: trashedAt(),
-				},
-			]);
 	}
 
 	beforeEach(async () => {
@@ -205,8 +185,7 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 
 	it("lists submission hints without private job notes and keeps prepared links reversible", async () => {
 		const { applicationService } = await import("../applications/service");
-		const { coverLetterService } = await import("../cover-letters/service");
-		const letter = await coverLetterService.create({ userId: "alice", name: "Prepared" });
+		const { resumeService } = await import("../resume/service");
 		const id = await applicationService.create({
 			userId: "alice",
 			role: "Engineer",
@@ -214,34 +193,28 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 			notes: "private memo",
 			jobDescription: "private posting",
 		});
-		await service.linkApplication({ userId: "alice", type: "letter", id: letter.id, applicationId: id });
+		await service.linkApplication({ userId: "alice", id: "alice-active", applicationId: id });
 		expect(await applicationService.getById({ userId: "alice", id })).toMatchObject({
-			coverLetterId: letter.id,
-			sentCoverLetterVersionId: null,
-		});
-		expect(await coverLetterService.getById({ userId: "alice", id: letter.id })).toMatchObject({
-			sourceApplicationId: id,
-		});
-		const summary = (await applicationService.listSummary({ userId: "alice" })).items.find((item) => item.id === id);
-		expect(summary).toMatchObject({
-			coverLetterId: letter.id,
-			sentCoverLetterVersionId: null,
+			resumeId: "alice-active",
 			sentResumeVersionId: null,
 		});
+		expect(await resumeService.getById({ userId: "alice", id: "alice-active" })).toMatchObject({
+			applicationId: id,
+		});
+		const summary = (await applicationService.listSummary({ userId: "alice" })).items.find((item) => item.id === id);
+		expect(summary).toMatchObject({ resumeId: "alice-active", sentResumeVersionId: null });
 		expect(summary).not.toHaveProperty("notes");
 		expect(summary).not.toHaveProperty("jobDescription");
-		await service.linkApplication({ userId: "alice", type: "letter", id: letter.id, applicationId: null });
-		expect(await applicationService.getById({ userId: "alice", id })).toMatchObject({ coverLetterId: null });
-		await service.linkApplication({ userId: "alice", type: "letter", id: letter.id, applicationId: id });
+		await service.linkApplication({ userId: "alice", id: "alice-active", applicationId: null });
+		expect(await applicationService.getById({ userId: "alice", id })).toMatchObject({ resumeId: null });
+		await service.linkApplication({ userId: "alice", id: "alice-active", applicationId: id });
 		await applicationService.update({ userId: "alice", id, status: "applied" });
 		const sent = (await applicationService.listSummary({ userId: "alice" })).items.find((item) => item.id === id);
-		expect(sent?.sentCoverLetterVersionId).toEqual(expect.any(String));
-		const rows = await pool.query("SELECT cover_letter_id, sent_cover_letter_version_id FROM application WHERE id=$1", [
-			id,
-		]);
+		expect(sent?.sentResumeVersionId).toEqual(expect.any(String));
+		const rows = await pool.query("SELECT resume_id, sent_resume_version_id FROM application WHERE id=$1", [id]);
 		expect(rows.rows[0]).toEqual({
-			cover_letter_id: letter.id,
-			sent_cover_letter_version_id: sent?.sentCoverLetterVersionId,
+			resume_id: "alice-active",
+			sent_resume_version_id: sent?.sentResumeVersionId,
 		});
 		expect((await applicationService.listSummary({ userId: "bob" })).items).toEqual([]);
 	});
@@ -249,15 +222,10 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 	it("restores only the selected loaded documents that are still in this account's Trash", async () => {
 		const result = await service.restoreMany({
 			userId: "alice",
-			documents: [
-				{ type: "resume", id: "alice-trashed-1" },
-				{ type: "resume", id: "alice-active" },
-				{ type: "resume", id: "bob-trashed" },
-				{ type: "letter", id: "alice-letter" },
-			],
+			documents: [{ id: "alice-trashed-1" }, { id: "alice-active" }, { id: "bob-trashed" }],
 		});
 
-		expect(result).toEqual({ restored: 2 });
+		expect(result).toEqual({ restored: 1 });
 		const rows = await getDb()
 			.select({ id: tables.resume.id, trashedAt: tables.resume.trashedAt })
 			.from(tables.resume)
@@ -269,11 +237,6 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 			.from(tables.resume)
 			.where(eq(tables.resume.id, "bob-trashed"));
 		expect(bob?.trashedAt).not.toBeNull();
-		const [letter] = await getDb()
-			.select({ trashedAt: tables.coverLetter.trashedAt })
-			.from(tables.coverLetter)
-			.where(eq(tables.coverLetter.id, "alice-letter"));
-		expect(letter?.trashedAt).toBeNull();
 	});
 
 	it("permanently deletes selected Trash documents, preserves active ones, and keeps submitted history rows", async () => {
@@ -307,23 +270,15 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 
 		const result = await service.purgeMany({
 			userId: "alice",
-			documents: [
-				{ type: "resume", id: "alice-trashed-1" },
-				{ type: "resume", id: "alice-active" },
-				{ type: "resume", id: "bob-trashed" },
-				{ type: "letter", id: "alice-letter" },
-			],
+			documents: [{ id: "alice-trashed-1" }, { id: "alice-active" }, { id: "bob-trashed" }],
 		});
 
-		expect(result).toEqual({ deleted: 2, skipped: 2 });
+		expect(result).toEqual({ deleted: 1, skipped: 2 });
 		const [active] = await getDb().select().from(tables.resume).where(eq(tables.resume.id, "alice-active"));
 		expect(active).toBeDefined();
 		const [foreign] = await getDb().select().from(tables.resume).where(eq(tables.resume.id, "bob-trashed"));
 		expect(foreign).toBeDefined();
 		expect(await getDb().select().from(tables.resume).where(eq(tables.resume.id, "alice-trashed-1"))).toHaveLength(0);
-		expect(
-			await getDb().select().from(tables.coverLetter).where(eq(tables.coverLetter.id, "alice-letter")),
-		).toHaveLength(0);
 
 		const [submitted] = await getDb().select().from(tables.application).where(eq(tables.application.id, "submitted"));
 		expect(submitted).toMatchObject({ resumeId: null, sentResumeVersionId: null, sentCheckScore: 82 });
@@ -342,7 +297,7 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 
 		const result = await service.purgeMany({
 			userId: "alice",
-			documents: [{ type: "resume", id: "alice-trashed-1" }],
+			documents: [{ id: "alice-trashed-1" }],
 		});
 
 		expect(result).toEqual({ deleted: 1, skipped: 0 });
@@ -374,7 +329,7 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 		fixture.storageKeys.add("uploads/alice/pdfs/alice-trashed-1/older.pdf");
 		fixture.partialPrefixes.add("uploads/alice/pdfs/alice-trashed-1");
 
-		await service.purgeMany({ userId: "alice", documents: [{ type: "resume", id: "alice-trashed-1" }] });
+		await service.purgeMany({ userId: "alice", documents: [{ id: "alice-trashed-1" }] });
 
 		const [job] = await getDb()
 			.select()
@@ -400,7 +355,7 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 		putResumeFiles("alice", "alice-trashed-1");
 		fixture.failPrefixes.add("uploads/alice/screenshots/alice-trashed-1");
 		fixture.failPrefixes.add("uploads/alice/pdfs/alice-trashed-1");
-		await service.purgeMany({ userId: "alice", documents: [{ type: "resume", id: "alice-trashed-1" }] });
+		await service.purgeMany({ userId: "alice", documents: [{ id: "alice-trashed-1" }] });
 		await getDb()
 			.update(tables.storageCleanupJob)
 			.set({ nextAttemptAt: new Date(0) })
@@ -468,7 +423,7 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 		putResumeFiles("alice", "alice-trashed-1");
 		fixture.failPrefixes.add("uploads/alice/screenshots/alice-trashed-1");
 		fixture.failPrefixes.add("uploads/alice/pdfs/alice-trashed-1");
-		await service.purgeMany({ userId: "alice", documents: [{ type: "resume", id: "alice-trashed-1" }] });
+		await service.purgeMany({ userId: "alice", documents: [{ id: "alice-trashed-1" }] });
 		expect(
 			await getDb().select().from(tables.storageCleanupJob).where(eq(tables.storageCleanupJob.ownerId, "alice")),
 		).toHaveLength(2);
@@ -544,7 +499,7 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 		fixture.storageKeys.add(picture);
 		for (const prefix of ["uploads/alice/screenshots/alice-trashed-1", "uploads/alice/pdfs/alice-trashed-1"])
 			fixture.failPrefixes.add(prefix);
-		await service.purgeMany({ userId: "alice", documents: [{ type: "resume", id: "alice-trashed-1" }] });
+		await service.purgeMany({ userId: "alice", documents: [{ id: "alice-trashed-1" }] });
 		await getDb()
 			.update(tables.storageCleanupJob)
 			.set({ status: "abandoned" })
@@ -572,7 +527,7 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 		putResumeFiles("alice", "alice-trashed-1");
 		fixture.failPrefixes.add("uploads/alice/screenshots/alice-trashed-1");
 		fixture.failPrefixes.add("uploads/alice/pdfs/alice-trashed-1");
-		await service.purgeMany({ userId: "alice", documents: [{ type: "resume", id: "alice-trashed-1" }] });
+		await service.purgeMany({ userId: "alice", documents: [{ id: "alice-trashed-1" }] });
 
 		for (let attempt = 2; attempt <= 8; attempt += 1) {
 			await getDb()
@@ -600,7 +555,7 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 	});
 
 	it("treats a missing prefix as already cleaned, without leaving a retry job", async () => {
-		await service.purgeMany({ userId: "alice", documents: [{ type: "resume", id: "alice-trashed-1" }] });
+		await service.purgeMany({ userId: "alice", documents: [{ id: "alice-trashed-1" }] });
 
 		expect(
 			await getDb().select().from(tables.storageCleanupJob).where(eq(tables.storageCleanupJob.ownerId, "alice")),
@@ -622,7 +577,7 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 
 		const result = await service.emptyTrash({ userId: "alice" });
 
-		expect(result.deleted).toBe(15);
+		expect(result.deleted).toBe(14);
 		const aliceTrash = await getDb()
 			.select({ id: tables.resume.id })
 			.from(tables.resume)
@@ -630,8 +585,6 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 		expect(aliceTrash.map((row) => row.id)).toEqual(["alice-active"]);
 		const bobTrash = await getDb().select().from(tables.resume).where(eq(tables.resume.userId, "bob"));
 		expect(bobTrash.map((row) => row.id)).toEqual(["bob-trashed"]);
-		const bobLetters = await getDb().select().from(tables.coverLetter).where(eq(tables.coverLetter.userId, "bob"));
-		expect(bobLetters.map((row) => row.id)).toEqual(["bob-letter"]);
 	});
 
 	it("keeps large Empty Trash work bounded after the immediate cleanup pass", async () => {
@@ -664,15 +617,12 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 	}, 30_000);
 
 	it("skips a selected document restored or purged by another request instead of failing the batch", async () => {
-		await service.restoreMany({ userId: "alice", documents: [{ type: "resume", id: "alice-trashed-2" }] });
-		await service.purgeMany({ userId: "alice", documents: [{ type: "resume", id: "alice-trashed-1" }] });
+		await service.restoreMany({ userId: "alice", documents: [{ id: "alice-trashed-2" }] });
+		await service.purgeMany({ userId: "alice", documents: [{ id: "alice-trashed-1" }] });
 
 		const result = await service.purgeMany({
 			userId: "alice",
-			documents: [
-				{ type: "resume", id: "alice-trashed-1" },
-				{ type: "resume", id: "alice-trashed-2" },
-			],
+			documents: [{ id: "alice-trashed-1" }, { id: "alice-trashed-2" }],
 		});
 
 		expect(result).toEqual({ deleted: 0, skipped: 2 });
@@ -682,82 +632,49 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 	it("keeps Last edited on content edits while every change still moves updatedAt and the save fence", async () => {
 		await seed();
 		const db = getDb();
-		const alice = (ref: { type: "resume" | "letter"; id: string }) => ({ ...ref, userId: "alice" });
-		const resumeRef = alice({ type: "resume", id: "alice-active" });
-		const letterRef = alice({ type: "letter", id: "alice-letter" });
-		await service.restore(letterRef);
+		const resumeRef = { userId: "alice", id: "alice-active" };
 		const past = new Date("2026-01-01T00:00:00Z");
 		await db.update(tables.resume).set({ editedAt: past, updatedAt: past }).where(eq(tables.resume.id, "alice-active"));
-		await db
-			.update(tables.coverLetter)
-			.set({ editedAt: past, updatedAt: past })
-			.where(eq(tables.coverLetter.id, "alice-letter"));
 		const read = async () => {
 			const [resume] = await db.select().from(tables.resume).where(eq(tables.resume.id, "alice-active"));
-			const [letter] = await db.select().from(tables.coverLetter).where(eq(tables.coverLetter.id, "alice-letter"));
-			if (!resume || !letter) throw new Error("Seeded documents are missing.");
-			return { resume, letter };
+			if (!resume) throw new Error("Seeded resume is missing.");
+			return resume;
 		};
 
-		// Details: tags, rename, lock and unlock, Trash and restore, and the share switch.
+		// Details: tags, rename, lock and unlock, Trash and restore.
 		await service.setTags({ ...resumeRef, tags: ["design"] });
-		await service.setTags({ ...letterRef, tags: ["design"] });
 		await service.rename({ ...resumeRef, name: "Renamed" });
-		await service.rename({ ...letterRef, name: "Renamed letter" });
 		await service.setLocked({ ...resumeRef, isLocked: true });
 		await service.setLocked({ ...resumeRef, isLocked: false });
-		await service.setLocked({ ...letterRef, isLocked: true });
-		await service.setLocked({ ...letterRef, isLocked: false });
 		await service.trash(resumeRef);
 		await service.restore(resumeRef);
 		const details = await read();
-		expect(details.resume.editedAt).toEqual(past);
-		expect(details.letter.editedAt).toEqual(past);
+		expect(details.editedAt).toEqual(past);
 		// updatedAt still moves, so a save from before these changes is still refused.
-		expect(details.resume.updatedAt.getTime()).toBeGreaterThan(past.getTime());
-		expect(details.letter.updatedAt.getTime()).toBeGreaterThan(past.getTime());
+		expect(details.updatedAt.getTime()).toBeGreaterThan(past.getTime());
 		const { resumeService } = await import("../resume/service");
 		await expect(
 			resumeService.update({ id: "alice-active", userId: "alice", name: "Stale", expectedUpdatedAt: past }),
 		).rejects.toMatchObject({ code: "RESUME_VERSION_CONFLICT" });
 
-		const listed = await service.list({
-			userId: "alice",
-			trashed: false,
-			type: "all",
-			q: "",
-			tags: [],
-			sort: "edited",
-		});
+		const listed = await service.list({ userId: "alice", trashed: false, q: "", tags: [], sort: "edited" });
 		expect(listed.items.find((row) => row.id === "alice-active")?.editedAt).toEqual(past);
 
-		// Content: the resume's data, and the letter's text or recipient.
-		const data = structuredClone(details.resume.data);
+		// Content: a change to the resume's data moves Last edited.
+		const data = structuredClone(details.data);
 		data.basics.headline = "Staff engineer";
 		await db.update(tables.resume).set({ data }).where(eq(tables.resume.id, "alice-active"));
-		await db
-			.update(tables.coverLetter)
-			.set({ recipientCompany: "Northwind Labs" })
-			.where(eq(tables.coverLetter.id, "alice-letter"));
 		const content = await read();
-		expect(content.resume.editedAt?.getTime()).toBeGreaterThan(past.getTime());
-		expect(content.letter.editedAt?.getTime()).toBeGreaterThan(past.getTime());
-		const after = await service.list({
-			userId: "alice",
-			trashed: false,
-			type: "letter",
-			q: "",
-			tags: [],
-			sort: "edited",
-		});
-		expect(after.items[0]).toMatchObject({ id: "alice-letter", recipient: "Northwind Labs" });
-		expect(after.items[0]?.editedAt).toEqual(content.letter.editedAt);
+		expect(content.editedAt?.getTime()).toBeGreaterThan(past.getTime());
+		const after = await service.list({ userId: "alice", trashed: false, q: "", tags: [], sort: "edited" });
+		expect(after.items[0]?.id).toBe("alice-active");
+		expect(after.items[0]?.editedAt).toEqual(content.editedAt);
 	}, 30_000);
 	it("tells an open editor when the library renames, tags, trashes or restores a resume", async () => {
 		await seed();
 		const { publishResumeUpdated } = await import("../resume/events");
 		const published = vi.mocked(publishResumeUpdated);
-		const resumeRef = { userId: "alice", type: "resume" as const, id: "alice-active" };
+		const resumeRef = { userId: "alice", id: "alice-active" };
 		const revision = async () => {
 			const [row] = await getDb()
 				.select({ updatedAt: tables.resume.updatedAt })
@@ -790,17 +707,9 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 		published.mockClear();
 		await service.restoreMany({
 			userId: "alice",
-			documents: [
-				{ type: "resume", id: "alice-trashed-1" },
-				{ type: "letter", id: "alice-letter" },
-			],
+			documents: [{ id: "alice-trashed-1" }, { id: "alice-letter" }],
 		});
 		expect(published.mock.calls.map(([event]) => event.resumeId)).toEqual(["alice-trashed-1"]);
-
-		// Letters have no update stream.
-		published.mockClear();
-		await service.rename({ userId: "alice", type: "letter", id: "alice-letter", name: "Renamed letter" });
-		expect(published).not.toHaveBeenCalled();
 	});
 	it("names a second import of the same person apart from the first, ignoring Trash and other accounts", async () => {
 		await seed();

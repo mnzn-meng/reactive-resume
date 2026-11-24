@@ -7,7 +7,7 @@ import { Badge } from "@reactive-resume/ui/components/badge";
 import { Icon } from "@reactive-resume/ui/components/icon";
 import { applicationsListQueryOptions } from "@/features/applications/queries";
 
-type StatusDocument = Pick<DocumentSummary, "type" | "id" | "application">;
+type StatusDocument = Pick<DocumentSummary, "id" | "application">;
 
 /**
  * When the document went out with its application: the day the application reached Applied with this document's
@@ -19,10 +19,7 @@ export function useDocumentSentAt(document: StatusDocument) {
 	if (!applications) return undefined;
 	const application = applications.find((item) => item.id === document.application?.id);
 	if (!application) return null;
-	const sent =
-		document.type === "resume"
-			? application.resumeId === document.id && application.sentResumeVersionId
-			: application.coverLetterId === document.id && application.sentCoverLetterVersionId;
+	const sent = application.resumeId === document.id && application.sentResumeVersionId;
 	return sent ? application.appliedAt : null;
 }
 

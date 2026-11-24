@@ -220,27 +220,13 @@ describe("applicationService sent resume", () => {
 		sentResumeVersionId: null,
 	};
 
-	it.each(["resume", "coverLetter"] as const)(
-		"retains recorded submitted %s linkage when preparing another document",
-		async (kind) => {
-			setSelectResults([
-				{
-					...sentRow,
-					sentResumeVersionId: "sent-resume",
-					coverLetterId: "letter-1",
-					sentCoverLetterVersionId: "sent-letter",
-				},
-			]);
-			await expect(
-				applicationService.update({
-					id: "app-1",
-					userId: "user-1",
-					...(kind === "resume" ? { resumeId: "resume-2" } : { coverLetterId: "letter-2" }),
-				}),
-			).rejects.toMatchObject({ code: "BAD_REQUEST" });
-			expect(dbMock.update).not.toHaveBeenCalled();
-		},
-	);
+	it("retains recorded submitted resume linkage when preparing another document", async () => {
+		setSelectResults([{ ...sentRow, sentResumeVersionId: "sent-resume" }]);
+		await expect(
+			applicationService.update({ id: "app-1", userId: "user-1", resumeId: "resume-2" }),
+		).rejects.toMatchObject({ code: "BAD_REQUEST" });
+		expect(dbMock.update).not.toHaveBeenCalled();
+	});
 
 	it.each(["stage", "resume"] as const)(
 		"saves the sent version and score when the %s is linked at Applied",
@@ -450,7 +436,7 @@ describe("applicationService.attachDocument", () => {
 				canDeleteAttachments: true,
 				id: "app-1",
 				userId: "user-1",
-				kind: "cover-letter",
+				kind: "resume",
 				file: new File(["text"], "cover.txt", { type: "text/plain" }),
 			}),
 		).rejects.toMatchObject({ code: "BAD_REQUEST" });
@@ -664,7 +650,7 @@ describe("application attachment lifecycle", () => {
 				company: "Stripe",
 				role: "Engineer",
 				resumeFile: pdf("new.pdf"),
-				coverLetterFile: pdf("cover.pdf"),
+				postingFile: pdf("posting.pdf"),
 			}),
 		).rejects.toThrow("upload failed");
 		expect(dbMock.insert).not.toHaveBeenCalled();
@@ -710,22 +696,19 @@ describe("application attachment lifecycle", () => {
 		expect(storageDeleteMock).not.toHaveBeenCalledWith(newKey);
 	});
 
-	it.each([
-		{ resumeFileUrl: null },
-		{ coverLetterUrl: null },
-		{ resumeFile: pdf("replacement.pdf") },
-		{ coverLetterFile: pdf("replacement.pdf") },
-	])("requires delete permission before replacing or clearing an attachment: %s", async (fields) => {
-		const row = storedApplication();
-		await expect(applicationService.update({ id: "app-1", userId: "user-1", ...fields })).rejects.toMatchObject({
-			code: "FORBIDDEN",
-		});
-		expect(row().resumeFileUrl).toBe(existing.resumeFileUrl);
-		expect(row().coverLetterUrl).toBe(existing.coverLetterUrl);
-		expect(uploadFileMock).not.toHaveBeenCalled();
-		expect(storageDeleteMock).not.toHaveBeenCalled();
-		expect(dbMock.update).not.toHaveBeenCalled();
-	});
+	it.each([{ resumeFileUrl: null }, { resumeFile: pdf("replacement.pdf") }])(
+		"requires delete permission before replacing or clearing an attachment: %s",
+		async (fields) => {
+			const row = storedApplication();
+			await expect(applicationService.update({ id: "app-1", userId: "user-1", ...fields })).rejects.toMatchObject({
+				code: "FORBIDDEN",
+			});
+			expect(row().resumeFileUrl).toBe(existing.resumeFileUrl);
+			expect(uploadFileMock).not.toHaveBeenCalled();
+			expect(storageDeleteMock).not.toHaveBeenCalled();
+			expect(dbMock.update).not.toHaveBeenCalled();
+		},
+	);
 
 	it("removal commits before deleting the old file", async () => {
 		const row = storedApplication();
@@ -771,19 +754,6 @@ describe("application attachment lifecycle", () => {
 });
 
 describe("applicationService.importMany", () => {
-	it("rejects another account's cover letter before inserting anything", async () => {
-		const { coverLetterService } = await import("../cover-letters/service");
-		vi.mocked(coverLetterService.getById).mockRejectedValueOnce(new Error("NOT_FOUND"));
-		await expect(
-			applicationService.importMany({
-				userId: "user-1",
-				items: [{ company: "Stripe", role: "Engineer", coverLetterId: "someone-elses-letter" }],
-			}),
-		).rejects.toThrow("NOT_FOUND");
-		expect(coverLetterService.getById).toHaveBeenCalledWith({ id: "someone-elses-letter", userId: "user-1" });
-		expect(dbMock.insert).not.toHaveBeenCalled();
-	});
-
 	it("saves the sent version for rows imported at Applied or later", async () => {
 		const data = structuredClone((await import("@reactive-resume/schema/resume/default")).defaultResumeData);
 		const imported = { ...existing, status: "applied" as const, resumeId: "resume-1", sentResumeVersionId: null };

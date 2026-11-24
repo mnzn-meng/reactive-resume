@@ -27,7 +27,6 @@ import { menuLabelClassName } from "@reactive-resume/ui/components/menu-styles";
 import { RadioGroup, RadioGroupItem } from "@reactive-resume/ui/components/radio-group";
 import { toast } from "@reactive-resume/ui/components/toast";
 import { isolate } from "@reactive-resume/utils/string";
-import { cn } from "@reactive-resume/utils/style";
 import { useDocumentSentDate } from "./document-status";
 import { useDocumentEffect } from "./library-session";
 import { useNewDocumentsStore } from "./new-documents";
@@ -42,8 +41,8 @@ import { toastError } from "@/libs/error-message";
 import { orpc } from "@/libs/orpc/client";
 import { confirmUndone } from "@/libs/undone";
 
-type Ref = { type: DocumentSummary["type"]; id: string };
-const ref = (document: DocumentSummary): Ref => ({ type: document.type, id: document.id });
+type Ref = { id: string };
+const ref = (document: DocumentSummary): Ref => ({ id: document.id });
 
 /** Everything the card menu does, shared by grid cards, list rows and Trash. */
 function useRefreshDocuments() {
@@ -83,7 +82,6 @@ export function useDocumentActions() {
 		}),
 	);
 	const duplicateResume = useMutation(orpc.resume.duplicate.mutationOptions({ onSettled: refresh }));
-	const duplicateLetter = useMutation(orpc.coverLetters.duplicate.mutationOptions({ onSettled: refresh }));
 
 	// Reversible, so it happens at once and its toast offers the way back (ruling P3). The menu that called this
 	// unmounts on select, and a mutation's per-call callbacks with it: catch the promise.
@@ -114,10 +112,7 @@ export function useDocumentActions() {
 			try {
 				// Reversible by renaming or trashing, so it happens at once; the toast offers Rename (D5).
 				const name = (await orpc.documents.suggestDuplicateName.call(ref(document))).trim().slice(0, 100);
-				const id =
-					document.type === "resume"
-						? await duplicateResume.mutateAsync({ id: document.id, name, tags: document.tags })
-						: (await duplicateLetter.mutateAsync({ id: document.id, name })).id;
+				const id = await duplicateResume.mutateAsync({ id: document.id, name, tags: document.tags });
 				markNew(id);
 				toast.add({
 					description: t`Duplicated “${document.name}”`,
@@ -130,7 +125,6 @@ export function useDocumentActions() {
 								search: (previous: DocumentsSearch) => ({
 									...previous,
 									q: name,
-									type: document.type,
 									tags: [],
 									sort: "created",
 								}),
@@ -177,7 +171,7 @@ export function useDocumentActions() {
 
 /**
  * The selection bar's actions: each runs on every selected document it applies to, refreshes the library once and
- * says how many changed. Locked documents keep their visibility, tags and place; letters have no public link.
+ * says how many changed. Locked documents keep their visibility, tags and place.
  */
 export function useBatchActions() {
 	const onEffect = useDocumentEffect();
@@ -229,7 +223,7 @@ export function useBatchActions() {
 			const done = await run(
 				documents,
 				(document) => document.isLocked !== isLocked,
-				(document) => setLocked.mutateAsync({ type: document.type, id: document.id, isLocked }),
+				(document) => setLocked.mutateAsync({ id: document.id, isLocked }),
 			);
 			const failed = documents.filter((document) => document.isLocked !== isLocked).length - done.length;
 			if (failed > 0 && done.length === 0)
@@ -252,7 +246,7 @@ export function useBatchActions() {
 									void run(
 										done,
 										() => true,
-										(document) => setLocked.mutateAsync({ type: document.type, id: document.id, isLocked: !isLocked }),
+										(document) => setLocked.mutateAsync({ id: document.id, isLocked: !isLocked }),
 									).then((undone) =>
 										toast.add({
 											description: isLocked
@@ -271,7 +265,7 @@ export function useBatchActions() {
 			const done = await run(
 				documents,
 				(document) => !document.isLocked,
-				(document) => trash.mutateAsync({ type: document.type, id: document.id }),
+				(document) => trash.mutateAsync({ id: document.id }),
 			);
 			if (done.length === 0)
 				return toast.add({
@@ -411,9 +405,7 @@ export function DocumentMenuContent({
 }: DocumentMenuProps) {
 	const actions = useDocumentActions();
 	const { download, downloading } = useDocumentDownload();
-	const openDialog = useDialogStore((state) => state.openDialog);
 	const sentOn = useDocumentSentDate(document);
-	const isResume = document.type === "resume";
 
 	const groups: MenuGroup[] = [
 		{
@@ -428,7 +420,7 @@ export function DocumentMenuContent({
 				{
 					icon: "download-simple",
 					label: t`Download PDF`,
-					onSelect: () => void download(document.type, document.id),
+					onSelect: () => void download(document.id),
 					disabled: downloading === document.id,
 				},
 			],
@@ -436,16 +428,7 @@ export function DocumentMenuContent({
 		{
 			label: t`For a job`,
 			entries: [
-				...(isResume
-					? ([
-							{ icon: "briefcase", label: t`Copy for a job…`, onSelect: () => actions.copyForJob(document) },
-							{
-								icon: "envelope-simple",
-								label: t`Write a letter…`,
-								onSelect: () => openDialog("document.new", { context: "letters", sourceResumeId: document.id }),
-							},
-						] satisfies MenuEntry[])
-					: []),
+				{ icon: "briefcase", label: t`Copy for a job…`, onSelect: () => actions.copyForJob(document) },
 				{
 					icon: "link-simple-horizontal",
 					label: t`Link to application…`,
@@ -530,7 +513,7 @@ export function TagsDialog({ documents: requested, onClose }: TagsDialogProps) {
 	const bulk = (documents?.length ?? 0) > 1;
 	const setDocumentTags = useMutation(orpc.documents.setTags.mutationOptions());
 	const shared = documents ? sharedTags(documents) : [];
-	const suggestions = useExistingTags(documents?.map((document) => document.type) ?? [], requested !== null);
+	const suggestions = useExistingTags(requested !== null);
 
 	const save = async () => {
 		if (!documents) return;
@@ -542,7 +525,6 @@ export function TagsDialog({ documents: requested, onClose }: TagsDialogProps) {
 				.filter((document) => !document.isLocked)
 				.map((document) =>
 					setDocumentTags.mutateAsync({
-						type: document.type,
 						id: document.id,
 						tags: [
 							...document.tags.filter((tag) => !removed.includes(tag)),
@@ -649,7 +631,7 @@ export function LinkApplicationDialog({ document: requested, onClose }: LinkAppl
 		if (!document) return;
 		if (applicationId === current) return close();
 		try {
-			await link.mutateAsync({ type: document.type, id: document.id, applicationId });
+			await link.mutateAsync({ id: document.id, applicationId });
 			await queryClient.invalidateQueries({ queryKey: orpc.documents.key() });
 			await queryClient.invalidateQueries({ queryKey: orpc.applications.key() });
 			close();
@@ -661,9 +643,6 @@ export function LinkApplicationDialog({ document: requested, onClose }: LinkAppl
 		}
 	};
 
-	const submitted =
-		document?.type === "letter" &&
-		applications?.some((item) => item.coverLetterId === document.id && item.sentCoverLetterVersionId);
 	const jobs = (applications ?? []).filter((application) => application.status !== "closed");
 
 	return (
@@ -681,11 +660,6 @@ export function LinkApplicationDialog({ document: requested, onClose }: LinkAppl
 						<Trans>The application this document is for.</Trans>
 					</DialogDescription>
 				</DialogHeader>
-				{submitted && (
-					<p className="text-sm text-ink-2">
-						<Trans>This letter is recorded as sent. Its application link stays with that submission.</Trans>
-					</p>
-				)}
 				{jobs.length === 0 ? (
 					<p className="text-sm text-ink-2">
 						<Trans>No applications yet.</Trans>
@@ -695,31 +669,21 @@ export function LinkApplicationDialog({ document: requested, onClose }: LinkAppl
 						aria-label={t`Application`}
 						value={choice}
 						onValueChange={(value) => setPicked(value as string)}
-						disabled={link.isPending || Boolean(submitted)}
+						disabled={link.isPending}
 						className="gap-0"
 					>
 						{/* The rows' hover ground bleeds 12px past the text; the scroller makes room for it. */}
 						<List cap tight className="-mx-3 max-h-80 overflow-y-auto px-3">
-							{jobs.map((application) => {
-								// Another letter already went out with this job, so it keeps that one.
-								const taken = Boolean(
-									document?.type === "letter" &&
-									application.sentCoverLetterVersionId &&
-									application.coverLetterId !== document.id,
-								);
-								return (
-									<ListRow
-										key={application.id}
-										// oxlint-disable-next-line jsx-a11y/label-has-associated-control -- ListRow fills the label with the radio and the job's name.
-										render={<label />}
-										className={cn("cursor-pointer", taken && "pointer-events-none")}
-										variant={taken || submitted ? "dim" : "default"}
-										leading={<RadioGroupItem value={application.id} disabled={taken} />}
-										title={`${application.company} · ${application.role}`}
-										subtitle={taken ? t`Letter already sent` : undefined}
-									/>
-								);
-							})}
+							{jobs.map((application) => (
+								<ListRow
+									key={application.id}
+									// oxlint-disable-next-line jsx-a11y/label-has-associated-control -- ListRow fills the label with the radio and the job's name.
+									render={<label />}
+									className="cursor-pointer"
+									leading={<RadioGroupItem value={application.id} />}
+									title={`${application.company} · ${application.role}`}
+								/>
+							))}
 						</List>
 					</RadioGroup>
 				)}
@@ -727,14 +691,14 @@ export function LinkApplicationDialog({ document: requested, onClose }: LinkAppl
 					<Button
 						variant="ghost"
 						className="-ms-3.5 me-auto"
-						disabled={link.isPending || Boolean(submitted)}
+						disabled={link.isPending}
 						onClick={() => setAddingJob(true)}
 					>
 						<Icon name="plus" />
 						<Trans>Add a job…</Trans>
 					</Button>
 					{current && (
-						<Button variant="ghost" disabled={link.isPending || Boolean(submitted)} onClick={() => void choose(null)}>
+						<Button variant="ghost" disabled={link.isPending} onClick={() => void choose(null)}>
 							<Trans>Unlink</Trans>
 						</Button>
 					)}

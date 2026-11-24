@@ -55,9 +55,7 @@ function AccountAskCommandGroup() {
 	const choose = async (document: NonNullable<typeof documents.data>[number]) => {
 		const draft = state.askDraft;
 		if (!draft || !ready()) return;
-		if (document.type === "letter")
-			await navigate({ to: "/builder/letter/$coverLetterId", params: { coverLetterId: document.id } });
-		else await navigate({ to: "/builder/$resumeId", params: { resumeId: document.id } });
+		await navigate({ to: "/builder/$resumeId", params: { resumeId: document.id } });
 		if (generation !== getAccountGeneration()) return;
 		openAssistantFrom({ draft });
 		state.reset();
@@ -110,7 +108,7 @@ function AccountAskCommandGroup() {
 						onSelect={() => void documents.refetch()}
 					>{t`Couldn't load documents. Try again.`}</CommandItem>
 				) : !documents.data?.length ? (
-					<CommandItem disabled value="ask.empty">{t`Create a resume or letter first.`}</CommandItem>
+					<CommandItem disabled value="ask.empty">{t`Create a resume first.`}</CommandItem>
 				) : (
 					[...documents.data]
 						.sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime())
@@ -121,7 +119,7 @@ function AccountAskCommandGroup() {
 								keywords={[document.name]}
 								onSelect={() => void choose(document)}
 							>
-								<Icon name={document.type === "letter" ? "envelope-simple" : "file-text"} />
+								<Icon name="file-text" />
 								{document.name}
 							</CommandItem>
 						))

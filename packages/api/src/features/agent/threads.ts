@@ -29,13 +29,12 @@ export const threadsRouter = {
 			operationId: "startAgentThread",
 			summary: "Start a document, application or career conversation",
 			description:
-				"Starts an assistant conversation about one resume or cover letter, using the given tested provider or the default one. The assistant reads the document and proposes edits; it never changes the document itself.",
+				"Starts an assistant conversation about one resume, using the given tested provider or the default one. The assistant reads the document and proposes edits; it never changes the document itself.",
 		})
 		.input(
 			z
 				.object({
 					resumeId: z.string().min(1).optional(),
-					coverLetterId: z.string().min(1).optional(),
 					aiProviderId: z.string().optional(),
 					scope: z.enum(["document", "application", "career"]).default("document"),
 					applicationId: z.string().min(1).optional(),
@@ -43,10 +42,8 @@ export const threadsRouter = {
 				.refine(
 					(input) =>
 						input.scope === "document"
-							? Boolean(input.resumeId) !== Boolean(input.coverLetterId) && !input.applicationId
-							: !input.resumeId &&
-								!input.coverLetterId &&
-								(input.scope === "application") === Boolean(input.applicationId),
+							? Boolean(input.resumeId) && !input.applicationId
+							: !input.resumeId && (input.scope === "application") === Boolean(input.applicationId),
 					{
 						message: "Choose one document, one application, or general career context.",
 					},

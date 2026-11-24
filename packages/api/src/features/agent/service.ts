@@ -42,7 +42,6 @@ import { availableApplicationContext } from "../applications/access";
 import { assertApplicationVersion } from "../applications/service";
 import { careerService, requireCareerApplication } from "../career/service";
 import { buildCareerTools, buildCareerInstructions } from "../career/tools";
-import { coverLetterService } from "../cover-letters/service";
 import { assertDocumentVersion } from "../documents/ownership";
 import { resumeService } from "../resume/service";
 import { getStorageService, inferContentType } from "../storage/service";
@@ -140,9 +139,8 @@ type StartThreadInput = {
 	scope?: "document" | "application" | "career" | undefined;
 	applicationId?: string | undefined;
 	userId: string;
-	/** The document the conversation is about: a resume or a letter. */
+	/** The resume the conversation is about. */
 	resumeId?: string | undefined;
-	coverLetterId?: string | undefined;
 	aiProviderId?: string | undefined;
 };
 
@@ -190,7 +188,6 @@ type AttachmentModelInput = {
 type ThreadSummaryRow = AgentThreadRecord & {
 	firstMessage?: string | null;
 	resumeName?: string | null;
-	coverLetterName?: string | null;
 	providerLabel?: string | null;
 };
 
@@ -207,10 +204,8 @@ function toThreadSummary(row: ThreadSummaryRow) {
 		applicationId: row.applicationId ?? null,
 		sourceResumeId: row.sourceResumeId,
 		workingResumeId: row.workingResumeId,
-		coverLetterId: row.coverLetterId,
 		aiProviderId: row.aiProviderId,
 		resumeName: row.resumeName ?? null,
-		coverLetterName: row.coverLetterName ?? null,
 		providerLabel: row.providerLabel ?? null,
 		editsProposed: row.editsProposed,
 		editsAccepted: row.editsAccepted,
@@ -982,7 +977,7 @@ function createAgent(input: {
 			for (const participant of interview.participants ?? []) allow(participant.profileUrl);
 	}
 	const tools = buildAgentTools({
-		document: document?.kind ?? null,
+		document: document !== null,
 		canEdit: !input.locked,
 		// The career coach searches only when the user switched Web research on for this message.
 		externalSearch: input.search && (!input.career || input.career.web),
@@ -1091,7 +1086,7 @@ function createAgent(input: {
 	const instructionsText = input.career
 		? buildCareerInstructions(input.career)
 		: buildAgentInstructions({
-				document: document ? { kind: document.kind, name: document.name } : null,
+				document: document ? { name: document.name } : null,
 				locked: input.locked,
 				posting: input.posting ? { ...input.posting, jobCopy: input.jobCopy } : null,
 				knowledge: input.knowledge,
@@ -1161,7 +1156,6 @@ const threadSummarySelection = {
 		) opening
 	)`,
 	resumeName: schema.resume.name,
-	coverLetterName: schema.coverLetter.name,
 	providerLabel: schema.aiProvider.label,
 };
 
@@ -1170,13 +1164,12 @@ const REPOINT_REFUSED =
 
 /**
  * When a resume conversation may move to `targetId`, in SQL over the thread row: it is still on the resume it started on
- * (working = source, so it moves once), it is a resume conversation (no letter), and the target is another of this
- * account's resumes, not in Trash, whose content is the same as the source's. Same content keeps every pending edit
- * valid on the target: each one's passage reads there as it did when it was proposed.
+ * (working = source, so it moves once), and the target is another of this account's resumes, not in Trash, whose
+ * content is the same as the source's. Same content keeps every pending edit valid on the target: each one's passage
+ * reads there as it did when it was proposed.
  */
 function repointableTo(targetId: string, userId: string) {
 	return sql`${schema.agentThread.scope} = 'document'
-		and ${schema.agentThread.coverLetterId} is null
 		and ${schema.agentThread.workingResumeId} = ${schema.agentThread.sourceResumeId}
 		and exists (
 			select 1 from ${schema.resume} target, ${schema.resume} source
@@ -1204,15 +1197,8 @@ async function assertRepointable(thread: typeof schema.agentThread.$inferSelect,
 async function describeDocument(userId: string, document: AssistantDocument | null) {
 	if (!document) return null;
 	try {
-		if (document.kind === "resume") {
-			const resume = await resumeService.getById({ id: document.id, userId });
-			return { ...document, name: resume.name, locked: resume.isLocked };
-		}
-		const letter = await coverLetterService.getById({
-			id: document.id,
-			userId,
-		});
-		return { ...document, name: letter.name, locked: letter.isLocked };
+		const resume = await resumeService.getById({ id: document.id, userId });
+		return { ...document, name: resume.name, locked: resume.isLocked };
 	} catch {
 		return null;
 	}
@@ -1228,7 +1214,6 @@ export const agentService = {
 				.select(threadSummarySelection)
 				.from(schema.agentThread)
 				.leftJoin(schema.resume, eq(schema.agentThread.workingResumeId, schema.resume.id))
-				.leftJoin(schema.coverLetter, eq(schema.agentThread.coverLetterId, schema.coverLetter.id))
 				.leftJoin(schema.aiProvider, eq(schema.agentThread.aiProviderId, schema.aiProvider.id))
 				.where(
 					and(
@@ -1248,27 +1233,13 @@ export const agentService = {
 		start: async (input: StartThreadInput) => {
 			assertAgentEnvironment();
 
-			const document: AssistantDocument | null = input.coverLetterId
-				? { kind: "letter", id: input.coverLetterId }
-				: input.resumeId
-					? { kind: "resume", id: input.resumeId }
-					: null;
+			const document: AssistantDocument | null = input.resumeId ? { id: input.resumeId } : null;
 			// The router's input refine already pairs the scope with exactly one document or application.
 			const scope = input.scope ?? "document";
 			if (scope !== "document") await requireCareerApplication(input);
 
 			// Confirms the caller owns the document (throws otherwise) and names it for the summary.
-			const described = !document
-				? null
-				: document.kind === "resume"
-					? await resumeService.getById({
-							id: document.id,
-							userId: input.userId,
-						})
-					: await coverLetterService.getById({
-							id: document.id,
-							userId: input.userId,
-						});
+			const described = document ? await resumeService.getById({ id: document.id, userId: input.userId }) : null;
 
 			const provider = input.aiProviderId
 				? await aiProvidersService.getRunnableById({
@@ -1288,11 +1259,7 @@ export const agentService = {
 					aiProviderId: provider.id,
 					scope,
 					applicationId: input.applicationId ?? null,
-					...(!document
-						? {}
-						: document.kind === "resume"
-							? { sourceResumeId: document.id, workingResumeId: document.id }
-							: { coverLetterId: document.id }),
+					...(document ? { sourceResumeId: document.id, workingResumeId: document.id } : {}),
 					title: "New conversation",
 				})
 				.returning();
@@ -1300,11 +1267,7 @@ export const agentService = {
 
 			return toThreadSummary({
 				...thread,
-				...(!described || !document
-					? {}
-					: document.kind === "resume"
-						? { resumeName: described.name }
-						: { coverLetterName: described.name }),
+				...(described ? { resumeName: described.name } : {}),
 				providerLabel: provider.label,
 			});
 		},
@@ -1349,10 +1312,7 @@ export const agentService = {
 				cutoff,
 			);
 			// Edits this resume can't accept reach no app as something to apply, older apps included.
-			const madeFor =
-				thread.workingResumeId && !thread.coverLetterId
-					? await resumeMadeFor(input.userId, thread.workingResumeId)
-					: undefined;
+			const madeFor = thread.workingResumeId ? await resumeMadeFor(input.userId, thread.workingResumeId) : undefined;
 			return {
 				thread: toThreadSummary(thread),
 				messages: rows.map((row) => {
@@ -1834,9 +1794,7 @@ export const agentService = {
 							message: "This conversation changed. Open it again before sending.",
 						});
 					if (document && loaded && input.context?.document !== false)
-						await assertDocumentVersion(tx, input.userId, { ...document, updatedAt: loaded.updatedAt });
-					if (loaded?.sourceResume && input.context?.document !== false)
-						await assertDocumentVersion(tx, input.userId, { kind: "resume", ...loaded.sourceResume });
+						await assertDocumentVersion(tx, input.userId, { id: document.id, updatedAt: loaded.updatedAt });
 					if (posting)
 						await assertApplicationVersion(tx, input.userId, {
 							id: posting.applicationId,
@@ -1860,7 +1818,7 @@ export const agentService = {
 								...(input.context?.application !== false
 									? {
 											...(careerContext.application ? { application: careerContext.application } : {}),
-											documents: [careerContext.resume, careerContext.letter].filter(
+											documents: [careerContext.resume].filter(
 												(entry): entry is NonNullable<typeof entry> => entry !== null,
 											),
 										}
@@ -1950,7 +1908,7 @@ export const agentService = {
 							.flatMap((message) => messageText(message).match(/https?:\/\/[^\s<>")]+/g) ?? []),
 					],
 					posting,
-					jobCopy: loaded?.kind !== "resume" || !posting || loaded.applicationId === posting.applicationId,
+					jobCopy: !posting || loaded?.applicationId === posting.applicationId,
 					knowledge,
 					connection,
 					searchConnection,

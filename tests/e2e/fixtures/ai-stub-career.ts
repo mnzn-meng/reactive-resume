@@ -321,19 +321,6 @@ export function careerJson(prompt: string): unknown {
 	return { fit, briefing, practice, debrief, reply, answer }[task](context);
 }
 
-const KILN_LETTER = [
-	"I am applying for the senior product designer role at Kiln Studio. Your posting asks for someone who can look after a design system at scale, share research across teams and test with real users. That is the work I do now at Northwind Labs.",
-	"At Northwind Labs I created the design system that six product teams use, and I redesigned onboarding, which lifted activation from 41% to 58%. I run more than 40 customer interviews a year, so what customers tell us shapes what gets built.",
-	"Before that I designed checkout and invoicing for 30 retail clients at Harbour Studio, and tested each release with shop owners before it shipped. I would be glad to walk you through the work in detail.",
-].join("\n\n");
-
-/** A letter body for the letter-draft prompt, or null when the request isn't one. */
-export function letterText(system: string, prompt: string): string | null {
-	if (!system.includes("You write the body of a cover letter")) return null;
-	if (prompt.includes("Kiln Studio")) return KILN_LETTER;
-	return "I am applying for this role. At Northwind Labs I redesigned onboarding, which lifted activation from 41% to 58%, and I built the design system six product teams use.";
-}
-
 /** The workspace coach's reply about Lumen and regulated industries (W12). */
 export const COACH_ANSWER =
 	"It is close, and worth saying plainly. Lumen's customers are clinics and insurers, so the posting means health and insurance rules. Yours is designing within tax and record-keeping rules: say that, and don't call it a regulated industry.";

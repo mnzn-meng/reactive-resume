@@ -20,10 +20,8 @@ export const agentThreadSchema = z.object({
 	applicationId: z.string().nullable(),
 	sourceResumeId: z.string().nullable(),
 	workingResumeId: z.string().nullable(),
-	coverLetterId: z.string().nullable(),
 	aiProviderId: z.string().nullable(),
 	resumeName: z.string().nullable(),
-	coverLetterName: z.string().nullable(),
 	providerLabel: z.string().nullable(),
 	editsProposed: z.number(),
 	editsAccepted: z.number(),
@@ -48,9 +46,7 @@ export const agentConversationSchema = z.object({
 	thread: agentThreadSchema,
 	messages: z.array(uiMessageSchema),
 	attachments: z.array(agentAttachmentSchema),
-	document: z
-		.object({ kind: z.enum(["resume", "letter"]), id: z.string(), name: z.string(), locked: z.boolean() })
-		.nullable(),
+	document: z.object({ id: z.string(), name: z.string(), locked: z.boolean() }).nullable(),
 	isReadOnly: z.boolean(),
 	/** Messages no longer sent to the AI because Knowledge changed after they were written. */
 	history: z.object({ cutoffAt: z.date().nullable(), withheld: z.array(z.string()) }).optional(),

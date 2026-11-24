@@ -40,7 +40,7 @@ vi.mock("@/hooks/use-confirm", () => ({
 
 vi.mock("@/libs/auth/client", () => ({
 	authClient: {
-		useSession: () => ({ data: { user: { twoFactorEnabled: false } } }),
+		useSession: () => ({ data: { user: {} } }),
 		listAccounts: listAccountsMock,
 		unlinkAccount: unlinkMock,
 		linkSocial: linkMock,

@@ -6,7 +6,6 @@ import type { CustomItemSection, ItemSection } from "./types";
 import type {
 	AwardItem,
 	CertificationItem,
-	CoverLetterItem,
 	CustomSectionType,
 	EducationItem,
 	ExperienceItem,
@@ -146,10 +145,6 @@ type CustomSummarySectionProps = {
 type ItemSectionProps<T> = {
 	sectionId?: string;
 	sectionData?: ItemSection<T>;
-};
-
-type CoverLetterSectionProps = {
-	section: CustomItemSection<CoverLetterItem>;
 };
 
 type SectionProps = {
@@ -1789,25 +1784,6 @@ const ReferencesSection = ({ sectionId = "references", sectionData }: ItemSectio
 	);
 };
 
-const CoverLetterSection = ({ section }: CoverLetterSectionProps) => {
-	const items = getVisibleItems(section);
-
-	if (items.length === 0) return null;
-
-	return (
-		<SectionShell sectionId={section.id} title={section.title} showHeading={false}>
-			<SectionItems>
-				{items.map((item) => (
-					<SectionItem key={item.id} itemId={item.id}>
-						<RichText semanticField="recipient">{item.recipient}</RichText>
-						<RichText semanticField="content">{item.content}</RichText>
-					</SectionItem>
-				))}
-			</SectionItems>
-		</SectionShell>
-	);
-};
-
 export const Section = ({ section: sectionId, placement, showHeading = true }: SectionProps) => {
 	const data = useRender();
 
@@ -1847,7 +1823,6 @@ export const Section = ({ section: sectionId, placement, showHeading = true }: S
 		references: () => (
 			<ReferencesSection sectionId={sectionId} sectionData={custom as CustomItemSection<ReferenceItem>} />
 		),
-		"cover-letter": () => custom && <CoverLetterSection section={custom as CustomItemSection<CoverLetterItem>} />,
 	} satisfies Record<CustomSectionType, () => ReactNode>;
 
 	const render = (sectionMap as Record<string, (() => ReactNode) | undefined>)[custom?.type ?? sectionId];

@@ -10,11 +10,9 @@ import { generateText, stepCountIs, streamText, tool } from "ai";
 import { strFromU8, unzipSync, zipSync, strToU8 } from "fflate";
 import { Pool } from "pg";
 import { z } from "zod";
-import { letterDraftSystemPrompt } from "@reactive-resume/ai/prompts";
 import { aiDestination } from "@reactive-resume/ai/types";
 import { db, withDatabasePool } from "@reactive-resume/db/client";
 import * as tables from "@reactive-resume/db/schema";
-import { coverLetterTextToHtml } from "@reactive-resume/resume/cover-letter";
 import { aiOperationIds } from "@reactive-resume/schema/ai-usage";
 import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
 import { buildAccountZip } from "@reactive-resume/utils/account-zip";
@@ -28,7 +26,6 @@ import { applicationsRouter } from "../applications/router";
 import { authRouter } from "../auth/router";
 import { authService } from "../auth/service";
 import { careerRouter } from "../career/router";
-import { coverLettersRouter } from "../cover-letters/router";
 import { assertDocumentVersion } from "../documents/ownership";
 import { documentsRouter } from "../documents/router";
 import { resumeRouter } from "../resume/router";
@@ -73,11 +70,9 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 		| "writing"
 		| "resume"
 		| "agent"
-		| "letter"
 		| "tailoring"
 		| "improve"
 		| "native-search";
-	let failLetter = false;
 	let agentChanges: unknown[] = [];
 	let agentStep = 0;
 	let release = () => {};
@@ -195,12 +190,7 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 					res.end(JSON.stringify({ error: { message: "Synthetic provider failure" } }));
 					return;
 				}
-				if (
-					mode === "agent" ||
-					((mode === "tailoring" || mode === "prepare") &&
-						body.stream &&
-						!JSON.stringify(body.messages).includes("The letter's language"))
-				) {
+				if (mode === "agent" || ((mode === "tailoring" || mode === "prepare") && body.stream)) {
 					const step = agentStep++;
 					if (step === 2 && mode === "agent")
 						await new Promise<void>((resolve) => {
@@ -238,21 +228,6 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 					);
 					res.end(
 						`data: ${JSON.stringify({ id: "agent", created: 1, model: body.model, choices: [{ index: 0, delta: {}, finish_reason: step < 2 ? "tool_calls" : "stop" }] })}\n\ndata: [DONE]\n\n`,
-					);
-					return;
-				}
-				if ((mode === "letter" || mode === "prepare") && body.stream) {
-					if (failLetter) {
-						res.writeHead(503, { "content-type": "application/json" });
-						res.end(JSON.stringify({ error: { message: "Synthetic letter failure" } }));
-						return;
-					}
-					res.writeHead(200, { "content-type": "text/event-stream" });
-					res.write(
-						`data: ${JSON.stringify({ id: "letter", created: 1, model: body.model, choices: [{ index: 0, delta: { content: "done" }, finish_reason: null }] })}\n\n`,
-					);
-					res.end(
-						`data: ${JSON.stringify({ id: "letter", created: 1, model: body.model, choices: [{ index: 0, delta: {}, finish_reason: "stop" }] })}\n\ndata: [DONE]\n\n`,
 					);
 					return;
 				}
@@ -334,7 +309,6 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 				agent: agentRouter,
 				auth: authRouter,
 				career: careerRouter,
-				letters: coverLettersRouter,
 				resume: resumeRouter,
 				documents: documentsRouter,
 				applicationAi: applicationAiRouter,
@@ -355,7 +329,7 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 		data.summary.content = "<p>Built fictional reliable services.</p>";
 		data.metadata.notes = "PRIVATE_FICTIONAL_RESUME_NOTES";
 		const resumeId = await api.resume.import({ data });
-		const loaded = await loadDocument(user.id, { kind: "resume", id: resumeId });
+		const loaded = await loadDocument(user.id, { id: resumeId });
 		const passage = loaded.passages.find((entry) => entry.target.sectionId === "summary");
 		if (!passage) throw new Error("Missing fictional passage");
 		agentChanges = [
@@ -494,57 +468,40 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 				expect(requests).toHaveLength(3);
 			}),
 	);
-	it.each([false, true])(
-		"prepares all three real draft owners; letter failure=%s retains completed proposals and answers",
-		(failure) =>
-			run(async () => {
-				const { api, id, resumeId, data } = await reviewFixture();
-				mode = "prepare";
-				failLetter = failure;
-				const result = await api.applicationAi.prepare({ id, questions: ["Describe work you led.", "Why this role?"] });
-				expect(result.sets[0]?.edits[0]?.status).toBe("pending");
-				expect(result.threadId).toEqual(expect.any(String));
-				expect(result.answers).toHaveLength(2);
-				expect(result.answers.map((answer) => answer.question)).toEqual(["Describe work you led.", "Why this role?"]);
-				expect(result.failed).toEqual(failure ? ["letter"] : []);
-				expect((await api.resume.getById({ id: resumeId })).data.summary.content).toBe(data.summary.content);
-				expect((await api.resume.getById({ id: result.resume.id })).data.summary.content).toBe(data.summary.content);
-				expect((await api.career.workspace({ applicationId: id })).answers).toEqual([]);
-				if (failure) expect(result.letter).toBeNull();
-				else {
-					expect(result.letter?.text).toBe("done");
-					expect(result.letter?.document.content).toBe("");
-					const letter = await api.letters.update({
-						id: result.letter?.document.id ?? "missing",
-						expectedRevision: result.letter?.document.revision ?? 0,
-						content: coverLetterTextToHtml(result.letter?.text ?? ""),
-						aiOperationIds: result.letter?.aiOperationIds ?? [],
-					});
-					expect(letter.aiUsage?.requests).toBe(1);
-				}
-				const first = result.answers[0];
-				if (!first) throw new Error("Missing generated answer");
-				await api.career.saveWorkspace({
-					applicationId: id,
-					answers: [{ id: "approved-question", question: first.question, ...first.answer }],
-					expected: { answers: [] },
-				});
-				expect((await api.career.workspace({ applicationId: id })).answers[0]?.aiOperationIds).toEqual(
-					first.answer.aiOperationIds,
-				);
-				const groups = (await api.ai.usage({})).groups;
-				expect(groups).toEqual(
-					expect.arrayContaining([
-						expect.objectContaining({ action: "tailor-resume", requests: 3, model: "capable-model" }),
-						expect.objectContaining({ action: "draft-letter", requests: 1, model: "capable-model" }),
-						expect.objectContaining({ action: "answer", requests: 2, model: "main-model" }),
-					]),
-				);
-				expect(requests).toHaveLength(6);
-				expect(JSON.stringify(requestMessages.slice(0, 3))).not.toContain("PRIVATE_FICTIONAL_APPLICATION_NOTES");
-				expect(JSON.stringify(requestMessages)).not.toContain(data.metadata.notes);
-			}),
-	);
+	it("prepares the real draft owners and retains completed proposals and answers", () =>
+		run(async () => {
+			const { api, id, resumeId, data } = await reviewFixture();
+			mode = "prepare";
+			const result = await api.applicationAi.prepare({ id, questions: ["Describe work you led.", "Why this role?"] });
+			expect(result.sets[0]?.edits[0]?.status).toBe("pending");
+			expect(result.threadId).toEqual(expect.any(String));
+			expect(result.answers).toHaveLength(2);
+			expect(result.answers.map((answer) => answer.question)).toEqual(["Describe work you led.", "Why this role?"]);
+			expect(result.failed).toEqual([]);
+			expect((await api.resume.getById({ id: resumeId })).data.summary.content).toBe(data.summary.content);
+			expect((await api.resume.getById({ id: result.resume.id })).data.summary.content).toBe(data.summary.content);
+			expect((await api.career.workspace({ applicationId: id })).answers).toEqual([]);
+			const first = result.answers[0];
+			if (!first) throw new Error("Missing generated answer");
+			await api.career.saveWorkspace({
+				applicationId: id,
+				answers: [{ id: "approved-question", question: first.question, ...first.answer }],
+				expected: { answers: [] },
+			});
+			expect((await api.career.workspace({ applicationId: id })).answers[0]?.aiOperationIds).toEqual(
+				first.answer.aiOperationIds,
+			);
+			const groups = (await api.ai.usage({})).groups;
+			expect(groups).toEqual(
+				expect.arrayContaining([
+					expect.objectContaining({ action: "tailor-resume", requests: 3, model: "capable-model" }),
+					expect.objectContaining({ action: "answer", requests: 2, model: "main-model" }),
+				]),
+			);
+			expect(requests).toHaveLength(5);
+			expect(JSON.stringify(requestMessages.slice(0, 3))).not.toContain("PRIVATE_FICTIONAL_APPLICATION_NOTES");
+			expect(JSON.stringify(requestMessages)).not.toContain(data.metadata.notes);
+		}));
 	it("rejects invalid and declined Prepare before any copy or model request", () =>
 		run(async () => {
 			const { api, id } = await reviewFixture();
@@ -569,7 +526,7 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 			data.summary.content = "<p>Built fictional reliable services.</p>";
 			data.metadata.notes = "Private fictional resume note must stay out.";
 			const sourceId = await api.resume.import({ data });
-			const loaded = await loadDocument(user.id, { kind: "resume", id: sourceId });
+			const loaded = await loadDocument(user.id, { id: sourceId });
 			const passage = loaded.passages.find((entry) => entry.target.sectionId === "summary");
 			if (!passage) throw new Error("Missing fictional summary passage");
 			agentChanges = [
@@ -752,7 +709,7 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 			const api = client();
 			const id = await api.resume.import({ data: structuredClone(sampleResumeData) });
 			const thread = await api.agent.threads.start({ resumeId: id });
-			mode = "letter";
+			mode = "stream";
 			const stream = await api.agent.messages.send({
 				threadId: thread.id,
 				message: {
@@ -805,7 +762,6 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 		agentStep = 0;
 		agentChanges = [];
 		mode = "text";
-		failLetter = false;
 		await truncateCascade(pool, ["user"]);
 		await withDatabasePool(pool, async () => {
 			const nonce = randomUUID().slice(0, 8);
@@ -894,7 +850,7 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 			expect(requests).toHaveLength(2);
 			expect((await readAiUsage(user.id, [usage.operationId]))?.requests).toBe(2);
 			mode = "stream";
-			const streamedUsage = createAiUsage(user.id, "draft-letter", connection);
+			const streamedUsage = createAiUsage(user.id, "assistant", connection);
 			const streamed = streamText({
 				model: getModel({ ...connection, usage: streamedUsage }),
 				prompt: "Stream fixture",
@@ -972,7 +928,7 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 				.returning();
 			if (!resume) throw new Error("Missing fixture resume");
 			const usage = createAiUsage(user.id, "assistant", connection, (reader) =>
-				assertDocumentVersion(reader, user.id, { kind: "resume", ...resume }),
+				assertDocumentVersion(reader, user.id, { ...resume }),
 			);
 			const model = getModel({ ...connection, usage });
 			await pool.query("update resume set updated_at=updated_at+interval '1 millisecond' where id=$1", [resume.id]);
@@ -1316,7 +1272,7 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 				const data = structuredClone(sampleResumeData);
 				data.summary.content = "<p>Original fictional summary.</p>";
 				const id = await api.resume.import({ data });
-				const loaded = await loadDocument(user.id, { kind: "resume", id });
+				const loaded = await loadDocument(user.id, { id });
 				const passage = loaded.passages.find((entry) => entry.target.sectionId === "summary");
 				if (!passage) throw new Error("Missing fictional summary passage");
 				agentChanges = [
@@ -1398,147 +1354,7 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 			}),
 	);
 
-	it("uses the canonical letter prompt for API cover-letter drafts", () =>
-		run(async () => {
-			await provider();
-			const api = client();
-			const data = structuredClone(sampleResumeData);
-			data.metadata.page.locale = "en-GB";
-			data.metadata.notes = "PRIVATE_FICTIONAL_NOTES_NOT_FOR_DRAFT";
-			const sourceId = await api.resume.import({ data });
-			const sourceBefore = await api.resume.getById({ id: sourceId });
-			const [application] = await db
-				.insert(tables.application)
-				.values({
-					userId: user.id,
-					company: "Fictional Cedar",
-					role: "Engineer",
-					status: "saved",
-					resumeId: sourceId,
-					jobDescription: "Build fictional reliable services.",
-					postingSource: {
-						method: "paste",
-						format: "text",
-						truncated: false,
-						completeness: "unknown",
-						language: "de-DE",
-					},
-				})
-				.returning();
-			if (!application) throw new Error("Missing fictional application");
-			mode = "letter";
-			const result = await api.applicationAi.draftMessage({ id: application.id, kind: "cover-letter" });
-			expect(result.text).toBe("done");
-			expect(requests).toHaveLength(1);
-			const system = requestMessages[0]?.find((message) => (message as { role?: string }).role === "system") as
-				| { content: string }
-				| undefined;
-			expect(system?.content).toBe(letterDraftSystemPrompt);
-			expect(JSON.stringify(requestMessages[0])).toContain("Write in de-DE.");
-			expect(JSON.stringify(requestMessages[0])).not.toContain(data.metadata.notes);
-			expect(result).toMatchObject({
-				reviewRequired: true,
-				coverLetterId: expect.any(String),
-				aiOperationIds: [expect.any(String)],
-				aiUsage: { requests: 1 },
-			});
-			const letter = await api.letters.getById({ id: result.coverLetterId ?? "missing" });
-			expect(letter.content).toBe("");
-			expect(letter.aiOperationIds).toEqual([]);
-			expect(letter.style.metadata.page.locale).toBe("de-DE");
-			await expect(
-				client().applicationAi.draftMessage({ id: application.id, kind: "cover-letter" }),
-			).rejects.toMatchObject({ code: "FORBIDDEN" });
-			await expect(
-				client(new Headers({ "x-ai-destination": "none" })).applicationAi.draftMessage({
-					id: application.id,
-					kind: "cover-letter",
-				}),
-			).rejects.toMatchObject({ code: "CONFLICT" });
-			expect(requests).toHaveLength(1);
-			const accepted = await api.letters.update({
-				id: letter.id,
-				expectedRevision: letter.revision,
-				content: coverLetterTextToHtml(result.text),
-				aiOperationIds: result.aiOperationIds,
-			});
-			expect(accepted.content).toBe("<p>done</p>");
-			expect(accepted.aiUsage).toEqual(result.aiUsage);
-			expect(requests).toHaveLength(1);
-			expect((await api.resume.getById({ id: sourceId })).data).toEqual(sourceBefore.data);
-		}));
-
-	it("does not create a letter when a canonical application draft fails or the application belongs to another account", () =>
-		run(async () => {
-			await provider();
-			const [owned, foreign] = await db
-				.insert(tables.application)
-				.values([
-					{
-						userId: user.id,
-						company: "Fictional Cedar",
-						role: "Engineer",
-						status: "saved" as const,
-						jobDescription: "Build fictional reliable services.",
-					},
-					{
-						userId: "usage-bob",
-						company: "Other fictional company",
-						role: "Engineer",
-						status: "saved" as const,
-						jobDescription: "PRIVATE_OTHER_APPLICATION",
-					},
-				])
-				.returning();
-			if (!owned || !foreign) throw new Error("Missing fictional applications");
-			await expect(client().applicationAi.draftMessage({ id: foreign.id, kind: "cover-letter" })).rejects.toMatchObject(
-				{ code: "NOT_FOUND" },
-			);
-			expect(requests).toHaveLength(0);
-			mode = "failure";
-			await expect(client().applicationAi.draftMessage({ id: owned.id, kind: "cover-letter" })).rejects.toMatchObject({
-				code: "BAD_GATEWAY",
-			});
-			expect(requests).toHaveLength(1);
-			expect((await pool.query("select id from cover_letter where user_id=$1", [user.id])).rows).toEqual([]);
-		}));
-
-	it("leaves no new letter after an application draft is cancelled in transport", () =>
-		run(async () => {
-			await provider();
-			const [application] = await db
-				.insert(tables.application)
-				.values({
-					userId: user.id,
-					company: "Fictional Cedar",
-					role: "Engineer",
-					status: "saved",
-					jobDescription: "Build fictional reliable services.",
-				})
-				.returning();
-			if (!application) throw new Error("Missing fictional application");
-			mode = "hold";
-			const arrivedAtProvider = new Promise<void>((resolve) => {
-				arrived = resolve;
-			});
-			const controller = new AbortController();
-			const pending = client().applicationAi.draftMessage(
-				{ id: application.id, kind: "cover-letter" },
-				{ signal: controller.signal },
-			);
-			try {
-				await arrivedAtProvider;
-				controller.abort();
-				await expect(pending).rejects.toThrow();
-				expect(requests).toHaveLength(1);
-				expect((await client().ai.usage({})).requests).toBe(1);
-				expect((await pool.query("select id from cover_letter where user_id=$1", [user.id])).rows).toEqual([]);
-			} finally {
-				release();
-			}
-		}));
-
-	it("preserves the legacy follow-up text contract without creating a letter or logging a sent reply", () =>
+	it("preserves the legacy follow-up text contract without logging a sent reply", () =>
 		run(async () => {
 			await provider();
 			const [application] = await db
@@ -1555,137 +1371,111 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 			const result = await client().applicationAi.draftMessage({ id: application.id, kind: "follow-up" });
 			expect(result).toEqual({ text: "done" });
 			expect(requests).toHaveLength(1);
-			expect((await pool.query("select id from cover_letter where user_id=$1", [user.id])).rows).toEqual([]);
 			expect(
 				(await pool.query("select activity from application where id=$1", [application.id])).rows[0]?.activity,
 			).toEqual(application.activity);
 		}));
 
-	it.each(["resume", "letter"] as const)(
-		"%s accepted assistant sources preserve prior lineage, partial decisions and older clients",
-		(kind) =>
-			run(async () => {
-				const connection = await provider();
-				const priorUsage = createAiUsage(user.id, "improve", connection);
-				await generateText({ model: getModel({ ...connection, usage: priorUsage }), prompt: "Fictional prior source" });
-				const foreignConnection = await provider("usage-bob");
-				const foreignUsage = createAiUsage("usage-bob", "assistant", foreignConnection);
-				await generateText({
-					model: getModel({ ...foreignConnection, usage: foreignUsage }),
-					prompt: "Fictional other account",
-				});
-				const usage = createAiUsage(user.id, "assistant", connection);
-				await generateText({ model: getModel({ ...connection, usage }), prompt: "Fictional source fixture" });
-				const api = client();
-				const data = structuredClone(sampleResumeData);
-				const first = "<p>Original fictional summary.</p>";
-				const second = "<p>Second fictional paragraph.</p>";
-				const after = "<p>Led fictional delivery work.</p>";
-				const afterSecond = "<p>Built fictional reporting tools.</p>";
-				data.summary.content = first + second;
-				const id =
-					kind === "resume"
-						? await api.resume.import({ data, aiOperationIds: [priorUsage.operationId] })
-						: (await api.letters.create({ name: "Fictional proposal letter", content: first + second })).id;
-				if (kind === "letter") {
-					const letter = await api.letters.getById({ id });
-					await api.letters.update({
-						id,
-						content: letter.content,
-						aiOperationIds: [priorUsage.operationId],
-						expectedRevision: letter.revision,
-					});
-				}
-				const [thread] = await db
-					.insert(tables.agentThread)
-					.values({
-						userId: user.id,
-						...(kind === "resume" ? { workingResumeId: id, sourceResumeId: id } : { coverLetterId: id }),
-						title: "Fictional proposal source",
-					})
-					.returning();
-				if (!thread) throw new Error("Missing fixture thread");
-				await upsertAssistantUiMessage({
+	it("accepted assistant sources preserve prior lineage, partial decisions and older clients", () =>
+		run(async () => {
+			const connection = await provider();
+			const priorUsage = createAiUsage(user.id, "improve", connection);
+			await generateText({ model: getModel({ ...connection, usage: priorUsage }), prompt: "Fictional prior source" });
+			const foreignConnection = await provider("usage-bob");
+			const foreignUsage = createAiUsage("usage-bob", "assistant", foreignConnection);
+			await generateText({
+				model: getModel({ ...foreignConnection, usage: foreignUsage }),
+				prompt: "Fictional other account",
+			});
+			const usage = createAiUsage(user.id, "assistant", connection);
+			await generateText({ model: getModel({ ...connection, usage }), prompt: "Fictional source fixture" });
+			const api = client();
+			const data = structuredClone(sampleResumeData);
+			const first = "<p>Original fictional summary.</p>";
+			const second = "<p>Second fictional paragraph.</p>";
+			const after = "<p>Led fictional delivery work.</p>";
+			const afterSecond = "<p>Built fictional reporting tools.</p>";
+			data.summary.content = first + second;
+			const id = await api.resume.import({ data, aiOperationIds: [priorUsage.operationId] });
+			const [thread] = await db
+				.insert(tables.agentThread)
+				.values({
 					userId: user.id,
-					threadId: thread.id,
-					status: "completed",
-					message: {
-						id: "fictional-assistant",
-						role: "assistant",
-						metadata: {
-							aiOperationIds: [usage.operationId, foreignUsage.operationId, priorUsage.operationId, "fabricated-op"],
-						},
-						parts: [
-							{
-								type: "tool-propose_edits",
-								toolCallId: "fictional-edit-call",
-								state: "output-available",
-								input: {},
-								output: {
-									tailoredFor: null,
-									edits: [
-										{
-											id: "fictional-edit",
-											status: "pending",
-											target: { sectionId: kind === "resume" ? "summary" : "letter", field: "content" },
-											location: "Summary",
-											before: first,
-											after,
-											why: "Fictional rewrite",
-										},
-										{
-											id: "second-edit",
-											status: "pending",
-											target: { sectionId: kind === "resume" ? "summary" : "letter", field: "content" },
-											location: "Summary",
-											before: second,
-											after: afterSecond,
-											why: "Fictional second rewrite",
-										},
-									],
-								},
-							},
-						],
+					workingResumeId: id,
+					sourceResumeId: id,
+					title: "Fictional proposal source",
+				})
+				.returning();
+			if (!thread) throw new Error("Missing fixture thread");
+			await upsertAssistantUiMessage({
+				userId: user.id,
+				threadId: thread.id,
+				status: "completed",
+				message: {
+					id: "fictional-assistant",
+					role: "assistant",
+					metadata: {
+						aiOperationIds: [usage.operationId, foreignUsage.operationId, priorUsage.operationId, "fabricated-op"],
 					},
+					parts: [
+						{
+							type: "tool-propose_edits",
+							toolCallId: "fictional-edit-call",
+							state: "output-available",
+							input: {},
+							output: {
+								tailoredFor: null,
+								edits: [
+									{
+										id: "fictional-edit",
+										status: "pending",
+										target: { sectionId: "summary", field: "content" },
+										location: "Summary",
+										before: first,
+										after,
+										why: "Fictional rewrite",
+									},
+									{
+										id: "second-edit",
+										status: "pending",
+										target: { sectionId: "summary", field: "content" },
+										location: "Summary",
+										before: second,
+										after: afterSecond,
+										why: "Fictional second rewrite",
+									},
+								],
+							},
+						},
+					],
+				},
+			});
+			const save = async (content: string, applications: Record<string, string | boolean>) => {
+				const current = await api.resume.getById({ id });
+				return api.resume.update({
+					id,
+					data: { ...current.data, summary: { ...current.data.summary, content } },
+					expectedUpdatedAt: current.updatedAt,
+					proposalApplications: applications,
+					proposalSafety: "v1",
 				});
-				const save = async (content: string, applications: Record<string, string | boolean>) => {
-					if (kind === "resume") {
-						const current = await api.resume.getById({ id });
-						return api.resume.update({
-							id,
-							data: { ...current.data, summary: { ...current.data.summary, content } },
-							expectedUpdatedAt: current.updatedAt,
-							proposalApplications: applications,
-							proposalSafety: "v1",
-						});
-					}
-					const current = await api.letters.getById({ id });
-					return api.letters.update({
-						id,
-						content,
-						expectedRevision: current.revision,
-						proposalApplications: applications,
-						proposalSafety: "v1",
-					});
-				};
-				const accepted = await save(after + second, { "fictional-edit": after });
-				expect(accepted.aiOperationIds).toEqual([priorUsage.operationId, usage.operationId]);
-				expect(accepted.aiUsage).toMatchObject({
-					requests: 2,
-					models: [expect.objectContaining({ providerId: connection.id, model: connection.model })],
-				});
-				await save(after + afterSecond, { "second-edit": afterSecond });
-				const partial = await save(first + afterSecond, { "fictional-edit": false });
-				expect(partial.aiOperationIds).toEqual([priorUsage.operationId, usage.operationId]);
-				const undone = await save(first + second, { "second-edit": false });
-				expect(undone.aiOperationIds).toEqual([priorUsage.operationId]);
-				const redone = await save(after + second, { "fictional-edit": after });
-				expect(redone.aiOperationIds).toEqual([priorUsage.operationId, usage.operationId]);
-				await api.ai.usage();
-				expect(requests).toHaveLength(3);
-			}),
-	);
-
+			};
+			const accepted = await save(after + second, { "fictional-edit": after });
+			expect(accepted.aiOperationIds).toEqual([priorUsage.operationId, usage.operationId]);
+			expect(accepted.aiUsage).toMatchObject({
+				requests: 2,
+				models: [expect.objectContaining({ providerId: connection.id, model: connection.model })],
+			});
+			await save(after + afterSecond, { "second-edit": afterSecond });
+			const partial = await save(first + afterSecond, { "fictional-edit": false });
+			expect(partial.aiOperationIds).toEqual([priorUsage.operationId, usage.operationId]);
+			const undone = await save(first + second, { "second-edit": false });
+			expect(undone.aiOperationIds).toEqual([priorUsage.operationId]);
+			const redone = await save(after + second, { "fictional-edit": after });
+			expect(redone.aiOperationIds).toEqual([priorUsage.operationId, usage.operationId]);
+			await api.ai.usage();
+			expect(requests).toHaveLength(3);
+		}));
 	it("returns opt-in Improve sources from actual transport records while preserving the default result contract", () =>
 		run(async () => {
 			const connection = await provider();
@@ -1802,7 +1592,7 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 				applicationId: application.id,
 				answers: [],
 				expectedAnswers: [],
-				expectedDocuments: { resumeId: id, coverLetterId: null },
+				expectedDocuments: { resumeId: id },
 			});
 			const sent = (await api.resume.listVersions({ resumeId: id })).find((version) => version.kind === "sent");
 			if (!sent) throw new Error("Missing sent version");
@@ -1844,120 +1634,6 @@ describe.skipIf(!databaseUrl)("AI request metering through installed SDK, protec
 				expect((await pool.query(`select * from ${table}`)).rows).toEqual([]);
 			expect((await pool.query("select * from ai_request where user_id=$1", [user.id])).rows).toEqual([]);
 			expect(requests).toHaveLength(2);
-		}));
-
-	it("keeps letter draft sources through owned saves, reuse, history, export and deletion without new dispatches", () =>
-		run(async () => {
-			const connection = await provider();
-			const [resume] = await db
-				.insert(tables.resume)
-				.values({ userId: user.id, name: "Fictional resume", data: sampleResumeData })
-				.returning();
-			if (!resume) throw new Error("Missing fixture resume");
-			const api = client();
-			const letter = await api.letters.create({ name: "Fictional letter", resumeId: resume.id });
-			const created = (await api.letters.listVersions({ id: letter.id }))[0];
-			if (!created) throw new Error("Missing created version");
-			mode = "stream";
-			const stream = await api.letters.draft({ id: letter.id, includeProvenance: true });
-			const parts = await Array.fromAsync(stream);
-			const source = parts.find((part) => typeof part !== "string");
-			if (!source || typeof source === "string") throw new Error("Missing draft provenance");
-			const text = parts.filter((part) => typeof part === "string").join("");
-			expect(text).toBe("x".repeat(50));
-			expect(requests).toHaveLength(1);
-			const kept = await api.letters.update({
-				id: letter.id,
-				expectedRevision: letter.revision,
-				content: `<p>${text}</p>`,
-				aiOperationIds: [source.aiOperationId, source.aiOperationId],
-			});
-			const expected = {
-				requests: 1,
-				models: [
-					{ providerId: connection.id, label: connection.label, provider: connection.provider, model: "capable-model" },
-				],
-			};
-			expect(kept.aiOperationIds).toEqual([source.aiOperationId]);
-			expect(kept.aiUsage).toEqual(expected);
-			// An old app edits without the new field: source history is preserved.
-			const edited = await api.letters.update({
-				id: letter.id,
-				expectedRevision: kept.revision,
-				content: "<p>Edited draft</p>",
-			});
-			expect(edited.aiUsage).toEqual(expected);
-			for (const [operationId, userId, action] of [
-				["foreign-letter", "usage-bob", "draft-letter"],
-				["wrong-letter", user.id, "provider-test"],
-			] as const) {
-				await db.insert(tables.aiRequest).values({
-					operationId,
-					userId,
-					action,
-					providerId: connection.id,
-					label: connection.label,
-					provider: connection.provider,
-					model: "foreign-model",
-				});
-				await expect(
-					api.letters.update({
-						id: letter.id,
-						expectedRevision: edited.revision,
-						content: "<p>Refused</p>",
-						aiOperationIds: [operationId],
-					}),
-				).rejects.toMatchObject({ code: "BAD_REQUEST" });
-			}
-			expect((await api.letters.getById({ id: letter.id })).content).toBe("<p>Edited draft</p>");
-			await expect(
-				client().letters.update({ id: letter.id, expectedRevision: edited.revision, aiOperationIds: [] }),
-			).rejects.toMatchObject({ code: "FORBIDDEN" });
-			const named = await api.letters.createVersion({ id: letter.id, name: "Kept draft" });
-			expect((await client().letters.getVersion({ id: letter.id, versionId: named.id })).aiUsage).toEqual(expected);
-			const reused = await api.letters.create({
-				name: "New employer",
-				sourceLetterId: letter.id,
-				recipientCompany: "Fictional New Co",
-			});
-			expect(reused).toMatchObject({
-				content: edited.content,
-				recipientCompany: "Fictional New Co",
-				aiOperationIds: [source.aiOperationId],
-				aiUsage: expected,
-			});
-			expect((await api.letters.duplicate({ id: letter.id })).aiUsage).toEqual(expected);
-			const portable = await api.letters.export({ id: letter.id });
-			expect(portable).not.toHaveProperty("aiOperationIds");
-			expect(portable).not.toHaveProperty("aiUsage");
-			const imported = await api.letters.import({ document: portable });
-			expect(imported.aiOperationIds).toEqual([]);
-			const recovered = await api.letters.import({ document: portable, aiOperationIds: [source.aiOperationId] });
-			expect(recovered.aiUsage).toEqual(expected);
-			await expect(
-				api.letters.import({ document: portable, aiOperationIds: ["foreign-letter"] }),
-			).rejects.toMatchObject({ code: "BAD_REQUEST" });
-			await aiProvidersService.delete({ userId: user.id, id: connection.id });
-			expect((await client().letters.getById({ id: letter.id })).aiUsage).toEqual(expected);
-			await pool.query("update cover_letter_version set data=data-'aiOperationIds' where id=$1", [created.id]);
-			const restored = await api.letters.restoreVersion({ id: letter.id, versionId: created.id, proposalSafety: "v1" });
-			expect(restored.aiOperationIds).toEqual([]);
-			expect(restored.aiUsage).toBeNull();
-			const history = await api.letters.listVersions({ id: letter.id });
-			const before = history.find((version) => version.kind === "before-restore");
-			if (!before) throw new Error("Missing before-restore version");
-			expect((await api.letters.getVersion({ id: letter.id, versionId: before.id })).aiUsage).toEqual(expected);
-			const exportData = await client().auth.exportData({});
-			expect(JSON.stringify(exportData.coverLetters)).toContain(source.aiOperationId);
-			expect(
-				exportData.documentVersions?.letters.find((version) => version.id === before.id)?.data.aiOperationIds,
-			).toEqual([source.aiOperationId]);
-			expect(exportData.career.aiRequests?.some((row) => row.operationId === source.aiOperationId)).toBe(true);
-			await authService.deleteAccount({ userId: user.id });
-			expect((await pool.query("select * from cover_letter")).rows).toEqual([]);
-			expect((await pool.query("select * from cover_letter_version")).rows).toEqual([]);
-			expect((await pool.query("select * from ai_request where user_id=$1", [user.id])).rows).toEqual([]);
-			expect(requests).toHaveLength(1);
 		}));
 
 	it("retains saved-result provenance after connection edits/removal, exports it to old archive clients and deletes account usage", () =>

@@ -50,19 +50,10 @@ export const isAppSectionPath = (pathname: string) =>
 	APP_SECTIONS.some((section) => pathname === `/${section}` || pathname.startsWith(`/${section}/`));
 
 /** Pages of the signed-in app that people type without `/dashboard`. */
-const DASHBOARD_PAGES = new Set([
-	"documents",
-	"applications",
-	"resumes",
-	"cover-letters",
-	"career",
-	"settings",
-	"trash",
-]);
+const DASHBOARD_PAGES = new Set(["documents", "applications", "resumes", "career", "settings", "trash"]);
 /** Other single words that only ever mean an app page. */
 const APP_SHORTCUTS: Readonly<Record<string, string>> = {
 	today: "/dashboard",
-	letters: "/dashboard/cover-letters",
 	login: "/auth/login",
 	"sign-in": "/auth/login",
 	signin: "/auth/login",

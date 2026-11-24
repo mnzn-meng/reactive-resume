@@ -62,7 +62,6 @@ export function ImportPage({ applicationId }: ImportPageProps) {
 		initialFile: handedOver,
 		applicationId,
 		locale,
-		openLetter: (coverLetterId) => void navigate({ to: "/builder/letter/$coverLetterId", params: { coverLetterId } }),
 	});
 	const { startBlank, creating } = useStartDocument(applicationId, locale);
 	const noAi = !providerState.isUnavailable && !providerState.hasUsableProvider;
@@ -874,11 +873,6 @@ function Formats() {
 			name: t`LinkedIn export`,
 			extension: ".zip",
 			note: <Trans>The data archive LinkedIn sends you. Read on this device.</Trans>,
-		},
-		{
-			name: t`Cover letter`,
-			extension: ".json",
-			note: <Trans>A letter exported from this app comes in as a letter.</Trans>,
 		},
 	];
 

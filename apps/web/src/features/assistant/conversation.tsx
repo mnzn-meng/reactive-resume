@@ -591,9 +591,7 @@ const MessageView = memo(function MessageView({
 	const lastTextIndex = message.parts.findLastIndex((part) => part.type === "text");
 	// What this reply read, as the coach shows it: the document, and any facts and stories its Knowledge search found.
 	const readDocument = message.parts.some(
-		(part) =>
-			(part.type === "tool-read_resume" || part.type === "tool-read_letter") &&
-			(part as ToolPart).state === "output-available",
+		(part) => part.type === "tool-read_resume" && (part as ToolPart).state === "output-available",
 	);
 
 	return (
@@ -678,7 +676,7 @@ const MessageView = memo(function MessageView({
 								>
 									{source.title?.trim() || source.url}
 								</a>
-								{posting && document.kind === "resume" && onPostingSaved && (
+								{posting && onPostingSaved && (
 									<SavePosting
 										key={posting.postingSource.retrievedAt}
 										posting={posting}
@@ -766,10 +764,9 @@ function ToolPartView({
 
 	switch (part.type) {
 		case "tool-read_resume":
-		case "tool-read_letter":
 			return (
 				<Status working={working}>
-					{part.type === "tool-read_letter" ? <Trans>Read the letter</Trans> : <Trans>Read the resume</Trans>}
+					<Trans>Read the resume</Trans>
 				</Status>
 			);
 		case "tool-read_attachment":
@@ -910,14 +907,14 @@ function ToolPartView({
 			const pending = states.filter((state) => state === "pending").length;
 			const accepted = states.filter((state) => state === "accepted").length;
 			// Tailored edits land only on the copy made for their job; older sets that may have used a posting are asked again.
-			const forJobCopy = document.kind === "resume" && !tailoringAllows(message, part.output, document.madeFor);
+			const forJobCopy = !tailoringAllows(message, part.output, document.madeFor);
 			const undecided = proposals.some((proposal) => proposal.status === "pending");
 			const requirements = output.requirements ?? [];
 			return (
 				<div className="grid gap-1.5">
 					{proposals.length > 0 ? (
 						<ChangeSet
-							resumeId={document.kind === "resume" ? document.id : undefined}
+							resumeId={document.id}
 							proposals={proposals}
 							states={states}
 							locked={localEditsLocked || forJobCopy}
@@ -954,7 +951,7 @@ function ToolPartView({
 							</div>
 						)
 					)}
-					{document.kind === "resume" && answerable && accepted > 0 && pending === 0 && <StillOverflows />}
+					{answerable && accepted > 0 && pending === 0 && <StillOverflows />}
 					{forJobCopy && undecided && (
 						<p className="text-xs text-ink-2">
 							{"tailoredFor" in output ? (
@@ -1078,7 +1075,7 @@ export function Composer(props: ComposerProps) {
 	const { document, context, onContextChange, streaming, disabled } = props;
 	const [text, setText] = useState(props.initialText ?? "");
 	const [attachments, setAttachments] = useState<ChatAttachment[]>(props.initialAttachments ?? []);
-	const removal = useAttachmentRemoval(`${document.kind}:${document.id}:${props.threadId ?? "draft"}`, (id) =>
+	const removal = useAttachmentRemoval(`${document.id}:${props.threadId ?? "draft"}`, (id) =>
 		setAttachments((current) => current.filter((item) => item.id !== id)),
 	);
 	const [uploading, setUploading] = useState(false);
@@ -1145,9 +1142,9 @@ export function Composer(props: ComposerProps) {
 	const chips = [
 		{
 			key: "document" as const,
-			icon: document.kind === "letter" ? ("envelope-simple" as const) : ("file-text" as const),
+			icon: "file-text" as const,
 			// The kind, as the board draws it: one short row of chips. The document's name is on the panel already.
-			label: document.kind === "letter" ? t`Letter` : t`Resume`,
+			label: t`Resume`,
 		},
 		...(document.posting
 			? [

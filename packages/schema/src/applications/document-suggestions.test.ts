@@ -6,22 +6,18 @@ const application = {
 	company: "  Cedar  ",
 	status: "saved" as const,
 	resumeId: null,
-	coverLetterId: null,
 	sentResumeVersionId: null,
-	sentCoverLetterVersionId: null,
 };
 const resume = {
 	id: "resume",
-	type: "resume" as const,
 	name: "CEDAR — Portfolio",
 	isLocked: false,
 	trashedAt: null,
 	application: null,
 };
-const letter = { ...resume, id: "letter", type: "letter" as const, name: "Cedar — Introduction" };
 
 describe("company-named document suggestions", () => {
-	it("uses the first eligible match of each kind without stealing another job's document", () => {
+	it("uses the first eligible match without stealing another job's document", () => {
 		const candidates = [
 			{ ...resume, id: "unrelated", name: "Orbit — Portfolio" },
 			{ ...resume, id: "locked", isLocked: true },
@@ -29,27 +25,26 @@ describe("company-named document suggestions", () => {
 			{ ...resume, id: "other-job", application: { id: "another-job" } },
 			resume,
 			{ ...resume, id: "older" },
-			letter,
 		];
-		expect(suggestApplicationDocuments(application, candidates)).toEqual([resume, letter]);
+		expect(suggestApplicationDocuments(application, candidates)).toEqual([resume]);
 		expect(suggestApplicationDocuments(application, [{ ...resume, application: { id: application.id } }])).toHaveLength(
 			1,
 		);
 	});
 
-	it.each([
-		{ resumeId: "selected", expected: [letter] },
-		{ sentCoverLetterVersionId: "sent", expected: [resume] },
-	])("preserves selected documents and sent-version-bound slots ($expected)", ({ expected, ...patch }) => {
-		expect(suggestApplicationDocuments({ ...application, ...patch }, [resume, letter])).toEqual(expected);
-	});
+	it.each([{ resumeId: "selected" }, { sentResumeVersionId: "sent" }])(
+		"preserves a resume already selected or sent",
+		(patch) => {
+			expect(suggestApplicationDocuments({ ...application, ...patch }, [resume])).toEqual([]);
+		},
+	);
 
 	it.each(["offer", "closed"] as const)("does not offer preparation for %s applications", (status) => {
-		expect(suggestApplicationDocuments({ ...application, status }, [resume, letter])).toEqual([]);
+		expect(suggestApplicationDocuments({ ...application, status }, [resume])).toEqual([]);
 	});
 
 	it("requires a nonblank literal company name", () => {
-		expect(suggestApplicationDocuments({ ...application, company: "  " }, [resume, letter])).toEqual([]);
-		expect(suggestApplicationDocuments({ ...application, company: "%" }, [resume, letter])).toEqual([]);
+		expect(suggestApplicationDocuments({ ...application, company: "  " }, [resume])).toEqual([]);
+		expect(suggestApplicationDocuments({ ...application, company: "%" }, [resume])).toEqual([]);
 	});
 });

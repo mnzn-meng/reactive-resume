@@ -53,7 +53,6 @@ ${kind === "greenhouse" ? "<input id=first_name><input id=last_name>" : `<input 
 						targetUrl: `${origin}/greenhouse`,
 						includeContact: true,
 						answerIds: ["answer"],
-						letterWords: null,
 					},
 					fingerprint: "a".repeat(64),
 					application: { id: "fixture", company: "Fictional Tools", role: "Engineer" },
@@ -61,7 +60,6 @@ ${kind === "greenhouse" ? "<input id=first_name><input id=last_name>" : `<input 
 					profileRevision: "reviewed-profile",
 					profileReviewedAt: "2026-01-01T00:00:00.000Z",
 					experience: "Fictional Tools — Engineer",
-					letterText: "Reviewed letter",
 					answers: [
 						{
 							id: "answer",
@@ -75,15 +73,16 @@ ${kind === "greenhouse" ? "<input id=first_name><input id=last_name>" : `<input 
 					],
 					documents: [],
 				},
-				documents: ["resume", "letter"].map((kind) => ({
-					kind: kind as "resume" | "letter",
-					id: kind,
-					versionId: `${kind}-v3`,
-					name: `Reviewed ${kind}`,
-					filename: `${kind}-v3.pdf`,
-					sha256: createHash("sha256").update(pdf).digest("hex"),
-					base64: pdf.toString("base64"),
-				})),
+				documents: [
+					{
+						id: "resume",
+						versionId: "resume-v3",
+						name: "Reviewed resume",
+						filename: "resume-v3.pdf",
+						sha256: createHash("sha256").update(pdf).digest("hex"),
+						base64: pdf.toString("base64"),
+					},
+				],
 			};
 			const receipts = [];
 			for (const kind of ["greenhouse", "lever", "ashby"]) {
@@ -106,13 +105,11 @@ ${kind === "greenhouse" ? "<input id=first_name><input id=last_name>" : `<input 
 				for (const field of ["authorization", "salary", "country", "custom", "account", "captcha"])
 					expect(receipt.report.results.find((row: { field: string }) => row.field === field)?.status).toBe("manual");
 				for (const document of packet.documents) {
-					const file = await page
-						.locator(document.kind === "resume" ? "#resume" : "#cover_letter")
-						.evaluate(async (input: HTMLInputElement) => {
-							const file = input.files?.[0];
-							if (!file) throw new Error("Missing attached file");
-							return { name: file.name, bytes: [...new Uint8Array(await file.arrayBuffer())] };
-						});
+					const file = await page.locator("#resume").evaluate(async (input: HTMLInputElement) => {
+						const file = input.files?.[0];
+						if (!file) throw new Error("Missing attached file");
+						return { name: file.name, bytes: [...new Uint8Array(await file.arrayBuffer())] };
+					});
 					expect(file.name).toBe(document.filename);
 					expect(Buffer.from(file.bytes)).toEqual(pdf);
 				}

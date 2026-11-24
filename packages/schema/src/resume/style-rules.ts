@@ -18,7 +18,7 @@ export const getSectionStyleRuleContext = (
 	sectionTypes?: ReadonlyMap<string, CustomSectionType>,
 ): SectionStyleRuleContext => {
 	const type = sectionId as CustomSectionType;
-	if (type !== "cover-letter" && sectionTypeSchema.options.includes(type)) return { sectionId, sectionType: type };
+	if (sectionTypeSchema.options.includes(type)) return { sectionId, sectionType: type };
 
 	const sectionType = sectionTypes
 		? sectionTypes.get(sectionId)

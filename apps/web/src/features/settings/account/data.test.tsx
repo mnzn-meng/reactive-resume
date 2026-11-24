@@ -32,7 +32,6 @@ const backup = {
 	exportedAt: "2030-01-01",
 	user: { id: "owner" },
 	resumes: [],
-	coverLetters: [],
 	applications: [
 		{ id: "never-sent", status: "saved", submittedAt: null },
 		{ id: "sent-then-saved", status: "saved", submittedAt: new Date("2030-01-01T12:00:00.000Z") },

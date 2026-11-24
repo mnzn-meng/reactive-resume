@@ -53,7 +53,6 @@ vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: vi.fn(), 
 
 const MINUTE = 60 * 1000;
 const trashed = (index: number): DocumentSummary => ({
-	type: "letter",
 	id: `document-${index}`,
 	name: `Document ${index}`,
 	tags: [],
@@ -63,7 +62,6 @@ const trashed = (index: number): DocumentSummary => ({
 	createdAt: new Date(),
 	updatedAt: new Date(),
 	editedAt: new Date(),
-	recipient: null,
 	application: null,
 });
 const page = (offset: number, total = 19_500): Page => ({

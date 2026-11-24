@@ -22,7 +22,7 @@ export type Entry = CustomSectionItem;
 export type WriteSection = { id: string; kind: "summary" | "builtin" | "custom"; type: CustomSectionType };
 
 export const BUILTIN_SECTION_TYPES: readonly SectionType[] = sectionTypeSchema.options.filter(
-	(type) => type !== "summary" && type !== "cover-letter",
+	(type) => type !== "summary",
 );
 
 export const CUSTOM_SECTION_TYPES = [
@@ -157,8 +157,7 @@ export function describeEntry(type: CustomSectionType, entry: Entry): { title: s
 			return { title: text(e.name), meta: join(e.position) };
 		case "profiles":
 			return { title: text(e.network), meta: join(e.username) };
-		case "summary":
-		case "cover-letter": {
+		case "summary": {
 			const body = stripHtml(String(e.content ?? "")).trim();
 			return { title: body.length > 80 ? `${body.slice(0, 80)}…` : body, meta: "" };
 		}

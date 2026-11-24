@@ -7,7 +7,6 @@ import { resumeDataSchema } from "@reactive-resume/schema/resume/data";
 import { protectedProcedure } from "../../context";
 import { aiRequestRateLimit } from "../../middleware/rate-limit";
 import { aiProvidersService } from "../ai-providers/service";
-import { applicationService, assertApplicationVersion } from "../applications/service";
 import { assertDocumentVersion } from "../documents/ownership";
 import { atsReviewInputSchema, atsReviewOutputSchema, reviewResumeText } from "./ats-review";
 import { improveInputSchema, improveLine, improveOutputSchema } from "./improve";
@@ -219,12 +218,12 @@ export const aiRouter = {
 				const resume = input.resumeId ? await beginWritingReview(context.user.id, input.resumeId) : null;
 				const provider = await getRunnableProvider(context.user.id, input.aiProviderId);
 				await aiProvidersService.authorize({ userId: context.user.id, id: provider.id }, async (tx) => {
-					if (resume) await assertDocumentVersion(tx, context.user.id, { kind: "resume", ...resume });
+					if (resume) await assertDocumentVersion(tx, context.user.id, { ...resume });
 				});
 				signal?.throwIfAborted();
 
 				const usage = createAiUsage(context.user.id, "writing-review", provider, async (tx) => {
-					if (resume) await assertDocumentVersion(tx, context.user.id, { kind: "resume", ...resume });
+					if (resume) await assertDocumentVersion(tx, context.user.id, { ...resume });
 				});
 				const review = await reviewResumeText({
 					usage,
@@ -261,7 +260,7 @@ export const aiRouter = {
 			operationId: "improveLine",
 			summary: "Suggest a rewrite of one line",
 			description:
-				"Suggests a rewrite of one line of a resume or cover letter: a stronger verb, an added result, a shorter version, or the user's own request. Returns the new line, a short reason, and whether it states anything the input didn't, so the user can check it. Writes nothing. Requires authentication and AI credentials.",
+				"Suggests a rewrite of one line of a resume: a stronger verb, an added result, a shorter version, or the user's own request. Returns the new line, a short reason, and whether it states anything the input didn't, so the user can check it. Writes nothing. Requires authentication and AI credentials.",
 			successDescription: "The suggested line.",
 		})
 		.input(improveInputSchema.extend({ includeProvenance: z.boolean().optional() }))
@@ -277,21 +276,12 @@ export const aiRouter = {
 			try {
 				const provider = await getRunnableProvider(context.user.id, input.aiProviderId);
 				await aiProvidersService.authorize({ userId: context.user.id, id: provider.id });
-				// The posting comes from the user's own application, never from the client.
-				const application =
-					input.action === "posting" && input.applicationId
-						? await applicationService.getById({ id: input.applicationId, userId: context.user.id })
-						: null;
-				const posting = application?.jobDescription?.slice(0, 12_000);
 				signal?.throwIfAborted();
 
-				const usage = createAiUsage(context.user.id, "improve", provider, async (tx) => {
-					if (application) await assertApplicationVersion(tx, context.user.id, application);
-				});
+				const usage = createAiUsage(context.user.id, "improve", provider);
 				const result = await improveLine({
 					usage,
 					...input,
-					posting,
 					signal,
 					provider: provider.provider,
 					model: aiModelForTask(provider, "fast"),

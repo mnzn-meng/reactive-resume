@@ -61,7 +61,6 @@ vi.mock("@/libs/orpc/client", () => {
 				logReply: endpoint("logReply", api.logReply),
 				lanes: { get: endpoint("lanes") },
 			},
-			coverLetters: { create: endpoint("createLetter") },
 			career: {
 				answers: {
 					list: endpoint("reviewedAnswers"),
@@ -148,9 +147,7 @@ const application: Application = {
 	role: "Engineer",
 	status: "saved",
 	closedReason: null,
-	coverLetterId: null,
 	sentResumeVersionId: null,
-	sentCoverLetterVersionId: null,
 	sentCheckScore: null,
 	requirements: [],
 	location: null,
@@ -174,8 +171,6 @@ const application: Application = {
 	aiMetadata: null,
 	resumeFileUrl: null,
 	resumeFileName: null,
-	coverLetterUrl: null,
-	coverLetterName: null,
 	followUpAt: null,
 	followUpNote: null,
 };
@@ -298,7 +293,7 @@ it("submits the visible draft immediately and pauses autosave until submission f
 		applicationId: application.id,
 		answers: [{ ...answer, answer: "Latest answer typed before clicking" }],
 		expectedAnswers: [answer],
-		expectedDocuments: { resumeId: null, coverLetterId: null },
+		expectedDocuments: { resumeId: null },
 	});
 	await act(async () => {
 		await vi.advanceTimersByTimeAsync(3000);
@@ -760,7 +755,7 @@ it("confirms a Saved-to-Interview move as one change before anything is written"
 		submission: {
 			answers: [],
 			expectedAnswers: [],
-			expectedDocuments: { resumeId: null, coverLetterId: null },
+			expectedDocuments: { resumeId: null },
 		},
 	});
 });

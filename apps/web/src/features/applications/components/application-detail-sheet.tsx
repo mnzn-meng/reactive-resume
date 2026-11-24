@@ -729,9 +729,7 @@ function MarkAppliedDialog({ application, lane, onClose }: MarkAppliedDialogProp
 	const { mode } = useApplicationLanes();
 	const [date, setDate] = useState(() => new Date().toLocaleDateString("en-CA"));
 	const [resumeId, setResumeId] = useState(application.resumeId ?? "");
-	const [coverLetterId, setCoverLetterId] = useState(application.coverLetterId ?? "");
 	const [resumeFileSent, setResumeFileSent] = useState(true);
-	const [letterFileSent, setLetterFileSent] = useState(true);
 	const { data: documents } = useQuery(orpc.documents.list.queryOptions({ input: { trashed: false } }));
 	// Focus starts on the first choice, not the date: a focused date input takes the first Escape for itself.
 	const resumeRef = useRef<HTMLSelectElement>(null);
@@ -759,9 +757,7 @@ function MarkAppliedDialog({ application, lane, onClose }: MarkAppliedDialogProp
 							...laneMoveInput(lane, mode),
 							stageEnteredAt: date,
 							resumeId: resumeId || null,
-							coverLetterId: coverLetterId || null,
 							...(!resumeFileSent ? { resumeFileUrl: null, resumeFileName: null } : {}),
-							...(!letterFileSent ? { coverLetterUrl: null, coverLetterName: null } : {}),
 						});
 					}}
 				>
@@ -771,8 +767,8 @@ function MarkAppliedDialog({ application, lane, onClose }: MarkAppliedDialogProp
 						</DialogTitle>
 						<DialogDescription>
 							<Trans>
-								{application.company} · {application.role}. Choose what you sent; those versions are kept as sent and
-								never change.
+								{application.company} · {application.role}. Choose the resume you sent; that version is kept as sent and
+								never changes.
 							</Trans>
 						</DialogDescription>
 					</DialogHeader>
@@ -794,35 +790,14 @@ function MarkAppliedDialog({ application, lane, onClose }: MarkAppliedDialogProp
 							onChange={(event) => setResumeId(event.target.value)}
 						>
 							<option value="">{t`No resume selected`}</option>
-							{documents
-								?.filter((document) => document.type === "resume")
-								.map((document) => (
-									<option key={document.id} value={document.id}>
-										{document.name}
-									</option>
-								))}
-						</NativeSelect>
-					</div>
-					<div className="grid gap-1.5">
-						<label htmlFor={`${id}-letter`}>
-							<Trans>Cover letter you sent</Trans>
-						</label>
-						<NativeSelect
-							id={`${id}-letter`}
-							value={coverLetterId}
-							onChange={(event) => setCoverLetterId(event.target.value)}
-						>
-							<option value="">{t`No cover letter selected`}</option>
-							{documents
-								?.filter((document) => document.type === "letter")
-								.map((document) => (
-									<option key={document.id} value={document.id}>
-										{document.name}
-									</option>
-								))}
+							{documents?.map((document) => (
+								<option key={document.id} value={document.id}>
+									{document.name}
+								</option>
+							))}
 						</NativeSelect>
 						<p className="text-xs/4 text-ink-3">
-							<Trans>Both are optional. Leave one unselected if you didn't send it.</Trans>
+							<Trans>It's optional. Leave it unselected if you didn't send one.</Trans>
 						</p>
 					</div>
 					{application.resumeFileUrl && (
@@ -833,16 +808,6 @@ function MarkAppliedDialog({ application, lane, onClose }: MarkAppliedDialogProp
 								onChange={(event) => setResumeFileSent(event.target.checked)}
 							/>
 							<Trans>Submitted attached resume: {application.resumeFileName ?? "PDF"}</Trans>
-						</label>
-					)}
-					{application.coverLetterUrl && (
-						<label className="flex items-center gap-2 text-sm">
-							<input
-								type="checkbox"
-								checked={letterFileSent}
-								onChange={(event) => setLetterFileSent(event.target.checked)}
-							/>
-							<Trans>Submitted attached cover letter: {application.coverLetterName ?? "PDF"}</Trans>
 						</label>
 					)}
 					{update.error && (

@@ -15,10 +15,7 @@ import { useHasUsableAiProvider } from "@/features/settings/integrations/hooks/u
 import { getOrpcErrorMessage } from "@/libs/error-message";
 import { orpc } from "@/libs/orpc/client";
 
-type Action = "verb" | "result" | "shorter" | "posting" | "warmer" | "custom";
-
-/** In a cover letter the unit is a paragraph, with presets of its own; `applicationId` is the linked job. */
-export type ImproveKind = { letter: true; applicationId?: string | null | undefined };
+type Action = "verb" | "result" | "shorter" | "custom";
 
 /** The line Improve works on: the paragraph or list item holding the caret, as it was when Improve opened. */
 export type ImproveLine = { from: number; to: number; text: string };
@@ -39,14 +36,13 @@ type ImprovePanelProps = {
 	onClose: () => void;
 	/** Applies the accepted text as its own editor/app history event. */
 	onAccept: (text: string, aiOperationIds?: string[]) => void;
-	kind?: ImproveKind | undefined;
 };
 
 /**
  * B · Improve: pick what to change, then Replace or Keep mine. Only the one line changes, and only when the user
  * replaces it; if the line was edited meanwhile, the suggestion is not applied.
  */
-export function ImprovePanel({ editor, line, where, onClose, onAccept, kind }: ImprovePanelProps) {
+export function ImprovePanel({ editor, line, where, onClose, onAccept }: ImprovePanelProps) {
 	const providers = useHasUsableAiProvider();
 	const provider = providers.usableProviders[0];
 	// "custom" asks what to change; "result" asks what the result was, since only the user knows it.
@@ -64,21 +60,11 @@ export function ImprovePanel({ editor, line, where, onClose, onAccept, kind }: I
 	const improve = useMutation(orpc.ai.improve.mutationOptions());
 	const resultId = useId();
 
-	const letter = kind?.letter === true;
-	const applicationId = kind?.applicationId ?? undefined;
-	const options: Array<{ action: Action; icon: IconName; label: string }> = letter
-		? [
-				...(applicationId
-					? [{ action: "posting" as const, icon: "briefcase" as const, label: t`Tie to the posting` }]
-					: []),
-				{ action: "warmer", icon: "hand-heart", label: t`Warmer` },
-				{ action: "shorter", icon: "arrows-in-line-vertical", label: t`Shorter` },
-			]
-		: [
-				{ action: "verb", icon: "lightning", label: t`Stronger verb` },
-				{ action: "result", icon: "trend-up", label: t`Add a result` },
-				{ action: "shorter", icon: "arrows-in-line-vertical", label: t`Make it shorter` },
-			];
+	const options: Array<{ action: Action; icon: IconName; label: string }> = [
+		{ action: "verb", icon: "lightning", label: t`Stronger verb` },
+		{ action: "result", icon: "trend-up", label: t`Add a result` },
+		{ action: "shorter", icon: "arrows-in-line-vertical", label: t`Make it shorter` },
+	];
 
 	const run = (
 		action: Action,
@@ -94,7 +80,6 @@ export function ImprovePanel({ editor, line, where, onClose, onAccept, kind }: I
 			where,
 			context: editor.getText(),
 			...(words ? { request: words } : {}),
-			...(action === "posting" && applicationId ? { applicationId } : {}),
 		});
 	};
 	const pick = (action: Action) => (action === "result" ? setAsking("result") : run(action));
@@ -137,7 +122,7 @@ export function ImprovePanel({ editor, line, where, onClose, onAccept, kind }: I
 				<>
 					<div className="flex items-center justify-between gap-2">
 						<span className={!provider || improve.data ? "t-caption font-medium text-ink-2" : "t-label text-ink"}>
-							{letter ? <Trans>Improve this paragraph</Trans> : <Trans>Improve selected line</Trans>}
+							<Trans>Improve selected line</Trans>
 						</span>
 						{provider && (
 							<span className="text-xs/[18px] text-ink-3">

@@ -65,10 +65,9 @@ function render(input: RenderInput): Promise<Rendered> {
 
 export const createResumePdfBlob = async (
 	data: ResumeData,
-	renderOptions?: RenderInput["renderOptions"],
 	{ onPageMap, onLostCharacters }: CreateResumePdfBlobExtras = {},
 ) => {
-	const { blob, pageMap, lostCharacters } = await render({ data, renderOptions, fontMirrorUrl: getFontMirrorUrl() });
+	const { blob, pageMap, lostCharacters } = await render({ data, fontMirrorUrl: getFontMirrorUrl() });
 	if (pageMap) onPageMap?.(pageMap);
 	if (lostCharacters) onLostCharacters?.(lostCharacters);
 	return blob;

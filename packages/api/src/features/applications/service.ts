@@ -13,18 +13,14 @@ import { and, arrayContains, asc, count, desc, eq, inArray, isNotNull, isNull, l
 import { db } from "@reactive-resume/db/client";
 import * as schema from "@reactive-resume/db/schema";
 import { lintResumeForAts } from "@reactive-resume/resume/ats";
-import { copyCoverLetterStyle } from "@reactive-resume/resume/cover-letter";
 import { latestStageEntryId } from "@reactive-resume/schema/applications/data";
 import { SUBMITTED_DOCUMENT_LOCKED } from "@reactive-resume/schema/applications/errors";
 import { isDateOnlyFollowUp } from "@reactive-resume/schema/applications/follow-up";
 import { canonicalOpportunityUrl } from "@reactive-resume/schema/applications/posting-url";
 import { careerWorkspaceDataSchema, EMPTY_WORKSPACE } from "@reactive-resume/schema/career";
-import { coverLetterSchema } from "@reactive-resume/schema/cover-letter/data";
 import { generateId } from "@reactive-resume/utils/string";
 import { requestRunCancellation } from "../agent/cancellation";
 import { prepareRunAt } from "../career/scheduling";
-import { coverLetterService, linkLetterToApplication } from "../cover-letters/service";
-import { writeLetterVersion } from "../cover-letters/versions";
 import { isRetriedCreate, lockUser, recordCreateRequest } from "../documents/ownership";
 import { resumeService } from "../resume/service";
 import { writeVersion } from "../resume/version-history";
@@ -78,8 +74,6 @@ export async function insertApplication(
 	if (created) await recordCreateRequest(tx, created);
 	if (row) {
 		await recordSentResume(row, tx);
-		if (row.coverLetterId)
-			await linkLetterToApplication(tx, { userId: input.userId, letterId: row.coverLetterId, applicationId: row.id });
 		if (row.followUpAt) await syncFollowUp(tx, row);
 	}
 	return id;
@@ -204,11 +198,6 @@ async function assertOwnedResume(userId: string, resumeId: string | null | undef
 	await resumeService.getById({ id: resumeId, userId });
 }
 
-async function assertOwnedCoverLetter(userId: string, coverLetterId: string | null | undefined) {
-	if (!coverLetterId) return;
-	await coverLetterService.getById({ id: coverLetterId, userId });
-}
-
 // Stages at which an application has been sent.
 const SENT_STAGES = new Set<ApplicationStatus>(["applied", "screening", "interview", "offer"]);
 
@@ -217,10 +206,7 @@ export const isSentStage = (status: ApplicationStatus) => SENT_STAGES.has(status
 
 type ApplicationRow = typeof schema.application.$inferSelect;
 
-type SubmissionHistory = Pick<
-	ApplicationRow,
-	"status" | "activity" | "sentResumeVersionId" | "sentCoverLetterVersionId" | "submittedAt"
->;
+type SubmissionHistory = Pick<ApplicationRow, "status" | "activity" | "sentResumeVersionId" | "submittedAt">;
 
 /**
  * Whether this application has already been submitted at any point in its life. The immediate status alone is not
@@ -232,13 +218,12 @@ export const hasSubmitted = (row: SubmissionHistory) =>
 	row.submittedAt != null ||
 	isSentStage(row.status) ||
 	Boolean(row.sentResumeVersionId) ||
-	Boolean(row.sentCoverLetterVersionId) ||
 	row.activity.some((entry) => entry.type === "stage" && isSentStage(entry.stage));
 
 /**
  * Once an application has been sent (Applied or later), its linked resume is saved as a "sent" version, named after
- * the company, with its Check score at the time, and so is its linked letter. The application keeps pointing at
- * them, so it can open exactly what went out while the documents move on.
+ * the company, with its Check score at the time. The application keeps pointing at it, so it can open exactly what
+ * went out while the document moves on.
  */
 export async function recordSentResume(
 	row: ApplicationRow,
@@ -259,7 +244,7 @@ export async function recordSentResume(
 		const submissionReview = {
 			at: recordedAt.toISOString(),
 			checklist: [...data.checklist],
-			documents: Boolean(row.resumeId || row.coverLetterId || row.resumeFileUrl || row.coverLetterUrl),
+			documents: Boolean(row.resumeId || row.resumeFileUrl),
 			answers: data.answers.length > 0,
 			answerVersionId: null,
 			stageEntryId:
@@ -299,47 +284,6 @@ export async function recordSentResume(
 		changes.sentCheckScore = lintResumeForAts(resume.data).score;
 	}
 
-	// The letter sent with it is kept the same way.
-	if (row.coverLetterId && !row.sentCoverLetterVersionId) {
-		const [stored] = await client
-			.select()
-			.from(schema.coverLetter)
-			.where(
-				and(
-					eq(schema.coverLetter.id, row.coverLetterId),
-					eq(schema.coverLetter.userId, row.userId),
-					isNull(schema.coverLetter.trashedAt),
-				),
-			)
-			.for("update");
-		if (!stored)
-			throw new ORPCError("NOT_FOUND", { message: "The linked letter is unavailable. Restore it before submitting." });
-		const letter = coverLetterSchema.parse(stored);
-		if (letter.sourceResumeId && (letter.senderLinked || letter.designLinked)) {
-			const [source] = await client
-				.select()
-				.from(schema.resume)
-				.where(
-					and(
-						eq(schema.resume.id, letter.sourceResumeId),
-						eq(schema.resume.userId, row.userId),
-						isNull(schema.resume.trashedAt),
-					),
-				)
-				.for("update");
-			if (source) {
-				const linked = copyCoverLetterStyle(source.data, letter.style.sectionId, letter.style.itemId);
-				letter.style = {
-					...letter.style,
-					...(letter.senderLinked ? { basics: linked.basics, picture: linked.picture } : {}),
-					...(letter.designLinked ? { metadata: linked.metadata } : {}),
-				};
-			}
-		}
-		const version = await writeLetterVersion(client, { letter, userId: row.userId, kind: "sent", name: row.company });
-		changes.sentCoverLetterVersionId = version.id;
-	}
-
 	if (Object.keys(changes).length === 0) return row;
 	const [updated] = await client
 		.update(schema.application)
@@ -372,13 +316,12 @@ function storageKeyFromApplicationUrl(userId: string, value: string | null | und
 
 async function deleteApplicationAttachments(
 	userId: string,
-	applications: Pick<EditableFields, "resumeFileUrl" | "coverLetterUrl" | "postingFileUrl">[],
+	applications: Pick<EditableFields, "resumeFileUrl" | "postingFileUrl">[],
 ) {
 	const candidateKeys = [
 		...new Set(
 			applications.flatMap((application) => [
 				storageKeyFromApplicationUrl(userId, application.resumeFileUrl),
-				storageKeyFromApplicationUrl(userId, application.coverLetterUrl),
 				storageKeyFromApplicationUrl(userId, application.postingFileUrl),
 			]),
 		),
@@ -389,7 +332,6 @@ async function deleteApplicationAttachments(
 	const remainingApplications = await db
 		.select({
 			resumeFileUrl: schema.application.resumeFileUrl,
-			coverLetterUrl: schema.application.coverLetterUrl,
 			postingFileUrl: schema.application.postingFileUrl,
 		})
 		.from(schema.application)
@@ -398,7 +340,6 @@ async function deleteApplicationAttachments(
 	const referencedKeys = new Set(
 		remainingApplications.flatMap((application) => [
 			storageKeyFromApplicationUrl(userId, application.resumeFileUrl),
-			storageKeyFromApplicationUrl(userId, application.coverLetterUrl),
 			storageKeyFromApplicationUrl(userId, application.postingFileUrl),
 		]),
 	);
@@ -577,27 +518,20 @@ function documentFields(kind: ApplicationDocumentKind) {
 				url: "resumeFileUrl",
 				name: "resumeFileName",
 			} as const)
-		: kind === "posting"
-			? ({
-					file: "postingFile",
-					url: "postingFileUrl",
-					name: "postingFileName",
-				} as const)
-			: ({
-					file: "coverLetterFile",
-					url: "coverLetterUrl",
-					name: "coverLetterName",
-				} as const);
+		: ({
+				file: "postingFile",
+				url: "postingFileUrl",
+				name: "postingFileName",
+			} as const);
 }
 
 type UploadedDocumentFields = Pick<
 	EditableFields,
-	"resumeFileUrl" | "resumeFileName" | "coverLetterUrl" | "coverLetterName" | "postingFileUrl" | "postingFileName"
+	"resumeFileUrl" | "resumeFileName" | "postingFileUrl" | "postingFileName"
 >;
 
 type DocumentFiles = {
 	resumeFile?: File | undefined;
-	coverLetterFile?: File | undefined;
 	postingFile?: File | undefined;
 };
 
@@ -609,8 +543,8 @@ async function withDocumentFiles<T>(
 ) {
 	const uploadedFields: UploadedDocumentFields = {};
 	try {
-		// ponytail: at most three sequential uploads; use allSettled if measured latency warrants concurrency.
-		for (const kind of ["resume", "cover-letter", "posting"] as const) {
+		// ponytail: at most two sequential uploads; use allSettled if measured latency warrants concurrency.
+		for (const kind of ["resume", "posting"] as const) {
 			const fields = documentFields(kind);
 			const file = files[fields.file];
 			if (!file) continue;
@@ -660,10 +594,7 @@ const applicationSummarySelect = {
 	closedReason: schema.application.closedReason,
 	resumeId: schema.application.resumeId,
 	resumeFileUrl: schema.application.resumeFileUrl,
-	coverLetterUrl: schema.application.coverLetterUrl,
-	coverLetterId: schema.application.coverLetterId,
 	sentResumeVersionId: schema.application.sentResumeVersionId,
-	sentCoverLetterVersionId: schema.application.sentCoverLetterVersionId,
 	source: schema.application.source,
 	tags: schema.application.tags,
 	sourceUrl: schema.application.sourceUrl,
@@ -841,18 +772,7 @@ export const applicationService = {
 				stageEnteredAt?: string | undefined;
 			},
 	) => {
-		const {
-			userId,
-			status,
-			laneId,
-			stageEnteredAt,
-			closedReason,
-			resumeFile,
-			coverLetterFile,
-			postingFile,
-			newId,
-			...fields
-		} = input;
+		const { userId, status, laneId, stageEnteredAt, closedReason, resumeFile, postingFile, newId, ...fields } = input;
 		const file = async (value: File | undefined) =>
 			value && {
 				name: value.name,
@@ -868,15 +788,13 @@ export const applicationService = {
 			stage: { status, laneId, closedReason, stageEnteredAt },
 			files: {
 				resume: await file(resumeFile),
-				coverLetter: await file(coverLetterFile),
 				posting: await file(postingFile),
 			},
 		};
 		// A retry of a create that already landed (a lost response, a second press) returns the same application.
 		if (newId && (await isRetriedCreate(db, { table: "application", id: newId, userId, request }))) return newId;
 		await assertOwnedResume(userId, fields.resumeId);
-		await assertOwnedCoverLetter(userId, fields.coverLetterId);
-		return withDocumentFiles(userId, { resumeFile, coverLetterFile, postingFile }, (uploadedFields) =>
+		return withDocumentFiles(userId, { resumeFile, postingFile }, (uploadedFields) =>
 			db.transaction((tx) =>
 				insertApplication(tx, {
 					userId,
@@ -906,8 +824,6 @@ export const applicationService = {
 			input.userId,
 			input.items.map((item) => item.resumeId),
 		);
-		const coverLetterIds = new Set(input.items.map((item) => item.coverLetterId).filter((id) => !!id));
-		await Promise.all([...coverLetterIds].map((id) => assertOwnedCoverLetter(input.userId, id)));
 		return db.transaction(async (tx) => {
 			await lockUser(tx, input.userId);
 			const pipeline = await ensureApplicationPipeline(tx, input.userId);
@@ -969,12 +885,6 @@ export const applicationService = {
 			for (const row of rows) {
 				await recordSentResume(row, tx, true);
 				if (row.followUpAt) await syncFollowUp(tx, row);
-				if (row.coverLetterId)
-					await linkLetterToApplication(tx, {
-						userId: input.userId,
-						letterId: row.coverLetterId,
-						applicationId: row.id,
-					});
 			}
 			return { imported: rows.length };
 		});
@@ -1002,7 +912,6 @@ export const applicationService = {
 			stageEnteredAt,
 			closedReason,
 			resumeFile,
-			coverLetterFile,
 			postingFile,
 			canDeleteAttachments = false,
 			...fields
@@ -1012,9 +921,6 @@ export const applicationService = {
 				!canDeleteAttachments &&
 				((current.resumeFileUrl &&
 					(resumeFile || (fields.resumeFileUrl !== undefined && fields.resumeFileUrl !== current.resumeFileUrl))) ||
-					(current.coverLetterUrl &&
-						(coverLetterFile ||
-							(fields.coverLetterUrl !== undefined && fields.coverLetterUrl !== current.coverLetterUrl))) ||
 					(current.postingFileUrl &&
 						(postingFile || (fields.postingFileUrl !== undefined && fields.postingFileUrl !== current.postingFileUrl))))
 			)
@@ -1023,12 +929,7 @@ export const applicationService = {
 				});
 		};
 		assertAttachmentPermission(existing);
-		if (
-			(existing.sentResumeVersionId && fields.resumeId !== undefined && fields.resumeId !== existing.resumeId) ||
-			(existing.sentCoverLetterVersionId &&
-				fields.coverLetterId !== undefined &&
-				fields.coverLetterId !== existing.coverLetterId)
-		) {
+		if (existing.sentResumeVersionId && fields.resumeId !== undefined && fields.resumeId !== existing.resumeId) {
 			throw new ORPCError("BAD_REQUEST", {
 				message:
 					"Recorded submitted documents cannot be replaced. Prepare a copy to keep the submitted versions intact.",
@@ -1036,9 +937,8 @@ export const applicationService = {
 			});
 		}
 		await assertOwnedResume(userId, fields.resumeId);
-		await assertOwnedCoverLetter(userId, fields.coverLetterId);
 
-		return withDocumentFiles(userId, { resumeFile, coverLetterFile, postingFile }, async (uploadedFields) => {
+		return withDocumentFiles(userId, { resumeFile, postingFile }, async (uploadedFields) => {
 			const result = await db.transaction(async (tx) => {
 				await lockUser(tx, userId);
 				const [current] = await tx
@@ -1054,12 +954,7 @@ export const applicationService = {
 							: isDateOnlyFollowUp({ followUpAt: fields.followUpAt });
 				await assertUntrackedPosting(tx, userId, fields.sourceUrl, id);
 				assertAttachmentPermission(current);
-				if (
-					(current.sentResumeVersionId && fields.resumeId !== undefined && fields.resumeId !== current.resumeId) ||
-					(current.sentCoverLetterVersionId &&
-						fields.coverLetterId !== undefined &&
-						fields.coverLetterId !== current.coverLetterId)
-				)
+				if (current.sentResumeVersionId && fields.resumeId !== undefined && fields.resumeId !== current.resumeId)
 					throw new ORPCError("BAD_REQUEST", {
 						message:
 							"Recorded submitted documents cannot be replaced. Prepare a copy to keep the submitted versions intact.",
@@ -1116,33 +1011,9 @@ export const applicationService = {
 				// submission. Later metadata saves and stage advances must not turn a late-linked draft into "sent".
 				const result =
 					!hasSubmitted(current) && isSentStage(updated.status) ? await recordSentResume(updated, tx) : updated;
-				// Every explicit letter-link write reconciles both sides, including an equal-ID save that may be
-				// repairing a legacy null reverse or multiple aliases.
-				if (fields.coverLetterId !== undefined) {
-					if (fields.coverLetterId !== current.coverLetterId && current.coverLetterId)
-						await linkLetterToApplication(tx, {
-							userId,
-							letterId: current.coverLetterId,
-							applicationId: null,
-							clearApplicationId: id,
-						});
-					if (fields.coverLetterId)
-						await linkLetterToApplication(tx, {
-							userId,
-							letterId: fields.coverLetterId,
-							applicationId: id,
-						});
-				}
 				return applicationView(result);
 			});
-			if (
-				fields.resumeFileUrl !== undefined ||
-				fields.coverLetterUrl !== undefined ||
-				fields.postingFileUrl !== undefined ||
-				resumeFile ||
-				coverLetterFile ||
-				postingFile
-			) {
+			if (fields.resumeFileUrl !== undefined || fields.postingFileUrl !== undefined || resumeFile || postingFile) {
 				await deleteApplicationAttachments(userId, [existing]).catch(() => {});
 			}
 			return result;

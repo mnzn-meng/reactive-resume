@@ -13,7 +13,6 @@ import {
 	submissionReviewSchema,
 	discoverySourceSchema,
 } from "@reactive-resume/schema/career";
-import { coverLetterSchema } from "@reactive-resume/schema/cover-letter/data";
 import { accountBackupLimits, accountUploadSkipReasons } from "@reactive-resume/utils/account-zip";
 import { localeSchema } from "@reactive-resume/utils/locale";
 import { timezoneSchema } from "@reactive-resume/utils/timezone";
@@ -207,17 +206,11 @@ export const authRouter = {
 					updatedAt: true,
 				}),
 				resumes: z.array(resumeDto.getById.output.omit({ applicationId: true })),
-				coverLetters: z.array(coverLetterSchema),
 				documentVersions: z
 					.object({
 						// Preserve historical JSON verbatim; current document parsing can normalize old snapshots.
 						resumes: z.array(
 							createSelectSchema(schema.resumeVersion, { data: z.record(z.string(), z.unknown()) }).omit({
-								userId: true,
-							}),
-						),
-						letters: z.array(
-							createSelectSchema(schema.coverLetterVersion, { data: z.record(z.string(), z.unknown()) }).omit({
 								userId: true,
 							}),
 						),

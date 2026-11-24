@@ -22,7 +22,6 @@ export const user = pg.pgTable(
 		emailVerified: pg.boolean("email_verified").notNull().default(false),
 		username: pg.text("username").notNull().unique(),
 		displayUsername: pg.text("display_username").notNull().unique(),
-		twoFactorEnabled: pg.boolean("two_factor_enabled").notNull().default(false),
 		/** Where the user's times are shown (Settings → Preferences); an IANA name. */
 		timezone: pg.text("timezone").notNull().default("UTC"),
 		/** The interface language the account last used, for account emails; null until the app reports one. */
@@ -165,33 +164,6 @@ export const verification = pg.pgTable(
 			.$onUpdate(() => /* @__PURE__ */ new Date()),
 	},
 	(t) => [pg.index().on(t.identifier)],
-);
-
-export const twoFactor = pg.pgTable(
-	"two_factor",
-	{
-		id: pg
-			.text("id")
-			.notNull()
-			.primaryKey()
-			.$defaultFn(() => generateId()),
-		userId: pg
-			.text("user_id")
-			.notNull()
-			.references(() => user.id, { onDelete: "cascade" }),
-		secret: pg.text("secret").notNull(),
-		backupCodes: pg.text("backup_codes").notNull(),
-		verified: pg.boolean("verified").notNull().default(true),
-		failedVerificationCount: pg.integer("failed_verification_count").default(0),
-		lockedUntil: pg.timestamp("locked_until", { withTimezone: true }),
-		createdAt: pg.timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
-		updatedAt: pg
-			.timestamp("updated_at", { withTimezone: true })
-			.notNull()
-			.defaultNow()
-			.$onUpdate(() => /* @__PURE__ */ new Date()),
-	},
-	(t) => [pg.index().on(t.userId), pg.index().on(t.secret)],
 );
 
 export const passkey = pg.pgTable(

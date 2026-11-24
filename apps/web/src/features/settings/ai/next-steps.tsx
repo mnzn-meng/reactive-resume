@@ -98,16 +98,6 @@ export function TryItOn({ className, onLeave }: TryItOnProps) {
 					variant="secondary"
 					onClick={() => {
 						onLeave?.();
-						openDialog("document.new", { context: "letters" });
-					}}
-				>
-					<Trans>New cover letter</Trans>
-				</Button>
-				<Button
-					size="sm"
-					variant="secondary"
-					onClick={() => {
-						onLeave?.();
 						void navigate({ to: "/dashboard/career/coach" });
 					}}
 				>

@@ -42,7 +42,6 @@ type Props = {
 type SubmitLoginOptions = {
 	value: z.infer<typeof formSchema>;
 	callbackURL: string | undefined;
-	reauthenticate: boolean | undefined;
 	navigate: ReturnType<typeof useNavigate>;
 	queryClient: QueryClient;
 	router: ReturnType<typeof useRouter>;
@@ -50,15 +49,7 @@ type SubmitLoginOptions = {
 	onWrongDetails: () => void;
 };
 
-async function submitLogin({
-	value,
-	callbackURL,
-	reauthenticate,
-	navigate,
-	queryClient,
-	router,
-	onWrongDetails,
-}: SubmitLoginOptions) {
+async function submitLogin({ value, callbackURL, navigate, queryClient, router, onWrongDetails }: SubmitLoginOptions) {
 	const toastId = toast.add({ type: "loading", description: t`Signing in…` });
 
 	try {
@@ -79,18 +70,6 @@ async function submitLogin({
 				description: authErrorMessage(result.error, t`Couldn't sign in. Try again.`),
 				id: toastId,
 			});
-			return;
-		}
-
-		const requiresTwoFactor =
-			result.data &&
-			typeof result.data === "object" &&
-			"twoFactorRedirect" in result.data &&
-			result.data.twoFactorRedirect;
-
-		if (requiresTwoFactor) {
-			toast.close(toastId);
-			void navigate({ to: "/auth/verify-2fa", search: { callbackURL, reauthenticate }, replace: true });
 			return;
 		}
 
@@ -124,7 +103,6 @@ export function LoginPage({ disableEmailAuth, disableSignups, allowGuestLogin, i
 			await submitLogin({
 				value,
 				callbackURL,
-				reauthenticate,
 				navigate,
 				queryClient,
 				router,

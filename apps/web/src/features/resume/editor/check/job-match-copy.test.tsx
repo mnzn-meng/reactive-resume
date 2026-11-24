@@ -129,7 +129,6 @@ it("still links the base resume itself when that's chosen", async () => {
 
 	await waitFor(() => expect(api.link).toHaveBeenCalled());
 	expect(api.link.mock.calls[0]?.[0]).toEqual({
-		type: "resume",
 		id: "base-resume",
 		applicationId: "job-parcel",
 		expectedUpdatedAt: undefined,

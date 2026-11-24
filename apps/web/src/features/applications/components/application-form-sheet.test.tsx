@@ -18,13 +18,6 @@ const mocks = vi.hoisted(() => ({
 	create: vi.fn(),
 	update: vi.fn(),
 	autofill: vi.fn(),
-	documents: [] as Array<{
-		id: string;
-		name: string;
-		type: "letter";
-		isLocked: boolean;
-		application: { id: string } | null;
-	}>,
 }));
 
 vi.mock("@/libs/orpc/client", () => ({
@@ -48,9 +41,6 @@ vi.mock("@/libs/orpc/client", () => ({
 			create: { mutationOptions: (options: object) => ({ ...options, mutationFn: mocks.create }) },
 			update: { mutationOptions: (options: object) => ({ ...options, mutationFn: mocks.update }) },
 			ai: { autofill: { mutationOptions: (options: object) => ({ ...options, mutationFn: mocks.autofill }) } },
-		},
-		documents: {
-			list: { queryOptions: () => ({ queryKey: ["documents", "list"], queryFn: async () => mocks.documents }) },
 		},
 		aiProviders: { list: { queryOptions: () => ({ queryKey: ["aiProviders"], queryFn: async () => [] }) } },
 		storage: {
@@ -79,9 +69,7 @@ const application: Application = {
 	postingSource: null,
 	postingFileUrl: null,
 	postingFileName: null,
-	coverLetterId: null,
 	sentResumeVersionId: null,
-	sentCoverLetterVersionId: null,
 	sentCheckScore: null,
 	requirements: [],
 	resumeId: null,
@@ -93,8 +81,6 @@ const application: Application = {
 	notes: null,
 	resumeFileUrl: OLD_URL,
 	resumeFileName: "old.pdf",
-	coverLetterUrl: null,
-	coverLetterName: null,
 	followUpAt: null,
 	followUpNote: null,
 	tags: [],
@@ -109,7 +95,6 @@ beforeAll(() => i18n.loadAndActivate({ locale: "en", messages: {} }));
 beforeEach(() => {
 	vi.resetAllMocks();
 	mocks.timeZone = "UTC";
-	mocks.documents = [];
 	mocks.upload.mockResolvedValue({
 		url: "https://example.com/api/uploads/user-1/pictures/new.pdf",
 		path: NEW_KEY,
@@ -131,16 +116,9 @@ function renderSheet(app: Application | null = application, onOpenChange = vi.fn
 	return { onOpenChange };
 }
 
-it("shows the recorded letter even when locked, without offering other locked letters", async () => {
-	mocks.documents = [
-		{ id: "letter-1", name: "Recorded letter", type: "letter", isLocked: true, application: { id: application.id } },
-		{ id: "letter-2", name: "Other locked letter", type: "letter", isLocked: true, application: null },
-	];
-	renderSheet({ ...application, coverLetterId: "letter-1", sentCoverLetterVersionId: "sent-1" });
-	const select = screen.getByRole("combobox", { name: "Link an existing letter" });
-	await waitFor(() => expect(select).toHaveValue("letter-1"));
-	expect(select).toBeDisabled();
-	expect(screen.queryByRole("option", { name: "Other locked letter" })).toBeNull();
+it("shows the recorded resume", async () => {
+	renderSheet({ ...application, resumeId: "resume-1", sentResumeVersionId: "sent-1" });
+	await waitFor(() => expect(screen.getByRole("combobox", { name: "Resume" })).toBeTruthy());
 });
 
 async function pickResumeFile(file: File) {

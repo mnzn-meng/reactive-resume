@@ -823,7 +823,7 @@ export function collectPassages(data: ResumeData, labels: PassageLabels): Passag
 	];
 
 	for (const section of sections) {
-		if (section.hidden || section.type === "cover-letter") continue;
+		if (section.hidden) continue;
 
 		for (const entry of section.items) {
 			if (entry.hidden) continue;

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 
-type DocumentRef = { type: string; id: string };
+type DocumentRef = { id: string };
 export type OnDocumentEffect = (
 	effect: "trash" | "restore" | "purge",
 	documents?: readonly DocumentRef[],

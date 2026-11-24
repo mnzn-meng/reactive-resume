@@ -1,17 +1,10 @@
 import type { auth } from "@reactive-resume/auth/config";
 import { dashClient } from "@better-auth/infra/client";
 import { passkeyClient } from "@better-auth/passkey/client";
-import {
-	adminClient,
-	anonymousClient,
-	inferAdditionalFields,
-	twoFactorClient,
-	usernameClient,
-} from "better-auth/client/plugins";
+import { adminClient, anonymousClient, inferAdditionalFields, usernameClient } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
 import { isSessionIntentPath } from "@reactive-resume/utils/auth-intent";
 import { getAccountId } from "./account-scope";
-import { authSearchSchema } from "@/features/auth/redirect";
 
 export const authClient = createAuthClient({
 	// New accounts start in the device timezone instead of UTC. Social sign-in carries this into the
@@ -36,19 +29,6 @@ export const authClient = createAuthClient({
 		passkeyClient(),
 		usernameClient(),
 		anonymousClient(),
-		twoFactorClient({
-			onTwoFactorRedirect() {
-				// Redirect to 2FA verification page
-				const { callbackURL, reauthenticate } = authSearchSchema.parse({
-					reauthenticate: new URLSearchParams(window.location.search).get("reauthenticate") === "true",
-					callbackURL: new URLSearchParams(window.location.search).get("callbackURL"),
-				});
-				const search = callbackURL
-					? `?${new URLSearchParams({ callbackURL, ...(reauthenticate ? { reauthenticate: "true" } : {}) })}`
-					: "";
-				window.location.href = `/auth/verify-2fa${search}`;
-			},
-		}),
 		inferAdditionalFields<typeof auth>(),
 	],
 });

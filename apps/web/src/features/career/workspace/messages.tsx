@@ -826,10 +826,7 @@ function ProposalCard({ reply, application, now, readOnly, onDismiss }: Proposal
 	};
 
 	const confirmedAnswers = workspace.current().answers.filter((answer) => answer.answer.trim()).length;
-	const confirmedDocuments = [
-		...(application.resumeId ? [t`the linked resume`] : []),
-		...(application.coverLetterId ? [t`the linked cover letter`] : []),
-	];
+	const confirmedDocuments = application.resumeId ? [t`the linked resume`] : [];
 	const records =
 		confirmedAnswers || confirmedDocuments.length
 			? t`Records ${[
@@ -857,7 +854,7 @@ function ProposalCard({ reply, application, now, readOnly, onDismiss }: Proposal
 				submission: {
 					answers: current.answers,
 					expectedAnswers: current.answers,
-					expectedDocuments: { resumeId: application.resumeId, coverLetterId: application.coverLetterId },
+					expectedDocuments: { resumeId: application.resumeId },
 				},
 			});
 			saved(savedStageIn(result, application.id));

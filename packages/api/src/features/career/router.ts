@@ -482,10 +482,7 @@ export const careerRouter = {
 					.object({
 						answers: careerWorkspaceSchema.shape.answers,
 						expectedAnswers: careerWorkspaceSchema.shape.answers,
-						expectedDocuments: z.object({
-							resumeId: z.string().nullable(),
-							coverLetterId: z.string().nullable(),
-						}),
+						expectedDocuments: z.object({ resumeId: z.string().nullable() }),
 					})
 					.optional(),
 			}),
@@ -584,9 +581,7 @@ export const careerRouter = {
 			applicationInput.extend({
 				answers: careerWorkspaceSchema.shape.answers,
 				expectedAnswers: careerWorkspaceSchema.shape.answers,
-				expectedDocuments: z
-					.object({ resumeId: z.string().nullable(), coverLetterId: z.string().nullable() })
-					.optional(),
+				expectedDocuments: z.object({ resumeId: z.string().nullable() }).optional(),
 			}),
 		)
 		.output(

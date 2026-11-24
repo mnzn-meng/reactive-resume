@@ -1049,7 +1049,7 @@ function AddToResume({ text, applicationId, company, iconOnly }: AddToResumeProp
 	const navigate = useNavigate();
 	const { session } = useRouteContext({ strict: false });
 	const { data } = useQuery(orpc.documents.list.queryOptions({ input: { trashed: false } }));
-	const resumes = (data ?? []).filter((document) => document.type === "resume" && !document.isLocked);
+	const resumes = (data ?? []).filter((document) => !document.isLocked);
 	const forJob = applicationId ? resumes.filter((resume) => resume.application?.id === applicationId) : [];
 	const others = resumes.filter((resume) => !forJob.includes(resume));
 	const userId = session?.user.id;

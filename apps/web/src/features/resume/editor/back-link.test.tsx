@@ -5,13 +5,12 @@ import { afterEach, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 
 const context = vi.hoisted(() => ({
-	params: {} as { resumeId?: string; coverLetterId?: string },
+	params: {} as { resumeId?: string },
 	search: {} as { applicationId?: string },
-	letter: null as { id: string; sourceApplicationId: string | null } | null,
 	resume: null as { id: string; applicationId?: string | null } | null,
 	applications: [
-		{ id: "job-a", company: "Lumen", resumeId: "shared", coverLetterId: "letter-a" },
-		{ id: "job-b", company: "Orbit", resumeId: "shared", coverLetterId: "letter-b" },
+		{ id: "job-a", company: "Lumen", resumeId: "shared" },
+		{ id: "job-b", company: "Orbit", resumeId: "shared" },
 	],
 }));
 vi.mock("@tanstack/react-router", () => ({
@@ -34,10 +33,6 @@ vi.mock("@tanstack/react-router", () => ({
 }));
 vi.mock("@tanstack/react-query", () => ({ useQuery: () => ({ data: context.applications }) }));
 vi.mock("@/features/applications/queries", () => ({ applicationsListQueryOptions: () => ({}) }));
-vi.mock("@/features/letters/store", () => ({
-	useLetterEditorStore: (select: (state: { letter: typeof context.letter }) => unknown) =>
-		select({ letter: context.letter }),
-}));
 vi.mock("@/features/resume/builder/draft", () => ({
 	useResumeStore: (select: (state: { resume: typeof context.resume }) => unknown) => select({ resume: context.resume }),
 }));
@@ -50,12 +45,6 @@ it.each([
 		company: "Orbit",
 		href: "/dashboard/applications?applicationId=job-b",
 	},
-	{
-		params: { coverLetterId: "letter-a" },
-		search: {},
-		company: "Lumen",
-		href: "/dashboard/applications?applicationId=job-a",
-	},
 	{ params: { resumeId: "shared" }, search: {}, company: null, href: "/dashboard/documents" },
 	{ params: { resumeId: "unlinked" }, search: {}, company: null, href: "/dashboard/documents" },
 ])("returns document to its selected application or Documents: $href", ({ params, search, company, href }) => {
@@ -63,7 +52,6 @@ it.each([
 	context.params = params;
 	context.search = search;
 	// Stale draft stores from another editor must not steal navigation.
-	context.letter = { id: "stale-letter", sourceApplicationId: "job-a" };
 	context.resume = { id: "stale-resume", applicationId: "job-a" };
 	render(<BackLink />);
 	expect(screen.getByRole("link", { name: company ? `Back to ${company}` : "Back to documents" })).toHaveAttribute(

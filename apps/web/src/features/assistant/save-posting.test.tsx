@@ -124,7 +124,6 @@ it("retries the conditional link when its pre-link readback is unavailable", asy
 	expect(mocks.create).toHaveBeenCalledOnce();
 	expect(mocks.link).toHaveBeenCalledTimes(2);
 	expect(mocks.link.mock.calls[1]?.[0]).toEqual({
-		type: "resume",
 		id: "resume",
 		applicationId: "new-job",
 		expectedUpdatedAt: new Date(0),
@@ -204,7 +203,7 @@ it("cancel and empty fields create nothing; explicit confirmation saves plain sn
 		expect.objectContaining({ context: { accountId: "owner" }, signal: expect.any(AbortSignal) }),
 	);
 	expect(mocks.link).toHaveBeenCalledWith(
-		{ type: "resume", id: "resume", applicationId: "new-job", expectedUpdatedAt: new Date(0) },
+		{ id: "resume", applicationId: "new-job", expectedUpdatedAt: new Date(0) },
 		expect.objectContaining({ context: { accountId: "owner" } }),
 	);
 	expect(mocks.navigate.mock.calls[0]?.[0].search({ applicationId: "old-job", assistant: "thread" })).toEqual({

@@ -11,14 +11,7 @@ export const Route = createFileRoute("/agent/$threadId")({
 			.fetchQuery(orpc.agent.threads.get.queryOptions({ input: { id: params.threadId } }))
 			.catch(() => null);
 		const document = detail?.document;
-		if (document?.kind === "letter")
-			throw redirect({
-				to: "/builder/letter/$coverLetterId",
-				params: { coverLetterId: document.id },
-				search: { assistant: params.threadId },
-				replace: true,
-			});
-		if (document?.kind === "resume")
+		if (document)
 			throw redirect({
 				to: "/builder/$resumeId",
 				params: { resumeId: document.id },

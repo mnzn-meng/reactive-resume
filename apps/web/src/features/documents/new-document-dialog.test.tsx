@@ -26,7 +26,7 @@ vi.mock("@/features/applications/queries", async (importOriginal) => {
 	};
 });
 
-function mountDialog(context: "documents" | "letters" | "applications" | "career") {
+function mountDialog(context: "documents" | "applications" | "career") {
 	i18n.loadAndActivate({ locale: "en-US", messages: {} });
 	const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } });
 	return render(
@@ -64,7 +64,7 @@ it("explains a missing source resume and offers import or creation when copying 
 	expect(screen.getByText(/You don't have a resume to copy yet/)).toBeVisible();
 	expect(screen.getByRole("button", { name: "Create and open" })).toBeDisabled();
 	fireEvent.click(screen.getByRole("button", { name: "Import or create a resume" }));
-	expect(screen.getByRole("heading", { name: "New document" })).toBeVisible();
+	expect(screen.getByRole("heading", { name: "New resume" })).toBeVisible();
 	expect(screen.getByRole("radio", { name: "Blank" })).toBeChecked();
 	expect(screen.getByRole("radio", { name: "Import a PDF, Word or JSON file" })).toBeEnabled();
 	// With nothing to copy, a copy isn't offered.
@@ -77,7 +77,6 @@ it("waits for a newly selected job to load before offering an unlinked copy", as
 	queryClient.setQueryData(orpc.documents.list.queryKey({ input: { trashed: false } }), [
 		{
 			id: "source",
-			type: "resume",
 			name: "Resume",
 			tags: [],
 			isLocked: false,
@@ -85,7 +84,6 @@ it("waits for a newly selected job to load before offering an unlinked copy", as
 			createdAt: new Date(),
 			updatedAt: new Date(),
 			editedAt: new Date(),
-			recipient: null,
 			application: null,
 		},
 	]);

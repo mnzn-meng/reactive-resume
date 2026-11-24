@@ -52,11 +52,6 @@ Where a locale's normal word for this document is CV, use CV.
 
 **Resumes** — plural of the above. A list of the user's documents.
 
-**Cover letter** — the letter accompanying a resume. Stored as its own document, with optional links to a resume and an application.
-
-**Letter / Letters** — shorthand for cover letter(s) in the document library and letter editor.
-Not an alphabetic character.
-
 **Builder** — the editor where a resume is composed. A tool, not a construction worker or a
 person who builds.
 
@@ -112,7 +107,7 @@ Not a theatre stage or a phase of construction.
 
 **Search or run a command…** — open the command palette to find items or execute an app command. "Run" means execute software, never physical movement.
 
-**No resume selected / No cover letter selected** — empty document selectors in a job form or submission confirmation. **No documents attached** describes an application row without linked resume/letter documents. These describe documents, never people; do not translate them as "nobody".
+**No resume selected** — an empty document selector in a job form or submission confirmation. **No documents attached** describes an application row without a linked resume. These describe documents, never people; do not translate them as "nobody".
 
 **Source** — where the user found the job listing (a job board, a referral, a company site).
 Singular, and specific to one application. Not a source code file and not a data source.
@@ -222,10 +217,6 @@ established term, keep "passkey" in English rather than reusing the word for pas
 
 **Password** — the ordinary secret. Distinct from the above, always.
 
-**Two-step verification** — a second verification step at sign-in, using a code from an authenticator app (also called two-factor authentication, 2FA).
-
-**Backup codes** — single-use codes for signing in when the second factor is unavailable.
-
 **Key** — the AI provider's API key, entered under AI settings. Not a physical door key, not a
 keyboard key, and not the adjective "key" in the sense of crucial or main.
 
@@ -255,8 +246,7 @@ English interface strings say "Public link"; URL refers to the address itself.
 
 These terms arrive with the redesigned interface (see `DESIGN.md`).
 
-**Documents** — the library that holds resumes and cover letters together. A plural noun, not the
-verb "to document".
+**Documents** — the library that holds resumes. A plural noun, not the verb "to document".
 
 **Trash** — where deleted documents wait 30 days before they're removed for good. A place (noun),
 like a recycle bin. Not the verb "to trash".

@@ -48,7 +48,6 @@ const SECTION_ICONS: Record<CustomSectionType, IconName> = {
 	volunteer: "hand-heart",
 	references: "phone",
 	profiles: "identification-card",
-	"cover-letter": "envelope-simple",
 };
 
 /** Adds a built-in section (or the summary) and opens it: a new entry with its first field focused, or the text. */

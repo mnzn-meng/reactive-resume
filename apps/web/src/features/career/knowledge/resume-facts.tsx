@@ -118,7 +118,7 @@ function ReviewResumeFacts({ onClose }: ReviewResumeFactsProps) {
 		save.reset();
 		if (resume) preview.mutate(resume);
 	};
-	const resumes = documents.data?.filter((row) => row.type === "resume") ?? [];
+	const resumes = documents.data ?? [];
 
 	return (
 		<>

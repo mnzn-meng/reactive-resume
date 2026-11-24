@@ -147,7 +147,7 @@ it("discloses the task model that receives the data", async () => {
 		expect.objectContaining({ description: expect.stringContaining("fast-model") }),
 	);
 
-	await authorizeAiRequest(["coverLetters", "draft"], { id: "letter" }, consentApi);
+	await authorizeAiRequest(["applications", "ai", "tailorResume"], { id: "app" }, consentApi);
 	expect(confirmOperation).toHaveBeenLastCalledWith(
 		expect.any(String),
 		expect.objectContaining({ description: expect.stringContaining("capable-model") }),

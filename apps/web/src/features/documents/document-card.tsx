@@ -3,10 +3,8 @@ import type { ContextMenu as ContextMenuPrimitive } from "@base-ui/react/context
 import { t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
-import { useQuery } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { useInView } from "motion/react";
-import { useId, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Badge } from "@reactive-resume/ui/components/badge";
 import { Checkbox } from "@reactive-resume/ui/components/checkbox";
 import { ContextMenu, ContextMenuTrigger } from "@reactive-resume/ui/components/context-menu";
@@ -18,7 +16,6 @@ import { DocumentMenuContent, useDocumentActions } from "./document-actions";
 import { DocumentStatusBadge, useDocumentSentAt } from "./document-status";
 import { documentKey, formatEdited } from "./filter";
 import { InlineNameInput } from "./inline-name-input";
-import { letterBodyLines, letterGreeting } from "./letter-preview";
 import { useNewDocumentsStore } from "./new-documents";
 import { ResumeThumbnail } from "./resume-thumbnail";
 import { DataTableCell, DataTableRow } from "@/components/calm/data-table";
@@ -27,7 +24,6 @@ import { revealOnRowClassName, rowLinkClassName } from "@/components/calm/list-r
 import { StageDot } from "@/components/calm/stage-dot";
 import { getStageLabel } from "@/features/applications/stages";
 import { ENTER_CLASS, stagger } from "@/libs/motion";
-import { orpc } from "@/libs/orpc/client";
 
 export type DocumentItemProps = {
 	document: DocumentSummary;
@@ -47,16 +43,15 @@ export type DocumentItemProps = {
 function useDocumentMeta(document: DocumentSummary) {
 	const { i18n } = useLingui();
 	const edited = formatEdited(document.editedAt, i18n.locale);
-	return document.type === "resume" ? t`Resume · edited ${edited}` : t`Cover letter · edited ${edited}`;
+	return t`Resume · edited ${edited}`;
 }
 
-/** Opens the document in its editor: resumes and letters share the editor shell. */
+/** Opens the document in its editor. */
 function OpenLink({
 	document,
 	className,
 	children,
 	label,
-	describedBy,
 	onSelect,
 	disabled,
 	dir,
@@ -65,8 +60,6 @@ function OpenLink({
 	/** The link is the card's page: named `paper` for the layout comparison, which skips what the page draws. */
 	paper?: boolean;
 	className?: string;
-	/** The id of an extra description, such as a letter's opening lines, so equal names stay distinguishable. */
-	describedBy?: string | undefined;
 	/** "auto" when the link's text is the document's name, so the name keeps its own direction. */
 	dir?: "auto";
 	children: React.ReactNode;
@@ -88,7 +81,6 @@ function OpenLink({
 	};
 	const common = {
 		"aria-label": label,
-		"aria-describedby": describedBy,
 		title: document.name,
 		"data-design": paper ? "paper" : undefined,
 		className,
@@ -96,12 +88,8 @@ function OpenLink({
 		dir,
 	};
 
-	return document.type === "resume" ? (
+	return (
 		<Link to="/builder/$resumeId" params={{ resumeId: document.id }} {...common}>
-			{children}
-		</Link>
-	) : (
-		<Link to="/builder/letter/$coverLetterId" params={{ coverLetterId: document.id }} {...common}>
 			{children}
 		</Link>
 	);
@@ -111,49 +99,6 @@ function OpenLink({
 function RenameInput({ document, onDone }: { document: DocumentSummary; onDone: () => void }) {
 	const actions = useDocumentActions();
 	return <InlineNameInput name={document.name} onSave={(value) => actions.rename(document, value)} onDone={onDone} />;
-}
-
-/**
- * A letter's page, rendered as resumes are. Its opening words also go to the screen reader, so two equally named
- * letters can be told apart: read once the card nears the viewport and cached until the content changes (`editedAt`).
- */
-function LetterThumbnail({ document, descriptionId }: { document: DocumentSummary; descriptionId: string }) {
-	const containerRef = useRef<HTMLDivElement>(null);
-	const isInView = useInView(containerRef, { amount: 0.1, margin: "240px" });
-	const options = orpc.coverLetters.getById.queryOptions({ input: { id: document.id } });
-	// A content edit moves `editedAt`, so the preview fetches the new letter instead of showing a stale one.
-	const letterQuery = {
-		...options,
-		queryKey: [...options.queryKey, new Date(document.editedAt).getTime()],
-		staleTime: "static" as const,
-	};
-	const letter = useQuery({ ...letterQuery, enabled: document.type === "letter" && isInView });
-	const recipient = document.recipient;
-	const greeting = letter.data ? letterGreeting(letter.data.greeting) : null;
-	const lines = letter.data ? letterBodyLines(letter.data.content) : [];
-	const empty = letter.isSuccess && !greeting && lines.length === 0;
-	const preview = [greeting, lines[0]].filter(Boolean).join(" ");
-	const status = letter.isError ? t`Preview unavailable` : empty ? t`Empty letter` : "";
-	const description = [recipient ? `${recipient}.` : "", preview, status].filter(Boolean).join(" ");
-
-	return (
-		<>
-			<div ref={containerRef} aria-hidden="true" className="size-full">
-				<ResumeThumbnail
-					resume={document}
-					renderPdf={async (queryClient) => {
-						const { createLetterFile } = await import("@/features/letters/export");
-						return createLetterFile(await queryClient.fetchQuery(letterQuery), "pdf");
-					}}
-				/>
-			</div>
-			{/* Outside the aria-hidden page: the link's accessible name stays the document name, and this reads the
-			    letter's own opening words so two equally named letters remain distinguishable. */}
-			<span id={descriptionId} className="sr-only">
-				{description}
-			</span>
-		</>
-	);
 }
 
 const isTouch = (event: Event | undefined) =>
@@ -187,7 +132,7 @@ function useLongPressSelect(onSelectedChange: ((selected: boolean) => void) | un
 const revealOnCardClassName =
 	"opacity-0 transition-opacity duration-quick group-focus-within/card:opacity-100 group-hover/card:opacity-100 has-data-popup-open:opacity-100 pointer-coarse:opacity-100";
 
-/** What sits beside the status badge: New, a lock that isn't a sent one, and the job or recipient the document is for. */
+/** What sits beside the status badge: New, a lock that isn't a sent one, and the job the document is for. */
 function DocumentNotes({ document, isNew, showFor }: { document: DocumentSummary; isNew: boolean; showFor: boolean }) {
 	const sentAt = useDocumentSentAt(document);
 	// One inline box, so the icon and its words truncate together.
@@ -212,24 +157,17 @@ function DocumentNotes({ document, isNew, showFor }: { document: DocumentSummary
 	);
 }
 
-/** "For Lumen" (the job it is linked to) or a letter's "To Kiln Studio". */
+/** "For Lumen" (the job it is linked to). */
 function ForNote({ document, className }: { document: DocumentSummary; className?: string }) {
 	const quiet = cn("min-w-0 truncate text-[13px]/5 font-normal text-ink-3", className);
 	const icon = "me-[5px] inline-block align-[-2px]";
-	if (document.application)
-		return (
-			<span className={quiet} dir="auto">
-				<Icon name="briefcase" size={14} className={icon} />
-				<Trans comment="The job a document is for, under its name in the library">
-					For {document.application.company}
-				</Trans>
-			</span>
-		);
-	if (!document.recipient) return null;
+	if (!document.application) return null;
 	return (
-		<span className={quiet}>
-			<Icon name="envelope-simple" size={14} className={icon} />
-			<Trans comment="A letter's recipient under its name in the library">To {document.recipient}</Trans>
+		<span className={quiet} dir="auto">
+			<Icon name="briefcase" size={14} className={icon} />
+			<Trans comment="The job a document is for, under its name in the library">
+				For {document.application.company}
+			</Trans>
 		</span>
 	);
 }
@@ -246,7 +184,6 @@ export function DocumentCard({
 	disabled = false,
 }: DocumentItemProps) {
 	const openDocument = useOpenDocument();
-	const descriptionId = useId();
 	const requestedRename = useNewDocumentsStore((state) => state.renameId === document.id);
 	const [localRenaming, setLocalRenaming] = useState(false);
 	const renaming = localRenaming || requestedRename;
@@ -289,18 +226,13 @@ export function DocumentCard({
 						disabled={disabled}
 						paper
 						label={document.name}
-						describedBy={document.type === "letter" ? descriptionId : undefined}
 						onSelect={selecting && onSelectedChange ? () => onSelectedChange(!selected) : undefined}
 						className={cn(
 							"relative block aspect-page overflow-hidden rounded-paper bg-paper shadow-[var(--shadow-1),0_0_0_1px_var(--line)] transition-shadow duration-quick ease-enter [-webkit-touch-callout:none] group-focus-within/card:shadow-[var(--shadow-2),0_0_0_1px_var(--line-2)] group-hover/card:shadow-[var(--shadow-2),0_0_0_1px_var(--line-2)]",
 							selected && "shadow-[0_0_0_2px_var(--accent),var(--shadow-1)]!",
 						)}
 					>
-						{document.type === "resume" ? (
-							<ResumeThumbnail resume={document} />
-						) : (
-							<LetterThumbnail document={document} descriptionId={descriptionId} />
-						)}
+						<ResumeThumbnail resume={document} />
 					</OpenLink>
 					{/* On the paper, which is white in both themes: these two controls keep paper inks. */}
 					<span className="absolute end-2.5 top-2.5 flex items-center gap-2">
@@ -357,7 +289,7 @@ export function DocumentCard({
 	);
 }
 
-/** The list view's row: Name with its status, Type, Application with its stage, Edited, ⋯. */
+/** The list view's row: Name with its status, Application with its stage, Edited, ⋯. */
 export function DocumentRow({
 	document,
 	onTags,
@@ -424,7 +356,7 @@ export function DocumentRow({
 					</DataTableCell>
 				)}
 				<DataTableCell header className="gap-3.5">
-					<DocumentThumb kind={document.type} />
+					<DocumentThumb />
 					{/* Beside the name from 640; under it on phones, where the name needs the whole line. */}
 					<span className="flex min-w-0 flex-1 items-center gap-3.5 max-sm:flex-col max-sm:items-start max-sm:gap-0.5">
 						{renaming && !disabled ? (
@@ -450,9 +382,6 @@ export function DocumentRow({
 							<ForNote document={document} className="sm:hidden" />
 						</span>
 					</span>
-				</DataTableCell>
-				<DataTableCell className="text-sm max-sm:hidden">
-					<span>{document.type === "resume" ? <Trans>Resume</Trans> : <Trans>Cover letter</Trans>}</span>
 				</DataTableCell>
 				<DataTableCell className="max-sm:hidden">
 					{document.application ? (
@@ -497,15 +426,11 @@ export function DocumentRow({
 	);
 }
 
-/** Open from a menu: resumes in the editor, letters in the letter editor. */
+/** Open from a menu: the resume in its editor. */
 function useOpenDocument() {
 	const navigate = useNavigate();
 	return (document: DocumentSummary) => {
 		useNewDocumentsStore.getState().markOpened(document.id);
-		if (document.type === "letter") {
-			void navigate({ to: "/builder/letter/$coverLetterId", params: { coverLetterId: document.id } });
-			return;
-		}
 		void navigate({ to: "/builder/$resumeId", params: { resumeId: document.id } });
 	};
 }

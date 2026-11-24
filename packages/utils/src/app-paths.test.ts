@@ -5,7 +5,6 @@ it.each([
 	["/documents", "/dashboard/documents"],
 	["/Documents/", "/dashboard/documents"],
 	["/today", "/dashboard"],
-	["/letters", "/dashboard/cover-letters"],
 	["/trash", "/dashboard/trash"],
 	["/settings/account", "/dashboard/settings/account"],
 	["/signin", "/auth/login"],

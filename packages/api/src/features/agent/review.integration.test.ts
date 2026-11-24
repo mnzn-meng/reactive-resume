@@ -338,7 +338,7 @@ describe.skipIf(!databaseUrl)("document assistant review on PostgreSQL", () => {
 	};
 
 	async function propose(threadId: string, extra: Record<string, unknown> = {}) {
-		const passage = (await loadDocument(userId, { kind: "resume", id: copyId })).passages[0];
+		const passage = (await loadDocument(userId, { id: copyId })).passages[0];
 		fixture.plan.push(
 			{ tool: "read_resume", input: {} },
 			{
@@ -490,7 +490,7 @@ describe.skipIf(!databaseUrl)("document assistant review on PostgreSQL", () => {
 
 	it("never sends or shows a Knowledge reply once sharing is off or the fact is forgotten", async () => {
 		const { id: threadId } = await agent.threads.start({ userId, resumeId: copyId });
-		const passage = (await loadDocument(userId, { kind: "resume", id: copyId })).passages[0];
+		const passage = (await loadDocument(userId, { id: copyId })).passages[0];
 		fixture.plan.push(
 			{ tool: "read_knowledge", input: { query: "" } },
 			{
@@ -852,7 +852,7 @@ describe.skipIf(!databaseUrl)("document assistant review on PostgreSQL", () => {
 		await client.update({ id: copyId, data: copy.data, expectedUpdatedAt: copy.updatedAt });
 
 		// With the posting shared, new tailoring of the base resume is refused before anything is proposed.
-		const passage = (await loadDocument(userId, { kind: "resume", id: "base" })).passages[0];
+		const passage = (await loadDocument(userId, { id: "base" })).passages[0];
 		fixture.plan.push(
 			{
 				tool: "propose_edits",
@@ -1015,25 +1015,15 @@ describe.skipIf(!databaseUrl)("document assistant review on PostgreSQL", () => {
 		expect((await resumes.getById({ userId, id: copyId })).data).toEqual(current.data);
 	});
 	/** A document holding `<p>Anchor</p>` and a stored proposal set over it, as a refreshed app reads it. */
-	async function proposalsOn(
-		kind: "resume" | "letter",
-		edits: Array<Pick<Proposal, "id" | "after">>,
-		tailoredFor: string | null = null,
-	) {
-		const letters = (await import("../cover-letters/service")).coverLetterService;
-		let documentId = `doc-${randomUUID()}`;
-		if (kind === "resume") {
-			const data = structuredClone(defaultResumeData);
-			data.summary.content = "<p>Anchor</p>";
-			await fixture.db?.insert(tables.resume).values({ id: documentId, userId, name: "Anchor", data });
-		} else documentId = (await letters.create({ userId, name: "Anchor", content: "<p>Anchor</p>" })).id;
-		const { id: threadId } = await agent.threads.start({
-			userId,
-			...(kind === "resume" ? { resumeId: documentId } : { coverLetterId: documentId }),
-		});
+	async function proposalsOn(edits: Array<Pick<Proposal, "id" | "after">>, tailoredFor: string | null = null) {
+		const documentId = `doc-${randomUUID()}`;
+		const data = structuredClone(defaultResumeData);
+		data.summary.content = "<p>Anchor</p>";
+		await fixture.db?.insert(tables.resume).values({ id: documentId, userId, name: "Anchor", data });
+		const { id: threadId } = await agent.threads.start({ userId, resumeId: documentId });
 		const proposals: Proposal[] = edits.map((edit) => ({
 			...edit,
-			target: { sectionId: kind === "resume" ? "summary" : "letter", field: "content" },
+			target: { sectionId: "summary", field: "content" },
 			location: "Summary",
 			before: "<p>Anchor</p>",
 			why: "Clarity",
@@ -1058,24 +1048,10 @@ describe.skipIf(!databaseUrl)("document assistant review on PostgreSQL", () => {
 			?.insert(tables.agentMessage)
 			.values({ userId, threadId, role: "assistant", sequence: 1, status: "completed", uiMessage: message as never });
 		const client = await router();
-		const read = async () =>
-			kind === "resume"
-				? (await resumes.getById({ userId, id: documentId })).data.summary.content
-				: (await letters.getById({ userId, id: documentId })).content;
+		const read = async () => (await resumes.getById({ userId, id: documentId })).data.summary.content;
 		// What the app's autosave sends: the field as it now reads, with the decisions made since the last save.
 		const save = async (content: string, proposalApplications?: Record<string, boolean | string>) => {
 			const decisions = proposalApplications ? { proposalApplications } : {};
-			if (kind === "letter") {
-				const current = await letters.getById({ userId, id: documentId });
-				return letters.update({
-					userId,
-					id: documentId,
-					content,
-					expectedRevision: current.revision,
-					proposalSafety: "v1",
-					...decisions,
-				});
-			}
 			const current = await resumes.getById({ userId, id: documentId });
 			const data = structuredClone(current.data);
 			data.summary.content = content;
@@ -1112,84 +1088,82 @@ describe.skipIf(!databaseUrl)("document assistant review on PostgreSQL", () => {
 		return { content: next, applications: appliedApplications(result.applied) };
 	}
 
-	for (const kind of ["resume", "letter"] as const) {
-		it(`${kind}: binds acceptance to the reviewed wording through Accept all, rewrites at the same place and refinement`, async () => {
-			// Two additions after one passage, as Accept all composes them.
-			const additions = await proposalsOn(kind, [
-				{ id: "first", after: "<p>Anchor</p><p>First added</p>" },
-				{ id: "second", after: "<p>Anchor</p><p>Second added</p>" },
-			]);
-			const both = accept(additions.proposals);
-			expect(both.content).toBe("<p>Anchor</p><p>First added</p><p>Second added</p>");
-			await additions.save(both.content, both.applications);
-			expect(await additions.read()).toBe(both.content);
-			expect(await additions.statuses()).toEqual({ first: "accepted", second: "accepted" });
+	it("binds acceptance to the reviewed wording through Accept all, rewrites at the same place and refinement", async () => {
+		// Two additions after one passage, as Accept all composes them.
+		const additions = await proposalsOn([
+			{ id: "first", after: "<p>Anchor</p><p>First added</p>" },
+			{ id: "second", after: "<p>Anchor</p><p>Second added</p>" },
+		]);
+		const both = accept(additions.proposals);
+		expect(both.content).toBe("<p>Anchor</p><p>First added</p><p>Second added</p>");
+		await additions.save(both.content, both.applications);
+		expect(await additions.read()).toBe(both.content);
+		expect(await additions.statuses()).toEqual({ first: "accepted", second: "accepted" });
 
-			// A rewrite of the passage and an addition after it.
-			const mixed = await proposalsOn(kind, [
-				{ id: "rewrite", after: "<p>Rewritten anchor</p>" },
-				{ id: "addition", after: "<p>Anchor</p><p>Added fact</p>" },
-			]);
-			const composed = accept(mixed.proposals);
-			expect(composed.content).toBe("<p>Rewritten anchor</p><p>Added fact</p>");
-			await mixed.save(composed.content, composed.applications);
-			expect(await mixed.statuses()).toEqual({ rewrite: "accepted", addition: "accepted" });
+		// A rewrite of the passage and an addition after it.
+		const mixed = await proposalsOn([
+			{ id: "rewrite", after: "<p>Rewritten anchor</p>" },
+			{ id: "addition", after: "<p>Anchor</p><p>Added fact</p>" },
+		]);
+		const composed = accept(mixed.proposals);
+		expect(composed.content).toBe("<p>Rewritten anchor</p><p>Added fact</p>");
+		await mixed.save(composed.content, composed.applications);
+		expect(await mixed.statuses()).toEqual({ rewrite: "accepted", addition: "accepted" });
 
-			// Refined before the first save went out.
-			const refined = await proposalsOn(kind, [{ id: "refine", after: "<p>Accepted wording</p>" }]);
-			const accepted = accept(refined.proposals);
-			await refined.save("<p>Accepted wording, refined by me</p>", accepted.applications);
-			expect(await refined.read()).toBe("<p>Accepted wording, refined by me</p>");
-			expect(await refined.statuses()).toEqual({ refine: "accepted" });
+		// Refined before the first save went out.
+		const refined = await proposalsOn([{ id: "refine", after: "<p>Accepted wording</p>" }]);
+		const accepted = accept(refined.proposals);
+		await refined.save("<p>Accepted wording, refined by me</p>", accepted.applications);
+		expect(await refined.read()).toBe("<p>Accepted wording, refined by me</p>");
+		expect(await refined.statuses()).toEqual({ refine: "accepted" });
 
-			// An older app names no wording: its acceptance still has to be in the document as is.
-			const older = await proposalsOn(kind, [
-				{ id: "older-first", after: "<p>Anchor</p><p>One</p>" },
-				{ id: "older-second", after: "<p>Anchor</p><p>Two</p>" },
-			]);
-			const held = accept(older.proposals);
-			await expect(older.save(held.content, { "older-first": true, "older-second": true })).rejects.toMatchObject({
-				code: kind === "resume" ? "RESUME_VERSION_CONFLICT" : "CONFLICT",
-			});
-			expect(await older.read()).toBe("<p>Anchor</p>");
+		// An older app names no wording: its acceptance still has to be in the document as is.
+		const older = await proposalsOn([
+			{ id: "older-first", after: "<p>Anchor</p><p>One</p>" },
+			{ id: "older-second", after: "<p>Anchor</p><p>Two</p>" },
+		]);
+		const held = accept(older.proposals);
+		await expect(older.save(held.content, { "older-first": true, "older-second": true })).rejects.toMatchObject({
+			code: "RESUME_VERSION_CONFLICT",
 		});
+		expect(await older.read()).toBe("<p>Anchor</p>");
+	});
 
-		it(`${kind}: replays a refined Redo, and refuses wording another device changed, writing nothing`, async () => {
-			const history = await proposalsOn(kind, [{ id: "edit", after: "<p>Current wording</p>" }]);
-			const [proposal] = history.proposals;
-			if (!proposal) throw new Error("Expected a proposal.");
-			await expect(history.save(proposal.after, { edit: "snapshot:edit" })).rejects.toMatchObject({
-				code: kind === "resume" ? "RESUME_VERSION_CONFLICT" : "CONFLICT",
-			});
-			expect(await history.read()).toBe("<p>Anchor</p>");
-			await history.save(proposal.after, appliedApplications([proposal]));
-			await history.save("<p>Manually refined</p>");
-			await history.save(proposal.before, { edit: false });
-			expect(await history.statuses()).toEqual({ edit: "pending" });
-			// Redo restores the refined checkpoint with the decision it recorded.
-			await history.save("<p>Manually refined</p>", appliedApplications([proposal]));
-			expect(await history.statuses()).toEqual({ edit: "accepted" });
-			expect(await history.read()).toBe("<p>Manually refined</p>");
-
-			const stale = await proposalsOn(kind, [{ id: "reworded", after: "<p>Model wording</p>" }]);
-			const [held] = stale.proposals;
-			if (!held) throw new Error("Expected a proposal.");
-			await agent.messages.setEditStatus({
-				userId,
-				...stale.ids,
-				edits: [{ id: held.id, status: "pending", text: "Other device wording", after: held.after }],
-			});
-			const local = accept([held]);
-			await expect(stale.save(local.content, local.applications)).rejects.toMatchObject({
-				code: kind === "resume" ? "RESUME_VERSION_CONFLICT" : "CONFLICT",
-			});
-			expect(await stale.read()).toBe("<p>Anchor</p>");
-			expect(await stale.statuses()).toEqual({ reworded: "pending" });
+	it("replays a refined Redo, and refuses wording another device changed, writing nothing", async () => {
+		const history = await proposalsOn([{ id: "edit", after: "<p>Current wording</p>" }]);
+		const [proposal] = history.proposals;
+		if (!proposal) throw new Error("Expected a proposal.");
+		await expect(history.save(proposal.after, { edit: "snapshot:edit" })).rejects.toMatchObject({
+			code: "RESUME_VERSION_CONFLICT",
 		});
-	}
+		expect(await history.read()).toBe("<p>Anchor</p>");
+		await history.save(proposal.after, appliedApplications([proposal]));
+		await history.save("<p>Manually refined</p>");
+		await history.save(proposal.before, { edit: false });
+		expect(await history.statuses()).toEqual({ edit: "pending" });
+		// Redo restores the refined checkpoint with the decision it recorded.
+		await history.save("<p>Manually refined</p>", appliedApplications([proposal]));
+		expect(await history.statuses()).toEqual({ edit: "accepted" });
+		expect(await history.read()).toBe("<p>Manually refined</p>");
+
+		const stale = await proposalsOn([{ id: "reworded", after: "<p>Model wording</p>" }]);
+		const [held] = stale.proposals;
+		if (!held) throw new Error("Expected a proposal.");
+		await agent.messages.setEditStatus({
+			userId,
+			...stale.ids,
+			edits: [{ id: held.id, status: "pending", text: "Other device wording", after: held.after }],
+		});
+		const local = accept([held]);
+		await expect(stale.save(local.content, local.applications)).rejects.toMatchObject({
+			code: "RESUME_VERSION_CONFLICT",
+		});
+		expect(await stale.read()).toBe("<p>Anchor</p>");
+		expect(await stale.statuses()).toEqual({ reworded: "pending" });
+	});
 
 	it("moves a resume conversation once, to this account's live copy of its resume, where its edits are then accepted", async () => {
-		const { proposals, ids, read } = await proposalsOn("resume", [{ id: "moved", after: "<p>Anchor, sharper</p>" }]);
+		const { proposals, ids, read } = await proposalsOn([{ id: "moved", after: "<p>Anchor, sharper</p>" }]);
 		const baseId = (await agent.threads.get({ id: ids.threadId, userId })).thread.sourceResumeId;
 		if (!baseId) throw new Error("Missing base resume");
 		const repoint = (workingResumeId: string, account = userId) =>
@@ -1206,7 +1180,7 @@ describe.skipIf(!databaseUrl)("document assistant review on PostgreSQL", () => {
 		});
 		await db.insert(tables.resume).values({ id: "bobs", userId: "bob", name: "Bob's", data });
 		const trashed = await documents.copyForJob({ userId, resumeId: baseId });
-		await documents.trash({ userId, type: "resume", id: trashed });
+		await documents.trash({ userId, id: trashed });
 		const different = structuredClone(data);
 		different.summary.content = "<p>Something else</p>";
 		await db.insert(tables.resume).values({ id: "other", userId, name: "Other", data: different });
@@ -1242,7 +1216,7 @@ describe.skipIf(!databaseUrl)("document assistant review on PostgreSQL", () => {
 
 	it("refuses a current app's acceptance of tailoring this resume can't take, writing nothing", async () => {
 		// Tailored for the job, on a resume that isn't that job's copy.
-		const tailored = await proposalsOn("resume", [{ id: "tailored", after: "<p>Tailored for Northwind</p>" }], "job-a");
+		const tailored = await proposalsOn([{ id: "tailored", after: "<p>Tailored for Northwind</p>" }], "job-a");
 		const local = accept(tailored.proposals);
 		await expect(tailored.save(local.content, local.applications)).rejects.toMatchObject({
 			code: "RESUME_VERSION_CONFLICT",
@@ -1252,7 +1226,7 @@ describe.skipIf(!databaseUrl)("document assistant review on PostgreSQL", () => {
 	});
 
 	it("finds a retried wording save already there, and still refuses different wording on the old version", async () => {
-		const wording = await proposalsOn("resume", [{ id: "words", after: "<p>Model wording</p>" }]);
+		const wording = await proposalsOn([{ id: "words", after: "<p>Model wording</p>" }]);
 		const [held] = wording.proposals;
 		if (!held) throw new Error("Expected a proposal.");
 		const write = { id: held.id, status: "pending" as const, text: "My wording", after: held.after };
@@ -1282,7 +1256,7 @@ describe.skipIf(!databaseUrl)("document assistant review on PostgreSQL", () => {
 		] as typeof data.sections.projects.items;
 		await fixture.db?.insert(tables.resume).values({ id, userId, name: "Structural", data });
 		const { resolveDocumentEdits } = await import("./document");
-		const loaded = await loadDocument(userId, { kind: "resume", id });
+		const loaded = await loadDocument(userId, { id });
 		const { translationFields } = await import("./translation");
 		const output = resolveDocumentEdits(
 			loaded,
@@ -1465,7 +1439,7 @@ describe.skipIf(!databaseUrl)("document assistant review on PostgreSQL", () => {
 
 		// Hidden content can't be targeted at all: the reason reaches the model.
 		const { resolveDocumentEdits } = await import("./document");
-		const loaded = await loadDocument(userId, { kind: "resume", id: hidden.id });
+		const loaded = await loadDocument(userId, { id: hidden.id });
 		const output = resolveDocumentEdits(loaded, {
 			title: "Rename",
 			changes: [
@@ -1506,7 +1480,7 @@ describe.skipIf(!databaseUrl)("document assistant review on PostgreSQL", () => {
 		const markers = ["HIDDEN_PROJECT_MARKER", "HIDDEN_SECTION_MARKER", "PRIVATE_NOTES_MARKER"];
 
 		const { id: threadId } = await agent.threads.start({ userId, resumeId: jobCopy });
-		const passage = (await loadDocument(userId, { kind: "resume", id: jobCopy })).passages[0];
+		const passage = (await loadDocument(userId, { id: jobCopy })).passages[0];
 		fixture.prompts = [];
 		fixture.plan.push(
 			{ tool: "read_resume", input: {} },

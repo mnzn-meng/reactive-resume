@@ -72,7 +72,7 @@ function SuggestRoles({ onUse, onClose }: SuggestRolesProps) {
 	const facts = useQuery(orpc.career.facts.queryOptions({ input: { applicationId: null, all: true } }));
 	const stories = useQuery(orpc.career.stories.queryOptions({ input: { applicationId: null } }));
 	const generate = useMutation(orpc.career.suggestTargetRoles.mutationOptions());
-	const resumes = (documents.data ?? []).filter((row) => row.type === "resume");
+	const resumes = documents.data ?? [];
 	const [lastResume, setLastResume] = useState("");
 	const shownResume = resumes.find((row) => row.id === (resumeId || lastResume)) ?? resumes[0];
 	const clear = () => {

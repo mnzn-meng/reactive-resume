@@ -23,7 +23,7 @@ export async function handleResumePdfDownload(request: Request, id: string) {
 	const verification = verifyResumePdfDownloadToken({ resumeId: id, token });
 	if (!verification.ok)
 		return verification.reason === "expired" ? text("Download link expired", 410) : text("Unauthorized", 401);
-	// Links made before letters left resumes may ask for the resume's cover letter, which is now a letter of its own.
+	// Links shared while cover letters existed may still ask for a resume's letter: that document no longer exists.
 	const target = searchParams.get("target");
 	if (target && target !== "resume") return text("Not Found", 404);
 

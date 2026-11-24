@@ -64,10 +64,7 @@ function summaryRow(id: string) {
 		"not-selected",
 		null,
 		null, // resume file URL
-		null, // cover letter file URL
-		null,
-		null,
-		null,
+		null, // sent version
 		"referral",
 		["engineering"],
 		"https://example.com/job",

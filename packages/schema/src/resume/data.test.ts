@@ -81,3 +81,21 @@ it("defaults fields that resumes saved before they existed leave out", () => {
 		"cover",
 	);
 });
+
+it("drops a cover-letter section saved before the feature was removed, and its layout entries", () => {
+	const legacy = JSON.parse(JSON.stringify(defaultResumeData));
+	legacy.customSections.push({
+		id: "letter-section",
+		type: "cover-letter",
+		title: "Cover Letter",
+		icon: "envelope-simple",
+		columns: 1,
+		hidden: false,
+		items: [{ id: "letter-item", hidden: false, recipient: "<p>Hiring Manager</p>", content: "<p>Dear…</p>" }],
+	});
+	legacy.metadata.layout.pages = [{ fullWidth: true, main: ["summary", "letter-section"], sidebar: [] }];
+
+	const parsed = parseResumeData(legacy);
+	expect(parsed.customSections.map((section) => section.id)).not.toContain("letter-section");
+	expect(parsed.metadata.layout.pages[0]?.main).toEqual(["summary"]);
+});

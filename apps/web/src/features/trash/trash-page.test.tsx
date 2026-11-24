@@ -60,9 +60,8 @@ vi.mock("@/features/documents/document-actions", () => ({ useBatchActions: () =>
 vi.mock("@/components/layout/phone-header-actions", () => ({ PhoneHeaderActions: () => null }));
 vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: vi.fn(), close: vi.fn() } }));
 
-const document = (id: string, name: string, type: "resume" | "letter", trashedDaysAgo: number) =>
+const document = (id: string, name: string, trashedDaysAgo: number) =>
 	({
-		type,
 		id,
 		name,
 		tags: [],
@@ -71,12 +70,11 @@ const document = (id: string, name: string, type: "resume" | "letter", trashedDa
 		createdAt: ago(40),
 		updatedAt: ago(trashedDaysAgo),
 		editedAt: ago(trashedDaysAgo + 1),
-		recipient: null,
 		application: null,
 	}) satisfies DocumentSummary;
 
-const oldDraft = document("one", "Old draft", "resume", 0);
-const letter = document("two", "Brightwell letter", "letter", 20);
+const oldDraft = document("one", "Old draft", 0);
+const olderDraft = document("two", "Brightwell draft", 20);
 const brightwell = {
 	id: "app-1",
 	company: "Brightwell",
@@ -87,7 +85,7 @@ const brightwell = {
 
 beforeEach(() => {
 	i18n.loadAndActivate({ locale: "en-US", messages: {} });
-	Object.assign(server, { documents: [letter, oldDraft], applications: [brightwell], fail: false });
+	Object.assign(server, { documents: [olderDraft, oldDraft], applications: [brightwell], fail: false });
 	vi.clearAllMocks();
 });
 afterEach(cleanup);
@@ -119,7 +117,7 @@ it("lists documents and applications together, newest in Trash first, each with 
 	expect(rows[1]).toContain("Brightwell");
 	expect(rows[1]).toContain("Application · Product designer");
 	expect(rows[1]).toContain("26 days left");
-	expect(rows[2]).toContain("Brightwell letter");
+	expect(rows[2]).toContain("Brightwell draft");
 	expect(rows[2]).toContain("10 days left");
 	expect(screen.getByRole("tab", { name: /All/ })).toHaveTextContent("3");
 	expect(screen.getByRole("tab", { name: /Documents/ })).toHaveTextContent("2");

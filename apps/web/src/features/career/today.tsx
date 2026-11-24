@@ -999,19 +999,13 @@ function PickUp({ documents }: { documents: DocumentSummary[] }) {
 					const edited = formatEdited(document.editedAt, i18n.locale);
 					return (
 						<ListRow
-							key={`${document.type}:${document.id}`}
-							leading={<DocumentThumb kind={document.type} />}
+							key={document.id}
+							leading={<DocumentThumb />}
 							title={isolate(document.name)}
-							subtitle={document.type === "resume" ? t`Resume · edited ${edited}` : t`Cover letter · edited ${edited}`}
+							subtitle={t`Resume · edited ${edited}`}
 							value={<DocumentStatusBadge document={document} />}
 							caret
-							render={
-								document.type === "resume" ? (
-									<Link to="/builder/$resumeId" params={{ resumeId: document.id }} />
-								) : (
-									<Link to="/builder/letter/$coverLetterId" params={{ coverLetterId: document.id }} />
-								)
-							}
+							render={<Link to="/builder/$resumeId" params={{ resumeId: document.id }} />}
 						/>
 					);
 				})}

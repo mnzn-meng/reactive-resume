@@ -5,7 +5,6 @@ import { Trans } from "@lingui/react/macro";
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { applicationReviewSchema, type ApplicationReview } from "@reactive-resume/ai/application-review";
-import { coverLetterTextToHtml } from "@reactive-resume/resume/cover-letter";
 import { appliedApplications, applyResumeProposals, getProposalState } from "@reactive-resume/resume/proposals";
 import { Button } from "@reactive-resume/ui/components/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@reactive-resume/ui/components/dialog";
@@ -176,36 +175,6 @@ function ReviewForm({ application, disabled, onClose }: PrepareReviewProps & { o
 				Object.fromEntries(Object.entries(decisions).filter(([id]) => !changed.some((proposal) => proposal.id === id))),
 			);
 		});
-	const keepLetter = () =>
-		run(async () => {
-			if (!review?.letter) return;
-			const draft = review.letter;
-			const before = draft.document;
-			const saved = await client.coverLetters.update({
-				id: before.id,
-				expectedRevision: before.revision,
-				content: coverLetterTextToHtml(review.letter.text),
-				aiOperationIds: review.letter.aiOperationIds,
-				proposalSafety: "v1",
-			});
-			if (!current()) return;
-			setReview({ ...review, letter: null });
-			setUndo(() => async () => {
-				const restored = await client.coverLetters.update({
-					id: before.id,
-					expectedRevision: saved.revision,
-					content: before.content,
-					aiOperationIds: before.aiOperationIds ?? [],
-					proposalSafety: "v1",
-				});
-				if (current()) {
-					setReview((value) =>
-						value ? { ...value, letter: { ...draft, document: { ...before, revision: restored.revision } } } : value,
-					);
-					setUndo(null);
-				}
-			});
-		});
 	const keepAnswer = (index: number) =>
 		run(async () => {
 			if (!review) return;
@@ -299,11 +268,7 @@ function ReviewForm({ application, disabled, onClose }: PrepareReviewProps & { o
 							{[
 								...new Set(
 									review.failed.map((failure) =>
-										failure === "tailoring"
-											? t`Resume proposals`
-											: failure === "letter"
-												? t`Letter draft`
-												: t`Form questions (optional)`,
+										failure === "tailoring" ? t`Resume proposals` : t`Form questions (optional)`,
 									),
 								),
 							].join(", ")}
@@ -378,50 +343,6 @@ function ReviewForm({ application, disabled, onClose }: PrepareReviewProps & { o
 							);
 						})}
 					</details>
-					{review.letter && (
-						<div className="relative grid gap-1.5 border-b border-line py-3 ps-[38px]">
-							<Icon name="envelope-simple" size={20} className="absolute start-2.5 top-3 text-ink-3" />
-							<h3 className="font-medium">
-								<Trans>Letter draft</Trans>
-							</h3>
-							<Textarea
-								aria-label={t`Letter draft`}
-								className="h-[78px] min-h-[78px] resize-none border-transparent bg-sunken text-[13px]/[18px] shadow-none"
-								value={review.letter.text}
-								disabled={busy}
-								onChange={(event) =>
-									setReview({
-										...review,
-										letter: review.letter ? { ...review.letter, text: event.target.value } : null,
-									})
-								}
-							/>
-							<div className="flex items-center gap-3">
-								<Button
-									variant="secondary"
-									size="sm"
-									disabled={busy || disabled || !review.letter.text.trim()}
-									onClick={() => void keepLetter()}
-								>
-									<Trans>Keep letter</Trans>
-								</Button>
-								<Button
-									variant="ghost"
-									size="sm"
-									disabled={busy}
-									onClick={() => setReview({ ...review, letter: null })}
-								>
-									<Trans>Discard</Trans>
-								</Button>
-								<span className="ms-auto t-small text-ink-3">
-									{plural(review.letter.text.trim().split(/\s+/).filter(Boolean).length, {
-										one: "# word",
-										other: "# words",
-									})}
-								</span>
-							</div>
-						</div>
-					)}
 					{review.answers.map((item, index) => (
 						<div
 							key={`${index}:${item.question}`}

@@ -17,7 +17,6 @@ import {
 } from "@reactive-resume/ui/components/dropdown-menu";
 import { Icon } from "@reactive-resume/ui/components/icon";
 import { IconButton } from "@reactive-resume/ui/components/icon-button";
-import { NativeSelect } from "@reactive-resume/ui/components/native-select";
 import { useInvalidateApplications } from "../../use-application-actions";
 import { useDocumentDownload } from "../../use-document-download";
 import { FileAttachmentField } from "../file-attachment-field";
@@ -54,8 +53,8 @@ type SentDocumentsProps = {
 };
 
 /**
- * WHAT YOU SENT: the linked resume (opening the version that was sent, read-only, with a way back to the latest) and
- * the linked letter. Without them: Tailor a resume and Write a letter. Uploaded PDFs stay under "Attach a file".
+ * WHAT YOU SENT: the linked resume (opening the version that was sent, read-only, with a way back to the latest).
+ * Without one: Prepare a resume. Uploaded PDFs stay under "Attach a file".
  */
 export function SentDocuments({ application, disabled, variant = "detail" }: SentDocumentsProps) {
 	const { i18n } = useLingui();
@@ -66,7 +65,7 @@ export function SentDocuments({ application, disabled, variant = "detail" }: Sen
 	const queryClient = useQueryClient();
 	const openDialog = useDialogStore((state) => state.openDialog);
 	const { data: documents } = useQuery(orpc.documents.list.queryOptions({ input: { trashed: false } }));
-	const [attaching, setAttaching] = useState(Boolean(application.resumeFileUrl || application.coverLetterUrl));
+	const [attaching, setAttaching] = useState(Boolean(application.resumeFileUrl));
 
 	const update = useMutation({
 		...orpc.applications.update.mutationOptions(),
@@ -83,54 +82,30 @@ export function SentDocuments({ application, disabled, variant = "detail" }: Sen
 	});
 	const busy = disabled || update.isPending || link.isPending;
 
-	const resume = documents?.find((document) => document.type === "resume" && document.id === application.resumeId);
-	const letter = documents?.find((document) => document.type === "letter" && document.id === application.coverLetterId);
+	const resume = documents?.find((document) => document.id === application.resumeId);
 	const sentAt = applicationSentAt(application);
 	const date = sentAt?.toLocaleDateString(i18n.locale, { month: "short", day: "numeric" }) ?? "—";
 
-	// The New dialog can start from an owned earlier letter; the server fills the recipient from this application.
-	const writeLetter = () =>
-		openDialog("document.new", {
-			context: "letters",
-			applicationId: application.id,
-			...(application.resumeId ? { sourceResumeId: application.resumeId } : {}),
-		});
-
-	// Current drafts stay editable after submission; the sent versions above never change.
-	const draftMenu = (kind: "resume" | "letter", documentId: string) => (
+	// Current drafts stay editable after submission; the sent version above never changes.
+	const draftMenu = (documentId: string) => (
 		<DropdownMenu>
 			<DropdownMenuTrigger
-				render={
-					<IconButton
-						icon="dots-three"
-						label={kind === "resume" ? t`Resume options` : t`Cover letter options`}
-						size="icon-xs"
-						className="text-ink-2"
-					/>
-				}
+				render={<IconButton icon="dots-three" label={t`Resume options`} size="icon-xs" className="text-ink-2" />}
 			/>
 			<DropdownMenuContent align="end">
 				<DropdownMenuItem
 					onClick={() =>
-						void navigate(
-							kind === "resume"
-								? {
-										to: "/builder/$resumeId",
-										params: { resumeId: documentId },
-										search: { applicationId: application.id },
-									}
-								: {
-										to: "/builder/letter/$coverLetterId",
-										params: { coverLetterId: documentId },
-										search: { applicationId: application.id },
-									},
-						)
+						void navigate({
+							to: "/builder/$resumeId",
+							params: { resumeId: documentId },
+							search: { applicationId: application.id },
+						})
 					}
 				>
 					<Icon name="pencil-simple" size={18} />
 					<Trans>Edit current draft</Trans>
 				</DropdownMenuItem>
-				<DropdownMenuItem disabled={downloading !== null} onClick={() => void download(kind, documentId)}>
+				<DropdownMenuItem disabled={downloading !== null} onClick={() => void download(documentId)}>
 					<Icon name="download-simple" size={18} />
 					{downloading === documentId ? <Trans>Generating PDF…</Trans> : <Trans>Download current PDF</Trans>}
 				</DropdownMenuItem>
@@ -189,164 +164,72 @@ export function SentDocuments({ application, disabled, variant = "detail" }: Sen
 							applicationId: application.id,
 							...(application.sentResumeVersionId ? { version: application.sentResumeVersionId } : {}),
 						}}
-						// Two "Open" links sit in this section: each names its document.
+						// The row's own "Open" names the document it opens.
 						aria-label={workspace && application.sentResumeVersionId ? t`Open the resume version sent` : t`Open resume`}
 						className={buttonVariants({ size: "sm", variant: "secondary" })}
 					>
 						{workspace && application.sentResumeVersionId ? <Trans>Open sent version</Trans> : <Trans>Open</Trans>}
 					</Link>
-					{workspace && draftMenu("resume", application.resumeId)}
+					{workspace && draftMenu(application.resumeId)}
 				</SentDocumentRow>
 			)}
 
-			{application.coverLetterId && (
-				<SentDocumentRow
-					icon="envelope-simple"
-					name={letter?.name ?? t`Cover letter`}
-					status={
-						application.sentCoverLetterVersionId ? (
-							<Trans>Version sent {date}</Trans>
-						) : (
-							<Trans>Linked · not sent yet</Trans>
-						)
+			{suggestApplicationDocuments(application, documents ?? []).map((document) => (
+				<Button
+					key={document.id}
+					size="sm"
+					variant="secondary"
+					className="h-auto min-h-9 justify-start text-start wrap-anywhere whitespace-normal"
+					disabled={busy}
+					onClick={() =>
+						link.mutate({
+							id: document.id,
+							applicationId: application.id,
+							expectedUpdatedAt: document.updatedAt,
+						})
 					}
 				>
-					<Link
-						to="/builder/letter/$coverLetterId"
-						params={{ coverLetterId: application.coverLetterId }}
-						search={{
-							applicationId: application.id,
-							...(application.sentCoverLetterVersionId ? { version: application.sentCoverLetterVersionId } : {}),
-						}}
-						aria-label={
-							workspace && application.sentCoverLetterVersionId ? t`Open the letter version sent` : t`Open letter`
-						}
-						className={buttonVariants({ size: "sm", variant: "secondary" })}
-					>
-						{workspace && application.sentCoverLetterVersionId ? <Trans>Open sent version</Trans> : <Trans>Open</Trans>}
-					</Link>
-					{workspace && draftMenu("letter", application.coverLetterId)}
-				</SentDocumentRow>
-			)}
-
-			{suggestApplicationDocuments(application, documents ?? []).map((document) => {
-				const name = document.name;
-				const kind = document.type === "resume" ? t`Resume` : t`Cover letter`;
-				return (
-					<Button
-						key={`${document.type}:${document.id}`}
-						size="sm"
-						variant="secondary"
-						className="h-auto min-h-9 justify-start text-start wrap-anywhere whitespace-normal"
-						disabled={busy}
-						onClick={() =>
-							link.mutate({
-								type: document.type,
-								id: document.id,
-								applicationId: application.id,
-								...(document.type === "resume" ? { expectedUpdatedAt: document.updatedAt } : {}),
-							})
-						}
-					>
-						<Icon name={document.type === "resume" ? "file-text" : "envelope-simple"} size={16} />
-						{t`Use ${name}`} · {kind}
-					</Button>
-				);
-			})}
+					<Icon name="file-text" size={16} />
+					{t`Use ${document.name}`}
+				</Button>
+			))}
 
 			{/* A closed or offer-stage application has an outcome, not a preparation task: nothing more will be sent. */}
 			{(application.status === "closed" || application.status === "offer") &&
 				!application.resumeId &&
-				!application.coverLetterId &&
-				!application.resumeFileUrl &&
-				!application.coverLetterUrl && (
+				!application.resumeFileUrl && (
 					<p className="text-[13px] text-ink-3">
 						<Trans>Nothing recorded as sent.</Trans>
 					</p>
 				)}
-			{application.status !== "closed" &&
-				application.status !== "offer" &&
-				(!application.resumeId || !application.coverLetterId) && (
-					<div className="flex flex-wrap gap-1.5">
-						{!application.resumeId && (
-							<Button
-								size="sm"
-								variant={application.resumeFileUrl ? "secondary" : "primary"}
-								disabled={busy}
-								onClick={() => openDialog("document.new", { step: "copy", applicationId: application.id })}
-							>
-								<Icon name="copy" size={16} />
-								<Trans>Prepare a resume</Trans>
-							</Button>
-						)}
-						{!application.coverLetterId && (
-							<Button size="sm" variant="secondary" disabled={busy} onClick={() => void writeLetter()}>
-								<Icon name="envelope-simple" size={16} />
-								<Trans>Write a letter</Trans>
-							</Button>
-						)}
-					</div>
-				)}
-
-			{application.status === "saved" && !application.sentCoverLetterVersionId && (
-				<NativeSelect
-					aria-label={t`Use an existing letter`}
-					value={application.coverLetterId ?? ""}
+			{application.status !== "closed" && application.status !== "offer" && !application.resumeId && (
+				<Button
+					size="sm"
+					variant={application.resumeFileUrl ? "secondary" : "primary"}
 					disabled={busy}
-					onChange={(event) => {
-						const id = event.target.value;
-						if (id) link.mutate({ type: "letter", id, applicationId: application.id });
-					}}
+					onClick={() => openDialog("document.new", { step: "copy", applicationId: application.id })}
 				>
-					<option value="">{t`Use an existing letter…`}</option>
-					{documents
-						?.filter(
-							(item) =>
-								item.type === "letter" &&
-								!item.isLocked &&
-								(!item.application || item.application.id === application.id),
-						)
-						.map((item) => (
-							<option key={item.id} value={item.id}>
-								{item.name}
-							</option>
-						))}
-				</NativeSelect>
+					<Icon name="copy" size={16} />
+					<Trans>Prepare a resume</Trans>
+				</Button>
 			)}
 
 			{attaching ? (
-				<div className="grid gap-1.5">
-					<FileAttachmentField
-						value={
-							application.resumeFileUrl
-								? { url: application.resumeFileUrl, name: application.resumeFileName || t`Resume file` }
-								: null
-						}
-						attachLabel={t`Attach a resume file (PDF, up to 10 MB)`}
-						disabled={busy}
-						onChange={(value) =>
-							update.mutate({
-								id: application.id,
-								...(value ? { resumeFile: value } : { resumeFileUrl: null, resumeFileName: null }),
-							})
-						}
-					/>
-					<FileAttachmentField
-						value={
-							application.coverLetterUrl
-								? { url: application.coverLetterUrl, name: application.coverLetterName || t`Cover letter file` }
-								: null
-						}
-						attachLabel={t`Attach a cover letter file (PDF, up to 10 MB)`}
-						disabled={busy}
-						onChange={(value) =>
-							update.mutate({
-								id: application.id,
-								...(value ? { coverLetterFile: value } : { coverLetterUrl: null, coverLetterName: null }),
-							})
-						}
-					/>
-				</div>
+				<FileAttachmentField
+					value={
+						application.resumeFileUrl
+							? { url: application.resumeFileUrl, name: application.resumeFileName || t`Resume file` }
+							: null
+					}
+					attachLabel={t`Attach a resume file (PDF, up to 10 MB)`}
+					disabled={busy}
+					onChange={(value) =>
+						update.mutate({
+							id: application.id,
+							...(value ? { resumeFile: value } : { resumeFileUrl: null, resumeFileName: null }),
+						})
+					}
+				/>
 			) : (
 				<button
 					type="button"

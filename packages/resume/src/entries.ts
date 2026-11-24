@@ -41,7 +41,6 @@ export function createEntry(type: CustomSectionType): CustomSectionItem {
 		volunteer: { organization: "", location: "", period: "", dates: dates(), website: website(), description: "" },
 		references: { name: "", position: "", website: website(), phone: "", description: "" },
 		summary: { content: "" },
-		"cover-letter": { recipient: "", content: "" },
 	};
 	return { ...base, ...fields[type] } as CustomSectionItem;
 }

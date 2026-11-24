@@ -9,7 +9,6 @@ import { and, arrayContains, asc, desc, eq, inArray, isNotNull, isNull, lt } fro
 import { match } from "ts-pattern";
 import { db } from "@reactive-resume/db/client";
 import * as schema from "@reactive-resume/db/schema";
-import { detachEmbeddedLetters } from "@reactive-resume/resume/cover-letter";
 import { applyResumePatches, describeResumePatchError, ResumePatchError } from "@reactive-resume/resume/patch";
 import { withWebPageCss } from "@reactive-resume/schema/resume/data";
 import { defaultResumeData } from "@reactive-resume/schema/resume/default";
@@ -20,7 +19,6 @@ import {
 	saveProposalApplications,
 } from "../agent/proposal-applications";
 import { assertAiOperations, readAiUsage } from "../ai/usage";
-import { adoptEmbeddedLetters } from "../cover-letters/embedded";
 import { idInUse, lockUser } from "../documents/ownership";
 import { enqueueStorageCleanup, reportStorageCleanupSummary, runStorageCleanup } from "../storage/cleanup";
 import { publishResumeUpdated } from "./events";
@@ -168,7 +166,7 @@ async function applyResumePatchTx(
 	assertResumeVersion(existing.updatedAt, input.expectedUpdatedAt);
 	await assertCurrentClientWrite(client, {
 		userId: input.userId,
-		document: { kind: "resume", id: input.id },
+		document: { id: input.id },
 		proposalSafety: input.proposalSafety,
 	});
 
@@ -195,12 +193,6 @@ async function applyResumePatchTx(
 	}
 
 	patchedData = parseWritableResumeData(patchedData);
-	await adoptEmbeddedLetters(client, {
-		userId: input.userId,
-		resumeId: input.id,
-		resumeName: existing.name,
-		data: patchedData,
-	});
 	// The version guard is the ms-precision JS check above, under the SELECT ... FOR UPDATE lock.
 	// Never compare expectedUpdatedAt in SQL: rows stamped by Postgres now() (defaultNow() on
 	// insert) carry microseconds, while JS Dates are ms-truncated — SQL equality then matches
@@ -217,7 +209,7 @@ async function applyResumePatchTx(
 	}
 	const sourceIds = await saveProposalApplications(client, {
 		userId: input.userId,
-		document: { kind: "resume", id: input.id },
+		document: { id: input.id },
 		applications: input.proposalApplications,
 		conflict: () => resumeVersionConflict(existing.updatedAt),
 	});
@@ -443,19 +435,15 @@ export const resumeService = {
 			await db.transaction(async (tx) => {
 				if (input.aiOperationIds?.length) await lockUser(tx, input.userId);
 				await assertAiOperations(input.userId, input.aiOperationIds ?? [], RESUME_AI_ACTIONS, tx);
-				// The resume row comes first: letters an imported file carried are saved linked to it.
-				const stored = structuredClone(data);
-				detachEmbeddedLetters(stored);
 				await tx.insert(schema.resume).values({
 					id,
 					name: input.name,
 					autoName: input.autoName ?? false,
 					tags: input.tags,
 					userId: input.userId,
-					data: stored,
+					data,
 					aiOperationIds: [...new Set(input.aiOperationIds ?? [])],
 				});
-				await adoptEmbeddedLetters(tx, { userId: input.userId, resumeId: id, resumeName: input.name, data });
 				await input.inTransaction?.(tx, id);
 			});
 
@@ -530,7 +518,7 @@ export const resumeService = {
 				if (input.data !== undefined)
 					await assertCurrentClientWrite(tx, {
 						userId: input.userId,
-						document: { kind: "resume", id: input.id },
+						document: { id: input.id },
 						proposalSafety: input.proposalSafety,
 					});
 
@@ -540,13 +528,6 @@ export const resumeService = {
 				const savedCss = (existing.data as ResumeData | null)?.metadata?.web?.css;
 				if (normalizedData && savedCss && normalizedData.metadata.web?.css === undefined)
 					normalizedData.metadata.web = { showCredit: true, ...normalizedData.metadata.web, css: savedCss };
-				if (normalizedData)
-					await adoptEmbeddedLetters(tx, {
-						userId: input.userId,
-						resumeId: input.id,
-						resumeName: input.name ?? existing.name,
-						data: normalizedData,
-					});
 				// A blank resume is named after its headline until someone names it by hand.
 				const followedName =
 					existing.autoName && input.name === undefined && normalizedData
@@ -572,7 +553,7 @@ export const resumeService = {
 				if (!updated) throw new ORPCError("NOT_FOUND");
 				const sourceIds = await saveProposalApplications(tx, {
 					userId: input.userId,
-					document: { kind: "resume", id: input.id },
+					document: { id: input.id },
 					applications: input.proposalApplications,
 					conflict: () => resumeVersionConflict(existing.updatedAt),
 				});

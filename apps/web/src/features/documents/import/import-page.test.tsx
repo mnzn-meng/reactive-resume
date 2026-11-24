@@ -15,7 +15,6 @@ const api = vi.hoisted(() => ({
 	parseDocx: vi.fn(),
 	readPdfResume: vi.fn(),
 	readPdfSource: vi.fn(),
-	createLetter: vi.fn(),
 	listDocuments: vi.fn(),
 	linkApplication: vi.fn(),
 }));
@@ -42,7 +41,6 @@ vi.mock("@/libs/orpc/client", () => ({
 		},
 		documents: { key: () => ["documents"] },
 		resume: { create: { mutationOptions: () => ({ mutationFn: api.createResume }) } },
-		coverLetters: { create: { mutationOptions: () => ({ mutationFn: api.createLetter }) } },
 	},
 }));
 
@@ -230,7 +228,6 @@ it("keeps lookup failure recovery available on Import and retries without creati
 	expect(screen.queryByRole("alert")).toBeNull();
 	expect(screen.getByRole("button", { name: "Choose a file" })).toBeEnabled();
 	expect(api.importResume).not.toHaveBeenCalled();
-	expect(api.createLetter).not.toHaveBeenCalled();
 	expect(api.createResume).not.toHaveBeenCalled();
 });
 

@@ -4,9 +4,6 @@ import { match } from "ts-pattern";
 
 type LeftSidebarSection = "picture" | "basics" | "summary" | SectionType | "custom";
 
-// CustomSectionType values that are not in SectionType (used in custom sections only)
-type CustomOnlyType = "cover-letter";
-
 export type RightSidebarSection =
 	| "template"
 	| "layout"
@@ -21,7 +18,7 @@ export type RightSidebarSection =
 
 export type SidebarSection = LeftSidebarSection | RightSidebarSection;
 
-export const getSectionTitle = (type: SidebarSection | CustomOnlyType): string => {
+export const getSectionTitle = (type: SidebarSection): string => {
 	return (
 		match(type)
 			// Left Sidebar Sections
@@ -41,10 +38,6 @@ export const getSectionTitle = (type: SidebarSection | CustomOnlyType): string =
 			.with("volunteer", () => t`Volunteer`)
 			.with("references", () => t`References`)
 			.with("custom", () => t`Custom sections`)
-
-			// Custom Section Types (not in main sidebar)
-			// Title case on purpose: this msgid is also the PDF section heading (tooling/locales/section-titles.ts).
-			.with("cover-letter", () => t`Cover Letter`)
 
 			// Right Sidebar Sections
 			.with("template", () => t`Template`)

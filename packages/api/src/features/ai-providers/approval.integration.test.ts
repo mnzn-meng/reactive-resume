@@ -1,22 +1,16 @@
-import type { RouterClient } from "@orpc/server";
 import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import { existsSync } from "node:fs";
 import { readdir, readFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vite-plus/test";
-import { createORPCClient } from "@orpc/client";
-import { RPCLink } from "@orpc/client/fetch";
 import { createRouterClient } from "@orpc/server";
-import { RPCHandler } from "@orpc/server/fetch";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 import { aiDestination, NO_AI_DESTINATION } from "@reactive-resume/ai/types";
 import * as tables from "@reactive-resume/db/schema";
 import { env } from "@reactive-resume/env/server";
-import { copyCoverLetterStyle } from "@reactive-resume/resume/cover-letter";
 import { careerScheduleInputSchema } from "@reactive-resume/schema/career";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
 import { truncateCascade } from "../../test-database";
 
 vi.mock("@reactive-resume/env/server", async (original) => {
@@ -47,7 +41,6 @@ describe.skipIf(!process.env.INTEGRATIONS_TEST_DATABASE_URL)(
 		let career: typeof import("../career/service").careerService;
 		let careerRouter: typeof import("../career/router").careerRouter;
 		let jobs: typeof import("../career/jobs").careerJobs;
-		let letters: typeof import("../cover-letters/router").coverLettersRouter;
 		let baseURL: string;
 		let documentKnowledge = false;
 		const requests: { url: string; body: string; authorization: string | undefined }[] = [];
@@ -231,7 +224,6 @@ describe.skipIf(!process.env.INTEGRATIONS_TEST_DATABASE_URL)(
 			jobs = (await import("../career/jobs")).careerJobs;
 			career = (await import("../career/service")).careerService;
 			careerRouter = (await import("../career/router")).careerRouter;
-			letters = (await import("../cover-letters/router")).coverLettersRouter;
 		}, 30000);
 		afterAll(async () => {
 			await new Promise<void>((resolve) => server.close(() => resolve()));
@@ -279,63 +271,6 @@ describe.skipIf(!process.env.INTEGRATIONS_TEST_DATABASE_URL)(
 			return ai.test({ userId: "alice", id: row.id });
 		}
 		const marker = "RX98_PRIVATE_POSTING_ZERO_TRANSMISSION";
-		it.each(["none", "stale", "changed default"] as const)(
-			"streamed letter keeps the approved destination through RPC iteration: %s",
-			async (change) => {
-				await getDb()
-					.insert(tables.resume)
-					.values({
-						id: "letter-source",
-						userId: "alice",
-						name: "Fictional",
-						data: structuredClone(defaultResumeData),
-					});
-				await getDb()
-					.insert(tables.coverLetter)
-					.values({
-						id: "letter",
-						userId: "alice",
-						name: "Fictional",
-						content: "",
-						sourceResumeId: "letter-source",
-						style: copyCoverLetterStyle(defaultResumeData),
-					});
-				const approved = await add("approved");
-				const destination = change === "none" ? NO_AI_DESTINATION : aiDestination(approved);
-				if (change === "stale") {
-					await ai.update({ userId: "alice", id: approved.id, apiKey: "replacement" });
-					await ai.test({ userId: "alice", id: approved.id });
-				} else if (change === "changed default") {
-					const other = await add("other");
-					await ai.setDefault({ userId: "alice", id: other.id });
-				}
-				requests.length = 0;
-				const handler = new RPCHandler(letters);
-				const client = createORPCClient<RouterClient<typeof letters>>(
-					new RPCLink({
-						url: "https://rpc.fixture.test",
-						headers: { "x-ai-destination": destination },
-						fetch: async (request) => {
-							const { response } = await handler.handle(request, { context: context(destination) });
-							assert(response);
-							return response;
-						},
-					}),
-				);
-				const result = client.draft({ id: "letter", variant: "draft" }).then(async (stream) => {
-					let text = "";
-					for await (const part of stream) text += part;
-					return text;
-				});
-				if (change === "changed default") {
-					expect(await result).toBe("Fictional draft");
-					expect(requests.map((request) => request.authorization)).toEqual(["Bearer approved-key"]);
-				} else {
-					await expect(result).rejects.toMatchObject({ code: "CONFLICT" });
-					expect(requests).toHaveLength(0);
-				}
-			},
-		);
 		it("allows Off and rename without revalidating an unchanged stored URL", async () => {
 			const provider = await add("policy");
 			const before = env.FLAG_ALLOW_UNSAFE_AI_BASE_URL;

@@ -1,8 +1,6 @@
-import type { ResumeExportTarget } from "@reactive-resume/resume/export-sections";
 import type { ResumeData } from "@reactive-resume/schema/resume/data";
 import { t } from "@lingui/core/macro";
 import { useState } from "react";
-import { getResumeExportData } from "@reactive-resume/resume/export-sections";
 import { buildMarkdown } from "@reactive-resume/resume/markdown";
 import { toast } from "@reactive-resume/ui/components/toast";
 import { downloadWithAnchor, getDefaultFileName, sanitizeFileName } from "@reactive-resume/utils/file";
@@ -25,10 +23,6 @@ type ExportableResume = {
 	data: ResumeData;
 };
 
-type ExportOptions = {
-	includeCoverLetterHeader?: boolean;
-};
-
 export type ExportFormat = "pdf" | "docx" | "odt" | "md" | "json";
 
 export { getDefaultFileName, sanitizeFileName };
@@ -38,30 +32,22 @@ const warnLostCharacters = (characters: string[]) =>
 	toast.add({ type: "warning", id: "pdf-lost-characters", description: getLostCharactersMessage(characters) });
 
 /** Builds one export file. It throws when the file can't be made, so each caller decides how to say so. */
-export async function createExportFile(
-	resume: ExportableResume,
-	format: ExportFormat,
-	target: ResumeExportTarget = "resume",
-	options?: ExportOptions,
-): Promise<Blob> {
+export async function createExportFile(resume: ExportableResume, format: ExportFormat): Promise<Blob> {
 	if (format === "json") {
 		return new Blob([JSON.stringify(resume.data, null, 2)], { type: "application/json" });
 	}
 
-	const data = getResumeExportData(resume.data, target);
+	const data = resume.data;
 	if (format === "pdf") {
-		return createResumePdfBlob(data, target === "cover-letter" ? options : undefined, {
-			onLostCharacters: warnLostCharacters,
-		});
+		return createResumePdfBlob(data, { onLostCharacters: warnLostCharacters });
 	}
 
 	// Section titles are stored empty by default; DOCX, ODT and Markdown use the PDF's localized headings.
 	const { getResumeSectionTitle } = await import("@reactive-resume/pdf/section-title");
 	const resolveTitle = (sectionId: string) => getResumeSectionTitle(data, sectionId);
 	if (format === "md") return new Blob([buildMarkdown(data, resolveTitle)], { type: "text/markdown" });
-	const renderOptions = target === "cover-letter" ? options : undefined;
-	if (format === "odt") return (await loadOdt()).buildOdt(data, resolveTitle, renderOptions);
-	return (await loadDocx()).buildDocx(data, resolveTitle, renderOptions);
+	if (format === "odt") return (await loadOdt()).buildOdt(data, resolveTitle);
+	return (await loadDocx()).buildDocx(data, resolveTitle);
 }
 
 /** Prints a PDF blob through a hidden iframe; if the browser blocks that, opens it in a new tab instead. */
@@ -114,7 +100,7 @@ export function useResumeExport(resume: ExportableResume) {
 		const toastId = toast.add({ type: "loading", description: t`Preparing resume for printing…` });
 		setIsExporting(true);
 		try {
-			printPdf(await createResumePdfBlob(resume.data, undefined, { onLostCharacters: warnLostCharacters }));
+			printPdf(await createResumePdfBlob(resume.data, { onLostCharacters: warnLostCharacters }));
 		} catch (error) {
 			toast.add({
 				type: "error",

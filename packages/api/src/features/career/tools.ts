@@ -78,7 +78,6 @@ export function buildCareerInstructions(
 			? {
 					application: context.application,
 					resume: context.resume,
-					letter: context.letter,
 					answers: boundedItems(
 						(input.answers ?? [])
 							.filter((answer) => answer.answer.trim())

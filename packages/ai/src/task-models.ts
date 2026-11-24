@@ -37,7 +37,6 @@ const CAPABLE_OPERATIONS = new Set([
 	"applications.ai.draftMessage",
 	"applications.ai.tailorResume",
 	"applications.ai.proposeEvidence",
-	"coverLetters.draft",
 ]);
 
 /** Every distinct model a connection may send to, in readiness-test order. */

@@ -7,13 +7,8 @@ export function authErrorMessage(error: AuthError, fallback: string): string {
 		case "INVALID_EMAIL_OR_PASSWORD":
 		case "INVALID_USERNAME_OR_PASSWORD":
 			return t`That email, username or password doesn't match. Check them, or reset your password.`;
-		case "INVALID_TWO_FACTOR_COOKIE":
-			return t`This sign-in step expired. Sign in again.`;
 		case "INVALID_TOKEN":
 			return t`This reset link expired or was already used. Send a new link.`;
-		case "INVALID_OTP":
-		case "INVALID_BACKUP_CODE":
-			return t`That code doesn't match. Check it and try again.`;
 	}
 	if (error.status === 429) return t`Too many attempts. Wait a moment, then try again.`;
 	// Older servers return these product conflicts without codes. Keep their recovery guidance, never arbitrary text.

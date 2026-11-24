@@ -6,8 +6,6 @@ export function generateFilename(prefix: string, extension?: string) {
 	return `${name}${extension ? `.${extension}` : ""}`;
 }
 
-export type FileNameTarget = "resume" | "cover-letter";
-
 export type FileNameSource = {
 	name: string;
 	data: { basics: { name: string }; metadata?: { page?: { locale?: string } } };
@@ -15,12 +13,10 @@ export type FileNameSource = {
 
 const words: Record<string, Record<string, string>> = fileNameWords;
 
-/** "Resume" or "Cover letter" in the document's own language, as a recruiter reading the file name would expect. */
-function documentWords(target: FileNameTarget, locale: string | undefined) {
-	const source = target === "cover-letter" ? "Cover letter" : "Resume";
-	const english = target === "cover-letter" ? ["Cover", "Letter"] : ["Resume"];
-	const translated = locale ? words[locale]?.[source] : undefined;
-	if (!translated || translated === source) return english;
+/** "Resume" in the document's own language, as a recruiter reading the file name would expect. */
+function documentWords(locale: string | undefined) {
+	const translated = locale ? words[locale]?.Resume : undefined;
+	if (!translated || translated === "Resume") return ["Resume"];
 	return sanitizeFileName(translated).split(/\s+/).filter(Boolean);
 }
 
@@ -34,17 +30,16 @@ export const sanitizeFileName = (value: string) =>
 	value.replace(UNSAFE_FILE_NAME_CHARACTERS, "").replace(FILE_NAME_EDGES, "");
 
 /**
- * "First-Last-Resume" (or "First-Last-Cover-Letter"): recruiters see this name. Without a name on the
- * document it falls back to the document's name.
+ * "First-Last-Resume": recruiters see this name. Without a name on the document it falls back to the
+ * document's name.
  */
-export function getDefaultFileName(source: FileNameSource, target: FileNameTarget = "resume") {
+export function getDefaultFileName(source: FileNameSource) {
 	const split = (text: string) => sanitizeFileName(text).split(/\s+/).filter(Boolean);
 	const person = split(source.data.basics.name);
-	const suffix = documentWords(target, source.data.metadata?.page?.locale);
+	const suffix = documentWords(source.data.metadata?.page?.locale);
 	if (person.length > 0) return [...person, ...suffix].join("-");
 	const name = split(source.name);
-	const fallback = [...name, ...(target === "cover-letter" ? suffix : [])];
-	return fallback.join("-") || suffix.join("-");
+	return name.join("-") || suffix.join("-");
 }
 
 export function downloadWithAnchor(blob: Blob, filename: string) {

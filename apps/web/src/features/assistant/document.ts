@@ -3,24 +3,15 @@ import { t } from "@lingui/core/macro";
 import { useQuery } from "@tanstack/react-query";
 import { useSearch } from "@tanstack/react-router";
 import { useMemo } from "react";
-import {
-	applyProposals,
-	collectLetterPassages,
-	collectPassages,
-	getProposalState,
-	getStateIn,
-} from "@reactive-resume/resume/proposals";
-import { toast } from "@reactive-resume/ui/components/toast";
+import { collectPassages, getProposalState } from "@reactive-resume/resume/proposals";
 import { applicationsListQueryOptions } from "@/features/applications/queries";
-import { useLetterEditorStore } from "@/features/letters/store";
 import { useCurrentResume, useResumeStore } from "@/features/resume/builder/draft";
 import { getSectionName } from "@/features/resume/editor/check/issues";
-import { acceptResumeProposals, proposalResultMessage } from "@/features/resume/editor/proposals/proposals";
+import { acceptResumeProposals } from "@/features/resume/editor/proposals/proposals";
 import { describeEntry } from "@/features/resume/editor/write/model";
 
-/** The document the assistant works on, as the panel needs it. Resumes and letters each provide one. */
+/** The document the assistant works on, as the panel needs it. */
 export type AssistantDocument = {
-	kind: "resume" | "letter";
 	id: string;
 	name: string;
 	/** Document revision whose authoritative proposal decisions should be read. */
@@ -29,11 +20,11 @@ export type AssistantDocument = {
 	/** The application it's for, whose posting is shared as context. */
 	posting: { id: string; company: string; role: string } | null;
 	/**
-	 * Edits that use the posting can land here: a letter, or a resume copied for that application. A base resume
-	 * other jobs share is copied first (the server refuses tailoring edits to it).
+	 * Edits that use the posting can land here: a resume copied for that application. A base resume other jobs
+	 * share is copied first (the server refuses tailoring edits to it).
 	 */
 	jobCopy: boolean;
-	/** The application this resume was made for (null for a base resume or a letter). */
+	/** The application this resume was made for (null for a base resume). */
 	madeFor: string | null;
 	/** A proposal's state against the document as it reads now. */
 	stateOf: (proposal: Proposal) => ProposalState;
@@ -96,7 +87,6 @@ export function useResumeAssistantDocument(): AssistantDocument {
 		});
 
 		return {
-			kind: "resume",
 			id: resume.id,
 			name: resume.name,
 			proposalRevision: resume.updatedAt.toISOString(),
@@ -124,72 +114,4 @@ export function useResumeAssistantDocument(): AssistantDocument {
 		application,
 		applicationsOfProposals,
 	]);
-}
-
-export function useLetterAssistantDocument(): AssistantDocument | null {
-	const letter = useLetterEditorStore((state) => state.letter);
-	const applicationsOfProposals = useLetterEditorStore((state) => state.proposalApplications);
-	const { applicationId } = useSearch({ strict: false });
-	const { data: applications } = useQuery(applicationsListQueryOptions());
-	const application = applications?.find((item) => item.id === (applicationId ?? letter?.sourceApplicationId));
-
-	return useMemo(() => {
-		if (!letter) return null;
-		const passages = collectLetterPassages(letter.content, { body: t`Letter`, bullet, paragraph });
-
-		return {
-			kind: "letter",
-			id: letter.id,
-			name: letter.name,
-			proposalRevision: String(letter.revision),
-			locked: letter.isLocked,
-			posting: application ? { id: application.id, company: application.company, role: application.role } : null,
-			jobCopy: true,
-			madeFor: null,
-			stateOf: (proposal) => getStateIn(letter.content, proposal, applicationsOfProposals),
-			accept: (proposals) => {
-				const { letter: current, edit, changing, proposalApplications, sessionId } = useLetterEditorStore.getState();
-				if (!current || current.id !== letter.id || current.isLocked || changing) return { applied: [], stale: [] };
-				const before = current.content;
-				const beforeSources = current.aiOperationIds ?? [];
-				let content = before;
-				const result = applyProposals(
-					proposals,
-					() => content,
-					(_, value) => {
-						content = value;
-					},
-					proposalApplications,
-				);
-				if (result.applied.length > 0) edit({ content }, { applied: result.applied });
-				if (result.applied.length > 0 || result.stale.length > 0)
-					toast.add({
-						description: proposalResultMessage(result),
-						...(result.applied.length > 0
-							? {
-									actionProps: {
-										children: t`Undo`,
-										onClick: () => {
-											const latest = useLetterEditorStore.getState();
-											if (
-												latest.sessionId === sessionId &&
-												latest.letter?.id === current.id &&
-												latest.letter.content === content &&
-												!latest.letter.isLocked &&
-												!latest.changing
-											)
-												latest.edit(
-													{ content: before, aiOperationIds: beforeSources },
-													{ restoreApplications: proposalApplications },
-												);
-										},
-									},
-								}
-							: {}),
-					});
-				return result;
-			},
-			locationOf: (proposal) => locate(passages, proposal),
-		};
-	}, [letter, application, applicationsOfProposals]);
 }

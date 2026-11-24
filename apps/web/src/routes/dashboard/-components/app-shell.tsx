@@ -54,7 +54,7 @@ function useNavItems() {
 			to: "/dashboard/documents",
 			icon: "files",
 			label: t`Documents`,
-			...(counts ? { count: counts.resume + counts.letter } : {}),
+			...(counts ? { count: counts.active } : {}),
 		},
 		{
 			to: "/dashboard/applications",
@@ -109,9 +109,7 @@ function useNewAction() {
 		? "applications"
 		: matchRoute({ to: "/dashboard/career", fuzzy: true })
 			? "career"
-			: new URLSearchParams(location.searchStr).get("type") === "letter"
-				? "letters"
-				: "documents";
+			: "documents";
 
 	return useCallback(() => {
 		// The application page owns Save job; its one-shot ?create link opens that dialog.
@@ -184,14 +182,6 @@ export function AppShell({ children }: AppShellProps) {
 			if (!isEditableElementFocused() && !shortcutOverlayOpen()) openDialog("document.new", undefined);
 		},
 		{ enabled: characterShortcuts, timeout: 600, meta: { name: t`New resume` } },
-	);
-	useHotkey(
-		["N", "L"],
-		() => {
-			cancelNew();
-			if (!isEditableElementFocused() && !shortcutOverlayOpen()) openDialog("document.new", { context: "letters" });
-		},
-		{ enabled: characterShortcuts, timeout: 600, meta: { name: t`New cover letter` } },
 	);
 	useHotkey(
 		["N", "J"],

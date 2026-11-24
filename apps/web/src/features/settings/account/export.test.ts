@@ -1,8 +1,6 @@
 import { beforeAll, describe, expect, it } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { strFromU8, unzipSync } from "fflate";
-import { copyCoverLetterStyle } from "@reactive-resume/resume/cover-letter";
-import { coverLetterDocumentSchema } from "@reactive-resume/schema/cover-letter/data";
 import { defaultResumeData } from "@reactive-resume/schema/resume/default";
 import { buildAccountZip } from "@reactive-resume/utils/account-zip";
 import { detectImportKind, detectJsonImportKind, parseResumeJson } from "@/features/resume/import/read-file";
@@ -34,7 +32,6 @@ describe("buildAccountZip", () => {
 		const base = {
 			user: {},
 			resumes: [],
-			coverLetters: [],
 			applications: [],
 			career: emptyCareer,
 			aiContentReports: [],
@@ -47,14 +44,12 @@ describe("buildAccountZip", () => {
 		const base = {
 			user: {},
 			resumes: [],
-			coverLetters: [],
 			applications: [],
 			career: emptyCareer,
 			aiContentReports: [],
 		};
 		const versions = {
 			resumes: [{ id: "resume-v3", resumeId: "r1", data: { basics: { name: "Reviewed Maya" } } }],
-			letters: [{ id: "letter-v2", coverLetterId: "l1", data: { content: "Reviewed letter" } }],
 		};
 		const files = unzipSync(buildAccountZip({ ...base, documentVersions: versions } as never));
 		expect(files).toHaveProperty("document-versions.json");
@@ -66,7 +61,6 @@ describe("buildAccountZip", () => {
 		const archive = buildAccountZip({
 			user: {},
 			resumes: [],
-			coverLetters: [],
 			applications: [],
 			career: emptyCareer,
 			aiContentReports: [],
@@ -90,15 +84,6 @@ describe("buildAccountZip", () => {
 				career: emptyCareer,
 				aiContentReports: [],
 				resumes: [{ id: "r1", name: "Resume", data: defaultResumeData }],
-				coverLetters: [
-					{
-						id: "l1",
-						name: "Letter",
-						recipient: "Lumen",
-						content: "<p>I am applying.</p>",
-						style: copyCoverLetterStyle(defaultResumeData),
-					},
-				],
 			} as never),
 		);
 		const resumeText = strFromU8(files["resumes/resume-r1.json"] as Uint8Array);
@@ -106,9 +91,6 @@ describe("buildAccountZip", () => {
 		expect(resumeText).not.toContain("private-application@example.test");
 		expect(JSON.parse(strFromU8(files["application-profile.json"] as Uint8Array))).toEqual(profile);
 		expect(parseResumeJson(resumeText, "reactive-resume-json").basics).toEqual(defaultResumeData.basics);
-		const letter = JSON.parse(strFromU8(files["letters/letter-l1.json"] as Uint8Array));
-		expect(detectJsonImportKind(letter)).toBe("cover-letter-json");
-		expect(coverLetterDocumentSchema.parse(letter).content).toBe("<p>I am applying.</p>");
 	});
 	it("keeps documents separate and preserves career provenance, conversations and attachment references", () => {
 		const zip = buildAccountZip({
@@ -119,7 +101,6 @@ describe("buildAccountZip", () => {
 				{ id: "01a0ec71-03e8-77b1-a5e4-ce04be126204", name: "Product Designer" },
 				{ id: "01a0ec71-32c8-728b-b43b-b760a673b825", name: "Product Designer" },
 			],
-			coverLetters: [{ id: "01a0ec71-a410-71da-9156-b347210cf72b", name: "Product Designer" }],
 			applications: [{ id: "app-1", company: "Lumen", role: "Designer" }],
 			aiContentReports: [{ id: "report-1", content: "Unsafe generated content", reason: "dangerous" }],
 			career: {
@@ -159,7 +140,6 @@ describe("buildAccountZip", () => {
 			"ai-content-reports.json",
 			"applications.json",
 			"career.json",
-			"letters/product-designer-01a0ec71-a410-71da-9156-b347210cf72b.json",
 			"resumes/product-designer-01a0ec71-03e8-77b1-a5e4-ce04be126204.json",
 			"resumes/product-designer-01a0ec71-32c8-728b-b43b-b760a673b825.json",
 		]);

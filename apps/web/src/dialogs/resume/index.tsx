@@ -42,7 +42,7 @@ export function ResumeDialog({ mode, data }: ResumeDialogProps) {
 	const commitTags = useRef<(() => string[]) | null>(null);
 	const navigate = useNavigate();
 	const closeDialog = useDialogStore((state) => state.closeDialog);
-	const suggestions = useExistingTags(["resume"]);
+	const suggestions = useExistingTags();
 
 	const updateOptions = orpc.resume.update.mutationOptions();
 	const update = useMutation({

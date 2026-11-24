@@ -28,5 +28,5 @@ it("settles a confirmed removal even when its exit animation fails", async () =>
 		},
 		{ wrapper: DocumentLibraryProvider },
 	);
-	await expect(result.current("trash", [{ type: "resume", id: "r1" }])).resolves.toBeUndefined();
+	await expect(result.current("trash", [{ id: "r1" }])).resolves.toBeUndefined();
 });

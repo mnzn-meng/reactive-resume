@@ -1018,7 +1018,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 		expect((await pool.query("SELECT id FROM create_request WHERE id = $1", [newId])).rows).toEqual([{ id: newId }]);
 	});
 
-	it.each(["resumeFile", "coverLetterFile", "postingFile"] as const)(
+	it.each(["resumeFile", "postingFile"] as const)(
 		"binds the creation receipt to %s bytes before accepting a retry",
 		async (slot) => {
 			const { applicationsRouter } = await import("./router");
@@ -1144,8 +1144,8 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 		const apps = createRouterClient(applicationsRouter, { context });
 		const newResume = (name: string) => resumeService.create({ userId: "alice", name, tags: [], locale: "en-US" });
 		const purge = async (id: string) => {
-			await documents.trash({ type: "resume", id });
-			await documents.purge({ type: "resume", id });
+			await documents.trash({ id });
+			await documents.purge({ id });
 		};
 		const snapshot = async () => ({
 			resumes: await getDb().select().from(tables.resume).where(eq(tables.resume.userId, "alice")),
@@ -1182,7 +1182,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 		const jobless = { resumeId: base, application: { company: "Jobless Co", role: "Lead" }, newId: randomUUID() };
 		for (const request of [deleted, trashed, jobless]) await documents.copyForJob(request);
 		await purge(deleted.newId);
-		await documents.trash({ type: "resume", id: trashed.newId });
+		await documents.trash({ id: trashed.newId });
 		const joblessJob = (await snapshot()).jobs.find((job) => job.company === "Jobless Co");
 		await apps.delete({ id: joblessJob?.id ?? "" });
 		before = await snapshot();
@@ -1194,7 +1194,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 		const relocated = { resumeId: base, application: { company: "Original Co", role: "Lead" }, newId: randomUUID() };
 		await documents.copyForJob(relocated);
 		const replacementJob = await apps.create({ company: "Replacement Co", role: "Lead" });
-		await documents.linkApplication({ type: "resume", id: relocated.newId, applicationId: replacementJob });
+		await documents.linkApplication({ id: relocated.newId, applicationId: replacementJob });
 		before = await snapshot();
 		await expect(documents.copyForJob(relocated)).rejects.toMatchObject(conflict);
 		expect(await snapshot()).toEqual(before);
@@ -1277,7 +1277,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 
 		// The same request is still a retry after the copy and its job were edited: same copy, nothing new.
 		const job = made.jobs.find((row) => row.company === "Fieldnote");
-		await documents.rename({ type: "resume", id: copyId, name: "Edited copy" });
+		await documents.rename({ id: copyId, name: "Edited copy" });
 		await apps.update({ id: job?.id ?? "", company: "Fieldnote Ltd" });
 		const edited = await snapshot();
 		expect(await documents.copyForJob(request)).toBe(copyId);

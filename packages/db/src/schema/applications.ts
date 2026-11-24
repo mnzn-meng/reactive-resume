@@ -6,11 +6,9 @@ import type {
 	Contact,
 	PostingSource,
 } from "@reactive-resume/schema/applications/data";
-import type { AnyPgColumn } from "drizzle-orm/pg-core";
 import * as pg from "drizzle-orm/pg-core";
 import { generateId } from "@reactive-resume/utils/string";
 import { user } from "./auth";
-import { coverLetter, coverLetterVersion } from "./cover-letter";
 import { resume, resumeVersion } from "./resume";
 
 export const applicationPipeline = pg.pgTable("application_pipeline", {
@@ -73,16 +71,9 @@ export const application = pg.pgTable(
 		// Live link to one of the user's resumes. Kept on resume delete (set null) so the
 		// application history survives.
 		resumeId: pg.text("resume_id").references(() => resume.id, { onDelete: "set null" }),
-		// The saved cover letter sent with this application.
-		// Typed explicitly: cover_letter references application too, and the cycle would defeat inference.
-		coverLetterId: pg.text("cover_letter_id").references((): AnyPgColumn => coverLetter.id, { onDelete: "set null" }),
 		// The linked resume as it was when the application reached Applied, and its Check score then.
 		sentResumeVersionId: pg.text("sent_resume_version_id").references(() => resumeVersion.id, { onDelete: "set null" }),
 		sentCheckScore: pg.smallint("sent_check_score"),
-		// The linked letter as it was when the application was sent.
-		sentCoverLetterVersionId: pg
-			.text("sent_cover_letter_version_id")
-			.references((): AnyPgColumn => coverLetterVersion.id, { onDelete: "set null" }),
 		source: pg.text("source"),
 		tags: pg.text("tags").array().notNull().default([]),
 		// --- AI reservations (no working AI this pass; see feature AI roadmap) ---
@@ -102,10 +93,6 @@ export const application = pg.pgTable(
 		// resumeId link. Stored as the storage URL + original filename for display.
 		resumeFileUrl: pg.text("resume_file_url"),
 		resumeFileName: pg.text("resume_file_name"),
-		// A cover letter sent with this application (PDF/doc uploaded to storage). Stored as the
-		// key returned by the storage upload plus the original filename for display.
-		coverLetterUrl: pg.text("cover_letter_url"),
-		coverLetterName: pg.text("cover_letter_name"),
 		followUpAt: pg.timestamp("follow_up_at", { withTimezone: true }),
 		followUpDateOnly: pg.boolean("follow_up_date_only").notNull().default(false),
 		followUpNote: pg.text("follow_up_note"),
@@ -133,11 +120,9 @@ export const application = pg.pgTable(
 			foreignColumns: [applicationLane.userId, applicationLane.id],
 		}),
 		pg.index().on(t.userId, t.laneId),
-		// Deleting a resume, a letter or one of their versions looks these up; without an index each lookup reads
-		// every application.
+		// Deleting a resume or one of its versions looks these up; without an index each lookup reads every
+		// application.
 		pg.index().on(t.resumeId),
-		pg.index().on(t.coverLetterId),
 		pg.index().on(t.sentResumeVersionId),
-		pg.index().on(t.sentCoverLetterVersionId),
 	],
 );

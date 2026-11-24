@@ -1,7 +1,7 @@
 import type { DocumentsSearch } from "@/features/documents/documents-page";
 import type { Template } from "@reactive-resume/schema/templates";
 import { t } from "@lingui/core/macro";
-import { createFileRoute, redirect, stripSearchParams } from "@tanstack/react-router";
+import { createFileRoute, stripSearchParams } from "@tanstack/react-router";
 import { useEffect, useEffectEvent, useRef } from "react";
 import { documentsSearchDefaults, documentsSearchSchema } from "./-documents-search";
 import { DocumentsPage } from "@/features/documents/documents-page";
@@ -12,11 +12,6 @@ export const Route = createFileRoute("/dashboard/documents")({
 	head: () => ({ meta: [{ title: getPageTitle(t`Documents`) }] }),
 	validateSearch: documentsSearchSchema,
 	search: { middlewares: [stripSearchParams(documentsSearchDefaults)] },
-	beforeLoad: ({ search }) => {
-		if (search.letter) {
-			throw redirect({ to: "/builder/letter/$coverLetterId", params: { coverLetterId: search.letter }, replace: true });
-		}
-	},
 	component: RouteComponent,
 });
 

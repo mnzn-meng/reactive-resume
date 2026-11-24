@@ -120,9 +120,7 @@ const application = (id: string, status: Application["status"]): Application => 
 	role: "Engineer",
 	status,
 	closedReason: status === "closed" ? "not-selected" : null,
-	coverLetterId: null,
 	sentResumeVersionId: null,
-	sentCoverLetterVersionId: null,
 	sentCheckScore: null,
 	requirements: [],
 	location: null,
@@ -145,8 +143,6 @@ const application = (id: string, status: Application["status"]): Application => 
 	aiMetadata: null,
 	resumeFileUrl: null,
 	resumeFileName: null,
-	coverLetterUrl: null,
-	coverLetterName: null,
 	followUpAt: null,
 	followUpNote: null,
 });

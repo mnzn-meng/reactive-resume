@@ -16,7 +16,6 @@ const defaultEnglishTitles: Record<string, string> = {
 	publications: "Publications",
 	volunteer: "Volunteer",
 	references: "References",
-	"cover-letter": "Cover Letter",
 };
 
 const catalogs: Record<string, Record<string, string>> = sectionTitleCatalog;

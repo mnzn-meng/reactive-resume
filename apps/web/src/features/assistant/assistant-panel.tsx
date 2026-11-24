@@ -47,10 +47,7 @@ type AssistantPanelProps = {
 	onClose: () => void;
 };
 
-const belongsTo = (thread: ThreadSummary, document: AssistantDocument) =>
-	document.kind === "letter"
-		? thread.coverLetterId === document.id
-		: thread.workingResumeId === document.id && !thread.coverLetterId;
+const belongsTo = (thread: ThreadSummary, document: AssistantDocument) => thread.workingResumeId === document.id;
 
 /**
  * The assistant beside the page: it knows the open document and the posting it's for, proposes edits that appear on
@@ -91,10 +88,7 @@ export function AssistantPanel({ document, onClose }: AssistantPanelProps) {
 	const menuLabel = stranded ? t`Choose a connection` : providerLabel;
 	// The resume this conversation started on, once it moved to a copy (its first accepted edit).
 	const original =
-		document.kind === "resume" &&
-		summary?.workingResumeId === document.id &&
-		summary.sourceResumeId &&
-		summary.sourceResumeId !== document.id
+		summary?.workingResumeId === document.id && summary.sourceResumeId && summary.sourceResumeId !== document.id
 			? summary.sourceResumeId
 			: null;
 
@@ -104,7 +98,7 @@ export function AssistantPanel({ document, onClose }: AssistantPanelProps) {
 		// A list refetch must not auto-open this empty draft while its composer still holds unsent files.
 		useEditorStore.setState({ assistantThread: "new" });
 		const input = {
-			...(document.kind === "letter" ? { coverLetterId: document.id } : { resumeId: document.id }),
+			resumeId: document.id,
 			...(provider ? { aiProviderId: provider.id } : {}),
 		};
 		const creating = client.agent.threads.start(input).then((created) => {
@@ -205,14 +199,8 @@ export function AssistantPanel({ document, onClose }: AssistantPanelProps) {
 
 			{providers.hasUsableProvider && view !== "history" && (
 				<p className="mx-6 flex items-center gap-2.5 border-b border-line pt-[13px] pb-3 text-[13px]/[18px] text-ink-2">
-					<Icon
-						name={document.kind === "resume" ? "copy" : "clock-counter-clockwise"}
-						size={16}
-						className="mt-px shrink-0 self-start text-ink-3"
-					/>
-					{document.kind === "letter" ? (
-						<Trans>Accepted edits change this letter; history keeps each version.</Trans>
-					) : original ? (
+					<Icon name="copy" size={16} className="mt-px shrink-0 self-start text-ink-3" />
+					{original ? (
 						<CopyLine original={original} company={document.posting?.company} />
 					) : document.madeFor && document.posting ? (
 						<Trans>Working on a copy made for {document.posting.company}: the resume it came from is unchanged.</Trans>
@@ -221,9 +209,7 @@ export function AssistantPanel({ document, onClose }: AssistantPanelProps) {
 					)}
 				</p>
 			)}
-			{translating && document.kind === "resume" && (
-				<TranslateResume resumeId={document.id} onClose={() => setTranslating(false)} />
-			)}
+			{translating && <TranslateResume resumeId={document.id} onClose={() => setTranslating(false)} />}
 			{notSetUp ? (
 				<Notice>
 					<Trans>
@@ -309,7 +295,7 @@ export function AssistantPanel({ document, onClose }: AssistantPanelProps) {
 					)}
 
 					<Composer
-						notice={document.locked ? <LockedNotice document={document} /> : undefined}
+						notice={document.locked ? <LockedNotice /> : undefined}
 						// A draft arriving while the box is open replaces what's in it.
 						key={`${draftKey}:${draft ?? ""}`}
 						initialText={draft ?? undefined}
@@ -355,10 +341,7 @@ function ConversationLoader({ threadId, document, destinationUnavailable, ...pro
 	// The assistant never edits a resume a conversation started on: its first accepted edit makes a copy and lands there.
 	const summary = thread.data?.thread;
 	const copyFirst =
-		document.kind === "resume" &&
-		!document.madeFor &&
-		summary?.workingResumeId === document.id &&
-		summary.sourceResumeId === document.id;
+		!document.madeFor && summary?.workingResumeId === document.id && summary.sourceResumeId === document.id;
 	const working = useMemo<AssistantDocument>(
 		() =>
 			copyFirst
@@ -414,7 +397,7 @@ function ConversationLoader({ threadId, document, destinationUnavailable, ...pro
 			localEditsLocked={document.locked || !thread.data.document}
 			{...props}
 			// A locked document still takes questions; the banner says why edits wait, with Unlock.
-			banner={document.locked ? <LockedNotice document={document} /> : undefined}
+			banner={document.locked ? <LockedNotice /> : undefined}
 		/>
 	);
 }
@@ -510,24 +493,6 @@ function suggestionsFor(document: AssistantDocument, prepare: boolean, overflow?
 			...tailor,
 		];
 
-	if (document.kind === "letter")
-		return [
-			...tailor,
-			// After a draft was accepted, the one way back to a fresh draft: proposals for the whole letter.
-			...(document.posting
-				? [
-						{
-							icon: "sparkle" as const,
-							label: t`Redraft from the posting`,
-							hint: t`A new version of the whole letter, as edits to accept`,
-						},
-					]
-				: []),
-			{ icon: "lightning", label: t`Make the opening stronger`, hint: t`Leads with why you fit` },
-			{ icon: "arrows-in-line-vertical", label: t`Make it shorter`, hint: t`Keeps the most specific parts` },
-			{ icon: "text-align-left", label: t`Make it more specific`, hint: t`Uses facts from your resume` },
-		];
-
 	return [
 		...tailor,
 		{ icon: "scissors", label: t`Find weak bullets`, hint: t`Checks every bullet for action and result`, edits: false },
@@ -549,14 +514,14 @@ type EmptyStateProps = {
 };
 
 /** Above the composer on a locked document: questions still work, edits wait for Unlock. */
-function LockedNotice({ document }: { document: AssistantDocument }) {
+function LockedNotice() {
 	return (
 		<p className="flex flex-wrap items-center gap-x-2 gap-y-1 rounded-lg bg-info-soft px-3 py-2 text-xs text-info-text">
 			<Icon name="lock" size={16} className="shrink-0" />
 			<span className="flex-1">
 				<Trans>Locked. I can answer questions; unlock to get edits.</Trans>
 			</span>
-			{document.kind === "resume" && <UnlockButton />}
+			<UnlockButton />
 		</p>
 	);
 }
@@ -571,12 +536,10 @@ function UnlockButton() {
 }
 
 function EmptyState({ document, disabled, onPick, onTranslate }: EmptyStateProps) {
-	const kind = document.kind === "letter" ? t`letter` : t`resume`;
 	const prepare = useEditorStore((state) => state.assistantSuggestions === "prepare");
 	const rendered = useEditorStore((state) => state.fitRendered);
 	const data = useResumeStore((state) => state.resume?.data);
-	const overflow =
-		document.kind === "resume" && data && rendered.pageCount > 0 ? measureOverflow(data, rendered) : undefined;
+	const overflow = data && rendered.pageCount > 0 ? measureOverflow(data, rendered) : undefined;
 
 	return (
 		<div className="min-h-0 flex-1 overflow-y-auto px-6 pt-5 pb-4">
@@ -586,16 +549,16 @@ function EmptyState({ document, disabled, onPick, onTranslate }: EmptyStateProps
 						{prepare && document.posting ? (
 							// These tasks answer and draft; none of them edits the document.
 							<Trans>
-								I can see this {kind} and the {document.posting.company} posting. Ask how you fit, or get a follow-up
+								I can see this resume and the {document.posting.company} posting. Ask how you fit, or get a follow-up
 								email or interview prep.
 							</Trans>
 						) : document.posting ? (
 							<Trans>
-								I can see this {kind} and the {document.posting.company} posting. Suggestions come back as edits you can
+								I can see this resume and the {document.posting.company} posting. Suggestions come back as edits you can
 								review before accepting.
 							</Trans>
 						) : (
-							<Trans>I can see this {kind}. Suggestions come back as edits you can review before accepting.</Trans>
+							<Trans>I can see this resume. Suggestions come back as edits you can review before accepting.</Trans>
 						)}
 					</>
 				}
@@ -605,15 +568,13 @@ function EmptyState({ document, disabled, onPick, onTranslate }: EmptyStateProps
 					onPick: () => onPick(suggestion.prompt ?? suggestion.label),
 				}))}
 			/>
-			{document.kind === "resume" && (
-				<button
-					type="button"
-					onClick={onTranslate}
-					className="mt-3 text-[13px]/[18px] font-medium text-accent-text hover:underline"
-				>
-					<Trans>Translate into another language…</Trans>
-				</button>
-			)}
+			<button
+				type="button"
+				onClick={onTranslate}
+				className="mt-3 text-[13px]/[18px] font-medium text-accent-text hover:underline"
+			>
+				<Trans>Translate into another language…</Trans>
+			</button>
 		</div>
 	);
 }
@@ -633,9 +594,7 @@ function PastConversations({ threads, document, currentId, onOpen, onNew }: Past
 	const queryClient = useQueryClient();
 	const confirm = useConfirm();
 	const mine = threads.filter((thread) => belongsTo(thread, document));
-	const others = threads.filter(
-		(thread) => !belongsTo(thread, document) && (thread.workingResumeId || thread.coverLetterId),
-	);
+	const others = threads.filter((thread) => !belongsTo(thread, document) && thread.workingResumeId);
 
 	const outcome = (thread: ThreadSummary) =>
 		thread.editsProposed === 0 ? t`no edits` : t`${thread.editsAccepted} of ${thread.editsProposed} edits accepted`;
@@ -643,13 +602,7 @@ function PastConversations({ threads, document, currentId, onOpen, onNew }: Past
 	const open = (thread: ThreadSummary) => {
 		if (belongsTo(thread, document)) return onOpen(thread.id);
 		// Another document's conversation opens that document, with the assistant on it.
-		if (thread.coverLetterId)
-			void navigate({
-				to: "/builder/letter/$coverLetterId",
-				params: { coverLetterId: thread.coverLetterId },
-				search: { assistant: thread.id },
-			});
-		else if (thread.workingResumeId)
+		if (thread.workingResumeId)
 			void navigate({
 				to: "/builder/$resumeId",
 				params: { resumeId: thread.workingResumeId },
@@ -719,7 +672,7 @@ function PastConversations({ threads, document, currentId, onOpen, onNew }: Past
 								index={mine.length + index}
 								thread={thread}
 								current={false}
-								detail={`${formatVersionTime(new Date(thread.lastMessageAt), i18n.locale)} · ${outcome(thread)} · ${thread.coverLetterName ?? thread.resumeName ?? ""}`}
+								detail={`${formatVersionTime(new Date(thread.lastMessageAt), i18n.locale)} · ${outcome(thread)} · ${thread.resumeName ?? ""}`}
 								onOpen={() => open(thread)}
 								onDelete={() => void remove(thread)}
 							/>
@@ -790,16 +743,7 @@ function WithoutAi({ document, onSetUp, onClose }: WithoutAiProps) {
 			<SetUpAiLine lead={<Trans>The assistant needs AI.</Trans>} onSetUp={onSetUp}>
 				<Trans>Everything below works without it.</Trans>
 			</SetUpAiLine>
-			{document.kind === "resume" ? (
-				<ResumeWithoutAi resumeId={document.id} onClose={onClose} />
-			) : (
-				<p className="pt-6 text-[13px]/[18px] text-ink-3">
-					<Trans>
-						With a connection, the assistant proposes edits to this letter. You accept or reject each one, and nothing
-						changes until you do.
-					</Trans>
-				</p>
-			)}
+			<ResumeWithoutAi resumeId={document.id} onClose={onClose} />
 		</div>
 	);
 }

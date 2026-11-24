@@ -114,7 +114,7 @@ function projectDocumentResults(messages: ModelMessage[]): ModelMessage[] {
 						: [],
 					...(Array.isArray(output.edits) && output.edits.length > 0
 						? {
-								note: "Prepared changes are shown in the review cards. This tool does not apply them. Read the document again for current visible content. Use Write for unsupported fields and Documents for cover letters.",
+								note: "Prepared changes are shown in the review cards. This tool does not apply them. Read the document again for current visible content. Use Write for unsupported fields.",
 							}
 						: {}),
 				};

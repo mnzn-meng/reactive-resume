@@ -16,11 +16,9 @@ import { clampZoom, FIT_MAX, useEditorStore, ZOOM_MAX, ZOOM_MIN, ZOOM_STEP } fro
 import { anchoredScroll, wheelZoom, type ZoomAnchor } from "./zoom-wheel";
 import { applicationsListQueryOptions } from "@/features/applications/queries";
 import { DOCUMENT_GROUP } from "@/features/keyboard-shortcuts/groups";
-import { useLetterEditorStore } from "@/features/letters/store";
 import { usePreviewPausedStore, useResumeStore } from "@/features/resume/builder/draft";
 
-// The editor chrome resumes and letters share: the back link and drawer controls in the bar, the canvas width
-// and the zoom bar.
+// The editor chrome: the back link and drawer controls in the bar, the canvas width and the zoom bar.
 
 // Page widths in PDF points; 1pt renders as 1 CSS px at 100%.
 const PAGE_WIDTH = { a4: 595.28, letter: 612, "free-form": 595.28 } as const;
@@ -264,23 +262,12 @@ export function DocumentMenuTrigger({ name, isLocked: _isLocked, ...props }: Doc
 export function BackLink() {
 	const params = useParams({ strict: false });
 	const search = useSearch({ strict: false });
-	const letterApplicationId = useLetterEditorStore((state) =>
-		state.letter?.id === params.coverLetterId ? state.letter?.sourceApplicationId : null,
-	);
 	const resumeApplicationId = useResumeStore((state) =>
 		state.resume?.id === params.resumeId ? state.resume?.applicationId : null,
 	);
 	const { data: applications } = useQuery(applicationsListQueryOptions());
-	const applicationId = search.applicationId ?? letterApplicationId ?? resumeApplicationId;
-	const application =
-		applications?.find(
-			(item) =>
-				item.id === applicationId &&
-				(params.resumeId ? item.resumeId === params.resumeId : item.coverLetterId === params.coverLetterId),
-		) ??
-		(!params.resumeId && !search.applicationId
-			? applications?.find((item) => item.coverLetterId === params.coverLetterId)
-			: undefined);
+	const applicationId = search.applicationId ?? resumeApplicationId;
+	const application = applications?.find((item) => item.id === applicationId && item.resumeId === params.resumeId);
 	const label = application ? t`Back to ${application.company}` : t`Back to documents`;
 
 	return (

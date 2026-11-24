@@ -10,7 +10,6 @@ import { Icon } from "@reactive-resume/ui/components/icon";
 import { toast } from "@reactive-resume/ui/components/toast";
 import { SettingsRow, SettingsSection, subRowClassName, subRowsClassName, TextAction } from "../section";
 import { getProviderName, useAuthAccounts, useAuthProviderActions, useEnabledProviders } from "./auth-hooks";
-import { BackupCodesRow } from "./backup-codes";
 import { SessionsRow } from "./sessions";
 import { IconTile } from "@/components/calm/list-row";
 import { useDialogStore } from "@/dialogs/store";
@@ -33,10 +32,8 @@ export function SecuritySection() {
 	const { hasAccount, getAccountByProviderId } = useAuthAccounts();
 	const { enabledProviders } = useEnabledProviders();
 	const { link, unlink } = useAuthProviderActions();
-	const { data: session } = authClient.useSession();
 
 	const password = getAccountByProviderId("credential");
-	const twoFactor = session?.user.twoFactorEnabled ?? false;
 	const social = SOCIAL.filter((provider) => provider in enabledProviders);
 
 	return (
@@ -62,39 +59,6 @@ export function SecuritySection() {
 					</TextAction>
 				) : null}
 			</SettingsRow>
-
-			<SettingsRow
-				id="two-step"
-				title={<Trans>Two-step verification</Trans>}
-				description={
-					!password ? (
-						<Trans>Set a password to turn on two-step verification.</Trans>
-					) : twoFactor ? (
-						<Trans>On · a code from your authenticator app at sign-in</Trans>
-					) : (
-						<Trans>Off</Trans>
-					)
-				}
-			>
-				{/* Turning it on walks through the QR code and backup codes; turning it off asks for the password. */}
-				{password &&
-					(twoFactor ? (
-						<TextAction
-							aria-label={t`Turn off two-step verification`}
-							onClick={() => openDialog("auth.two-factor.disable", undefined)}
-						>
-							<Trans>Turn off</Trans>
-						</TextAction>
-					) : (
-						<TextAction
-							aria-label={t`Set up two-step verification`}
-							onClick={() => openDialog("auth.two-factor.enable", undefined)}
-						>
-							<Trans>Set up</Trans>
-						</TextAction>
-					))}
-			</SettingsRow>
-			{password && twoFactor && <BackupCodesRow />}
 
 			<Passkeys />
 

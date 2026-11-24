@@ -23,7 +23,7 @@ function PostingKeyword({ id, children }: PostingKeywordProps) {
 
 /**
  * 04 Tailor. The verb is stitched together, then threads run from each keyword in a job posting to its match on the
- * resume, supported requirements accumulate, a cover letter slides out and the role moves from Saved to Applied.
+ * resume, supported requirements accumulate, a fit check slides out and the role moves from Saved to Applied.
  */
 export function Tailor() {
 	const { i18n } = useLingui();
@@ -76,7 +76,7 @@ export function Tailor() {
 					title={tailor}
 					className="min-[900px]:short:hidden absolute end-(--gutter) top-[13vh] hidden w-[min(24em,30vw)] min-[900px]:flex"
 				>
-					{t`Paste a job posting once. It feeds a tailored copy of your resume, a fit check against each requirement, a cover letter draft and a place to track the role.`}
+					{t`Paste a job posting once. It feeds a tailored copy of your resume, a fit check against each requirement and a place to track the role.`}
 				</SceneCaption>
 
 				<svg
@@ -163,9 +163,9 @@ export function Tailor() {
 					>
 						<div className="flex flex-col gap-[2.6cqw] p-[9cqw] font-display text-[2.2cqw] leading-normal text-[oklch(0.3_0.01_95)]">
 							<span className="font-martian text-[1.6cqw] font-medium text-[oklch(0.48_0.1_150)]">
-								{t`Cover letter · Fieldnote`}
+								{t`Fit check · Fieldnote`}
 							</span>
-							<span className="text-[3cqw]">{t`Dear Fieldnote team,`}</span>
+							<span className="text-[3cqw]">{t`6 of 7 requirements met`}</span>
 							{["92%", "86%", "90%", "62%"].map((width) => (
 								<span key={width} className="h-[1.2cqw] rounded-sm bg-[oklch(0.9_0.006_95)]" style={{ width }} />
 							))}

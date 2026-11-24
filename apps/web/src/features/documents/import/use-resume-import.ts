@@ -7,7 +7,6 @@ import { useLingui } from "@lingui/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { reviewImport, withLeftoverSection, withLinkTargets } from "@reactive-resume/import/review";
-import { toast } from "@reactive-resume/ui/components/toast";
 import { localeSchema } from "@reactive-resume/utils/locale";
 import { useNewDocumentsStore } from "../new-documents";
 import {
@@ -61,8 +60,6 @@ function requireImportKind(kind: ImportKind | null, file: File): ImportKind {
 type ResumeImportOptions = {
 	/** A file handed over by another page; the import opens on it, unread. */
 	initialFile?: File | undefined;
-	/** A cover letter file comes in as a letter and opens at once. */
-	openLetter: (coverLetterId: string) => void;
 	/** The imported resume is linked to this application. */
 	applicationId?: string | undefined;
 	/** The resume language chosen on the page; the interface language (or the file's own) when left alone. */
@@ -70,7 +67,7 @@ type ResumeImportOptions = {
 };
 
 /** Runs an import and reports each stage as a step; a newer run or a cancel drops the older one's updates. */
-export function useResumeImport({ initialFile, openLetter, applicationId, locale }: ResumeImportOptions) {
+export function useResumeImport({ initialFile, applicationId, locale }: ResumeImportOptions) {
 	const { i18n } = useLingui();
 	const queryClient = useQueryClient();
 	const markNew = useNewDocumentsStore((state) => state.markNew);
@@ -125,18 +122,6 @@ export function useResumeImport({ initialFile, openLetter, applicationId, locale
 					setStep({ name: "choice", file, kind });
 					return;
 				}
-			}
-
-			if (kind === "cover-letter-json") {
-				const document = JSON.parse(await file.text());
-				if (!current()) return;
-				const letter = await client.coverLetters.import({ document }, { signal, context: { accountId } });
-				if (!current()) return;
-				markNew(letter.id);
-				void refreshDocuments();
-				toast.add({ description: t`Cover letter imported` });
-				openLetter(letter.id);
-				return;
 			}
 
 			let aiAvailable = chosen === "ai" && hasUsableProvider;
@@ -235,8 +220,7 @@ export function useResumeImport({ initialFile, openLetter, applicationId, locale
 		try {
 			const resumeId = await client.resume.import({ data, aiOperationIds }, options);
 			if (!current()) return;
-			if (applicationId)
-				await client.documents.linkApplication({ type: "resume", id: resumeId, applicationId }, options);
+			if (applicationId) await client.documents.linkApplication({ id: resumeId, applicationId }, options);
 			if (!current()) return;
 			markNew(resumeId);
 			void refreshDocuments();

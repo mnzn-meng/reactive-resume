@@ -146,7 +146,7 @@ type AddApplicationDialogProps = {
 /**
  * Add an application from a pasted link or posting. The posting is read (the page's own job data, or the AI
  * provider when one is set up) into role and company, which stay editable; the posting itself is saved with the
- * application for Check, the assistant and letters. One submit: Save job, or Record application once Applied is
+ * application for Check and the assistant. One submit: Save job, or Record application once Applied is
  * chosen. Search postings is the second tab; preparing a resume is the Fit screen's step.
  */
 export function AddApplicationDialog({ open, onOpenChange, onAdded, initialCapture }: AddApplicationDialogProps) {
@@ -237,10 +237,9 @@ function AddApplicationForm({ onClose, onAdded, initialCapture }: AddApplication
 	const lane = choices.find((item) => item.id === laneId) ?? getCategoryLane(lanes, "saved");
 	const stage = lane.category;
 	const [stageDate, setStageDate] = useState(() => new Date().toLocaleDateString("en-CA"));
-	// What was sent with an application already made; both start empty.
+	// What was sent with an application already made; it starts empty.
 	const [resumeId, setResumeId] = useState("");
-	const resumes = documents?.filter((document) => document.type === "resume") ?? [];
-	const [coverLetterId, setCoverLetterId] = useState("");
+	const resumes = documents ?? [];
 	const [location, setLocation] = keep("location");
 	const [salary, setSalary] = keep("salary");
 	// A field that once held something stays on screen while it is cleared.
@@ -406,7 +405,6 @@ function AddApplicationForm({ onClose, onAdded, initialCapture }: AddApplication
 			...(stage !== "saved" && stageDate ? { stageEnteredAt: stageDate } : {}),
 			// A saved job names no documents: preparing a resume is the Fit screen's step. Applied records what was sent.
 			...(stage !== "saved" && resumeId ? { resumeId } : {}),
-			...(stage !== "saved" && coverLetterId ? { coverLetterId } : {}),
 			jobDescription: postingDescription || null,
 			postingSource,
 		};
@@ -864,7 +862,7 @@ function AddApplicationForm({ onClose, onAdded, initialCapture }: AddApplication
 								</SegmentedControl>
 								{stage === "saved" && (
 									<p className="min-w-0 flex-1 basis-48 text-xs/4 text-ink-3">
-										<Trans>Choosing Applied asks which resume and letter you sent.</Trans>
+										<Trans>Choosing Applied asks which resume you sent.</Trans>
 									</p>
 								)}
 							</div>
@@ -872,7 +870,7 @@ function AddApplicationForm({ onClose, onAdded, initialCapture }: AddApplication
 
 						{stage !== "saved" && (
 							<div className="grid gap-1.5">
-								<div className="grid grid-cols-[150px_1fr_1fr] gap-3 max-sm:grid-cols-1">
+								<div className="grid grid-cols-[150px_1fr] gap-3 max-sm:grid-cols-1">
 									<div className="grid gap-1.5">
 										<Label htmlFor={`${id}-date`}>
 											<Trans>Applied on</Trans>
@@ -902,30 +900,10 @@ function AddApplicationForm({ onClose, onAdded, initialCapture }: AddApplication
 											))}
 										</NativeSelect>
 									</div>
-									<div className="grid min-w-0 gap-1.5">
-										<Label htmlFor={`${id}-letter`}>
-											<Trans>Letter you sent</Trans>
-										</Label>
-										<NativeSelect
-											id={`${id}-letter`}
-											value={coverLetterId}
-											onChange={(event) => setCoverLetterId(event.target.value)}
-										>
-											<option value="">{t`None`}</option>
-											{documents
-												?.filter((document) => document.type === "letter" && !document.isLocked)
-												.map((document) => (
-													<option key={document.id} value={document.id}>
-														{document.name}
-													</option>
-												))}
-										</NativeSelect>
-									</div>
 								</div>
 								<p className="text-xs/4 text-ink-3">
 									<Trans>
-										Both are optional. What you pick is kept as it was sent and never changes; your drafts stay
-										editable.
+										It's optional. What you pick is kept as it was sent and never changes; your draft stays editable.
 									</Trans>
 								</p>
 							</div>

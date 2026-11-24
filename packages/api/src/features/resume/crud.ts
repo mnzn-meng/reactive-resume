@@ -241,7 +241,7 @@ export const crudRouter = {
 
 			return resumeService.create({
 				userId: context.user.id,
-				name: input.name ?? (await suggestDuplicateName({ userId: context.user.id, type: "resume", id: input.id })),
+				name: input.name ?? (await suggestDuplicateName({ userId: context.user.id, id: input.id })),
 				tags: input.tags ?? original.tags,
 				// A copy keeps its source's page language; only an explicit choice changes it.
 				...(input.pageLocale ? { locale: input.pageLocale } : {}),
@@ -265,5 +265,5 @@ export const crudRouter = {
 		.use(resumeMutationRateLimit)
 		.output(resumeDto.delete.output)
 		.errors({ RESUME_LOCKED: { status: 403, message: "Unlock the resume first." } })
-		.handler(({ context, input }) => documentsService.trash({ type: "resume", id: input.id, userId: context.user.id })),
+		.handler(({ context, input }) => documentsService.trash({ id: input.id, userId: context.user.id })),
 };

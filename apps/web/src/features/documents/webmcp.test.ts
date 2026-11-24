@@ -14,22 +14,20 @@ vi.mock("@tanstack/react-router", () => {
 
 const documents = [
 	{
-		type: "resume",
 		id: "older",
 		name: "Base resume",
 		tags: ["base"],
 		isLocked: false,
 		trashedAt: null,
 		createdAt: new Date("2026-01-01T00:00:00.000Z"),
-		// Tagged after the letter was written: details move updatedAt, not when it was last edited.
+		// Tagged after it was written: details move updatedAt, not when it was last edited.
 		updatedAt: new Date("2026-05-01T00:00:00.000Z"),
 		editedAt: new Date("2026-02-01T00:00:00.000Z"),
 		application: null,
 	},
 	{
-		type: "letter",
 		id: "newer",
-		name: "Letter for Acme",
+		name: "Resume for Acme",
 		tags: [],
 		isLocked: true,
 		trashedAt: null,
@@ -73,9 +71,8 @@ describe("document WebMCP tools", () => {
 		expect(mocks.list).toHaveBeenCalledWith({ trashed: false }, {});
 		expect(result.map((item: { id: string }) => item.id)).toEqual(["newer", "older"]);
 		expect(result[0]).toEqual({
-			type: "letter",
 			id: "newer",
-			name: "Letter for Acme",
+			name: "Resume for Acme",
 			tags: [],
 			isLocked: true,
 			updatedAt: "2026-04-01T00:00:00.000Z",
@@ -84,27 +81,23 @@ describe("document WebMCP tools", () => {
 		});
 	});
 
-	it("opens a resume or a letter in its editor", async () => {
+	it("opens a resume in its editor", async () => {
 		const tools = mountTools(true);
 
-		await expect(tools.get("open_document")?.execute({ type: "resume", id: "older" })).resolves.toBe(
+		await expect(tools.get("open_document")?.execute({ id: "older" })).resolves.toBe(
 			"Opened “Base resume” in the editor.",
 		);
 		expect(mocks.navigate).toHaveBeenLastCalledWith({ to: "/builder/$resumeId", params: { resumeId: "older" } });
 
-		await tools.get("open_document")?.execute({ type: "letter", id: "newer" });
-		expect(mocks.navigate).toHaveBeenLastCalledWith({
-			to: "/builder/letter/$coverLetterId",
-			params: { coverLetterId: "newer" },
-		});
+		await tools.get("open_document")?.execute({ id: "newer" });
+		expect(mocks.navigate).toHaveBeenLastCalledWith({ to: "/builder/$resumeId", params: { resumeId: "newer" } });
 	});
 
 	it("doesn't navigate to a document that isn't there", async () => {
 		const tools = mountTools(true);
+		mocks.list.mockResolvedValue([]);
 
-		await expect(tools.get("open_document")?.execute({ type: "letter", id: "older" })).resolves.toMatch(
-			"No letter with ID older.",
-		);
+		await expect(tools.get("open_document")?.execute({ id: "older" })).resolves.toContain("No document with ID older.");
 		expect(mocks.navigate).not.toHaveBeenCalled();
 	});
 });

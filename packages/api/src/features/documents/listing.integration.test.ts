@@ -17,7 +17,6 @@ vi.mock("../../context", async () => {
 	return { protectedProcedure: os.$context<{ user: { id: string }; resHeaders: Headers }>() };
 });
 vi.mock("../resume/service", () => ({ resumeService: {} }));
-vi.mock("../cover-letters/service", () => ({ coverLetterService: {} }));
 vi.mock("../applications/service", () => ({ applicationService: {} }));
 
 // Disposable database only; the test owns and drops its isolated schema.
@@ -42,7 +41,7 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("document SQL pages
 				(await readFile(new URL(`${name}/migration.sql`, migrations), "utf8")).replaceAll('"public".', ""),
 			);
 		}
-		// Pinned timestamps keep the type and id tie breakers decisive; "orders edits" restores these values.
+		// Pinned timestamps keep the id tie breaker decisive; "orders edits" restores these values.
 		await pool.query(`
    INSERT INTO "user" (id, name, email, username, display_username)
     SELECT id, id, id || '@example.test', id, id FROM unnest(ARRAY['owner','stranger','large','naming','duplicates']) id;
@@ -51,11 +50,10 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("document SQL pages
    INSERT INTO resume (id, user_id, name, data, tags, application_id, created_at, updated_at, edited_at) VALUES
     ('same', 'owner', 'Alpha', '{}', ARRAY['design','shared'], 'job', '2026-01-01', '2026-01-01', '2026-01-01'),
     ('foreign-link', 'owner', 'Beta', '{}', ARRAY['shared'], 'foreign-job', '2026-01-01', '2026-01-01', '2026-01-01'),
+    ('wildcard', 'owner', 'Gamma 100%_\\path', '{}', ARRAY['design'], null, '2026-01-01', '2026-01-01', '2026-01-01'),
     ('foreign', 'stranger', 'Private document', '{}', ARRAY['secret'], 'foreign-job', '2026-01-01', '2026-01-01', '2026-01-01');
-   INSERT INTO cover_letter (id, user_id, name, style, tags, source_application_id, created_at, updated_at, edited_at) VALUES
-    ('same', 'owner', 'Gamma 100%_\\path', '{}', ARRAY['design','shared'], 'job', '2026-01-01', '2026-01-01', '2026-01-01');
-   INSERT INTO cover_letter (id, user_id, name, style, tags, trashed_at)
-    SELECT 'large-' || lpad(i::text, 5, '0'), 'large', 'Letter ' || i, '{}', ARRAY['tag-' || i],
+   INSERT INTO resume (id, user_id, name, data, tags, trashed_at)
+    SELECT 'large-' || lpad(i::text, 5, '0'), 'large', 'Resume ' || i, '{}', ARRAY['tag-' || i],
      CASE WHEN i > 1000 THEN now() ELSE null END FROM generate_series(1, 2000) i;
    INSERT INTO resume (id, user_id, name, data, trashed_at) VALUES
     ('trash', 'owner', 'Trash', '{}', now()), ('expired', 'owner', 'Expired', '{}', now() - interval '31 days');
@@ -70,9 +68,9 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("document SQL pages
 		await admin?.end();
 	});
 
-	it("preserves legacy arrays and headers; SQL pages interleave types with unique tie breakers", async () => {
+	it("preserves legacy arrays and headers; SQL pages keep unique id tie breakers", async () => {
 		const legacy = await api.list();
-		expect(legacy.map((row) => `${row.type}:${row.id}`)).toEqual(["letter:same", "resume:foreign-link", "resume:same"]);
+		expect(legacy.map((row) => row.id)).toEqual(["foreign-link", "same", "wildcard"]);
 		expect(headers.get("X-Total-Count")).toBe("3");
 		expect(headers.has("X-Limit")).toBe(false);
 		const pages = await Promise.all([0, 1, 2, 3].map((offset) => api.list({ limit: 1, offset })));
@@ -91,22 +89,6 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("document SQL pages
 		});
 	});
 
-	it("projects legacy recipients only for freeform letters, with HTML entities decoded", async () => {
-		await pool.query(`INSERT INTO cover_letter (id,user_id,name,style,layout,recipient,recipient_company) VALUES
-			('recipient-free','owner','Recipient fixture 1','{}','freeform','<p>R&amp;D &#39;Team&#39;</p><p>Example&nbsp;Ltd</p><script>hidden</script>',''),
-			('recipient-structured','owner','Recipient fixture 2','{}','structured','<p>Stale recipient</p>',''),
-			('recipient-current','owner','Recipient fixture 3','{}','freeform','<p>Old recipient</p>','Current company')`);
-		try {
-			const page = await api.page({ type: "letter", q: "Recipient fixture", sort: "name" });
-			expect(page.items.map((row) => row.recipient)).toEqual(["R&D 'Team' Example Ltd", null, "Current company"]);
-			expect(page.items.every((row) => !("legacyRecipient" in row))).toBe(true);
-		} finally {
-			await pool.query(
-				`DELETE FROM cover_letter WHERE id IN ('recipient-free','recipient-structured','recipient-current')`,
-			);
-		}
-	});
-
 	it("keeps long repeated resume names unique across numbered stem fallbacks", async () => {
 		const name = "Long imported name ".repeat(6).slice(0, 100);
 		const stem = name.slice(0, 94);
@@ -118,27 +100,24 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("document SQL pages
 		expect(await findFreeResumeName("naming", name)).toBe(`${stem} (4)`);
 	});
 
-	it("suggests numbered copies across types and Trash while protecting ownership", async () => {
+	it("suggests numbered copies while protecting ownership", async () => {
 		await pool.query(`INSERT INTO resume (id,user_id,name,data) VALUES
-			('duplicate-source','duplicates','Portfolio','{}'),('duplicate-three','stranger','Portfolio 3','{}');
-			INSERT INTO cover_letter (id,user_id,name,style,trashed_at) VALUES ('duplicate-two','duplicates','PORTFOLIO 2','{}',now());`);
+			('duplicate-source','duplicates','Portfolio','{}'),('duplicate-three','stranger','Portfolio 3','{}');`);
 		const { documentsRouter } = await import("./router");
 		const client = createRouterClient(documentsRouter, {
 			context: { user: { id: "duplicates" }, resHeaders: new Headers() } as never,
 		});
-		expect(await client.suggestDuplicateName({ type: "resume", id: "duplicate-source" })).toBe("Portfolio 3");
+		expect(await client.suggestDuplicateName({ id: "duplicate-source" })).toBe("Portfolio 2");
 		await pool.query(
-			`INSERT INTO resume (id,user_id,name,data) VALUES ('duplicate-copy','duplicates','Portfolio 3','{}')`,
+			`INSERT INTO resume (id,user_id,name,data) VALUES ('duplicate-copy','duplicates','Portfolio 2','{}')`,
 		);
-		expect(await client.suggestDuplicateName({ type: "resume", id: "duplicate-copy" })).toBe("Portfolio 4");
+		expect(await client.suggestDuplicateName({ id: "duplicate-copy" })).toBe("Portfolio 3");
 		await pool.query(
 			`INSERT INTO resume (id,user_id,name,data) VALUES ('duplicate-year','duplicates','Resume 2026','{}')`,
 		);
-		expect(await client.suggestDuplicateName({ type: "resume", id: "duplicate-year" })).toBe("Resume 2026 2");
-		for (const id of ["duplicate-three", "missing", "duplicate-two"]) {
-			await expect(
-				client.suggestDuplicateName({ type: id === "duplicate-two" ? "letter" : "resume", id }),
-			).rejects.toMatchObject({ code: "NOT_FOUND" });
+		expect(await client.suggestDuplicateName({ id: "duplicate-year" })).toBe("Resume 2026 2");
+		for (const id of ["duplicate-three", "missing"]) {
+			await expect(client.suggestDuplicateName({ id })).rejects.toMatchObject({ code: "NOT_FOUND" });
 		}
 		const count = await pool.query(`SELECT count(*) AS count FROM resume WHERE user_id = 'duplicates'`);
 		expect(count.rows[0].count).toBe("3");
@@ -146,12 +125,11 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("document SQL pages
 
 	it("filters before paging/counting, uses every tag, searches each field and treats wildcard characters literally", async () => {
 		for (const q of ["orbital", "DESIGN LEAD", "design"]) {
-			const page = await api.page({ q, type: "resume", tags: ["design", "shared"], limit: 1, offset: 1 });
+			const page = await api.page({ q, tags: ["design", "shared"], limit: 1, offset: 1 });
 			expect(page.items).toEqual([]);
 			expect(page.total).toBe(1);
-			expect(page.counts).toEqual({ resume: 1, letter: 1 });
 		}
-		expect((await api.page({ q: "%_\\path" })).items.map((row) => row.type)).toEqual(["letter"]);
+		expect((await api.page({ q: "%_\\path" })).items.map((row) => row.id)).toEqual(["wildcard"]);
 		expect((await api.page({ tags: ["design", "missing"] })).total).toBe(0);
 		expect((await api.page({ q: "Secret" })).total).toBe(0);
 		expect((await api.page({ q: "design" })).tags).toEqual(["design"]);
@@ -162,15 +140,15 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("document SQL pages
 		]);
 	});
 
-	it("orders edits and creation independently before limiting the combined kinds", async () => {
+	it("orders edits and creation independently before limiting rows", async () => {
 		await pool.query("UPDATE resume SET edited_at='2026-03-01', created_at='2026-02-01' WHERE id='same'");
-		await pool.query("UPDATE cover_letter SET edited_at='2026-02-01', created_at='2026-03-01' WHERE id='same'");
+		await pool.query("UPDATE resume SET edited_at='2026-02-01', created_at='2026-03-01' WHERE id='wildcard'");
 		try {
-			expect((await api.list({ sort: "edited", limit: 1 })).map((row) => row.type)).toEqual(["resume"]);
-			expect((await api.list({ sort: "created", limit: 1 })).map((row) => row.type)).toEqual(["letter"]);
+			expect((await api.list({ sort: "edited", limit: 1 })).map((row) => row.id)).toEqual(["same"]);
+			expect((await api.list({ sort: "created", limit: 1 })).map((row) => row.id)).toEqual(["wildcard"]);
 		} finally {
 			await pool.query("UPDATE resume SET edited_at='2026-01-01', created_at='2026-01-01' WHERE id='same'");
-			await pool.query("UPDATE cover_letter SET edited_at='2026-01-01', created_at='2026-01-01' WHERE id='same'");
+			await pool.query("UPDATE resume SET edited_at='2026-01-01', created_at='2026-01-01' WHERE id='wildcard'");
 		}
 	});
 
@@ -178,7 +156,7 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("document SQL pages
 		const trash = await api.page({ trashed: true });
 		expect(trash.total).toBe(1);
 		expect(trash.items.map((row) => row.id)).toEqual(["trash"]);
-		expect(await api.counts()).toEqual({ resume: 2, letter: 1, trash: 1 });
+		expect(await api.counts()).toEqual({ active: 3, trash: 1 });
 		expect((await api.page()).tags).toEqual(["design", "shared"]);
 	});
 

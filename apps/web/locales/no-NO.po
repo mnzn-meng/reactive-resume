@@ -79,7 +79,6 @@ msgid "“{invalidText}” isn't saved. Use a month and year, like Mar 2025, or 
 msgstr "«{invalidText}» er ikke lagret. Bruk måned og år, som mar 2025, eller bare et år. For å skrive ut annen tekst, slå på Egendefinert tekst."
 
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "“{name}” moved to Trash"
 msgstr "\"{name}\" flyttet til papirkurven"
 
@@ -424,10 +423,8 @@ msgstr "{0, plural, one {# ord · sikt mot rundt 90 sekunder muntlig} other {# o
 msgid "{0, plural, one {# word or detail nothing checked backs} other {# words or details nothing checked backs}}"
 msgstr "{0, plural, one {# ord eller detalj som ingen sjekket kilde støtter} other {# ord eller detaljer som ingen sjekket kilde støtter}}"
 
-#. placeholder {0}: review.letter.text.trim().split(/\s+/).filter(Boolean).length
 #. placeholder {0}: row.answer.trim().split(/\s+/).filter(Boolean).length
 #: src/features/career/workspace/answer-library.tsx
-#: src/features/career/workspace/prepare-review.tsx
 msgid "{0, plural, one {# word} other {# words}}"
 msgstr "{0, plural, one {# ord} other {# ord}}"
 
@@ -611,12 +608,6 @@ msgstr "{0, plural, one {Skriv til {company} · # spørsmål} other {Skriv til {
 msgid "{0, plural, one {Your selected font can't display {list}. It shows as “?”. In Design, choose a font that has it.} other {Your selected font can't display {list}. They show as “?”. In Design, choose a font that has them.}}"
 msgstr "{0, plural, one {Den valgte skrifttypen kan ikke vise {list}. Det vises som “?”. Gå til Design og velg en skrifttype som har det.} other {Den valgte skrifttypen kan ikke vise {list}. De vises som “?”. Gå til Design og velg en skrifttype som har dem.}}"
 
-#. placeholder {0}: letter.name
-#. placeholder {1}: letter.application.company
-#: src/features/documents/new-document-dialog.tsx
-msgid "{0} — {1}"
-msgstr "{0} — {1}"
-
 #. placeholder {0}: application.company
 #. placeholder {0}: getStageLabel(application.status)
 #. placeholder {1}: application.role
@@ -636,8 +627,8 @@ msgstr "{0} · {1} av {2}"
 #. placeholder {0}: application.company
 #. placeholder {1}: application.role
 #: src/features/applications/components/application-detail-sheet.tsx
-msgid "{0} · {1}. Choose what you sent; those versions are kept as sent and never change."
-msgstr "{0} · {1}. Velg hva du sendte; disse versjonene beholdes slik de ble sendt og endres aldri."
+msgid "{0} · {1}. Choose the resume you sent; that version is kept as sent and never changes."
+msgstr ""
 
 #. placeholder {0}: when(runAt)
 #: src/features/career/workspace/prepare.tsx
@@ -654,11 +645,6 @@ msgstr "{0} · legg bare til hvis det stemmer"
 #: src/features/ai/set-up-ai.tsx
 msgid "{0} · Connected · {1} ms"
 msgstr "{0} · Tilkoblet · {1} ms"
-
-#. placeholder {0}: i18n.date(sentVersion.createdAt, { weekday: "short", day: "numeric", month: "short" })
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "{0} · kept in History"
-msgstr "{0} · beholdt i Historikk"
 
 #. Mode tab tooltip: the mode, then the key that opens it
 #. placeholder {0}: labels[mode]
@@ -701,16 +687,9 @@ msgid "{0} (copy)"
 msgstr "{0} (kopi)"
 
 #. placeholder {0}: current.name
-#. placeholder {0}: letter.name
-#: src/features/letters/store.ts
 #: src/features/resume/builder/draft.ts
 msgid "{0} (mine)"
 msgstr "{0} (min)"
-
-#. placeholder {0}: i18n._(accent.label)
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "{0} accent"
-msgstr "{0} aksent"
 
 #. placeholder {0}: accent ? i18n._(accent.label) : t`Custom`
 #. placeholder {1}: rgbaToHex(metadata.design.colors.text) ?? metadata.design.colors.text
@@ -839,15 +818,14 @@ msgid "{0} new"
 msgstr "{0} nye"
 
 #. placeholder {0}: found.length
-#. placeholder {0}: i18n.number(index + 1)
 #. placeholder {0}: i18n.number(outcomes.base.replied)
-#. placeholder {1}: i18n.number(all.length)
+#. placeholder {0}: i18n.number(outcomes.heardBack)
 #. placeholder {1}: i18n.number(outcomes.base.sent)
 #. placeholder {1}: i18n.number(outcomes.sent)
+#. placeholder {1}: i18n.number(outcomes.tailored.sent)
 #: src/features/applications/components/insights-view.tsx
 #: src/features/career/workspace/fit-local.tsx
 #: src/features/career/workspace/fit.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "{0} of {1}"
 msgstr "{0} av {1}"
 
@@ -964,11 +942,6 @@ msgstr "{0} valgt"
 #: src/features/ats-checker/report/score-header.tsx
 msgid "{0} skipped"
 msgstr "{0} hoppet over"
-
-#. placeholder {0}: rgbaToHex(metadata.design.colors.text) ?? metadata.design.colors.text
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "{0} text"
-msgstr "{0} tekst"
 
 #. placeholder {0}: i18n.number(findings.length)
 #: src/features/ats-checker/report/report-view.tsx
@@ -1247,10 +1220,6 @@ msgstr "{count, plural, one {# ting å se over} other {# ting å se over}}"
 msgid "{count, plural, one {# unlocked} other {# unlocked}}"
 msgstr "{count, plural, one {# låst opp} other {# låst opp}}"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "{count, plural, one {# word} other {# words}}"
-msgstr "{count, plural, one {# ord} other {# ord}}"
-
 #: src/features/applications/components/list-view.tsx
 msgid "{count, plural, one {Add a tag to # application} other {Add a tag to # applications}}"
 msgstr "{count, plural, one {Legg til en tagg på # søknad} other {Legg til en tagg på # søknader}}"
@@ -1462,10 +1431,6 @@ msgstr "{kind} hos {company}"
 msgid "{kind} interview"
 msgstr "{kind} intervju"
 
-#: src/features/documents/new-document-dialog.tsx
-msgid "{label} — Letter already sent"
-msgstr "{label} — Brev allerede sendt"
-
 #: src/features/career/coach-thread.tsx
 msgid "{label} connection"
 msgstr "{label}-tilkobling"
@@ -1614,25 +1579,12 @@ msgstr "{pageCount, plural, one {# side · aldri lastet opp} other {# sider · a
 
 #: src/features/resume/editor/save-status.tsx
 #: src/routes/builder/$resumeId/-components/document-details.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "{pageCount, plural, one {# page} other {# pages}}"
 msgstr "{pageCount, plural, one {# side} other {# sider}}"
 
 #: src/routes/builder/$resumeId/-components/page-canvas.tsx
 msgid "{pageCount, plural, one {Runs to # page} other {Runs to # pages}}"
 msgstr "{pageCount, plural, one {Strekker seg over # side} other {Strekker seg over # sider}}"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "{pages, plural, one {# page} other {# pages}}"
-msgstr "{pages, plural, one {# side} other {# sider}}"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "{pairing} type"
-msgstr "{pairing} type"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "{paragraphs, plural, one {# paragraph} other {# paragraphs}}"
-msgstr "{paragraphs, plural, one {# avsnitt} other {# avsnitt}}"
 
 #: src/features/career/workspace/fit.tsx
 msgid "{partial, plural, one {# partly supported} other {# partly supported}}"
@@ -1712,14 +1664,6 @@ msgstr "{size} pt"
 #: src/features/applications/components/import-applications-sheet.tsx
 msgid "{skipped, plural, one {# row had no company or role and was skipped.} other {# rows had no company or role and were skipped.}}"
 msgstr "{skipped, plural, one {# rad hadde ingen bedrift eller rolle og ble hoppet over.} other {# rader hadde ingen bedrift eller rolle og ble hoppet over.}}"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "{stage} · letter sent {sentOn}"
-msgstr "{stage} · brev sendt {sentOn}"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "{stage} · not applied yet"
-msgstr "{stage} · ikke søkt ennå"
 
 #: src/features/documents/page-navigation.tsx
 msgid "{start}–{end} of {total}"
@@ -1863,7 +1807,6 @@ msgid "{who} didn't respond. Nothing was changed; try again."
 msgstr "{who} svarte ikke. Ingenting ble endret; prøv igjen."
 
 #: src/features/career/workspace/apply.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "{words, plural, one {# word} other {# words}}"
 msgstr "{words, plural, one {# ord} other {# ord}}"
 
@@ -1896,8 +1839,8 @@ msgid "<0>Posting asks for:</0> {requirement}"
 msgstr "<0>Utlysningen ber om:</0> {requirement}"
 
 #: src/features/auth/components/guest-banner.tsx
-msgid "<0>You're using a guest account.</0> Everything you make is lost when you sign out or this session ends. Create an account and your resumes, cover letters, applications and Career knowledge move into it."
-msgstr "<0>Du bruker en gjestekonto.</0> Alt du lager, går tapt når du logger ut eller denne økten avsluttes. Opprett en konto, så flyttes CV-ene, følgebrevene, søknadene og Karriere-kunnskapen din dit."
+msgid "<0>You're using a guest account.</0> Everything you make is lost when you sign out or this session ends. Create an account and your resumes, applications and Career knowledge move into it."
+msgstr ""
 
 #: src/features/auth/components/session-recovery.tsx
 msgid "<0>Your session ended.</0> Sign in again to keep working. Nothing on this page is lost."
@@ -1935,10 +1878,6 @@ msgstr "10-minuttersversjon"
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "10–11 recommended"
 msgstr "10–11 anbefales"
-
-#: src/routes/builder/letter/-components/download-sheet.tsx
-msgid "2 files"
-msgstr "2 filer"
 
 #: src/features/career/schedule-sheet.tsx
 #: src/features/career/schedules.tsx
@@ -1981,6 +1920,10 @@ msgstr "3 underbygd · 1 delvis · 1 mangler"
 msgid "40% faster reviews"
 msgstr "40 % raskere anmeldelser"
 
+#: src/features/homepage/tailor.tsx
+msgid "6 of 7 requirements met"
+msgstr ""
+
 #: src/features/homepage/remember.tsx
 msgid "A"
 msgstr "H"
@@ -1989,10 +1932,6 @@ msgstr "H"
 msgid "A accepts and R rejects the focused edit. ↑ and ↓ move between edits."
 msgstr "A godtar og R avviser den fokuserte redigeringen. ↑ og ↓ flytte mellom redigeringer."
 
-#: src/routes/builder/letter/-components/download-sheet.tsx
-msgid "A backup of this letter. Imports back into Reactive Resume as a letter."
-msgstr "En sikkerhetskopi av dette brevet. Importerer tilbake til Reactive Resume som et brev."
-
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "A bullet"
 msgstr "Et punkt"
@@ -2000,10 +1939,6 @@ msgstr "Et punkt"
 #: src/features/resume/editor/check/issues.ts
 msgid "A city and country let roles be matched to where you are."
 msgstr "En by og et land lar roller tilpasses der du er."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "A comfortable length, and it fits on one page."
-msgstr "En behagelig lengde, og den passer på én side."
 
 #: src/features/resume/share/download-tab.tsx
 msgid "A complete backup. Imports back into Reactive Resume."
@@ -2050,14 +1985,6 @@ msgstr "En datoperiode er skrevet i et format de fleste programmer ikke kan lese
 msgid "A date won't be read"
 msgstr "En dato vil ikke bli lest"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "A draft needs AI."
-msgstr "Et utkast krever AI."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "A draft to review"
-msgstr "Et utkast å se over"
-
 #: src/features/career/knowledge/stories.tsx
 msgid "A fact changed. Review this story."
 msgstr "Et faktum er endret. Se over denne historien."
@@ -2085,10 +2012,6 @@ msgstr "Et faktum du senere har glemt"
 #: src/features/documents/import/import-page.tsx
 msgid "A file exported from this app, version 4 included. Comes in exactly as it is."
 msgstr "En fil eksportert fra denne appen, også versjon 4. Kommer inn akkurat som den er."
-
-#: src/features/career/workspace/preparation.tsx
-msgid "A file is a PDF up to 10 MB that you wrote elsewhere."
-msgstr "En fil er en PDF på opptil 10 MB som du har skrevet et annet sted."
 
 #: src/features/career/workspace/fit-local.tsx
 #: src/features/career/workspace/fit.tsx
@@ -2124,14 +2047,6 @@ msgstr "Et opphold er ikke et problem. Legg gjerne til en kort forklaring på é
 msgid "A high bar for accessibility"
 msgstr "Høye krav til tilgjengelighet"
 
-#: src/features/documents/import/import-page.tsx
-msgid "A letter exported from this app comes in as a letter."
-msgstr "Et brev eksportert fra denne appen kommer inn som et brev."
-
-#: src/features/documents/new-document-dialog.tsx
-msgid "A letter for one job, matched to a resume."
-msgstr "Et brev for én jobb, koblet til en CV."
-
 #: src/features/resume/editor/design/entries-group.tsx
 msgid "A line under each header, a bar beside it, or a tint behind it."
 msgstr "En linje under hver overskrift, en strek ved siden av eller en fargetone bak."
@@ -2164,10 +2079,6 @@ msgstr "Et navn hjelper deg med å skille passord fra hverandre, for eksempel \"
 #: src/features/settings/ai/page.tsx
 msgid "A new fact is saved to Knowledge only after you agree"
 msgstr "Et nytt faktum lagres i Kunnskap bare etter at du har godkjent"
-
-#: src/features/assistant/assistant-panel.tsx
-msgid "A new version of the whole letter, as edits to accept"
-msgstr "En ny versjon av hele brevet, som endringer du kan godta"
 
 #: src/features/ats-checker/messages.ts
 msgid "A numeric date reads differently in different countries."
@@ -2320,7 +2231,6 @@ msgstr "Aksentfarger"
 #: src/features/career/workspace/apply.tsx
 #: src/features/homepage/write.tsx
 #: src/features/resume/editor/proposals/proposal-list.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Accept"
 msgstr "Akseptere"
 
@@ -2345,10 +2255,6 @@ msgstr "Godtatt"
 #: src/features/applications/stages.ts
 msgid "Accepted another offer"
 msgstr "Aksepterte et annet tilbud"
-
-#: src/features/assistant/assistant-panel.tsx
-msgid "Accepted edits change this letter; history keeps each version."
-msgstr "Godtatte endringer endrer dette brevet; historikken beholder hver versjon."
 
 #: src/features/applications/stages.ts
 msgid "Accepted offer"
@@ -2976,7 +2882,6 @@ msgstr "alle"
 
 #: src/features/career/knowledge/facts.tsx
 #: src/features/career/workspace/saved.tsx
-#: src/features/documents/documents-page.tsx
 #: src/features/resume/editor/design/template-group.tsx
 #: src/features/templates/gallery.tsx
 #: src/features/trash/trash-page.tsx
@@ -3055,12 +2960,6 @@ msgstr "Allerede på siden til en stillingsannonse? <0>Nettleserhjelperen</0> la
 #: src/features/resume/editor/check/check-panel.tsx
 msgid "Also check the exported PDF"
 msgstr "Sjekk også den eksporterte PDF"
-
-#. placeholder {0}: linkedLetter.company
-#: src/features/resume/share/download-menu.tsx
-#: src/features/resume/share/download-tab.tsx
-msgid "Also download the {0} cover letter"
-msgstr "Last også ned følgebrevet {0}"
 
 #. placeholder {0}: user?.email ?? ""
 #: src/features/career/schedule-sheet.tsx
@@ -3232,7 +3131,6 @@ msgstr "Apple"
 #: src/features/command-palette/pages/resumes.tsx
 #: src/features/documents/document-actions.tsx
 #: src/features/documents/documents-page.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Application"
 msgstr "Søknad"
 
@@ -3456,10 +3354,6 @@ msgstr "Ordne seksjonene…"
 msgid "Arrange sections"
 msgstr "Ordne seksjoner"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "As written on the page"
-msgstr "Slik det står på siden"
-
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
 msgid "Asian style"
@@ -3575,7 +3469,6 @@ msgstr "Størrelsesforhold"
 #: src/features/resume/editor/chrome/bar.tsx
 #: src/features/resume/editor/chrome/shell.tsx
 #: src/routes/builder/$resumeId/-components/use-editor-hotkeys.ts
-#: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Assistant"
 msgstr "Assistent"
 
@@ -3626,17 +3519,8 @@ msgstr "ATS lesbarhet"
 msgid "ATS-safe"
 msgstr "ATS-sikker"
 
-#: src/features/applications/components/application-form-sheet.tsx
-msgid "Attach a cover letter (PDF, up to 10 MB)"
-msgstr "Legg ved et følgebrev (PDF, maks 10 MB)"
-
-#: src/features/applications/components/detail/sent-documents.tsx
-msgid "Attach a cover letter file (PDF, up to 10 MB)"
-msgstr "Legg ved en følgebrevfil (PDF, maks 10 MB)"
-
 #: src/features/assistant/conversation.tsx
 #: src/features/career/coach-thread.tsx
-#: src/features/career/workspace/preparation.tsx
 msgid "Attach a file"
 msgstr "Legg ved en fil"
 
@@ -3756,10 +3640,8 @@ msgid "Back to now"
 msgstr "Tilbake til nå"
 
 #. Action returning the visitor to the sign-in page after a failed sign-in
-#. Navigation link on 2FA verification screen
 #: src/features/auth/pages/error.tsx
 #: src/features/auth/pages/forgot-password.tsx
-#: src/features/auth/pages/verify-2fa.tsx
 msgid "Back to sign in"
 msgstr "Tilbake til innlogging"
 
@@ -3793,20 +3675,6 @@ msgstr "Bakgrunn"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Background color"
 msgstr "Bakgrunnsfarge"
-
-#: src/features/auth/pages/verify-2fa.tsx
-#: src/routes/auth/verify-2fa-backup.tsx
-msgid "Backup code"
-msgstr "Reservekode"
-
-#: src/features/settings/account/backup-codes.tsx
-msgid "Backup codes"
-msgstr "Reservekoder"
-
-#: src/dialogs/auth/enable-two-factor.tsx
-#: src/features/settings/account/backup-codes.tsx
-msgid "Backup codes copied"
-msgstr "Reservekoder kopiert"
 
 #: src/features/resume/editor/design/presets.ts
 msgid "Balanced"
@@ -3931,10 +3799,6 @@ msgstr "blank"
 msgid "Blank"
 msgstr "Tom"
 
-#: src/features/documents/new-document-dialog.tsx
-msgid "Blank letter"
-msgstr "Blankt brev"
-
 #: src/features/ats-checker/messages.ts
 msgid "Blocker"
 msgstr "Blokkering"
@@ -3950,12 +3814,6 @@ msgstr "Tavle"
 #: src/routes/builder/$resumeId/-sidebar/right/sections/typography.tsx
 msgid "Body"
 msgstr "Brødtekst"
-
-#. placeholder {0}: body.fontFamily
-#. placeholder {1}: body.fontSize
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "Body in {0}, {1} pt"
-msgstr "Brødtekst i {0}, {1} pt"
 
 #: src/features/resume/editor/check/issues.ts
 msgid "Body text is very small"
@@ -4013,14 +3871,6 @@ msgstr "Begge kontoene har en privat søknadsprofil. Eksporter og slett én prof
 #: src/features/auth/error.ts
 msgid "Both accounts have duplicate saved application answers. Export and delete one copy before linking, so neither is silently overwritten."
 msgstr "Begge kontoene har dupliserte lagrede søknadssvar. Eksporter og slett én kopi før sammenkobling, så ingen overskrives."
-
-#: src/features/applications/components/application-detail-sheet.tsx
-msgid "Both are optional. Leave one unselected if you didn't send it."
-msgstr "Begge er valgfrie. La én stå uvalgt hvis du ikke sendte den."
-
-#: src/features/applications/components/add-application-dialog.tsx
-msgid "Both are optional. What you pick is kept as it was sent and never changes; your drafts stay editable."
-msgstr "Begge er valgfrie. Det du velger, beholdes slik det ble sendt og endres aldri; utkastene dine kan fortsatt redigeres."
 
 #: src/components/calm/crumb.tsx
 msgid "Breadcrumb"
@@ -4181,14 +4031,7 @@ msgstr "Rolig"
 msgid "Can software read your resume?"
 msgstr "Kan programvare lese CV-en din?"
 
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Can't scan? Enter this key in the app:"
-msgstr "Får du ikke skannet? Skriv inn denne nøkkelen i appen:"
-
-#. Secondary action button to close two-factor setup dialog
-#. Secondary action button to close two-factor setup dialog
 #: src/dialogs/auth/change-password.tsx
-#: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/set-password.tsx
 #: src/dialogs/resume/index.tsx
 #: src/features/ai/set-up-ai.tsx
@@ -4285,17 +4128,9 @@ msgstr "Sertifiseringer"
 msgid "Change"
 msgstr "Endre"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Change application"
-msgstr "Bytt søknad"
-
 #: src/features/career/coach-chat.tsx
 msgid "Change connection"
 msgstr "Endre tilkobling"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Change it in Design."
-msgstr "Endre det i Design."
 
 #: src/features/homepage/sections.tsx
 msgid "Change language"
@@ -4316,10 +4151,6 @@ msgstr "Endre passord"
 msgid "Change photo"
 msgstr "Bytt bilde"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Change resume"
-msgstr "Bytt CV"
-
 #: src/features/applications/components/detail/next-step-card.tsx
 msgid "Change the follow-up…"
 msgstr "Endre oppfølgingen..."
@@ -4327,10 +4158,6 @@ msgstr "Endre oppfølgingen..."
 #: src/features/resume/editor/write/section-view.tsx
 msgid "Change the icon of {title}"
 msgstr "Endre ikonet for {title}"
-
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "Change the resume's design"
-msgstr "Endre CV-ens design"
 
 #: src/features/command-palette/pages/preferences/index.tsx
 msgid "Change theme to…"
@@ -4628,10 +4455,6 @@ msgstr "Velg en PDF-fil."
 msgid "Choose a resume"
 msgstr "Velg en CV"
 
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "Choose a resume in Write to match its design. Until then, the letter has its own."
-msgstr "Velg en CV i Write for å matche designet. Inntil da har brevet sitt."
-
 #: src/features/applications/components/import-applications-sheet.tsx
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "Choose a stage"
@@ -4707,8 +4530,8 @@ msgid "Choose…"
 msgstr "Velg …"
 
 #: src/features/applications/components/add-application-dialog.tsx
-msgid "Choosing Applied asks which resume and letter you sent."
-msgstr "Velger du Søkt, blir du spurt om hvilken CV og hvilket brev du sendte."
+msgid "Choosing Applied asks which resume you sent."
+msgstr ""
 
 #: src/features/resume/editor/design/entries-group.tsx
 msgid "Circle"
@@ -4750,10 +4573,6 @@ msgstr "Ren typografi"
 msgid "Clear"
 msgstr "Tøm"
 
-#: src/features/career/workspace/preparation.tsx
-msgid "Clear cover letter"
-msgstr "Fjern følgebrev"
-
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "Clear custom CSS"
 msgstr "Fjern egendefinert CSS"
@@ -4788,10 +4607,6 @@ msgstr "Tøm seksjon"
 msgid "Clear selection"
 msgstr "Fjern valg"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Clear the greeting or sign-off to omit it. Clearing the sign-off also removes the automatic signature."
-msgstr "Tøm hilsenen eller avslutningen for å utelate den. Hvis du tømmer avslutningen, fjernes også den automatiske signaturen."
-
 #: src/features/resume/editor/write/write-panel.tsx
 msgid "Click any block on the page to edit it."
 msgstr "Klikk på en blokk på siden for å redigere den."
@@ -4811,8 +4626,6 @@ msgid "close"
 msgstr "lukk"
 
 #: src/dialogs/auth/change-password.tsx
-#: src/dialogs/auth/disable-two-factor.tsx
-#: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/set-password.tsx
 #: src/dialogs/resume/index.tsx
 #: src/features/ai/set-up-ai.tsx
@@ -4851,7 +4664,6 @@ msgstr "lukk"
 #: src/features/resume/editor/chrome/download-sheet.tsx
 #: src/features/resume/editor/write/picture-settings.tsx
 #: src/features/resume/stylesheet/editor.tsx
-#: src/features/settings/account/backup-codes.tsx
 #: src/features/settings/ai/next-steps.tsx
 #: src/features/settings/ai/providers.tsx
 #: src/features/settings/ai/web-access.tsx
@@ -4929,7 +4741,6 @@ msgstr "Kode"
 
 #: src/components/calm/category-strip.tsx
 #: src/features/applications/components/manage-lanes-sheet.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
 msgid "Color"
 msgstr "Farge"
 
@@ -5011,7 +4822,6 @@ msgid "Compact"
 msgstr "Kompakt"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
 msgid "compact density"
 msgstr "kompakt tetthet"
 
@@ -5027,7 +4837,6 @@ msgstr "Kompakte overskrifter"
 #: src/features/resume/editor/check/job-match.tsx
 #: src/features/resume/editor/write/entries.tsx
 #: src/features/settings/profile.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Company"
 msgstr "Firma"
 
@@ -5260,8 +5069,6 @@ msgstr "Innholdsskaper"
 msgid "Content is laid out in a grid."
 msgstr "Innholdet er lagt ut i et rutenett."
 
-#. Primary action button to proceed to next step in two-factor setup
-#: src/dialogs/auth/enable-two-factor.tsx
 #: src/features/assistant/conversation.tsx
 #: src/features/career/coach-chat.tsx
 #: src/features/documents/new-document-dialog.tsx
@@ -5351,12 +5158,6 @@ msgstr "Kopier og registrer som besvart"
 msgid "Copy answers"
 msgstr "Kopier svar"
 
-#. Action button to copy two-factor backup codes to clipboard
-#: src/dialogs/auth/enable-two-factor.tsx
-#: src/features/settings/account/backup-codes.tsx
-msgid "Copy codes"
-msgstr "Kopier kodene"
-
 #: src/features/career/coach.tsx
 msgid "Copy conversation"
 msgstr "Kopier samtale"
@@ -5386,10 +5187,6 @@ msgstr "Kopier spørsmål"
 #: src/features/career/workspace/messages.tsx
 msgid "Copy reply"
 msgstr "Kopier svar"
-
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Copy secret"
-msgstr "Kopier hemmelighet"
 
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Copy stylesheet"
@@ -5453,10 +5250,6 @@ msgstr "Kunne ikke legge til passordet. Prøv igjen."
 #: src/features/career/coach-thread.tsx
 msgid "Couldn't attach the file. Try again."
 msgstr "Kunne ikke legge ved filen. Prøv igjen."
-
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "Couldn't change the design. Try again."
-msgstr "Kunne ikke endre designet. Prøv igjen."
 
 #: src/features/settings/account/profile.tsx
 msgid "Couldn't change the email. Try again."
@@ -5612,7 +5405,6 @@ msgstr "Kunne ikke glemme faktumet. Prøv igjen."
 
 #: src/features/applications/use-document-download.ts
 #: src/features/resume/export/use-resume-export.ts
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Couldn't generate the PDF. Try again."
 msgstr "Kunne ikke generere PDF-filen. Prøv igjen."
 
@@ -5674,10 +5466,6 @@ msgstr "Kunne ikke laste inn dokumentene. Prøv igjen."
 #: src/features/career/knowledge/stories.tsx
 msgid "Couldn't load interviews. Retry"
 msgstr "Kunne ikke laste inn intervjuer. Prøv på nytt"
-
-#: src/features/command-palette/pages/resumes.tsx
-msgid "Couldn't load letters. Try again."
-msgstr "Kunne ikke laste inn søknadsbrev. Prøv igjen."
 
 #: src/features/career/knowledge/resume-facts.tsx
 msgid "Couldn't load or save resume facts. Try again."
@@ -5745,10 +5533,6 @@ msgstr "Oppfølgingen kunne ikke registreres. Sjekk tidslinjen før du prøver i
 #: src/features/assistant/accept-on-copy.ts
 msgid "Couldn't make a copy to work on."
 msgstr "Kunne ikke lage en kopi å jobbe med."
-
-#: src/features/settings/account/backup-codes.tsx
-msgid "Couldn't make new codes. Try again."
-msgstr "Kunne ikke lage nye koder. Prøv igjen."
 
 #: src/features/settings/ai/providers.tsx
 msgid "Couldn't make this connection the default. Try again."
@@ -5916,7 +5700,6 @@ msgstr "Kunne ikke lagre endringen. Sjekk tilkoblingen og prøv igjen."
 #: src/features/career/workspace/apply.tsx
 #: src/features/career/workspace/preparation.tsx
 #: src/features/career/workspace/prepare-review.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Couldn't save that change. Try again."
 msgstr "Kunne ikke lagre endringen. Prøv igjen."
 
@@ -5994,12 +5777,8 @@ msgstr "Kunne ikke lagre denne stillingen i Søknader. Prøv igjen."
 msgid "Couldn't save this schedule. Try again."
 msgstr "Kunne ikke lagre denne tidsplanen. Prøv igjen."
 
-#: src/features/letters/store.ts
 #: src/features/resume/builder/draft.ts
 #: src/features/resume/share/history-tab.tsx
-#: src/routes/builder/letter/-components/download-sheet.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
-#: src/routes/builder/letter/$coverLetterId.tsx
 msgid "Couldn't save your changes. Try again before continuing."
 msgstr "Kunne ikke lagre endringene dine. Prøv igjen før du fortsetter."
 
@@ -6051,10 +5830,6 @@ msgstr "Kunne ikke sende kommentaren din. Prøv igjen."
 #: src/features/resume/builder/password-dialog.tsx
 msgid "Couldn't set the password. Try again."
 msgstr "Kunne ikke angi passordet. Prøv igjen."
-
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Couldn't set up two-step verification. Try again."
-msgstr "Kunne ikke konfigurere to-trinns bekreftelse. Prøv igjen."
 
 #: src/dialogs/auth/set-password.tsx
 msgid "Couldn't set your password. Try again."
@@ -6119,16 +5894,6 @@ msgstr "Kunne ikke bytte modell. Prøv igjen."
 msgid "Couldn't transcribe. Your recording is still here."
 msgstr "Kunne ikke transkribere. Opptaket ditt er fortsatt her."
 
-#. Fallback toast when disabling two-factor authentication fails
-#: src/dialogs/auth/disable-two-factor.tsx
-msgid "Couldn't turn off two-step verification. Check your password and try again."
-msgstr "Kunne ikke slå av to-trinns bekreftelse. Sjekk passordet ditt og prøv igjen."
-
-#. Fallback toast when enabling two-factor authentication fails
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Couldn't turn on two-step verification. Check your password and try again."
-msgstr "Kunne ikke slå på to-trinns bekreftelse. Sjekk passordet ditt og prøv igjen."
-
 #: src/features/settings/ai/providers.tsx
 msgid "Couldn't turn the connection on or off. Try again."
 msgstr "Kunne ikke slå tilkoblingen av eller på. Prøv igjen."
@@ -6174,10 +5939,6 @@ msgstr "Kunne ikke oppdatere jobbsøknadene. Prøv igjen."
 msgid "Couldn't update the interview. Try again."
 msgstr "Kunne ikke oppdatere intervjuet. Prøv igjen."
 
-#: src/routes/builder/letter/-components/letter-bar.tsx
-msgid "Couldn't update the letter. Try again."
-msgstr "Kunne ikke oppdatere brevet. Prøv igjen."
-
 #: src/features/applications/components/add-application-dialog.tsx
 msgid "Couldn't update the posting. Try again."
 msgstr "Kunne ikke oppdatere utlysningen. Prøv igjen."
@@ -6190,10 +5951,6 @@ msgstr "Kunne ikke oppdatere forhåndsvisningen. Den siste fungerende versjonen 
 msgid "Couldn't update the timeline. Try again."
 msgstr "Kunne ikke oppdatere tidslinjen. Prøv igjen."
 
-#: src/routes/builder/letter/-components/download-sheet.tsx
-msgid "Couldn't update this letter's versions. Try again."
-msgstr "Kunne ikke oppdatere versjonene av dette brevet. Prøv igjen."
-
 #: src/features/resume/editor/write/picture-settings.tsx
 msgid "Couldn't upload the photo. Choose a readable PNG, JPEG, WebP or GIF photo up to 10 MB, then try again."
 msgstr "Kunne ikke laste opp bildet. Velg et lesbart PNG-, JPEG-, WebP- eller GIF-bilde på inntil 10 MB, og prøv igjen."
@@ -6201,19 +5958,6 @@ msgstr "Kunne ikke laste opp bildet. Velg et lesbart PNG-, JPEG-, WebP- eller GI
 #: src/features/settings/account/profile.tsx
 msgid "Couldn't upload the photo. Try again."
 msgstr "Kunne ikke laste opp bildet. Prøv igjen."
-
-#. Fallback toast when verifying two-factor setup code fails
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Couldn't verify the code. Enter the current code from your authenticator app."
-msgstr "Kunne ikke bekrefte koden. Skriv inn den gjeldende koden fra autentiseringsappen din."
-
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Couldn't verify your backup code. Check the code and try again."
-msgstr "Kunne ikke bekrefte reservekoden din. Sjekk koden og prøv igjen."
-
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Couldn't verify your code. Check the code and try again."
-msgstr "Kunne ikke bekrefte koden din. Sjekk koden og prøv igjen."
 
 #: src/features/career/workspace/apply.tsx
 msgid "Count characters"
@@ -6254,71 +5998,6 @@ msgstr "Teller hver søknad som nådde hver fase."
 msgid "Cover"
 msgstr "Fyll"
 
-#: src/features/applications/components/application-form-sheet.tsx
-#: src/features/applications/components/detail/sent-documents.tsx
-#: src/features/career/workspace/preparation.tsx
-#: src/features/command-palette/pages/navigation.tsx
-#: src/features/command-palette/pages/resumes.tsx
-#: src/features/documents/document-card.tsx
-#: src/features/documents/import/import-page.tsx
-#: src/features/documents/new-document-dialog.tsx
-msgid "Cover letter"
-msgstr "Følgebrev"
-
-#: src/libs/resume/section.tsx
-msgid "Cover Letter"
-msgstr "Følgebrev"
-
-#: src/features/career/workspace/application-packet.tsx
-msgid "Cover letter · current version"
-msgstr "Følgebrev · gjeldende versjon"
-
-#: src/features/career/today.tsx
-#: src/features/documents/document-card.tsx
-msgid "Cover letter · edited {edited}"
-msgstr "Følgebrev · redigert {edited}"
-
-#: src/features/homepage/tailor.tsx
-msgid "Cover letter · Fieldnote"
-msgstr "Følgebrev · Fieldnote"
-
-#: src/features/career/workspace/prepare.tsx
-msgid "Cover letter · kept as sent"
-msgstr "Følgebrev · beholdt slik det ble sendt"
-
-#. placeholder {0}: i18n.date(item.document.editedAt, { day: "numeric", month: "short" })
-#: src/features/trash/trash-page.tsx
-msgid "Cover letter · last edited {0}"
-msgstr "Følgebrev · sist redigert {0}"
-
-#. placeholder {0}: writtenFor(item.document)
-#: src/features/trash/trash-page.tsx
-msgid "Cover letter · written for {0}"
-msgstr "Følgebrev · skrevet for {0}"
-
-#: src/features/applications/components/detail/sent-documents.tsx
-#: src/features/career/workspace/apply.tsx
-#: src/features/career/workspace/preparation.tsx
-msgid "Cover letter file"
-msgstr "Følgebrevfil"
-
-#: src/features/documents/import/use-resume-import.ts
-msgid "Cover letter imported"
-msgstr "Følgebrev importert"
-
-#: src/features/applications/components/detail/sent-documents.tsx
-#: src/features/career/workspace/preparation.tsx
-msgid "Cover letter options"
-msgstr "Alternativer for følgebrev"
-
-#: src/features/applications/components/application-detail-sheet.tsx
-msgid "Cover letter you sent"
-msgstr "Følgebrev du sendte"
-
-#: src/features/command-palette/pages/navigation.tsx
-msgid "Cover letters"
-msgstr "Følgebrev"
-
 #: src/features/command-palette/content.tsx
 #: src/features/command-palette/pages/navigation.tsx
 #: src/features/command-palette/pages/resumes.tsx
@@ -6330,8 +6009,8 @@ msgid "Create a new resume"
 msgstr "Opprett en ny CV"
 
 #: src/features/command-palette/pages/ask.tsx
-msgid "Create a resume or letter first."
-msgstr "Lag en CV eller et brev først."
+msgid "Create a resume first."
+msgstr ""
 
 #. Primary action button label on registration form
 #: src/features/auth/components/guest-banner.tsx
@@ -6355,10 +6034,6 @@ msgstr "Opprett og åpne"
 #: src/features/assistant/translate-resume.tsx
 msgid "Create language copy"
 msgstr "Opprett språkkopi"
-
-#: src/features/documents/new-document-dialog.tsx
-msgid "Create letter"
-msgstr "Opprett brev"
 
 #: src/features/auth/email-text.ts
 msgid "Create new password"
@@ -6539,7 +6214,6 @@ msgstr "Datadeling avbrutt. Ingenting ble sendt til KI-tilbyderen."
 #: src/features/applications/components/interview-dialog.tsx
 #: src/features/resume/editor/proposals/proposal-list.tsx
 #: src/features/resume/editor/write/dates-field.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Date"
 msgstr "Dato"
 
@@ -6598,18 +6272,6 @@ msgstr "Datoer blir ikke lest"
 #: src/features/ats-checker/checker.tsx
 msgid "Dates, headings, email, phone and links, checked for the forms parsers expect."
 msgstr "Datoer, overskrifter, e-post, telefon og lenker, sjekket for formatene parsere forventer."
-
-#: src/features/letters/compose.ts
-msgid "Dear {name},"
-msgstr "Kjære {name},"
-
-#: src/features/homepage/tailor.tsx
-msgid "Dear Fieldnote team,"
-msgstr "Kjære Fieldnote-team,"
-
-#: src/features/letters/compose.ts
-msgid "Dear hiring team,"
-msgstr "Kjære ansettelsesteam,"
 
 #: src/features/ai/usage.tsx
 #: src/features/career/shared.tsx
@@ -6842,9 +6504,6 @@ msgstr "Rollebeskrivelse {0}"
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
 #: src/routes/builder/$resumeId/-components/use-editor-hotkeys.ts
-#: src/routes/builder/letter/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
-#: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Design"
 msgstr "Design"
 
@@ -6880,11 +6539,6 @@ msgstr "Detaljer"
 #: src/features/settings/root.tsx
 msgid "Details for job forms"
 msgstr "Detaljer for jobbskjemaer"
-
-#. placeholder {0}: resume.name
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Details from “{0}”"
-msgstr "Detaljer fra «{0}»"
 
 #. Label before the raw error text forwarded by the identity provider
 #: src/features/auth/pages/error.tsx
@@ -6928,11 +6582,6 @@ msgstr "Annen valuta, ikke sammenlignet"
 msgid "Different pay period, not compared"
 msgstr "Annen lønnsperiode, ikke sammenlignet"
 
-#: src/dialogs/auth/enable-two-factor.tsx
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Digit {position} of {total}"
-msgstr "Siffer {position} av {total}"
-
 #: src/features/career/schedule-sheet.tsx
 #: src/features/career/workspace/prepare-review.tsx
 msgid "Discard"
@@ -6962,17 +6611,12 @@ msgstr "Kobler fra {providerName}-kontoen din…"
 #: src/features/career/workspace/messages.tsx
 #: src/features/resume/editor/write/write-panel.tsx
 #: src/features/settings/ai/next-steps.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Dismiss"
 msgstr "Avskjedige"
 
 #: src/features/resume/editor/chrome.tsx
 msgid "Document menu: {name}"
 msgstr "Dokumentmeny: {name}"
-
-#: src/features/documents/documents-page.tsx
-msgid "Document type"
-msgstr "Dokumenttype"
 
 #: src/features/command-palette/pages/navigation.tsx
 #: src/features/command-palette/pages/resumes.tsx
@@ -7026,8 +6670,6 @@ msgstr "Ikke del"
 msgid "done"
 msgstr "ferdig"
 
-#. Final action button after saving backup codes
-#: src/dialogs/auth/enable-two-factor.tsx
 #: src/features/ai/set-up-ai.tsx
 #: src/features/career/knowledge/facts.tsx
 #: src/features/career/knowledge/resume-facts.tsx
@@ -7035,7 +6677,6 @@ msgstr "ferdig"
 #: src/features/career/workspace/prepare-review.tsx
 #: src/features/documents/document-actions.tsx
 #: src/features/resume/editor/write/rich-text-editor-field.tsx
-#: src/features/settings/account/backup-codes.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Done"
 msgstr "Ferdig"
@@ -7054,7 +6695,6 @@ msgstr "Ferdig · {0}"
 #: src/features/resume/share/web-page-text.ts
 #: src/features/settings/account/data.tsx
 #: src/routes/builder/$resumeId/-components/download-sheet.tsx
-#: src/routes/builder/letter/-components/download-sheet.tsx
 msgid "Download"
 msgstr "Last ned"
 
@@ -7067,7 +6707,6 @@ msgid "Download {name} sample PDF"
 msgstr "Last ned eksempel-PDF for {name}"
 
 #: src/features/resume/editor/chrome/download-sheet.tsx
-#: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Download & history"
 msgstr "Nedlasting og historikk"
 
@@ -7084,12 +6723,6 @@ msgstr "Last ned godkjent PDF: {0}"
 msgid "Download cancellation"
 msgstr "Last ned avlysning"
 
-#. Action button to download two-factor backup codes as a text file
-#: src/dialogs/auth/enable-two-factor.tsx
-#: src/features/settings/account/backup-codes.tsx
-msgid "Download codes"
-msgstr "Last ned kodene"
-
 #: src/features/applications/components/export-applications-sheet.tsx
 msgid "Download CSV"
 msgstr "Last ned CSV"
@@ -7100,7 +6733,6 @@ msgstr "Last ned nåværende PDF"
 
 #: src/features/resume/share/download-menu.tsx
 #: src/features/resume/share/download-tab.tsx
-#: src/routes/builder/letter/-components/download-sheet.tsx
 msgid "Download failed. Try again."
 msgstr "Nedlasting mislyktes. Prøv igjen."
 
@@ -7113,7 +6745,6 @@ msgstr "Last ned pakke"
 #: src/features/resume/editor/chrome/bar.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/routes/builder/$resumeId/-components/use-editor-hotkeys.ts
-#: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Download PDF"
 msgstr "Last ned PDF"
 
@@ -7136,13 +6767,8 @@ msgstr "Nedlasting, krever tilkobling"
 
 #: src/features/resume/share/download-menu.tsx
 #: src/features/resume/share/download-tab.tsx
-#: src/routes/builder/letter/-components/download-sheet.tsx
 msgid "Downloaded {file}"
 msgstr "Lastet ned {file}"
-
-#: src/features/resume/share/download-tab.tsx
-msgid "Downloaded {file} and the cover letter"
-msgstr "Lastet ned {file} og følgebrevet"
 
 #: src/features/career/workspace/preparation.tsx
 msgid "draft"
@@ -7153,13 +6779,8 @@ msgstr "utkast"
 #: src/features/resume/editor/save-status.tsx
 #: src/features/resume/editor/write/entry-row.tsx
 #: src/features/resume/editor/write/entry-view.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Draft"
 msgstr "Dokumentutkast"
-
-#: src/routes/builder/letter/-components/letter-page.tsx
-msgid "Draft · not kept yet"
-msgstr "Utkast · ikke beholdt ennå"
 
 #: src/features/assistant/assistant-panel.tsx
 msgid "Draft a follow-up email"
@@ -7173,21 +6794,9 @@ msgstr "Skriv utkast til et notat"
 msgid "Draft a summary"
 msgstr "Lag et sammendrag"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Draft from the posting"
-msgstr "Utkast fra stillingsannonsen"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Draft from your resume"
-msgstr "Utkast fra CV-en din"
-
 #: src/features/homepage/remember.tsx
 msgid "Draft it as"
 msgstr "Lag utkast som"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Draft kept. Edit anything you like."
-msgstr "Utkast beholdt. Rediger alt du liker."
 
 #: src/features/career/workspace/prepare.tsx
 msgid "Draft story"
@@ -7208,15 +6817,6 @@ msgstr "Utkast til svar krever AI."
 #: src/features/career/shared.tsx
 msgid "Drafting questions"
 msgstr "Skriver utkast til spørsmål"
-
-#. placeholder {0}: draft.provider
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Drafting stopped: {0} didn't respond. Nothing on the page changed."
-msgstr "Drafting stoppet: {0} svarte ikke. Ingenting på siden endret seg."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Drafting stopped. Nothing on the page changed."
-msgstr "Drafting stoppet. Ingenting på siden endret seg."
 
 #. placeholder {0}: application.company
 #. placeholder {1}: application.role
@@ -7266,13 +6866,8 @@ msgstr "Slipp for å importere"
 #: src/features/documents/document-actions.tsx
 #: src/features/resume/editor/write/entry-row.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Duplicate"
 msgstr "Dupliser"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Duplicate as a new letter"
-msgstr "Dupliser som nytt brev"
 
 #: src/features/applications/components/add-application-dialog.tsx
 msgid "Duplicate check unavailable. Retry before saving; your server may need updating."
@@ -7393,10 +6988,6 @@ msgstr "Rediger farge {0}"
 #: src/features/settings/ai/providers.tsx
 msgid "Edit connection"
 msgstr "Rediger tilkobling"
-
-#: src/features/career/workspace/preparation.tsx
-msgid "Edit cover letter"
-msgstr "Rediger følgebrev"
 
 #: src/features/applications/components/detail/sent-documents.tsx
 #: src/features/resume/share/history-tab.tsx
@@ -7546,7 +7137,6 @@ msgid "Editor"
 msgstr "Redigering"
 
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Editor mode"
 msgstr "Redaktørmodus"
 
@@ -7586,7 +7176,6 @@ msgstr "Effektiv"
 #: src/features/resume/editor/write/basics-card.tsx
 #: src/features/settings/account/profile.tsx
 #: src/features/settings/profile.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Email"
 msgstr "E-post"
 
@@ -7638,10 +7227,6 @@ msgstr "Arbeidsgiver"
 msgid "Employer-form packet"
 msgstr "Arbeidsgiverpakke"
 
-#: src/features/documents/document-card.tsx
-msgid "Empty letter"
-msgstr "Tomt brev"
-
 #: src/features/trash/trash-page.tsx
 msgid "Empty Trash"
 msgstr "Tøm papirkurven"
@@ -7684,10 +7269,6 @@ msgstr "Forbedret lesing utilgjengelig; brukte den innebygde leseren."
 #: src/features/applications/components/add-application-dialog.tsx
 msgid "Enhanced reading was unavailable. The built-in reader retrieved this posting."
 msgstr "Forbedret lesing var utilgjengelig. Den innebygde leseren hentet denne stillingsannonsen."
-
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Enter a backup code."
-msgstr "Skriv inn en reservekode."
 
 #: src/features/career/offer-entry.tsx
 msgid "Enter a full amount, such as 95000, or leave blank."
@@ -7736,22 +7317,9 @@ msgstr "Skriv inn en basis-URL som starter med http:// eller https://."
 msgid "Enter any model ID supported by your endpoint."
 msgstr "Skriv inn en modell-ID som endepunktet ditt støtter."
 
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Enter one of the backup codes you saved."
-msgstr "Skriv inn en av sikkerhetskodene du lagret."
-
 #: src/features/documents/documents-page.tsx
 msgid "Enter opens the first result. Down arrow moves to the results. Escape clears."
 msgstr "Enter åpner det første resultatet. Pil ned går til resultatene. Escape tømmer."
-
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Enter the 6-digit code from your authenticator app."
-msgstr "Skriv inn den 6-sifrede koden fra autentiseringsappen din."
-
-#: src/dialogs/auth/enable-two-factor.tsx
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Enter the 6-digit code."
-msgstr "Skriv inn den 6-sifrede koden."
 
 #: src/features/settings/profile.tsx
 msgid "Enter the amount as a number."
@@ -7781,28 +7349,10 @@ msgstr "Skriv inn det nåværende passordet ditt, og velg deretter et nytt."
 msgid "Enter your current password."
 msgstr "Skriv inn det nåværende passordet ditt."
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Enter your details below. Choosing a resume replaces them and links its design."
-msgstr "Skriv inn opplysningene dine nedenfor. Hvis du velger en CV, erstattes opplysningene med dem fra CV-en, og utformingen kobles til brevet."
-
 #: src/features/auth/pages/register.tsx
 msgid "Enter your name."
 msgstr "Skriv inn navnet ditt."
 
-#: src/features/settings/account/backup-codes.tsx
-msgid "Enter your password to replace your backup codes. Codes you saved before stop working."
-msgstr "Skriv inn passordet ditt for å erstatte reservekodene dine. Kodene du lagret tidligere, slutter å virke."
-
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Enter your password to set up two-step verification. Once it's on, you need a code from your authenticator app every time you sign in."
-msgstr "Skriv inn passordet ditt for å konfigurere to-trinns bekreftelse. Når det er på, trenger du en kode fra autentiseringsappen din hver gang du logger inn."
-
-#: src/dialogs/auth/disable-two-factor.tsx
-msgid "Enter your password to turn off two-step verification. Without it, your password alone can sign in to your account."
-msgstr "Skriv inn passordet ditt for å slå av to-trinns bekreftelse. Uten det kan passordet alene logge inn på kontoen din."
-
-#: src/dialogs/auth/disable-two-factor.tsx
-#: src/dialogs/auth/enable-two-factor.tsx
 #: src/features/auth/pages/login.tsx
 msgid "Enter your password."
 msgstr "Skriv inn passordet ditt."
@@ -7959,7 +7509,6 @@ msgstr "forklar én begrensning ved målingen tydelig, uten å undervurdere arbe
 #: src/features/homepage/share.tsx
 #: src/features/settings/profile.tsx
 #: src/libs/resume/section.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Export"
 msgstr "Eksporter"
 
@@ -8184,10 +7733,6 @@ msgstr "Filene kan være opptil 25 MB."
 msgid "Fill fields"
 msgstr "Fyll ut felt"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Filled from the application. The greeting follows the name."
-msgstr "Fylles ut fra jobbsøknaden. Hilsenen følger navnet."
-
 #: src/features/applications/components/application-form-sheet.tsx
 msgid "Filled in what we could from the posting."
 msgstr "Fyllte inn det vi kunne fra oppslaget."
@@ -8274,6 +7819,10 @@ msgstr "Tilpasning"
 msgctxt "Application workspace tab: how well a job fits your experience"
 msgid "Fit"
 msgstr "Match"
+
+#: src/features/homepage/tailor.tsx
+msgid "Fit check · Fieldnote"
+msgstr ""
 
 #: src/features/career/workspace/saved.tsx
 msgid "Fit checks, briefings, practice feedback, debriefs, answers, replies and offers land here as you save them."
@@ -8389,10 +7938,6 @@ msgstr "Oppfølging satt til {0}"
 msgid "Followed up"
 msgstr "Fulgt opp"
 
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "Follows the resume"
-msgstr "Følger CV-en"
-
 #: src/features/settings/preferences.tsx
 msgid "Follows your device"
 msgstr "Følger enheten din"
@@ -8431,13 +7976,8 @@ msgid "for {company}"
 msgstr "for {company}"
 
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "For {company}"
 msgstr "For {company}"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "For {company} · {role}"
-msgstr "For {company} · {role}"
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "For a file, the language is chosen when you import it."
@@ -8499,10 +8039,6 @@ msgstr "Til neste runde:"
 #: src/features/resume/editor/check/job-match.tsx
 msgid "For this visit only"
 msgstr "Kun for dette besøket"
-
-#: src/features/documents/new-document-dialog.tsx
-msgid "For which job"
-msgstr "For hvilken jobb"
 
 #: src/features/documents/new-document-dialog.tsx
 msgid "For which job?"
@@ -8603,8 +8139,6 @@ msgstr "Gratis å tilpasse, med nedlasting i PDF og Word og uten vannmerke. Bytt
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 #: src/routes/builder/$resumeId/-components/page-canvas.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/letter-page.tsx
 msgid "Free-form"
 msgstr "Friform"
 
@@ -8630,7 +8164,6 @@ msgid "French"
 msgstr "Fransk"
 
 #: src/features/homepage/prepare.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "From"
 msgstr "Fra"
 
@@ -8716,7 +8249,6 @@ msgid "Frozen"
 msgstr "Frosset"
 
 #: src/features/resume/editor/write/basics-card.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Full name"
 msgstr "Fullt navn"
 
@@ -8738,14 +8270,9 @@ msgstr "nivåer i full bredde"
 msgid "General question"
 msgstr "Generelt spørsmål"
 
-#: src/features/settings/account/backup-codes.tsx
-msgid "Generate new codes"
-msgstr "Generer nye koder"
-
 #: src/features/applications/components/detail/sent-documents.tsx
 #: src/features/career/workspace/preparation.tsx
 #: src/features/resume/export/use-resume-export.ts
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Generating PDF…"
 msgstr "Genererer PDF…"
 
@@ -8781,10 +8308,6 @@ msgstr "Få nye roller her hver morgen"
 #: src/features/career/today.tsx
 msgid "Get ready in the workspace: likely questions, who you'll meet and stories to tell."
 msgstr "Gjør deg klar i arbeidsområdet: sannsynlige spørsmål, hvem du skal møte, og historier å fortelle."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Getting long. Try “Shorter”, or cut the least specific paragraph."
-msgstr "Blir lang. Prøv \"Kortere\", eller kutt det minst spesifikke avsnittet."
 
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "Ghosted"
@@ -8859,14 +8382,6 @@ msgstr "Gresk"
 msgid "Green"
 msgstr "Grønn"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Greeting"
-msgstr "Hilsen"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Greeting and sign-off"
-msgstr "Hilsen og avslutning"
-
 #: src/features/documents/documents-page.tsx
 msgid "Grid"
 msgstr "Rutenett"
@@ -8927,12 +8442,6 @@ msgstr "Vekt for overskrifter"
 msgid "Headings"
 msgstr "Overskrifter"
 
-#. placeholder {0}: heading.fontFamily
-#. placeholder {1}: heading.fontSize
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "Headings in {0}, {1} pt"
-msgstr "Overskrifter i {0}, {1} pt"
-
 #. placeholder {0}: metadata.typography.heading.fontFamily
 #. placeholder {1}: metadata.typography.heading.fontSize
 #. placeholder {2}: metadata.typography.body.fontFamily
@@ -8944,7 +8453,6 @@ msgstr "Overskrifter i {0}, {1} pt\n"
 "Brødtekst i {2}, {3} pt"
 
 #: src/features/resume/editor/write/basics-card.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Headline"
 msgstr "Overskrift"
 
@@ -9083,18 +8591,12 @@ msgstr "Ansettelsessjef"
 msgid "Hiring software turns a PDF into plain text before anyone reads it. This does the same and shows you what came out."
 msgstr "Rekrutteringsprogramvare gjør en PDF om til ren tekst før noen leser den. Dette gjør det samme og viser deg hva som kom ut."
 
-#: src/features/letters/compose.ts
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Hiring team"
-msgstr "Ansettelsesteam"
-
 #: src/features/career/workspace/apply.tsx
 msgid "Historical review checks unavailable."
 msgstr "Tidligere gjennomgangsmarkeringer er ikke tilgjengelige."
 
 #: src/features/resume/share/history-tab.tsx
 #: src/routes/builder/$resumeId/-components/download-sheet.tsx
-#: src/routes/builder/letter/-components/download-sheet.tsx
 msgid "History"
 msgstr "Historikk"
 
@@ -9186,17 +8688,17 @@ msgstr "Orddeling"
 
 #. placeholder {0}: document.posting.company
 #: src/features/assistant/assistant-panel.tsx
-msgid "I can see this {kind} and the {0} posting. Ask how you fit, or get a follow-up email or interview prep."
-msgstr "Jeg ser denne {kind} og utlysningen fra {0}. Spør om hvor godt du passer, eller få en oppfølgings-e-post eller intervjuforberedelse."
+msgid "I can see this resume and the {0} posting. Ask how you fit, or get a follow-up email or interview prep."
+msgstr ""
 
 #. placeholder {0}: document.posting.company
 #: src/features/assistant/assistant-panel.tsx
-msgid "I can see this {kind} and the {0} posting. Suggestions come back as edits you can review before accepting."
-msgstr "Jeg ser denne {kind} og utlysningen fra {0}. Forslagene kommer tilbake som endringer du kan se gjennom før du godtar dem."
+msgid "I can see this resume and the {0} posting. Suggestions come back as edits you can review before accepting."
+msgstr ""
 
 #: src/features/assistant/assistant-panel.tsx
-msgid "I can see this {kind}. Suggestions come back as edits you can review before accepting."
-msgstr "Jeg ser denne {kind}. Forslagene kommer tilbake som endringer du kan se gjennom før du godtar dem."
+msgid "I can see this resume. Suggestions come back as edits you can review before accepting."
+msgstr ""
 
 #: src/features/resume/editor/write/improve.tsx
 msgid "I don't have one yet"
@@ -9306,10 +8808,6 @@ msgstr "Hvis du ikke har bedt om dette, kan du ignorere e-posten; kontoen din en
 msgid "If you didn't ask for this, you can ignore this email."
 msgstr "Hvis du ikke har bedt om dette, kan du ignorere denne e-posten."
 
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "If you never verified your email address, resetting your password turns two-step verification off. Otherwise, ask the person who runs this server to turn it off for your account."
-msgstr "Hvis du aldri har bekreftet e-postadressen din, slår tilbakestilling av passordet av to-trinns bekreftelse. Ellers kan du be den som drifter denne serveren, om å slå det av for kontoen din."
-
 #: src/features/auth/pages/forgot-password.tsx
 msgid "If your account is linked to it"
 msgstr "Hvis kontoen din er koblet til den"
@@ -9385,10 +8883,6 @@ msgid "Import the one you have and every section is laid out for you to refine, 
 msgstr "Importer den du har, så legges hver seksjon opp for deg å finpusse, eller start fra en tom side. Du kan også slippe en PDF-, Word- eller JSON-fil hvor som helst i dette vinduet."
 
 #: src/features/documents/documents-page.tsx
-msgid "Import the one you have, or start blank."
-msgstr "Importer den du har, eller start blankt."
-
-#: src/features/documents/documents-page.tsx
 msgid "Import the resume you have and every section is laid out for you to refine, or start from a blank page. Choose a PDF, Word or JSON file."
 msgstr "Importer CV-en du har, så legges hver seksjon opp for deg å finpusse, eller start fra en tom side. Velg en PDF-, Word- eller JSON-fil."
 
@@ -9427,10 +8921,6 @@ msgstr "Forbedre krever AI."
 #: src/features/settings/ai/next-steps.tsx
 msgid "Improve selected line"
 msgstr "Forbedre valgt linje"
-
-#: src/features/resume/editor/write/improve.tsx
-msgid "Improve this paragraph"
-msgstr "Forbedre dette avsnittet"
 
 #: src/features/resume/editor/write/rich-text-editor-field.tsx
 msgid "Improve works on a line once you have written one."
@@ -9696,10 +9186,6 @@ msgstr "Den har oppføringer, men er ikke plassert på en side."
 msgid "It is probably a scan: start a blank resume, or import the Word version."
 msgstr "Det er trolig en skanning: start en tom CV, eller importer Word-versjonen."
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "It is recorded as sent to {company} on {sentOn}. Its application link stays with that submission."
-msgstr "Det er registrert som sendt til {company} {sentOn}. Søknadslenken følger den innsendingen."
-
 #: src/features/career/knowledge/stories.tsx
 msgid "It may have been deleted. Choose another story or add a new one."
 msgstr "Den kan ha blitt slettet. Velg en annen historie eller legg til en ny."
@@ -9715,6 +9201,14 @@ msgstr "Den leser stillingsannonsen, notatene dine og det du sendte, og vet at d
 #: src/features/applications/components/interview-dialog.tsx
 msgid "It will show on the application's timeline and on the calendar."
 msgstr "Det vil vises på jobbsøknadens tidslinje og i kalenderen."
+
+#: src/features/applications/components/application-detail-sheet.tsx
+msgid "It's optional. Leave it unselected if you didn't send one."
+msgstr ""
+
+#: src/features/applications/components/add-application-dialog.tsx
+msgid "It's optional. What you pick is kept as it was sent and never changes; your draft stays editable."
+msgstr ""
 
 #: src/features/applications/components/detail/activity.tsx
 msgid "It's removed from the timeline for good."
@@ -9743,14 +9237,6 @@ msgstr "Tilkoblingen dens er utilgjengelig. Velg og godkjenn en tilkobling før 
 #: src/features/assistant/assistant-panel.tsx
 msgid "Its messages and attachments are deleted. Edits you accepted stay in the document."
 msgstr "Meldingene og vedleggene blir slettet. Endringer du godtok forblir i dokumentet."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Its own design ({summary})."
-msgstr "Egen design ({summary})."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Its own details"
-msgstr "Egne detaljer"
 
 #: src/features/settings/ai/providers.tsx
 msgid "Its saved key is deleted. Conversations that used it need another connection before you can continue them."
@@ -9860,7 +9346,6 @@ msgid "Keep {currentLabel}"
 msgstr "Behold {currentLabel}"
 
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Keep a copy and reload"
 msgstr "Behold en kopi og last inn på nytt"
 
@@ -9903,26 +9388,14 @@ msgstr "Oppbevar i papirkurven"
 msgid "Keep it honest"
 msgstr "Hold det ærlig"
 
-#: src/dialogs/auth/disable-two-factor.tsx
-msgid "Keep it on"
-msgstr "La det være på"
-
 #: src/features/ats-checker/messages.ts
 msgid "Keep it under 2.5 MB, usually by removing or shrinking images."
 msgstr "Hold den under 2,5 MB, vanligvis ved å fjerne eller krympe bilder."
-
-#: src/features/career/workspace/prepare-review.tsx
-msgid "Keep letter"
-msgstr "Behold brev"
 
 #: src/features/homepage/write.tsx
 #: src/features/resume/editor/write/improve.tsx
 msgid "Keep mine"
 msgstr "Behold min"
-
-#: src/features/settings/account/backup-codes.tsx
-msgid "Keep my codes"
-msgstr "Behold kodene mine"
 
 #. Layout editor toggle that prevents a section from splitting across pages
 #: src/features/resume/editor/write/section-view.tsx
@@ -9975,10 +9448,6 @@ msgstr "Hold sammen med den"
 msgid "Keep your work"
 msgstr "Behold arbeidet ditt"
 
-#: src/features/assistant/assistant-panel.tsx
-msgid "Keeps the most specific parts"
-msgstr "Beholder de mest spesifikke delene"
-
 #: src/features/career/workspace/prepare-review.tsx
 msgid "Kept"
 msgstr "Beholdt"
@@ -10026,7 +9495,6 @@ msgstr "Tastatur"
 #: src/features/keyboard-shortcuts/index.tsx
 #: src/features/resume/editor/chrome/bar.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Keyboard shortcuts"
 msgstr "Tastatursnarveier"
 
@@ -10043,14 +9511,9 @@ msgstr "Nøkkelord"
 msgid "Khmer"
 msgstr "Khmer"
 
-#: src/features/documents/new-document-dialog.tsx
 #: src/features/resume/editor/write/section-view.tsx
 msgid "Kind"
 msgstr "Type"
-
-#: src/features/letters/compose.ts
-msgid "Kind regards,"
-msgstr "Vennlig hilsen,"
 
 #: src/features/assistant/conversation.tsx
 #: src/features/career/career-page.tsx
@@ -10119,8 +9582,6 @@ msgstr "Liggende"
 #: src/features/settings/preferences.tsx
 #: src/routes/builder/$resumeId/-components/document-details.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Language"
 msgstr "Språk"
 
@@ -10221,10 +9682,6 @@ msgstr "Ledende produktdesigner"
 msgid "Lead with the result and give it a scale."
 msgstr "Led med resultatet og gi det en skala."
 
-#: src/features/assistant/assistant-panel.tsx
-msgid "Leads with why you fit"
-msgstr "Leder med hvorfor du passer"
-
 #: src/features/career/offer-entry.tsx
 #: src/features/career/offers.tsx
 #: src/features/career/workspace/messages.tsx
@@ -10300,7 +9757,6 @@ msgid "Legal"
 msgstr "Juss"
 
 #: src/routes/builder/$resumeId/-components/document-details.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Length"
 msgstr "Lengde"
 
@@ -10328,73 +9784,20 @@ msgstr "Lar Søknader, coachen og assistenten søke på nettet, og leser sider d
 msgid "Lets the coach search public pages through your web search service"
 msgstr "Lar coachen søke i offentlige sider via nettsøketjenesten din"
 
-#: src/features/assistant/assistant-panel.tsx
-#: src/features/career/workspace/overview.tsx
-msgid "letter"
-msgstr "brev"
-
-#: src/features/applications/next-step.ts
-#: src/features/assistant/conversation.tsx
-#: src/features/assistant/document.ts
-#: src/features/command-palette/pages/navigation.tsx
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Letter"
 msgstr "Brev"
 
 #: src/features/resume/editor/design/style-groups.tsx
 #: src/routes/builder/$resumeId/-components/page-canvas.tsx
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
-#: src/routes/builder/letter/-components/letter-page.tsx
 msgctxt "US Letter paper size (8.5 × 11 in), shown beside A4"
 msgid "Letter"
 msgstr "Letter"
 
-#: src/features/documents/document-actions.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Letter already sent"
-msgstr "Brevet er allerede sendt"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Letter body"
-msgstr "Brevtekst"
-
-#: src/routes/builder/letter/-components/letter-page.tsx
-msgid "Letter content"
-msgstr "Brevinnhold"
-
-#: src/routes/builder/letter/-components/letter-shell.tsx
-msgid "Letter details"
-msgstr "Brevdetaljer"
-
 #: src/features/ai/usage.tsx
-#: src/features/career/workspace/prepare-review.tsx
 msgid "Letter draft"
 msgstr "Brevutkast"
-
-#: src/routes/builder/letter/-components/letter-bar.tsx
-msgid "Letter duplicated"
-msgstr "Brevet er duplisert"
-
-#: src/routes/builder/letter/-components/letter-page.tsx
-msgid "Letter page"
-msgstr "Brevside"
-
-#: src/features/career/workspace/application-packet.tsx
-msgid "Letter PDF"
-msgstr "Brev-PDF"
-
-#: src/features/career/workspace/apply.tsx
-msgid "Letter recorded as sent"
-msgstr "Brev registrert som sendt"
-
-#: src/features/applications/components/add-application-dialog.tsx
-msgid "Letter you sent"
-msgstr "Brev du sendte"
-
-#: src/features/documents/documents-page.tsx
-msgid "Letters"
-msgstr "Brev"
 
 #: src/features/resume/editor/write/entries.tsx
 msgid "Level"
@@ -10509,17 +9912,12 @@ msgid "Link address"
 msgstr "Link adresse"
 
 #: src/features/resume/editor/check/job-match.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Link an application"
 msgstr "Koble til en jobbsøknad"
 
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Link an application…"
 msgstr "Link en jobbsøknad..."
-
-#: src/features/applications/components/application-form-sheet.tsx
-msgid "Link an existing letter"
-msgstr "Koble til et eksisterende brev"
 
 #: src/features/resume/share/web-page-text.ts
 msgid "Link copied"
@@ -10580,14 +9978,6 @@ msgstr "Tilkoblet dokumentasjon uendret siden gjennomgangen"
 #: src/features/applications/components/detail/sent-documents.tsx
 msgid "Linked resume"
 msgstr "Koblet CV"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Linked to the resume again"
-msgstr "Linket til CV-en igjen"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Linked. The header (name, contact details, links and photo) updates when the resume does."
-msgstr "Tilkoblet. Toppteksten (navn, kontaktinformasjon, lenker og bilde) oppdateres når CV-en gjør det."
 
 #. Authentication provider display name in account settings
 #. Brand name label for LinkedIn social sign-in button
@@ -10744,7 +10134,6 @@ msgstr "Laster …"
 #: src/features/resume/editor/check/parser-view.tsx
 #: src/features/resume/editor/write/basics-card.tsx
 #: src/features/resume/editor/write/entries.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Location"
 msgstr "Sted"
 
@@ -10755,7 +10144,6 @@ msgstr "Steder"
 #: src/features/documents/document-actions.tsx
 #: src/features/documents/documents-page.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Lock editing"
 msgstr "Lås redigering"
 
@@ -10765,12 +10153,10 @@ msgstr "låst"
 
 #: src/features/documents/document-card.tsx
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Locked"
 msgstr "Låst"
 
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Locked · unlock to save"
 msgstr "Låst · lås opp for å lagre"
 
@@ -10868,10 +10254,6 @@ msgstr "Lag en kopi"
 msgid "Make a copy for this job"
 msgstr "Lag en kopi for denne jobben"
 
-#: src/features/settings/account/backup-codes.tsx
-msgid "Make a new set if you've used them up or lost them. The old ones stop working."
-msgstr "Lag et nytt sett hvis du har brukt dem opp eller mistet dem. De gamle slutter å virke."
-
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 msgid "Make another"
 msgstr "Lag en til"
@@ -10884,18 +10266,9 @@ msgstr "Gjør noen av dem til dine."
 msgid "Make default"
 msgstr "Gjør til standard"
 
-#: src/features/assistant/assistant-panel.tsx
-msgid "Make it more specific"
-msgstr "Gjør det mer spesifikt"
-
-#: src/features/assistant/assistant-panel.tsx
 #: src/features/resume/editor/write/improve.tsx
 msgid "Make it shorter"
 msgstr "Gjør det kortere"
-
-#: src/features/assistant/assistant-panel.tsx
-msgid "Make the opening stronger"
-msgstr "Gjør åpningen sterkere"
 
 #: src/features/ats-checker/messages.ts
 msgid "Make the visible text and the destination match."
@@ -11031,11 +10404,6 @@ msgctxt "Template style tag"
 msgid "Marketing"
 msgstr "Markedsføring"
 
-#. placeholder {0}: resume?.name ?? t`the resume`
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "Match “{0}”"
-msgstr "Match \"{0}\""
-
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Match against a job"
 msgstr "Match mot en jobb"
@@ -11070,10 +10438,6 @@ msgstr "matcher {0}"
 #: src/features/career/today.tsx
 msgid "Matches are words your preferences share with the posting, not a checked salary, workplace or eligibility. Track it, then open Fit."
 msgstr "Treff er ord preferansene dine deler med stillingsannonsen, ikke en sjekket lønn, arbeidsplass eller kvalifikasjon. Følg den, og åpne så Tilpasning."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Matches the resume ({summary})."
-msgstr "Tilsvarer CV-en ({summary})."
 
 #: src/features/career/shared.tsx
 msgid "Matching your facts"
@@ -11251,10 +10615,6 @@ msgstr "Mer fra filen din"
 msgid "More options"
 msgstr "Flere alternativer"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "More personal"
-msgstr "Mer personlig"
-
 #: src/features/career/workspace/answer-library.tsx
 msgid "More saved answer actions"
 msgstr "Flere handlinger for lagret svar"
@@ -11292,10 +10652,6 @@ msgstr "De fleste oppføringene mangler datoer."
 #: src/features/homepage/remember.tsx
 msgid "Most new teams at Northwind Labs stalled during setup and never reached activation."
 msgstr "De fleste nye team hos Northwind Labs stoppet opp under oppsettet og ble aldri aktivert."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Most recruiters read 180–320 words. The shaded band shows the range."
-msgstr "De fleste rekrutterere leser 180–320 ord. Det skraverte båndet viser rekkevidden."
 
 #: src/features/resume/editor/check/issues.ts
 msgid "Most systems file candidates by email address."
@@ -11397,7 +10753,6 @@ msgstr "Flytt til sidepanelet"
 #: src/features/documents/document-actions.tsx
 #: src/features/documents/documents-page.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Move to Trash"
 msgstr "Flytt til papirkurven"
 
@@ -11505,14 +10860,6 @@ msgstr "Navn på {label}"
 msgid "Name of person {0}"
 msgstr "Navn på person {0}"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Name or team"
-msgstr "Navn eller lag"
-
-#: src/routes/builder/letter/-components/download-sheet.tsx
-msgid "Name the letter as it is now"
-msgstr "Gi brevet et navn slik det er nå"
-
 #: src/features/homepage/prepare.tsx
 msgid "Name the problem, what you led and how activation was measured."
 msgstr "Beskriv problemet, hva du ledet og hvordan aktiveringen ble målt."
@@ -11576,13 +10923,8 @@ msgstr "Smal"
 
 #: src/features/resume/editor/design/fit.ts
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
 msgid "narrow margins"
 msgstr "smale marginer"
-
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "near-black text on white"
-msgstr "nesten svart tekst på hvitt"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "Near-black text on white prints cleanly and is what applicant tracking systems expect."
@@ -11647,27 +10989,12 @@ msgstr "Ny"
 msgid "New application"
 msgstr "Ny søknad"
 
-#: src/features/settings/account/backup-codes.tsx
-msgid "New backup codes"
-msgstr "Nye reservekoder"
-
-#: src/features/settings/account/backup-codes.tsx
-msgid "New codes"
-msgstr "Nye koder"
-
 #: src/features/assistant/assistant-panel.tsx
 #: src/features/career/coach-thread.tsx
 #: src/features/career/coach.tsx
 #: src/features/career/workspace/coach-sheet.tsx
 msgid "New conversation"
 msgstr "Ny samtale"
-
-#: src/features/command-palette/pages/navigation.tsx
-#: src/features/documents/documents-page.tsx
-#: src/features/settings/ai/next-steps.tsx
-#: src/routes/dashboard/-components/app-shell.tsx
-msgid "New cover letter"
-msgstr "Nytt søknadsbrev"
 
 #: src/features/resume/editor/proposals/proposal-list.tsx
 #: src/features/resume/editor/write/improve.tsx
@@ -11676,7 +11003,6 @@ msgstr "Ny detalj: sjekk at den stemmer"
 
 #: src/features/command-palette/pages/navigation.tsx
 #: src/features/documents/documents-page.tsx
-#: src/features/documents/new-document-dialog.tsx
 msgid "New document"
 msgstr "Nytt dokument"
 
@@ -11704,7 +11030,7 @@ msgid "New password"
 msgstr "Nytt passord"
 
 #: src/features/command-palette/pages/navigation.tsx
-#: src/features/documents/documents-page.tsx
+#: src/features/documents/new-document-dialog.tsx
 #: src/routes/dashboard/-components/app-shell.tsx
 msgid "New resume"
 msgstr "Ny CV"
@@ -11807,10 +11133,6 @@ msgstr "Neste mal"
 msgid "Next time, I’d agree how to measure success before the first prototype."
 msgstr "Neste gang ville jeg avtalt hvordan suksess skal måles, før den første prototypen."
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Next version"
-msgstr "Neste versjon"
-
 #: src/features/settings/profile.tsx
 msgid "No"
 msgstr "Nei"
@@ -11839,10 +11161,6 @@ msgstr "Ingen AI-forespørselsforsøk registrert denne uken."
 msgid "No amount stated · value uncertain"
 msgstr "Beløp ikke oppgitt · verdi usikker"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "No application"
-msgstr "Ingen jobbsøknad"
-
 #. placeholder {0}: query.trim()
 #: src/routes/dashboard/applications/index.tsx
 msgid "No applications match “{0}”."
@@ -11856,14 +11174,6 @@ msgstr "Ingen jobbsøknader ennå"
 #: src/features/settings/ai/next-steps.tsx
 msgid "No applications yet."
 msgstr "Ingen jobbsøknader ennå."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "No applications yet. Add one in Applications first."
-msgstr "Ingen jobbsøknader ennå. Legg til en i jobbsøknadene først."
-
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "No backup codes either?"
-msgstr "Ingen reservekoder heller?"
 
 #: src/features/settings/ai/provider-model.tsx
 msgid "No built-in suggestions for this provider."
@@ -11906,25 +11216,9 @@ msgstr "Ingen samtaler om dette dokumentet ennå."
 msgid "No country matches."
 msgstr "Ingen land funnet."
 
-#: src/features/applications/components/application-detail-sheet.tsx
-msgid "No cover letter selected"
-msgstr "Ingen søknadsbrev valgt"
-
-#: src/features/career/workspace/preparation.tsx
-msgid "No cover letter yet"
-msgstr "Ikke noe følgebrev ennå"
-
-#: src/features/documents/documents-page.tsx
-msgid "No cover letters yet"
-msgstr "Ingen følgebrev ennå"
-
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "No custom rules"
 msgstr "Ingen egendefinerte regler"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "No date"
-msgstr "Ingen dato"
 
 #: src/features/ats-checker/messages.ts
 msgid "No dates were found."
@@ -12017,10 +11311,6 @@ msgstr "Ingen intervju planlagt"
 msgid "No job yet"
 msgstr "Ingen jobb ennå"
 
-#: src/features/applications/components/application-form-sheet.tsx
-msgid "No letter"
-msgstr "Ingen brev"
-
 #: src/features/ats-checker/messages.ts
 msgid "No lines look like a job title paired with an employer."
 msgstr "Ingen linjer ser ut som en stillingstittel koblet med en arbeidsgiver."
@@ -12041,10 +11331,6 @@ msgstr "Ingen matchende jobbsøknader"
 #: src/features/career/workspace/answer-library.tsx
 msgid "No matching saved answers. Clear the search to see all answers."
 msgstr "Ingen lagrede svar samsvarte. Tøm søket for å se alle svarene."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "No name yet, so the greeting reads “Dear hiring team”."
-msgstr "Ikke noe navn ennå, så hilsenen blir «Kjære rekrutteringsteam»."
 
 #: src/features/career/today.tsx
 msgid "No new roles. Role discovery runs again at {clock}."
@@ -12112,16 +11398,10 @@ msgstr "Ingen respons"
 msgid "No results found."
 msgstr "Ingen resultater funnet."
 
-#: src/features/documents/new-document-dialog.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "No resume"
-msgstr "Ingen CV"
-
 #: src/features/applications/components/application-detail-sheet.tsx
 msgid "No resume selected"
 msgstr "Ingen CV valgt"
 
-#: src/features/documents/documents-page.tsx
 #: src/features/settings/ai/next-steps.tsx
 msgid "No resumes yet"
 msgstr "Ingen CV-er ennå"
@@ -12251,13 +11531,11 @@ msgid "Normal"
 msgstr "Normal"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
 msgid "normal density"
 msgstr "normal tetthet"
 
 #: src/features/resume/editor/design/fit.ts
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
 msgid "normal margins"
 msgstr "normale marginer"
 
@@ -12352,7 +11630,6 @@ msgid "Not linked"
 msgstr "Ikke koblet"
 
 #: src/features/documents/new-document-dialog.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Not linked to a job"
 msgstr "Ikke koblet til en jobb"
 
@@ -12392,7 +11669,6 @@ msgstr "Ikke gjennomgått ennå · kan ikke inkluderes"
 
 #: src/features/career/knowledge/preferences.tsx
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Not saved"
 msgstr "Ikke lagret"
 
@@ -12402,7 +11678,6 @@ msgid "Not saved — this fact was forgotten before."
 msgstr "Ikke lagret — dette faktumet ble glemt tidligere."
 
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Not saved · Sign in to save"
 msgstr "Ikke lagret · Logg inn for å lagre"
 
@@ -12436,7 +11711,6 @@ msgid "Not sent"
 msgstr "Ikke sendt"
 
 #: src/features/settings/account/profile.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Not set"
 msgstr "Ikke angitt"
 
@@ -12643,7 +11917,6 @@ msgstr "Oker"
 msgid "Odia"
 msgstr "Odia"
 
-#: src/features/settings/account/security.tsx
 #: src/features/settings/ai/providers.tsx
 msgid "Off"
 msgstr "Av"
@@ -12651,10 +11924,6 @@ msgstr "Av"
 #: src/features/homepage/remember.tsx
 msgid "Off: the coach won’t see it or claim it."
 msgstr "Av: Coachen ser det ikke og hevder det ikke."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Off. Edit this letter’s details below. Turning this on replaces them with the resume’s current details."
-msgstr "Av. Rediger opplysningene i dette brevet nedenfor. Hvis du slår dette på, erstattes de med de gjeldende opplysningene fra CV-en."
 
 #: src/features/applications/stages.ts
 #: src/features/career/offer-entry.tsx
@@ -12743,13 +12012,8 @@ msgid "Office days not stated"
 msgstr "Kontordager ikke oppgitt"
 
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Offline · saved on this device"
 msgstr "Frakoblet · lagret på denne enheten"
-
-#: src/features/settings/account/security.tsx
-msgid "On · a code from your authenticator app at sign-in"
-msgstr "På · en kode fra autentiseringsappen ved innlogging"
 
 #: src/features/keyboard-shortcuts/index.tsx
 msgid "On a row"
@@ -12791,7 +12055,6 @@ msgstr "Når det er lagret"
 #: src/features/resume/editor/design/template-group.tsx
 #: src/features/templates/gallery.tsx
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
 msgid "One column"
 msgstr "En kolonne"
 
@@ -12963,7 +12226,6 @@ msgstr "åpne"
 #: src/features/career/workspace/application-packet.tsx
 #: src/features/documents/document-actions.tsx
 #: src/features/trash/trash-page.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Open"
 msgstr "Åpne"
 
@@ -13022,10 +12284,6 @@ msgstr "Åpne intervjuforberedelsen"
 msgid "Open it, or update only its posting details from this link."
 msgstr "Åpne den, eller oppdater bare stillingsdetaljene fra denne lenken."
 
-#: src/features/applications/components/detail/sent-documents.tsx
-msgid "Open letter"
-msgstr "Åpne brevet"
-
 #: src/features/career/workspace/overview.tsx
 msgid "Open Library"
 msgstr "Åpne Bibliotek"
@@ -13078,10 +12336,6 @@ msgstr "Åpne den eksporterte filen og bekreft at du kan merke og kopiere hver d
 msgid "Open the full plan"
 msgstr "Åpne hele planen"
 
-#: src/features/applications/components/detail/sent-documents.tsx
-msgid "Open the letter version sent"
-msgstr "Åpne den sendte brevversjonen"
-
 #: src/features/career/workspace/apply.tsx
 msgid "Open the posting"
 msgstr "Åpne stillingsannonsen"
@@ -13120,15 +12374,10 @@ msgstr "Drift"
 msgid "optional"
 msgstr "valgfritt"
 
-#: src/features/career/workspace/preparation.tsx
 #: src/features/resume/editor/write/entries.tsx
 #: src/features/settings/ai/provider-fields.tsx
 msgid "Optional"
 msgstr "Valgfritt"
-
-#: src/features/career/workspace/preparation.tsx
-msgid "Optional · none selected"
-msgstr "Valgfritt · ingen valgt"
 
 #: src/components/ui/combobox.tsx
 #: src/features/documents/documents-page.tsx
@@ -13285,8 +12534,6 @@ msgstr "Pakken er klar"
 #: src/components/calm/category-strip.tsx
 #: src/libs/resume/section.tsx
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Page"
 msgstr "Side"
 
@@ -13345,10 +12592,6 @@ msgstr "Side {page} av {pages} · {formatLabel} · skrivebeskyttet"
 msgid "Page {page}, {column}"
 msgstr "Side {page}, {column}"
 
-#: src/routes/builder/letter/-components/letter-page.tsx
-msgid "Page {pageNumber}"
-msgstr "Side {pageNumber}"
-
 #: src/features/resume/preview/localization.test.tsx
 #: src/features/resume/preview/preview.shared.tsx
 msgid "Page {pageNumber} of {pageCount}"
@@ -13362,14 +12605,6 @@ msgstr "Side {pageNumber} av {totalPages}"
 #: src/features/applications/components/attachment-preview.tsx
 msgid "Page 1"
 msgstr "Side 1"
-
-#: src/routes/builder/letter/-components/letter-page.tsx
-msgid "Page 1 of {pages} · {formatLabel}"
-msgstr "Side 1 av {pages} · {formatLabel}"
-
-#: src/routes/builder/letter/-components/letter-page.tsx
-msgid "Page 1 of {pages} · {formatLabel} · read-only"
-msgstr "Side 1 av {pages} · {formatLabel} · skrivebeskyttet"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/layout/pages.tsx
 msgid "Page added"
@@ -13451,15 +12686,12 @@ msgstr "Passnøkler krever en bekreftet e-post, og denne serveren kan ikke sende
 #. Authentication provider display name in account settings
 #. Label for password input on login form
 #. Label for password input on registration form
-#: src/dialogs/auth/disable-two-factor.tsx
-#: src/dialogs/auth/enable-two-factor.tsx
 #: src/features/auth/pages/login.tsx
 #: src/features/auth/pages/register.tsx
 #: src/features/command-palette/pages/navigation.tsx
 #: src/features/resume/builder/password-dialog.tsx
 #: src/features/resume/share/web-page-text.ts
 #: src/features/settings/account/auth-hooks.ts
-#: src/features/settings/account/backup-codes.tsx
 #: src/features/settings/account/security.tsx
 msgid "Password"
 msgstr "Passord"
@@ -13486,8 +12718,8 @@ msgid "Paste a job link. The posting is kept, so Check, the assistant and your l
 msgstr "Lim inn en jobblenke. Stillingsannonsen beholdes, så Sjekk, assistenten og brevet ditt kan bruke den."
 
 #: src/features/homepage/tailor.tsx
-msgid "Paste a job posting once. It feeds a tailored copy of your resume, a fit check against each requirement, a cover letter draft and a place to track the role."
-msgstr "Lim inn en stillingsutlysning én gang. Den gir en tilpasset kopi av CV-en din, en matchsjekk mot hvert krav, et utkast til følgebrev og et sted å følge rollen."
+msgid "Paste a job posting once. It feeds a tailored copy of your resume, a fit check against each requirement and a place to track the role."
+msgstr ""
 
 #: src/features/resume/editor/check/job-match.tsx
 msgid "Paste a job posting…"
@@ -13627,7 +12859,6 @@ msgstr "Persisk"
 #: src/features/resume/editor/write/basics-card.tsx
 #: src/features/resume/editor/write/entries.tsx
 #: src/features/settings/profile.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Phone"
 msgstr "Telefon"
 
@@ -13653,12 +12884,10 @@ msgid "Photo hidden"
 msgstr "Bildet er skjult"
 
 #: src/features/resume/editor/write/picture-settings.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Photo hidden from the page."
 msgstr "Bildet er skjult fra siden."
 
 #: src/features/resume/editor/write/picture-settings.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Photo on the page."
 msgstr "Bilde på siden."
 
@@ -13729,10 +12958,6 @@ msgstr "Ren tekst (.txt)"
 #: src/features/resume/share/download-tab.tsx
 msgid "Plain text with headings, to paste into forms and notes."
 msgstr "Ren tekst med overskrifter, til å lime inn i skjemaer og notater."
-
-#: src/routes/builder/letter/-components/download-sheet.tsx
-msgid "Plain text. Paste into application forms and emails."
-msgstr "Ren tekst. Lim inn i søknadsskjemaer og e-poster."
 
 #: src/features/career/workspace/prepare.tsx
 msgid "Plan again"
@@ -14073,18 +13298,9 @@ msgstr "Forhåndsvis {0}"
 msgid "Preview {name} sample PDF"
 msgstr "Forhåndsvis {name} eksempel-PDF"
 
-#: src/features/documents/document-card.tsx
-msgid "Preview unavailable"
-msgstr "Forhåndsvisning utilgjengelig"
-
 #: src/features/resume/editor/design/template-group.tsx
 msgid "Previewing"
 msgstr "Forhåndsviser"
-
-#. placeholder {0}: templates[previewTemplate].name
-#: src/routes/builder/letter/-components/letter-page.tsx
-msgid "Previewing {0} · click to apply"
-msgstr "Forhåndsvisning av {0} · klikk for å bruke"
 
 #: src/features/command-palette/pages/resumes.tsx
 #: src/features/documents/page-navigation.tsx
@@ -14119,10 +13335,6 @@ msgstr "Forrige spørsmål"
 #: src/features/templates/gallery.tsx
 msgid "Previous template"
 msgstr "Forrige mal"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Previous version"
-msgstr "Forrige versjon"
 
 #: src/routes/builder/$resumeId/-sidebar/right/sections/design.tsx
 msgid "Primary color"
@@ -14228,10 +13440,6 @@ msgstr "Foreslåtte endringer"
 msgid "Proposed edits"
 msgstr "Foreslåtte endringer"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Proposes a draft. Your text stays until you accept."
-msgstr "Foreslår et utkast. Teksten din blir værende til du godtar."
-
 #: src/features/resume/builder/password-dialog.tsx
 msgid "Protect your resume with a password"
 msgstr "Beskytt CV-en din med et passord"
@@ -14295,11 +13503,6 @@ msgstr "Sett kareten i en linje for å forbedre den"
 #: src/features/assistant/chat.ts
 msgid "Q: {question}"
 msgstr "Spm: {question}"
-
-#. Accessible title for QR code image shown during two-factor setup
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "QR code for two-step verification"
-msgstr "QR-kode for to-trinns bekreftelse"
 
 #: src/features/career/workspace/answer-library.tsx
 msgid "Question"
@@ -14463,10 +13666,6 @@ msgid "Read the attachment"
 msgstr "Les vedlegget"
 
 #: src/features/assistant/conversation.tsx
-msgid "Read the letter"
-msgstr "Les brevet"
-
-#: src/features/assistant/conversation.tsx
 msgid "Read the page"
 msgstr "Les siden"
 
@@ -14479,8 +13678,8 @@ msgid "Read the resume"
 msgstr "Leste CV-en"
 
 #: src/features/career/workspace/apply.tsx
-msgid "Read the resume and letter once more in their editors"
-msgstr "Les CV-en og brevet én gang til i redigeringsprogrammene deres"
+msgid "Read the resume once more in its editor"
+msgstr ""
 
 #: src/features/documents/import/import-page.tsx
 msgid "Read with AI"
@@ -14609,14 +13808,6 @@ msgstr "Nylige"
 msgid "Recent conversations"
 msgstr "Nylige samtaler"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Recipient"
-msgstr "Mottaker"
-
-#: src/features/documents/new-document-dialog.tsx
-msgid "Recipient, date and greeting are filled in. The body is yours."
-msgstr "Mottaker, dato og hilsen er fylt ut. Brødteksten er din."
-
 #: src/features/settings/ai/provider-model.tsx
 msgid "Recommended"
 msgstr "Anbefalte"
@@ -14679,10 +13870,6 @@ msgstr "Svar til rekrutterer"
 msgid "Recruiters see this name. The ending follows the format you pick."
 msgstr "Rekrutterere ser dette navnet. Endelsen følger formatet du velger."
 
-#: src/routes/builder/letter/-components/download-sheet.tsx
-msgid "Recruiters see this name. Your name plus “Cover Letter” works well."
-msgstr "Rekrutterere ser dette navnet. Navnet ditt pluss \"Følgebrev\" fungerer bra."
-
 #: src/features/resume/share/download-tab.tsx
 msgid "Recruiters see this name. Your name plus “Resume” works well."
 msgstr "Rekrutterere ser dette navnet. Navnet ditt pluss «resumé» fungerer bra."
@@ -14701,8 +13888,6 @@ msgstr "Rød"
 
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
 #: src/routes/builder/$resumeId/-components/use-editor-hotkeys.ts
-#: src/routes/builder/letter/-components/letter-bar.tsx
-#: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Redo"
 msgstr "Gjenta"
 
@@ -14713,10 +13898,6 @@ msgstr "Gjenta endring av CV"
 #: src/features/career/workspace/messages.tsx
 msgid "Redraft"
 msgstr "Skriv på nytt"
-
-#: src/features/assistant/assistant-panel.tsx
-msgid "Redraft from the posting"
-msgstr "Skriv utkastet på nytt fra utlysningen"
 
 #: src/features/command-palette/pages/navigation.tsx
 #: src/features/settings/profile.tsx
@@ -14780,7 +13961,6 @@ msgstr "Øv på én uenighet med utviklerne og hvordan den endte."
 
 #: src/features/career/workspace/apply.tsx
 #: src/features/resume/editor/proposals/proposal-list.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Reject"
 msgstr "Avvis"
 
@@ -14802,12 +13982,10 @@ msgstr "Relasjon"
 
 #: src/components/layout/error-screen.tsx
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Reload"
 msgstr "Last inn på nytt"
 
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Reload the saved version?"
 msgstr "Laste den lagrede versjonen på nytt?"
 
@@ -15040,7 +14218,6 @@ msgstr "Fjerner dokumentene, søknadene og Kunnskap. Dette kan ikke angres."
 #: src/features/resume/editor/write/section-view.tsx
 #: src/features/resume/share/history-tab.tsx
 #: src/features/settings/account/security.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Rename"
 msgstr "Gi nytt navn"
 
@@ -15051,10 +14228,6 @@ msgstr "Gi nytt navn til {label}"
 #: src/features/settings/account/security.tsx
 msgid "Rename {name}"
 msgstr "Gi nytt navn til {name}"
-
-#: src/routes/builder/letter/-components/letter-bar.tsx
-msgid "Rename letter"
-msgstr "Gi nytt navn til bokstav"
 
 #: src/features/resume/share/history-tab.tsx
 msgid "Rename or delete {title}"
@@ -15074,7 +14247,6 @@ msgstr "Gi nytt navn til versjon"
 
 #: src/features/resume/share/history-tab.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Rename…"
 msgstr "Gi nytt navn …"
 
@@ -15351,12 +14523,7 @@ msgstr "Resultat"
 msgid "Result left out: no fact backs it. Switch it on, or add one, and it comes back."
 msgstr "Resultatet er utelatt: Ingen fakta underbygger det. Slå ett på, eller legg til ett, så kommer det tilbake."
 
-#: src/features/assistant/assistant-panel.tsx
-msgid "resume"
-msgstr "gjenoppta"
-
 #: src/features/applications/components/application-form-sheet.tsx
-#: src/features/applications/components/detail/sent-documents.tsx
 #: src/features/applications/next-step.ts
 #: src/features/assistant/conversation.tsx
 #: src/features/career/knowledge/resume-facts.tsx
@@ -15364,10 +14531,7 @@ msgstr "gjenoppta"
 #: src/features/career/workspace/preparation.tsx
 #: src/features/command-palette/pages/navigation.tsx
 #: src/features/command-palette/pages/resumes.tsx
-#: src/features/documents/document-card.tsx
-#: src/features/documents/new-document-dialog.tsx
 #: src/features/feedback/review-page.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Resume"
 msgstr "CV"
 
@@ -15398,10 +14562,6 @@ msgstr "CV · beholdt slik den ble sendt"
 #: src/features/trash/trash-page.tsx
 msgid "Resume · last edited {0}"
 msgstr "CV · sist redigert {0}"
-
-#: src/routes/builder/letter/-components/download-sheet.tsx
-msgid "Resume + letter"
-msgstr "CV + bokstav"
 
 #: src/features/homepage/tailor.tsx
 msgid "Resume attached"
@@ -15478,13 +14638,8 @@ msgstr "CV som skal brukes som dokumentasjon"
 msgid "Resume you sent"
 msgstr "CV du sendte"
 
-#: src/features/applications/next-step.ts
-msgid "Resume, letter"
-msgstr "CV, brev"
-
 #: src/features/command-palette/pages/navigation.tsx
 #: src/features/command-palette/pages/resumes.tsx
-#: src/features/documents/documents-page.tsx
 msgid "Resumes"
 msgstr "CV-er"
 
@@ -15508,7 +14663,6 @@ msgstr "Avvikle ubrukte søknadskolonner før kontoene kombineres; til sammen ov
 #: src/features/resume/editor/check/job-match.tsx
 #: src/features/resume/editor/check/writing-tab.tsx
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Retry"
 msgstr "Prøv på nytt"
 
@@ -15534,7 +14688,6 @@ msgid "Retry saved answers"
 msgstr "Prøv de lagrede svarene igjen"
 
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Retry saving"
 msgstr "Prøv å lagre på nytt"
 
@@ -15618,7 +14771,6 @@ msgid "Review readiness and record your submission"
 msgstr "Se gjennom beredskapen og registrer innsendingen din"
 
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Review saved version"
 msgstr "Se gjennom lagret versjon"
 
@@ -15730,7 +14882,6 @@ msgid "Roomy"
 msgstr "Romslig"
 
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
 msgid "roomy density"
 msgstr "romslig tetthet"
 
@@ -15860,7 +15011,6 @@ msgstr "Eksemplene viser 3 av 5"
 #: src/features/settings/account/profile.tsx
 #: src/features/settings/profile.tsx
 #: src/routes/builder/$resumeId/-components/use-editor-hotkeys.ts
-#: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Save"
 msgstr "Lagre"
 
@@ -16006,10 +15156,6 @@ msgstr "Lagre stillingsutlysningen"
 msgid "Save these offer terms to compare"
 msgstr "Lagre disse tilbudsvilkårene for å sammenligne"
 
-#: src/features/settings/account/backup-codes.tsx
-msgid "Save these somewhere safe. Each works once, and they won't be shown again."
-msgstr "Lagre disse et trygt sted. Hver av dem virker én gang, og de vises ikke igjen."
-
 #. placeholder {0}: item.text
 #: src/features/career/knowledge/resume-facts.tsx
 msgid "Save this fact: {0}"
@@ -16046,10 +15192,6 @@ msgstr "Lagre versjon"
 msgid "Save wording"
 msgstr "Lagre formuleringen"
 
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Save your backup codes"
-msgstr "Lagre reservekodene dine"
-
 #: src/features/resume/share/format.ts
 msgid "saved"
 msgstr "lagret"
@@ -16060,7 +15202,6 @@ msgstr "lagret"
 #: src/features/homepage/tailor.tsx
 #: src/features/resume/editor/save-status.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Saved"
 msgstr "Lagret"
 
@@ -16224,7 +15365,6 @@ msgstr "Lagring, skriving, kopiering og logging virker uten."
 #: src/features/resume/editor/proposals/proposal-list.tsx
 #: src/features/resume/editor/save-status.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Saving…"
 msgstr "Lagrer…"
 
@@ -16239,14 +15379,6 @@ msgstr "Si hva du ser etter"
 #: src/features/career/workspace/fit.tsx
 msgid "Say what you did, where and when, and what it led to. It is saved to Knowledge as a fact for all applications."
 msgstr "Si hva du gjorde, hvor og når, og hva det førte til. Det lagres i Kunnskap som et faktum for alle søknader."
-
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Scan the QR code with your authenticator app, or copy the secret and paste it into the app."
-msgstr "Skann QR-koden med autentiseringsappen din, eller kopier hemmeligheten og lim den inn i appen."
-
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Scan this with your authenticator app."
-msgstr "Skann denne med autentiseringsappen din."
 
 #: src/features/applications/components/interview-dialog.tsx
 msgid "Schedule an interview"
@@ -16495,10 +15627,6 @@ msgstr "Søker på nettet …"
 msgid "Searching your Knowledge…"
 msgstr "Søker i Kunnskapen din …"
 
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Secret copied"
-msgstr "Hemmeligheten er kopiert"
-
 #: src/features/resume/editor/check/issues.ts
 msgid "Section headings"
 msgstr "Seksjonsoverskrifter"
@@ -16684,14 +15812,6 @@ msgstr "Send selve CV-en i stedet for en porteføljeinnpakning."
 msgid "Send this exact query to your web search provider?"
 msgstr "Sende akkurat dette søket til nettsøkeleverandøren din?"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Sender"
-msgstr "Avsender"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Sender details copied into the letter"
-msgstr "Avsenderdetaljer kopiert inn i brevet"
-
 #: src/features/auth/pages/forgot-password.tsx
 msgid "Sending password reset email…"
 msgstr "Sender e-post for tilbakestilling av passord…"
@@ -16754,13 +15874,8 @@ msgid "Sent to {0}"
 msgstr "Sendt til {0}"
 
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Sent to {company}"
 msgstr "Sendt til {company}"
-
-#: src/routes/builder/letter/-components/letter-bar.tsx
-msgid "Sent to {company} {sentOn}"
-msgstr "Sendt til {company} {sentOn}"
 
 #: src/features/resume/editor/write/write-panel.tsx
 msgid "Sent to {company} on {date}. The version they received stays in History whatever you change."
@@ -16809,10 +15924,6 @@ msgstr "Sett en oppfølging..."
 msgid "Set a password"
 msgstr "Angi et passord"
 
-#: src/features/settings/account/security.tsx
-msgid "Set a password to turn on two-step verification."
-msgstr "Angi et passord for å slå på totrinnsbekreftelse."
-
 #: src/features/career/workspace/messages.tsx
 msgid "Set by you"
 msgstr "Angitt av deg"
@@ -16828,7 +15939,6 @@ msgid "Set the document language when exporting."
 msgstr "Angi dokumentspråket ved eksport."
 
 #: src/features/career/schedules.tsx
-#: src/features/settings/account/security.tsx
 #: src/features/settings/ai/web-access.tsx
 msgid "Set up"
 msgstr "Sett opp"
@@ -16839,10 +15949,6 @@ msgstr "Sett opp"
 msgid "Set up AI"
 msgstr "Konfigurer KI"
 
-#: src/features/settings/account/security.tsx
-msgid "Set up two-step verification"
-msgstr "Sett opp to-trinns bekreftelse"
-
 #: src/features/settings/ai/web-access.tsx
 msgid "Set up web access"
 msgstr "Sett opp netttilgang"
@@ -16850,10 +15956,6 @@ msgstr "Sett opp netttilgang"
 #: src/libs/orpc/ai-consent.ts
 msgid "Set up web search in Settings before enabling discovery. AI is not required."
 msgstr "Sett opp nettsøk i Innstillinger før du slår på automatisk leting. KI er ikke påkrevd."
-
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Set up your authenticator app"
-msgstr "Sett opp autentiseringsappen din"
 
 #: src/features/career/career-page.tsx
 #: src/features/career/today.tsx
@@ -16872,10 +15974,6 @@ msgstr "Setter seksjonstitler, datoord og tekstretning. Din egen tekst oversette
 #: src/features/career/workspace/messages.tsx
 msgid "Sets the application's follow-up date, in case you haven't heard back by then."
 msgstr "Setter søknadens oppfølgingsdato, i tilfelle du ikke har hørt noe innen da."
-
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "Sets the greeting, sign-off and date"
-msgstr "Setter hilsen, avslutning og dato"
 
 #: src/dialogs/auth/set-password.tsx
 msgid "Setting your password…"
@@ -16948,10 +16046,6 @@ msgstr "Lanserte betalingsflyter som oppfyller WCAG 2.1 AA."
 msgid "Shipped checkout for iOS"
 msgstr "Sendt kassen for iOS"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Short and direct. Fine if the posting asks for brevity."
-msgstr "Kort og direkte. Greit hvis stillingsannonsen ber om korthet."
-
 #: src/features/assistant/assistant-panel.tsx
 msgid "Short and polite, for the recruiter"
 msgstr "Kort og høflig, for rekruttereren"
@@ -16967,11 +16061,6 @@ msgstr "Snarveier på {page}"
 #: src/features/career/workspace/apply.tsx
 msgid "Shorten questions to 2,000 characters and answers to 6,000 characters before marking this applied."
 msgstr "Kort ned spørsmål til 2 000 tegn og svar til 6 000 tegn før du merker dette som søkt."
-
-#: src/features/resume/editor/write/improve.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Shorter"
-msgstr "Kortere"
 
 #: src/features/career/career-page.tsx
 msgid "Should I take the {company} offer?"
@@ -17027,10 +16116,6 @@ msgid "Show all conversations"
 msgstr "Vis alle samtaler"
 
 #: src/features/command-palette/pages/resumes.tsx
-msgid "Show all letters"
-msgstr "Vis alle søknadsbrev"
-
-#: src/features/command-palette/pages/resumes.tsx
 msgid "Show all resumes"
 msgstr "Vis alle CV-er"
 
@@ -17081,7 +16166,6 @@ msgid "Show password"
 msgstr "Vis passord"
 
 #: src/features/resume/editor/write/picture-settings.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Show photo"
 msgstr "Vis bildet"
 
@@ -17169,7 +16253,6 @@ msgid "Sign in to pick up where you left off."
 msgstr "Logg inn for å fortsette der du slapp."
 
 #: src/features/resume/editor/save-status.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Sign in to save"
 msgstr "Logg inn for å lagre"
 
@@ -17222,10 +16305,6 @@ msgstr "Innloggingen ble ikke fullført"
 #: src/features/auth/components/session-recovery.tsx
 msgid "Sign-in opens in a new tab. This page carries on and saves once you are signed in."
 msgstr "Innloggingen åpnes i en ny fane. Denne siden fortsetter og lagrer når du er logget inn."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Sign-off"
-msgstr "Avslutning"
 
 #: src/features/settings/account/sessions.tsx
 msgid "Signed out of that device."
@@ -17645,8 +16724,8 @@ msgid "Start a debrief"
 msgstr "Start en oppsummering"
 
 #: src/features/documents/new-document-dialog.tsx
-msgid "Start a resume or a cover letter: blank, from a copy, or from a file."
-msgstr "Start en CV eller et følgebrev: tomt, fra en kopi eller fra en fil."
+msgid "Start a resume: blank, from a copy, or from a file."
+msgstr ""
 
 #: src/features/career/today.tsx
 #: src/features/documents/documents-page.tsx
@@ -17666,10 +16745,6 @@ msgstr "Start hvert punkt med et konkret verb: bygde, ledet, reduserte, migrerte
 msgid "Start from"
 msgstr "Start fra"
 
-#: src/features/documents/new-document-dialog.tsx
-msgid "Start from an earlier letter"
-msgstr "Start fra et tidligere brev"
-
 #: src/features/homepage/sections.tsx
 msgid "Start from scratch or import what you have. It takes a few minutes, and you can come back to it anytime."
 msgstr "Start fra bunnen av eller importer det du har. Det tar noen minutter, og du kan komme tilbake når som helst."
@@ -17680,41 +16755,9 @@ msgstr "Start fra bunnen av eller importer det du har. Det tar noen minutter, og
 msgid "Start on a new page"
 msgstr "Start på en ny side"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start the next one from this. The copy opens unlocked, with its own recipient, date and history."
-msgstr "Start det neste fra dette. Kopien åpnes ulåst, med egen mottaker, dato og historikk."
-
 #: src/features/ats-checker/messages.ts
 msgid "Start the resume with your name on its own line."
 msgstr "Start CV-en med navnet ditt på egen linje."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing, or connect an AI provider to draft from the {company} posting and your resume."
-msgstr "Begynn å skrive, eller koble til en KI-tilbyder for å skrive utkast fra utlysningen til {company} og CV-en din."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing, or connect an AI provider to draft from the {company} posting."
-msgstr "Begynn å skrive, eller koble til en KI-tilbyder for å skrive utkast fra utlysningen til {company}."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing, or connect an AI provider to draft from your resume."
-msgstr "Begynn å skrive, eller koble til en KI-tilbyder for å skrive utkast fra CV-en din."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing, or draft from the {company} posting and your resume."
-msgstr "Begynn å skrive, eller lag et utkast fra stillingsannonsen hos {company} og CV-en din."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing, or draft from the {company} posting."
-msgstr "Begynn å skrive, eller lag et utkast fra stillingsannonsen hos {company}."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing, or draft from your resume."
-msgstr "Begynn å skrive, eller lag et utkast fra CV-en din."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Start typing. To draft one, link a resume or an application first."
-msgstr "Begynn å skrive. For å lage et utkast, koble til en CV eller en jobbsøknad først."
 
 #: src/features/resume/editor/write/add-section.tsx
 msgid "Start with the sections most resumes have."
@@ -17764,15 +16807,10 @@ msgstr "Statistikk"
 msgid "Stay here"
 msgstr "Bli her"
 
-#. placeholder {0}: step === "enable" ? 1 : step === "verify" ? 2 : 3
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Step {0} of 3"
-msgstr "Trinn {0} av 3"
-
 #. placeholder {0}: stepIndex + 1
 #: src/features/career/workspace/apply.tsx
-msgid "Step {0} of 6"
-msgstr "Trinn {0} av 6"
+msgid "Step {0} of 5"
+msgstr ""
 
 #: src/features/resume/builder/draft.ts
 msgid "Still saving your latest changes. They're kept on this device if you leave now."
@@ -17792,7 +16830,6 @@ msgstr "Jobber fortsatt"
 #: src/features/career/workspace/practise.tsx
 #: src/features/career/workspace/prepare-review.tsx
 #: src/features/homepage/prepare.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Stop"
 msgstr "Stoppe"
 
@@ -17821,17 +16858,9 @@ msgstr "Stoppet før svaret."
 msgid "Stopped before the answer finished."
 msgstr "Stoppet før svaret var ferdig."
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Stopped before the end. Accept it and finish it yourself, or reject it."
-msgstr "Stoppet før slutten. Godta det og fullfør selv, eller avvis det."
-
 #: src/features/assistant/conversation.tsx
 msgid "Stopped. No edits were proposed."
 msgstr "Stoppet. Ingen endringer ble foreslått."
-
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Store these backup codes somewhere safe. Each one signs you in once if you lose your device, and they won't be shown again."
-msgstr "Oppbevar disse sikkerhetskodene et trygt sted. Hver av dem logger deg inn én gang hvis du mister enheten, og de vises ikke igjen."
 
 #: src/features/settings/ai/web-access.tsx
 msgid "Stored encrypted and used only for your requests. The service may charge."
@@ -17921,11 +16950,6 @@ msgstr "Send inn på søknadssiden til {0} selv"
 #: src/features/career/workspace/apply.tsx
 msgid "Submit through the employer's application page yourself."
 msgstr "Send inn selv via arbeidsgiverens søknadsside."
-
-#. placeholder {0}: application.coverLetterName ?? "PDF"
-#: src/features/applications/components/application-detail-sheet.tsx
-msgid "Submitted attached cover letter: {0}"
-msgstr "Sendt vedlagt følgebrev: {0}"
 
 #. placeholder {0}: application.resumeFileName ?? "PDF"
 #: src/features/applications/components/application-detail-sheet.tsx
@@ -18233,7 +17257,6 @@ msgstr "Telugu"
 #: src/features/resume/editor/design/template-group.tsx
 #: src/libs/resume/section.tsx
 #: src/routes/builder/$resumeId/-components/document-details.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
 msgid "Template"
 msgstr "Mal"
 
@@ -18249,10 +17272,6 @@ msgstr "Malfarge"
 #: src/features/resume/editor/design/template-group.tsx
 msgid "Template preview"
 msgstr "Forhåndsvisning av mal"
-
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "Template, type and colors follow the resume, so the pair always matches."
-msgstr "Mal, type og farger følger CV-en, slik at paret alltid matcher."
 
 #: src/features/homepage/design.tsx
 #: src/features/homepage/marketing-layout.tsx
@@ -18382,10 +17401,6 @@ msgstr "Takk, Sam. Her er ett: Hos Northwind Labs ledet jeg redesignet av onboar
 msgid "That account's password changed and it's signed out everywhere. This browser is still signed in as {0}."
 msgstr "Passordet til den kontoen er endret, og den er logget ut overalt. Denne nettleseren er fortsatt logget inn som {0}."
 
-#: src/features/auth/error.ts
-msgid "That code doesn't match. Check it and try again."
-msgstr "Koden stemmer ikke. Kontroller den og prøv igjen."
-
 #: src/features/ai/set-up-ai.tsx
 #: src/features/settings/ai/providers.tsx
 msgid "That connection isn't valid. Check the base URL."
@@ -18418,11 +17433,6 @@ msgstr "Den filen er for stor til å sjekke. PDFs opptil 25 MB arbeid."
 #: src/features/resume/share/web-page-text.ts
 msgid "That password isn't correct. Check it with the resume owner and try again."
 msgstr ""
-
-#: src/dialogs/auth/disable-two-factor.tsx
-#: src/features/settings/account/backup-codes.tsx
-msgid "That password isn't right. Try again or reset it."
-msgstr "Det passordet stemmer ikke. Prøv igjen, eller tilbakestill det."
 
 #: src/features/auth/pages/error.tsx
 msgid "That provider account is already linked to another account."
@@ -18536,11 +17546,6 @@ msgstr "Assistenten krever AI."
 msgid "The bar shows the application's stage · times in {timeZone}"
 msgstr "Linjen viser søknadens fase · tider i {timeZone}"
 
-#. placeholder {0}: letterSource.name
-#: src/features/documents/new-document-dialog.tsx
-msgid "The body of “{0}”"
-msgstr "Brødteksten i «{0}»"
-
 #: src/features/career/offers.tsx
 msgid "The bonus depends on conditions."
 msgstr "Bonusen avhenger av vilkår."
@@ -18640,10 +17645,6 @@ msgstr "Dataarkivet LinkedIn sender deg. Leses på denne enheten."
 msgid "The details"
 msgstr "Detaljene"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "The draft sits on the page with a green wash. Nothing is kept until you accept, and it never replaces text you typed."
-msgstr "Utkastet ligger på siden med grønn bakgrunn. Ingenting beholdes før du godtar, og det erstatter aldri tekst du har skrevet."
-
 #: src/features/applications/components/application-detail-sheet.tsx
 msgid "The employer may have changed it since."
 msgstr "Arbeidsgiveren kan ha endret annonsen siden."
@@ -18672,14 +17673,6 @@ msgstr "Den første tilkoblingen er standard. Hver oppgave spør før den deler 
 msgid "The form's exact address"
 msgstr "Skjemaets nøyaktige adresse"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "The greeting follows the name."
-msgstr "Hilsenen følger navnet."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "The greeting follows the recipient's name. Clear either one to leave it out; clearing the sign-off also removes your name under it."
-msgstr "Hilsenen følger mottakerens navn. Tøm ett av dem for å utelate den; tømmer du avslutningen, fjernes også navnet ditt under den."
-
 #: src/features/settings/ai/providers.tsx
 msgid "The key is encrypted on the server and never shown again. Saving tests the connection."
 msgstr "Nøkkelen er kryptert på serveren og vises aldri igjen. Lagring tester tilkoblingen."
@@ -18696,26 +17689,6 @@ msgstr "Typen velges når seksjonen legges til og kan være hvilken som helst av
 msgid "The label prints in place of the address. Empty prints the address."
 msgstr "Etiketten skrives ut i stedet for adressen. Tom skriver ut adressen."
 
-#: src/routes/builder/letter/-components/download-sheet.tsx
-msgid "The letter as it is"
-msgstr "Brevet som det er"
-
-#: src/features/documents/new-document-dialog.tsx
-msgid "The letter is linked to the application, so its posting is at hand. “No job yet” is on the list."
-msgstr "Brevet er koblet til søknaden, så stillingsannonsen er for hånden. «Ingen jobb ennå» står på listen."
-
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "The letter keeps a design of its own."
-msgstr "Brevet beholder sin egen design."
-
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "The letter keeps this design as its own"
-msgstr "Brevet beholder dette designet som sitt eget"
-
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "The letter matches the resume's design again"
-msgstr "Bokstaven stemmer igjen med CV-ens design"
-
 #: src/features/resume/editor/write/improve.tsx
 msgid "The line changed since you asked, so it wasn't replaced."
 msgstr "Linjen ble endret etter at du spurte, så den ble ikke erstattet."
@@ -18723,10 +17696,6 @@ msgstr "Linjen ble endret etter at du spurte, så den ble ikke erstattet."
 #: src/features/auth/email-text.ts
 msgid "The link works for 1 hour. Resetting signs you out on every device and removes your passkeys and connected apps. If you didn't ask for this, ignore this email; your password stays the same."
 msgstr "Lenken fungerer i 1 time. Tilbakestilling logger deg ut på alle enheter og fjerner passnøkler og tilkoblede apper. Hvis du ikke ba om dette, kan du ignorere e-posten; passordet ditt forblir uendret."
-
-#: src/features/career/workspace/messages.tsx
-msgid "the linked cover letter"
-msgstr "det tilkoblede følgebrevet"
 
 #: src/features/career/workspace/messages.tsx
 msgid "the linked resume"
@@ -18751,10 +17720,6 @@ msgstr "Modellen var ikke tilgjengelig eller kunne ikke fullføre testen. Kontro
 #: src/features/career/schedule-sheet.tsx
 msgid "The morning of the interview has passed, so the briefing runs now."
 msgstr "Morgenen på intervjudagen har passert, så brifingen kjøres nå."
-
-#: src/features/documents/new-document-dialog.tsx
-msgid "The new letter keeps its own recipient, date and history."
-msgstr "Det nye brevet beholder egen mottaker, dato og historikk."
 
 #: src/features/career/offers.tsx
 msgid "The offer doesn't mention a bonus."
@@ -18890,11 +17855,6 @@ msgstr "Spørsmålene, skriving, tale og Hør det virker uten."
 msgid "The reason is kept for Insights. Linked documents aren't touched."
 msgstr "Årsaken beholdes for Insights. Koblede dokumenter berøres ikke."
 
-#: src/routes/builder/letter/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "the resume"
-msgstr "CV-en"
-
 #. placeholder {0}: shownResume?.name ?? ""
 #: src/features/career/role-suggestions.tsx
 msgid "The resume “{0}”"
@@ -18949,10 +17909,6 @@ msgstr "Scoren er begrenset på grunn av et blokkerende problem: {0}"
 msgid "The selected line, surrounding field text, and your rewrite instructions."
 msgstr "Den valgte linjen, omkringliggende felttekst og instruksjonene dine for omskriving."
 
-#: src/libs/orpc/ai-consent.ts
-msgid "The selected resume and this letter's recipient and posting information."
-msgstr "Den valgte CV-en og mottaker- og utlysingsopplysningene for dette brevet."
-
 #: src/features/settings/ai/test-error.ts
 msgid "The service couldn't be reached. Check the address and connection, then try again."
 msgstr "Fikk ikke kontakt med tjenesten. Kontroller adressen og tilkoblingen, og prøv igjen."
@@ -19006,10 +17962,6 @@ msgstr "De to topptekstradene slik de skrives ut"
 msgid "The upload didn't finish ({0}). Try again."
 msgstr "Opplastingen ble ikke fullført ({0}). Prøv igjen."
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "The version sent"
-msgstr "Versjonen som ble sendt"
-
 #: src/features/resume/share/history-tab.tsx
 msgid "The version sent on {sentOn} · it never changes"
 msgstr "Versjonen som ble sendt {sentOn} · endres aldri"
@@ -19027,10 +17979,6 @@ msgstr "Teksten i Word-dokumentet."
 #: src/features/settings/preferences.tsx
 msgid "Theme"
 msgstr "Tema"
-
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Then enter the 6-digit code from the app."
-msgstr "Skriv deretter inn den 6-sifrede koden fra appen."
 
 #: src/features/ats-checker/messages.ts
 msgid "There is a gap between two dated roles."
@@ -19063,10 +18011,6 @@ msgstr "Disse endringene er fra før assistenten registrerte hvilken stillingsut
 #: src/features/assistant/conversation.tsx
 msgid "These edits use a job posting, so they go to a copy of this resume made for that job. Copy it for the job and ask again there; this resume stays unchanged."
 msgstr "Disse endringene bruker en stillingsutlysning, så de går til en kopi av denne CV-en laget for den jobben. Lag en kopi for jobben og spør igjen der; denne CV-en forblir uendret."
-
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "These four follow the resume. Turn matching off to set them for this letter only; it starts from the values above."
-msgstr "Disse fire følger CV-en. Slå av matching for å sette dem bare for dette brevet; det starter fra verdiene over."
 
 #: src/features/career/workspace/apply.tsx
 msgid "These versions are kept as sent and never change. Your drafts stay editable."
@@ -19169,10 +18113,6 @@ msgstr "Samtalens KI-tilkobling er utilgjengelig. Historikken blir her. Rett opp
 msgid "This conversation's connection is off or was removed. Choose the one it uses next."
 msgstr "Samtalens tilkobling er slått av eller fjernet. Velg den den skal bruke neste gang."
 
-#: src/features/trash/trash-page.tsx
-msgid "This cover letter and its version history are deleted for good. Keeping it leaves it in Trash for {kept}."
-msgstr "Dette følgebrevet og versjonshistorikken slettes for godt. Beholder du det, blir det liggende i papirkurven i {kept}."
-
 #: src/features/applications/components/application-form-sheet.tsx
 #: src/features/applications/components/detail/next-step-card.tsx
 msgid "This date or time does not exist in your timezone. Choose another time."
@@ -19274,30 +18214,6 @@ msgstr "Dette er ikke en vanlig sidestørrelse for en CV."
 #: src/features/documents/import/use-resume-import.ts
 msgid "This JSON isn't a Reactive Resume or JSON Resume file."
 msgstr "Denne JSON-en er ikke en Reactive Resume- eller JSON Resume-fil."
-
-#: src/routes/builder/letter/-components/download-sheet.tsx
-msgid "This letter and “{resumeName}” as two PDFs, named to match."
-msgstr "Denne bokstaven og \"{resumeName}\" som to PDFs, navngitt for å matche."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "This letter changed in another tab. Reload above to keep editing; your edits stay in a copy."
-msgstr "Dette brevet ble endret i en annen fane. Last inn på nytt ovenfor for å fortsette å redigere; redigeringene dine ligger igjen i en kopi."
-
-#: src/routes/builder/letter/$coverLetterId.tsx
-msgid "This letter has an unkept draft. Click Keep to save it, or Discard to leave without it."
-msgstr "Dette brevet har et utkast som ikke er lagret. Klikk Behold for å lagre det, eller Forkast for å legge det bak deg."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "This letter is locked."
-msgstr "Dette brevet er låst."
-
-#: src/features/documents/document-actions.tsx
-msgid "This letter is recorded as sent. Its application link stays with that submission."
-msgstr "Dette brevet er registrert som sendt. Søknadslenken følger den innsendingen."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "This letter keeps its recipient as written."
-msgstr "Dette brevet beholder mottakeren som skrevet."
 
 #: src/features/feedback/review-page.tsx
 msgid "This link doesn't open"
@@ -19501,10 +18417,6 @@ msgstr "Denne serveren bruker standardtrinnene, så trinnnavn i filen beholdes i
 msgid "This sign-in attempt expired or was already used."
 msgstr "Dette innloggingsforsøket er utløpt eller allerede brukt."
 
-#: src/features/auth/error.ts
-msgid "This sign-in step expired. Sign in again."
-msgstr "Dette innloggingstrinnet er utløpt. Logg inn igjen."
-
 #: src/features/auth/pages/reset-password.tsx
 msgid "This signs you out everywhere and removes your passkeys and connected apps."
 msgstr "Dette logger deg ut overalt og fjerner passnøklene og de tilkoblede appene dine."
@@ -19556,10 +18468,6 @@ msgstr "tre historier"
 #: src/features/career/knowledge/facts.tsx
 msgid "Ticked facts can be sent to your AI connection when you use the coach, a fit check or interview prep. The rest stay here and are never sent."
 msgstr "Avkryssede fakta kan sendes til AI-tilkoblingen din når du bruker coachen, en tilpasningssjekk eller intervjuforberedelse. Resten blir her og sendes aldri."
-
-#: src/features/resume/editor/write/improve.tsx
-msgid "Tie to the posting"
-msgstr "Tilpass til stillingsannonsen"
 
 #: src/features/career/workspace/apply.tsx
 msgid "Tighten"
@@ -19651,16 +18559,6 @@ msgstr "Tips"
 msgid "Title"
 msgstr "Tittel"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "To"
-msgstr "Til"
-
-#. A letter's recipient under its name in the library
-#. placeholder {0}: document.recipient
-#: src/features/documents/document-card.tsx
-msgid "To {0}"
-msgstr "Til {0}"
-
 #: src/libs/dnd.ts
 msgid "To pick it up, press Space or Enter. Use the arrow keys to move it, Space or Enter to drop it, or Escape to cancel."
 msgstr "Trykk på mellomrom eller Enter for å plukke det opp. Bruk piltastene for å flytte det, mellomrom eller Enter for å slippe det, eller Escape for å avbryte."
@@ -19673,7 +18571,6 @@ msgstr "i dag"
 #: src/features/applications/components/calendar-view.tsx
 #: src/features/career/today.tsx
 #: src/features/command-palette/pages/navigation.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 #: src/routes/dashboard/-components/app-shell.tsx
 #: src/routes/dashboard/index.tsx
 msgid "Today"
@@ -19828,10 +18725,6 @@ msgstr "Papirkurven var allerede tom"
 msgid "Trimming words"
 msgstr "Kutter ord"
 
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Trust this device for 30 days"
-msgstr "Stol på denne enheten i 30 dager"
-
 #: src/features/career/today.tsx
 #: src/features/documents/documents-page.tsx
 msgid "Try a sample"
@@ -19856,7 +18749,6 @@ msgstr "Prøv en prøve"
 #: src/features/settings/integrations/ai-provider-load-state.tsx
 #: src/features/settings/profile.tsx
 #: src/features/trash/trash-page.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 #: src/routes/dashboard/applications/index.tsx
 msgid "Try again"
 msgstr "Prøv igjen"
@@ -19905,9 +18797,6 @@ msgstr "Prøv med en prøve-CV"
 msgid "Turkish"
 msgstr "Tyrkisk"
 
-#. Destructive action button to turn off two-factor authentication
-#: src/dialogs/auth/disable-two-factor.tsx
-#: src/features/settings/account/security.tsx
 #: src/features/settings/ai/providers.tsx
 msgid "Turn off"
 msgstr "Slå av"
@@ -19920,21 +18809,9 @@ msgstr "Slå av valgfrie ligaturer ved eksport."
 msgid "Turn off if you use speech input. Shortcuts with ⌘ keep working."
 msgstr "Slå av hvis du bruker taleinndata. Snarveier med ⌘ virker fortsatt."
 
-#: src/features/settings/account/security.tsx
-msgid "Turn off two-step verification"
-msgstr "Slå av to-trinns bekreftelse"
-
-#: src/dialogs/auth/disable-two-factor.tsx
-msgid "Turn off two-step verification?"
-msgstr "Slå av to-trinns bekreftelse?"
-
 #: src/features/settings/ai/providers.tsx
 msgid "Turn on"
 msgstr "Slå på"
-
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Turn on two-step verification"
-msgstr "Slå på to-trinns bekreftelse"
 
 #: src/features/career/schedule-sheet.tsx
 msgid "Turn this schedule on"
@@ -19945,18 +18822,9 @@ msgstr "Slå på denne tidsplanen"
 msgid "Turned off “{0}”. Its key is kept."
 msgstr "Slo av «{0}». Nøkkelen beholdes."
 
-#: src/dialogs/auth/disable-two-factor.tsx
-msgid "Turning off two-step verification…"
-msgstr "Slår av to-trinns bekreftelse…"
-
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Turning on two-step verification…"
-msgstr "Slår på to-trinns bekreftelse…"
-
 #: src/features/resume/editor/design/template-group.tsx
 #: src/features/templates/gallery.tsx
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
 msgid "Two columns"
 msgstr "To kolonner"
 
@@ -20012,29 +18880,10 @@ msgstr "Tokolonners med aksentfarger og ren typografi; balansert valg for forret
 msgid "Two-column, minimal with light gray sidebar and subtle icons; professional and understated for legal, finance, or executive roles."
 msgstr "Tokolonners, minimalistisk med lyst grått sidepanel og subtile ikoner; profesjonell og diskret for juridiske, finansielle eller lederroller."
 
-#: src/routes/auth/verify-2fa.tsx
-msgid "Two-factor authentication"
-msgstr "Tofaktorautentisering"
-
-#: src/features/auth/pages/verify-2fa.tsx
-#: src/features/command-palette/pages/navigation.tsx
-#: src/features/settings/account/security.tsx
-msgid "Two-step verification"
-msgstr "To-trinns bekreftelse"
-
-#: src/dialogs/auth/disable-two-factor.tsx
-msgid "Two-step verification turned off"
-msgstr "To-trinns bekreftelse er slått av"
-
-#: src/dialogs/auth/enable-two-factor.tsx
-msgid "Two-step verification turned on"
-msgstr "To-trinns bekreftelse er slått på"
-
 #: src/features/applications/components/interview-dialog.tsx
 #: src/features/career/knowledge/facts.tsx
 #: src/features/career/knowledge/resume-facts.tsx
 #: src/features/career/workspace/practise.tsx
-#: src/features/documents/documents-page.tsx
 msgid "Type"
 msgstr "Type"
 
@@ -20057,7 +18906,6 @@ msgstr "Å skrive inn detaljene virker alltid."
 
 #: src/components/calm/category-strip.tsx
 #: src/libs/resume/section.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
 msgid "Typography"
 msgstr "Typografi"
 
@@ -20080,7 +18928,6 @@ msgid "Understated"
 msgstr "Nedtonet"
 
 #: src/features/applications/use-application-actions.ts
-#: src/features/assistant/document.ts
 #: src/features/career/coach-chat.tsx
 #: src/features/career/shared.tsx
 #: src/features/career/today.tsx
@@ -20097,8 +18944,6 @@ msgstr "Nedtonet"
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
 #: src/routes/builder/$resumeId/-components/use-editor-hotkeys.ts
-#: src/routes/builder/letter/-components/letter-bar.tsx
-#: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Undo"
 msgstr "Angre"
 
@@ -20141,7 +18986,6 @@ msgstr "Fjern tilknytningen til denne jobbsøknaden"
 #: src/features/assistant/assistant-panel.tsx
 #: src/features/resume/editor/write/write-panel.tsx
 #: src/features/resume/share/web-page-text.ts
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Unlock"
 msgstr "Lås opp"
 
@@ -20150,7 +18994,6 @@ msgstr "Lås opp"
 #: src/features/documents/documents-page.tsx
 #: src/features/resume/editor/write/write-panel.tsx
 #: src/routes/builder/$resumeId/-components/document-menu.tsx
-#: src/routes/builder/letter/-components/letter-bar.tsx
 msgid "Unlock editing"
 msgstr "Lås opp redigering"
 
@@ -20171,11 +19014,6 @@ msgstr "Uten tittel"
 #: src/libs/dnd.ts
 msgid "Untitled item"
 msgstr "Element uten tittel"
-
-#: src/features/documents/new-document-dialog.tsx
-#: src/features/documents/use-start-document.ts
-msgid "Untitled letter"
-msgstr "Brev uten navn"
 
 #: src/features/documents/new-document-dialog.tsx
 #: src/features/documents/use-start-document.ts
@@ -20256,15 +19094,13 @@ msgctxt "Template style tag"
 msgid "Uppercase headings"
 msgstr "Overskrifter i versaler"
 
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "US Letter"
-msgstr "US Letter"
-
 #: src/features/command-palette/pages/navigation.tsx
 msgid "Usage"
 msgstr "Bruk"
 
+#. placeholder {0}: document.name
 #. placeholder {0}: fallback.label
+#: src/features/applications/components/detail/sent-documents.tsx
 #: src/features/assistant/connection-notice.tsx
 msgid "Use {0}"
 msgstr "Bruk {0}"
@@ -20290,10 +19126,6 @@ msgstr "Bruk {minimum} pt"
 msgid "Use {minimum} pt margins"
 msgstr "Bruk {minimum} pt-marginer"
 
-#: src/features/applications/components/detail/sent-documents.tsx
-msgid "Use {name}"
-msgstr "Bruk {name}"
-
 #: src/features/resume/editor/check/issues.ts
 msgid "Use {url}"
 msgstr "Bruk {url}"
@@ -20303,19 +19135,12 @@ msgid "Use 3 to 64 Latin letters a–z, numbers, dots, hyphens and underscores."
 msgstr "Bruk 3 til 64 latinske bokstaver a–z, tall, prikker, bindestreker og understreker."
 
 #: src/dialogs/auth/change-password.tsx
-#: src/dialogs/auth/disable-two-factor.tsx
-#: src/dialogs/auth/enable-two-factor.tsx
 #: src/dialogs/auth/set-password.tsx
 #: src/features/auth/pages/login.tsx
 #: src/features/auth/pages/register.tsx
 #: src/features/auth/pages/reset-password.tsx
 msgid "Use 64 characters or fewer."
 msgstr "Bruk 64 tegn eller færre."
-
-#. Link to backup-code verification flow when authenticator app is unavailable
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Use a backup code"
-msgstr "Bruk en sikkerhetskode"
 
 #: src/features/resume/editor/design/style-groups.tsx
 msgid "Use a darker shade"
@@ -20354,16 +19179,6 @@ msgstr "Bruk én kolonne for alt som må leses i rekkefølge."
 msgid "Use A4 or US Letter so the layout survives being re-rendered."
 msgstr "Bruk A4 eller US Letter, slik at oppsettet overlever ny gjengivelse."
 
-#: src/features/applications/components/detail/sent-documents.tsx
-#: src/features/career/workspace/preparation.tsx
-msgid "Use an existing letter"
-msgstr "Bruk et eksisterende brev"
-
-#: src/features/applications/components/detail/sent-documents.tsx
-#: src/features/career/workspace/preparation.tsx
-msgid "Use an existing letter…"
-msgstr "Bruk et eksisterende brev …"
-
 #: src/features/auth/pages/error.tsx
 msgid "Use another sign-in method."
 msgstr "Bruk en annen innloggingsmetode."
@@ -20394,15 +19209,6 @@ msgstr "Bruk mellom 6 og 64 tegn."
 #: src/components/input/color-picker.tsx
 msgid "Use color {color}"
 msgstr "Bruk fargen {color}"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Use default"
-msgstr "Bruk standard"
-
-#. placeholder {0}: resume?.name ?? t`the resume`
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Use details from “{0}”"
-msgstr "Bruk detaljer fra \"{0}\""
 
 #: src/features/career/coach-chat.tsx
 #: src/features/career/knowledge/facts.tsx
@@ -20482,10 +19288,6 @@ msgstr "Bruk denne malen"
 msgid "Use web access?"
 msgstr "Bruke netttilgang?"
 
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Use your authenticator app"
-msgstr "Bruk autentiseringsappen din"
-
 #: src/features/ats-checker/messages.ts
 msgid "Use your editor's normal bullet list, so stray glyphs do not land mid-sentence."
 msgstr "Bruk redigeringsverktøyets vanlige punktliste, slik at løse glyfer ikke havner midt i en setning."
@@ -20543,22 +19345,6 @@ msgstr "Brukerresearch"
 #: src/features/settings/account/profile.tsx
 msgid "Username"
 msgstr "Brukernavn"
-
-#: src/features/assistant/assistant-panel.tsx
-msgid "Uses facts from your resume"
-msgstr "Bruker fakta fra CV-en din"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Uses only the posting"
-msgstr "Bruker bare stillingsannonsen"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Uses only your resume"
-msgstr "Bruker bare CV-en din"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Uses only your resume and the posting"
-msgstr "Bruker bare CV-en din og stillingsannonsen"
 
 #: src/features/resume/editor/design/entries-group.tsx
 msgid "Uses the accent color"
@@ -20620,20 +19406,9 @@ msgstr "Muntlig"
 msgid "Verbal offer"
 msgstr "Muntlig tilbud"
 
-#: src/dialogs/auth/enable-two-factor.tsx
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Verification code"
-msgstr "Bekreftelseskode"
-
 #: src/features/settings/account/profile.tsx
 msgid "Verified"
 msgstr "Bekreftet"
-
-#. Primary action button to submit 2FA code
-#. Primary action button to submit backup code
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Verify"
-msgstr "Verifiser"
 
 #: src/features/auth/email-text.ts
 msgid "Verify email"
@@ -20659,15 +19434,6 @@ msgstr "Bekreft e-postadressen din i Innstillinger først"
 #: src/features/settings/account/security.tsx
 msgid "Verify your email to add a passkey."
 msgstr "Bekreft e-posten din for å legge til en passnøkkel."
-
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Verifying backup code…"
-msgstr "Verifiserer sikkerhetskopikode…"
-
-#: src/dialogs/auth/enable-two-factor.tsx
-#: src/features/auth/pages/verify-2fa.tsx
-msgid "Verifying code…"
-msgstr "Verifiserer kode…"
 
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
@@ -20765,10 +19531,6 @@ msgstr "Venter på tilbakemelding fra intervjuet"
 msgid "Waiting to hear back"
 msgstr "Venter på å høre tilbake"
 
-#: src/features/resume/editor/write/improve.tsx
-msgid "Warmer"
-msgstr "Mer imøtekommende"
-
 #: src/features/ats-checker/messages.ts
 msgid "Warning"
 msgstr "Advarsel"
@@ -20864,7 +19626,6 @@ msgstr "Nettsøk ser etter jobb i disse landene, opptil tre."
 #: src/features/command-palette/pages/navigation.tsx
 #: src/features/resume/editor/write/basics-card.tsx
 #: src/features/resume/editor/write/fields.tsx
-#: src/routes/builder/letter/-components/write-panel.tsx
 msgid "Website"
 msgstr "Nettsted"
 
@@ -21310,7 +20071,6 @@ msgstr "Bred"
 
 #: src/features/resume/editor/design/fit.ts
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
-#: src/routes/builder/letter/-components/design-panel.tsx
 msgid "wide margins"
 msgstr "brede marginer"
 
@@ -21339,10 +20099,6 @@ msgid "With {0} · {1}.{2}"
 msgstr "Med {0} · {1}.{2}"
 
 #: src/features/assistant/assistant-panel.tsx
-msgid "With a connection, the assistant proposes edits to this letter. You accept or reject each one, and nothing changes until you do."
-msgstr "Med en tilkobling foreslår assistenten endringer i dette brevet. Du godtar eller avviser hver av dem, og ingenting endres før du gjør det."
-
-#: src/features/assistant/assistant-panel.tsx
 msgid "With a connection, the assistant proposes numbered edits. You accept or reject each one, and nothing changes until you do."
 msgstr "Med en tilkobling foreslår assistenten nummererte endringer. Du godtar eller avviser hver av dem, og ingenting endres før du gjør det."
 
@@ -21353,10 +20109,6 @@ msgstr "Med AI"
 #: src/features/homepage/remember.tsx
 msgid "Within a quarter, activation went from 31% to 44%."
 msgstr "I løpet av et kvartal gikk aktiveringen fra 31 % til 44 %."
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Without one, you fill in the recipient yourself and drafting uses only your resume."
-msgstr "Uten en, fyller du ut mottakeren selv, og utkastet bruker kun CV-en din."
 
 #: src/features/documents/import/import-page.tsx
 msgid "Word files and scanned PDFs are read with AI."
@@ -21430,27 +20182,12 @@ msgstr "Verdt å spørre om"
 #: src/routes/builder/$resumeId/-components/editor-bar.tsx
 #: src/routes/builder/$resumeId/-components/editor-shell.tsx
 #: src/routes/builder/$resumeId/-components/use-editor-hotkeys.ts
-#: src/routes/builder/letter/-components/letter-bar.tsx
-#: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Write"
 msgstr "Skriv"
 
 #: src/features/ats-checker/messages.ts
 msgid "Write \"Present\" as the end date of your current role."
 msgstr "Skriv \"nå\" som sluttdato for din nåværende rolle."
-
-#: src/features/career/workspace/apply.tsx
-msgid "Write a cover letter if required"
-msgstr "Skriv et følgebrev hvis det kreves"
-
-#: src/features/applications/components/detail/sent-documents.tsx
-#: src/features/career/workspace/preparation.tsx
-msgid "Write a letter"
-msgstr "Skriv et brev"
-
-#: src/features/documents/document-actions.tsx
-msgid "Write a letter…"
-msgstr "Skriv et brev …"
 
 #: src/features/career/workspace/messages.tsx
 msgid "Write a new reply in {languageName}"
@@ -21488,10 +20225,6 @@ msgstr "Skriv det som én sammenhengende tekst, uten spesiell mellomrom."
 msgid "Write it down while it’s fresh"
 msgstr "Skriv det ned mens det er ferskt"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Write it myself"
-msgstr "Skriv det selv"
-
 #: src/features/career/workspace/practise.tsx
 msgid "Write numbers as digits"
 msgstr "Skriv tall med sifre"
@@ -21499,10 +20232,6 @@ msgstr "Skriv tall med sifre"
 #: src/features/career/knowledge/stories.tsx
 msgid "Write one about something you did, in five parts. Leave Result and Reflection blank until you can support them."
 msgstr "Skriv en historie om noe du har gjort, i fem deler. La Resultat og Refleksjon stå tomme til du kan underbygge dem."
-
-#: src/features/documents/documents-page.tsx
-msgid "Write one for a job, or start from your latest resume."
-msgstr "Skriv et til en jobb, eller start fra den siste CV-en din."
 
 #: src/features/ats-checker/messages.ts
 msgid "Write the full address so it is recognized as a link."
@@ -21542,10 +20271,6 @@ msgstr "Skriver en brifing før et intervju"
 msgid "Writes a briefing before an interview: likely questions, who you'll meet and stories to tell."
 msgstr "Skriver en brifing før et intervju: sannsynlige spørsmål, hvem du skal møte, og historier å fortelle."
 
-#: src/routes/builder/letter/-components/design-panel.tsx
-msgid "Writes the greeting, sign-off and date, and the language a new draft uses. Your own words stay as you wrote them."
-msgstr "Skriver hilsenen, avslutningen og datoen, og språket et nytt utkast bruker. Dine egne ord forblir slik du skrev dem."
-
 #: src/features/ats-checker/checker.tsx
 #: src/features/ats-checker/messages.ts
 #: src/features/resume/editor/check/check-panel.tsx
@@ -21553,17 +20278,9 @@ msgstr "Skriver hilsenen, avslutningen og datoen, og språket et nytt utkast bru
 msgid "Writing"
 msgstr "Skriving"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Writing a draft"
-msgstr "Skriver et utkast"
-
 #: src/features/career/coach-chat.tsx
 msgid "Writing an answer…"
 msgstr "Skriver et svar…"
-
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "Writing it yourself works without it."
-msgstr "Å skrive det selv virker uten."
 
 #: src/features/ai/usage.tsx
 msgid "Writing review"
@@ -21706,10 +20423,6 @@ msgstr "Du er frakoblet. Koble til på nytt for å lagre endringene dine før du
 msgid "You're up to date"
 msgstr "Du er oppdatert"
 
-#: src/routes/builder/letter/-components/write-panel.tsx
-msgid "You're viewing an earlier version. Go back to now in History to edit."
-msgstr "Du ser en tidligere versjon. Gå tilbake til nå i Historikk for å redigere."
-
 #: src/features/resume/builder/undo-toast.ts
 msgid "You've made changes since. Use Undo to step back through them."
 msgstr "Du har gjort endringer siden. Bruk Angre for å gå trinnvis tilbake gjennom dem."
@@ -21789,10 +20502,6 @@ msgstr "Nettleseren din"
 msgid "Your browser can't take dictation here. Type your answer instead."
 msgstr "Nettleseren din støtter ikke diktering her. Skriv svaret ditt i stedet."
 
-#: src/features/letters/webmcp.ts
-msgid "Your browser's AI agent edited this letter."
-msgstr "Nettleserens AI-agent redigerte dette brevet."
-
 #: src/features/resume/editor/webmcp.ts
 msgid "Your browser's AI agent edited this resume."
 msgstr "Nettleserens AI-agent redigerte denne CV-en."
@@ -21806,7 +20515,6 @@ msgid "Your bullets are drawn with unusual characters."
 msgstr "Punktene dine er tegnet med uvanlige tegn."
 
 #: src/routes/builder/$resumeId/-components/use-editor-hotkeys.ts
-#: src/routes/builder/letter/-components/letter-shell.tsx
 msgid "Your changes are saved automatically."
 msgstr "Endringene dine lagres automatisk."
 
@@ -21838,30 +20546,13 @@ msgstr "Dataene dine forblir dine."
 msgid "Your dates are written several different ways."
 msgstr "Datoene dine er skrevet på flere ulike måter."
 
-#: src/routes/builder/letter/-components/letter-shell.tsx
-msgid "Your details changed on the resume. The letter updated too."
-msgstr "Dine opplysninger er endret på CV-en. Brevet er også oppdatert."
-
 #: src/features/career/coach-chat.tsx
 msgid "Your edited story is saved to Knowledge."
 msgstr "Den redigerte historien din er lagret i Kunnskap."
 
-#. placeholder {0}: copy.name
-#: src/routes/builder/letter/-components/letter-bar.tsx
-msgid "Your edits were kept as “{0}”."
-msgstr "Redigeringene dine ble beholdt som «{0}»."
-
-#: src/routes/builder/letter/-components/letter-bar.tsx
-msgid "Your edits will be kept as a separate letter in Documents before loading the saved version."
-msgstr "Redigeringene dine beholdes som et eget brev i Dokumenter før den lagrede versjonen lastes inn."
-
 #: src/features/resume/editor/save-status.tsx
 msgid "Your edits will be kept as a separate resume in Documents before loading the saved version."
 msgstr "Redigeringene dine beholdes som en egen CV i Dokumenter før den lagrede versjonen lastes inn."
-
-#: src/routes/builder/letter/-components/letter-shell.tsx
-msgid "Your email address changed on the resume. The letter updated too."
-msgstr "E-postadressen din er endret på CV-en. Brevet er også oppdatert."
 
 #: src/features/ats-checker/messages.ts
 msgid "Your email address is broken across pieces of text."
@@ -21870,10 +20561,6 @@ msgstr "E-postadressen din er brutt opp over flere tekstbiter."
 #: src/features/auth/pages/error.tsx
 msgid "Your email address isn't verified with the provider."
 msgstr "E-postadressen din er ikke bekreftet hos tilbyderen."
-
-#: src/features/documents/new-document-dialog.tsx
-msgid "Your experience, laid out on a page."
-msgstr "Erfaringen din, lagt ut på en side."
 
 #: src/features/ats-checker/checker.tsx
 msgid "Your file"
@@ -21888,36 +20575,24 @@ msgid "Your guest documents and applications are in this account."
 msgstr "Gjestedokumentene og søknadene dine ligger i denne kontoen."
 
 #: src/features/auth/components/guest-banner.tsx
-msgid "Your guest resumes, cover letters, applications and Career knowledge move to this account, except facts it already has. Different Career profiles stop sign-in and keep your guest work. Assistant conversations don't move."
-msgstr "CV-er, følgebrev, jobbsøknader og karrierekunnskap fra gjestekontoen flyttes til denne kontoen, bortsett fra fakta den allerede har. Ulike karriereprofiler stopper innloggingen og bevarer gjestearbeidet ditt. Samtaler med assistenten flyttes ikke."
+msgid "Your guest resumes, applications and Career knowledge move to this account, except facts it already has. Different Career profiles stop sign-in and keep your guest work. Assistant conversations don't move."
+msgstr ""
 
 #: src/features/auth/components/guest-banner.tsx
-msgid "Your guest resumes, cover letters, applications and Career knowledge move to this account. Assistant conversations don't move."
-msgstr "Gjeste-CV-ene, følgebrevene, søknadene og Karriere-kunnskapen din flyttes til denne kontoen. Assistentsamtaler flyttes ikke."
+msgid "Your guest resumes, applications and Career knowledge move to this account. Assistant conversations don't move."
+msgstr ""
 
 #: src/features/ats-checker/messages.ts
 msgid "Your headings look the same as your body text."
 msgstr "Overskriftene dine ser like ut som brødteksten."
 
-#: src/routes/builder/letter/-components/letter-shell.tsx
-msgid "Your headline changed on the resume. The letter updated too."
-msgstr "Overskriften din endret seg på CV-en. Brevet er også oppdatert."
-
 #: src/features/career/workspace/debrief.tsx
 msgid "your Knowledge"
 msgstr "din Kunnskap"
 
-#: src/features/letters/store.ts
-msgid "Your letter changed while reloading. Your edits are still open. Reload again to keep a new copy."
-msgstr "Brevet ditt ble endret under innlasting. Redigeringene dine er fortsatt åpne. Last inn på nytt for å beholde en ny kopi."
-
 #: src/features/ats-checker/messages.ts
 msgid "Your lines are packed very tightly."
 msgstr "Linjeavstanden din er svært tett."
-
-#: src/routes/builder/letter/-components/letter-shell.tsx
-msgid "Your location changed on the resume. The letter updated too."
-msgstr "Plasseringen din er endret på CV-en. Brevet er også oppdatert."
 
 #: src/features/ats-checker/messages.ts
 msgid "Your margins are very narrow."
@@ -21935,17 +20610,9 @@ msgstr "Navnet ditt"
 msgid "Your name and contact details"
 msgstr "Navnet og kontaktdetaljene dine"
 
-#: src/features/documents/new-document-dialog.tsx
-msgid "Your name and contact details come from it, and the letter can match its design."
-msgstr "Navnet og kontaktdetaljene dine hentes derfra, og brevet kan matche designet."
-
 #: src/features/resume/editor/write/outline.tsx
 msgid "Your name and how to reach you"
 msgstr "Navnet ditt og hvordan du kan nås"
-
-#: src/routes/builder/letter/-components/letter-shell.tsx
-msgid "Your name changed on the resume. The letter updated too."
-msgstr "Navnet ditt ble endret på CV-en. Brevet er også oppdatert."
 
 #: src/features/resume/editor/check/issues.ts
 msgid "Your name is missing"
@@ -21966,10 +20633,6 @@ msgstr "Onboarding-historien din"
 #: src/features/career/workspace/prepare.tsx
 msgid "Your opening"
 msgstr "Åpningen din"
-
-#: src/routes/builder/letter/-components/letter-shell.tsx
-msgid "Your phone number changed on the resume. The letter updated too."
-msgstr "Telefonnummeret ditt er endret på CV-en. Brevet er også oppdatert."
 
 #: src/features/ats-checker/messages.ts
 msgid "Your phone number is written in an unusual shape."
@@ -21999,14 +20662,6 @@ msgstr "Forespørselen din og det relevante dokumentet, utlysningen, notater, va
 msgid "Your requirements, checked for each offer"
 msgstr "Kravene dine, sjekket for hvert tilbud"
 
-#: src/routes/builder/letter/-components/download-sheet.tsx
-msgid "your resume"
-msgstr "din CV"
-
-#: src/routes/builder/letter/-components/download-sheet.tsx
-msgid "your resume and this letter"
-msgstr "CV-en din og dette brevet"
-
 #: src/features/auth/layout.tsx
 msgid "Your resume and your job search, in one place."
 msgstr "CV-en og jobbsøket ditt, på ett sted."
@@ -22032,8 +20687,8 @@ msgid "Your resume uses \"I\" and \"my\"."
 msgstr "CV-en din bruker \"I\" og \"my\"."
 
 #: src/features/documents/documents-page.tsx
-msgid "Your resumes and cover letters live here"
-msgstr "CV-ene og følgebrevene dine ligger her"
+msgid "Your resumes live here"
+msgstr ""
 
 #: src/features/ai/set-up-ai.tsx
 msgid "Your saved connections need attention. Fix them in <0>Settings › AI</0>, or add one here."

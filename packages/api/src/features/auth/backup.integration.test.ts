@@ -9,7 +9,6 @@ import { strFromU8, unzipSync } from "fflate";
 import { Pool } from "pg";
 import { db, withDatabasePool } from "@reactive-resume/db/client";
 import * as tables from "@reactive-resume/db/schema";
-import { copyCoverLetterStyle } from "@reactive-resume/resume/cover-letter";
 import { defaultResumeData } from "@reactive-resume/schema/resume/default";
 import { accountBackupLimits, buildAccountZip } from "@reactive-resume/utils/account-zip";
 
@@ -111,41 +110,6 @@ it.skipIf(!databaseUrl)(
 						name: "Second copy",
 					})
 					.returning();
-				const letterData = {
-					name: "Earlier letter",
-					content: "<p>Earlier body</p>",
-					recipient: large,
-					style: copyCoverLetterStyle(resumeData),
-					layout: "freeform" as const,
-					recipientName: "",
-					recipientCompany: "",
-					letterDate: null,
-				};
-				const [letter] = await db
-					.insert(tables.coverLetter)
-					.values({ ...letterData, userId: ownerId })
-					.returning();
-				if (!letter) throw new Error("Letter fixture missing");
-				const [letterVersion] = await db
-					.insert(tables.coverLetterVersion)
-					.values({
-						userId: ownerId,
-						coverLetterId: letter.id,
-						data: { ...letterData, recipient: missing },
-						kind: "named",
-					})
-					.returning();
-				const [neighborLetter] = await db
-					.insert(tables.coverLetter)
-					.values({ ...letterData, userId: neighborId, name: "NEIGHBOR-LETTER" })
-					.returning();
-				if (!neighborLetter) throw new Error("Neighbor letter fixture missing");
-				await db.insert(tables.coverLetterVersion).values({
-					userId: neighborId,
-					coverLetterId: neighborLetter.id,
-					data: { ...letterData, content: "NEIGHBOR-LETTER-HISTORY" },
-					kind: "named",
-				});
 				await db.insert(tables.agentThread).values([
 					{ id: liveThread, userId: ownerId, title: "Live", scope: "career" },
 					{
@@ -277,9 +241,6 @@ it.skipIf(!databaseUrl)(
 				expect(
 					strFromU8(files[`versions/resumes/${resume.id}/${resumeVersion?.id}.json`] ?? new Uint8Array()),
 				).toContain("Keep historical JSON verbatim");
-				expect(
-					strFromU8(files[`versions/letters/${letter.id}/${letterVersion?.id}.json`] ?? new Uint8Array()),
-				).toContain("Earlier body");
 				expect(new TextDecoder().decode((await storage.read(foreign))?.data)).toBe("NEIGHBOR-PRIVATE-BYTES");
 			});
 		} finally {

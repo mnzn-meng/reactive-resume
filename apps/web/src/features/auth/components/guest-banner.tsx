@@ -8,7 +8,7 @@ import { Icon } from "@reactive-resume/ui/components/icon";
 import { toast } from "@reactive-resume/ui/components/toast";
 
 // Set while a guest is on sign-up or sign-in, so the app can confirm the move once they're back in an account. It
-// survives provider redirects and two-step verification, which leave this page.
+// survives the provider redirects that leave this page.
 const TRANSFER_KEY = "guest-transfer";
 const TRANSFER_MAX_AGE_MS = 60 * 60 * 1000;
 
@@ -57,8 +57,7 @@ export function GuestBanner() {
 				<p className="min-w-[min(100%,20rem)] flex-1">
 					<Trans>
 						<b className="font-semibold">You're using a guest account.</b> Everything you make is lost when you sign out
-						or this session ends. Create an account and your resumes, cover letters, applications and Career knowledge
-						move into it.
+						or this session ends. Create an account and your resumes, applications and Career knowledge move into it.
 					</Trans>
 				</p>
 				<span className="flex shrink-0 gap-2">
@@ -96,14 +95,13 @@ export function GuestTransferNote({ signUp = false }: { signUp?: boolean }) {
 				{signUp ? (
 					// A new account has no facts or Career profile of its own, so those clauses don't apply.
 					<Trans>
-						Your guest resumes, cover letters, applications and Career knowledge move to this account. Assistant
-						conversations don't move.
+						Your guest resumes, applications and Career knowledge move to this account. Assistant conversations don't
+						move.
 					</Trans>
 				) : (
 					<Trans>
-						Your guest resumes, cover letters, applications and Career knowledge move to this account, except facts it
-						already has. Different Career profiles stop sign-in and keep your guest work. Assistant conversations don't
-						move.
+						Your guest resumes, applications and Career knowledge move to this account, except facts it already has.
+						Different Career profiles stop sign-in and keep your guest work. Assistant conversations don't move.
 					</Trans>
 				)}
 			</AlertDescription>

@@ -1,9 +1,8 @@
 import type { DownloadFormat } from "./download-tab";
-import type { ReactElement, ReactNode } from "react";
+import type { ReactElement } from "react";
 import { t } from "@lingui/core/macro";
 import { Plural, Trans } from "@lingui/react/macro";
 import { useId, useRef, useState } from "react";
-import { Checkbox } from "@reactive-resume/ui/components/checkbox";
 import { Icon } from "@reactive-resume/ui/components/icon";
 import { Popover, PopoverContent, PopoverTrigger } from "@reactive-resume/ui/components/popover";
 import { Spinner } from "@reactive-resume/ui/components/spinner";
@@ -11,9 +10,8 @@ import { toast } from "@reactive-resume/ui/components/toast";
 import { useBreakpoint } from "@reactive-resume/ui/hooks/use-breakpoint";
 import { downloadWithAnchor } from "@reactive-resume/utils/file";
 import { cn } from "@reactive-resume/utils/style";
-import { getExportFormats, useLinkedLetter } from "./download-tab";
+import { getExportFormats } from "./download-tab";
 import { IconTile, rowGroundClassName } from "@/components/calm/list-row";
-import { createLetterFile, letterFileName } from "@/features/letters/export";
 import { useCurrentResume } from "@/features/resume/builder/draft";
 import { useOpenIssueCount } from "@/features/resume/editor/check/use-check";
 import { useEditorStore } from "@/features/resume/editor/store";
@@ -25,7 +23,6 @@ import {
 	useResumeExport,
 } from "@/features/resume/export/use-resume-export";
 import { getReadableErrorMessage } from "@/libs/error-message";
-import { client } from "@/libs/orpc/client";
 
 type DownloadMenuProps<Id extends string> = {
 	/** The ▾ of the split button (`DownloadButtons` `renderMore`). */
@@ -36,8 +33,6 @@ type DownloadMenuProps<Id extends string> = {
 	/** Makes and saves the file; throws what the export throws. The toast and the thanks are the menu's. */
 	download: (format: Id, fileName: string) => Promise<string>;
 	onPrint?: (() => void) | undefined;
-	/** A tick under the formats ("Also download the Kiln Studio cover letter"). */
-	companion?: { label: ReactNode; checked: boolean; onCheckedChange: (checked: boolean) => void } | undefined;
 	/** Open Check items: one quiet line with a way in. It never blocks. */
 	issues?: { count: number; onReview: () => void } | undefined;
 };
@@ -52,7 +47,6 @@ export function DownloadMenu<Id extends string>({
 	defaultFileName,
 	download,
 	onPrint,
-	companion,
 	issues,
 }: DownloadMenuProps<Id>) {
 	const id = useId();
@@ -132,19 +126,6 @@ export function DownloadMenu<Id extends string>({
 						/>
 					))}
 				</div>
-
-				{companion && (
-					<div className="flex items-center gap-2.5 py-2 text-sm">
-						<Checkbox
-							id={`${id}-companion`}
-							checked={companion.checked}
-							onCheckedChange={(checked) => companion.onCheckedChange(checked === true)}
-						/>
-						<label htmlFor={`${id}-companion`} className="cursor-pointer">
-							{companion.label}
-						</label>
-					</div>
-				)}
 
 				{onPrint && (
 					<div className="-mx-2 flex flex-col border-t border-line py-1">
@@ -271,13 +252,11 @@ function FormatRow<Id extends string>({ format, busy, disabled, onHover, onClick
 
 type ResumeDownloadMenuProps = { trigger: ReactElement; onReview: () => void };
 
-/** The resume's Download menu: its five formats, Print, its job's letter as a second file, and Check's count. */
+/** The resume's Download menu: its five formats, Print, and Check's count. */
 export function ResumeDownloadMenu({ trigger, onReview }: ResumeDownloadMenuProps) {
 	const resume = useCurrentResume();
 	const count = useOpenIssueCount();
-	const linkedLetter = useLinkedLetter(resume);
 	const { onPrint } = useResumeExport(resume);
-	const [withLetter, setWithLetter] = useState(false);
 	const formats = getExportFormats();
 
 	return (
@@ -287,23 +266,10 @@ export function ResumeDownloadMenu({ trigger, onReview }: ResumeDownloadMenuProp
 			defaultFileName={getDefaultFileName(resume)}
 			onPrint={() => void onPrint()}
 			issues={{ count, onReview }}
-			companion={
-				linkedLetter
-					? {
-							label: <Trans>Also download the {linkedLetter.company} cover letter</Trans>,
-							checked: withLetter,
-							onCheckedChange: setWithLetter,
-						}
-					: undefined
-			}
 			download={async (format, name) => {
 				const extension = formats.find((option) => option.id === format)?.extension ?? ".pdf";
 				const file = `${name}${extension}`;
 				downloadWithAnchor(await createExportFile(resume, format), file);
-				if (withLetter && linkedLetter) {
-					const letter = await client.coverLetters.getById({ id: linkedLetter.id });
-					downloadWithAnchor(await createLetterFile(letter, format), `${letterFileName(letter)}${extension}`);
-				}
 				return file;
 			}}
 		/>

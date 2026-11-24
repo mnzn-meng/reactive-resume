@@ -8,11 +8,11 @@ web
 
 ## Users
 
-Job seekers preparing and tailoring resumes and cover letters, sharing application documents, and tracking their job search.
+Job seekers preparing and tailoring resumes, sharing them, and tracking their job search.
 
 ## Product Purpose
 
-Help people turn their experience into professional application documents and manage their applications. Success means creating and tailoring a resume or cover letter, exporting or sharing it, and keeping track of applications.
+Help people turn their experience into professional application documents and manage their applications. Success means creating and tailoring a resume, exporting or sharing it, and keeping track of applications.
 
 ## Positioning
 
@@ -22,13 +22,13 @@ Reactive Resume is a free, open-source resume builder with privacy and data owne
 
 - Browser-based use on desktop and mobile; mobile web remains the same product.
 - Create or import a resume, edit with a live document preview, choose a template, and export or share it.
-- Tailor resumes and cover letters for individual applications and track progress through the job search.
+- Tailor resumes for individual applications and track progress through the job search.
 - Use optional AI assistance to propose changes; users review proposals before applying them.
 
 ## Capabilities and Constraints
 
 - Resume creation, importing, template customization, PDF/JSON/DOCX export, and public sharing.
-- Cover-letter editing and application tracking.
+- Resume editing and application tracking.
 - Preserve free and open-source access, privacy, and user control of their data.
 - Preserve multilingual and right-to-left support throughout workflows and accessible labels.
 - The web app is a client-rendered React SPA. Public marketing pages are prerendered at build time.

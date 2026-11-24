@@ -91,7 +91,7 @@ export async function acceptOnCopy({ threadId, resumeId, posting, proposals, que
 				// Refused for good (the resume changed meanwhile): this copy can't be used, so the next try makes another.
 				if (error instanceof ORPCError && error.code === "CONFLICT") {
 					settleRequestId(key);
-					await client.documents.trash({ type: "resume", id: copyId }).catch(() => undefined);
+					await client.documents.trash({ id: copyId }).catch(() => undefined);
 				}
 				toast.add({
 					type: "error",

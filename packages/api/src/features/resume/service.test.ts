@@ -247,7 +247,7 @@ describe("update", () => {
 		expect(update.set).toHaveBeenCalledWith({ updatedAt: expect.any(Date) });
 		expect(proposalApplicationsMock).toHaveBeenCalledWith(tx, {
 			userId: "u1",
-			document: { kind: "resume", id: "r1" },
+			document: { id: "r1" },
 			applications: { edit: false },
 			conflict: expect.any(Function),
 		});

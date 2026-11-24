@@ -21,7 +21,7 @@ type VersionSummary<TKind extends string> = { id: string; kind: TKind; name: str
 type VersionTable = {
 	table: PgTable;
 	id: PgColumn;
-	/** The document the version belongs to (`resumeId`, `coverLetterId`). */
+	/** The resume the version belongs to. */
 	document: PgColumn;
 	documentKey: string;
 	userId: PgColumn;

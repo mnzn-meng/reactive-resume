@@ -88,7 +88,7 @@ export function SavePosting({ posting, resumeId, disabled, onSaved }: SavePostin
 					if (!current() || options?.signal.aborted) throw new DOMException("", "AbortError");
 					try {
 						const linked = await client.documents.linkApplication(
-							{ type: "resume", id: resumeId, applicationId, expectedUpdatedAt },
+							{ id: resumeId, applicationId, expectedUpdatedAt },
 							bound,
 						);
 						if (!linked) throw new Error(t`Couldn't link the application. Try again.`);

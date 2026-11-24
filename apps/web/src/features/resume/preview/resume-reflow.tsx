@@ -28,7 +28,6 @@ const SHAPES: Record<string, { title: string[]; subtitle: string[]; meta: string
 	references: { title: ["name"], subtitle: ["position"], meta: [] },
 	profiles: { title: ["network"], subtitle: ["username"], meta: [] },
 	summary: { title: [], subtitle: [], meta: [] },
-	"cover-letter": { title: [], subtitle: [], meta: [] },
 };
 
 const text = (entry: Entry, field: string) => (typeof entry[field] === "string" ? (entry[field] as string).trim() : "");
@@ -65,7 +64,6 @@ function EntryView({ type, entry }: { type: string; entry: Entry }) {
 	const keywords = Array.isArray(entry.keywords) ? (entry.keywords as string[]).filter(Boolean) : [];
 	const html = text(entry, "content") || text(entry, "description");
 	const phone = type === "references" ? text(entry, "phone") : "";
-	const recipient = type === "cover-letter" ? text(entry, "recipient") : "";
 
 	return (
 		<article className="grid gap-0.5">
@@ -84,7 +82,6 @@ function EntryView({ type, entry }: { type: string; entry: Entry }) {
 					{phone}
 				</a>
 			)}
-			{recipient && <RichText html={recipient} className={RICH} />}
 			{html && <RichText html={html} className={cn(RICH, "mt-1")} />}
 			{roles.map((role) => (
 				<div key={role.id} className="mt-1.5 grid gap-0.5">

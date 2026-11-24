@@ -102,7 +102,7 @@ export function handleLlms() {
 		"- Import: PDF, LinkedIn data export, JSON Resume, Reactive Resume JSON; Word files with an AI provider.",
 		"- Private by default: a resume stays in the account and is never published to a link.",
 		"- AI: optional, with the user's own API key (OpenAI, Anthropic, Google Gemini, OpenRouter, Ollama and others). Nothing is sent to an AI service without one.",
-		"- Also includes: cover letters, a job application tracker, version history, passkeys and two-factor authentication.",
+		"- Also includes: a job application tracker, version history and passkeys.",
 		"- Languages: the interface is translated into more than 50 languages by volunteers.",
 		"- Self-hosting: a Docker image, with PostgreSQL and local or S3-compatible storage.",
 		"",

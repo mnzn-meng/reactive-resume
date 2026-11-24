@@ -20,7 +20,7 @@ const route = (
 	description: `${description} Requires authentication.`,
 });
 
-/** Resumes and saved cover letters as one library: list, rename, tag, lock, link, Trash and Copy for a job. */
+/** The resume library: list, rename, tag, lock, link, Trash and Copy for a job. */
 export const documentsRouter = {
 	purgeExpired: protectedProcedure
 		.route(
@@ -44,7 +44,7 @@ export const documentsRouter = {
 				"/documents",
 				"listDocuments",
 				"List documents",
-				"Returns the user's resumes and saved cover letters (or those in Trash), with server-side type/search/tags/public filtering and edited/name/created ordering. Limit/offset opt into SQL pagination; omit both for the complete legacy array. X-Total-Count reports all filtered matches.",
+				"Returns the user's resumes (or those in Trash), with server-side search/tags filtering and edited/name/created ordering. Limit/offset opt into SQL pagination; omit both for the complete legacy array. X-Total-Count reports all filtered matches.",
 			),
 		)
 		.input(documentsDto.list.input)

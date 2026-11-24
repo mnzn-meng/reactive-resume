@@ -7,20 +7,14 @@ type PreparationApplication = {
 	activity: readonly ApplicationTimelineEntry[];
 	jobDescription: string | null;
 	resumeId: string | null;
-	coverLetterId: string | null;
 	resumeFileUrl: string | null;
-	coverLetterUrl: string | null;
 };
 
 /** Persisted indices never move when a document or answer subject is absent. */
 export function applicationReviewChecks(application: PreparationApplication, workspace: CareerWorkspace) {
 	const review = workspace.submissionReview;
 	const submitted = review !== undefined || hasApplicationSubmission(application);
-	const documents = submitted
-		? review?.documents === true
-		: Boolean(
-				application.resumeId || application.coverLetterId || application.resumeFileUrl || application.coverLetterUrl,
-			);
+	const documents = submitted ? review?.documents === true : Boolean(application.resumeId || application.resumeFileUrl);
 	const answers = submitted ? review?.answers === true : workspace.answers.length > 0;
 	return {
 		submitted,
@@ -36,18 +30,15 @@ export function applicationReviewChecks(application: PreparationApplication, wor
 export function nextPreparationStep(
 	application: PreparationApplication,
 	workspace: Pick<CareerWorkspace, "checklist" | "answers" | "submissionReview">,
-	documents?: readonly { id: string; type: "resume" | "letter" }[],
+	documents?: readonly { id: string }[],
 ) {
 	if (workspace.submissionReview !== undefined || hasApplicationSubmission(application)) return "submitted";
 	if (application.status === "closed") return "closed";
 	if (!application.jobDescription?.trim()) return "posting";
-	const selected = (type: "resume" | "letter", id: string | null) =>
-		id && (!documents || documents.some((document) => document.type === type && document.id === id));
-	if (!selected("resume", application.resumeId) && !application.resumeFileUrl) return "resume";
+	const resumeSelected =
+		Boolean(application.resumeId) && (!documents || documents.some((document) => document.id === application.resumeId));
+	if (!resumeSelected && !application.resumeFileUrl) return "resume";
 	if (!workspace.checklist.includes(1)) return "tailor";
-	// Document review also acknowledges that an optional letter is unnecessary.
-	if (!selected("letter", application.coverLetterId) && !application.coverLetterUrl && !workspace.checklist.includes(0))
-		return "letter";
 	if (
 		workspace.answers.some((answer) => !answer.question.trim() || !answer.answer.trim()) ||
 		(workspace.answers.length > 0 && !workspace.checklist.includes(2))
@@ -62,8 +53,8 @@ export function nextPreparationStep(
  */
 export function isJobCopy(
 	application: { id: string; resumeId: string | null },
-	documents?: readonly { id: string; type: "resume" | "letter"; application: { id: string } | null }[],
+	documents?: readonly { id: string; application: { id: string } | null }[],
 ) {
-	const resume = documents?.find((document) => document.type === "resume" && document.id === application.resumeId);
+	const resume = documents?.find((document) => document.id === application.resumeId);
 	return resume?.application?.id === application.id;
 }

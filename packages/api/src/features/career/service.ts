@@ -143,14 +143,6 @@ async function sourceText(
 		if (!row) throw new ORPCError("NOT_FOUND");
 		return { text: buildMarkdown(row.data), id: source.id };
 	}
-	if (source.kind === "letter-version") {
-		const [row] = await db
-			.select()
-			.from(tables.coverLetterVersion)
-			.where(and(eq(tables.coverLetterVersion.id, source.id), eq(tables.coverLetterVersion.userId, userId)));
-		if (!row) throw new ORPCError("NOT_FOUND");
-		return { text: row.data.content, id: source.id };
-	}
 	if (source.kind === "resume") {
 		const [row] = await db
 			.select({ data: tables.resume.data })
@@ -158,14 +150,6 @@ async function sourceText(
 			.where(and(eq(tables.resume.id, source.id), eq(tables.resume.userId, userId)));
 		if (!row) throw new ORPCError("NOT_FOUND");
 		return { text: buildMarkdown(row.data), id: source.id };
-	}
-	if (source.kind === "letter") {
-		const [row] = await db
-			.select({ content: tables.coverLetter.content })
-			.from(tables.coverLetter)
-			.where(and(eq(tables.coverLetter.id, source.id), eq(tables.coverLetter.userId, userId)));
-		if (!row) throw new ORPCError("NOT_FOUND");
-		return { text: row.content, id: source.id };
 	}
 	throw new ORPCError("BAD_REQUEST", {
 		message: "Use a user statement or an owned document as evidence for a career fact.",
@@ -379,7 +363,7 @@ async function submitAnswerSnapshot(
 	applicationId: string,
 	answers: CareerWorkspace["answers"],
 	expectedAnswers: CareerWorkspace["answers"],
-	expectedDocuments?: { resumeId: string | null; coverLetterId: string | null },
+	expectedDocuments?: { resumeId: string | null },
 ) {
 	let parsed = careerWorkspaceSchema.shape.answers.parse(answers);
 	await lockUser(tx, userId);
@@ -389,11 +373,7 @@ async function submitAnswerSnapshot(
 		.where(and(eq(tables.application.id, applicationId), activeApplications(userId)))
 		.for("update");
 	if (!application) throw new ORPCError("NOT_FOUND");
-	if (
-		expectedDocuments &&
-		(expectedDocuments.resumeId !== application.resumeId ||
-			expectedDocuments.coverLetterId !== application.coverLetterId)
-	)
+	if (expectedDocuments && expectedDocuments.resumeId !== application.resumeId)
 		throw new ORPCError("CONFLICT", {
 			message: "Selected documents changed elsewhere. Review them before marking as applied.",
 		});
@@ -443,20 +423,6 @@ async function submitAnswerSnapshot(
 						eq(tables.resumeVersion.id, application.sentResumeVersionId),
 						eq(tables.resumeVersion.resumeId, application.resumeId),
 						eq(tables.resumeVersion.userId, userId),
-					),
-				);
-			if (!version) throw conflict();
-		}
-		if (application.coverLetterId) {
-			if (!application.sentCoverLetterVersionId) throw conflict();
-			const [version] = await tx
-				.select({ id: tables.coverLetterVersion.id })
-				.from(tables.coverLetterVersion)
-				.where(
-					and(
-						eq(tables.coverLetterVersion.id, application.sentCoverLetterVersionId),
-						eq(tables.coverLetterVersion.coverLetterId, application.coverLetterId),
-						eq(tables.coverLetterVersion.userId, userId),
 					),
 				);
 			if (!version) throw conflict();
@@ -908,8 +874,6 @@ export const careerService = {
 		const knowledgeRevision = knowledgeSignature(preferences, facts, stories, profile.timezone);
 		let resume: { text: string; version: string; submitted: boolean; source: { kind: string; id: string } } | null =
 			null;
-		let letter: { text: string; version: string; submitted: boolean; source: { kind: string; id: string } } | null =
-			null;
 		if (application?.sentResumeVersionId) {
 			const [row] = await db
 				.select()
@@ -940,36 +904,6 @@ export const careerService = {
 					source: { kind: "resume", id: row.id },
 				};
 		}
-		if (application?.sentCoverLetterVersionId) {
-			const [row] = await db
-				.select()
-				.from(tables.coverLetterVersion)
-				.where(
-					and(
-						eq(tables.coverLetterVersion.id, application.sentCoverLetterVersionId),
-						eq(tables.coverLetterVersion.userId, input.userId),
-					),
-				);
-			if (row)
-				letter = {
-					text: row.data.content,
-					version: row.id,
-					submitted: true,
-					source: { kind: "letter-version", id: row.id },
-				};
-		} else if (application?.coverLetterId) {
-			const [row] = await db
-				.select()
-				.from(tables.coverLetter)
-				.where(and(eq(tables.coverLetter.id, application.coverLetterId), eq(tables.coverLetter.userId, input.userId)));
-			if (row)
-				letter = {
-					text: row.content,
-					version: row.updatedAt.toISOString(),
-					submitted: false,
-					source: { kind: "letter", id: row.id },
-				};
-		}
 		const blockedSources = await db
 			.select({ source: tables.careerFact.source })
 			.from(tables.careerFact)
@@ -990,14 +924,6 @@ export const careerService = {
 			)
 		)
 			resume = null;
-		if (
-			blockedSources.some(
-				({ source }) =>
-					(source.kind === "letter" && source.id === application?.coverLetterId) ||
-					(source.kind === "letter-version" && source.id === application?.sentCoverLetterVersionId),
-			)
-		)
-			letter = null;
 		const interview = input.interviewId
 			? (application?.activity.find((entry) => entry.type === "interview" && entry.id === input.interviewId) ?? null)
 			: null;
@@ -1014,7 +940,6 @@ export const careerService = {
 				facts.map((fact) => [fact.id, fact.updatedAt]),
 				stories.map((story) => [story.id, story.updatedAt]),
 				resume?.version,
-				letter?.version,
 			]),
 		);
 		return {
@@ -1024,7 +949,6 @@ export const careerService = {
 			facts: activeFacts,
 			stories: usableStories,
 			resume,
-			letter,
 			version,
 			memoryVersion: memoryRevision,
 			pipelineRevision: pipeline?.revision ?? null,
@@ -1433,7 +1357,7 @@ export const careerService = {
 		submission?: {
 			answers: CareerWorkspace["answers"];
 			expectedAnswers: CareerWorkspace["answers"];
-			expectedDocuments: { resumeId: string | null; coverLetterId: string | null };
+			expectedDocuments: { resumeId: string | null };
 		},
 	) => {
 		const [saved] = await db
@@ -1787,7 +1711,7 @@ export const careerService = {
 		applicationId: string,
 		answers: CareerWorkspace["answers"],
 		expectedAnswers: CareerWorkspace["answers"],
-		expectedDocuments?: { resumeId: string | null; coverLetterId: string | null },
+		expectedDocuments?: { resumeId: string | null },
 	) => {
 		return db.transaction(async (tx) => {
 			const { stages } = await submitAnswerSnapshot(

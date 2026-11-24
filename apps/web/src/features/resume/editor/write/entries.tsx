@@ -522,8 +522,5 @@ export function EntryFields({
 			);
 		case "summary":
 			return <Description {...props} field="content" label={t`Text`} />;
-		// Letters are documents of their own; a resume that still carries one hands it over when it saves.
-		case "cover-letter":
-			return null;
 	}
 }

@@ -35,7 +35,6 @@ vi.mock("@/libs/orpc/client", () => ({
 			list: api.endpoint("resumes", () => api.documents.filter((item) => (item as { type: string }).type === "resume")),
 			create: { mutationOptions: () => ({ mutationFn: vi.fn() }) },
 		},
-		coverLetters: { create: { mutationOptions: () => ({ mutationFn: vi.fn() }) } },
 	},
 }));
 vi.mock("@tanstack/react-router", () => ({ useNavigate: () => api.navigate }));

@@ -4,10 +4,8 @@ import { paginationShape } from "../pagination";
 import { applicationDto } from "./application";
 import { acceptedRevisionSchema, expectedRevisionSchema } from "./resume";
 
-const documentTypeSchema = z.enum(["resume", "letter"]).describe("resume, or letter (a saved cover letter).");
 const documentRefSchema = z.object({
-	type: documentTypeSchema,
-	id: z.string().min(1).describe("The ID of the resume or cover letter."),
+	id: z.string().min(1).describe("The ID of the resume."),
 });
 
 // One request may act on a large loaded page, but the client sends every operation as one batch rather than one call
@@ -19,7 +17,6 @@ const documentBatchSchema = z
 	.describe("The loaded documents the user selected, not every document in Trash.");
 
 const documentSchema = z.object({
-	type: documentTypeSchema,
 	id: z.string(),
 	name: z.string(),
 	tags: z.array(z.string()),
@@ -30,13 +27,7 @@ const documentSchema = z.object({
 	editedAt: z
 		.date()
 		.describe(
-			"When its content was last edited: a resume's data, or a letter's text, recipient and design. Renames, tags, locks and Trash don't move it. Library sorting by edited uses it.",
-		),
-	recipient: z
-		.string()
-		.nullable()
-		.describe(
-			"Who a letter is to: its recipient company, else the recipient's name. Null for resumes and blank letters.",
+			"When its content was last edited: a resume's data. Renames, tags, locks and Trash don't move it. Library sorting by edited uses it.",
 		),
 	application: z
 		.object({
@@ -53,7 +44,6 @@ export type DocumentSummary = z.infer<typeof documentSchema>;
 
 const documentFiltersSchema = z.object({
 	trashed: z.boolean().default(false),
-	type: z.enum(["all", "resume", "letter"]).default("all"),
 	q: z.string().max(500).default(""),
 	tags: z.array(z.string().min(1).max(40)).max(20).default([]),
 	sort: z.enum(["edited", "name", "created"]).default("edited"),
@@ -75,13 +65,12 @@ export const documentsDto = {
 		output: z.object({
 			items: z.array(documentSchema),
 			total: z.number(),
-			counts: z.object({ resume: z.number(), letter: z.number() }),
 			tags: z.array(z.string()),
 		}),
 	},
 	counts: {
 		input: z.void(),
-		output: z.object({ resume: z.number(), letter: z.number(), trash: z.number() }),
+		output: z.object({ active: z.number(), trash: z.number() }),
 	},
 	suggestDuplicateName: { input: documentRefSchema, output: z.string().min(1).max(100) },
 	rename: {
@@ -100,11 +89,11 @@ export const documentsDto = {
 		input: documentRefSchema.extend({
 			applicationId: z.string().min(1).nullable().describe("The application to link, or null to unlink."),
 			expectedUpdatedAt: expectedRevisionSchema.describe(
-				"Resumes only. If provided, the link only changes when the resume version still matches this timestamp; otherwise RESUME_VERSION_CONFLICT (409).",
+				"If provided, the link only changes when the resume version still matches this timestamp; otherwise RESUME_VERSION_CONFLICT (409).",
 			),
 		}),
-		// A resume's answer is its new revision, for an open editor to build on; a letter's is null.
-		output: acceptedRevisionSchema.nullable(),
+		// The resume's new revision, for an open editor to build on.
+		output: acceptedRevisionSchema,
 	},
 	trash: { input: documentRefSchema, output: z.void() },
 	restore: { input: documentRefSchema, output: z.void() },

@@ -39,7 +39,6 @@ vi.mock("@/libs/orpc/client", () => {
 				list: endpoint("documents", api.documents),
 				linkApplication: endpoint("linkApplication"),
 			},
-			coverLetters: { create: endpoint("createLetter") },
 			career: {
 				answers: {
 					list: endpoint("reviewedAnswers"),
@@ -91,9 +90,7 @@ const application: Application = {
 	role: "Engineer",
 	status: "saved",
 	closedReason: null,
-	coverLetterId: null,
 	sentResumeVersionId: null,
-	sentCoverLetterVersionId: null,
 	sentCheckScore: null,
 	requirements: [],
 	location: null,
@@ -116,8 +113,6 @@ const application: Application = {
 	aiMetadata: null,
 	resumeFileUrl: null,
 	resumeFileName: null,
-	coverLetterUrl: null,
-	coverLetterName: null,
 	followUpAt: null,
 	followUpNote: null,
 };
@@ -248,9 +243,6 @@ it("requires initial workspace data before exposing edits, with recovery after a
 	fireEvent.click(screen.getByRole("button", { name: "Try again" }));
 	expect(await screen.findByRole("textbox", { name: "Why this role?" })).toHaveValue("Current answer");
 	expect(screen.getByText("0 of 3", { exact: true })).toBeTruthy();
-	expect(
-		screen.queryByRole("checkbox", { name: "Review the selected resume and cover letter in their editors." }),
-	).toBeNull();
 	expect(
 		screen.getByRole("checkbox", { name: "Check every claim, date and result against your experience" }),
 	).not.toBeChecked();

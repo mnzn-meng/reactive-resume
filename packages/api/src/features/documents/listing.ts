@@ -3,18 +3,16 @@ import type { DbOrTx } from "@reactive-resume/db/client";
 import type { SQLWrapper } from "drizzle-orm";
 import { and, arrayContains, asc, desc, eq, gte, isNull, or, sql } from "drizzle-orm";
 import { db } from "@reactive-resume/db/client";
-import { application, coverLetter, resume } from "@reactive-resume/db/schema";
-import { coverLetterRecipientText } from "../cover-letters/html";
+import { application, resume } from "@reactive-resume/db/schema";
 
 type ListInput = DocumentFilters & { userId: string; limit?: number | undefined; offset?: number | undefined };
 
-// One projection and predicate for both kinds, counts and pages. Never select resume data or letter content.
+// One projection and predicate for rows, counts and pages. Never select resume data.
 function library(database: DbOrTx, input: ListInput) {
 	// PostgreSQL current_timestamp stays fixed throughout the repeatable-read transaction.
 	const cutoff = sql`current_timestamp - interval '30 days'`;
-	const resumes = database
+	return database
 		.select({
-			type: sql<"resume" | "letter">`'resume'`.as("type"),
 			id: resume.id,
 			name: resume.name,
 			tags: resume.tags,
@@ -24,8 +22,6 @@ function library(database: DbOrTx, input: ListInput) {
 			updatedAt: resume.updatedAt,
 			// The migration backfills existing documents from updated_at; coalesce only covers a row that slipped in null.
 			editedAt: sql<Date>`coalesce(${resume.editedAt}, ${resume.updatedAt})`.mapWith(resume.updatedAt).as("edited_at"),
-			recipient: sql<string | null>`null::text`.as("recipient"),
-			legacyRecipient: sql<string | null>`null::text`.as("legacy_recipient"),
 			applicationId: sql<string | null>`${application.id}`.as("application_id"),
 			company: application.company,
 			role: application.role,
@@ -41,58 +37,15 @@ function library(database: DbOrTx, input: ListInput) {
 		)
 		.where(
 			and(eq(resume.userId, input.userId), input.trashed ? gte(resume.trashedAt, cutoff) : isNull(resume.trashedAt)),
-		);
-	const letters = database
-		.select({
-			type: sql<"resume" | "letter">`'letter'`.as("type"),
-			id: coverLetter.id,
-			name: coverLetter.name,
-			tags: coverLetter.tags,
-			isLocked: coverLetter.isLocked,
-			trashedAt: coverLetter.trashedAt,
-			createdAt: coverLetter.createdAt,
-			updatedAt: coverLetter.updatedAt,
-			editedAt: sql<Date>`coalesce(${coverLetter.editedAt}, ${coverLetter.updatedAt})`
-				.mapWith(coverLetter.updatedAt)
-				.as("edited_at"),
-			recipient: sql<
-				string | null
-			>`coalesce(nullif(${coverLetter.recipientCompany}, ''), nullif(${coverLetter.recipientName}, ''))`.as(
-				"recipient",
-			),
-			legacyRecipient: sql<
-				string | null
-			>`case when ${coverLetter.layout} = 'freeform' then ${coverLetter.recipient} else null end`.as(
-				"legacy_recipient",
-			),
-			applicationId: sql<string | null>`${application.id}`.as("application_id"),
-			company: application.company,
-			role: application.role,
-			status: application.status,
-		})
-		.from(coverLetter)
-		.leftJoin(
-			application,
-			and(
-				eq(coverLetter.sourceApplicationId, application.id),
-				and(eq(application.userId, input.userId), isNull(application.trashedAt)),
-			),
 		)
-		.where(
-			and(
-				eq(coverLetter.userId, input.userId),
-				input.trashed ? gte(coverLetter.trashedAt, cutoff) : isNull(coverLetter.trashedAt),
-			),
-		);
-	return resumes.unionAll(letters).as("documents");
+		.as("documents");
 }
 
-function predicate(rows: ReturnType<typeof library>, input: ListInput, includeType = true) {
+function predicate(rows: ReturnType<typeof library>, input: ListInput) {
 	const q = input.q.trim();
 	// strpos treats %, _ and backslashes literally, matching the existing substring search.
 	const contains = (value: SQLWrapper) => sql`strpos(lower(${value}), lower(${q})) > 0`;
 	return and(
-		includeType && input.type !== "all" ? eq(rows.type, input.type) : undefined,
 		input.tags.length ? arrayContains(rows.tags, input.tags) : undefined,
 		q
 			? or(
@@ -112,7 +65,7 @@ async function readDocuments(database: DbOrTx, input: ListInput) {
 		input.sort === "name"
 			? asc(sql`lower(${rows.name})`)
 			: desc(input.sort === "created" ? rows.createdAt : rows.editedAt);
-	const query = database.select().from(rows).where(where).orderBy(order, asc(rows.type), asc(rows.id)).$dynamic();
+	const query = database.select().from(rows).where(where).orderBy(order, asc(rows.id)).$dynamic();
 	const paginated = input.limit !== undefined || input.offset !== undefined;
 	const items = await (paginated ? query.limit(input.limit ?? 20).offset(input.offset ?? 0) : query);
 	const totals = paginated
@@ -122,9 +75,8 @@ async function readDocuments(database: DbOrTx, input: ListInput) {
 				.where(where)
 		: undefined;
 	return {
-		items: items.map(({ applicationId, company, role, status, legacyRecipient, ...row }): DocumentSummary => ({
+		items: items.map(({ applicationId, company, role, status, ...row }): DocumentSummary => ({
 			...row,
-			recipient: row.recipient ?? (coverLetterRecipientText(legacyRecipient ?? "") || null),
 			application: applicationId
 				? { id: applicationId, company: company ?? "", role: role ?? "", status: status ?? "saved" }
 				: null,
@@ -135,18 +87,9 @@ async function readDocuments(database: DbOrTx, input: ListInput) {
 
 async function documentFacets(database: DbOrTx, input: ListInput) {
 	const rows = library(database, input);
-	const counts = await database
-		.select({ type: rows.type, total: sql<number>`count(*)::int` })
-		.from(rows)
-		.where(predicate(rows, input, false))
-		.groupBy(rows.type);
-	// Tag discovery follows search and the type tab, not the current page or tag selection: on Letters, a tag only
-	// resumes carry would filter to nothing.
-	const ofType = input.type !== "all" ? eq(rows.type, input.type) : undefined;
 	const tagRows = database
 		.select({ tag: sql<string>`unnest(${rows.tags})`.as("tag") })
 		.from(rows)
-		.where(ofType)
 		.as("document_tags");
 	const tags = await database
 		.selectDistinct({ tag: tagRows.tag })
@@ -159,13 +102,7 @@ async function documentFacets(database: DbOrTx, input: ListInput) {
 		)
 		.orderBy(sql`tag`)
 		.limit(100);
-	return {
-		counts: {
-			resume: counts.find((row) => row.type === "resume")?.total ?? 0,
-			letter: counts.find((row) => row.type === "letter")?.total ?? 0,
-		},
-		tags: [...new Set([...input.tags, ...tags.map((row) => row.tag)])],
-	};
+	return { tags: [...new Set([...input.tags, ...tags.map((row) => row.tag)])] };
 }
 
 // Rows and filtered totals describe one database snapshot, including while another device edits the library.

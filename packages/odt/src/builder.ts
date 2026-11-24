@@ -1,6 +1,5 @@
-import type { InlineStyle, OdtBlock, OdtInline, OdtListItem, OdtRenderOptions, SectionTitleResolver } from "./types";
+import type { InlineStyle, OdtBlock, OdtInline, OdtListItem, SectionTitleResolver } from "./types";
 import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import { isCoverLetterOnlyDocument } from "@reactive-resume/resume/export-sections";
 import { assertResumeRenderBudget } from "@reactive-resume/schema/resume/limits";
 import { toSafeLink } from "@reactive-resume/utils/link";
 import { isRTL } from "@reactive-resume/utils/locale";
@@ -304,11 +303,7 @@ export const ODT_MIME_TYPE = "application/vnd.oasis.opendocument.text";
  * sidebar ones (full-width pages print no sidebar, as in the PDF). The result is a fully editable ODT document
  * rather than a pixel-perfect reproduction of the template.
  */
-export function buildOdtFiles(
-	data: ResumeData,
-	resolveTitle?: SectionTitleResolver,
-	options: OdtRenderOptions = {},
-): Record<string, string> {
+export function buildOdtFiles(data: ResumeData, resolveTitle?: SectionTitleResolver): Record<string, string> {
 	assertResumeRenderBudget(data);
 	const { colors } = data.metadata.design;
 	const primary = toHex(colors.primary) ?? "dc2626";
@@ -332,7 +327,7 @@ export function buildOdtFiles(
 		bodyFont: typography.body.fontFamily || "Inter",
 	};
 
-	const blocks = options.includeCoverLetterHeader || !isCoverLetterOnlyDocument(data) ? buildHeaderBlocks(data) : [];
+	const blocks = buildHeaderBlocks(data);
 	for (const layoutPage of data.metadata.layout.pages) {
 		for (const sectionId of [...layoutPage.main, ...(layoutPage.fullWidth ? [] : layoutPage.sidebar)]) {
 			blocks.push(...renderSection(sectionId, data, resolveTitle));

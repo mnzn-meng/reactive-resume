@@ -7,18 +7,14 @@ beforeAll(() => {
 	i18n.activate("en-US");
 });
 
-it.each([
-	"INVALID_EMAIL_OR_PASSWORD",
-	"INVALID_USERNAME_OR_PASSWORD",
-	"INVALID_TWO_FACTOR_COOKIE",
-	"INVALID_TOKEN",
-	"INVALID_OTP",
-	"INVALID_BACKUP_CODE",
-])("maps %s to product recovery copy without exposing server text", (code) => {
-	const message = authErrorMessage({ code, message: "private backend diagnostic" }, "Fallback");
-	expect(message).not.toBe("Fallback");
-	expect(message).not.toContain("private backend diagnostic");
-});
+it.each(["INVALID_EMAIL_OR_PASSWORD", "INVALID_USERNAME_OR_PASSWORD", "INVALID_TOKEN"])(
+	"maps %s to product recovery copy without exposing server text",
+	(code) => {
+		const message = authErrorMessage({ code, message: "private backend diagnostic" }, "Fallback");
+		expect(message).not.toBe("Fallback");
+		expect(message).not.toContain("private backend diagnostic");
+	},
+);
 
 it("keeps recognized guest conflict recovery guidance but rejects arbitrary server messages", () => {
 	const message =

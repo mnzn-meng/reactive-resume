@@ -1,7 +1,7 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import type { AddressInfo } from "node:net";
 import { createServer } from "node:http";
-import { COACH_ANSWER, careerJson, letterText } from "./ai-stub-career.ts";
+import { COACH_ANSWER, careerJson } from "./ai-stub-career.ts";
 
 /**
  * A scripted OpenAI-compatible provider for the assistant spec. It answers the connection test, and plays a small
@@ -65,12 +65,6 @@ function streamToolCall(response: ServerResponse, name: string, args: unknown) {
 	response.end("data: [DONE]\n\n");
 }
 
-const systemText = (messages: ChatMessage[]) =>
-	messages
-		.filter((message) => message.role === "system" || message.role === "developer")
-		.map((message) => text(message.content))
-		.join("\n");
-
 function reply(request: ChatRequest, response: ServerResponse) {
 	const messages = request.messages;
 	const tools = new Set((request.tools ?? []).map((tool) => tool.function.name));
@@ -78,11 +72,9 @@ function reply(request: ChatRequest, response: ServerResponse) {
 	const said = text(lastUser?.content).toLowerCase();
 	const sinceUser = messages.slice(messages.lastIndexOf(lastUser as ChatMessage) + 1);
 	const lastTool = [...sinceUser].reverse().find((message) => message.role === "tool");
-	const readTool = tools.has("read_letter") ? "read_letter" : "read_resume";
+	const readTool = "read_resume";
 
 	response.writeHead(200, { "content-type": "text/event-stream", "cache-control": "no-cache" });
-	const letter = letterText(systemText(messages), text(lastUser?.content));
-	if (letter) return streamText(response, letter.split(/(?<= )/));
 	if (said.includes("slowly"))
 		return streamText(
 			response,
