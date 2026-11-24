@@ -16,6 +16,7 @@ it("keeps PDF headings and the printed 'Present' synchronized with the source Li
 		await committed("../../packages/schema/src/resume/present-labels.json"),
 		"Run pnpm pdf:translations after updating translations.",
 	).toEqual(present);
-	expect(titles["es-ES"]?.Experience).toBe("Experiencia");
+	expect(titles["zh-CN"]?.Experience).toBe("工作经历");
+	expect(titles["en-US"]?.Experience).toBe("Experience");
 	expect(present["en-US"]).toBe("Present");
 });

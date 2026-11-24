@@ -81,9 +81,13 @@ export function localizedUrl(pageUrl: string, locale?: Locale) {
 }
 
 // Lingui's pseudo-locale (lingui.config.ts): accented, stretched English for testing layouts, not a translation.
-const pseudoLocale: Locale = "zu-ZA";
+export const pseudoLocale: Locale = "zu-ZA";
 
-export const supportedLocales: readonly Locale[] = localeSchema.options.filter((locale) => locale !== pseudoLocale);
+/**
+ * The interface languages this build ships, and the only catalogs compiled with the app. The locale schema still
+ * accepts every tag a stored account or document may carry; a tag outside this list falls back to the default.
+ */
+export const supportedLocales: readonly Locale[] = ["en-US", "zh-CN"];
 
 /** Follow ordered device/browser preferences without ever selecting the development pseudo-locale. */
 export function getPreferredLocale(languages: readonly string[]): Locale {

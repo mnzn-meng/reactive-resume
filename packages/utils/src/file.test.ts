@@ -23,8 +23,8 @@ it("removes traversal, separators, control characters and header punctuation", (
 
 it("names the file in the resume's own language", () => {
 	const data = (locale: string) => ({ basics: { name: "Layla Haddad" }, metadata: { page: { locale } } });
-	expect(getDefaultFileName({ name: "", data: data("de-DE") })).toBe("Layla-Haddad-Lebenslauf");
+	expect(getDefaultFileName({ name: "", data: data("zh-CN") })).toBe("Layla-Haddad-简历");
 	expect(getDefaultFileName({ name: "", data: data("en-US") })).toBe("Layla-Haddad-Resume");
-	// A locale without a translation keeps the English word.
-	expect(getDefaultFileName({ name: "", data: data("xx-XX") })).toBe("Layla-Haddad-Resume");
+	// A language the interface no longer ships keeps the English word.
+	expect(getDefaultFileName({ name: "", data: data("de-DE") })).toBe("Layla-Haddad-Resume");
 });

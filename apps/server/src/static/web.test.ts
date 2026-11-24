@@ -118,35 +118,43 @@ describe("web app fallback classification", () => {
 			return Promise.resolve(`<html><head></head><body><div id="app">${locale ?? "shell"}</div></body></html>`);
 		});
 
-		const german = await handleWebApp(new Request("https://example.com/?locale=de-DE"));
-		const html = await german.text();
-		expect(html).toContain('<div id="app">de-DE</div>');
-		expect(html).toContain('<link rel="canonical" href="https://rxresu.me/?locale=de-DE">');
+		const chinese = await handleWebApp(new Request("https://example.com/?locale=zh-CN"));
+		const html = await chinese.text();
+		expect(html).toContain('<div id="app">zh-CN</div>');
+		expect(html).toContain('<link rel="canonical" href="https://rxresu.me/?locale=zh-CN">');
 		expect(html).toContain('<link rel="alternate" hreflang="x-default" href="https://rxresu.me/">');
-		expect(german.headers.get("Vary")).toBe("Cookie");
+		expect(chinese.headers.get("Vary")).toBe("Cookie");
 
-		const saved = new Request("https://example.com/", { headers: { cookie: "theme=dark; locale=ar-SA" } });
+		const saved = new Request("https://example.com/", { headers: { cookie: "theme=dark; locale=zh-CN" } });
 		const savedHtml = await (await handleWebApp(saved)).text();
-		expect(savedHtml).toContain('<div id="app">ar-SA</div>');
+		expect(savedHtml).toContain('<div id="app">zh-CN</div>');
 		expect(savedHtml).toContain('<link rel="canonical" href="https://rxresu.me/">');
+
+		// A language the build no longer ships serves the default page instead.
+		const retired = await handleWebApp(new Request("https://example.com/?locale=de-DE"));
+		expect(await retired.text()).toContain('<div id="app">en-US</div>');
 
 		// Only known locales name a file, so the parameter can't point anywhere else.
 		const unknown = await handleWebApp(new Request("https://example.com/?locale=../../index"));
 		expect(await unknown.text()).toContain('<div id="app">en-US</div>');
 	});
 
-	it("names structured data's language as a BCP 47 tag, and as English when the page falls back to the shell", async () => {
+	it("names structured data's language after the page, and English when the page falls back to the shell", async () => {
 		vi.mocked(fs.readFile).mockImplementation((path) => {
 			const locale = String(path).match(/dist-prerender\/home\/(.+)\.html$/)?.[1];
-			if (locale === "fr-FR") return Promise.reject(new Error("missing"));
 			return Promise.resolve(`<html><head></head><body><div id="app">${locale ?? "shell"}</div></body></html>`);
 		});
 
-		const serbian = await (await handleWebApp(new Request("https://example.com/?locale=sr-SP"))).text();
-		expect(serbian).toContain('"inLanguage":"sr"');
-		expect(serbian).not.toContain('"inLanguage":"sr-SP"');
+		const chinese = await (await handleWebApp(new Request("https://example.com/?locale=zh-CN"))).text();
+		expect(chinese).toContain('"inLanguage":"zh-CN"');
 
-		const missing = await (await handleWebApp(new Request("https://example.com/?locale=fr-FR"))).text();
+		vi.mocked(fs.readFile).mockImplementation((path) => {
+			const locale = String(path).match(/dist-prerender\/home\/(.+)\.html$/)?.[1];
+			if (locale === "zh-CN") return Promise.reject(new Error("missing"));
+			return Promise.resolve(`<html><head></head><body><div id="app">${locale ?? "shell"}</div></body></html>`);
+		});
+
+		const missing = await (await handleWebApp(new Request("https://example.com/?locale=zh-CN"))).text();
 		expect(missing).toContain('"inLanguage":"en-US"');
 	});
 
@@ -203,16 +211,16 @@ describe("web app fallback classification", () => {
 			const locale = String(path).match(/dist-prerender\/ats-checker\/(.+)\.html$/)?.[1];
 			if (!locale) return Promise.resolve("<html><head></head><body></body></html>");
 			return Promise.resolve(
-				`<html><head><title>ATS-Prüfung &amp; mehr</title><meta name="description" content="Lesbar?"></head><body><div id="app">${locale}</div></body></html>`,
+				`<html><head><title>ATS 检查与更多</title><meta name="description" content="可读性？"></head><body><div id="app">${locale}</div></body></html>`,
 			);
 		});
 
-		const html = await (await handleWebApp(new Request("https://example.com/ats-checker?locale=de-DE"))).text();
+		const html = await (await handleWebApp(new Request("https://example.com/ats-checker?locale=zh-CN"))).text();
 
-		expect(html).toContain('<div id="app">de-DE</div>');
-		expect(html).toContain('<link rel="canonical" href="https://rxresu.me/ats-checker?locale=de-DE">');
-		expect(html).toContain('<meta property="og:title" content="ATS-Prüfung &amp; mehr">');
-		expect(html).toContain('<meta property="og:locale" content="de_DE">');
+		expect(html).toContain('<div id="app">zh-CN</div>');
+		expect(html).toContain('<link rel="canonical" href="https://rxresu.me/ats-checker?locale=zh-CN">');
+		expect(html).toContain('<meta property="og:title" content="ATS 检查与更多">');
+		expect(html).toContain('<meta property="og:locale" content="zh_CN">');
 	});
 
 	it.each(["/", "/dashboard"])("sets framing and CSP security headers on %s", async (pathname) => {

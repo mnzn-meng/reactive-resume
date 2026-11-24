@@ -57,7 +57,7 @@ describe.each([false, true])("locale choices with development=%s", (development)
 		expect(getLocale()).toBe(expected);
 		expect(cookies.set).toHaveBeenLastCalledWith("locale", expected, { expires: 365, path: "/", sameSite: "lax" });
 
-		window.location.search = "?locale=de-DE";
-		expect(getLocale()).toBe("de-DE");
+		window.location.search = "?locale=zh-CN";
+		expect(getLocale()).toBe("zh-CN");
 	});
 });

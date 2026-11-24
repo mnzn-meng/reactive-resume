@@ -26,29 +26,29 @@ describe("RPC fetch", () => {
 		{
 			stage: "preparation",
 			status: 503,
-			message: "Der Upload konnte nicht vorbereitet werden (503). Versuche es erneut.",
+			message: "无法准备上传（503）。请重试。",
 		},
 		{
 			stage: "upload",
 			status: 502,
-			message: "Der Upload wurde nicht abgeschlossen (502). Versuche es erneut.",
+			message: "上传未完成（502）。请重试。",
 		},
 	])("localizes $stage failures and stops dispatch", async ({ stage, status, message }) => {
 		const { i18n } = await import("@lingui/core");
 		const catalogs = import.meta.glob<Messages>("../../../locales/*.po", { import: "messages" });
-		const german = catalogs["../../../locales/de-DE.po"];
-		if (!german) throw new Error("German catalog missing");
-		const messages = await german();
+		const chinese = catalogs["../../../locales/zh-CN.po"];
+		if (!chinese) throw new Error("Chinese catalog missing");
+		const messages = await chinese();
 		const { rpcFetch } = await import("./fetch");
 		const { getReadableErrorMessage } = await import("../error-message");
-		i18n.loadAndActivate({ locale: "de-DE", messages });
+		i18n.loadAndActivate({ locale: "zh-CN", messages });
 		if (stage === "upload")
 			fetchMock.mockResolvedValueOnce(Response.json({ id: "upload-1", url: "https://blob.test/signed-put" }));
 		fetchMock.mockResolvedValueOnce(new Response("Unavailable", { status }));
 		try {
 			const visible = await rpcFetch(new Request(rpcUrl, { method: "POST", body: largeBody })).then(
 				() => null,
-				(error: unknown) => getReadableErrorMessage(error, "Upload fehlgeschlagen"),
+				(error: unknown) => getReadableErrorMessage(error, "上传失败"),
 			);
 			expect(visible).toBe(message);
 			expect(fetchMock).toHaveBeenCalledTimes(stage === "upload" ? 2 : 1);

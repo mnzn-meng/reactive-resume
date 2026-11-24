@@ -7,8 +7,8 @@ import {
 	defaultLocale,
 	getPreferredLocale,
 	isLocale,
-	localeSchema,
 	localizedUrl,
+	pseudoLocale,
 	supportedLocales,
 } from "@reactive-resume/utils/locale";
 
@@ -83,7 +83,8 @@ export const localeMap = {
 	"zu-ZA": msg`Zulu`,
 } satisfies Record<Locale, MessageDescriptor>;
 
-export const selectableLocales = import.meta.env.DEV ? localeSchema.options : supportedLocales;
+// Development can switch to the pseudo-locale to check layouts; a build offers the shipped languages only.
+export const selectableLocales = import.meta.env.DEV ? [...supportedLocales, pseudoLocale] : supportedLocales;
 
 export const resolveLocale = (locale: string): Locale => {
 	return isLocale(locale) && selectableLocales.includes(locale) ? locale : defaultLocale;

@@ -13,12 +13,12 @@ describe("explicit browser preferences", () => {
 
 	it("persists link language with an expiry, root path and SameSite", () => {
 		const writes = vi.spyOn(document, "cookie", "set");
-		window.history.replaceState(null, "", "/?locale=de-DE");
-		expect(getLocale()).toBe("de-DE");
+		window.history.replaceState(null, "", "/?locale=zh-CN");
+		expect(getLocale()).toBe("zh-CN");
 		const cookie = document.cookie;
-		expect(cookie).toContain("locale=de-DE");
+		expect(cookie).toContain("locale=zh-CN");
 		window.history.replaceState(null, "", "/dashboard");
-		expect(getLocale()).toBe("de-DE");
+		expect(getLocale()).toBe("zh-CN");
 		// Exercise js-cookie serialization and the real DOM cookie jar.
 		expect(writes.mock.calls.at(-1)?.[0]).toMatch(/expires=/i);
 		expect(writes.mock.calls.at(-1)?.[0]).toMatch(/path=\//i);

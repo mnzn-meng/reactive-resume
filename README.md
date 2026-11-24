@@ -80,7 +80,7 @@ You own your data. No tracking, no ads, and no paid tier. Optional AI features u
 - Self-host with Docker, Vercel, Cloudflare Workers, or a 1-click deploy on Hostinger
 - No tracking or ads; export your account data or delete your account
 - Passkeys and linked sign-in providers
-- Multiple interface languages, light/dark/system themes, and reduced-motion support
+- English and Simplified Chinese interfaces, light/dark/system themes, and reduced-motion support
 
 ## Templates
 

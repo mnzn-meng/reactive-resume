@@ -8,5 +8,5 @@ Reactive Resume is a free and open-source resume builder for writing resumes, ch
 - Import from JSON Resume, LinkedIn and earlier Reactive Resume versions
 - Optional AI assistant with your own provider (OpenAI, Anthropic, Gemini, Ollama and more)
 - Passkeys and single sign-on with Cloudron
-- Translated into more than 50 languages
+- Interface in English and Simplified Chinese
 - No tracking or ads; your data stays on your server

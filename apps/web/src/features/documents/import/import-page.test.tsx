@@ -247,7 +247,7 @@ it("uses the interface language when a PDF review resets an earlier selection", 
 	fireEvent.click(await screen.findByRole("button", { name: "Read on this device" }));
 	await screen.findByRole("heading", { name: /^What was found/ });
 	fireEvent.click(screen.getByRole("combobox", { name: "Resume language" }));
-	fireEvent.click(await screen.findByRole("option", { name: /العربية/ }));
+	fireEvent.click(await screen.findByRole("option", { name: /中文/ }));
 	fireEvent.click(screen.getByRole("combobox", { name: "Resume language" }));
 	fireEvent.click(await screen.findByRole("option", { name: getLanguageName("en-US") }));
 	fireEvent.click(screen.getByRole("button", { name: "Create resume" }));
