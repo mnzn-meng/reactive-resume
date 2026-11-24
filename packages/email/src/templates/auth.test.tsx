@@ -5,7 +5,7 @@ import { confirmNewEmail, resetPasswordEmail, verifyEmail, verifyEmailChange } f
 /** The opening tag's attributes, in any order. */
 const tag = (html: string, name: string) => html.match(new RegExp(`<${name}\\b[^>]*>`))?.[0] ?? "";
 
-const url = "https://rxresu.me/api/auth/verify-email?token=signed.token-value&callbackURL=%2Fdashboard";
+const url = "https://zhiye.example/api/auth/verify-email?token=signed.token-value&callbackURL=%2Fdashboard";
 
 describe("account emails", () => {
 	it("keep the English text, link and plain-text copy for an English account", async () => {

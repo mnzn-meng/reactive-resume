@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
 const mocks = vi.hoisted(() => ({
-	env: { APP_URL: "https://rxresu.me", FONT_MIRROR_URL: undefined as string | undefined },
+	env: { APP_URL: "https://zhiye.example", FONT_MIRROR_URL: undefined as string | undefined },
 	serveStatic: vi.fn(() => vi.fn()),
 }));
 
@@ -41,17 +41,17 @@ it("builds font-src with the application and configured mirror origins", () => {
 });
 
 const searchLink =
-	'<https://context7.com/api/v2/ask?siteKey=ask_b3fd9335a63f1b21b1a814ac>; rel="search"; type="text/plain"; title="Search rxresu.me"';
+	'<https://context7.com/api/v2/ask?siteKey=ask_b3fd9335a63f1b21b1a814ac>; rel="search"; type="text/plain"; title="Search zhiye.example"';
 
 describe("web app fallback classification", () => {
 	beforeEach(() => {
 		vi.clearAllMocks();
-		mocks.env.APP_URL = "https://rxresu.me";
+		mocks.env.APP_URL = "https://zhiye.example";
 		vi.mocked(fs.readFile).mockResolvedValue("<html>app</html>");
 	});
 
 	it.each(
-		["https://rxresu.me", "https://resume.example.test"].flatMap((origin) =>
+		["https://zhiye.example", "https://resume.example.test"].flatMap((origin) =>
 			["/", "/ats-checker", "/resume-templates", "/dashboard", "/auth/login"].map((path) => ({ origin, path })),
 		),
 	)("keeps search discovery declarative on $origin $path", async ({ origin, path }) => {
@@ -87,8 +87,8 @@ describe("web app fallback classification", () => {
 		const response = await handleWebApp(new Request("http://server.internal/?utm_source=search"));
 		const html = await response.text();
 
-		expect(html).toContain('<link rel="canonical" href="https://rxresu.me/">');
-		expect(html).toContain('<meta property="og:url" content="https://rxresu.me/">');
+		expect(html).toContain('<link rel="canonical" href="https://zhiye.example/">');
+		expect(html).toContain('<meta property="og:url" content="https://zhiye.example/">');
 		expect(html).toContain('<script type="application/ld+json">');
 		expect(html).toContain(
 			'<meta property="og:description" content="职页 is a free resume builder that makes it easy to create, update, and share your resume.">',
@@ -121,14 +121,14 @@ describe("web app fallback classification", () => {
 		const chinese = await handleWebApp(new Request("https://example.com/?locale=zh-CN"));
 		const html = await chinese.text();
 		expect(html).toContain('<div id="app">zh-CN</div>');
-		expect(html).toContain('<link rel="canonical" href="https://rxresu.me/?locale=zh-CN">');
-		expect(html).toContain('<link rel="alternate" hreflang="x-default" href="https://rxresu.me/">');
+		expect(html).toContain('<link rel="canonical" href="https://zhiye.example/?locale=zh-CN">');
+		expect(html).toContain('<link rel="alternate" hreflang="x-default" href="https://zhiye.example/">');
 		expect(chinese.headers.get("Vary")).toBe("Cookie");
 
 		const saved = new Request("https://example.com/", { headers: { cookie: "theme=dark; locale=zh-CN" } });
 		const savedHtml = await (await handleWebApp(saved)).text();
 		expect(savedHtml).toContain('<div id="app">zh-CN</div>');
-		expect(savedHtml).toContain('<link rel="canonical" href="https://rxresu.me/">');
+		expect(savedHtml).toContain('<link rel="canonical" href="https://zhiye.example/">');
 
 		// A language the build no longer ships serves the default page instead.
 		const retired = await handleWebApp(new Request("https://example.com/?locale=de-DE"));
@@ -162,8 +162,12 @@ describe("web app fallback classification", () => {
 		vi.mocked(fs.readFile).mockImplementation((path) =>
 			Promise.resolve(`<html><head></head><body>${String(path)}</body></html>`),
 		);
-		const german = await handleWebApp(new Request("https://rxresu.me/", { headers: { "accept-language": "de-DE" } }));
-		const french = await handleWebApp(new Request("https://rxresu.me/", { headers: { "accept-language": "fr-FR" } }));
+		const german = await handleWebApp(
+			new Request("https://zhiye.example/", { headers: { "accept-language": "de-DE" } }),
+		);
+		const french = await handleWebApp(
+			new Request("https://zhiye.example/", { headers: { "accept-language": "fr-FR" } }),
+		);
 		const body = await german.text();
 		expect(body).toContain("home/en-US.html");
 		expect(await french.text()).toBe(body);
@@ -218,7 +222,7 @@ describe("web app fallback classification", () => {
 		const html = await (await handleWebApp(new Request("https://example.com/ats-checker?locale=zh-CN"))).text();
 
 		expect(html).toContain('<div id="app">zh-CN</div>');
-		expect(html).toContain('<link rel="canonical" href="https://rxresu.me/ats-checker?locale=zh-CN">');
+		expect(html).toContain('<link rel="canonical" href="https://zhiye.example/ats-checker?locale=zh-CN">');
 		expect(html).toContain('<meta property="og:title" content="ATS 检查与更多">');
 		expect(html).toContain('<meta property="og:locale" content="zh_CN">');
 	});

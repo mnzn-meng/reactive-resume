@@ -31,7 +31,7 @@ it("ships two interface languages and keeps the testing catalog out of them", ()
 	// The schema still knows every tag a stored account or document may carry.
 	expect(isLocale("zu-ZA")).toBe(true);
 	expect(localeSchema.options.length).toBeGreaterThan(supportedLocales.length);
-	expect(getLocaleAlternates("https://rxresu.me/")).toHaveLength(supportedLocales.length + 1);
+	expect(getLocaleAlternates("https://zhiye.example/")).toHaveLength(supportedLocales.length + 1);
 });
 
 it("maps the Armenian locale to its script", () => {
@@ -40,15 +40,15 @@ it("maps the Armenian locale to its script", () => {
 
 describe("locale URLs", () => {
 	it("keeps the default locale on the plain address and puts others in the locale parameter", () => {
-		expect(localizedUrl("https://rxresu.me/?locale=zh-CN", "en-US")).toBe("https://rxresu.me/");
-		expect(localizedUrl("https://rxresu.me/", "zh-CN")).toBe("https://rxresu.me/?locale=zh-CN");
+		expect(localizedUrl("https://zhiye.example/?locale=zh-CN", "en-US")).toBe("https://zhiye.example/");
+		expect(localizedUrl("https://zhiye.example/", "zh-CN")).toBe("https://zhiye.example/?locale=zh-CN");
 	});
 
 	it("lists an alternate for each shipped language and the default", () => {
-		expect(getLocaleAlternates("https://rxresu.me/")).toEqual([
-			{ hreflang: "en-US", href: "https://rxresu.me/" },
-			{ hreflang: "zh-CN", href: "https://rxresu.me/?locale=zh-CN" },
-			{ hreflang: "x-default", href: "https://rxresu.me/" },
+		expect(getLocaleAlternates("https://zhiye.example/")).toEqual([
+			{ hreflang: "en-US", href: "https://zhiye.example/" },
+			{ hreflang: "zh-CN", href: "https://zhiye.example/?locale=zh-CN" },
+			{ hreflang: "x-default", href: "https://zhiye.example/" },
 		]);
 	});
 });

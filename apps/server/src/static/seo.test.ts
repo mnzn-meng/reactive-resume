@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vite-plus/test";
 import { supportedLocales } from "@zhiye/utils/locale";
 
-const mocks = vi.hoisted(() => ({ env: { APP_URL: "https://rxresu.me/" } }));
+const mocks = vi.hoisted(() => ({ env: { APP_URL: "https://zhiye.example/" } }));
 
 vi.mock("@zhiye/env/server", () => ({ env: mocks.env }));
 const { handleLlms, handlePagesSitemap } = await import("./seo");
@@ -16,9 +16,9 @@ it("keeps search documentation in llms.txt with instance-local product and API l
 		expect(text).toContain("[Homepage](https://resume.example.test/)");
 		expect(text).toContain("[Get started](https://resume.example.test/dashboard)");
 		expect(text).toContain("[OpenAPI specification](https://resume.example.test/openapi.json)");
-		expect(text).not.toContain("https://rxresu.me");
+		expect(text).not.toContain("https://zhiye.example");
 	} finally {
-		mocks.env.APP_URL = "https://rxresu.me/";
+		mocks.env.APP_URL = "https://zhiye.example/";
 	}
 });
 
@@ -40,7 +40,7 @@ describe("localized sitemap", () => {
 		expect(entries).toHaveLength(3 * supportedLocales.length);
 		expect(new Set(locations).size).toBe(entries.length);
 		for (const path of ["/", "/ats-checker", "/resume-templates"]) {
-			const base = `https://rxresu.me${path}`;
+			const base = `https://zhiye.example${path}`;
 			expect(locations).toContain(base);
 			const group = entries.filter((entry) => entry.loc?.split("?")[0] === base);
 			expect(group).toHaveLength(supportedLocales.length);

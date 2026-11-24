@@ -2,7 +2,7 @@
 
 The repository is `reactive-resume/reactive-resume`. Docker Hub remains
 `docker.io/amruthpillai/reactive-resume`; GHCR follows the repository as
-`ghcr.io/reactive-resume/reactive-resume`. Do not derive Docker Hub's image name from `github.repository`.
+`ghcr.io/OWNER/zhiye`. Do not derive Docker Hub's image name from `github.repository`.
 
 ## Builds and release safety
 
@@ -105,7 +105,7 @@ and Actions access before consumers can pull anonymously.
 ## Verification and historical images
 
 The September 12, 2026 rename rebuild used commit `f89acb436865cf536fffed2b23d4d72a7ecff0db`
-in [workflow run 34685606073](https://github.com/reactive-resume/reactive-resume/actions/runs/34685606073).
+in [workflow run 34685606073](https://github.com/OWNER/zhiye/actions/runs/34685606073).
 Both registries' `latest`, `v5`, `v5.3`, and `v5.3.0` aliases were verified at:
 
 ```text
@@ -122,18 +122,18 @@ Docker configuration with explicit empty registry credentials to prove anonymous
 (a completely empty directory can still discover a system credential helper):
 
 ```bash
-docker buildx imagetools inspect ghcr.io/reactive-resume/reactive-resume:v5.3.0
+docker buildx imagetools inspect ghcr.io/OWNER/zhiye:v5.3.0
 registry_config=$(mktemp -d)
 printf '%s\n' '{"auths":{"ghcr.io":{}}}' > "$registry_config/config.json"
-docker --config "$registry_config" pull --platform linux/amd64 ghcr.io/reactive-resume/reactive-resume:v5.3.0
-docker --config "$registry_config" pull --platform linux/arm64 ghcr.io/reactive-resume/reactive-resume:v5.3.0
+docker --config "$registry_config" pull --platform linux/amd64 ghcr.io/OWNER/zhiye:v5.3.0
+docker --config "$registry_config" pull --platform linux/arm64 ghcr.io/OWNER/zhiye:v5.3.0
 rm -r "$registry_config"
 ```
 
 On September 11, 2026, `latest`, `v5`, `v5.3`, and `v5.3.0` were copied to the then-current
 public GHCR package, `ghcr.io/reactive-resume/app`. Both architectures were pulled anonymously; the original Cosign signature,
 SBOMs, provenance, and image digest were verified. The signed canary
-[`canary-34582818410-1`](https://github.com/reactive-resume/reactive-resume/actions/runs/34582818410)
+[`canary-34582818410-1`](https://github.com/OWNER/zhiye/actions/runs/34582818410)
 also passed on both registries without deploying production.
 
 The original v5.3.0 at the previous GHCR address has digest
@@ -147,9 +147,9 @@ repository source label and signing identity; historical digests and signatures 
 Release aliases are mutable: pin the original digest above if you need the pre-rename artifact.
 
 New signatures identify
-`https://github.com/reactive-resume/reactive-resume/.github/workflows/docker-publish.yml@<ref>`.
+`https://github.com/OWNER/zhiye/.github/workflows/docker-publish.yml@<ref>`.
 Images signed before the workflow rename retain
-`https://github.com/reactive-resume/reactive-resume/.github/workflows/docker-build.yml@<ref>`.
+`https://github.com/OWNER/zhiye/.github/workflows/docker-build.yml@<ref>`.
 Use the workflow identity from the image's signing record when verifying older images.
 Signatures and image source labels from before the repository rename retain the old repository identity. Verify
 historical v5.3.0 with its original workflow identity, even at its new registry address:
@@ -177,7 +177,7 @@ OIDC trust policies; the repository URL alone does not describe the subject.
   rewards, and any external OIDC policies in their owning accounts. Repository transfer alone
   does not verify those integrations.
 
-Track availability and supported copied tags in [migration issue #3503](https://github.com/reactive-resume/reactive-resume/issues/3503).
+Track availability and supported copied tags in [migration issue #3503](https://github.com/OWNER/zhiye/issues/3503).
 No database reset, volume deletion, or resume-data migration is required.
 
 References: [GitHub package permissions](https://docs.github.com/en/packages/learn-github-packages/about-permissions-for-github-packages),

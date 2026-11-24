@@ -34,7 +34,7 @@ export const env = {
 	CALM_NOW: now,
 	// Custom domains on, so Share draws "Short link and domain" (B5, B28). The seeded domain publishes no matching
 	// records, so it stays "not connected yet". Not secrets: the provider secret only guards the Traefik route.
-	CUSTOM_DOMAIN_TARGET: "domains.rxresu.me",
+	CUSTOM_DOMAIN_TARGET: "domains.zhiye.example",
 	CUSTOM_DOMAIN_PROVIDER_SECRET: "calm-capture-traefik-provider-secret",
 };
 

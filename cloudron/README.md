@@ -17,7 +17,7 @@ After a release image is on GHCR:
 
    ```sh
    cd cloudron
-   npx cloudron versions add --image ghcr.io/reactive-resume/reactive-resume:v<version>
+   npx cloudron versions add --image ghcr.io/OWNER/zhiye:v<version>
    npx cloudron versions verify
    ```
 

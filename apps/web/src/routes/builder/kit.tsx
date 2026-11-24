@@ -89,7 +89,7 @@ const TYPE: [className: string, sample: string, note: string][] = [
 	["t-small text-ink-2", "Applied 28 Oct · follow-up due", "small 13/18"],
 	["t-caption text-ink-2", "Draft", "caption 12/16"],
 	["t-eyebrow text-ink-3", "Recent", "eyebrow 12/16"],
-	["t-mono text-ink-2", "rxresu.me/alex/product-designer", "mono 12/16"],
+	["t-mono text-ink-2", "zhiye.example/alex/product-designer", "mono 12/16"],
 ];
 
 const SWATCHES: [token: string, ink?: string][] = [

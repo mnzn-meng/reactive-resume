@@ -1,4 +1,4 @@
-name: reactive_resume
+name: zhiye
 
 services:
   postgres:
@@ -83,8 +83,8 @@ services:
       seaweedfs:
         condition: service_healthy
 
-  reactive_resume:
-    # image: ghcr.io/reactive-resume/reactive-resume:latest
+  zhiye:
+    # image: ghcr.io/OWNER/zhiye:latest
     build:
       context: .
       dockerfile: Dockerfile

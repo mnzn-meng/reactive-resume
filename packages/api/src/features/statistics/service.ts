@@ -4,7 +4,7 @@ import { db } from "@zhiye/db/client";
 import * as schema from "@zhiye/db/schema";
 
 const CACHE_DURATION_MS = 6 * 60 * 60 * 1000; // 6 hours
-const GITHUB_API_URL = "https://api.github.com/repos/reactive-resume/reactive-resume";
+const GITHUB_API_URL = "https://api.github.com/repos/OWNER/zhiye";
 const GITHUB_REQUEST_TIMEOUT_MS = 5_000;
 const GITHUB_REQUEST_MAX_ATTEMPTS = 2;
 

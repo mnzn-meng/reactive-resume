@@ -94,7 +94,7 @@ export const env = createEnv({
 			.url({ protocol: /^https?$/ })
 			.refine((value) => !/[?#]/.test(value), "Font base URL must not contain a query string or fragment")
 			.optional(),
-		// A second domain serving the home page and the marketing pages alongside APP_URL, e.g. https://rx.cv.
+		// A second domain serving the home page and the marketing pages alongside APP_URL, e.g. https://zy.example.
 		// Sign-in and the editor stay on APP_URL.
 		APP_ALIAS_URL: z.url({ protocol: /^https?$/ }).optional(),
 		SERVER_PORT: z.coerce.number().int().min(1).max(65535).default(3001),

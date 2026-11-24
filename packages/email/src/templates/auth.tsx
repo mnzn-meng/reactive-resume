@@ -23,7 +23,7 @@ void React;
 
 const appName = "职页";
 // A PNG from this installation (mail clients block SVG, and a self-hosted server shouldn't lean on the public site).
-const appUrl = (process.env.APP_URL ?? "https://rxresu.me").replace(/\/+$/, "");
+const appUrl = (process.env.APP_URL ?? "https://zhiye.example").replace(/\/+$/, "");
 const logoUrl = `${appUrl}/apple-touch-icon-180x180.png`;
 
 // The app's Desk & Paper values, with system fallbacks: a light ground survives clients that force dark mode.

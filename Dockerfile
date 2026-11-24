@@ -60,12 +60,12 @@ ENV APP_REVISION=${APP_REVISION}
 
 LABEL maintainer="amruthpillai"
 LABEL org.opencontainers.image.licenses="MIT"
-LABEL org.opencontainers.image.title="Reactive Resume"
+LABEL org.opencontainers.image.title="职页"
 LABEL org.opencontainers.image.description="A free and open-source resume builder."
 LABEL org.opencontainers.image.vendor="Amruth Pillai"
-LABEL org.opencontainers.image.url="https://rxresu.me"
-LABEL org.opencontainers.image.documentation="https://docs.rxresu.me"
-LABEL org.opencontainers.image.source="https://github.com/reactive-resume/reactive-resume"
+LABEL org.opencontainers.image.url="https://zhiye.example"
+LABEL org.opencontainers.image.documentation="https://docs.zhiye.example"
+LABEL org.opencontainers.image.source="https://github.com/OWNER/zhiye"
 
 ENV NODE_ENV="production" \
     PORT=3000 \

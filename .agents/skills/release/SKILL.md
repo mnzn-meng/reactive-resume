@@ -18,13 +18,13 @@ carries a published changelog, so the release notes are the only changelog: they
    ```md
    ## Highlights
 
-   - **Bold feature lead.** One or two sentences of user-facing benefit — what it does for the user, not how it's implemented. [abc123def](https://github.com/reactive-resume/reactive-resume/commit/abc123def)
+   - **Bold feature lead.** One or two sentences of user-facing benefit — what it does for the user, not how it's implemented. [abc123def](https://github.com/OWNER/zhiye/commit/abc123def)
 
    ## Thematic Section (e.g. Resume Builder, Import & Export, Self-Hosting & Maintenance)
 
-   - Past-tense entry ("Added…", "Fixed…", "Improved…") with commit links. [abc123def](https://github.com/reactive-resume/reactive-resume/commit/abc123def)
+   - Past-tense entry ("Added…", "Fixed…", "Improved…") with commit links. [abc123def](https://github.com/OWNER/zhiye/commit/abc123def)
 
-   **Full Changelog**: [vPREV...vX.Y.Z](https://github.com/reactive-resume/reactive-resume/compare/vPREV...vX.Y.Z)
+   **Full Changelog**: [vPREV...vX.Y.Z](https://github.com/OWNER/zhiye/compare/vPREV...vX.Y.Z)
    ```
 
    Conventions: the release date is the tag's date, given ordinal ("7th July 2026") wherever it appears; every bullet links its commit(s) as `[shortsha](commit url)`; group by theme, Highlights first; write for users of the app and self-hosters, not for contributors. Thank external contributors by handle where relevant.
@@ -41,7 +41,7 @@ carries a published changelog, so the release notes are the only changelog: they
 
    Delete `release-notes.md` afterwards; it is not committed.
 
-8. **Update the Cloudron package** once the release image is on GHCR: follow `cloudron/README.md` (manifest `version`, `CHANGELOG`, `npx cloudron versions add --image ghcr.io/reactive-resume/reactive-resume:v<version>`), then commit `cloudron/` to `main`.
+8. **Update the Cloudron package** once the release image is on GHCR: follow `cloudron/README.md` (manifest `version`, `CHANGELOG`, `npx cloudron versions add --image ghcr.io/OWNER/zhiye:v<version>`), then commit `cloudron/` to `main`.
 9. **Optional, on request**: a LinkedIn/Reddit announcement draft based on the Highlights.
 
 ## Common Mistakes

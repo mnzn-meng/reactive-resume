@@ -4,7 +4,7 @@ Decision (November 2, 2026): **no-go for now**. Do not build operator or multi-c
 
 ## Why not now
 
-- **No demand evidence yet.** RX-79 is conditional on APP-08 (RX-77) showing that people apply on behalf of several clients. RX-77 shipped a limited pilot ([#3848](https://github.com/reactive-resume/reactive-resume/pull/3848)): one owner shares one resume version with one reviewer, optionally with read-only application progress. It has no usage yet. Agents cannot interview coaches, nonprofits or university services; that research needs the owner.
+- **No demand evidence yet.** RX-79 is conditional on APP-08 (RX-77) showing that people apply on behalf of several clients. RX-77 shipped a limited pilot ([#3848](https://github.com/OWNER/zhiye/pull/3848)): one owner shares one resume version with one reviewer, optionally with read-only application progress. It has no usage yet. Agents cannot interview coaches, nonprofits or university services; that research needs the owner.
 - **It is a new ownership model.** Every table is owned by one `user_id`, and every service checks that owner. Delegation would touch all API, MCP, mobile and background-job entry points at once. The cost is only justified by measured demand.
 - **The pilot already covers the common, lower-risk need.** Review and feedback on a fixed version, with revocation and activity history, is what most coaches and careers offices ask for first. Acting for a client (editing, applying) needs the model below.
 

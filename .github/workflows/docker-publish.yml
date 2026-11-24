@@ -23,7 +23,7 @@ concurrency:
 
 env:
   GHCR_IMAGE: ghcr.io/${{ github.repository }}
-  DOCKER_IMAGE: docker.io/amruthpillai/reactive-resume
+  DOCKER_IMAGE: docker.io/OWNER/zhiye
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
@@ -340,8 +340,8 @@ jobs:
             --annotation "index:org.opencontainers.image.title=职页" \
             --annotation "index:org.opencontainers.image.description=A free and open-source resume builder." \
             --annotation "index:org.opencontainers.image.vendor=Amruth Pillai" \
-            --annotation "index:org.opencontainers.image.url=https://rxresu.me" \
-            --annotation "index:org.opencontainers.image.documentation=https://docs.rxresu.me" \
+            --annotation "index:org.opencontainers.image.url=https://zhiye.example" \
+            --annotation "index:org.opencontainers.image.documentation=https://docs.zhiye.example" \
             --annotation "index:org.opencontainers.image.source=https://github.com/${{ github.repository }}" \
             --annotation "index:org.opencontainers.image.version=${{ steps.version.outputs.version }}"
 
@@ -443,7 +443,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           script: |
             cd docker
-            ./manage_stack.sh app reactive_resume
+            ./manage_stack.sh app zhiye
 
       - name: Wait for healthy production version
         if: ${{ needs.plan.outputs.release == 'true' && steps.version.outputs.prerelease != 'true' && (env.DEPLOY == 'true' || env.PURGE_CLOUDFLARE == 'true') }}
@@ -456,9 +456,9 @@ jobs:
           matches=0
           for attempt in $(seq 1 60); do
             if curl --fail --silent --show-error --max-time 10 \
-              -H 'Cache-Control: no-cache' "https://rxresu.me/api/health?revision=$COMMIT_SHA&probe=$attempt" \
+              -H 'Cache-Control: no-cache' "https://zhiye.example/api/health?revision=$COMMIT_SHA&probe=$attempt" \
               | jq --exit-status --arg version "$VERSION" --arg sha "$COMMIT_SHA" \
-                '.service == "reactive-resume" and .status == "healthy" and .version == $version and .revision == $sha' > /dev/null; then
+                '.service == "zhiye" and .status == "healthy" and .version == $version and .revision == $sha' > /dev/null; then
               matches=$((matches + 1))
               if [[ "$matches" -ge 3 ]]; then
                 echo "Production is healthy at version $VERSION ($COMMIT_SHA)."

@@ -18,7 +18,7 @@ vi.mock("@zhiye/db/schema", () => ({ user: { __table: "user" } }));
 vi.mock("drizzle-orm", () => ({ eq: () => "EQ" }));
 vi.mock("@zhiye/env/server", async (importOriginal) => {
 	const { env } = await importOriginal<typeof import("@zhiye/env/server")>();
-	return { env: { ...env, APP_ALIAS_URL: "https://rx.cv" } };
+	return { env: { ...env, APP_ALIAS_URL: "https://zy.example" } };
 });
 
 const { resolveUserFromRequestHeaders, publicProcedure, protectedProcedure } = await import("./context");
@@ -73,10 +73,10 @@ describe("cookie request origins", () => {
 		{ origin: "https://attacker.example" },
 		{ origin: "null" },
 		{ "sec-fetch-site": "cross-site" },
-		{ origin: "https://rx.cv", "sec-fetch-site": "cross-site" },
-		{ origin: "https://rx.cv.attacker.example", "sec-fetch-site": "same-origin" },
-		{ origin: "http://rx.cv", "sec-fetch-site": "same-origin" },
-		{ origin: "https://rx.cv:8443", "sec-fetch-site": "same-origin" },
+		{ origin: "https://zy.example", "sec-fetch-site": "cross-site" },
+		{ origin: "https://zy.example.attacker.example", "sec-fetch-site": "same-origin" },
+		{ origin: "http://zy.example", "sec-fetch-site": "same-origin" },
+		{ origin: "https://zy.example:8443", "sec-fetch-site": "same-origin" },
 	])("rejects ambient credentials from another origin: %j", async (originHeaders) => {
 		reset();
 		authMock.api.getSession.mockResolvedValue({ user: { id: "owner" } });
@@ -90,7 +90,7 @@ describe("cookie request origins", () => {
 		authMock.api.getSession.mockResolvedValue(null);
 		const context = {
 			locale: "en-US" as const,
-			reqHeaders: new Headers({ cookie: "theme=dark", origin: "https://rx.cv", "sec-fetch-site": "same-origin" }),
+			reqHeaders: new Headers({ cookie: "theme=dark", origin: "https://zy.example", "sec-fetch-site": "same-origin" }),
 		};
 		const publicOperation = createProcedureClient(
 			publicProcedure.handler(({ context }) => context.user),

@@ -41,7 +41,7 @@ jobs:
       FLAG_DISABLE_EMAIL_AUTH: "false"
       FLAG_ENABLE_GUEST_LOGIN: "true"
       FLAG_DISABLE_API_RATE_LIMIT: "true"
-      LOCAL_STORAGE_PATH: /tmp/reactive-resume-e2e-storage
+      LOCAL_STORAGE_PATH: /tmp/zhiye-e2e-storage
       # The assistant spec talks to a scripted provider on 127.0.0.1.
       FLAG_ALLOW_UNSAFE_AI_BASE_URL: "true"
       # Real-database unit suites. The cover-letter suite works in its own schema; the OAuth flow suite writes
@@ -299,7 +299,7 @@ jobs:
           mkdir -p .vercel
           cat > .vercel/project.json <<'JSON'
           {
-            "projectId": "prj_ci", "orgId": "team_ci", "projectName": "reactive-resume-ci",
+            "projectId": "prj_ci", "orgId": "team_ci", "projectName": "zhiye-ci",
             "settings": { "framework": "services", "nodeVersion": "26.x", "createdAt": 0 }
           }
           JSON
