@@ -1,5 +1,5 @@
 // @vitest-environment happy-dom
-import type { Proposal } from "@reactive-resume/resume/proposals";
+import type { Proposal } from "@zhiye/resume/proposals";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";

@@ -13,7 +13,7 @@ const mocks = vi.hoisted(() => ({
 	},
 }));
 
-vi.mock("@reactive-resume/auth/config", () => ({
+vi.mock("@zhiye/auth/config", () => ({
 	auth: {
 		api: {
 			getSession: mocks.getSession,
@@ -25,13 +25,13 @@ vi.mock("@reactive-resume/auth/config", () => ({
 	},
 }));
 
-vi.mock("@reactive-resume/api/features/storage", () => ({
+vi.mock("@zhiye/api/features/storage", () => ({
 	migrateUserStorage: mocks.migrateUserStorage,
 }));
 
-vi.mock("@reactive-resume/db/client", () => ({ db: {} }));
-vi.mock("@reactive-resume/db/schema", () => ({ verification: {} }));
-vi.mock("@reactive-resume/env/server", () => ({
+vi.mock("@zhiye/db/client", () => ({ db: {} }));
+vi.mock("@zhiye/db/schema", () => ({ verification: {} }));
+vi.mock("@zhiye/env/server", () => ({
 	env: mocks.env,
 }));
 

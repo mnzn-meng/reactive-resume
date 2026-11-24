@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vite-plus/test";
-import { needsLegacyStyleConversion } from "@reactive-resume/pdf/semantic-legacy";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
-import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
+import { needsLegacyStyleConversion } from "@zhiye/pdf/semantic-legacy";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
+import { sampleResumeData } from "@zhiye/schema/resume/sample";
 import { migrateResumeStylesheet } from "./legacy-styles";
 
 const legacy = () => {

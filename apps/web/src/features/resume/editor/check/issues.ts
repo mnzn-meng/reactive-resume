@@ -1,11 +1,11 @@
-import type { PageMapTarget } from "@reactive-resume/pdf/page-map";
-import type { AtsCategory, AtsFinding, AtsReport } from "@reactive-resume/resume/ats";
-import type { ResumeData, SectionType } from "@reactive-resume/schema/resume/data";
-import type { IconName } from "@reactive-resume/ui/components/icon";
+import type { PageMapTarget } from "@zhiye/pdf/page-map";
+import type { AtsCategory, AtsFinding, AtsReport } from "@zhiye/resume/ats";
+import type { ResumeData, SectionType } from "@zhiye/schema/resume/data";
+import type { IconName } from "@zhiye/ui/components/icon";
 import { i18n } from "@lingui/core";
 import { ph, t } from "@lingui/core/macro";
-import { atsRuleCategory, mergeIntoPreviousEntry } from "@reactive-resume/resume/ats";
-import { formatList } from "@reactive-resume/utils/locale";
+import { atsRuleCategory, mergeIntoPreviousEntry } from "@zhiye/resume/ats";
+import { formatList } from "@zhiye/utils/locale";
 import { describeEntry, findEntry, getSectionObject, resolveSection } from "../write/model";
 import { getSectionTitle } from "@/libs/resume/section";
 

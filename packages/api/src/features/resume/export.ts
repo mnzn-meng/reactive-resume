@@ -1,8 +1,8 @@
 import { ORPCError } from "@orpc/server";
 import z from "zod";
-import { env } from "@reactive-resume/env/server";
-import { getDefaultFileName } from "@reactive-resume/utils/file";
-import { contentDisposition } from "@reactive-resume/utils/http";
+import { env } from "@zhiye/env/server";
+import { getDefaultFileName } from "@zhiye/utils/file";
+import { contentDisposition } from "@zhiye/utils/http";
 import { protectedProcedure } from "../../context";
 import { consumePdfExportLimit } from "../../middleware/rate-limit";
 import { parseStoredResumeData } from "./resume-data-validation";
@@ -23,10 +23,10 @@ export async function createResumePdfDownload(input: CreateResumePdfDownloadInpu
 	const filename = `${getDefaultFileName({ name: resume.name, data })}.pdf`;
 
 	try {
-		// Lazy-load the PDF renderer (@reactive-resume/pdf → the Forme WASM engine and
+		// Lazy-load the PDF renderer (@zhiye/pdf → the Forme WASM engine and
 		// the icon drawings) only when a PDF is actually exported, instead of at server
 		// boot. Keeps cold starts light on constrained/slow-disk hosts.
-		const { createResumePdfFile } = await import("@reactive-resume/pdf/server");
+		const { createResumePdfFile } = await import("@zhiye/pdf/server");
 		const body = await createResumePdfFile({ data, filename, uploadOrigin: env.APP_URL });
 
 		return {

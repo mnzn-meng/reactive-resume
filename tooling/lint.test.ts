@@ -21,7 +21,7 @@ it("blocks private workspace paths in imports, re-exports, and dynamic imports",
 	const directory = mkdtempSync(join(tmpdir(), "reactive-resume-lint-"));
 	try {
 		const sources = [
-			"@reactive-resume/schema/src/resume/data",
+			"@zhiye/schema/src/resume/data",
 			"../../packages/schema/src/resume/data",
 			"packages/schema/resume/data",
 		];
@@ -37,10 +37,7 @@ it("blocks private workspace paths in imports, re-exports, and dynamic imports",
 				writeFileSync(join(directory, `${index++}.ts`), statement);
 			}
 		}
-		writeFileSync(
-			join(directory, "public.ts"),
-			'export { resumeDataSchema } from "@reactive-resume/schema/resume/data";',
-		);
+		writeFileSync(join(directory, "public.ts"), 'export { resumeDataSchema } from "@zhiye/schema/resume/data";');
 		const { status, diagnostics } = lint(directory);
 		const restricted = diagnostics.filter((diagnostic) => diagnostic.code === "eslint(no-restricted-imports)");
 		expect(status).toBe(1);

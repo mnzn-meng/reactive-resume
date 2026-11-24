@@ -1,7 +1,7 @@
 import { expect, it } from "vite-plus/test";
 import { getDocument, OPS } from "pdfjs-dist/legacy/build/pdf.mjs";
 import { act, createElement } from "react";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 import { ResumeDocument } from "../../document";
 import { renderToBuffer } from "../../forme/testing";
 

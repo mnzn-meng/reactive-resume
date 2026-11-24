@@ -1,5 +1,5 @@
 import type { Fact, Story } from "../hooks";
-import type { CareerStoryData } from "@reactive-resume/schema/career";
+import type { CareerStoryData } from "@zhiye/schema/career";
 import { i18n } from "@lingui/core";
 import { plural, t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
@@ -8,9 +8,9 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { AnimatePresence } from "motion/react";
 import { memo, useId, useState } from "react";
 import * as z from "zod";
-import { storyDraftFactIds } from "@reactive-resume/schema/career-practice";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Checkbox } from "@reactive-resume/ui/components/checkbox";
+import { storyDraftFactIds } from "@zhiye/schema/career-practice";
+import { Button } from "@zhiye/ui/components/button";
+import { Checkbox } from "@zhiye/ui/components/checkbox";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -18,14 +18,14 @@ import {
 	DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { EmptyState } from "@reactive-resume/ui/components/empty-state";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Input } from "@reactive-resume/ui/components/input";
-import { Label } from "@reactive-resume/ui/components/label";
-import { Textarea } from "@reactive-resume/ui/components/textarea";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@reactive-resume/ui/components/tooltip";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/dropdown-menu";
+import { EmptyState } from "@zhiye/ui/components/empty-state";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Input } from "@zhiye/ui/components/input";
+import { Label } from "@zhiye/ui/components/label";
+import { Textarea } from "@zhiye/ui/components/textarea";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@zhiye/ui/components/tooltip";
+import { cn } from "@zhiye/utils/style";
 import { CareerCrumb } from "../career-crumb";
 import { useCoachKnowledge } from "../coach-thread";
 import { useSessionDraft } from "../hooks";

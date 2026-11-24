@@ -1,6 +1,6 @@
 import { and, eq, isNull, sql } from "drizzle-orm";
-import { db } from "@reactive-resume/db/client";
-import * as schema from "@reactive-resume/db/schema";
+import { db } from "@zhiye/db/client";
+import * as schema from "@zhiye/db/schema";
 
 /**
  * A name none of the user's live resumes has, so two imports of one person stay apart in lists and pickers: `name`,

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { cn } from "@reactive-resume/utils/style";
+import { cn } from "@zhiye/utils/style";
 
 export type EmptyStateProps = {
 	title: ReactNode;

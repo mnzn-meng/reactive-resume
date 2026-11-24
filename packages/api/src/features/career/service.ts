@@ -1,13 +1,13 @@
-import type { DbOrTx } from "@reactive-resume/db/client";
-import type { CareerFactCorrection, CareerSource } from "@reactive-resume/schema/career";
+import type { DbOrTx } from "@zhiye/db/client";
+import type { CareerFactCorrection, CareerSource } from "@zhiye/schema/career";
 import type z from "zod";
 import { createHash } from "node:crypto";
 import { isDeepStrictEqual } from "node:util";
 import { ORPCError } from "@orpc/client";
 import { and, desc, eq, inArray, isNull, or, sql } from "drizzle-orm";
-import { db } from "@reactive-resume/db/client";
-import * as tables from "@reactive-resume/db/schema";
-import { buildMarkdown, resumeFactProposals } from "@reactive-resume/resume/markdown";
+import { db } from "@zhiye/db/client";
+import * as tables from "@zhiye/db/schema";
+import { buildMarkdown, resumeFactProposals } from "@zhiye/resume/markdown";
 import {
 	careerProfileDataSchema,
 	careerWorkspaceSchema,
@@ -23,10 +23,10 @@ import {
 	offerTermsSchema,
 	type OfferTerms,
 	type SavedItemData,
-} from "@reactive-resume/schema/career";
-import { canUseCareerStory } from "@reactive-resume/schema/career-practice";
-import { countryForTimeZone } from "@reactive-resume/utils/region";
-import { generateId } from "@reactive-resume/utils/string";
+} from "@zhiye/schema/career";
+import { canUseCareerStory } from "@zhiye/schema/career-practice";
+import { countryForTimeZone } from "@zhiye/utils/region";
+import { generateId } from "@zhiye/utils/string";
 import { requestRunCancellation } from "../agent/cancellation";
 import { aiProvidersService } from "../ai-providers/service";
 import { assertAiOperations, combineAiUsage, readAiUsages } from "../ai/usage";

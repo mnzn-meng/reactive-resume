@@ -1,11 +1,11 @@
 // @vitest-environment happy-dom
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeAll, beforeEach, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
-import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
-import { toast } from "@reactive-resume/ui/components/toast";
+import { sampleResumeData } from "@zhiye/schema/resume/sample";
+import { toast } from "@zhiye/ui/components/toast";
 import { SectionView } from "./section-view";
 
 const fixture = vi.hoisted(() => ({
@@ -35,7 +35,7 @@ vi.mock("@/features/resume/editor/chrome/panel", () => ({
 }));
 vi.mock("@/hooks/use-confirm", () => ({ usePrompt: () => vi.fn() }));
 vi.mock("@/libs/dnd", () => ({ dndContextProps: () => ({}) }));
-vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: vi.fn() } }));
+vi.mock("@zhiye/ui/components/toast", () => ({ toast: { add: vi.fn() } }));
 
 beforeAll(() => {
 	i18n.loadAndActivate({ locale: "en", messages: {} });

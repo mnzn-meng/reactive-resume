@@ -1,10 +1,10 @@
-import type { PdfAtsReport } from "@reactive-resume/resume/ats-pdf";
+import type { PdfAtsReport } from "@zhiye/resume/ats-pdf";
 import type { CSSProperties } from "react";
 import { i18n } from "@lingui/core";
 import { Trans } from "@lingui/react/macro";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@reactive-resume/ui/components/tooltip";
-import { cn } from "@reactive-resume/utils/style";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@zhiye/ui/components/tooltip";
+import { cn } from "@zhiye/utils/style";
 import { getPdfFindingMessage } from "../messages";
 import { RollingNumber } from "@/components/ui/rolling-number";
 

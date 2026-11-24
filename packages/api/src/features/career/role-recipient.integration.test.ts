@@ -7,10 +7,10 @@ import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vite-
 import { createRouterClient } from "@orpc/server";
 import { Pool } from "pg";
 import z from "zod";
-import { db, withDatabasePool } from "@reactive-resume/db/client";
-import * as tables from "@reactive-resume/db/schema";
-import { env } from "@reactive-resume/env/server";
-import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
+import { db, withDatabasePool } from "@zhiye/db/client";
+import * as tables from "@zhiye/db/schema";
+import { env } from "@zhiye/env/server";
+import { sampleResumeData } from "@zhiye/schema/resume/sample";
 import { truncateCascade } from "../../test-database";
 import { aiProvidersRouter } from "../ai-providers/router";
 import { aiProvidersService } from "../ai-providers/service";
@@ -21,8 +21,8 @@ import { careerRouter } from "./router";
 import { careerService } from "./service";
 
 // Operator configuration can change between requests; provider, crypto, router, DB and HTTP calls remain real.
-vi.mock("@reactive-resume/env/server", async (original) => {
-	const module = await original<typeof import("@reactive-resume/env/server")>();
+vi.mock("@zhiye/env/server", async (original) => {
+	const module = await original<typeof import("@zhiye/env/server")>();
 	return { env: { ...module.env } };
 });
 

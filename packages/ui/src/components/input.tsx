@@ -1,6 +1,6 @@
 import type * as React from "react";
 import { Input as InputPrimitive } from "@base-ui/react/input";
-import { cn } from "@reactive-resume/utils/style";
+import { cn } from "@zhiye/utils/style";
 
 /**
  * Shared by text inputs and textareas: a `control-border` edge on `raised`. Focus is an accent edge plus a soft 3px

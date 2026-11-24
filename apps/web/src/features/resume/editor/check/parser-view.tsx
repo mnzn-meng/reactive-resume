@@ -1,12 +1,12 @@
 import type { CheckIssue } from "./issues";
-import type { AtsRuleCode } from "@reactive-resume/resume/ats";
-import type { ExtractedDocument, ResumeSemantics } from "@reactive-resume/resume/ats-pdf";
+import type { AtsRuleCode } from "@zhiye/resume/ats";
+import type { ExtractedDocument, ResumeSemantics } from "@zhiye/resume/ats-pdf";
 import { i18n } from "@lingui/core";
 import { ph, t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { useQuery } from "@tanstack/react-query";
-import { Spinner } from "@reactive-resume/ui/components/spinner";
-import { cn } from "@reactive-resume/utils/style";
+import { Spinner } from "@zhiye/ui/components/spinner";
+import { cn } from "@zhiye/utils/style";
 import { useEditorStore } from "../store";
 import { useCheck } from "./use-check";
 import { extractPdf } from "@/features/ats-checker/extract-client";
@@ -18,7 +18,7 @@ type Parsed = { doc: ExtractedDocument; semantics: ResumeSemantics };
 /** Reads the PDF on the page the way a parser does: its text layer in reading order, and what it recognises. */
 async function parseRenderedPdf(file: Blob): Promise<Parsed> {
 	// The operator pass (hidden text, images of text) feeds the full check, not this view, so it's skipped.
-	const engine = import("@reactive-resume/resume/ats-pdf");
+	const engine = import("@zhiye/resume/ats-pdf");
 	engine.catch(() => {}); // Awaited below; see run-ats-check.ts.
 	const raw = await extractPdf(blobToPdfFile(file, "resume.pdf"), { operatorBudgetMs: 0 });
 	const { buildExtractedDocument, buildResumeSemantics } = await engine;

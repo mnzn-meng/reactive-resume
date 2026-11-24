@@ -1,14 +1,14 @@
 // @vitest-environment happy-dom
 import type { ApplicationSummary } from "./types";
-import type { ApplicationPipeline } from "@reactive-resume/schema/applications/lanes";
+import type { ApplicationPipeline } from "@zhiye/schema/applications/lanes";
 import type { ReactNode } from "react";
 import { renderHook, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { MutationObserver, QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createDefaultApplicationLanes } from "@reactive-resume/schema/applications/lanes";
-import { followStageWrites, stageBaselinesFor } from "@reactive-resume/schema/applications/stage-baselines";
-import { prepareRequest } from "@reactive-resume/utils/deferred-request";
+import { createDefaultApplicationLanes } from "@zhiye/schema/applications/lanes";
+import { followStageWrites, stageBaselinesFor } from "@zhiye/schema/applications/stage-baselines";
+import { prepareRequest } from "@zhiye/utils/deferred-request";
 import { pendingCommits } from "@/features/career/pending-commits";
 import { invalidateAccountScope, setAccountScope } from "@/libs/auth/account-scope";
 
@@ -68,7 +68,7 @@ vi.mock("./queries", () => ({
 	applicationsListQueryKey: () => ["applications"],
 	applicationDetailQueryKey: (id: string) => ["application", id],
 }));
-vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: mocks.toast, close: mocks.close } }));
+vi.mock("@zhiye/ui/components/toast", () => ({ toast: { add: mocks.toast, close: mocks.close } }));
 
 import {
 	listedApplication,

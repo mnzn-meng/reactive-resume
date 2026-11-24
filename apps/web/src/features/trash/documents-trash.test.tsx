@@ -49,7 +49,7 @@ vi.mock("@tanstack/react-router", () => ({ useNavigate: () => vi.fn() }));
 vi.mock("@/hooks/use-confirm", () => ({ useConfirm: () => confirm }));
 vi.mock("@/features/documents/document-actions", () => ({ useBatchActions: () => batch }));
 vi.mock("@/components/layout/phone-header-actions", () => ({ PhoneHeaderActions: () => null }));
-vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: vi.fn(), close: vi.fn() } }));
+vi.mock("@zhiye/ui/components/toast", () => ({ toast: { add: vi.fn(), close: vi.fn() } }));
 
 const MINUTE = 60 * 1000;
 const trashed = (index: number): DocumentSummary => ({

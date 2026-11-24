@@ -1,14 +1,14 @@
 import type { DocumentsSearch } from "./documents-page";
 import type { DocumentSummary } from "./filter";
-import type { IconName } from "@reactive-resume/ui/components/icon";
+import type { IconName } from "@zhiye/ui/components/icon";
 import { i18n } from "@lingui/core";
 import { ph, plural, t } from "@lingui/core/macro";
 import { Plural, Trans } from "@lingui/react/macro";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { lazy, Suspense, useId, useRef, useState } from "react";
-import { Button } from "@reactive-resume/ui/components/button";
-import { ContextMenuContent, ContextMenuItem, ContextMenuSeparator } from "@reactive-resume/ui/components/context-menu";
+import { Button } from "@zhiye/ui/components/button";
+import { ContextMenuContent, ContextMenuItem, ContextMenuSeparator } from "@zhiye/ui/components/context-menu";
 import {
 	Dialog,
 	DialogContent,
@@ -16,17 +16,13 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
-import {
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuSeparator,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { menuLabelClassName } from "@reactive-resume/ui/components/menu-styles";
-import { RadioGroup, RadioGroupItem } from "@reactive-resume/ui/components/radio-group";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { isolate } from "@reactive-resume/utils/string";
+} from "@zhiye/ui/components/dialog";
+import { DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator } from "@zhiye/ui/components/dropdown-menu";
+import { Icon } from "@zhiye/ui/components/icon";
+import { menuLabelClassName } from "@zhiye/ui/components/menu-styles";
+import { RadioGroup, RadioGroupItem } from "@zhiye/ui/components/radio-group";
+import { toast } from "@zhiye/ui/components/toast";
+import { isolate } from "@zhiye/utils/string";
 import { useDocumentSentDate } from "./document-status";
 import { useDocumentEffect } from "./library-session";
 import { useNewDocumentsStore } from "./new-documents";

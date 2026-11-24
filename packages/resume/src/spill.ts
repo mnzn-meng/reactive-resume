@@ -1,4 +1,4 @@
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 
 type PageLayout = ResumeData["metadata"]["layout"]["pages"][number];
 

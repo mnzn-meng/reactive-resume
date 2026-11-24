@@ -1,4 +1,4 @@
-import type { OfferTerms } from "@reactive-resume/schema/career";
+import type { OfferTerms } from "@zhiye/schema/career";
 import { describe, expect, it } from "vite-plus/test";
 import { formatBonus, meetsMinimum, moneyDifference } from "./offer-compare";
 

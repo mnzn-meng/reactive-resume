@@ -1,6 +1,6 @@
 import { expect, it, vi } from "vite-plus/test";
 import { strFromU8, unzipSync } from "fflate";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 
 vi.mock("./pdf-document", () => ({ createResumePdfBlob: vi.fn() }));
 const { createExportFile } = await import("./use-resume-export");

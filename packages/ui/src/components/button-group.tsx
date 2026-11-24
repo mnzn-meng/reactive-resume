@@ -1,6 +1,6 @@
 import type { VariantProps } from "class-variance-authority";
 import { cva } from "class-variance-authority";
-import { cn } from "@reactive-resume/utils/style";
+import { cn } from "@zhiye/utils/style";
 
 /**
  * Buttons joined into one control. Two accent buttons make a SplitButton: a 1px rule in the page colour parts them.

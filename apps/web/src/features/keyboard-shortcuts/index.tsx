@@ -3,15 +3,9 @@ import type { HotkeyRegistrationView } from "@tanstack/react-hotkeys";
 import { Trans, useLingui } from "@lingui/react/macro";
 import { HotkeysProvider, useHotkey } from "@tanstack/react-hotkeys";
 import { useId } from "react";
-import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogHeader,
-	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
-import { Kbd } from "@reactive-resume/ui/components/kbd";
-import { cn } from "@reactive-resume/utils/style";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@zhiye/ui/components/dialog";
+import { Kbd } from "@zhiye/ui/components/kbd";
+import { cn } from "@zhiye/utils/style";
 import { shortcutOverlayOpen } from "./blocking";
 import { CharacterShortcutSetting } from "./character-shortcuts";
 import { APP_GROUP, groupShortcuts } from "./groups";

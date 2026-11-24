@@ -4,19 +4,19 @@ import type {
 	ProposalState,
 	RequirementCoverage,
 	UnsupportedClaim,
-} from "@reactive-resume/resume/proposals";
-import type { WordDiffSegment } from "@reactive-resume/resume/word-diff";
+} from "@zhiye/resume/proposals";
+import type { WordDiffSegment } from "@zhiye/resume/word-diff";
 import type { KeyboardEvent, ReactNode } from "react";
 import { i18n } from "@lingui/core";
 import { ph, t } from "@lingui/core/macro";
 import { Plural, Trans } from "@lingui/react/macro";
 import { useId, useMemo, useState } from "react";
-import { additionParts, needsConfirmation, passageLines } from "@reactive-resume/resume/proposals";
-import { wordDiff } from "@reactive-resume/resume/word-diff";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Checkbox } from "@reactive-resume/ui/components/checkbox";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { cn } from "@reactive-resume/utils/style";
+import { additionParts, needsConfirmation, passageLines } from "@zhiye/resume/proposals";
+import { wordDiff } from "@zhiye/resume/word-diff";
+import { Button } from "@zhiye/ui/components/button";
+import { Checkbox } from "@zhiye/ui/components/checkbox";
+import { Icon } from "@zhiye/ui/components/icon";
+import { cn } from "@zhiye/utils/style";
 import { ProposalPageFit } from "./page-fit";
 import { ENTER_CLASS, POP_CLASS } from "@/libs/motion";
 

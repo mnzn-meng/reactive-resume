@@ -1,5 +1,5 @@
 import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar";
-import { cn } from "@reactive-resume/utils/style";
+import { cn } from "@zhiye/utils/style";
 
 function Avatar({
 	className,

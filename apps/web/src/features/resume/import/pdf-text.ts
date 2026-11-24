@@ -1,6 +1,6 @@
 import { t } from "@lingui/core/macro";
-import { documentToLines, parsePdfResume } from "@reactive-resume/import/pdf-lines";
-import { buildExtractedDocument } from "@reactive-resume/resume/ats-pdf";
+import { documentToLines, parsePdfResume } from "@zhiye/import/pdf-lines";
+import { buildExtractedDocument } from "@zhiye/resume/ats-pdf";
 import { ImportError } from "./error";
 import { extractPdf } from "@/features/ats-checker/extract-client";
 

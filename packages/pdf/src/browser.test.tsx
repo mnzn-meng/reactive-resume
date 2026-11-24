@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vite-plus/test";
-import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
+import { sampleResumeData } from "@zhiye/schema/resume/sample";
 
 const rendererMock = vi.hoisted(() => ({
 	renderResume: vi.fn(async () => ({

@@ -2,7 +2,7 @@ import { Trans } from "@lingui/react/macro";
 import { useQueryClient } from "@tanstack/react-query";
 import { useLocation, useRouter } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { Button } from "@reactive-resume/ui/components/button";
+import { Button } from "@zhiye/ui/components/button";
 import { getAccountGeneration, getAccountId } from "@/libs/auth/account-scope";
 import { authClient } from "@/libs/auth/client";
 import { sessionSignInURL, useSessionRecovery } from "@/libs/auth/session-recovery";

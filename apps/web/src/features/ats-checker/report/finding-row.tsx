@@ -1,9 +1,9 @@
-import type { PdfFinding, PdfSeverity } from "@reactive-resume/resume/ats-pdf";
+import type { PdfFinding, PdfSeverity } from "@zhiye/resume/ats-pdf";
 import { i18n } from "@lingui/core";
 import { Trans } from "@lingui/react/macro";
 import { match } from "ts-pattern";
-import { Badge } from "@reactive-resume/ui/components/badge";
-import { cn } from "@reactive-resume/utils/style";
+import { Badge } from "@zhiye/ui/components/badge";
+import { cn } from "@zhiye/utils/style";
 import { getPdfFindingMessage, getPdfSeverityLabel } from "../messages";
 
 function severityDotClass(severity: PdfSeverity) {

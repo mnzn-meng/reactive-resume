@@ -12,8 +12,8 @@ const fixture = vi.hoisted(() => ({
 	requests: [] as unknown[],
 	result: {} as { text: string; why: string; addsFacts: boolean; aiOperationIds?: string[]; aiUsage?: unknown },
 }));
-vi.mock("@reactive-resume/ui/hooks/use-breakpoint", () => ({ useBreakpoint: () => "desktop" }));
-vi.mock("@reactive-resume/ui/hooks/use-keyboard-inset", () => ({ useKeyboardInset: () => 0 }));
+vi.mock("@zhiye/ui/hooks/use-breakpoint", () => ({ useBreakpoint: () => "desktop" }));
+vi.mock("@zhiye/ui/hooks/use-keyboard-inset", () => ({ useKeyboardInset: () => 0 }));
 vi.mock("@/hooks/use-confirm", () => ({ usePrompt: () => vi.fn() }));
 vi.mock("@/features/assistant/provider-setup", () => ({ SetUpAi: () => null }));
 vi.mock("@/features/settings/integrations/hooks/use-has-usable-ai-provider", () => ({

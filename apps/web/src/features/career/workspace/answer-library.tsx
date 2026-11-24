@@ -1,34 +1,30 @@
 import type { RouterOutput } from "@/libs/orpc/client";
-import type { AnswerEvidence } from "@reactive-resume/schema/application-answers";
-import type { CareerWorkspace } from "@reactive-resume/schema/career";
+import type { AnswerEvidence } from "@zhiye/schema/application-answers";
+import type { CareerWorkspace } from "@zhiye/schema/career";
 import type { ReactNode } from "react";
 import { plural, t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useId, useState } from "react";
-import {
-	answerRelevance,
-	answerScopeAllows,
-	reviewedAnswerEvidence,
-} from "@reactive-resume/schema/application-answers";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Checkbox } from "@reactive-resume/ui/components/checkbox";
-import { Dialog, DialogContent, DialogTitle, DialogFooter } from "@reactive-resume/ui/components/dialog";
+import { answerRelevance, answerScopeAllows, reviewedAnswerEvidence } from "@zhiye/schema/application-answers";
+import { Button } from "@zhiye/ui/components/button";
+import { Checkbox } from "@zhiye/ui/components/checkbox";
+import { Dialog, DialogContent, DialogTitle, DialogFooter } from "@zhiye/ui/components/dialog";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Input } from "@reactive-resume/ui/components/input";
-import { InputGroup, InputGroupAddon, InputGroupInput } from "@reactive-resume/ui/components/input-group";
-import { NativeSelect } from "@reactive-resume/ui/components/native-select";
-import { Sheet, SheetContent, SheetTitle } from "@reactive-resume/ui/components/sheet";
-import { Textarea } from "@reactive-resume/ui/components/textarea";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { downloadWithAnchor } from "@reactive-resume/utils/file";
+} from "@zhiye/ui/components/dropdown-menu";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Input } from "@zhiye/ui/components/input";
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@zhiye/ui/components/input-group";
+import { NativeSelect } from "@zhiye/ui/components/native-select";
+import { Sheet, SheetContent, SheetTitle } from "@zhiye/ui/components/sheet";
+import { Textarea } from "@zhiye/ui/components/textarea";
+import { toast } from "@zhiye/ui/components/toast";
+import { downloadWithAnchor } from "@zhiye/utils/file";
 import { toastError } from "@/libs/error-message";
 import { orpc } from "@/libs/orpc/client";
 

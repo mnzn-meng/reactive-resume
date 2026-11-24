@@ -1,15 +1,15 @@
 // @vitest-environment happy-dom
 
 import type { Resume } from "./draft";
-import type { Proposal } from "@reactive-resume/resume/proposals";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { Proposal } from "@zhiye/resume/proposals";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import { act, renderHook } from "@testing-library/react";
 import { afterEach, assert, beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { ORPCError } from "@orpc/client";
-import { applyResumeProposals } from "@reactive-resume/resume/proposals";
-import { parseResumeData, withWebPageCss } from "@reactive-resume/schema/resume/data";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { applyResumeProposals } from "@zhiye/resume/proposals";
+import { parseResumeData, withWebPageCss } from "@zhiye/schema/resume/data";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 import {
 	clearResumeDrafts,
 	readUnsavedResumeData,
@@ -98,7 +98,7 @@ vi.mock("@/libs/orpc/client", () => ({
 	},
 }));
 
-vi.mock("@reactive-resume/ui/components/toast", () => ({
+vi.mock("@zhiye/ui/components/toast", () => ({
 	toast: toastMocks,
 }));
 
@@ -1829,7 +1829,7 @@ describe("concurrent receipt ownership", () => {
 			location: "Summary",
 			why: "Rewrite",
 		};
-		const { getProposalState } = await import("@reactive-resume/resume/proposals");
+		const { getProposalState } = await import("@zhiye/resume/proposals");
 		s().initialize(initial);
 		orpcMocks.updateResume.mockImplementation(async (input) => ({
 			...initial,

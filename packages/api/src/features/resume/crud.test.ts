@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import { createRouterClient, ORPCError } from "@orpc/server";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
-import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
+import { sampleResumeData } from "@zhiye/schema/resume/sample";
 
 const mocks = vi.hoisted(() => ({
 	create: vi.fn(),

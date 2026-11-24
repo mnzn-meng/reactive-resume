@@ -1,9 +1,9 @@
-import type { Proposal, ProposalApplicationResult, ProposalApplications } from "@reactive-resume/resume/proposals";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { Proposal, ProposalApplicationResult, ProposalApplications } from "@zhiye/resume/proposals";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import { plural, t } from "@lingui/core/macro";
 import { produce } from "immer";
-import { applyResumeProposals, getProposalState, splitBlock, splitBlocks } from "@reactive-resume/resume/proposals";
-import { toast } from "@reactive-resume/ui/components/toast";
+import { applyResumeProposals, getProposalState, splitBlock, splitBlocks } from "@zhiye/resume/proposals";
+import { toast } from "@zhiye/ui/components/toast";
 import { useResumeStore } from "@/features/resume/builder/draft";
 
 // Colours of the page marks (README §5.9), as the PDF needs them: old text struck through in grey, new text on

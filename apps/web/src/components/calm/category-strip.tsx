@@ -1,8 +1,8 @@
-import type { IconName } from "@reactive-resume/ui/components/icon";
+import type { IconName } from "@zhiye/ui/components/icon";
 import type { ComponentProps, ReactElement } from "react";
 import { t } from "@lingui/core/macro";
-import { IconButton } from "@reactive-resume/ui/components/icon-button";
-import { cn } from "@reactive-resume/utils/style";
+import { IconButton } from "@zhiye/ui/components/icon-button";
+import { cn } from "@zhiye/utils/style";
 
 /** Always the same seven, in this order. Every design setting lives in one of them. */
 export const DESIGN_CATEGORIES = ["template", "layout", "entries", "typography", "color", "page", "css"] as const;

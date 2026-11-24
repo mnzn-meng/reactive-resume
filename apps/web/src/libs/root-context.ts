@@ -1,5 +1,5 @@
-import type { AuthSession } from "@reactive-resume/auth/types";
 import type { QueryClient } from "@tanstack/react-query";
+import type { AuthSession } from "@zhiye/auth/types";
 import { setAccountScope } from "./auth/account-scope";
 import { getSession } from "./auth/session";
 import { configureFontMirror } from "./font-source";

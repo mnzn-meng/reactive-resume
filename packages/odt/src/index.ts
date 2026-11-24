@@ -1,8 +1,8 @@
 import type { SectionTitleResolver } from "./types";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import type { Zippable } from "fflate";
 import { strToU8, zipSync } from "fflate";
-import { parseResumeData } from "@reactive-resume/schema/resume/data";
+import { parseResumeData } from "@zhiye/schema/resume/data";
 import { ODT_MIME_TYPE, buildOdtFiles } from "./builder";
 
 export type { SectionTitleResolver } from "./types";

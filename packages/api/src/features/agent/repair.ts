@@ -1,6 +1,6 @@
 import type { ToolCallRepairFunction, ToolSet } from "ai";
 import { jsonrepair } from "jsonrepair";
-import { proposeEditsInputSchema, proposeResumeEditsInputSchema } from "@reactive-resume/ai/tools/agent-tool-contracts";
+import { proposeEditsInputSchema, proposeResumeEditsInputSchema } from "@zhiye/ai/tools/agent-tool-contracts";
 
 // Repairs sloppy propose_edits calls from weaker BYOK models: fix broken JSON with jsonrepair, then re-validate
 // against the shared schema. Returning null falls back to the SDK's re-ask.

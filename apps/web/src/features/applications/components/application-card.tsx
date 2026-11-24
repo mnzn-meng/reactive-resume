@@ -1,8 +1,8 @@
 import type { ApplicationSummary } from "../types";
 import { Trans } from "@lingui/react/macro";
 import { Link } from "@tanstack/react-router";
-import { Badge } from "@reactive-resume/ui/components/badge";
-import { cn } from "@reactive-resume/utils/style";
+import { Badge } from "@zhiye/ui/components/badge";
+import { cn } from "@zhiye/utils/style";
 import { describeNextStepLine, getNextStep } from "../next-step";
 import { offerHintFor, useOfferHints } from "../queries";
 import { ApplicationActionsMenu } from "./application-actions-menu";

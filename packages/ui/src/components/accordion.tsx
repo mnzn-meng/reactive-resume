@@ -1,6 +1,6 @@
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { cn } from "@reactive-resume/utils/style";
+import { Icon } from "@zhiye/ui/components/icon";
+import { cn } from "@zhiye/utils/style";
 
 function Accordion({ className, ...props }: AccordionPrimitive.Root.Props) {
 	return <AccordionPrimitive.Root data-slot="accordion" className={cn("flex w-full flex-col", className)} {...props} />;

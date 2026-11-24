@@ -1,11 +1,11 @@
-import type { ApplicationTimelineEntry } from "@reactive-resume/schema/applications/data";
-import type { ApplicationClosedReason, ApplicationStatus } from "@reactive-resume/schema/applications/data";
-import type { ApplicationLane } from "@reactive-resume/schema/applications/lanes";
+import type { ApplicationTimelineEntry } from "@zhiye/schema/applications/data";
+import type { ApplicationClosedReason, ApplicationStatus } from "@zhiye/schema/applications/data";
+import type { ApplicationLane } from "@zhiye/schema/applications/lanes";
 import {
 	createDefaultApplicationLanes,
 	getActiveApplicationLanes,
 	getApplicationLane,
-} from "@reactive-resume/schema/applications/lanes";
+} from "@zhiye/schema/applications/lanes";
 import { getClosedReasonLabel, getStageColor, getStageLabel } from "./stages";
 
 export type { ApplicationLane };

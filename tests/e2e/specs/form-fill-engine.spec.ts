@@ -1,8 +1,8 @@
-import type { ApplicationPacket } from "@reactive-resume/schema/applications/autofill";
+import type { ApplicationPacket } from "@zhiye/schema/applications/autofill";
 import { createHash } from "node:crypto";
 import { createServer } from "node:http";
 import { chromium, expect, test, webkit } from "@playwright/test";
-import { packetFillPlan } from "@reactive-resume/schema/applications/autofill";
+import { packetFillPlan } from "@zhiye/schema/applications/autofill";
 import { formFillInvocation } from "../fixtures/form-fill";
 
 type FixtureWindow = Window & {

@@ -4,7 +4,7 @@ i18n.load("en", {});
 i18n.activate("en");
 
 import { describe, expect, it } from "vite-plus/test";
-import { createDefaultApplicationLanes } from "@reactive-resume/schema/applications/lanes";
+import { createDefaultApplicationLanes } from "@zhiye/schema/applications/lanes";
 import { getCategoryDisplay } from "./lanes";
 
 describe("getCategoryDisplay", () => {

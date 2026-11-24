@@ -1,6 +1,6 @@
 import type { Fact } from "../hooks";
 import type { WorkspaceTabProps } from "./shell";
-import type { CareerWorkspace } from "@reactive-resume/schema/career";
+import type { CareerWorkspace } from "@zhiye/schema/career";
 import { i18n } from "@lingui/core";
 import { ph, plural, t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
@@ -8,28 +8,28 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { AnimatePresence } from "motion/react";
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
-import { answerLimit } from "@reactive-resume/schema/application-answers";
-import { hasApplicationSubmission } from "@reactive-resume/schema/applications/data";
-import { nextPreparationStep } from "@reactive-resume/schema/applications/preparation";
-import { applicationReviewChecks } from "@reactive-resume/schema/applications/preparation";
-import { careerWorkspaceSchema } from "@reactive-resume/schema/career";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Checkbox } from "@reactive-resume/ui/components/checkbox";
+import { answerLimit } from "@zhiye/schema/application-answers";
+import { hasApplicationSubmission } from "@zhiye/schema/applications/data";
+import { nextPreparationStep } from "@zhiye/schema/applications/preparation";
+import { applicationReviewChecks } from "@zhiye/schema/applications/preparation";
+import { careerWorkspaceSchema } from "@zhiye/schema/career";
+import { Button } from "@zhiye/ui/components/button";
+import { Checkbox } from "@zhiye/ui/components/checkbox";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { IconButton } from "@reactive-resume/ui/components/icon-button";
-import { Skeleton } from "@reactive-resume/ui/components/skeleton";
-import { Textarea } from "@reactive-resume/ui/components/textarea";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@reactive-resume/ui/components/tooltip";
-import { downloadWithAnchor, generateFilename } from "@reactive-resume/utils/file";
-import { rewriteSummary, isolate } from "@reactive-resume/utils/string";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/dropdown-menu";
+import { Icon } from "@zhiye/ui/components/icon";
+import { IconButton } from "@zhiye/ui/components/icon-button";
+import { Skeleton } from "@zhiye/ui/components/skeleton";
+import { Textarea } from "@zhiye/ui/components/textarea";
+import { toast } from "@zhiye/ui/components/toast";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@zhiye/ui/components/tooltip";
+import { downloadWithAnchor, generateFilename } from "@zhiye/utils/file";
+import { rewriteSummary, isolate } from "@zhiye/utils/string";
+import { cn } from "@zhiye/utils/style";
 import { DraftRecovery } from "../draft-recovery";
 import {
 	latest,

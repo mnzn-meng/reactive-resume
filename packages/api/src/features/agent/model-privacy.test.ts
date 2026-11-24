@@ -1,16 +1,16 @@
-import type { ProposeEditsOutput } from "@reactive-resume/ai/tools/agent-tool-contracts";
+import type { ProposeEditsOutput } from "@zhiye/ai/tools/agent-tool-contracts";
 import type { ModelMessage, UIMessage } from "ai";
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import { convertToModelMessages, isStepCount, ToolLoopAgent } from "ai";
 import { MockLanguageModelV4 } from "ai/test";
-import { createEntry } from "@reactive-resume/resume/entries";
-import { applyResumeProposals } from "@reactive-resume/resume/proposals";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { createEntry } from "@zhiye/resume/entries";
+import { applyResumeProposals } from "@zhiye/resume/proposals";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 import { pruneAgentModelContext } from "./context";
 import { buildAgentTools } from "./tools";
 
 const fixture = vi.hoisted(() => ({ getById: vi.fn() }));
-vi.mock("@reactive-resume/db/client", () => ({ db: {} }));
+vi.mock("@zhiye/db/client", () => ({ db: {} }));
 vi.mock("../resume/service", () => ({ resumeService: { getById: fixture.getById } }));
 vi.mock("../cover-letters/service", () => ({ coverLetterService: {} }));
 const { documentView, loadDocument, resolveDocumentEdits } = await import("./document");

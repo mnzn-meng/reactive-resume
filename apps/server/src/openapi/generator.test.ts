@@ -1,10 +1,10 @@
 import { describe, expect, it, vi } from "vite-plus/test";
 import z from "zod";
-import { createResumeDataJsonSchema } from "@reactive-resume/schema/resume/json-schema";
+import { createResumeDataJsonSchema } from "@zhiye/schema/resume/json-schema";
 
 // Spec generation reads procedure contracts without executing authentication, so this unit test
 // stands in a bare auth instance. Real sign-in is covered by the opt-in PostgreSQL integration suite.
-vi.mock("@reactive-resume/auth/config", () => ({ auth: {} }));
+vi.mock("@zhiye/auth/config", () => ({ auth: {} }));
 
 type GeneratedSpecView = {
 	components?: { schemas?: Record<string, unknown> };

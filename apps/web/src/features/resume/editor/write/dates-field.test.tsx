@@ -1,5 +1,5 @@
 // @vitest-environment happy-dom
-import type { ResumeDates } from "@reactive-resume/schema/resume/dates";
+import type { ResumeDates } from "@zhiye/schema/resume/dates";
 import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeAll, describe, expect, it, vi } from "vite-plus/test";

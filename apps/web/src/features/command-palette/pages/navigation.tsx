@@ -1,9 +1,9 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { useNavigate, useRouteContext } from "@tanstack/react-router";
-import { CommandItem } from "@reactive-resume/ui/components/command";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Kbd } from "@reactive-resume/ui/components/kbd";
+import { CommandItem } from "@zhiye/ui/components/command";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Kbd } from "@zhiye/ui/components/kbd";
 import { useCommandPaletteStore } from "../store";
 import { useDialogStore } from "@/dialogs/store";
 import { useShortcutSettings } from "@/features/keyboard-shortcuts/settings";

@@ -1,10 +1,10 @@
-import type { ProposeEditsOutput } from "@reactive-resume/ai/tools/agent-tool-contracts";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { ProposeEditsOutput } from "@zhiye/ai/tools/agent-tool-contracts";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import { parseDocument } from "htmlparser2";
-import { applyResumePatches } from "@reactive-resume/resume/patch";
-import { resumeStructureSnapshot, unverifiedClaims } from "@reactive-resume/resume/proposals";
-import { assertRichTextComplexity } from "@reactive-resume/schema/resume/limits";
-import { escapeHtml, generateId } from "@reactive-resume/utils/string";
+import { applyResumePatches } from "@zhiye/resume/patch";
+import { resumeStructureSnapshot, unverifiedClaims } from "@zhiye/resume/proposals";
+import { assertRichTextComplexity } from "@zhiye/schema/resume/limits";
+import { escapeHtml, generateId } from "@zhiye/utils/string";
 
 // Positive list: identifiers, destinations, structured dates, IDs and private metadata cannot become translation targets.
 const TEXT_FIELDS = new Set([

@@ -1,4 +1,4 @@
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import { describe, expect, it } from "vite-plus/test";
 import { getResumeSocialMeta } from "./social-meta";
 

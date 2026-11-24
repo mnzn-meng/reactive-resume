@@ -6,14 +6,14 @@ import {
 	JSON_SCHEMA_REGISTRY,
 	ZodToJsonSchemaConverter,
 } from "@orpc/zod/zod4";
-import { downloadResumePdfProcedure } from "@reactive-resume/api/features/resume/export";
-import { restAliases } from "@reactive-resume/api/rest";
-import router from "@reactive-resume/api/routers";
-import { careerProfileDataSchema } from "@reactive-resume/schema/career";
-import { resumeDataSchema } from "@reactive-resume/schema/resume/data";
-import { createResumeDataJsonSchema } from "@reactive-resume/schema/resume/json-schema";
-import { writableResumeDataSchema } from "@reactive-resume/schema/resume/write";
-import { searchRegionsSchema } from "@reactive-resume/utils/region";
+import { downloadResumePdfProcedure } from "@zhiye/api/features/resume/export";
+import { restAliases } from "@zhiye/api/rest";
+import router from "@zhiye/api/routers";
+import { careerProfileDataSchema } from "@zhiye/schema/career";
+import { resumeDataSchema } from "@zhiye/schema/resume/data";
+import { createResumeDataJsonSchema } from "@zhiye/schema/resume/json-schema";
+import { writableResumeDataSchema } from "@zhiye/schema/resume/write";
+import { searchRegionsSchema } from "@zhiye/utils/region";
 
 export const openAPIRouter = {
 	...router,

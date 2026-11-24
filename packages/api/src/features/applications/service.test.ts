@@ -1,7 +1,7 @@
-import type { ApplicationTimelineEntry } from "@reactive-resume/schema/applications/data";
+import type { ApplicationTimelineEntry } from "@zhiye/schema/applications/data";
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
-import { createDefaultOwnedApplicationLanes } from "@reactive-resume/db/application-lanes";
-import * as testSchema from "@reactive-resume/db/schema";
+import { createDefaultOwnedApplicationLanes } from "@zhiye/db/application-lanes";
+import * as testSchema from "@zhiye/db/schema";
 
 // Mock the DB layer; the logic under test is the activity-timeline bookkeeping, not SQL.
 const dbMock = vi.hoisted(() => ({
@@ -16,8 +16,8 @@ const writeVersionMock = vi.hoisted(() => vi.fn());
 const storageDeleteMock = vi.hoisted(() => vi.fn());
 const uploadFileMock = vi.hoisted(() => vi.fn());
 
-vi.mock("@reactive-resume/db/client", () => ({ db: dbMock }));
-vi.mock("@reactive-resume/db/schema", () => ({
+vi.mock("@zhiye/db/client", () => ({ db: dbMock }));
+vi.mock("@zhiye/db/schema", () => ({
 	user: { id: "owner_id" },
 	applicationPipeline: { userId: "pipeline_user_id" },
 	applicationLane: { userId: "lane_user_id", position: "lane_position", id: "lane_id" },
@@ -231,7 +231,7 @@ describe("applicationService sent resume", () => {
 	it.each(["stage", "resume"] as const)(
 		"saves the sent version and score when the %s is linked at Applied",
 		async (field) => {
-			const data = structuredClone((await import("@reactive-resume/schema/resume/default")).defaultResumeData);
+			const data = structuredClone((await import("@zhiye/schema/resume/default")).defaultResumeData);
 			resumeGetByIdMock.mockResolvedValue({ id: "resume-1", data });
 			setSelectResults([existing], [{ id: "user-1" }], [existing], [{ id: "resume-1", data }]);
 			const setSent = vi.fn(() => ({ where: () => ({ returning: () => Promise.resolve([{ ...sentRow }]) }) }));
@@ -261,7 +261,7 @@ describe("applicationService sent resume", () => {
 	it.each([{ notes: "Private interview note" }, { role: "Senior Engineer" }])(
 		"does not record linked drafts as submitted during metadata edits: %j",
 		async (fields) => {
-			const data = structuredClone((await import("@reactive-resume/schema/resume/default")).defaultResumeData);
+			const data = structuredClone((await import("@zhiye/schema/resume/default")).defaultResumeData);
 			setSelectResults([sentRow], [{ id: "user-1" }], [sentRow], [{ id: "resume-1", data }]);
 			dbMock.update.mockReturnValue({
 				set: () => ({ where: () => ({ returning: () => Promise.resolve([sentRow]) }) }),
@@ -275,7 +275,7 @@ describe("applicationService sent resume", () => {
 	);
 
 	it("does not record linked drafts as submitted when bulk-adding tags", async () => {
-		const data = structuredClone((await import("@reactive-resume/schema/resume/default")).defaultResumeData);
+		const data = structuredClone((await import("@zhiye/schema/resume/default")).defaultResumeData);
 		setSelectResults([{ id: "user-1" }], [{ ...sentRow, tags: [] }], [{ id: "resume-1", data }]);
 		dbMock.update.mockReturnValue({
 			set: () => ({ where: () => ({ returning: () => Promise.resolve([sentRow]) }) }),
@@ -755,7 +755,7 @@ describe("application attachment lifecycle", () => {
 
 describe("applicationService.importMany", () => {
 	it("saves the sent version for rows imported at Applied or later", async () => {
-		const data = structuredClone((await import("@reactive-resume/schema/resume/default")).defaultResumeData);
+		const data = structuredClone((await import("@zhiye/schema/resume/default")).defaultResumeData);
 		const imported = { ...existing, status: "applied" as const, resumeId: "resume-1", sentResumeVersionId: null };
 		setSelectResults([{ id: "user-1" }], [{ id: "resume-1", data }]);
 		dbMock.insert.mockReturnValue({ values: () => ({ returning: () => Promise.resolve([imported]) }) });

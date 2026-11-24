@@ -45,7 +45,7 @@ const practice = {
 		"Every team at Northwind Labs had its own buttons and forms, so the same flow looked different in each product. I interviewed designers and engineers on all six teams about what slowed them down, and started with the components they rebuilt most often. Then I paired with one engineer on each team to move a real screen across. All six teams build from the same system now.",
 };
 
-/** The reviewed-answer evidence stamp, as `reviewedAnswerEvidence` in @reactive-resume/schema/application-answers. */
+/** The reviewed-answer evidence stamp, as `reviewedAnswerEvidence` in @zhiye/schema/application-answers. */
 function fnv1a(text) {
 	let hash = 0x811c9dc5;
 	for (let index = 0; index < text.length; index++) hash = Math.imul(hash ^ text.charCodeAt(index), 0x01000193);

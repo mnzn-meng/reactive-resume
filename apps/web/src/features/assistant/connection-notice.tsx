@@ -1,7 +1,7 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Icon } from "@reactive-resume/ui/components/icon";
+import { Button } from "@zhiye/ui/components/button";
+import { Icon } from "@zhiye/ui/components/icon";
 
 type ConnectionNoticeProps = {
 	/** The connection the conversation was using, if it still has a name. */

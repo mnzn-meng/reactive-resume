@@ -1,8 +1,8 @@
 import type { ComponentProps, ReactNode } from "react";
 import { Trans } from "@lingui/react/macro";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { cn } from "@reactive-resume/utils/style";
+import { Button } from "@zhiye/ui/components/button";
+import { Icon } from "@zhiye/ui/components/icon";
+import { cn } from "@zhiye/utils/style";
 
 type SetUpAiLineProps = ComponentProps<"div"> & {
 	/** What needs AI, as a sentence ("A fit check needs AI."). */

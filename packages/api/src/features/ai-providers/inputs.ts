@@ -1,6 +1,6 @@
 import z from "zod";
-import { isAPIKeyOptional } from "@reactive-resume/ai/defaults";
-import { aiProviderSchema } from "@reactive-resume/ai/types";
+import { isAPIKeyOptional } from "@zhiye/ai/defaults";
+import { aiProviderSchema } from "@zhiye/ai/types";
 
 const providerFields = z.object({
 	label: z.string().trim().min(1),

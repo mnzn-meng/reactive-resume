@@ -1,5 +1,5 @@
 import { createHmac } from "node:crypto";
-import { env } from "@reactive-resume/env/server";
+import { env } from "@zhiye/env/server";
 import { safeEquals } from "../../safe-equals";
 
 // A key of its own, derived from AUTH_SECRET, so a feedback token can't stand in for any other use of the secret.

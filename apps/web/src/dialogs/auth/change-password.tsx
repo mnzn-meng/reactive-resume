@@ -4,8 +4,8 @@ import { Trans } from "@lingui/react/macro";
 import { useSelector } from "@tanstack/react-form";
 import { useQueryClient } from "@tanstack/react-query";
 import z from "zod";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Checkbox } from "@reactive-resume/ui/components/checkbox";
+import { Button } from "@zhiye/ui/components/button";
+import { Checkbox } from "@zhiye/ui/components/checkbox";
 import {
 	DialogClose,
 	DialogContent,
@@ -13,9 +13,9 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
-import { FormControl, FormDescription, FormItem, FormLabel, FormMessage } from "@reactive-resume/ui/components/form";
-import { toast } from "@reactive-resume/ui/components/toast";
+} from "@zhiye/ui/components/dialog";
+import { FormControl, FormDescription, FormItem, FormLabel, FormMessage } from "@zhiye/ui/components/form";
+import { toast } from "@zhiye/ui/components/toast";
 import { useDialogStore } from "../store";
 import { PasswordInput } from "@/components/input/password-input";
 import { useFormBlocker } from "@/hooks/use-form-blocker";

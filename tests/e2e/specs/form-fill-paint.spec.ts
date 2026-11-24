@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { writeFile } from "node:fs/promises";
 import { chromium, expect, test, webkit } from "@playwright/test";
-import { FORM_FILL_SCRIPT } from "@reactive-resume/utils/form-fill";
+import { FORM_FILL_SCRIPT } from "@zhiye/utils/form-fill";
 import { formFillInvocation } from "../fixtures/form-fill";
 
 type ReceiptWindow = Window & {

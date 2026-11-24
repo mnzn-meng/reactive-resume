@@ -1,7 +1,7 @@
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
-import { CommandItem, CommandShortcut } from "@reactive-resume/ui/components/command";
-import { Icon } from "@reactive-resume/ui/components/icon";
+import { CommandItem, CommandShortcut } from "@zhiye/ui/components/command";
+import { Icon } from "@zhiye/ui/components/icon";
 import { useCommandPaletteStore } from "../../store";
 import { RowNote } from "../base";
 import { LanguageCommandPage } from "./language";

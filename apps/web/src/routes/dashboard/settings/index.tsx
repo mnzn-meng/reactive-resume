@@ -1,6 +1,6 @@
 import { t } from "@lingui/core/macro";
 import { createFileRoute, Navigate } from "@tanstack/react-router";
-import { useBreakpoint } from "@reactive-resume/ui/hooks/use-breakpoint";
+import { useBreakpoint } from "@zhiye/ui/hooks/use-breakpoint";
 import { SettingsRoot } from "@/features/settings/root";
 import { getPageTitle } from "@/libs/seo";
 

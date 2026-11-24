@@ -1,9 +1,9 @@
 import type { DocumentFilters, DocumentSummary } from "../../dto/documents";
-import type { DbOrTx } from "@reactive-resume/db/client";
+import type { DbOrTx } from "@zhiye/db/client";
 import type { SQLWrapper } from "drizzle-orm";
 import { and, arrayContains, asc, desc, eq, gte, isNull, or, sql } from "drizzle-orm";
-import { db } from "@reactive-resume/db/client";
-import { application, resume } from "@reactive-resume/db/schema";
+import { db } from "@zhiye/db/client";
+import { application, resume } from "@zhiye/db/schema";
 
 type ListInput = DocumentFilters & { userId: string; limit?: number | undefined; offset?: number | undefined };
 

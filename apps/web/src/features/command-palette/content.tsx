@@ -10,7 +10,7 @@ import {
 	CommandGroup,
 	CommandInput,
 	CommandList,
-} from "@reactive-resume/ui/components/command";
+} from "@zhiye/ui/components/command";
 import {
 	Dialog,
 	DialogClose,
@@ -18,10 +18,10 @@ import {
 	DialogDescription,
 	DialogHeader,
 	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Kbd } from "@reactive-resume/ui/components/kbd";
-import { useBreakpoint } from "@reactive-resume/ui/hooks/use-breakpoint";
+} from "@zhiye/ui/components/dialog";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Kbd } from "@zhiye/ui/components/kbd";
+import { useBreakpoint } from "@zhiye/ui/hooks/use-breakpoint";
 import { AskCommandGroup } from "./pages/ask";
 import { CreateItems, JumpItems, MoreItems } from "./pages/navigation";
 import { openShortcutsFromPalette, PreferenceItems, PreferencePages } from "./pages/preferences";

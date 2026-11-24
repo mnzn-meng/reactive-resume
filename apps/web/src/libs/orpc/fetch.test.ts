@@ -164,7 +164,7 @@ describe("RPC fetch", () => {
 	});
 
 	it("refuses a prepared send after an account switch and rejects oversized Undo bodies before acknowledgement", async () => {
-		const { prepareRequest } = await import("@reactive-resume/utils/deferred-request");
+		const { prepareRequest } = await import("@zhiye/utils/deferred-request");
 		const { setAccountScope } = await import("@/libs/auth/account-scope");
 		const { rpcFetch } = await import("./fetch");
 		setAccountScope("alice");

@@ -1,6 +1,6 @@
-import type { RawExtraction } from "@reactive-resume/resume/ats-pdf";
+import type { RawExtraction } from "@zhiye/resume/ats-pdf";
 import { expect, it } from "vite-plus/test";
-import { buildExtractedDocument } from "@reactive-resume/resume/ats-pdf";
+import { buildExtractedDocument } from "@zhiye/resume/ats-pdf";
 import { documentToLines, parsePdfResume } from "./pdf-lines";
 
 type Cell = { text: string; x: number; y: number; font?: string; page?: number; width?: number; size?: number };

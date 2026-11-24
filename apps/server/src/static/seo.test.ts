@@ -1,9 +1,9 @@
 import { describe, expect, it, vi } from "vite-plus/test";
-import { supportedLocales } from "@reactive-resume/utils/locale";
+import { supportedLocales } from "@zhiye/utils/locale";
 
 const mocks = vi.hoisted(() => ({ env: { APP_URL: "https://rxresu.me/" } }));
 
-vi.mock("@reactive-resume/env/server", () => ({ env: mocks.env }));
+vi.mock("@zhiye/env/server", () => ({ env: mocks.env }));
 const { handleLlms, handlePagesSitemap } = await import("./seo");
 
 it("keeps search documentation in llms.txt with instance-local product and API links", async () => {

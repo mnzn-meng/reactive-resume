@@ -1,6 +1,6 @@
-import type { ApplicationStatus } from "@reactive-resume/schema/applications/data";
+import type { ApplicationStatus } from "@zhiye/schema/applications/data";
 import type { ComponentProps } from "react";
-import { cn } from "@reactive-resume/utils/style";
+import { cn } from "@zhiye/utils/style";
 import { getStageLabel } from "@/features/applications/stages";
 
 const DOT_COLOR: Record<ApplicationStatus, string> = {

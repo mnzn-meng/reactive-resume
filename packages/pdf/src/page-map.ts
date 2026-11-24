@@ -1,7 +1,7 @@
 import type { ElementInfo, LayoutInfo } from "@formepdf/core";
-import type { Proposal } from "@reactive-resume/resume/proposals";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import { applyResumeProposals } from "@reactive-resume/resume/proposals";
+import type { Proposal } from "@zhiye/resume/proposals";
+import type { ResumeData } from "@zhiye/schema/resume/data";
+import { applyResumeProposals } from "@zhiye/resume/proposals";
 
 /**
  * Maps rendered PDF regions back to resume data, so the editor can outline the block a field

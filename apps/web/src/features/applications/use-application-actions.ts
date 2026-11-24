@@ -1,12 +1,12 @@
 import type { ApplicationLane } from "./lanes";
 import type { Application, ApplicationSummary } from "./types";
-import type { ApplicationClosedReason, ApplicationStatus } from "@reactive-resume/schema/applications/data";
 import type { QueryClient } from "@tanstack/react-query";
+import type { ApplicationClosedReason, ApplicationStatus } from "@zhiye/schema/applications/data";
 import { plural, t } from "@lingui/core/macro";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "@tanstack/react-router";
-import { stageBaselinesFor } from "@reactive-resume/schema/applications/stage-baselines";
-import { toast } from "@reactive-resume/ui/components/toast";
+import { stageBaselinesFor } from "@zhiye/schema/applications/stage-baselines";
+import { toast } from "@zhiye/ui/components/toast";
 import { getCategoryLane, getLaneLabel, laneMoveInput } from "./lanes";
 import { applicationDetailQueryKey, applicationsListQueryKey } from "./queries";
 import { applicationLanesQueryKey, useApplicationLanes } from "./use-application-lanes";

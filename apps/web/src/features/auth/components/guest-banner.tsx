@@ -2,10 +2,10 @@ import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { Link, useRouteContext } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { Alert, AlertDescription } from "@reactive-resume/ui/components/alert";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { toast } from "@reactive-resume/ui/components/toast";
+import { Alert, AlertDescription } from "@zhiye/ui/components/alert";
+import { Button } from "@zhiye/ui/components/button";
+import { Icon } from "@zhiye/ui/components/icon";
+import { toast } from "@zhiye/ui/components/toast";
 
 // Set while a guest is on sign-up or sign-in, so the app can confirm the move once they're back in an account. It
 // survives the provider redirects that leave this page.
@@ -81,7 +81,7 @@ export function GuestBanner() {
 
 /**
  * On sign-up and sign-in from a guest session: what moves to the account and what doesn't. It matches the account
- * link in `@reactive-resume/auth` (documents, their history, applications, the application profile, saved answers and
+ * link in `@zhiye/auth` (documents, their history, applications, the application profile, saved answers and
  * Career knowledge move, except facts the account already holds; conflicting profiles stop the move, and assistant
  * conversations are deleted with the guest after a successful move).
  */

@@ -1,5 +1,5 @@
-import type { LayoutPage, ResumeData, SectionType } from "@reactive-resume/schema/resume/data";
-import type { Template } from "@reactive-resume/schema/templates";
+import type { LayoutPage, ResumeData, SectionType } from "@zhiye/schema/resume/data";
+import type { Template } from "@zhiye/schema/templates";
 import {
 	BorderStyle,
 	convertMillimetersToTwip,
@@ -14,12 +14,12 @@ import {
 	TextRun,
 	WidthType,
 } from "docx";
-import { entryHeaderOf } from "@reactive-resume/schema/resume/data";
-import { assertResumeRenderBudget } from "@reactive-resume/schema/resume/limits";
-import { templateLayouts } from "@reactive-resume/schema/templates";
-import { parseColorString } from "@reactive-resume/utils/color";
-import { toSafeLink } from "@reactive-resume/utils/link";
-import { isRTL } from "@reactive-resume/utils/locale";
+import { entryHeaderOf } from "@zhiye/schema/resume/data";
+import { assertResumeRenderBudget } from "@zhiye/schema/resume/limits";
+import { templateLayouts } from "@zhiye/schema/templates";
+import { parseColorString } from "@zhiye/utils/color";
+import { toSafeLink } from "@zhiye/utils/link";
+import { isRTL } from "@zhiye/utils/locale";
 import { renderBuiltInSection, renderCustomSection, renderSummary, setRenderConfig } from "./section-renderers";
 
 // --- Color helpers ---

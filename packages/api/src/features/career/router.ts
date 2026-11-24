@@ -1,5 +1,5 @@
 import z from "zod";
-import { aiOperationIdsSchema } from "@reactive-resume/schema/ai-usage";
+import { aiOperationIdsSchema } from "@zhiye/schema/ai-usage";
 import {
 	careerFactInputSchema,
 	careerFactCorrectionSchema,
@@ -17,7 +17,7 @@ import {
 	roleSuggestionsInputSchema,
 	roleSuggestionsOutputSchema,
 	offerTermsSchema,
-} from "@reactive-resume/schema/career";
+} from "@zhiye/schema/career";
 import { protectedProcedure } from "../../context";
 import { savedStagesSchema } from "../../dto/application";
 import {

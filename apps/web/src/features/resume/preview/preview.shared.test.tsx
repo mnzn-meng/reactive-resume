@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { expect, it } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 import { ResumePreviewLoader } from "./preview.shared";
 
 it("holds Letter paper at its physical aspect ratio before the PDF loads", () => {

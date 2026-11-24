@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vite-plus/test"
 import { streamToEventIterator } from "@orpc/server";
 import { MockLanguageModelV4 } from "ai/test";
 import { z } from "zod";
-import { AGENT_REPLY_ERRORS } from "@reactive-resume/ai/tools/agent-tool-contracts";
+import { AGENT_REPLY_ERRORS } from "@zhiye/ai/tools/agent-tool-contracts";
 
 const dbMock = {
 	select: vi.fn(),
@@ -54,20 +54,20 @@ const aiProvidersServiceMock = {
 
 vi.mock("../applications/service", () => ({ assertApplicationVersion: vi.fn() }));
 
-vi.mock("@reactive-resume/db/client", () => ({ db: dbMock }));
+vi.mock("@zhiye/db/client", () => ({ db: dbMock }));
 // Deliberately different from the defaults, so the tests prove the configured budgets are used.
-vi.mock("@reactive-resume/env/server", () => ({
+vi.mock("@zhiye/env/server", () => ({
 	env: {
 		AUTH_SECRET: "test-auth-secret",
 		AI_AGENT_STEP_TIMEOUT_MS: 45_000,
 		AI_AGENT_RUN_TIMEOUT_MS: 90_000,
 	},
 }));
-vi.mock("@reactive-resume/db/redis", () => ({
+vi.mock("@zhiye/db/redis", () => ({
 	getRedis: () => cancellationRedisMock,
 	redisKey: (...parts: string[]) => ["test", ...parts].join(":"),
 }));
-vi.mock("@reactive-resume/db/schema", () => ({
+vi.mock("@zhiye/db/schema", () => ({
 	agentThread: {
 		id: "agent_threads.id",
 		userId: "agent_threads.user_id",
@@ -221,11 +221,11 @@ vi.mock("./tools", () => ({
 	buildAgentInstructions: vi.fn(),
 	buildAgentTools: vi.fn(() => ({})),
 }));
-vi.mock("@reactive-resume/schema/resume/default", () => ({
+vi.mock("@zhiye/schema/resume/default", () => ({
 	defaultResumeData: {},
 }));
-vi.mock("@reactive-resume/utils/string", async (importOriginal) => ({
-	...(await importOriginal<typeof import("@reactive-resume/utils/string")>()),
+vi.mock("@zhiye/utils/string", async (importOriginal) => ({
+	...(await importOriginal<typeof import("@zhiye/utils/string")>()),
 	generateId: () => "test-id",
 }));
 vi.mock("@orpc/server", () => ({ streamToEventIterator: vi.fn() }));

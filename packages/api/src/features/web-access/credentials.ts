@@ -2,9 +2,9 @@ import type { WebAccessConnection, WebAccessProvider } from "./contracts";
 import { createHash } from "node:crypto";
 import { ORPCError } from "@orpc/client";
 import { and, eq } from "drizzle-orm";
-import { db } from "@reactive-resume/db/client";
-import { webAccessCredential } from "@reactive-resume/db/schema";
-import { env } from "@reactive-resume/env/server";
+import { db } from "@zhiye/db/client";
+import { webAccessCredential } from "@zhiye/db/schema";
+import { env } from "@zhiye/env/server";
 import { decryptCredential, encryptCredential } from "../ai/credentials";
 import { assertWebDestination } from "../ai/destination";
 

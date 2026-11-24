@@ -1,11 +1,11 @@
 import type { DensityId, MarginId } from "@/features/resume/editor/design/presets";
-import type { DateFormat } from "@reactive-resume/schema/resume/dates";
+import type { DateFormat } from "@zhiye/schema/resume/dates";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { SegmentedControl, SegmentedControlItem } from "@reactive-resume/ui/components/segmented-control";
-import { cn } from "@reactive-resume/utils/style";
+import { Button } from "@zhiye/ui/components/button";
+import { Icon } from "@zhiye/ui/components/icon";
+import { SegmentedControl, SegmentedControlItem } from "@zhiye/ui/components/segmented-control";
+import { cn } from "@zhiye/utils/style";
 import { List } from "@/components/calm/list-row";
 import { Combobox } from "@/components/ui/combobox";
 import { getLocaleOptions } from "@/features/locale/locale-options";

@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
-import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
+import { sampleResumeData } from "@zhiye/schema/resume/sample";
 import { EntryFields } from "./entries";
 
 vi.mock("./rich-text-editor", () => ({

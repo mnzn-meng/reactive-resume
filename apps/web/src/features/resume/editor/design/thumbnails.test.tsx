@@ -1,11 +1,11 @@
 // @vitest-environment happy-dom
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import type { ReactNode } from "react";
 import { cleanup, renderHook, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, expect, it, vi } from "vite-plus/test";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
-import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
+import { sampleResumeData } from "@zhiye/schema/resume/sample";
 import { useTemplateThumbnail } from "./thumbnails";
 
 const mocks = vi.hoisted(() => ({ pdf: vi.fn(), image: vi.fn() }));

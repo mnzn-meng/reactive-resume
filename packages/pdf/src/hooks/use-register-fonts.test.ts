@@ -1,10 +1,10 @@
 import type { PdfFontRequest } from "./use-register-fonts";
-import type { ResumeData, Typography } from "@reactive-resume/schema/resume/data";
+import type { ResumeData, Typography } from "@zhiye/schema/resume/data";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vite-plus/test";
-import { getWebFontSource } from "@reactive-resume/fonts";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { getWebFontSource } from "@zhiye/fonts";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 import { resolvePdfFonts, resumeContentScripts, resumeUsesItalic } from "./use-register-fonts";
 
 const typography = {

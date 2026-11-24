@@ -1,12 +1,12 @@
 import type { ApplicationLane } from "../lanes";
 import type { Application, ApplicationSummary } from "../types";
-import type { ApplicationClosedReason } from "@reactive-resume/schema/applications/data";
+import type { ApplicationClosedReason } from "@zhiye/schema/applications/data";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { useQueryClient } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { type ReactNode, useState } from "react";
-import { Button } from "@reactive-resume/ui/components/button";
+import { Button } from "@zhiye/ui/components/button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -18,10 +18,10 @@ import {
 	DropdownMenuSubContent,
 	DropdownMenuSubTrigger,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/dropdown-menu";
+import { Icon } from "@zhiye/ui/components/icon";
+import { toast } from "@zhiye/ui/components/toast";
+import { cn } from "@zhiye/utils/style";
 import { getDisplayLane, getLaneLabel, laneDotColor } from "../lanes";
 import { applicationDetailQueryOptions } from "../queries";
 import { CLOSED_REASONS, getClosedReasonLabel } from "../stages";

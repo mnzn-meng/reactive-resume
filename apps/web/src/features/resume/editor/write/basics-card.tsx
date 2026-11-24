@@ -1,12 +1,12 @@
-import type { Basics, CustomField } from "@reactive-resume/schema/resume/data";
+import type { Basics, CustomField } from "@zhiye/schema/resume/data";
 import { i18n } from "@lingui/core";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { useState } from "react";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { IconButton } from "@reactive-resume/ui/components/icon-button";
-import { Input } from "@reactive-resume/ui/components/input";
-import { generateId } from "@reactive-resume/utils/string";
+import { Icon } from "@zhiye/ui/components/icon";
+import { IconButton } from "@zhiye/ui/components/icon-button";
+import { Input } from "@zhiye/ui/components/input";
+import { generateId } from "@zhiye/utils/string";
 import { TextField, validateEmail, WebsiteField } from "./fields";
 import { PictureSettings } from "./picture-settings";
 import { SectionsCrumb } from "./section-view";

@@ -1,7 +1,7 @@
 import type { UIMessage } from "ai";
 import { and, eq, isNotNull, isNull, sql } from "drizzle-orm";
-import { db } from "@reactive-resume/db/client";
-import * as schema from "@reactive-resume/db/schema";
+import { db } from "@zhiye/db/client";
+import * as schema from "@zhiye/db/schema";
 import { lockThreadMessages } from "./messages-persistence";
 
 type AgentRunStateDb = Pick<typeof db, "update">;

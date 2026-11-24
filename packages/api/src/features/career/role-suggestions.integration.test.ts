@@ -6,8 +6,8 @@ import { ORPCError } from "@orpc/client";
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import * as tables from "@reactive-resume/db/schema";
-import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
+import * as tables from "@zhiye/db/schema";
+import { sampleResumeData } from "@zhiye/schema/resume/sample";
 import { truncateCascade } from "../../test-database";
 
 const fixture = vi.hoisted(() => ({
@@ -15,7 +15,7 @@ const fixture = vi.hoisted(() => ({
 	generate: vi.fn(),
 	provider: vi.fn(),
 }));
-vi.mock("@reactive-resume/db/client", () => ({
+vi.mock("@zhiye/db/client", () => ({
 	get db() {
 		return fixture.db;
 	},

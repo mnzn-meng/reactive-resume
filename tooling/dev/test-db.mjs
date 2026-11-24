@@ -47,7 +47,7 @@ export async function ensureDatabases(names) {
 	for (const name of names) {
 		console.error(`\nMigrating ${name}…`);
 		// Drizzle Kit's progress goes to stderr, so `env` and `exec` keep stdout for the caller.
-		execFileSync("pnpm", ["--silent", "--filter", "@reactive-resume/db", "db:migrate"], {
+		execFileSync("pnpm", ["--silent", "--filter", "@zhiye/db", "db:migrate"], {
 			cwd: root,
 			env: { ...process.env, DATABASE_URL: databaseUrl(name) },
 			stdio: ["ignore", 2, 2],

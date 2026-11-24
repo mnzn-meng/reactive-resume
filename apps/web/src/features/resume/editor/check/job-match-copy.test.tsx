@@ -4,7 +4,7 @@ import { afterEach, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 
 const api = vi.hoisted(() => ({
 	applications: [] as { id: string; company: string; role: string; status: string }[],
@@ -51,7 +51,7 @@ vi.mock("@/features/resume/builder/draft", () => ({
 }));
 vi.mock("@/features/assistant/open", () => ({ openAssistantFrom: vi.fn() }));
 vi.mock("./actions", () => ({ checkStateOf: vi.fn(), editWithUndo: vi.fn() }));
-vi.mock("@reactive-resume/resume/ats-pdf", () => ({
+vi.mock("@zhiye/resume/ats-pdf", () => ({
 	matchJobDescription: () => ({ terms: [] }),
 	surfaceFormsOf: () => [],
 }));

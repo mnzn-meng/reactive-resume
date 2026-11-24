@@ -1,8 +1,8 @@
-import type { ExperienceItem, ResumeData } from "@reactive-resume/schema/resume/data";
+import type { ExperienceItem, ResumeData } from "@zhiye/schema/resume/data";
 import { describe, expect, it } from "vite-plus/test";
-import { readLegacyDates } from "@reactive-resume/schema/resume/dates";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
-import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
+import { readLegacyDates } from "@zhiye/schema/resume/dates";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
+import { sampleResumeData } from "@zhiye/schema/resume/sample";
 import { atsVerdict, lintResumeForAts, mergeIntoPreviousEntry } from "./index";
 
 const NOW = new Date("2024-06-15T00:00:00Z");

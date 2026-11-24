@@ -1,1 +1,1 @@
-export { buildIcs } from "@reactive-resume/utils/ics";
+export { buildIcs } from "@zhiye/utils/ics";

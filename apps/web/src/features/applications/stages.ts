@@ -1,6 +1,6 @@
-import type { ApplicationClosedReason, ApplicationStatus } from "@reactive-resume/schema/applications/data";
+import type { ApplicationClosedReason, ApplicationStatus } from "@zhiye/schema/applications/data";
 import { t } from "@lingui/core/macro";
-import { STAGES } from "@reactive-resume/schema/applications/data";
+import { STAGES } from "@zhiye/schema/applications/data";
 
 /** The standard stages an application moves through; closed ends it from any of them. Lanes map onto these. */
 export const PIPELINE: readonly ApplicationStatus[] = ["saved", "applied", "screening", "interview", "offer"];

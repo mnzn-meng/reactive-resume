@@ -62,9 +62,9 @@ Native attempt: T3 `device_list` and `device_open` selected local iPhone 18 Pro 
 Use Node 24 and pinned pnpm through repository RTK/mise wrapper. From root:
 
 ```sh
-rtk proxy mise exec node@24 -- pnpm --filter @reactive-resume/tooling exec node autofill/serve.mjs /tmp/rx75-lab
+rtk proxy mise exec node@24 -- pnpm --filter @zhiye/tooling exec node autofill/serve.mjs /tmp/rx75-lab
 rtk proxy mise exec node@24 -- pnpm exec node tests/e2e/autofill-prototype.mjs /tmp/rx75-lab
-rtk proxy mise exec node@24 -- pnpm --filter @reactive-resume/tooling test autofill/prototype.test.ts capture/content.test.ts capture/popup.test.ts
+rtk proxy mise exec node@24 -- pnpm --filter @zhiye/tooling test autofill/prototype.test.ts capture/content.test.ts capture/popup.test.ts
 ```
 
 Browser self-check: 12 scenarios = 3 shapes + wrong/missing files + existing value + cross-origin failure, in each of desktop Chromium and host WebKit mobile emulation. Per-field values, manual entries, provenance, PDF names/bytes and zero emitted events/writes are checked. No real employer or account is contacted. PDFs independently parse as one-page PDF 1.4. This does not prove React/ATS event processing or upload acceptance.

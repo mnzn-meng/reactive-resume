@@ -1,4 +1,4 @@
-import type { DateFormat, ResumeDates, YearMonth } from "@reactive-resume/schema/resume/dates";
+import type { DateFormat, ResumeDates, YearMonth } from "@zhiye/schema/resume/dates";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { useId, useState } from "react";
@@ -10,12 +10,12 @@ import {
 	hasUnreadableDateText,
 	readLegacyDates,
 	toYearMonth,
-} from "@reactive-resume/schema/resume/dates";
-import { readSingleDate } from "@reactive-resume/schema/resume/period";
-import { Checkbox } from "@reactive-resume/ui/components/checkbox";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Input, inputBaseClassName } from "@reactive-resume/ui/components/input";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/schema/resume/dates";
+import { readSingleDate } from "@zhiye/schema/resume/period";
+import { Checkbox } from "@zhiye/ui/components/checkbox";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Input, inputBaseClassName } from "@zhiye/ui/components/input";
+import { cn } from "@zhiye/utils/style";
 
 type DateSettings = { locale: string; format?: DateFormat | undefined };
 

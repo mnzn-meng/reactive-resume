@@ -1,11 +1,11 @@
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import { ORPCError } from "@orpc/server";
 import z from "zod";
-import { env } from "@reactive-resume/env/server";
-import { buildMarkdown } from "@reactive-resume/resume/markdown";
-import { writableResumeDataSchema } from "@reactive-resume/schema/resume/write";
-import { getDefaultFileName } from "@reactive-resume/utils/file";
-import { contentDisposition } from "@reactive-resume/utils/http";
+import { env } from "@zhiye/env/server";
+import { buildMarkdown } from "@zhiye/resume/markdown";
+import { writableResumeDataSchema } from "@zhiye/schema/resume/write";
+import { getDefaultFileName } from "@zhiye/utils/file";
+import { contentDisposition } from "@zhiye/utils/http";
 import { protectedProcedure } from "../../context";
 import { pdfExportRateLimit, pdfRenderRateLimit } from "../../middleware/rate-limit";
 import { resumeService } from "../resume/service";
@@ -32,17 +32,17 @@ export async function fileResponse(
 	try {
 		if (format === "json") body = new File([JSON.stringify(json, null, 2)], filename, { type: "application/json" });
 		else if (format === "pdf") {
-			const { createResumePdfFile } = await import("@reactive-resume/pdf/server");
+			const { createResumePdfFile } = await import("@zhiye/pdf/server");
 			body = await createResumePdfFile({ data, filename, uploadOrigin: env.APP_URL });
 		} else {
-			const { getResumeSectionTitle } = await import("@reactive-resume/pdf/section-title");
+			const { getResumeSectionTitle } = await import("@zhiye/pdf/section-title");
 			const resolveTitle = (id: string) => getResumeSectionTitle(data, id);
 			if (format === "md") body = new File([buildMarkdown(data, resolveTitle)], filename, { type: "text/markdown" });
 			else {
 				const blob =
 					format === "odt"
-						? await (await import("@reactive-resume/odt")).buildOdt(data, resolveTitle)
-						: await (await import("@reactive-resume/docx")).buildDocx(data, resolveTitle);
+						? await (await import("@zhiye/odt")).buildOdt(data, resolveTitle)
+						: await (await import("@zhiye/docx")).buildDocx(data, resolveTitle);
 				body = new File([blob], filename, { type: blob.type });
 			}
 		}

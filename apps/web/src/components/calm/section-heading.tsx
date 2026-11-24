@@ -1,5 +1,5 @@
 import type { ComponentProps, ReactNode } from "react";
-import { cn } from "@reactive-resume/utils/style";
+import { cn } from "@zhiye/utils/style";
 
 type SectionHeadingProps = ComponentProps<"h2"> & {
 	/** Directly under a page header: 8px above instead of 32. */

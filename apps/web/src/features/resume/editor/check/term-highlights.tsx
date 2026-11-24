@@ -59,7 +59,7 @@ export function TermHighlights({ document, pageIndex, scale, term }: TermHighlig
 			const [page, { TextLayer }, { surfaceFormsOf }] = await Promise.all([
 				document.getPage(pageIndex + 1),
 				import("@/features/resume/preview/pdfjs"),
-				import("@reactive-resume/resume/ats-pdf"),
+				import("@zhiye/resume/ats-pdf"),
 			]);
 			if (cancelled) return;
 			layer = new TextLayer({

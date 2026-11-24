@@ -1,4 +1,4 @@
-import type { CustomField } from "@reactive-resume/schema/resume/data";
+import type { CustomField } from "@zhiye/schema/resume/data";
 // @vitest-environment happy-dom
 import { fireEvent, render, screen } from "@testing-library/react";
 import { expect, it, vi } from "vite-plus/test";

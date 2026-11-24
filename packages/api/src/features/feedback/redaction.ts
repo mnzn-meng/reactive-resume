@@ -1,4 +1,4 @@
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 
 /**
  * The resume a reviewer sees through a feedback link: the owner-only fields are gone.

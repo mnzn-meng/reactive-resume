@@ -54,7 +54,7 @@ vi.mock("@/libs/orpc/client", async (importOriginal) => {
 });
 
 vi.mock("@tanstack/react-router", () => ({ useNavigate: () => vi.fn() }));
-vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: api.toast } }));
+vi.mock("@zhiye/ui/components/toast", () => ({ toast: { add: api.toast } }));
 
 i18n.loadAndActivate({ locale: "en", messages: {} });
 

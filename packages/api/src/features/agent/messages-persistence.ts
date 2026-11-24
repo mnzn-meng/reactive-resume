@@ -1,11 +1,11 @@
-import type { ProposedEdit } from "@reactive-resume/ai/tools/agent-tool-contracts";
-import type { DbOrTx } from "@reactive-resume/db/client";
+import type { ProposedEdit } from "@zhiye/ai/tools/agent-tool-contracts";
+import type { DbOrTx } from "@zhiye/db/client";
 import type { UIMessage } from "ai";
 import { and, asc, eq, max, sql } from "drizzle-orm";
-import { db } from "@reactive-resume/db/client";
-import * as schema from "@reactive-resume/db/schema";
-import { blockText, withEditedText } from "@reactive-resume/resume/proposals";
-import { aiOperationIds } from "@reactive-resume/schema/ai-usage";
+import { db } from "@zhiye/db/client";
+import * as schema from "@zhiye/db/schema";
+import { blockText, withEditedText } from "@zhiye/resume/proposals";
+import { aiOperationIds } from "@zhiye/schema/ai-usage";
 
 // Crash-safe incremental persistence for the assistant message of an agent run.
 // A draft row is inserted before the stream starts, folded step-by-step in onStepEnd,

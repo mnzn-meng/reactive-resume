@@ -1,6 +1,6 @@
 import z from "zod";
-import { applicationClosedReasonSchema, applicationStatusSchema } from "@reactive-resume/schema/applications/data";
-import { resumeDataSchema } from "@reactive-resume/schema/resume/data";
+import { applicationClosedReasonSchema, applicationStatusSchema } from "@zhiye/schema/applications/data";
+import { resumeDataSchema } from "@zhiye/schema/resume/data";
 
 /** Most applications one link can share, and most comments one link takes. */
 export const FEEDBACK_MAX_APPLICATIONS = 20;

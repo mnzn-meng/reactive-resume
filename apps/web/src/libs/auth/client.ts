@@ -1,9 +1,9 @@
-import type { auth } from "@reactive-resume/auth/config";
+import type { auth } from "@zhiye/auth/config";
 import { dashClient } from "@better-auth/infra/client";
 import { passkeyClient } from "@better-auth/passkey/client";
 import { adminClient, anonymousClient, inferAdditionalFields, usernameClient } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
-import { isSessionIntentPath } from "@reactive-resume/utils/auth-intent";
+import { isSessionIntentPath } from "@zhiye/utils/auth-intent";
 import { getAccountId } from "./account-scope";
 
 export const authClient = createAuthClient({

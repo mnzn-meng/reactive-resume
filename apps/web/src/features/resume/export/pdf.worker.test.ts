@@ -1,8 +1,8 @@
 import { afterEach, expect, it, vi } from "vite-plus/test";
-import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
+import { sampleResumeData } from "@zhiye/schema/resume/sample";
 
 const mocks = vi.hoisted(() => ({ preload: vi.fn(), render: vi.fn(async () => ({ blob: new Blob() })) }));
-vi.mock("@reactive-resume/pdf/browser", () => ({ preloadResumePdf: mocks.preload }));
+vi.mock("@zhiye/pdf/browser", () => ({ preloadResumePdf: mocks.preload }));
 vi.mock("./render", () => ({ renderResumePdf: mocks.render }));
 afterEach(() => vi.unstubAllGlobals());
 

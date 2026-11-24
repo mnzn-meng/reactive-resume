@@ -4,7 +4,7 @@ import { afterEach, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Command, CommandInput, CommandList } from "@reactive-resume/ui/components/command";
+import { Command, CommandInput, CommandList } from "@zhiye/ui/components/command";
 import { useCommandPaletteStore } from "../store";
 import { AskCommandGroup } from "./ask";
 

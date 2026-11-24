@@ -4,13 +4,13 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { expect, it, vi } from "vite-plus/test";
 import { Pool } from "pg";
-import { withDatabasePool } from "@reactive-resume/db/client";
+import { withDatabasePool } from "@zhiye/db/client";
 import { getStorageService } from "../storage/service";
 import { authService } from "./service";
 
 const settings = vi.hoisted(() => ({ STORAGE_BACKEND: "local", LOCAL_STORAGE_PATH: "" }));
-vi.mock("@reactive-resume/env/server", () => ({ env: settings }));
-vi.mock("@reactive-resume/auth/config", () => ({ auth: { $context: { secretConfig: "fixture" } } }));
+vi.mock("@zhiye/env/server", () => ({ env: settings }));
+vi.mock("@zhiye/auth/config", () => ({ auth: { $context: { secretConfig: "fixture" } } }));
 vi.mock("../applications/lanes", () => ({ applicationLaneService: {} }));
 vi.mock("../career/service", () => ({ careerService: {} }));
 vi.mock("../cover-letters/service", () => ({ coverLetterService: {} }));

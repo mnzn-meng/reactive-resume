@@ -1,6 +1,6 @@
 import type { AiUsage } from "../ai/usage";
 import { ORPCError } from "@orpc/client";
-import { generateId } from "@reactive-resume/utils/string";
+import { generateId } from "@zhiye/utils/string";
 import { agentService } from "../agent/service";
 import { aiProvidersService } from "../ai-providers/service";
 import { assertAgentEnvironment } from "../ai/credentials";

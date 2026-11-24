@@ -1,8 +1,8 @@
-import type { ResumeData, SectionType } from "@reactive-resume/schema/resume/data";
-import { parseResumeData } from "@reactive-resume/schema/resume/data";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
-import { parsePeriod, parseSingleDate } from "@reactive-resume/schema/resume/period";
-import { generateId } from "@reactive-resume/utils/string";
+import type { ResumeData, SectionType } from "@zhiye/schema/resume/data";
+import { parseResumeData } from "@zhiye/schema/resume/data";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
+import { parsePeriod, parseSingleDate } from "@zhiye/schema/resume/period";
+import { generateId } from "@zhiye/utils/string";
 import { BULLET_PATTERN, toHtmlBlocks as toHtml } from "./html";
 
 type SectionKey = SectionType | "summary";

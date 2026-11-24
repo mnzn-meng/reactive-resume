@@ -19,8 +19,8 @@ const mocks = vi.hoisted(() => ({
 	handleWebApp: vi.fn(),
 }));
 
-vi.mock("@reactive-resume/env/server", async (original) => {
-	const { env } = await original<typeof import("@reactive-resume/env/server")>();
+vi.mock("@zhiye/env/server", async (original) => {
+	const { env } = await original<typeof import("@zhiye/env/server")>();
 	return { env: { ...env, TRUSTED_PROXIES: mocks.trustedProxies } };
 });
 

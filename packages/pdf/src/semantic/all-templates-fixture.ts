@@ -1,5 +1,5 @@
-import type { Template } from "@reactive-resume/schema/templates";
-import { createSampleResumeData } from "@reactive-resume/schema/resume/sample";
+import type { Template } from "@zhiye/schema/templates";
+import { createSampleResumeData } from "@zhiye/schema/resume/sample";
 
 const comprehensiveStylesheet = {
 	languageVersion: 1,

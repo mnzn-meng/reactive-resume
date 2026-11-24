@@ -1,7 +1,7 @@
 import { EventEmitter, on } from "node:events";
-import { getPool } from "@reactive-resume/db/client";
-import { getCoordination } from "@reactive-resume/db/coordination";
-import { getRedis, redisKey } from "@reactive-resume/db/redis";
+import { getPool } from "@zhiye/db/client";
+import { getCoordination } from "@zhiye/db/coordination";
+import { getRedis, redisKey } from "@zhiye/db/redis";
 
 const RESUME_UPDATED_CHANNEL = "resume_updated";
 const resumeMutationNames = new Set(["sync", "create", "update", "patch", "lock", "delete"] as const);

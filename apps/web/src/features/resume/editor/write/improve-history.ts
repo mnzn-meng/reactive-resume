@@ -4,7 +4,7 @@ import type { Transaction } from "@tiptap/pm/state";
 import type { Editor } from "@tiptap/react";
 import { closeHistory } from "@tiptap/pm/history";
 import { Step, StepResult } from "@tiptap/pm/transform";
-import { aiOperationIdsSchema } from "@reactive-resume/schema/ai-usage";
+import { aiOperationIdsSchema } from "@zhiye/schema/ai-usage";
 
 // Private editor history metadata: invert with the wording, never put request references in document HTML/JSON.
 class ImproveSourcesStep extends Step {

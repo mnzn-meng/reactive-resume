@@ -1,9 +1,9 @@
 import type { client } from "./client";
-import type { AiVoiceOperation } from "@reactive-resume/ai/types";
+import type { AiVoiceOperation } from "@zhiye/ai/types";
 import { t } from "@lingui/core/macro";
 import { createElement } from "react";
-import { aiConfiguredModels, aiModelForTask, aiTaskForOperation } from "@reactive-resume/ai/task-models";
-import { aiDestination, NO_AI_DESTINATION, supportsNativeWebSearch } from "@reactive-resume/ai/types";
+import { aiConfiguredModels, aiModelForTask, aiTaskForOperation } from "@zhiye/ai/task-models";
+import { aiDestination, NO_AI_DESTINATION, supportsNativeWebSearch } from "@zhiye/ai/types";
 import { confirmOperation } from "@/hooks/use-confirm";
 
 type ConsentApi = Pick<typeof client, "aiProviders" | "agent" | "webAccess" | "ai" | "auth">;

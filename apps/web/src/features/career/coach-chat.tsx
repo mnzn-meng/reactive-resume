@@ -1,6 +1,6 @@
 import type { Knowledge, Prompt, SessionProps, Used } from "./coach-thread";
 import type { ChatAttachment } from "@/features/assistant/chat";
-import type { FactCategory } from "@reactive-resume/schema/career";
+import type { FactCategory } from "@zhiye/schema/career";
 import type { UIMessage } from "ai";
 import type { ReactNode } from "react";
 import { plural, t } from "@lingui/core/macro";
@@ -10,9 +10,9 @@ import { Link, useNavigate, useRouteContext } from "@tanstack/react-router";
 import { lastAssistantMessageIsCompleteWithApprovalResponses, lastAssistantMessageIsCompleteWithToolCalls } from "ai";
 import { memo, useCallback, useEffect, useEffectEvent, useRef, useState } from "react";
 import z from "zod";
-import { agentWebFailure, agentWebSources, type AgentUIMessage } from "@reactive-resume/ai/tools/agent-tool-contracts";
-import { careerSourceSchema, factCategorySchema } from "@reactive-resume/schema/career";
-import { Button } from "@reactive-resume/ui/components/button";
+import { agentWebFailure, agentWebSources, type AgentUIMessage } from "@zhiye/ai/tools/agent-tool-contracts";
+import { careerSourceSchema, factCategorySchema } from "@zhiye/schema/career";
+import { Button } from "@zhiye/ui/components/button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -20,9 +20,9 @@ import {
 	DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { IconButton } from "@reactive-resume/ui/components/icon-button";
+} from "@zhiye/ui/components/dropdown-menu";
+import { Icon } from "@zhiye/ui/components/icon";
+import { IconButton } from "@zhiye/ui/components/icon-button";
 import {
 	MessageScroller,
 	MessageScrollerButton,
@@ -30,11 +30,11 @@ import {
 	MessageScrollerItem,
 	MessageScrollerProvider,
 	MessageScrollerViewport,
-} from "@reactive-resume/ui/components/message-scroller";
-import { Spinner } from "@reactive-resume/ui/components/spinner";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { TraceIcon, TraceLine, TraceTitle } from "@reactive-resume/ui/components/trace";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/message-scroller";
+import { Spinner } from "@zhiye/ui/components/spinner";
+import { toast } from "@zhiye/ui/components/toast";
+import { TraceIcon, TraceLine, TraceTitle } from "@zhiye/ui/components/trace";
+import { cn } from "@zhiye/utils/style";
 import { Composer, contentClass, copyToClipboard, usedFor, usedSchema } from "./coach-thread";
 import { StoryEditor } from "./knowledge/stories";
 import { MemoryProposal, useCareerTime, Working, workingSteps } from "./shared";

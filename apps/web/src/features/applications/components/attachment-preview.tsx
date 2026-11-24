@@ -1,8 +1,8 @@
 import type { PDFDocumentLoadingTask, RenderTask } from "pdfjs-dist/legacy/build/pdf.mjs";
 import { useLingui } from "@lingui/react/macro";
 import { useEffect, useRef, useState } from "react";
-import { formatFileSize } from "@reactive-resume/utils/file";
-import { privateUploadUrl, readResponseBytes } from "@reactive-resume/utils/http";
+import { formatFileSize } from "@zhiye/utils/file";
+import { privateUploadUrl, readResponseBytes } from "@zhiye/utils/http";
 import { getAccountGeneration, subscribeAccountChange } from "@/libs/auth/account-scope";
 
 type AttachmentPreviewProps = { source: File | string; name: string };

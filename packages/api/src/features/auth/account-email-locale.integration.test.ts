@@ -2,7 +2,7 @@ import { randomBytes } from "node:crypto";
 import { describe, expect, it, vi } from "vite-plus/test";
 
 const sendEmail = vi.hoisted(() => vi.fn());
-vi.mock("@reactive-resume/email/transport", () => ({ sendEmail }));
+vi.mock("@zhiye/email/transport", () => ({ sendEmail }));
 
 // Run only against an explicitly supplied disposable database, after applying migrations.
 const databaseURL = process.env.OAUTH_TEST_DATABASE_URL;
@@ -18,9 +18,9 @@ describe.skipIf(!databaseURL)("account emails in the account's language, with Po
 			process.env.DATABASE_URL = databaseURL;
 			process.env.APP_URL = "http://localhost:33930";
 			process.env.AUTH_SECRET = "account-email-locale-test-secret-only";
-			const { auth } = await import("@reactive-resume/auth/config");
-			const { db } = await import("@reactive-resume/db/client");
-			const { user } = await import("@reactive-resume/db/schema");
+			const { auth } = await import("@zhiye/auth/config");
+			const { db } = await import("@zhiye/db/client");
+			const { user } = await import("@zhiye/db/schema");
 			const { eq } = await import("drizzle-orm");
 			const origin = process.env.APP_URL;
 			const post = (path: string, body: object, cookie = "") =>

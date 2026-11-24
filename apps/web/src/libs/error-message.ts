@@ -1,10 +1,10 @@
-import type { AgentReplyError } from "@reactive-resume/ai/tools/agent-tool-contracts";
+import type { AgentReplyError } from "@zhiye/ai/tools/agent-tool-contracts";
 import { plural, t } from "@lingui/core/macro";
 import { ORPCError } from "@orpc/client";
-import { agentReplyError } from "@reactive-resume/ai/tools/agent-tool-contracts";
-import { SUBMITTED_DOCUMENT_LOCKED } from "@reactive-resume/schema/applications/errors";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { isNetworkError } from "@reactive-resume/utils/http";
+import { agentReplyError } from "@zhiye/ai/tools/agent-tool-contracts";
+import { SUBMITTED_DOCUMENT_LOCKED } from "@zhiye/schema/applications/errors";
+import { toast } from "@zhiye/ui/components/toast";
+import { isNetworkError } from "@zhiye/utils/http";
 
 const replyErrorText = (key: AgentReplyError) =>
 	({

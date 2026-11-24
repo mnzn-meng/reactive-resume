@@ -1,7 +1,7 @@
 import { ORPCError } from "@orpc/server";
 import { and, eq, isNull, sql } from "drizzle-orm";
-import { db } from "@reactive-resume/db/client";
-import { resume, resumeWritingReview } from "@reactive-resume/db/schema";
+import { db } from "@zhiye/db/client";
+import { resume, resumeWritingReview } from "@zhiye/db/schema";
 import { lockUser } from "../documents/ownership";
 import { atsReviewOutputSchema } from "./ats-review";
 import { readAiUsage } from "./usage";

@@ -4,9 +4,9 @@ import { I18nProvider } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { Link } from "@tanstack/react-router";
 import { useEffect } from "react";
-import { BrandIcon } from "@reactive-resume/ui/components/brand-icon";
-import { Button, buttonVariants } from "@reactive-resume/ui/components/button";
-import { Icon } from "@reactive-resume/ui/components/icon";
+import { BrandIcon } from "@zhiye/ui/components/brand-icon";
+import { Button, buttonVariants } from "@zhiye/ui/components/button";
+import { Icon } from "@zhiye/ui/components/icon";
 
 /**
  * The router's error screen. An error outside every page (a dialog, the command palette) replaces the root layout,

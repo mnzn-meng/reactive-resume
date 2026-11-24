@@ -1,7 +1,7 @@
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import type { WritableDraft } from "immer";
 import { msg } from "@lingui/core/macro";
-import { contrastOnWhite } from "@reactive-resume/utils/color";
+import { contrastOnWhite } from "@zhiye/utils/color";
 
 type Data = ResumeData | WritableDraft<ResumeData>;
 /** The design a resume and a letter share. */

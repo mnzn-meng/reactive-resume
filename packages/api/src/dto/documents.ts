@@ -1,5 +1,5 @@
 import z from "zod";
-import { applicationStatusSchema } from "@reactive-resume/schema/applications/data";
+import { applicationStatusSchema } from "@zhiye/schema/applications/data";
 import { paginationShape } from "../pagination";
 import { applicationDto } from "./application";
 import { acceptedRevisionSchema, expectedRevisionSchema } from "./resume";

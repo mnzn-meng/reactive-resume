@@ -6,9 +6,9 @@ import { Trans } from "@lingui/react/macro";
 import { useMutation } from "@tanstack/react-query";
 import { useRef, useState } from "react";
 import Cropper from "react-easy-crop";
-import { pictureSchema } from "@reactive-resume/schema/resume/data";
-import { Button } from "@reactive-resume/ui/components/button";
-import { ButtonGroup } from "@reactive-resume/ui/components/button-group";
+import { pictureSchema } from "@zhiye/schema/resume/data";
+import { Button } from "@zhiye/ui/components/button";
+import { ButtonGroup } from "@zhiye/ui/components/button-group";
 import {
 	Dialog,
 	DialogContent,
@@ -16,16 +16,16 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
-import { FormControl, FormItem, FormLabel, FormMessage } from "@reactive-resume/ui/components/form";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { IconButton } from "@reactive-resume/ui/components/icon-button";
-import { Input } from "@reactive-resume/ui/components/input";
-import { InputGroup, InputGroupAddon, InputGroupText } from "@reactive-resume/ui/components/input-group";
-import { Popover, PopoverContent, PopoverTrigger } from "@reactive-resume/ui/components/popover";
-import { SegmentedControl, SegmentedControlItem } from "@reactive-resume/ui/components/segmented-control";
-import { Slider } from "@reactive-resume/ui/components/slider";
-import { toast } from "@reactive-resume/ui/components/toast";
+} from "@zhiye/ui/components/dialog";
+import { FormControl, FormItem, FormLabel, FormMessage } from "@zhiye/ui/components/form";
+import { Icon } from "@zhiye/ui/components/icon";
+import { IconButton } from "@zhiye/ui/components/icon-button";
+import { Input } from "@zhiye/ui/components/input";
+import { InputGroup, InputGroupAddon, InputGroupText } from "@zhiye/ui/components/input-group";
+import { Popover, PopoverContent, PopoverTrigger } from "@zhiye/ui/components/popover";
+import { SegmentedControl, SegmentedControlItem } from "@zhiye/ui/components/segmented-control";
+import { Slider } from "@zhiye/ui/components/slider";
+import { toast } from "@zhiye/ui/components/toast";
 import "react-easy-crop/react-easy-crop.css";
 import { ColorPicker } from "@/components/input/color-picker";
 import { NumberInput } from "@/components/input/number-input";

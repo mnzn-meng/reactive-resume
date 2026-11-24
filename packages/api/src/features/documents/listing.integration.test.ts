@@ -7,7 +7,7 @@ import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 
 const fixture = vi.hoisted(() => ({ db: undefined as ReturnType<typeof drizzle> | undefined }));
-vi.mock("@reactive-resume/db/client", () => ({
+vi.mock("@zhiye/db/client", () => ({
 	get db() {
 		return fixture.db;
 	},

@@ -1,9 +1,9 @@
 import type { ApplicationLane } from "./lanes";
 import type { Application } from "./types";
-import { csvCell } from "@reactive-resume/schema/applications/csv";
-import { INTERVIEW_KINDS, STAGES } from "@reactive-resume/schema/applications/data";
-import { getApplicationLane } from "@reactive-resume/schema/applications/lanes";
-import { applicationSentAt } from "@reactive-resume/schema/applications/outcomes";
+import { csvCell } from "@zhiye/schema/applications/csv";
+import { INTERVIEW_KINDS, STAGES } from "@zhiye/schema/applications/data";
+import { getApplicationLane } from "@zhiye/schema/applications/lanes";
+import { applicationSentAt } from "@zhiye/schema/applications/outcomes";
 
 const stageName = (stage: Application["status"]) => STAGES.find((item) => item.value === stage)?.label ?? stage;
 

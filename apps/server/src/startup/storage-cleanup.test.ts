@@ -3,7 +3,7 @@ import { startStorageCleanupScheduler } from "./storage-cleanup";
 
 const run = vi.hoisted(() => vi.fn<() => Promise<unknown>>());
 const report = vi.hoisted(() => vi.fn());
-vi.mock("@reactive-resume/api/features/storage/cleanup", () => ({
+vi.mock("@zhiye/api/features/storage/cleanup", () => ({
 	runStorageCleanup: run,
 	reportStorageCleanupSummary: report,
 }));

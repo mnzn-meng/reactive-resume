@@ -1,6 +1,6 @@
 import { Trans } from "@lingui/react/macro";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Skeleton } from "@reactive-resume/ui/components/skeleton";
+import { Button } from "@zhiye/ui/components/button";
+import { Skeleton } from "@zhiye/ui/components/skeleton";
 
 type CareerLoadErrorProps = { onRetry: () => void };
 

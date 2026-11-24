@@ -3,7 +3,7 @@ import type { ReactElement } from "react";
 import { createHash } from "node:crypto";
 import nodemailer from "nodemailer";
 import { render } from "react-email";
-import { env } from "@reactive-resume/env/server";
+import { env } from "@zhiye/env/server";
 
 /** `text`, when given, is the plain-text part; otherwise it's rendered from the HTML. */
 type SendEmailOptions = { to: string; subject: string; react: ReactElement; text?: string | undefined };

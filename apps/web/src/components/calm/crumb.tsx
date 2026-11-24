@@ -1,8 +1,8 @@
 import type { ComponentProps } from "react";
 import { t } from "@lingui/core/macro";
 import { createLink } from "@tanstack/react-router";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { cn } from "@reactive-resume/utils/style";
+import { Icon } from "@zhiye/ui/components/icon";
+import { cn } from "@zhiye/utils/style";
 
 /**
  * Calm crumb (`.crumb`): the quiet path above a page title. It lists the places above the page, at most two, never

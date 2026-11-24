@@ -3,16 +3,10 @@ import { Trans } from "@lingui/react/macro";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useId, useState } from "react";
-import { Button } from "@reactive-resume/ui/components/button";
-import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogHeader,
-	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { cn } from "@reactive-resume/utils/style";
+import { Button } from "@zhiye/ui/components/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@zhiye/ui/components/dialog";
+import { Icon } from "@zhiye/ui/components/icon";
+import { cn } from "@zhiye/utils/style";
 import { useDialogStore } from "@/dialogs/store";
 import { useEditorStore } from "@/features/resume/editor/store";
 import { useClosingValue } from "@/hooks/use-closing-value";

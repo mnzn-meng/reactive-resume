@@ -1,10 +1,10 @@
-import type { IconName } from "@reactive-resume/ui/components/icon";
+import type { IconName } from "@zhiye/ui/components/icon";
 import type { CSSProperties } from "react";
 import { t } from "@lingui/core/macro";
 import { useState } from "react";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { SegmentedControl, SegmentedControlItem } from "@reactive-resume/ui/components/segmented-control";
-import { cn } from "@reactive-resume/utils/style";
+import { Icon } from "@zhiye/ui/components/icon";
+import { SegmentedControl, SegmentedControlItem } from "@zhiye/ui/components/segmented-control";
+import { cn } from "@zhiye/utils/style";
 import { SCENE, useLanding } from "./scroll";
 import { Sheet } from "./sheet";
 import { Doodle, labelClass, TypedText } from "./ui";

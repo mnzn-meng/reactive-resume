@@ -4,14 +4,14 @@ import type {
 	CustomSectionType,
 	ResumeData,
 	SectionType,
-} from "@reactive-resume/schema/resume/data";
-import type { ResumeDates } from "@reactive-resume/schema/resume/dates";
+} from "@zhiye/schema/resume/data";
+import type { ResumeDates } from "@zhiye/schema/resume/dates";
 import type { WritableDraft } from "immer";
-import { createEntry } from "@reactive-resume/resume/entries";
-import { nextFreeSectionTitle } from "@reactive-resume/resume/section-title";
-import { sectionTypeSchema } from "@reactive-resume/schema/resume/data";
-import { hasUnreadableDateText } from "@reactive-resume/schema/resume/dates";
-import { generateId, stripHtml } from "@reactive-resume/utils/string";
+import { createEntry } from "@zhiye/resume/entries";
+import { nextFreeSectionTitle } from "@zhiye/resume/section-title";
+import { sectionTypeSchema } from "@zhiye/schema/resume/data";
+import { hasUnreadableDateText } from "@zhiye/schema/resume/dates";
+import { generateId, stripHtml } from "@zhiye/utils/string";
 
 type Data = ResumeData | WritableDraft<ResumeData>;
 
@@ -113,7 +113,7 @@ export function isDraftEntry(type: CustomSectionType, entry: Entry): boolean {
 	return typeof value !== "string" || !value.trim();
 }
 
-export { createEntry } from "@reactive-resume/resume/entries";
+export { createEntry } from "@zhiye/resume/entries";
 
 const text = (value: unknown) => (typeof value === "string" ? value.trim() : "");
 const join = (...parts: unknown[]) => parts.map(text).filter(Boolean).join(" · ");

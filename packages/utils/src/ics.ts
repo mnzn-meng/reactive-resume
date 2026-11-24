@@ -60,7 +60,7 @@ export function buildIcs(
 		`METHOD:${method}`,
 		...events.flatMap((item) => [
 			"BEGIN:VEVENT",
-			`UID:${item.uid}@reactive-resume`,
+			`UID:${item.uid}@zhiye`,
 			// A cancellation supersedes a publish exported in the same second.
 			`SEQUENCE:${Math.floor(now.getTime() / 1000) + (method === "CANCEL" ? 1 : 0)}`,
 			...(method === "CANCEL" ? ["STATUS:CANCELLED"] : []),

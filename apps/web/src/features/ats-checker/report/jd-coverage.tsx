@@ -1,4 +1,4 @@
-import type { JdMatchReport } from "@reactive-resume/resume/ats-pdf";
+import type { JdMatchReport } from "@zhiye/resume/ats-pdf";
 import { i18n } from "@lingui/core";
 import { Trans } from "@lingui/react/macro";
 import { Chip } from "@/components/calm/filter-bar";

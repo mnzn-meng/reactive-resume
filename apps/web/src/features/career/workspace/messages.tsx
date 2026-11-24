@@ -7,11 +7,11 @@ import { ORPCError } from "@orpc/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { useRef, useState } from "react";
-import { replyPlaceholders } from "@reactive-resume/schema/applications/reply";
-import { savedStageIn, stageBaselinesFor } from "@reactive-resume/schema/applications/stage-baselines";
-import { offerTermKeys } from "@reactive-resume/schema/career-offer";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Checkbox } from "@reactive-resume/ui/components/checkbox";
+import { replyPlaceholders } from "@zhiye/schema/applications/reply";
+import { savedStageIn, stageBaselinesFor } from "@zhiye/schema/applications/stage-baselines";
+import { offerTermKeys } from "@zhiye/schema/career-offer";
+import { Button } from "@zhiye/ui/components/button";
+import { Checkbox } from "@zhiye/ui/components/checkbox";
 import {
 	Dialog,
 	DialogContent,
@@ -19,20 +19,20 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
+} from "@zhiye/ui/components/dialog";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Skeleton } from "@reactive-resume/ui/components/skeleton";
-import { Textarea } from "@reactive-resume/ui/components/textarea";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { isolate } from "@reactive-resume/utils/string";
-import { cn } from "@reactive-resume/utils/style";
-import { formatDateOnly } from "@reactive-resume/utils/timezone";
+} from "@zhiye/ui/components/dropdown-menu";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Skeleton } from "@zhiye/ui/components/skeleton";
+import { Textarea } from "@zhiye/ui/components/textarea";
+import { toast } from "@zhiye/ui/components/toast";
+import { isolate } from "@zhiye/utils/string";
+import { cn } from "@zhiye/utils/style";
+import { formatDateOnly } from "@zhiye/utils/timezone";
 import { DraftRecovery } from "../draft-recovery";
 import {
 	latest,

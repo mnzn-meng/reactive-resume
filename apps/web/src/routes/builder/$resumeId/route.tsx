@@ -4,7 +4,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
 import z from "zod";
-import { toast } from "@reactive-resume/ui/components/toast";
+import { toast } from "@zhiye/ui/components/toast";
 import { EditorPending } from "./-components/editor-pending";
 import { EditorShell } from "./-components/editor-shell";
 import { useBuilderResumeUpdateSubscription, useResumeCleanup, useResumeStore } from "@/features/resume/builder/draft";

@@ -1,12 +1,12 @@
-import type { DbOrTx } from "@reactive-resume/db/client";
-import type { roleSuggestionsInputSchema } from "@reactive-resume/schema/career";
+import type { DbOrTx } from "@zhiye/db/client";
+import type { roleSuggestionsInputSchema } from "@zhiye/schema/career";
 import { ORPCError } from "@orpc/client";
 import { and, eq, isNull, sql } from "drizzle-orm";
 import z from "zod";
-import { db } from "@reactive-resume/db/client";
-import * as tables from "@reactive-resume/db/schema";
-import { buildMarkdown } from "@reactive-resume/resume/markdown";
-import { roleSuggestionsOutputSchema } from "@reactive-resume/schema/career";
+import { db } from "@zhiye/db/client";
+import * as tables from "@zhiye/db/schema";
+import { buildMarkdown } from "@zhiye/resume/markdown";
+import { roleSuggestionsOutputSchema } from "@zhiye/schema/career";
 import { aiProvidersService } from "../ai-providers/service";
 import { generateJson } from "../ai/application-generation";
 import { getModel } from "../ai/service";

@@ -3,7 +3,7 @@ import {
 	approvePacketSchema,
 	packetReviewSchema,
 	packetSelectionSchema,
-} from "@reactive-resume/schema/applications/autofill";
+} from "@zhiye/schema/applications/autofill";
 import { protectedProcedure } from "../../context";
 import { applicationPackets } from "./packet";
 

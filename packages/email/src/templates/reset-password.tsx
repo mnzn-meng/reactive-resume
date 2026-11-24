@@ -1,4 +1,4 @@
-import type { Locale } from "@reactive-resume/utils/locale";
+import type { Locale } from "@zhiye/utils/locale";
 import { resetPasswordEmail } from "./auth";
 
 const ResetPasswordPreview = (props: { url: string; locale: Locale }) => resetPasswordEmail(props).react;

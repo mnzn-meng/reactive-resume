@@ -2,7 +2,7 @@ import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { ORPCError } from "@orpc/client";
 import { useId, useRef, useState } from "react";
-import { Button } from "@reactive-resume/ui/components/button";
+import { Button } from "@zhiye/ui/components/button";
 import {
 	Dialog,
 	DialogContent,
@@ -10,9 +10,9 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
-import { Label } from "@reactive-resume/ui/components/label";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/dialog";
+import { Label } from "@zhiye/ui/components/label";
+import { cn } from "@zhiye/utils/style";
 import { PasswordInput } from "@/components/input/password-input";
 
 type ResumePasswordDialogProps = {

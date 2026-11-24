@@ -1,6 +1,6 @@
-import type { ApplicationProfileData } from "@reactive-resume/schema/application-profile";
-import { answerScopeAllows } from "@reactive-resume/schema/application-answers";
-import { applicationProfileRecordSchema } from "@reactive-resume/schema/application-profile";
+import type { ApplicationProfileData } from "@zhiye/schema/application-profile";
+import { answerScopeAllows } from "@zhiye/schema/application-answers";
+import { applicationProfileRecordSchema } from "@zhiye/schema/application-profile";
 
 type SelectedDocument = { kind: "resume" | "letter"; id: string; version: string; sha256: string };
 export type SyntheticPacket = {

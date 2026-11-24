@@ -1,8 +1,8 @@
 import { ORPCError } from "@orpc/client";
 import z from "zod";
-import { applicationReviewSchema } from "@reactive-resume/ai/application-review";
-import { askUserQuestionInputSchema, proposeEditsOutputSchema } from "@reactive-resume/ai/tools/agent-tool-contracts";
-import { aiOperationIds } from "@reactive-resume/schema/ai-usage";
+import { applicationReviewSchema } from "@zhiye/ai/application-review";
+import { askUserQuestionInputSchema, proposeEditsOutputSchema } from "@zhiye/ai/tools/agent-tool-contracts";
+import { aiOperationIds } from "@zhiye/schema/ai-usage";
 import { generateCareer } from "../career/generate";
 import { resumeService } from "../resume/service";
 import { reviewApplicationResume } from "./resume-review";

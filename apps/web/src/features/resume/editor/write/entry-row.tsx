@@ -7,7 +7,7 @@ import { i18n } from "@lingui/core";
 import { ph, t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { useMemo } from "react";
-import { Badge } from "@reactive-resume/ui/components/badge";
+import { Badge } from "@zhiye/ui/components/badge";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -18,11 +18,11 @@ import {
 	DropdownMenuSubContent,
 	DropdownMenuSubTrigger,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { IconButton } from "@reactive-resume/ui/components/icon-button";
-import { formatShortcut } from "@reactive-resume/ui/components/kbd";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/dropdown-menu";
+import { Icon } from "@zhiye/ui/components/icon";
+import { IconButton } from "@zhiye/ui/components/icon-button";
+import { formatShortcut } from "@zhiye/ui/components/kbd";
+import { cn } from "@zhiye/utils/style";
 import { useEditorStore } from "../store";
 import { openEntry } from "./actions";
 import { useEntry } from "./fields";

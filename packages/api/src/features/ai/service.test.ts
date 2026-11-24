@@ -6,8 +6,8 @@ const envMock = vi.hoisted(() => ({
 	FLAG_ALLOW_UNSAFE_AI_BASE_URL: false,
 }));
 
-vi.mock("@reactive-resume/env/server", () => ({ env: envMock }));
-vi.mock("@reactive-resume/db/client", () => {
+vi.mock("@zhiye/env/server", () => ({ env: envMock }));
+vi.mock("@zhiye/db/client", () => {
 	const database = { insert: () => ({ values: async () => undefined }) };
 	return { db: { ...database, transaction: async (run: (tx: typeof database) => Promise<void>) => run(database) } };
 });
@@ -21,8 +21,8 @@ vi.mock("../documents/ownership", async (original) => ({
 }));
 // Provider requests still reach the stubbed global fetch; fetchPublic's own network checks are tested in utils.
 const fetchPublicMock = vi.hoisted(() => vi.fn((input: RequestInfo | URL, init?: RequestInit) => fetch(input, init)));
-vi.mock("@reactive-resume/utils/url-security.node", async (original) => ({
-	...(await original<typeof import("@reactive-resume/utils/url-security.node")>()),
+vi.mock("@zhiye/utils/url-security.node", async (original) => ({
+	...(await original<typeof import("@zhiye/utils/url-security.node")>()),
 	fetchPublic: fetchPublicMock,
 }));
 

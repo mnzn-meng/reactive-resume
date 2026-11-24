@@ -1,11 +1,11 @@
-import type { ProposeResumeEditsInput } from "@reactive-resume/ai/tools/agent-tool-contracts";
+import type { ProposeResumeEditsInput } from "@zhiye/ai/tools/agent-tool-contracts";
 import { describe, expect, it, vi } from "vite-plus/test";
-import { createEntry } from "@reactive-resume/resume/entries";
-import { applyProposal, applyResumeProposals, collectPassages, readTarget } from "@reactive-resume/resume/proposals";
-import { resumeDataSchema } from "@reactive-resume/schema/resume/data";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { createEntry } from "@zhiye/resume/entries";
+import { applyProposal, applyResumeProposals, collectPassages, readTarget } from "@zhiye/resume/proposals";
+import { resumeDataSchema } from "@zhiye/schema/resume/data";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 
-vi.mock("@reactive-resume/db/client", () => ({ db: {} }));
+vi.mock("@zhiye/db/client", () => ({ db: {} }));
 vi.mock("../resume/service", () => ({ resumeService: {} }));
 vi.mock("../cover-letters/service", () => ({ coverLetterService: {} }));
 const { resolveDocumentEdits } = await import("./document");

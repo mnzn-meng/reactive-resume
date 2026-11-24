@@ -3,7 +3,7 @@ import { createAnthropic } from "@ai-sdk/anthropic";
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { createOpenAI } from "@ai-sdk/openai";
 import { generateText } from "ai";
-import { supportsNativeWebSearch } from "@reactive-resume/ai/types";
+import { supportsNativeWebSearch } from "@zhiye/ai/types";
 import { dataBlock } from "../ai/data-block";
 import { aiDeadline } from "../ai/generate-json";
 import { getAgentModel, getModel } from "../ai/service";

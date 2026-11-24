@@ -1,4 +1,4 @@
-import type { CalendarEvent } from "@reactive-resume/utils/ics";
+import type { CalendarEvent } from "@zhiye/utils/ics";
 
 type InterviewForEvent = {
 	id: string;

@@ -218,7 +218,7 @@ import {
 	UserIcon,
 	UserGearIcon,
 } from "@phosphor-icons/react";
-import { cn } from "@reactive-resume/utils/style";
+import { cn } from "@zhiye/utils/style";
 
 /** Every app icon, by its Phosphor name. Add an entry here to use another Phosphor glyph. */
 const icons = {

@@ -1,8 +1,8 @@
 import type { CloudflareBindings } from "./index";
 import type { ExecutionContext, ScheduledController } from "@cloudflare/workers-types";
-import type { CoordinationService } from "@reactive-resume/db/coordination";
+import type { CoordinationService } from "@zhiye/db/coordination";
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
-import { getPool } from "@reactive-resume/db/client";
+import { getPool } from "@zhiye/db/client";
 import worker from "./index";
 
 const mocks = vi.hoisted(() => ({
@@ -33,7 +33,7 @@ vi.mock("pg", () => ({
 		}
 	},
 }));
-vi.mock("@reactive-resume/env/server", () => ({
+vi.mock("@zhiye/env/server", () => ({
 	env: {
 		CLOUDFLARE: true,
 		STORAGE_BACKEND: "r2",
@@ -46,33 +46,33 @@ vi.mock("@reactive-resume/env/server", () => ({
 }));
 vi.mock("@formepdf/core/pkg-web/forme_bg.wasm", () => ({ default: new Uint8Array() }));
 vi.mock("@formepdf/core/worker", () => ({ init: mocks.wasm }));
-vi.mock("@reactive-resume/auth/config", () => ({ initializeAuth: mocks.auth }));
-vi.mock("@reactive-resume/api/features/career/jobs", () => ({ runCareerJobs: mocks.run }));
-vi.mock("@reactive-resume/api/features/storage/cleanup", () => ({
+vi.mock("@zhiye/auth/config", () => ({ initializeAuth: mocks.auth }));
+vi.mock("@zhiye/api/features/career/jobs", () => ({ runCareerJobs: mocks.run }));
+vi.mock("@zhiye/api/features/storage/cleanup", () => ({
 	runStorageCleanup: mocks.cleanup,
 	reportStorageCleanupSummary: vi.fn(),
 }));
-vi.mock("@reactive-resume/api/features/agent/streams", () => ({
+vi.mock("@zhiye/api/features/agent/streams", () => ({
 	configureAgentStreamLifetime: (lifetime: (promise: Promise<unknown>) => void) => {
 		mocks.lifetime = lifetime;
 	},
 }));
-vi.mock("@reactive-resume/db/coordination", () => ({
+vi.mock("@zhiye/db/coordination", () => ({
 	configureCoordination: (coordination: CoordinationService) => {
 		mocks.coordination = coordination;
 	},
 }));
-vi.mock("@reactive-resume/api/features/storage", () => ({
+vi.mock("@zhiye/api/features/storage", () => ({
 	configureStorageService: vi.fn(),
 	getStorageService: () => ({ read: mocks.readPicture }),
 	isPublicUploadOwner: mocks.publicOwner,
 }));
-vi.mock("@reactive-resume/pdf/server", () => ({
+vi.mock("@zhiye/pdf/server", () => ({
 	configureOwnPictureReader: (reader: typeof mocks.pictureReader) => {
 		mocks.pictureReader = reader;
 	},
 }));
-vi.mock("@reactive-resume/utils/rate-limit", () => ({ TRUSTED_IP_HEADERS: ["x-real-ip", "x-forwarded-for"] }));
+vi.mock("@zhiye/utils/rate-limit", () => ({ TRUSTED_IP_HEADERS: ["x-real-ip", "x-forwarded-for"] }));
 vi.mock("../http/app", () => ({ createApp: () => ({ fetch: mocks.fetch }) }));
 vi.mock("./coordination", () => ({ Coordination: class {} }));
 vi.mock("./r2", () => ({ R2StorageService: class {} }));

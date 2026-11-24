@@ -1,5 +1,5 @@
 import type { DensityId, FontPairingId, MarginId } from "./presets";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import type { WritableDraft } from "immer";
 import type { CSSProperties } from "react";
 import { Radio } from "@base-ui/react/radio";
@@ -8,14 +8,14 @@ import { t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { createContext, useContext, useId, useState } from "react";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Input } from "@reactive-resume/ui/components/input";
-import { SegmentedControl, SegmentedControlItem } from "@reactive-resume/ui/components/segmented-control";
-import { Slider } from "@reactive-resume/ui/components/slider";
-import { SwitchRow } from "@reactive-resume/ui/components/switch";
-import { contrastOnWhite, parseColorString } from "@reactive-resume/utils/color";
-import { cn } from "@reactive-resume/utils/style";
+import { Button } from "@zhiye/ui/components/button";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Input } from "@zhiye/ui/components/input";
+import { SegmentedControl, SegmentedControlItem } from "@zhiye/ui/components/segmented-control";
+import { Slider } from "@zhiye/ui/components/slider";
+import { SwitchRow } from "@zhiye/ui/components/switch";
+import { contrastOnWhite, parseColorString } from "@zhiye/utils/color";
+import { cn } from "@zhiye/utils/style";
 import { Field, Help, wellClassName } from "./fields";
 import {
 	ACCENTS,

@@ -1,6 +1,6 @@
 // @vitest-environment happy-dom
-import type { ApplicationPacket } from "@reactive-resume/schema/applications/autofill";
-import type { FormFillPlan } from "@reactive-resume/utils/form-fill";
+import type { ApplicationPacket } from "@zhiye/schema/applications/autofill";
+import type { FormFillPlan } from "@zhiye/utils/form-fill";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { expect, it, vi } from "vite-plus/test";

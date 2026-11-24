@@ -22,7 +22,7 @@ vi.mock("@/features/resume/builder/draft", () => ({
 }));
 vi.mock("@/hooks/use-confirm", () => ({ useConfirm: () => vi.fn(), usePrompt: () => vi.fn() }));
 vi.mock("@/libs/error-message", () => ({ getResumeErrorMessage: (error: Error) => error.message }));
-vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: mocks.toast } }));
+vi.mock("@zhiye/ui/components/toast", () => ({ toast: { add: mocks.toast } }));
 vi.mock("@/libs/orpc/client", () => ({
 	orpc: {
 		resume: {

@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react";
-import { cn } from "@reactive-resume/utils/style";
+import { cn } from "@zhiye/utils/style";
 
 type DocumentThumbProps = Omit<ComponentProps<"span">, "children">;
 

@@ -1,6 +1,6 @@
 import type { IconName } from "../../forme/icons";
 import type { Style } from "../../forme/style-types";
-import type { CustomField, ResumeData } from "@reactive-resume/schema/resume/data";
+import type { CustomField, ResumeData } from "@zhiye/schema/resume/data";
 import { View } from "#react-pdf-renderer";
 import { resolvedPdfFlowProps } from "../../semantic/adapter";
 import { useResolvedNode, useSemanticNodeKey, useSemanticNodeVisible } from "../../semantic/context";

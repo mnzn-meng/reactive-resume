@@ -23,7 +23,7 @@ describe("buildIcs", () => {
 			"CALSCALE:GREGORIAN",
 			"METHOD:PUBLISH",
 			"BEGIN:VEVENT",
-			"UID:i1@reactive-resume",
+			"UID:i1@zhiye",
 			// A later download supersedes this one: same UID, higher SEQUENCE.
 			"SEQUENCE:1790584200",
 			"DTSTAMP:20260928T083000Z",

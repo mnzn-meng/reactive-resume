@@ -61,7 +61,7 @@ vi.mock("@/libs/orpc/client", () => ({
 		},
 	},
 }));
-vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: vi.fn() } }));
+vi.mock("@zhiye/ui/components/toast", () => ({ toast: { add: vi.fn() } }));
 vi.mock("./use-assistant-chat", () => ({
 	useAssistantChat: () => ({ messages: [], sendMessage: vi.fn(), status: "ready", clearError: vi.fn() }),
 }));

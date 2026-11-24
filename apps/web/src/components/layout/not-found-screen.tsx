@@ -1,8 +1,8 @@
 import { Trans } from "@lingui/react/macro";
 import { Link, useRouteContext } from "@tanstack/react-router";
-import { BrandIcon } from "@reactive-resume/ui/components/brand-icon";
-import { buttonVariants } from "@reactive-resume/ui/components/button";
-import { cn } from "@reactive-resume/utils/style";
+import { BrandIcon } from "@zhiye/ui/components/brand-icon";
+import { buttonVariants } from "@zhiye/ui/components/button";
+import { cn } from "@zhiye/utils/style";
 
 type NotFoundScreenProps = {
 	/** Inside a layout that already shows the logo (the sign-in pages): no second logo, no full-screen height. */

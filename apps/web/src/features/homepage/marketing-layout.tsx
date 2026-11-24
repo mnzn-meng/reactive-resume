@@ -3,11 +3,11 @@ import { t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { BrandIcon } from "@reactive-resume/ui/components/brand-icon";
-import { Button, buttonVariants } from "@reactive-resume/ui/components/button";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { getLanguageName } from "@reactive-resume/utils/locale";
-import { cn } from "@reactive-resume/utils/style";
+import { BrandIcon } from "@zhiye/ui/components/brand-icon";
+import { Button, buttonVariants } from "@zhiye/ui/components/button";
+import { Icon } from "@zhiye/ui/components/icon";
+import { getLanguageName } from "@zhiye/utils/locale";
+import { cn } from "@zhiye/utils/style";
 import { LocaleCombobox } from "@/features/locale/combobox";
 
 type MarketingLayoutProps = { children: ReactNode };

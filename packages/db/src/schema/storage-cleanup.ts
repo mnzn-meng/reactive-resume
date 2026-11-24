@@ -1,6 +1,6 @@
 import { sql } from "drizzle-orm";
 import * as pg from "drizzle-orm/pg-core";
-import { generateId } from "@reactive-resume/utils/string";
+import { generateId } from "@zhiye/utils/string";
 
 export const STORAGE_CLEANUP_STATUSES = ["pending", "abandoned"] as const;
 export type StorageCleanupStatus = (typeof STORAGE_CLEANUP_STATUSES)[number];

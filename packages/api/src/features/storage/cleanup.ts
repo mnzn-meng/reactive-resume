@@ -1,8 +1,8 @@
-import type { DbOrTx } from "@reactive-resume/db/client";
+import type { DbOrTx } from "@zhiye/db/client";
 import { and, asc, eq, inArray, lte, sql } from "drizzle-orm";
-import { db } from "@reactive-resume/db/client";
-import * as schema from "@reactive-resume/db/schema";
-import { generateId } from "@reactive-resume/utils/string";
+import { db } from "@zhiye/db/client";
+import * as schema from "@zhiye/db/schema";
+import { generateId } from "@zhiye/utils/string";
 import { getStorageService } from "./service";
 
 // A failed attempt gets its own bounded retry with capped backoff. The row and last error stay durable while it runs.

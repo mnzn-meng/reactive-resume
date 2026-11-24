@@ -1,8 +1,8 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@reactive-resume/ui/components/tooltip";
+import { Button } from "@zhiye/ui/components/button";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@zhiye/ui/components/tooltip";
 import { copySourceToClipboard } from "./editor-extensions";
 
 type ToolbarButtonProps = {

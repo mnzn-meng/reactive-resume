@@ -1,4 +1,4 @@
-import type { CareerProfileData } from "@reactive-resume/schema/career";
+import type { CareerProfileData } from "@zhiye/schema/career";
 // @vitest-environment happy-dom
 import type { ReactNode } from "react";
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
@@ -125,12 +125,12 @@ vi.mock("@/features/applications/queries", () => ({
 }));
 vi.mock("@/features/applications/use-application-actions", () => ({ useMoveWithUndo: () => api.moveWithUndo }));
 vi.mock("@/features/applications/use-application-lanes", async () => {
-	const { createDefaultApplicationLanes } = await import("@reactive-resume/schema/applications/lanes");
+	const { createDefaultApplicationLanes } = await import("@zhiye/schema/applications/lanes");
 	return { useApplicationLanes: () => ({ lanes: createDefaultApplicationLanes(), mode: "lanes" }) };
 });
-vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: vi.fn() } }));
+vi.mock("@zhiye/ui/components/toast", () => ({ toast: { add: vi.fn() } }));
 
-import { isolate } from "@reactive-resume/utils/string";
+import { isolate } from "@zhiye/utils/string";
 import { OfferEntry } from "../offer-entry";
 import { OffersPage } from "../offers";
 import { FactsPage } from "./facts";

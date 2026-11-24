@@ -1,6 +1,6 @@
-import type { FontWeight } from "@reactive-resume/fonts";
-import type { ResumeData, Typography } from "@reactive-resume/schema/resume/data";
-import type { Locale, Script } from "@reactive-resume/utils/locale";
+import type { FontWeight } from "@zhiye/fonts";
+import type { ResumeData, Typography } from "@zhiye/schema/resume/data";
+import type { Locale, Script } from "@zhiye/utils/locale";
 import {
 	getFont,
 	getPdfFallbackFontFamilies,
@@ -10,7 +10,7 @@ import {
 	resolveBoldFontWeight,
 	resolveLegacyFontAlias,
 	sortFontWeights,
-} from "@reactive-resume/fonts";
+} from "@zhiye/fonts";
 
 type FontWeightRange = {
 	lowest: number;

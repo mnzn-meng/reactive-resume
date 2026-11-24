@@ -7,10 +7,10 @@ import { call } from "@orpc/server";
 import { eq } from "drizzle-orm";
 import { strFromU8, unzipSync } from "fflate";
 import { Pool } from "pg";
-import { db, withDatabasePool } from "@reactive-resume/db/client";
-import * as tables from "@reactive-resume/db/schema";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
-import { accountBackupLimits, buildAccountZip } from "@reactive-resume/utils/account-zip";
+import { db, withDatabasePool } from "@zhiye/db/client";
+import * as tables from "@zhiye/db/schema";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
+import { accountBackupLimits, buildAccountZip } from "@zhiye/utils/account-zip";
 
 const settings = vi.hoisted(() => ({
 	APP_URL: "http://localhost:3000",
@@ -18,8 +18,8 @@ const settings = vi.hoisted(() => ({
 	LOCAL_STORAGE_PATH: "",
 	FLAG_DISABLE_API_RATE_LIMIT: true,
 }));
-vi.mock("@reactive-resume/env/server", () => ({ env: settings }));
-vi.mock("@reactive-resume/auth/config", () => ({
+vi.mock("@zhiye/env/server", () => ({ env: settings }));
+vi.mock("@zhiye/auth/config", () => ({
 	auth: { $context: { secretConfig: "fixture" } },
 	accountAuth: {},
 	isCustomOAuthProviderEnabled: () => false,

@@ -4,10 +4,10 @@ import { dirname, join, resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { parseArgs } from "node:util";
-import { fontList, getFont, getPdfFallbackFontFamilies } from "@reactive-resume/fonts";
-import { isValidFontFile } from "@reactive-resume/fonts/files";
-import { fontMirrorPath } from "@reactive-resume/fonts/sources";
-import { localeSchema } from "@reactive-resume/utils/locale";
+import { fontList, getFont, getPdfFallbackFontFamilies } from "@zhiye/fonts";
+import { isValidFontFile } from "@zhiye/fonts/files";
+import { fontMirrorPath } from "@zhiye/fonts/sources";
+import { localeSchema } from "@zhiye/utils/locale";
 
 type MirrorFile = { source: string; path: string };
 type MirrorPlan = { families: string[]; files: MirrorFile[] };

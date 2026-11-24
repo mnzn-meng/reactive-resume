@@ -1,7 +1,7 @@
 import { Trans } from "@lingui/react/macro";
-import { Alert, AlertDescription, AlertTitle } from "@reactive-resume/ui/components/alert";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Icon } from "@reactive-resume/ui/components/icon";
+import { Alert, AlertDescription, AlertTitle } from "@zhiye/ui/components/alert";
+import { Button } from "@zhiye/ui/components/button";
+import { Icon } from "@zhiye/ui/components/icon";
 
 type LibraryErrorProps = {
 	retrying: boolean;

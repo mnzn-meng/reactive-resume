@@ -5,7 +5,7 @@ import { afterEach, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 import { PictureSettings } from "./picture-settings";
 import { clearResumeDrafts, useResumeStore } from "@/features/resume/builder/draft";
 import { invalidateAccountScope } from "@/libs/auth/account-scope";
@@ -19,7 +19,7 @@ const mocks = vi.hoisted(() => ({
 }));
 vi.mock("@tanstack/react-router", () => ({ useParams: () => ({ resumeId: "original" }) }));
 vi.mock("@/hooks/use-confirm", () => ({ useConfirm: () => mocks.confirm }));
-vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: mocks.toast, close: mocks.closeToast } }));
+vi.mock("@zhiye/ui/components/toast", () => ({ toast: { add: mocks.toast, close: mocks.closeToast } }));
 vi.mock("@/libs/orpc/client", () => ({
 	orpc: {
 		storage: {

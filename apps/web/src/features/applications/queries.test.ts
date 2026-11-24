@@ -3,12 +3,12 @@ import type { Application, ApplicationSummary } from "./types";
 import { describe, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { QueryClient, QueryObserver } from "@tanstack/react-query";
-import { prepareRequest } from "@reactive-resume/utils/deferred-request";
+import { prepareRequest } from "@zhiye/utils/deferred-request";
 import { withQueryUndo } from "@/features/career/shared";
 import { setAccountScope } from "@/libs/auth/account-scope";
 
 const undoNotices = vi.hoisted(() => [] as { type?: string; actionProps?: { onClick: () => void } }[]);
-vi.mock("@reactive-resume/ui/components/toast", () => ({
+vi.mock("@zhiye/ui/components/toast", () => ({
 	toast: { add: (notice: (typeof undoNotices)[number]) => undoNotices.push(notice), close: vi.fn() },
 }));
 

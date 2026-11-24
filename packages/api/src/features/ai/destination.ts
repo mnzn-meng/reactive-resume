@@ -1,7 +1,7 @@
-import type { AiVoiceOperation } from "@reactive-resume/ai/types";
+import type { AiVoiceOperation } from "@zhiye/ai/types";
 import { AsyncLocalStorage } from "node:async_hooks";
 import { ORPCError } from "@orpc/server";
-import { aiDestination, NO_AI_DESTINATION } from "@reactive-resume/ai/types";
+import { aiDestination, NO_AI_DESTINATION } from "@zhiye/ai/types";
 
 const approvedDestination = new AsyncLocalStorage<string>();
 

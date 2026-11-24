@@ -1,5 +1,5 @@
 import { Trans } from "@lingui/react/macro";
-import { CommandItem } from "@reactive-resume/ui/components/command";
+import { CommandItem } from "@zhiye/ui/components/command";
 import { BaseCommandGroup } from "../base";
 import { getLocaleOptions } from "@/features/locale/locale-options";
 import { changeLocale } from "@/libs/locale";

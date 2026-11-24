@@ -1,5 +1,5 @@
-import type { CustomSectionType, SectionType } from "@reactive-resume/schema/resume/data";
-import type { IconName } from "@reactive-resume/ui/components/icon";
+import type { CustomSectionType, SectionType } from "@zhiye/schema/resume/data";
+import type { IconName } from "@zhiye/ui/components/icon";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import {
@@ -13,9 +13,9 @@ import {
 	DropdownMenuSubContent,
 	DropdownMenuSubTrigger,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/dropdown-menu";
+import { Icon } from "@zhiye/ui/components/icon";
+import { cn } from "@zhiye/utils/style";
 import { useEditorStore } from "../store";
 import { openEntry } from "./actions";
 import {

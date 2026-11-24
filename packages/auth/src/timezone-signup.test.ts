@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vite-plus/test";
-import { env } from "@reactive-resume/env/server";
+import { env } from "@zhiye/env/server";
 
 const oauthState = vi.hoisted(() => ({
 	addOAuthServerContext: vi.fn(),

@@ -1,5 +1,5 @@
 import z from "zod";
-import { applicationClosedReasonSchema } from "@reactive-resume/schema/applications/data";
+import { applicationClosedReasonSchema } from "@zhiye/schema/applications/data";
 import { protectedProcedure } from "../../context";
 import { applicationDto } from "../../dto/application";
 import { resumeMutationRateLimit } from "../../middleware/rate-limit";

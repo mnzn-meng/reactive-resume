@@ -1,18 +1,18 @@
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import type { Template } from "@reactive-resume/schema/templates";
+import type { ResumeData } from "@zhiye/schema/resume/data";
+import type { Template } from "@zhiye/schema/templates";
 import { expect, it, vi } from "vite-plus/test";
 import { call } from "@orpc/server";
-import { createResumePdfFile } from "@reactive-resume/pdf/server";
+import { createResumePdfFile } from "@zhiye/pdf/server";
 import { edgeCaseTemplates } from "./fixtures/pdf-import";
 import { ownershipSource } from "./fixtures/pdf-ownership";
 
 const create = vi.hoisted(() => vi.fn().mockResolvedValue("imported"));
 vi.mock("./service", () => ({ resumeService: { create } }));
-vi.mock("@reactive-resume/auth/config", () => ({
+vi.mock("@zhiye/auth/config", () => ({
 	auth: { api: { getSession: vi.fn().mockResolvedValue({ user: { id: "owner" } }) } },
 	verifyOAuthToken: vi.fn(),
 }));
-vi.mock("@reactive-resume/db/client", () => ({
+vi.mock("@zhiye/db/client", () => ({
 	db: {
 		select: () => ({
 			from: () => ({

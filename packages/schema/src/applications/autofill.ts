@@ -1,4 +1,4 @@
-import type { FormFillPlan } from "@reactive-resume/utils/form-fill";
+import type { FormFillPlan } from "@zhiye/utils/form-fill";
 import z from "zod";
 
 export const packetContactSchema = z.strictObject({

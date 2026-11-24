@@ -3,8 +3,8 @@ import { plural, t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useId, useState } from "react";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Checkbox } from "@reactive-resume/ui/components/checkbox";
+import { Button } from "@zhiye/ui/components/button";
+import { Checkbox } from "@zhiye/ui/components/checkbox";
 import {
 	Dialog,
 	DialogContent,
@@ -12,11 +12,11 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Label } from "@reactive-resume/ui/components/label";
-import { NativeSelect } from "@reactive-resume/ui/components/native-select";
-import { Textarea } from "@reactive-resume/ui/components/textarea";
+} from "@zhiye/ui/components/dialog";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Label } from "@zhiye/ui/components/label";
+import { NativeSelect } from "@zhiye/ui/components/native-select";
+import { Textarea } from "@zhiye/ui/components/textarea";
 import { useHasUsableAiProvider } from "@/features/settings/integrations/hooks/use-has-usable-ai-provider";
 import { getOrpcErrorMessage } from "@/libs/error-message";
 import { orpc } from "@/libs/orpc/client";

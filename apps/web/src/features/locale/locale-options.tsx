@@ -1,5 +1,5 @@
 import { i18n } from "@lingui/core";
-import { getLanguageName, isRTL, languageTag } from "@reactive-resume/utils/locale";
+import { getLanguageName, isRTL, languageTag } from "@zhiye/utils/locale";
 import { localeMap, selectableLocales } from "@/libs/locale";
 
 export const getLocaleOptions = () => {

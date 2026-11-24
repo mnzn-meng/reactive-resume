@@ -1,17 +1,17 @@
-import type { DbOrTx } from "@reactive-resume/db/client";
+import type { DbOrTx } from "@zhiye/db/client";
 import type {
 	ApplicationClosedReason,
 	ApplicationStatus,
 	ApplicationTimelineEntry,
-} from "@reactive-resume/schema/applications/data";
-import type { ApplicationLane, ApplicationPipeline } from "@reactive-resume/schema/applications/lanes";
+} from "@zhiye/schema/applications/data";
+import type { ApplicationLane, ApplicationPipeline } from "@zhiye/schema/applications/lanes";
 import { ORPCError } from "@orpc/client";
 import { and, eq, isNull } from "drizzle-orm";
-import { createDefaultOwnedApplicationLanes, MAX_APPLICATION_LANES } from "@reactive-resume/db/application-lanes";
-import { db } from "@reactive-resume/db/client";
-import * as schema from "@reactive-resume/db/schema";
-import { latestStageEntryId } from "@reactive-resume/schema/applications/data";
-import { generateId } from "@reactive-resume/utils/string";
+import { createDefaultOwnedApplicationLanes, MAX_APPLICATION_LANES } from "@zhiye/db/application-lanes";
+import { db } from "@zhiye/db/client";
+import * as schema from "@zhiye/db/schema";
+import { latestStageEntryId } from "@zhiye/schema/applications/data";
+import { generateId } from "@zhiye/utils/string";
 import { lockUser } from "../documents/ownership";
 
 /** Call with the owner lock held. IDs are deterministic across migration, lazy seeding and retries. */

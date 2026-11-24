@@ -1,8 +1,8 @@
-import type { ApplicationStatus } from "@reactive-resume/schema/applications/data";
+import type { ApplicationStatus } from "@zhiye/schema/applications/data";
 import type { ComponentProps, ReactNode } from "react";
 import { Trans } from "@lingui/react/macro";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { cn } from "@reactive-resume/utils/style";
+import { Icon } from "@zhiye/ui/components/icon";
+import { cn } from "@zhiye/utils/style";
 import { StageDot } from "./stage-dot";
 import { getStageLabel, PIPELINE } from "@/features/applications/stages";
 

@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vite-plus/test";
 
-vi.mock("@reactive-resume/env/server", () => ({
+vi.mock("@zhiye/env/server", () => ({
 	env: { APP_URL: "https://rxresu.me", APP_ALIAS_URL: "https://rx.cv" },
 }));
 

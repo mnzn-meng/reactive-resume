@@ -1,8 +1,8 @@
 import type { Ratelimiter } from "@orpc/experimental-ratelimit";
 import { createRatelimitMiddleware } from "@orpc/experimental-ratelimit";
 import { ORPCError } from "@orpc/server";
-import { env } from "@reactive-resume/env/server";
-import { rateLimitConfig } from "@reactive-resume/utils/rate-limit";
+import { env } from "@zhiye/env/server";
+import { rateLimitConfig } from "@zhiye/utils/rate-limit";
 import { createRateLimiter } from "../../redis";
 
 const isRateLimitEnabled = process.env.NODE_ENV === "production" && !env.FLAG_DISABLE_API_RATE_LIMIT;

@@ -6,23 +6,23 @@ import type {
 	R2Bucket,
 	ScheduledController,
 } from "@cloudflare/workers-types";
-import type { CoordinationService } from "@reactive-resume/db/coordination";
+import type { CoordinationService } from "@zhiye/db/coordination";
 import { AsyncLocalStorage } from "node:async_hooks";
 import { on } from "node:events";
 import { isIP } from "node:net";
 import wasm from "@formepdf/core/pkg-web/forme_bg.wasm";
 import { init } from "@formepdf/core/worker";
 import { Pool } from "pg";
-import { configureAgentStreamLifetime } from "@reactive-resume/api/features/agent/streams";
-import { runCareerJobs } from "@reactive-resume/api/features/career/jobs";
-import { configureStorageService, getStorageService, isPublicUploadOwner } from "@reactive-resume/api/features/storage";
-import { reportStorageCleanupSummary, runStorageCleanup } from "@reactive-resume/api/features/storage/cleanup";
-import { initializeAuth } from "@reactive-resume/auth/config";
-import { withDatabasePool } from "@reactive-resume/db/client";
-import { configureCoordination } from "@reactive-resume/db/coordination";
-import { env } from "@reactive-resume/env/server";
-import { configureOwnPictureReader } from "@reactive-resume/pdf/server";
-import { TRUSTED_IP_HEADERS } from "@reactive-resume/utils/rate-limit";
+import { configureAgentStreamLifetime } from "@zhiye/api/features/agent/streams";
+import { runCareerJobs } from "@zhiye/api/features/career/jobs";
+import { configureStorageService, getStorageService, isPublicUploadOwner } from "@zhiye/api/features/storage";
+import { reportStorageCleanupSummary, runStorageCleanup } from "@zhiye/api/features/storage/cleanup";
+import { initializeAuth } from "@zhiye/auth/config";
+import { withDatabasePool } from "@zhiye/db/client";
+import { configureCoordination } from "@zhiye/db/coordination";
+import { env } from "@zhiye/env/server";
+import { configureOwnPictureReader } from "@zhiye/pdf/server";
+import { TRUSTED_IP_HEADERS } from "@zhiye/utils/rate-limit";
 import { createApp } from "../http/app";
 import { R2StorageService } from "./r2";
 

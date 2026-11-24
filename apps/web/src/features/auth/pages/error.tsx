@@ -1,8 +1,8 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { Link, useRouteContext } from "@tanstack/react-router";
-import { Alert, AlertDescription, AlertTitle } from "@reactive-resume/ui/components/alert";
-import { Icon } from "@reactive-resume/ui/components/icon";
+import { Alert, AlertDescription, AlertTitle } from "@zhiye/ui/components/alert";
+import { Icon } from "@zhiye/ui/components/icon";
 import { AuthTitle, authAction } from "../components/auth-page";
 
 /** Every cause has its sentence, and where there is one, what to do about it. */

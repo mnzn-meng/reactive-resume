@@ -1,6 +1,6 @@
 import { Trans } from "@lingui/react/macro";
 import { useState } from "react";
-import { Button } from "@reactive-resume/ui/components/button";
+import { Button } from "@zhiye/ui/components/button";
 import { SetUpAiDialog } from "@/features/ai/set-up-ai";
 
 /** A "Set up AI" button that opens the dialog in place, keeping the task's typed input and files. */

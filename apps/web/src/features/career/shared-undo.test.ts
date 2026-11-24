@@ -2,7 +2,7 @@
 import { afterEach, beforeEach, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { QueryClient, QueryObserver } from "@tanstack/react-query";
-import { prepareRequest } from "@reactive-resume/utils/deferred-request";
+import { prepareRequest } from "@zhiye/utils/deferred-request";
 import { pendingCommits } from "./pending-commits";
 import { withQueryUndo } from "./shared";
 import { setAccountScope } from "@/libs/auth/account-scope";
@@ -13,7 +13,7 @@ type Notice = {
 	onClose?: () => void;
 };
 const notices = vi.hoisted(() => [] as Notice[]);
-vi.mock("@reactive-resume/ui/components/toast", () => ({
+vi.mock("@zhiye/ui/components/toast", () => ({
 	toast: {
 		add: (notice: Notice) => {
 			notices.push(notice);

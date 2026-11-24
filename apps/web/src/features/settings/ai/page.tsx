@@ -1,4 +1,4 @@
-import type { MemoryMode } from "@reactive-resume/schema/career";
+import type { MemoryMode } from "@zhiye/schema/career";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import {
@@ -7,8 +7,8 @@ import {
 	DropdownMenuRadioGroup,
 	DropdownMenuRadioItem,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { Icon } from "@reactive-resume/ui/components/icon";
+} from "@zhiye/ui/components/dropdown-menu";
+import { Icon } from "@zhiye/ui/components/icon";
 import { useHasUsableAiProvider } from "../integrations/hooks/use-has-usable-ai-provider";
 import { SettingsRow, SettingsSection } from "../section";
 import { ProvidersSection } from "./providers";

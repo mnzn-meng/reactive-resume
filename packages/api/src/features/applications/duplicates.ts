@@ -1,7 +1,7 @@
-import type { DbOrTx } from "@reactive-resume/db/client";
+import type { DbOrTx } from "@zhiye/db/client";
 import { ORPCError } from "@orpc/client";
-import * as tables from "@reactive-resume/db/schema";
-import { canonicalOpportunityUrl } from "@reactive-resume/schema/applications/posting-url";
+import * as tables from "@zhiye/db/schema";
+import { canonicalOpportunityUrl } from "@zhiye/schema/applications/posting-url";
 import { activeApplications } from "./access";
 
 export async function findTrackedPosting(

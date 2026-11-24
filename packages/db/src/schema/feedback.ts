@@ -1,6 +1,6 @@
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import * as pg from "drizzle-orm/pg-core";
-import { generateId } from "@reactive-resume/utils/string";
+import { generateId } from "@zhiye/utils/string";
 import { user } from "./auth";
 import { resume } from "./resume";
 

@@ -44,7 +44,7 @@ vi.mock("@/libs/auth/client", () => ({
 		signIn: { email: mocks.email, username: mocks.username, social: mocks.social, passkey: mocks.passkey },
 	},
 }));
-vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: vi.fn(), close: vi.fn() } }));
+vi.mock("@zhiye/ui/components/toast", () => ({ toast: { add: vi.fn(), close: vi.fn() } }));
 
 import { ForgotPasswordPage } from "./pages/forgot-password";
 import { LoginPage } from "./pages/login";

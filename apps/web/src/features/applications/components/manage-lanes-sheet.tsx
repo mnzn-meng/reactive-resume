@@ -1,6 +1,6 @@
 import type { ApplicationLane } from "../lanes";
-import type { ApplicationClosedReason, ApplicationStatus } from "@reactive-resume/schema/applications/data";
-import type { ApplicationPipeline } from "@reactive-resume/schema/applications/lanes";
+import type { ApplicationClosedReason, ApplicationStatus } from "@zhiye/schema/applications/data";
+import type { ApplicationPipeline } from "@zhiye/schema/applications/lanes";
 import { closestCenter, DndContext, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { arrayMove, SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -9,10 +9,10 @@ import { Plural, Trans } from "@lingui/react/macro";
 import { ORPCError } from "@orpc/client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useId, useLayoutEffect, useRef, useState } from "react";
-import { APPLICATION_STATUSES } from "@reactive-resume/schema/applications/data";
-import { MAX_APPLICATION_LANES } from "@reactive-resume/schema/applications/lanes";
-import { Alert, AlertDescription } from "@reactive-resume/ui/components/alert";
-import { Button } from "@reactive-resume/ui/components/button";
+import { APPLICATION_STATUSES } from "@zhiye/schema/applications/data";
+import { MAX_APPLICATION_LANES } from "@zhiye/schema/applications/lanes";
+import { Alert, AlertDescription } from "@zhiye/ui/components/alert";
+import { Button } from "@zhiye/ui/components/button";
 import {
 	Dialog,
 	DialogContent,
@@ -20,14 +20,14 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { IconButton } from "@reactive-resume/ui/components/icon-button";
-import { Input } from "@reactive-resume/ui/components/input";
-import { Kbd } from "@reactive-resume/ui/components/kbd";
-import { Label } from "@reactive-resume/ui/components/label";
-import { NativeSelect } from "@reactive-resume/ui/components/native-select";
-import { Popover, PopoverContent, PopoverTrigger } from "@reactive-resume/ui/components/popover";
+} from "@zhiye/ui/components/dialog";
+import { Icon } from "@zhiye/ui/components/icon";
+import { IconButton } from "@zhiye/ui/components/icon-button";
+import { Input } from "@zhiye/ui/components/input";
+import { Kbd } from "@zhiye/ui/components/kbd";
+import { Label } from "@zhiye/ui/components/label";
+import { NativeSelect } from "@zhiye/ui/components/native-select";
+import { Popover, PopoverContent, PopoverTrigger } from "@zhiye/ui/components/popover";
 import {
 	Sheet,
 	SheetContent,
@@ -35,9 +35,9 @@ import {
 	SheetFooter,
 	SheetHeader,
 	SheetTitle,
-} from "@reactive-resume/ui/components/sheet";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/sheet";
+import { toast } from "@zhiye/ui/components/toast";
+import { cn } from "@zhiye/utils/style";
 import { getDisplayLane, getLaneLabel, LANE_COLORS } from "../lanes";
 import { applicationsListQueryKey, applicationsListQueryOptions } from "../queries";
 import { CLOSED_REASONS, getClosedReasonLabel, getStageLabel } from "../stages";

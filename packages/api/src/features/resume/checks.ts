@@ -1,12 +1,7 @@
 import z from "zod";
-import { ATS_CATEGORIES, ATS_RULE_CODES, lintResumeForAts } from "@reactive-resume/resume/ats";
-import {
-	analyzePdfResume,
-	buildExtractedDocument,
-	matchJobDescription,
-	surfaceFormsOf,
-} from "@reactive-resume/resume/ats-pdf";
-import { buildMarkdown } from "@reactive-resume/resume/markdown";
+import { ATS_CATEGORIES, ATS_RULE_CODES, lintResumeForAts } from "@zhiye/resume/ats";
+import { analyzePdfResume, buildExtractedDocument, matchJobDescription, surfaceFormsOf } from "@zhiye/resume/ats-pdf";
+import { buildMarkdown } from "@zhiye/resume/markdown";
 import { publicProcedure, protectedProcedure } from "../../context";
 import { jobTermSchema, pdfCheckSchema } from "../../dto/pdf-check";
 import { pdfAnalysisRateLimit } from "../../middleware/rate-limit";

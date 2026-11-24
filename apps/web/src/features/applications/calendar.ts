@@ -1,12 +1,12 @@
 import type { OfferHint } from "./next-step";
 import type { ApplicationSummary } from "./types";
-import type { InterviewTimelineEntry } from "@reactive-resume/schema/applications/data";
+import type { InterviewTimelineEntry } from "@zhiye/schema/applications/data";
 import { t } from "@lingui/core/macro";
-import { interviewEvent } from "@reactive-resume/schema/applications/calendar";
-import { followUpInstant } from "@reactive-resume/schema/applications/follow-up";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { downloadWithAnchor } from "@reactive-resume/utils/file";
-import { buildIcs } from "@reactive-resume/utils/ics";
+import { interviewEvent } from "@zhiye/schema/applications/calendar";
+import { followUpInstant } from "@zhiye/schema/applications/follow-up";
+import { toast } from "@zhiye/ui/components/toast";
+import { downloadWithAnchor } from "@zhiye/utils/file";
+import { buildIcs } from "@zhiye/utils/ics";
 import { dayKey } from "./interviews";
 import { getAccountGeneration } from "@/libs/auth/account-scope";
 

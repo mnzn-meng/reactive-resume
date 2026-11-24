@@ -1,5 +1,5 @@
 import type { MessageDescriptor, Messages } from "@lingui/core";
-import type { Locale } from "@reactive-resume/utils/locale";
+import type { Locale } from "@zhiye/utils/locale";
 import { i18n } from "@lingui/core";
 import { msg } from "@lingui/core/macro";
 import Cookies from "js-cookie";
@@ -10,7 +10,7 @@ import {
 	localizedUrl,
 	pseudoLocale,
 	supportedLocales,
-} from "@reactive-resume/utils/locale";
+} from "@zhiye/utils/locale";
 
 const storageKey = "locale";
 const persistLocale = (locale: Locale) => Cookies.set(storageKey, locale, { expires: 365, path: "/", sameSite: "lax" });

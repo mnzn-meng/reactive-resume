@@ -67,7 +67,7 @@ pnpm --filter mobile exec lingui check missing --mode catalog --verbose
 pnpm --filter web exec lingui compile --strict
 pnpm --filter mobile exec lingui compile --strict
 pnpm pdf:translations
-pnpm --filter @reactive-resume/tooling test locales/section-titles.test.ts
+pnpm --filter @zhiye/tooling test locales/section-titles.test.ts
 pnpm lint:agent
 pnpm format:check
 git diff --check

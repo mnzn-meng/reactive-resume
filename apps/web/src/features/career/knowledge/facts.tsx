@@ -1,5 +1,5 @@
 import type { Fact, Story } from "../hooks";
-import type { CareerFactCorrection, FactCategory, MemoryMode } from "@reactive-resume/schema/career";
+import type { CareerFactCorrection, FactCategory, MemoryMode } from "@zhiye/schema/career";
 import type { KeyboardEvent } from "react";
 import { plural, t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
@@ -7,9 +7,9 @@ import { useHotkey } from "@tanstack/react-hotkeys";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AnimatePresence } from "motion/react";
 import { memo, useDeferredValue, useEffect, useId, useRef, useState } from "react";
-import { factCategorySchema } from "@reactive-resume/schema/career";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Checkbox } from "@reactive-resume/ui/components/checkbox";
+import { factCategorySchema } from "@zhiye/schema/career";
+import { Button } from "@zhiye/ui/components/button";
+import { Checkbox } from "@zhiye/ui/components/checkbox";
 import {
 	Dialog,
 	DialogContent,
@@ -17,16 +17,16 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
-import { EmptyState } from "@reactive-resume/ui/components/empty-state";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { IconButton } from "@reactive-resume/ui/components/icon-button";
-import { Input } from "@reactive-resume/ui/components/input";
-import { Label } from "@reactive-resume/ui/components/label";
-import { NativeSelect } from "@reactive-resume/ui/components/native-select";
-import { SegmentedControl, SegmentedControlItem } from "@reactive-resume/ui/components/segmented-control";
-import { Textarea } from "@reactive-resume/ui/components/textarea";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/dialog";
+import { EmptyState } from "@zhiye/ui/components/empty-state";
+import { Icon } from "@zhiye/ui/components/icon";
+import { IconButton } from "@zhiye/ui/components/icon-button";
+import { Input } from "@zhiye/ui/components/input";
+import { Label } from "@zhiye/ui/components/label";
+import { NativeSelect } from "@zhiye/ui/components/native-select";
+import { SegmentedControl, SegmentedControlItem } from "@zhiye/ui/components/segmented-control";
+import { Textarea } from "@zhiye/ui/components/textarea";
+import { cn } from "@zhiye/utils/style";
 import { CareerLoadError, CareerLoading } from "../load-state";
 import { CollapseRow, flash, useCareerTime, withQueryUndo } from "../shared";
 import { CATEGORIES, categoryLabel } from "./fact-categories";

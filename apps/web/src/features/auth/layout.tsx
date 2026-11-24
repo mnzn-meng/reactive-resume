@@ -1,7 +1,7 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { Link, Outlet } from "@tanstack/react-router";
-import { BrandIcon } from "@reactive-resume/ui/components/brand-icon";
+import { BrandIcon } from "@zhiye/ui/components/brand-icon";
 
 const paper = "absolute h-[614px] w-[434px] overflow-hidden rounded-paper bg-paper shadow-page";
 

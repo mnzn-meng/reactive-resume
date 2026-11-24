@@ -1,5 +1,5 @@
 import z from "zod";
-import { countryCodeSchema } from "@reactive-resume/utils/region";
+import { countryCodeSchema } from "@zhiye/utils/region";
 
 const text = z.string().trim().max(200);
 const email = z.union([z.literal(""), z.email().max(320)]);

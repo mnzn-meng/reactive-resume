@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vite-plus/test"
 
 const secret = vi.hoisted(() => "private-value@example.test");
 
-vi.mock("@reactive-resume/api/routers", async () => {
+vi.mock("@zhiye/api/routers", async () => {
 	const { ORPCError, os } = await import("@orpc/server");
 	return {
 		default: {

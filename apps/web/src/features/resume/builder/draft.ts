@@ -1,7 +1,7 @@
-import type { Proposal, ProposalApplications, ProposalSnapshot } from "@reactive-resume/resume/proposals";
-import type { AiUsageSummary } from "@reactive-resume/schema/ai-usage";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
 import type { QueryClient, QueryKey } from "@tanstack/react-query";
+import type { Proposal, ProposalApplications, ProposalSnapshot } from "@zhiye/resume/proposals";
+import type { AiUsageSummary } from "@zhiye/schema/ai-usage";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import type { WritableDraft } from "immer";
 import { t } from "@lingui/core/macro";
 import { consumeEventIterator, ORPCError } from "@orpc/client";
@@ -18,12 +18,12 @@ import {
 	readProposalApplications,
 	proposalAiOperationIds,
 	restoreProposalApplications,
-} from "@reactive-resume/resume/proposals";
-import { aiOperationIdsSchema } from "@reactive-resume/schema/ai-usage";
-import { parseResumeData, withWebPageCss } from "@reactive-resume/schema/resume/data";
-import { syncResumeDates } from "@reactive-resume/schema/resume/dates";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { generateId } from "@reactive-resume/utils/string";
+} from "@zhiye/resume/proposals";
+import { aiOperationIdsSchema } from "@zhiye/schema/ai-usage";
+import { parseResumeData, withWebPageCss } from "@zhiye/schema/resume/data";
+import { syncResumeDates } from "@zhiye/schema/resume/dates";
+import { toast } from "@zhiye/ui/components/toast";
+import { generateId } from "@zhiye/utils/string";
 import { orpc, streamClient } from "@/libs/orpc/client";
 
 export type Resume = {

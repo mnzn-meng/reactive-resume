@@ -2,7 +2,7 @@ import { copyFile, mkdir, readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { build } from "esbuild";
 import { zipSync } from "fflate";
-import { FORM_FILL_SCRIPT } from "@reactive-resume/utils/form-fill";
+import { FORM_FILL_SCRIPT } from "@zhiye/utils/form-fill";
 const here = fileURLToPath(new URL(".", import.meta.url));
 const outdir = fileURLToPath(new URL("../../apps/web/public/capture-helper/", import.meta.url));
 await mkdir(outdir, { recursive: true });

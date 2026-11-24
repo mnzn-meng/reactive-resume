@@ -1,5 +1,5 @@
 import type { ApplicationTimelineEntry } from "./data";
-import { fromZonedDateTime } from "@reactive-resume/utils/timezone";
+import { fromZonedDateTime } from "@zhiye/utils/timezone";
 
 type FollowUp = { followUpAt: Date | string | null; followUpDateOnly?: boolean | undefined };
 /** Old servers omit the discriminator; their UTC-midnight values used the date-only contract. */

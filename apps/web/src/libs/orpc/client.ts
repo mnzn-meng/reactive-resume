@@ -1,11 +1,11 @@
 import type { InferRouterInputs, InferRouterOutputs, RouterClient } from "@orpc/server";
-import type router from "@reactive-resume/api/routers";
-import type { DeferredFetch } from "@reactive-resume/utils/deferred-request";
+import type router from "@zhiye/api/routers";
+import type { DeferredFetch } from "@zhiye/utils/deferred-request";
 import { createORPCClient, onError, ORPCError } from "@orpc/client";
 import { RPCLink } from "@orpc/client/fetch";
 import { BatchLinkPlugin } from "@orpc/client/plugins";
 import { createTanstackQueryUtils } from "@orpc/tanstack-query";
-import { prepareRequest } from "@reactive-resume/utils/deferred-request";
+import { prepareRequest } from "@zhiye/utils/deferred-request";
 import { authorizeAiRequest } from "./ai-consent";
 import { rpcFetch } from "./fetch";
 import { getAccountId } from "@/libs/auth/account-scope";

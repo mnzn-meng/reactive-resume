@@ -1,5 +1,5 @@
 import { expect, it } from "vite-plus/test";
-import { getStateIn } from "@reactive-resume/resume/proposals";
+import { getStateIn } from "@zhiye/resume/proposals";
 import { editWritingProposal, mapWritingReview } from "./review";
 
 it("does not reuse an accepted proposal identity for a fresh writing review", () => {

@@ -1,4 +1,4 @@
-import type { ProposeEditsOutput } from "@reactive-resume/ai/tools/agent-tool-contracts";
+import type { ProposeEditsOutput } from "@zhiye/ai/tools/agent-tool-contracts";
 import type { UIMessage } from "ai";
 import type { AddressInfo } from "node:net";
 import { randomUUID } from "node:crypto";
@@ -10,12 +10,12 @@ import { generateText, stepCountIs, streamText, tool } from "ai";
 import { strFromU8, unzipSync, zipSync, strToU8 } from "fflate";
 import { Pool } from "pg";
 import { z } from "zod";
-import { aiDestination } from "@reactive-resume/ai/types";
-import { db, withDatabasePool } from "@reactive-resume/db/client";
-import * as tables from "@reactive-resume/db/schema";
-import { aiOperationIds } from "@reactive-resume/schema/ai-usage";
-import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
-import { buildAccountZip } from "@reactive-resume/utils/account-zip";
+import { aiDestination } from "@zhiye/ai/types";
+import { db, withDatabasePool } from "@zhiye/db/client";
+import * as tables from "@zhiye/db/schema";
+import { aiOperationIds } from "@zhiye/schema/ai-usage";
+import { sampleResumeData } from "@zhiye/schema/resume/sample";
+import { buildAccountZip } from "@zhiye/utils/account-zip";
 import { truncateCascade } from "../../test-database";
 import { loadDocument } from "../agent/document";
 import { upsertAssistantUiMessage } from "../agent/messages-persistence";
@@ -34,8 +34,8 @@ import { aiRouter } from "./router";
 import { getModel } from "./service";
 import { createAiUsage, readAiUsage, readWeeklyAiUsage } from "./usage";
 
-vi.mock("@reactive-resume/env/server", async (original) => {
-	const actual = await original<typeof import("@reactive-resume/env/server")>();
+vi.mock("@zhiye/env/server", async (original) => {
+	const actual = await original<typeof import("@zhiye/env/server")>();
 	return {
 		env: {
 			...actual.env,

@@ -1,6 +1,6 @@
-import type { AiAction } from "@reactive-resume/schema/ai-usage";
+import type { AiAction } from "@zhiye/schema/ai-usage";
 import * as pg from "drizzle-orm/pg-core";
-import { generateId } from "@reactive-resume/utils/string";
+import { generateId } from "@zhiye/utils/string";
 import { user } from "./auth";
 
 /** Inference transport attempts, including failures; never prompts, credentials, tokens or billing estimates. */

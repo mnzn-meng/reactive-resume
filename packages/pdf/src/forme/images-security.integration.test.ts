@@ -3,7 +3,7 @@ import { createServer } from "node:http";
 import { expect, it } from "vite-plus/test";
 import { encode } from "fast-png";
 import { getDocument, OPS } from "pdfjs-dist/legacy/build/pdf.mjs";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 import { createResumePdfFile } from "../server";
 
 it(

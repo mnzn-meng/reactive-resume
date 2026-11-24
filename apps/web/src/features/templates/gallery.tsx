@@ -1,22 +1,16 @@
-import type { Template } from "@reactive-resume/schema/templates";
+import type { Template } from "@zhiye/schema/templates";
 import type { ReactNode } from "react";
 import { t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { templateLayouts, templateSchema } from "@reactive-resume/schema/templates";
-import { Badge } from "@reactive-resume/ui/components/badge";
-import { Button } from "@reactive-resume/ui/components/button";
-import {
-	Dialog,
-	DialogClose,
-	DialogContent,
-	DialogDescription,
-	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@reactive-resume/ui/components/tooltip";
-import { cn } from "@reactive-resume/utils/style";
+import { templateLayouts, templateSchema } from "@zhiye/schema/templates";
+import { Badge } from "@zhiye/ui/components/badge";
+import { Button } from "@zhiye/ui/components/button";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle } from "@zhiye/ui/components/dialog";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@zhiye/ui/components/tooltip";
+import { cn } from "@zhiye/utils/style";
 import { Chip } from "@/components/calm/filter-bar";
 import { templates } from "@/dialogs/resume/template/data";
 

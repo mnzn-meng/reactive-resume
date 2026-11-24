@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 
 const mocks = vi.hoisted(() => ({
 	select: vi.fn(),
@@ -8,8 +8,8 @@ const mocks = vi.hoisted(() => ({
 	getApplicationProfile: vi.fn(),
 	getPipeline: vi.fn(),
 }));
-vi.mock("@reactive-resume/db/client", () => ({ db: { select: mocks.select } }));
-vi.mock("@reactive-resume/db/schema", () => ({
+vi.mock("@zhiye/db/client", () => ({ db: { select: mocks.select } }));
+vi.mock("@zhiye/db/schema", () => ({
 	user: { id: "user.id" },
 	resume: { userId: "resume.userId" },
 	application: { userId: "application.userId" },
@@ -19,8 +19,8 @@ vi.mock("@reactive-resume/db/schema", () => ({
 	resumeWritingReview: { userId: "resumeWritingReview.userId" },
 }));
 vi.mock("drizzle-orm", () => ({ eq: (column: unknown, value: unknown) => ({ column, value }) }));
-vi.mock("@reactive-resume/env/server", () => ({ env: {} }));
-vi.mock("@reactive-resume/auth/config", () => ({ isCustomOAuthProviderEnabled: () => false }));
+vi.mock("@zhiye/env/server", () => ({ env: {} }));
+vi.mock("@zhiye/auth/config", () => ({ isCustomOAuthProviderEnabled: () => false }));
 vi.mock("../storage/service", () => ({ getStorageService: vi.fn() }));
 vi.mock("../applications/lanes", () => ({ applicationLaneService: { get: mocks.getPipeline } }));
 vi.mock("../career/service", () => ({ careerService: { exportData: mocks.exportCareer } }));

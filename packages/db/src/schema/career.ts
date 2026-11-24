@@ -1,4 +1,4 @@
-import type { AnswerEvidence } from "@reactive-resume/schema/application-answers";
+import type { AnswerEvidence } from "@zhiye/schema/application-answers";
 import type {
 	CareerNotice,
 	CareerFactRevision,
@@ -8,9 +8,9 @@ import type {
 	CareerStoryData,
 	CareerWorkspace,
 	SavedItemData,
-} from "@reactive-resume/schema/career";
+} from "@zhiye/schema/career";
 import * as pg from "drizzle-orm/pg-core";
-import { generateId } from "@reactive-resume/utils/string";
+import { generateId } from "@zhiye/utils/string";
 import { aiProvider } from "./agent";
 import { application } from "./applications";
 import { user } from "./auth";

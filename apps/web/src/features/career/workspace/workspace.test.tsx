@@ -2,7 +2,7 @@ import type { SavedItem } from "../hooks";
 import type { WorkspaceTabProps } from "./shell";
 // @vitest-environment happy-dom
 import type { Application } from "@/features/applications/types";
-import type { CareerWorkspace } from "@reactive-resume/schema/career";
+import type { CareerWorkspace } from "@zhiye/schema/career";
 import type { ReactNode } from "react";
 import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -10,8 +10,8 @@ import { afterEach, beforeEach, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { offerTermsSchema, EMPTY_WORKSPACE } from "@reactive-resume/schema/career";
-import { isolate } from "@reactive-resume/utils/string";
+import { offerTermsSchema, EMPTY_WORKSPACE } from "@zhiye/schema/career";
+import { isolate } from "@zhiye/utils/string";
 import { useDebouncedSave } from "../hooks";
 import { pendingCommits } from "../pending-commits";
 import { ApplicationPacketPanel } from "./application-packet";
@@ -122,7 +122,7 @@ vi.mock("../shared", async (importOriginal) => ({
 	CollapseRow: ({ children }: { children: ReactNode }) => <div>{children}</div>,
 	Swap: ({ children }: { children: ReactNode }) => <div>{children}</div>,
 }));
-vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: vi.fn(), close: vi.fn() } }));
+vi.mock("@zhiye/ui/components/toast", () => ({ toast: { add: vi.fn(), close: vi.fn() } }));
 // The library's own review flow is proven in answer-library.test.tsx; here it only hands back a reviewed answer.
 vi.mock("./answer-library", () => ({
 	AnswerLibrary: ({
@@ -435,7 +435,7 @@ it("disables empty-draft logging while preserving ordinary Copy", async () => {
 
 it("explains a known reply-log refusal without inventing a conflict reason", async () => {
 	const { ORPCError } = await import("@orpc/client");
-	const { toast } = await import("@reactive-resume/ui/components/toast");
+	const { toast } = await import("@zhiye/ui/components/toast");
 	vi.stubGlobal("navigator", { clipboard: { writeText: vi.fn().mockResolvedValue(undefined) } });
 	api.logReply.mockRejectedValueOnce(new ORPCError("BAD_REQUEST"));
 	api.data.savedItems = [reply()];
@@ -452,7 +452,7 @@ it("explains a known reply-log refusal without inventing a conflict reason", asy
 
 it("explains a known reply-log conflict and refreshes the application", async () => {
 	const { ORPCError } = await import("@orpc/client");
-	const { toast } = await import("@reactive-resume/ui/components/toast");
+	const { toast } = await import("@zhiye/ui/components/toast");
 	vi.stubGlobal("navigator", { clipboard: { writeText: vi.fn().mockResolvedValue(undefined) } });
 	api.logReply.mockRejectedValueOnce(new ORPCError("CONFLICT"));
 	api.data.savedItems = [reply()];
@@ -474,7 +474,7 @@ it("warns and refreshes the application when logging is uncertain after copying 
 	api.data.savedItems = [reply()];
 	mount(<MessagesTab {...props} application={{ ...application, status: "applied" }} />);
 	fireEvent.click(screen.getByRole("button", { name: "Copy and log as replied" }));
-	const { toast } = await import("@reactive-resume/ui/components/toast");
+	const { toast } = await import("@zhiye/ui/components/toast");
 	await waitFor(() =>
 		expect(toast.add).toHaveBeenCalledWith({
 			type: "error",
@@ -798,7 +798,7 @@ it("shows every extracted offer term before applying, including deadline, bonus,
 it.each(["answer", "factIds"] as const)(
 	"Tighten Undo refuses an authoritative %s correction after refetch",
 	async (field) => {
-		const { toast } = await import("@reactive-resume/ui/components/toast");
+		const { toast } = await import("@zhiye/ui/components/toast");
 		const original = { id: "answer", question: "Why this role?", answer: "Original authored answer.", factIds: [] };
 		api.data.workspace = { ...EMPTY_WORKSPACE, answers: [original] };
 		api.data.reviewedAnswers = [];
@@ -823,7 +823,7 @@ it.each(["answer", "factIds"] as const)(
 );
 
 it("Tighten Undo keeps local typing and pins an unchanged inverse to accepted text and fact IDs", async () => {
-	const { toast } = await import("@reactive-resume/ui/components/toast");
+	const { toast } = await import("@zhiye/ui/components/toast");
 	const original = {
 		id: "answer",
 		question: "Why this role?",
@@ -991,7 +991,7 @@ it("keeps approved practice generation running when its tab unmounts", async () 
 
 // J2-18: a bulk move chosen while a message's stage change is on its way starts from the stage that change saved.
 it("makes a later bulk move wait for a message's stage change and start from what it saved", async () => {
-	const { stageBaselinesFor } = await import("@reactive-resume/schema/applications/stage-baselines");
+	const { stageBaselinesFor } = await import("@zhiye/schema/applications/stage-baselines");
 	const { STAGE_SCOPE } = await import("@/features/applications/use-application-actions");
 	const answer = deferred<unknown>();
 	api.apply.mockReturnValueOnce(answer.promise);

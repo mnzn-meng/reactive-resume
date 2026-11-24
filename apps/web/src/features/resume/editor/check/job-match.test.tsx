@@ -4,7 +4,7 @@ import { afterEach, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 
 const api = vi.hoisted(() => ({
 	navigate: vi.fn(),
@@ -56,7 +56,7 @@ vi.mock("@tanstack/react-router", () => ({
 	Link: ({ children }: { children: React.ReactNode }) => <a href="/dashboard/applications/fixture/fit">{children}</a>,
 }));
 vi.mock("./actions", () => ({ checkStateOf: vi.fn(), editWithUndo: api.edit }));
-vi.mock("@reactive-resume/resume/ats-pdf", () => ({ matchJobDescription: () => ({ terms: [] }) }));
+vi.mock("@zhiye/resume/ats-pdf", () => ({ matchJobDescription: () => ({ terms: [] }) }));
 
 vi.mock("@/features/settings/integrations/hooks/use-has-usable-ai-provider", () => ({
 	useHasUsableAiProvider: () => ({ hasUsableProvider: true }),

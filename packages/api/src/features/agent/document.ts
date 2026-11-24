@@ -2,21 +2,17 @@ import type {
 	ProposeEditsInput,
 	ProposeEditsOutput,
 	ProposeResumeEditsInput,
-} from "@reactive-resume/ai/tools/agent-tool-contracts";
-import type { Passage, ProposalEvidence, ProposalTarget, RequirementCoverage } from "@reactive-resume/resume/proposals";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+} from "@zhiye/ai/tools/agent-tool-contracts";
+import type { Passage, ProposalEvidence, ProposalTarget, RequirementCoverage } from "@zhiye/resume/proposals";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import type { UIMessage } from "ai";
 import { ORPCError } from "@orpc/client";
 import { and, desc, eq, isNull } from "drizzle-orm";
-import {
-	proposeResumeEditsInputSchema,
-	REVOKED_PASSAGE,
-	tailoringAllows,
-} from "@reactive-resume/ai/tools/agent-tool-contracts";
-import { db } from "@reactive-resume/db/client";
-import * as schema from "@reactive-resume/db/schema";
-import { createEntry } from "@reactive-resume/resume/entries";
-import { buildMarkdown, getVisibleResumeStructure } from "@reactive-resume/resume/markdown";
+import { proposeResumeEditsInputSchema, REVOKED_PASSAGE, tailoringAllows } from "@zhiye/ai/tools/agent-tool-contracts";
+import { db } from "@zhiye/db/client";
+import * as schema from "@zhiye/db/schema";
+import { createEntry } from "@zhiye/resume/entries";
+import { buildMarkdown, getVisibleResumeStructure } from "@zhiye/resume/markdown";
 import {
 	additionAfter,
 	applyResumeProposals,
@@ -28,10 +24,10 @@ import {
 	replaceBlockText,
 	resumeStructureSnapshot,
 	unverifiedClaims,
-} from "@reactive-resume/resume/proposals";
-import { applyResumeStructureChange, resumeEntryTypeSchema } from "@reactive-resume/resume/structural-proposals";
-import { syncResumeDates, upgradeResumeDates } from "@reactive-resume/schema/resume/dates";
-import { generateId } from "@reactive-resume/utils/string";
+} from "@zhiye/resume/proposals";
+import { applyResumeStructureChange, resumeEntryTypeSchema } from "@zhiye/resume/structural-proposals";
+import { syncResumeDates, upgradeResumeDates } from "@zhiye/schema/resume/dates";
+import { generateId } from "@zhiye/utils/string";
 import { resumeService } from "../resume/service";
 import { assertResumeChangeProse } from "./prose";
 import { entryReview } from "./review";

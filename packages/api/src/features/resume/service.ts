@@ -1,18 +1,18 @@
 import type { ResumeUpdatedEvent } from "./events";
-import type { DbOrTx } from "@reactive-resume/db/client";
-import type { JsonPatchOperation } from "@reactive-resume/resume/patch";
-import type { ProposalApplications } from "@reactive-resume/resume/proposals";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import type { Locale } from "@reactive-resume/utils/locale";
+import type { DbOrTx } from "@zhiye/db/client";
+import type { JsonPatchOperation } from "@zhiye/resume/patch";
+import type { ProposalApplications } from "@zhiye/resume/proposals";
+import type { ResumeData } from "@zhiye/schema/resume/data";
+import type { Locale } from "@zhiye/utils/locale";
 import { ORPCError } from "@orpc/client";
 import { and, arrayContains, asc, desc, eq, inArray, isNotNull, isNull, lt } from "drizzle-orm";
 import { match } from "ts-pattern";
-import { db } from "@reactive-resume/db/client";
-import * as schema from "@reactive-resume/db/schema";
-import { applyResumePatches, describeResumePatchError, ResumePatchError } from "@reactive-resume/resume/patch";
-import { withWebPageCss } from "@reactive-resume/schema/resume/data";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
-import { generateId } from "@reactive-resume/utils/string";
+import { db } from "@zhiye/db/client";
+import * as schema from "@zhiye/db/schema";
+import { applyResumePatches, describeResumePatchError, ResumePatchError } from "@zhiye/resume/patch";
+import { withWebPageCss } from "@zhiye/schema/resume/data";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
+import { generateId } from "@zhiye/utils/string";
 import {
 	assertCurrentClientWrite,
 	CurrentClientRequired,

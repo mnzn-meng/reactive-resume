@@ -1,6 +1,6 @@
 import z from "zod";
-import { db } from "@reactive-resume/db/client";
-import { aiContentReport } from "@reactive-resume/db/schema";
+import { db } from "@zhiye/db/client";
+import { aiContentReport } from "@zhiye/db/schema";
 import { protectedProcedure } from "../../context";
 import { storageUploadRateLimit } from "../../middleware/rate-limit";
 

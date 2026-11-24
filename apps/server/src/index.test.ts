@@ -20,7 +20,7 @@ vi.mock("./http/app", () => {
 		},
 	};
 });
-vi.mock("@reactive-resume/auth/config", () => ({
+vi.mock("@zhiye/auth/config", () => ({
 	initializeAuth: async () => {
 		await Promise.resolve();
 		events.push("auth ready");
@@ -31,7 +31,7 @@ vi.mock("@hono/node-server", () => ({
 		events.push("server listening");
 	}),
 }));
-vi.mock("@reactive-resume/env/server", () => ({ env: { SERVER_PORT: 0 } }));
+vi.mock("@zhiye/env/server", () => ({ env: { SERVER_PORT: 0 } }));
 // Scheduled career and cleanup work have their own tests; here they only have to stop when the server does.
 vi.mock("./startup/career-scheduler", () => ({ startCareerScheduler: () => ({ stop: async () => {} }) }));
 vi.mock("./startup/storage-cleanup", () => ({ startStorageCleanupScheduler: () => ({ stop: async () => {} }) }));

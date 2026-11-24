@@ -1,8 +1,8 @@
-import type { SemanticNode } from "@reactive-resume/resume/stylesheet/types";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { SemanticNode } from "@zhiye/resume/stylesheet/types";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import { describe, expect, it, vi } from "vite-plus/test";
 import { createElement } from "react";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 import { ResumeDocument } from "../document";
 import { pdf } from "../forme/testing";
 import { parseNormalizedRichTextHtml, richTextMarkClassName } from "../templates/shared/rich-text-html";

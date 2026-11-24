@@ -13,21 +13,16 @@ import { admin, anonymous, jwt, openAPI } from "better-auth/plugins";
 import { genericOAuth } from "better-auth/plugins/generic-oauth";
 import { username } from "better-auth/plugins/username";
 import { and, eq, inArray, ne, sql } from "drizzle-orm";
-import { createDefaultOwnedApplicationLanes, MAX_APPLICATION_LANES } from "@reactive-resume/db/application-lanes";
-import { db } from "@reactive-resume/db/client";
-import * as schema from "@reactive-resume/db/schema";
-import {
-	confirmNewEmail,
-	resetPasswordEmail,
-	verifyEmail,
-	verifyEmailChange,
-} from "@reactive-resume/email/templates/auth";
-import { sendEmail } from "@reactive-resume/email/transport";
-import { env } from "@reactive-resume/env/server";
-import { defaultLocale, isLocale, localeSchema } from "@reactive-resume/utils/locale";
-import { rateLimitConfig } from "@reactive-resume/utils/rate-limit";
-import { generateId, toUsername } from "@reactive-resume/utils/string";
-import { timezoneSchema } from "@reactive-resume/utils/timezone";
+import { createDefaultOwnedApplicationLanes, MAX_APPLICATION_LANES } from "@zhiye/db/application-lanes";
+import { db } from "@zhiye/db/client";
+import * as schema from "@zhiye/db/schema";
+import { confirmNewEmail, resetPasswordEmail, verifyEmail, verifyEmailChange } from "@zhiye/email/templates/auth";
+import { sendEmail } from "@zhiye/email/transport";
+import { env } from "@zhiye/env/server";
+import { defaultLocale, isLocale, localeSchema } from "@zhiye/utils/locale";
+import { rateLimitConfig } from "@zhiye/utils/rate-limit";
+import { generateId, toUsername } from "@zhiye/utils/string";
+import { timezoneSchema } from "@zhiye/utils/timezone";
 import {
 	allocateUniqueUsername,
 	createGithubProfileMapper,

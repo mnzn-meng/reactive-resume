@@ -1,8 +1,8 @@
 import { t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { useMemo } from "react";
-import { Button } from "@reactive-resume/ui/components/button";
-import { getCurrencyOptions } from "@reactive-resume/utils/amount";
+import { Button } from "@zhiye/ui/components/button";
+import { getCurrencyOptions } from "@zhiye/utils/amount";
 import { Combobox } from "@/components/ui/combobox";
 
 type CurrencySelectProps = {

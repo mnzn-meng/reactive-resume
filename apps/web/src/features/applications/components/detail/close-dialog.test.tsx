@@ -3,7 +3,7 @@ import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
-import { createDefaultApplicationLanes } from "@reactive-resume/schema/applications/lanes";
+import { createDefaultApplicationLanes } from "@zhiye/schema/applications/lanes";
 import { CloseDialog } from "./close-dialog";
 
 afterEach(cleanup);

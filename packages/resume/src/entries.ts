@@ -1,6 +1,6 @@
-import type { CustomSectionItem, CustomSectionType } from "@reactive-resume/schema/resume/data";
-import { EMPTY_RESUME_DATES } from "@reactive-resume/schema/resume/dates";
-import { generateId } from "@reactive-resume/utils/string";
+import type { CustomSectionItem, CustomSectionType } from "@zhiye/schema/resume/data";
+import { EMPTY_RESUME_DATES } from "@zhiye/schema/resume/dates";
+import { generateId } from "@zhiye/utils/string";
 
 const website = () => ({ url: "", label: "", inlineLink: false });
 const dates = () => ({ ...EMPTY_RESUME_DATES });

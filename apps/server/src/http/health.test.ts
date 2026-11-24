@@ -7,10 +7,10 @@ const { execute, healthcheck, ping, env } = vi.hoisted(() => ({
 	env: { STORAGE_HEALTHCHECK_TIMEOUT_MS: 5_000, APP_REVISION: undefined as string | undefined },
 }));
 
-vi.mock("@reactive-resume/db/client", () => ({ db: { execute } }));
-vi.mock("@reactive-resume/api/features/storage", () => ({ getStorageService: () => ({ healthcheck }) }));
-vi.mock("@reactive-resume/db/redis", () => ({ getRedis: () => ({ ping }) }));
-vi.mock("@reactive-resume/env/server", () => ({ env }));
+vi.mock("@zhiye/db/client", () => ({ db: { execute } }));
+vi.mock("@zhiye/api/features/storage", () => ({ getStorageService: () => ({ healthcheck }) }));
+vi.mock("@zhiye/db/redis", () => ({ getRedis: () => ({ ping }) }));
+vi.mock("@zhiye/env/server", () => ({ env }));
 
 import { handleHealth } from "./health";
 

@@ -1,6 +1,6 @@
-import { initializeAuth } from "@reactive-resume/auth/config";
-import { getPool } from "@reactive-resume/db/client";
-import { env } from "@reactive-resume/env/server";
+import { initializeAuth } from "@zhiye/auth/config";
+import { getPool } from "@zhiye/db/client";
+import { env } from "@zhiye/env/server";
 import { runDatabaseMigrations } from "./startup/checks";
 
 if (process.env.VERCEL_ENV === "preview" && process.env.ALLOW_PREVIEW_MIGRATIONS !== "true") {

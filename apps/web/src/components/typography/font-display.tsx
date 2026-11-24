@@ -1,7 +1,7 @@
 import { useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { resolveFontSource } from "@reactive-resume/fonts/sources";
-import { cn } from "@reactive-resume/utils/style";
+import { resolveFontSource } from "@zhiye/fonts/sources";
+import { cn } from "@zhiye/utils/style";
 import { getFontMirrorUrl } from "@/libs/font-source";
 
 interface FontDisplayProps {

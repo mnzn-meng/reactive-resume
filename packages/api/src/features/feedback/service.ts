@@ -1,9 +1,9 @@
-import type { FeedbackEventType } from "@reactive-resume/db/schema";
-import type { ApplicationTimelineEntry } from "@reactive-resume/schema/applications/data";
+import type { FeedbackEventType } from "@zhiye/db/schema";
+import type { ApplicationTimelineEntry } from "@zhiye/schema/applications/data";
 import { ORPCError } from "@orpc/server";
 import { and, asc, count, desc, eq, inArray, isNull, sql } from "drizzle-orm";
-import { db } from "@reactive-resume/db/client";
-import * as schema from "@reactive-resume/db/schema";
+import { db } from "@zhiye/db/client";
+import * as schema from "@zhiye/db/schema";
 import { FEEDBACK_MAX_APPLICATIONS, FEEDBACK_MAX_COMMENTS } from "../../dto/feedback";
 import { activeApplications } from "../applications/access";
 import { ownerIsNotBanned } from "../documents/ownership";

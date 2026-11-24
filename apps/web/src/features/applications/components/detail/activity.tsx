@@ -1,11 +1,11 @@
 import type { Application } from "../../types";
-import type { ApplicationTimelineEntry, InterviewTimelineEntry } from "@reactive-resume/schema/applications/data";
+import type { ApplicationTimelineEntry, InterviewTimelineEntry } from "@zhiye/schema/applications/data";
 import type { ReactNode } from "react";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { useMutation } from "@tanstack/react-query";
 import { useId, useState } from "react";
-import { Button } from "@reactive-resume/ui/components/button";
+import { Button } from "@zhiye/ui/components/button";
 import {
 	Dialog,
 	DialogContent,
@@ -13,19 +13,19 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
+} from "@zhiye/ui/components/dialog";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Input } from "@reactive-resume/ui/components/input";
-import { Textarea } from "@reactive-resume/ui/components/textarea";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/dropdown-menu";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Input } from "@zhiye/ui/components/input";
+import { Textarea } from "@zhiye/ui/components/textarea";
+import { toast } from "@zhiye/ui/components/toast";
+import { cn } from "@zhiye/utils/style";
 import { showInterviewCancellation } from "../../calendar";
 import { dayKey, interviewKindOf, interviewTypeLabel } from "../../interviews";
 import { getCategoryLane, getLaneLabel, isCurrentLaneEvent } from "../../lanes";

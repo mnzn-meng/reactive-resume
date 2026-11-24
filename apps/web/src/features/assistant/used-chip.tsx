@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Popover, PopoverContent, PopoverTrigger } from "@reactive-resume/ui/components/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@zhiye/ui/components/popover";
 
 type UsedChipProps = { label: string; title: string; children: ReactNode };
 

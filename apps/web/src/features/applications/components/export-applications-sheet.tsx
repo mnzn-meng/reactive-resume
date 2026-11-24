@@ -3,7 +3,7 @@ import type { Application } from "../types";
 import { t } from "@lingui/core/macro";
 import { Plural, Trans } from "@lingui/react/macro";
 import { useId, useState } from "react";
-import { Button } from "@reactive-resume/ui/components/button";
+import { Button } from "@zhiye/ui/components/button";
 import {
 	Dialog,
 	DialogContent,
@@ -11,11 +11,11 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Label } from "@reactive-resume/ui/components/label";
-import { RadioGroup, RadioGroupItem } from "@reactive-resume/ui/components/radio-group";
-import { downloadWithAnchor } from "@reactive-resume/utils/file";
+} from "@zhiye/ui/components/dialog";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Label } from "@zhiye/ui/components/label";
+import { RadioGroup, RadioGroupItem } from "@zhiye/ui/components/radio-group";
+import { downloadWithAnchor } from "@zhiye/utils/file";
 import { exportApplicationsCsv, selectApplicationsForExport } from "../csv";
 import { useApplicationLanes } from "../use-application-lanes";
 import { DateField } from "./date-field";

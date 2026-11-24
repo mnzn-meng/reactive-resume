@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
-import { TooltipProvider } from "@reactive-resume/ui/components/tooltip";
+import { TooltipProvider } from "@zhiye/ui/components/tooltip";
 import { SelectionBar } from "./selection-bar";
 
 i18n.loadAndActivate({ locale: "en", messages: {} });

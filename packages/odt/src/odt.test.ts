@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vite-plus/test";
 import { strFromU8, unzipSync } from "fflate";
-import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
+import { sampleResumeData } from "@zhiye/schema/resume/sample";
 import { buildOdtFiles, ODT_MIME_TYPE } from "./builder";
 import { htmlToOdtBlocks } from "./html-to-odt";
 import { buildOdt } from "./index";

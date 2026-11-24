@@ -98,7 +98,7 @@ vi.mock("../use-application-actions", () => ({
 	useTrashWithUndo: () => api.trashWithUndo,
 }));
 vi.mock("@/hooks/use-confirm", () => ({ useConfirm: () => api.confirm }));
-vi.mock("@reactive-resume/ui/hooks/use-breakpoint", () => ({ useBreakpoint: () => "desktop" }));
+vi.mock("@zhiye/ui/hooks/use-breakpoint", () => ({ useBreakpoint: () => "desktop" }));
 vi.mock("@/features/settings/integrations/hooks/use-has-usable-ai-provider", () => ({
 	useHasUsableAiProvider: () => ({
 		hasUsableProvider: true,
@@ -106,7 +106,7 @@ vi.mock("@/features/settings/integrations/hooks/use-has-usable-ai-provider", () 
 	}),
 }));
 vi.mock("@/dialogs/store", () => ({ useDialogStore: () => vi.fn() }));
-vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: vi.fn() } }));
+vi.mock("@zhiye/ui/components/toast", () => ({ toast: { add: vi.fn() } }));
 
 import { AddApplicationDialog } from "./add-application-dialog";
 import { ApplicationDetailSheet } from "./application-detail-sheet";

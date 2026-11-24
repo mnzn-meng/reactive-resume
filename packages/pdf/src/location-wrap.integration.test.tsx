@@ -1,10 +1,10 @@
 import type { ElementInfo } from "@formepdf/core";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import type { Template } from "@reactive-resume/schema/templates";
+import type { ResumeData } from "@zhiye/schema/resume/data";
+import type { Template } from "@zhiye/schema/templates";
 import { describe, expect, it } from "vite-plus/test";
 import * as forme from "@formepdf/core";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
-import { templateSchema } from "@reactive-resume/schema/templates";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
+import { templateSchema } from "@zhiye/schema/templates";
 import { renderResume } from "./forme/render";
 
 /**

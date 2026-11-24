@@ -2,9 +2,9 @@ import type { ComponentProps } from "react";
 import { t } from "@lingui/core/macro";
 import { Plural, Trans } from "@lingui/react/macro";
 import { useEffect } from "react";
-import { Button } from "@reactive-resume/ui/components/button";
-import { IconButton } from "@reactive-resume/ui/components/icon-button";
-import { cn } from "@reactive-resume/utils/style";
+import { Button } from "@zhiye/ui/components/button";
+import { IconButton } from "@zhiye/ui/components/icon-button";
+import { cn } from "@zhiye/utils/style";
 
 // Escape belongs to whatever is open on top of the page first.
 const OVERLAYS = '[role="dialog"], [role="alertdialog"], [role="menu"], [role="listbox"]';

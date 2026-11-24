@@ -1,11 +1,11 @@
 // Kept apart from ./new-document-dialog.tsx and ./import, so the library loads without the dialog or the importers.
-import type { Template } from "@reactive-resume/schema/templates";
-import type { Locale } from "@reactive-resume/utils/locale";
+import type { Template } from "@zhiye/schema/templates";
+import type { Locale } from "@zhiye/utils/locale";
 import { t } from "@lingui/core/macro";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { toast } from "@reactive-resume/ui/components/toast";
+import { toast } from "@zhiye/ui/components/toast";
 import { useNewDocumentsStore } from "./new-documents";
 import { useDialogStore } from "@/dialogs/store";
 import { toastError } from "@/libs/error-message";

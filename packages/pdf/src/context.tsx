@@ -1,9 +1,9 @@
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import type { Template } from "@reactive-resume/schema/templates";
+import type { ResumeData } from "@zhiye/schema/resume/data";
+import type { Template } from "@zhiye/schema/templates";
 import type { ReactNode } from "react";
 import { createContext, use, useMemo } from "react";
-import { templateLayouts } from "@reactive-resume/schema/templates";
-import { isRTL } from "@reactive-resume/utils/locale";
+import { templateLayouts } from "@zhiye/schema/templates";
+import { isRTL } from "@zhiye/utils/locale";
 
 type RenderContextValue = ResumeData & {
 	rtl: boolean;

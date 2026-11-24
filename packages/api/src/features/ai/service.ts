@@ -1,6 +1,6 @@
 import type { AiUsage } from "./usage";
-import type { AIProvider } from "@reactive-resume/ai/types";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { AIProvider } from "@zhiye/ai/types";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import type { ModelMessage } from "ai";
 import { createAnthropic } from "@ai-sdk/anthropic";
 import { createCerebras } from "@ai-sdk/cerebras";
@@ -24,12 +24,12 @@ import {
 	docxParserUserPrompt,
 	pdfParserSystemPrompt,
 	pdfParserUserPrompt,
-} from "@reactive-resume/ai/prompts";
-import { buildAiExtractionTemplate } from "@reactive-resume/ai/resume/extraction-template";
-import { sanitizeAndParseResumeJson } from "@reactive-resume/ai/resume/sanitize";
-import { AI_PROVIDER_DEFAULT_BASE_URLS, AI_PROVIDER_DISPLAY_NAMES, aiProviderSchema } from "@reactive-resume/ai/types";
-import { extractDocxText } from "@reactive-resume/import/docx-text";
-import { withLinkTargets } from "@reactive-resume/import/review";
+} from "@zhiye/ai/prompts";
+import { buildAiExtractionTemplate } from "@zhiye/ai/resume/extraction-template";
+import { sanitizeAndParseResumeJson } from "@zhiye/ai/resume/sanitize";
+import { AI_PROVIDER_DEFAULT_BASE_URLS, AI_PROVIDER_DISPLAY_NAMES, aiProviderSchema } from "@zhiye/ai/types";
+import { extractDocxText } from "@zhiye/import/docx-text";
+import { withLinkTargets } from "@zhiye/import/review";
 import { extractPdf } from "../resume/pdf-analysis";
 import { isDirectOpenAIProvider } from "./capabilities";
 import { aiDeadline } from "./generate-json";
@@ -401,7 +401,7 @@ type ParseDocxInput = z.infer<typeof aiCredentialsSchema> & {
 	mediaType: "application/msword" | "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
 };
 
-/** A Word file's text, page headers and footers included (see `@reactive-resume/import/docx-text`). */
+/** A Word file's text, page headers and footers included (see `@zhiye/import/docx-text`). */
 export const extractDocxTextFromBytes = extractDocxText;
 
 function docxFileText(file: z.infer<typeof fileInputSchema>): string {

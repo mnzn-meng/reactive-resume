@@ -1,6 +1,6 @@
 import { writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
-import { AUTH_EMAIL_SOURCE_MESSAGES } from "@reactive-resume/email/templates/auth-messages";
+import { AUTH_EMAIL_SOURCE_MESSAGES } from "@zhiye/email/templates/auth-messages";
 import {
 	generateExpectedLabels,
 	generateMessageCatalog,

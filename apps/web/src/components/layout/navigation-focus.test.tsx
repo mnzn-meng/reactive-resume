@@ -11,9 +11,9 @@ import {
 	Outlet,
 	RouterProvider,
 } from "@tanstack/react-router";
-import { AlertDialog, AlertDialogContent, AlertDialogTitle } from "@reactive-resume/ui/components/alert-dialog";
-import { Dialog, DialogContent, DialogTitle } from "@reactive-resume/ui/components/dialog";
-import { Toaster } from "@reactive-resume/ui/components/toast";
+import { AlertDialog, AlertDialogContent, AlertDialogTitle } from "@zhiye/ui/components/alert-dialog";
+import { Dialog, DialogContent, DialogTitle } from "@zhiye/ui/components/dialog";
+import { Toaster } from "@zhiye/ui/components/toast";
 import { NavigationFocus } from "./navigation-focus";
 import { getPageTitle } from "@/libs/seo";
 

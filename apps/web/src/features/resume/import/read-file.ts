@@ -1,11 +1,11 @@
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import { t } from "@lingui/core/macro";
-import { parseJSONResume } from "@reactive-resume/import/json-resume";
-import { parseReactiveResumeJSON } from "@reactive-resume/import/reactive-resume-json";
-import { parseReactiveResumeV4JSON } from "@reactive-resume/import/reactive-resume-v4-json";
-import { convertLegacyStylesheet, needsLegacyStyleConversion } from "@reactive-resume/pdf/semantic-legacy";
-import { forEachDatedEntry, hasUnreadableDateText } from "@reactive-resume/schema/resume/dates";
-import { stripHtml } from "@reactive-resume/utils/string";
+import { parseJSONResume } from "@zhiye/import/json-resume";
+import { parseReactiveResumeJSON } from "@zhiye/import/reactive-resume-json";
+import { parseReactiveResumeV4JSON } from "@zhiye/import/reactive-resume-v4-json";
+import { convertLegacyStylesheet, needsLegacyStyleConversion } from "@zhiye/pdf/semantic-legacy";
+import { forEachDatedEntry, hasUnreadableDateText } from "@zhiye/schema/resume/dates";
+import { stripHtml } from "@zhiye/utils/string";
 import { ImportError } from "./error";
 import { client } from "@/libs/orpc/client";
 
@@ -151,7 +151,7 @@ export async function readResumeFile(
 	}
 
 	if (kind === "linkedin") {
-		const { parseLinkedInExport } = await import("@reactive-resume/import/linkedin");
+		const { parseLinkedInExport } = await import("@zhiye/import/linkedin");
 		const bytes = new Uint8Array(await file.arrayBuffer());
 		options.onRead?.(t`export opened`);
 		return parseLinkedInExport(bytes);
@@ -219,7 +219,7 @@ export async function readImportSource(
 			return await readPdfSource(file);
 		}
 		if (kind === "docx") {
-			const { extractDocxText } = await import("@reactive-resume/import/docx-text");
+			const { extractDocxText } = await import("@zhiye/import/docx-text");
 			return {
 				lines: extractDocxText(new Uint8Array(await file.arrayBuffer())).split("\n"),
 				links: [],

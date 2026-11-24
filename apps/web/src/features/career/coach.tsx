@@ -1,6 +1,6 @@
 import type { MessageContext } from "@/features/assistant/chat";
 import type { RouterOutput } from "@/libs/orpc/client";
-import type { IconName } from "@reactive-resume/ui/components/icon";
+import type { IconName } from "@zhiye/ui/components/icon";
 import type { UIMessage } from "ai";
 import { plural, t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
@@ -9,26 +9,26 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { coachStarters, type CoachStarter } from "@reactive-resume/schema/career-starters";
+import { coachStarters, type CoachStarter } from "@zhiye/schema/career-starters";
 import {
 	ContextMenu,
 	ContextMenuContent,
 	ContextMenuItem,
 	ContextMenuTrigger,
-} from "@reactive-resume/ui/components/context-menu";
+} from "@zhiye/ui/components/context-menu";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { IconButton } from "@reactive-resume/ui/components/icon-button";
-import { Sheet, SheetContent, SheetTitle } from "@reactive-resume/ui/components/sheet";
-import { Spinner } from "@reactive-resume/ui/components/spinner";
-import { useBreakpoint } from "@reactive-resume/ui/hooks/use-breakpoint";
-import { buildConversationTitle } from "@reactive-resume/utils/string";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/dropdown-menu";
+import { Icon } from "@zhiye/ui/components/icon";
+import { IconButton } from "@zhiye/ui/components/icon-button";
+import { Sheet, SheetContent, SheetTitle } from "@zhiye/ui/components/sheet";
+import { Spinner } from "@zhiye/ui/components/spinner";
+import { useBreakpoint } from "@zhiye/ui/hooks/use-breakpoint";
+import { buildConversationTitle } from "@zhiye/utils/string";
+import { cn } from "@zhiye/utils/style";
 import { CareerCrumb } from "./career-crumb";
 import {
 	CoachThread,

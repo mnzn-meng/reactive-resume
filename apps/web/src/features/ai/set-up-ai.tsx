@@ -1,6 +1,6 @@
 import type { ProviderFields } from "@/features/settings/ai/provider-fields";
 import type { RouterOutput } from "@/libs/orpc/client";
-import type { AIProvider } from "@reactive-resume/ai/types";
+import type { AIProvider } from "@zhiye/ai/types";
 import type { ReactNode } from "react";
 import { i18n } from "@lingui/core";
 import { t } from "@lingui/core/macro";
@@ -8,9 +8,9 @@ import { Trans } from "@lingui/react/macro";
 import { useQueryClient } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { useId, useRef, useState } from "react";
-import { getAIProviderSetupProblem } from "@reactive-resume/ai/defaults";
-import { Badge } from "@reactive-resume/ui/components/badge";
-import { Button } from "@reactive-resume/ui/components/button";
+import { getAIProviderSetupProblem } from "@zhiye/ai/defaults";
+import { Badge } from "@zhiye/ui/components/badge";
+import { Button } from "@zhiye/ui/components/button";
 import {
 	Dialog,
 	DialogContent,
@@ -18,9 +18,9 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Label } from "@reactive-resume/ui/components/label";
+} from "@zhiye/ui/components/dialog";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Label } from "@zhiye/ui/components/label";
 import { SetUpAiLine } from "@/components/calm/set-up-ai-line";
 import { Combobox } from "@/components/ui/combobox";
 import { keyEnding, providerDefaults, providerLabel, providerOptions } from "@/features/settings/ai/catalog";

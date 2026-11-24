@@ -3,8 +3,8 @@ import { i18n } from "@lingui/core";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { cn } from "@reactive-resume/utils/style";
+import { Icon } from "@zhiye/ui/components/icon";
+import { cn } from "@zhiye/utils/style";
 
 /** A UI label: section kickers, scene numbers, small caps metadata. */
 export const labelClass = "font-martian font-medium text-[13px] leading-[1.4]";

@@ -1,11 +1,11 @@
-import type { AIProvider } from "@reactive-resume/ai/types";
-import type { DbOrTx } from "@reactive-resume/db/client";
-import type { AiAction, AiUsageSummary } from "@reactive-resume/schema/ai-usage";
+import type { AIProvider } from "@zhiye/ai/types";
+import type { DbOrTx } from "@zhiye/db/client";
+import type { AiAction, AiUsageSummary } from "@zhiye/schema/ai-usage";
 import { ORPCError } from "@orpc/client";
 import { and, count, eq, gte, inArray, lt, sql } from "drizzle-orm";
-import { db } from "@reactive-resume/db/client";
-import { aiRequest, user } from "@reactive-resume/db/schema";
-import { generateId } from "@reactive-resume/utils/string";
+import { db } from "@zhiye/db/client";
+import { aiRequest, user } from "@zhiye/db/schema";
+import { generateId } from "@zhiye/utils/string";
 import { assertProviderAvailable } from "../ai-providers/identity";
 import { lockUser } from "../documents/ownership";
 import { aiTransport } from "./url-policy";

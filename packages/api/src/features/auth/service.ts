@@ -1,12 +1,12 @@
-import type { AuthProvider } from "@reactive-resume/auth/types";
+import type { AuthProvider } from "@zhiye/auth/types";
 import { ORPCError } from "@orpc/client";
 import { symmetricDecrypt } from "better-auth/crypto";
 import { and, eq } from "drizzle-orm";
-import { auth, isCustomOAuthProviderEnabled } from "@reactive-resume/auth/config";
-import { db } from "@reactive-resume/db/client";
-import * as schema from "@reactive-resume/db/schema";
-import { env } from "@reactive-resume/env/server";
-import { isLocale } from "@reactive-resume/utils/locale";
+import { auth, isCustomOAuthProviderEnabled } from "@zhiye/auth/config";
+import { db } from "@zhiye/db/client";
+import * as schema from "@zhiye/db/schema";
+import { env } from "@zhiye/env/server";
+import { isLocale } from "@zhiye/utils/locale";
 import { applicationProfileService } from "../application-profile/service";
 import { applicationLaneService } from "../applications/lanes";
 import { careerService } from "../career/service";

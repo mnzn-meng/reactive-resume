@@ -1,7 +1,7 @@
-import type { CustomSection, ResumeData } from "@reactive-resume/schema/resume/data";
+import type { CustomSection, ResumeData } from "@zhiye/schema/resume/data";
 import z from "zod";
-import { resumeDataSchema } from "@reactive-resume/schema/resume/data";
-import { generateId } from "@reactive-resume/utils/string";
+import { resumeDataSchema } from "@zhiye/schema/resume/data";
+import { generateId } from "@zhiye/utils/string";
 import { toHtml } from "./html";
 
 /** A bounded, unsaved PDF reading; shared by the server and native review boundary. */

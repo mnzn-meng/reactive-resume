@@ -1,8 +1,8 @@
 import type * as React from "react";
 import { Command as CommandPrimitive } from "cmdk";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { menuShortcutClassName } from "@reactive-resume/ui/components/menu-styles";
-import { cn } from "@reactive-resume/utils/style";
+import { Icon } from "@zhiye/ui/components/icon";
+import { menuShortcutClassName } from "@zhiye/ui/components/menu-styles";
+import { cn } from "@zhiye/utils/style";
 
 function Command({ className, ...props }: React.ComponentProps<typeof CommandPrimitive>) {
 	return (

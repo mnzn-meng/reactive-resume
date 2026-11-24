@@ -1,7 +1,7 @@
 import type { OutlineRow, WriteSection } from "./model";
 import type { DndLabel } from "@/libs/dnd";
 import type { DragEndEvent } from "@dnd-kit/core";
-import type { CustomSectionType, SectionType } from "@reactive-resume/schema/resume/data";
+import type { CustomSectionType, SectionType } from "@zhiye/schema/resume/data";
 import type { ComponentProps, KeyboardEvent, ReactNode } from "react";
 import { closestCenter, DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import {
@@ -15,11 +15,11 @@ import { i18n } from "@lingui/core";
 import { ph, plural, t } from "@lingui/core/macro";
 import { Plural, Trans } from "@lingui/react/macro";
 import { Fragment, useMemo } from "react";
-import { templateLayouts } from "@reactive-resume/schema/templates";
-import { Badge } from "@reactive-resume/ui/components/badge";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { IconButton } from "@reactive-resume/ui/components/icon-button";
-import { cn } from "@reactive-resume/utils/style";
+import { templateLayouts } from "@zhiye/schema/templates";
+import { Badge } from "@zhiye/ui/components/badge";
+import { Icon } from "@zhiye/ui/components/icon";
+import { IconButton } from "@zhiye/ui/components/icon-button";
+import { cn } from "@zhiye/utils/style";
 import { pendingProposals } from "../proposals/proposals";
 import { useEditorStore } from "../store";
 import {

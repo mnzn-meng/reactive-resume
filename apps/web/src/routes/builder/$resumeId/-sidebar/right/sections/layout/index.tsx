@@ -1,7 +1,7 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
-import { templateLayouts } from "@reactive-resume/schema/templates";
-import { Icon } from "@reactive-resume/ui/components/icon";
+import { templateLayouts } from "@zhiye/schema/templates";
+import { Icon } from "@zhiye/ui/components/icon";
 import { SectionBase } from "../../shared/section-base";
 import { LayoutPages } from "./pages";
 import { List, ListRow } from "@/components/calm/list-row";

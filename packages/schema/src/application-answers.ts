@@ -1,5 +1,5 @@
 import z from "zod";
-import { fnv1a } from "@reactive-resume/utils/string";
+import { fnv1a } from "@zhiye/utils/string";
 import { aiOperationIdsSchema } from "./ai-usage";
 
 export const answerScopeSchema = z.enum(["reusable", "employer", "application"]);

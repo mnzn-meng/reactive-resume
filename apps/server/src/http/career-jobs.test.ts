@@ -7,9 +7,9 @@ const mocks = vi.hoisted(() => ({
 		CRON_SECRET: "synthetic-career-runner-secret-32-characters" as string | undefined,
 	},
 }));
-vi.mock("@reactive-resume/env/server", () => ({ env: mocks.env }));
-vi.mock("@reactive-resume/api/features/career/jobs", () => ({ runCareerJobs: mocks.run }));
-vi.mock("@reactive-resume/api/features/storage/cleanup", () => ({
+vi.mock("@zhiye/env/server", () => ({ env: mocks.env }));
+vi.mock("@zhiye/api/features/career/jobs", () => ({ runCareerJobs: mocks.run }));
+vi.mock("@zhiye/api/features/storage/cleanup", () => ({
 	runStorageCleanup: mocks.cleanup,
 	reportStorageCleanupSummary: vi.fn(),
 }));

@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { toast } from "@reactive-resume/ui/components/toast";
+import { toast } from "@zhiye/ui/components/toast";
 import { useCurrentResume, usePatchResume } from "./draft";
 import { setResumeLocked } from "./lock";
 import { getResumeErrorMessage } from "@/libs/error-message";

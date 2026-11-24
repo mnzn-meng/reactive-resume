@@ -1,9 +1,9 @@
-import type { ExtractedDocument } from "@reactive-resume/resume/ats-pdf";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import { columnSegments } from "@reactive-resume/resume/ats-pdf";
-import { parseResumeData } from "@reactive-resume/schema/resume/data";
-import { readLegacyDates } from "@reactive-resume/schema/resume/dates";
-import { escapeHtml, generateId } from "@reactive-resume/utils/string";
+import type { ExtractedDocument } from "@zhiye/resume/ats-pdf";
+import type { ResumeData } from "@zhiye/schema/resume/data";
+import { columnSegments } from "@zhiye/resume/ats-pdf";
+import { parseResumeData } from "@zhiye/schema/resume/data";
+import { readLegacyDates } from "@zhiye/schema/resume/dates";
+import { escapeHtml, generateId } from "@zhiye/utils/string";
 import { BULLET_PATTERN, toHtmlBlocks } from "./html";
 import { allowsPdfGeometry, GeometryIndex, GeometryLimit } from "./pdf-geometry";
 import {

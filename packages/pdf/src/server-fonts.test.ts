@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { afterEach, expect, it, vi } from "vite-plus/test";
 import { act } from "react";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 import { createResumePdfFile } from "./server";
 
 // Stub only the PDF engine; exercise the real server entry, renderer and font fetch path.

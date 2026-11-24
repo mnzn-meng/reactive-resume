@@ -1,5 +1,5 @@
-import type { Proposal } from "@reactive-resume/resume/proposals";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { Proposal } from "@zhiye/resume/proposals";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import { describe, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { produce } from "immer";
@@ -10,11 +10,11 @@ import {
 	readTarget,
 	replaceBlockText,
 	resumeStructureSnapshot,
-} from "@reactive-resume/resume/proposals";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+} from "@zhiye/resume/proposals";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 const mocks = vi.hoisted(() => ({ store: vi.fn(), toast: vi.fn() }));
 vi.mock("@/features/resume/builder/draft", () => ({ useResumeStore: { getState: mocks.store } }));
-vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: mocks.toast } }));
+vi.mock("@zhiye/ui/components/toast", () => ({ toast: { add: mocks.toast } }));
 
 import { acceptResumeProposals, markProposals } from "./proposals";
 

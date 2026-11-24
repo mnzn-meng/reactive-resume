@@ -1,9 +1,9 @@
 import { t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { getLanguageName } from "@reactive-resume/utils/locale";
-import { cn } from "@reactive-resume/utils/style";
+import { Icon } from "@zhiye/ui/components/icon";
+import { getLanguageName } from "@zhiye/utils/locale";
+import { cn } from "@zhiye/utils/style";
 import { CtaLink, SignInLink, labelClass } from "./ui";
 import { LocaleCombobox } from "@/features/locale/combobox";
 

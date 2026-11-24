@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { basename, normalize } from "node:path";
-import { getStorageService, inferContentType, isPublicUploadOwner } from "@reactive-resume/api/features/storage";
-import { matchesIfNoneMatch } from "@reactive-resume/utils/http";
+import { getStorageService, inferContentType, isPublicUploadOwner } from "@zhiye/api/features/storage";
+import { matchesIfNoneMatch } from "@zhiye/utils/http";
 
 // Uploads share the app origin and S3/Blob hand back the client-declared type, so only raster
 // images render inline. Anything else (HTML, SVG, PDF, unknown) downloads, whatever was stored.
@@ -22,7 +22,7 @@ export async function handleUpload(request: Request) {
 	const publicPicturePath = filePath.startsWith("pictures/") && INLINE_CONTENT_TYPES.has(inferContentType(filename));
 	let privateAccess = false;
 	if (!publicPicturePath) {
-		const { resolveUserFromRequestHeaders } = await import("@reactive-resume/api/context");
+		const { resolveUserFromRequestHeaders } = await import("@zhiye/api/context");
 		const viewer = await resolveUserFromRequestHeaders(request.headers).catch(() => null);
 		privateAccess = viewer?.id === userId;
 		if (!privateAccess) return new Response("Not Found", { status: 404, headers: { "Cache-Control": "no-store" } });
@@ -37,7 +37,7 @@ export async function handleUpload(request: Request) {
 	const contentType = storedFile.contentType ?? inferContentType(filename);
 	const isPublicPicture = publicPicturePath && INLINE_CONTENT_TYPES.has(contentType);
 	if (!isPublicPicture && !privateAccess) {
-		const { resolveUserFromRequestHeaders } = await import("@reactive-resume/api/context");
+		const { resolveUserFromRequestHeaders } = await import("@zhiye/api/context");
 		const viewer = await resolveUserFromRequestHeaders(request.headers).catch(() => null);
 		if (viewer?.id !== userId)
 			return new Response("Not Found", { status: 404, headers: { "Cache-Control": "no-store" } });

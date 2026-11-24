@@ -1,13 +1,13 @@
 import type { ImportKind } from "@/features/resume/import/read-file";
-import type { ImportReview } from "@reactive-resume/import/review";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import type { Locale } from "@reactive-resume/utils/locale";
+import type { ImportReview } from "@zhiye/import/review";
+import type { ResumeData } from "@zhiye/schema/resume/data";
+import type { Locale } from "@zhiye/utils/locale";
 import { plural, t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
-import { reviewImport, withLeftoverSection, withLinkTargets } from "@reactive-resume/import/review";
-import { localeSchema } from "@reactive-resume/utils/locale";
+import { reviewImport, withLeftoverSection, withLinkTargets } from "@zhiye/import/review";
+import { localeSchema } from "@zhiye/utils/locale";
 import { useNewDocumentsStore } from "../new-documents";
 import {
 	detectImportKind,

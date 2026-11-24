@@ -4,12 +4,12 @@ import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useId, useState } from "react";
-import { followUpInstant, isDateOnlyFollowUp } from "@reactive-resume/schema/applications/follow-up";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@reactive-resume/ui/components/accordion";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Input } from "@reactive-resume/ui/components/input";
-import { Label } from "@reactive-resume/ui/components/label";
+import { followUpInstant, isDateOnlyFollowUp } from "@zhiye/schema/applications/follow-up";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@zhiye/ui/components/accordion";
+import { Button } from "@zhiye/ui/components/button";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Input } from "@zhiye/ui/components/input";
+import { Label } from "@zhiye/ui/components/label";
 import {
 	Sheet,
 	SheetContent,
@@ -17,10 +17,10 @@ import {
 	SheetFooter,
 	SheetHeader,
 	SheetTitle,
-} from "@reactive-resume/ui/components/sheet";
-import { Textarea } from "@reactive-resume/ui/components/textarea";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { fromZonedDateTime } from "@reactive-resume/utils/timezone";
+} from "@zhiye/ui/components/sheet";
+import { Textarea } from "@zhiye/ui/components/textarea";
+import { toast } from "@zhiye/ui/components/toast";
+import { fromZonedDateTime } from "@zhiye/utils/timezone";
 import { dayKey } from "../interviews";
 import { getCategoryLane, getDisplayLane, getLaneLabel, laneMoveInput } from "../lanes";
 import { applicationsListQueryKey } from "../queries";

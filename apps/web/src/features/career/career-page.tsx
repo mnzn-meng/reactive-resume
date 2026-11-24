@@ -1,5 +1,5 @@
 import type { SavedData, SavedItem } from "./hooks";
-import type { CoachStarter } from "@reactive-resume/schema/career-starters";
+import type { CoachStarter } from "@zhiye/schema/career-starters";
 import type { ReactElement } from "react";
 import { i18n } from "@lingui/core";
 import { plural, t } from "@lingui/core/macro";
@@ -7,11 +7,11 @@ import { Trans } from "@lingui/react/macro";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
-import { coachStarters } from "@reactive-resume/schema/career-starters";
-import { Button } from "@reactive-resume/ui/components/button";
-import { EmptyState } from "@reactive-resume/ui/components/empty-state";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { formatList } from "@reactive-resume/utils/locale";
+import { coachStarters } from "@zhiye/schema/career-starters";
+import { Button } from "@zhiye/ui/components/button";
+import { EmptyState } from "@zhiye/ui/components/empty-state";
+import { Icon } from "@zhiye/ui/components/icon";
+import { formatList } from "@zhiye/utils/locale";
 import {
 	Composer,
 	connectionName,

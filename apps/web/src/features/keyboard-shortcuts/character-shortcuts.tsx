@@ -1,5 +1,5 @@
 import { useLingui } from "@lingui/react/macro";
-import { SwitchRow } from "@reactive-resume/ui/components/switch";
+import { SwitchRow } from "@zhiye/ui/components/switch";
 import { useShortcutSettings } from "./settings";
 
 export function CharacterShortcutSetting() {

@@ -1,9 +1,9 @@
 import { ORPCError } from "@orpc/client";
 import { AISDKError } from "ai";
 import { flattenError, ZodError, z } from "zod";
-import { aiModelForTask } from "@reactive-resume/ai/task-models";
-import { aiOperationIdsSchema, aiWeeklyUsageSchema, aiUsageSummarySchema } from "@reactive-resume/schema/ai-usage";
-import { resumeDataSchema } from "@reactive-resume/schema/resume/data";
+import { aiModelForTask } from "@zhiye/ai/task-models";
+import { aiOperationIdsSchema, aiWeeklyUsageSchema, aiUsageSummarySchema } from "@zhiye/schema/ai-usage";
+import { resumeDataSchema } from "@zhiye/schema/resume/data";
 import { protectedProcedure } from "../../context";
 import { aiRequestRateLimit } from "../../middleware/rate-limit";
 import { aiProvidersService } from "../ai-providers/service";

@@ -1,12 +1,12 @@
 import type { Application } from "../../types";
-import type { InterviewTimelineEntry } from "@reactive-resume/schema/applications/data";
+import type { InterviewTimelineEntry } from "@zhiye/schema/applications/data";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { useMutation } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { useId, useState } from "react";
-import { followUpInstant, isDateOnlyFollowUp } from "@reactive-resume/schema/applications/follow-up";
-import { Button, buttonVariants } from "@reactive-resume/ui/components/button";
+import { followUpInstant, isDateOnlyFollowUp } from "@zhiye/schema/applications/follow-up";
+import { Button, buttonVariants } from "@zhiye/ui/components/button";
 import {
 	Dialog,
 	DialogContent,
@@ -14,20 +14,20 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
+} from "@zhiye/ui/components/dialog";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Input } from "@reactive-resume/ui/components/input";
-import { Label } from "@reactive-resume/ui/components/label";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { downloadWithAnchor } from "@reactive-resume/utils/file";
-import { cn } from "@reactive-resume/utils/style";
-import { fromZonedDateTime } from "@reactive-resume/utils/timezone";
+} from "@zhiye/ui/components/dropdown-menu";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Input } from "@zhiye/ui/components/input";
+import { Label } from "@zhiye/ui/components/label";
+import { toast } from "@zhiye/ui/components/toast";
+import { downloadWithAnchor } from "@zhiye/utils/file";
+import { cn } from "@zhiye/utils/style";
+import { fromZonedDateTime } from "@zhiye/utils/timezone";
 import { buildIcs } from "../../ics";
 import { dayKey } from "../../interviews";
 import { describeNextStep, getNextStep } from "../../next-step";

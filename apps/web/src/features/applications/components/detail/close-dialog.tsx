@@ -1,9 +1,9 @@
 import type { ApplicationLane } from "../../lanes";
-import type { ApplicationClosedReason, ApplicationStatus } from "@reactive-resume/schema/applications/data";
+import type { ApplicationClosedReason, ApplicationStatus } from "@zhiye/schema/applications/data";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { useId, useState } from "react";
-import { Button } from "@reactive-resume/ui/components/button";
+import { Button } from "@zhiye/ui/components/button";
 import {
 	Dialog,
 	DialogContent,
@@ -11,10 +11,10 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
-import { Label } from "@reactive-resume/ui/components/label";
-import { NativeSelect } from "@reactive-resume/ui/components/native-select";
-import { RadioGroup, RadioGroupItem } from "@reactive-resume/ui/components/radio-group";
+} from "@zhiye/ui/components/dialog";
+import { Label } from "@zhiye/ui/components/label";
+import { NativeSelect } from "@zhiye/ui/components/native-select";
+import { RadioGroup, RadioGroupItem } from "@zhiye/ui/components/radio-group";
 import { getLaneLabel } from "../../lanes";
 import { CLOSED_REASONS, getClosedReasonLabel } from "../../stages";
 

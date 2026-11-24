@@ -1,7 +1,7 @@
 import type { EditorMode } from "@/features/resume/editor/store";
 import { useLingui } from "@lingui/react/macro";
 import { useHotkey } from "@tanstack/react-hotkeys";
-import { toast } from "@reactive-resume/ui/components/toast";
+import { toast } from "@zhiye/ui/components/toast";
 import { useAssistantShortcutEnabled } from "@/features/assistant/shortcut";
 import { DOCUMENT_GROUP } from "@/features/keyboard-shortcuts/groups";
 import { useShortcutSettings } from "@/features/keyboard-shortcuts/settings";

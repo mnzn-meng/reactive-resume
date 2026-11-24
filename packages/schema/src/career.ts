@@ -1,6 +1,6 @@
 import z from "zod";
-import { searchRegionsSchema } from "@reactive-resume/utils/region";
-import { timezoneSchema } from "@reactive-resume/utils/timezone";
+import { searchRegionsSchema } from "@zhiye/utils/region";
+import { timezoneSchema } from "@zhiye/utils/timezone";
 import { aiOperationIdsSchema } from "./ai-usage";
 import { applicationClosedReasonSchema, applicationStatusSchema } from "./applications/data";
 

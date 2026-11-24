@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { afterEach, expect, it, vi } from "vite-plus/test";
 import { act } from "react";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 import { createResumePdfFile } from "../server";
 
 afterEach(() => {

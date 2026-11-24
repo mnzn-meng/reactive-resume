@@ -1,6 +1,6 @@
 import type { DocumentsSearch } from "@/features/documents/documents-page";
 import z from "zod";
-import { templateSchema } from "@reactive-resume/schema/templates";
+import { templateSchema } from "@zhiye/schema/templates";
 
 export const documentsSearchDefaults = {
 	q: "",

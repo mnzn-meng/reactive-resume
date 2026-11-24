@@ -1,7 +1,7 @@
 import { i18n } from "@lingui/core";
 import { t } from "@lingui/core/macro";
 import { useLayoutEffect, useRef, useState } from "react";
-import { cn } from "@reactive-resume/utils/style";
+import { cn } from "@zhiye/utils/style";
 
 type TagChipsProps = {
 	tags: readonly string[];

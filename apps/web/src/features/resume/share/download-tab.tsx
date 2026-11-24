@@ -1,16 +1,16 @@
 import type { ExportFormat } from "@/features/resume/export/use-resume-export";
-import type { IconName } from "@reactive-resume/ui/components/icon";
+import type { IconName } from "@zhiye/ui/components/icon";
 import type { ReactNode } from "react";
 import { Radio } from "@base-ui/react/radio";
 import { RadioGroup } from "@base-ui/react/radio-group";
 import { t } from "@lingui/core/macro";
 import { Plural, Trans } from "@lingui/react/macro";
 import { useId, useState } from "react";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Spinner } from "@reactive-resume/ui/components/spinner";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { downloadWithAnchor } from "@reactive-resume/utils/file";
+import { Button } from "@zhiye/ui/components/button";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Spinner } from "@zhiye/ui/components/spinner";
+import { toast } from "@zhiye/ui/components/toast";
+import { downloadWithAnchor } from "@zhiye/utils/file";
 import { useCurrentResume } from "@/features/resume/builder/draft";
 import { useOpenIssueCount } from "@/features/resume/editor/check/use-check";
 import {

@@ -1,9 +1,9 @@
-import type { Proposal } from "@reactive-resume/resume/proposals";
 import type { QueryClient } from "@tanstack/react-query";
+import type { Proposal } from "@zhiye/resume/proposals";
 import { t } from "@lingui/core/macro";
 import { ORPCError } from "@orpc/client";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { pendingRequestId, settleRequestId } from "@reactive-resume/utils/string";
+import { toast } from "@zhiye/ui/components/toast";
+import { pendingRequestId, settleRequestId } from "@zhiye/utils/string";
 import { applicationsListQueryKey } from "@/features/applications/queries";
 import { useNewDocumentsStore } from "@/features/documents/new-documents";
 import { savePendingChanges, useResumeStore } from "@/features/resume/builder/draft";

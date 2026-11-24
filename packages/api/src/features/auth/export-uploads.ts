@@ -1,6 +1,6 @@
-import type { AccountExportUploads } from "@reactive-resume/utils/account-zip";
-import { env } from "@reactive-resume/env/server";
-import { accountBackupLimits, isAccountUploadKey } from "@reactive-resume/utils/account-zip";
+import type { AccountExportUploads } from "@zhiye/utils/account-zip";
+import { env } from "@zhiye/env/server";
+import { accountBackupLimits, isAccountUploadKey } from "@zhiye/utils/account-zip";
 import { StorageReadLimitError } from "../storage/read";
 import { getStorageService } from "../storage/service";
 

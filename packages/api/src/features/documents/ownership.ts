@@ -1,8 +1,8 @@
-import type { DbOrTx } from "@reactive-resume/db/client";
+import type { DbOrTx } from "@zhiye/db/client";
 import { createHash } from "node:crypto";
 import { ORPCError } from "@orpc/client";
 import { and, eq, isNull, sql } from "drizzle-orm";
-import * as schema from "@reactive-resume/db/schema";
+import * as schema from "@zhiye/db/schema";
 
 /**
  * Locks the user's row so one user's writers run one at a time (owner first, before document or application writes)

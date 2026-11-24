@@ -1,7 +1,7 @@
 import type { ApplicationLane } from "../lanes";
 import type { OfferHint } from "../next-step";
 import type { ApplicationSummary } from "../types";
-import type { ApplicationStatus } from "@reactive-resume/schema/applications/data";
+import type { ApplicationStatus } from "@zhiye/schema/applications/data";
 import type { ReactNode } from "react";
 import { i18n } from "@lingui/core";
 import { plural, t } from "@lingui/core/macro";
@@ -11,22 +11,22 @@ import { HotkeysProvider, useHotkeys } from "@tanstack/react-hotkeys";
 import { useMutation } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { memo, useId, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { Badge } from "@reactive-resume/ui/components/badge";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Checkbox } from "@reactive-resume/ui/components/checkbox";
+import { Badge } from "@zhiye/ui/components/badge";
+import { Button } from "@zhiye/ui/components/button";
+import { Checkbox } from "@zhiye/ui/components/checkbox";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Input } from "@reactive-resume/ui/components/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@reactive-resume/ui/components/popover";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { useBreakpoint } from "@reactive-resume/ui/hooks/use-breakpoint";
-import { getInitials } from "@reactive-resume/utils/string";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/dropdown-menu";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Input } from "@zhiye/ui/components/input";
+import { Popover, PopoverContent, PopoverTrigger } from "@zhiye/ui/components/popover";
+import { toast } from "@zhiye/ui/components/toast";
+import { useBreakpoint } from "@zhiye/ui/hooks/use-breakpoint";
+import { getInitials } from "@zhiye/utils/string";
+import { cn } from "@zhiye/utils/style";
 import { dayKey } from "../interviews";
 import { getCategoryLane, getDisplayLane, getLaneLabel, getStageDisplay, laneDotColor } from "../lanes";
 import {

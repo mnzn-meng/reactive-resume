@@ -1,10 +1,10 @@
 import type { CSSProperties } from "react";
 import { t } from "@lingui/core/macro";
 import { useState } from "react";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { SegmentedControl, SegmentedControlItem } from "@reactive-resume/ui/components/segmented-control";
-import { SwitchRow } from "@reactive-resume/ui/components/switch";
-import { cn } from "@reactive-resume/utils/style";
+import { Icon } from "@zhiye/ui/components/icon";
+import { SegmentedControl, SegmentedControlItem } from "@zhiye/ui/components/segmented-control";
+import { SwitchRow } from "@zhiye/ui/components/switch";
+import { cn } from "@zhiye/utils/style";
 import { SCENE } from "./scroll";
 import { Doodle, labelClass } from "./ui";
 

@@ -1,9 +1,9 @@
 import type { EditorSelection } from "./store";
-import type { PageMap, PageMapNode } from "@reactive-resume/pdf/page-map";
-import type { SectionType } from "@reactive-resume/schema/resume/data";
+import type { PageMap, PageMapNode } from "@zhiye/pdf/page-map";
+import type { SectionType } from "@zhiye/schema/resume/data";
 import type { MouseEvent } from "react";
 import { Trans } from "@lingui/react/macro";
-import { cn } from "@reactive-resume/utils/style";
+import { cn } from "@zhiye/utils/style";
 import { isSameSelection, useEditorStore } from "./store";
 import { useEditorMode } from "./use-editor-mode";
 import { describeEntry, findEntry, getSectionObject, resolveSection } from "./write/model";

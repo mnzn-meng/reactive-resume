@@ -1,8 +1,8 @@
 import { createSelectSchema } from "drizzle-zod";
 import z from "zod";
-import * as tables from "@reactive-resume/db/schema";
-import { aiOperationIdsSchema, aiUsageSummarySchema } from "@reactive-resume/schema/ai-usage";
-import { answerEvidenceSchema, answerScopeSchema } from "@reactive-resume/schema/application-answers";
+import * as tables from "@zhiye/db/schema";
+import { aiOperationIdsSchema, aiUsageSummarySchema } from "@zhiye/schema/ai-usage";
+import { answerEvidenceSchema, answerScopeSchema } from "@zhiye/schema/application-answers";
 import {
 	careerNoticeSchema,
 	careerFactRevisionSchema,
@@ -10,7 +10,7 @@ import {
 	careerStoryInputSchema,
 	discoverySourceSchema,
 	savedItemDataSchema,
-} from "@reactive-resume/schema/career";
+} from "@zhiye/schema/career";
 
 export const careerFactSchema = createSelectSchema(tables.careerFact, {
 	source: careerSourceSchema,

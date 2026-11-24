@@ -5,13 +5,13 @@ import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vite-
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import * as tables from "@reactive-resume/db/schema";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import * as tables from "@zhiye/db/schema";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 import { truncateCascade } from "../../test-database";
 
 const fixture = vi.hoisted(() => ({ db: undefined as ReturnType<typeof drizzle> | undefined }));
 
-vi.mock("@reactive-resume/db/client", () => ({
+vi.mock("@zhiye/db/client", () => ({
 	get db() {
 		return fixture.db;
 	},

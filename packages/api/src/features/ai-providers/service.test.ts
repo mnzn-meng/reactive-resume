@@ -50,8 +50,8 @@ const { dbMock, queryMock, queryState } = vi.hoisted(() => {
 	};
 });
 
-vi.mock("@reactive-resume/db/client", () => ({ db: dbMock }));
-vi.mock("@reactive-resume/db/schema", () => ({
+vi.mock("@zhiye/db/client", () => ({ db: dbMock }));
+vi.mock("@zhiye/db/schema", () => ({
 	user: { id: "user.id" },
 	careerSchedule: { id: "schedule.id", userId: "schedule.user_id", aiProviderId: "schedule.ai_provider_id" },
 	careerJob: { userId: "job.user_id", scheduleId: "job.schedule_id", status: "job.status" },
@@ -88,7 +88,7 @@ vi.mock("drizzle-orm", () => ({
 	ne: (left: unknown, right: unknown) => ({ type: "ne", left, right }),
 	sql: (strings: TemplateStringsArray, ...values: unknown[]) => ({ type: "sql", strings: [...strings], values }),
 }));
-vi.mock("@reactive-resume/env/server", () => ({ env: { AUTH_SECRET: "synthetic-test-auth-secret" } }));
+vi.mock("@zhiye/env/server", () => ({ env: { AUTH_SECRET: "synthetic-test-auth-secret" } }));
 vi.mock("../ai/credentials", () => ({
 	assertCredentialEncryptionConfigured: vi.fn(),
 	decryptCredential: vi.fn(() => "decrypted-key"),

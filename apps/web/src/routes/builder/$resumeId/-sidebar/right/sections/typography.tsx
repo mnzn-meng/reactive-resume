@@ -1,6 +1,6 @@
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
-import { getFont, sortFontWeights } from "@reactive-resume/fonts";
+import { getFont, sortFontWeights } from "@zhiye/fonts";
 import { Chip } from "@/components/calm/filter-bar";
 import { List } from "@/components/calm/list-row";
 import { FontFamilyCombobox } from "@/components/typography/combobox";

@@ -1,5 +1,5 @@
-import type { ProposeEditsOutput } from "@reactive-resume/ai/tools/agent-tool-contracts";
-import type { Proposal } from "@reactive-resume/resume/proposals";
+import type { ProposeEditsOutput } from "@zhiye/ai/tools/agent-tool-contracts";
+import type { Proposal } from "@zhiye/resume/proposals";
 import type { UIMessage } from "ai";
 import type { QueryConfig } from "pg";
 import { randomUUID } from "node:crypto";
@@ -8,16 +8,16 @@ import { readdir, readFile } from "node:fs/promises";
 import { afterAll, beforeAll, describe, expect, it, vi } from "vite-plus/test";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import * as tables from "@reactive-resume/db/schema";
-import { createEntry } from "@reactive-resume/resume/entries";
+import * as tables from "@zhiye/db/schema";
+import { createEntry } from "@zhiye/resume/entries";
 import {
 	appliedApplications,
 	applyProposal,
 	applyProposals,
 	applyResumeProposals,
 	getProposalState,
-} from "@reactive-resume/resume/proposals";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+} from "@zhiye/resume/proposals";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 
 // Real PostgreSQL and the real agent loop; only the model is scripted, and it records what it was sent.
 const fixture = vi.hoisted(() => {
@@ -29,7 +29,7 @@ const fixture = vi.hoisted(() => {
 		prompts: [] as string[],
 	};
 });
-vi.mock("@reactive-resume/db/client", () => ({
+vi.mock("@zhiye/db/client", () => ({
 	get db() {
 		return fixture.db;
 	},

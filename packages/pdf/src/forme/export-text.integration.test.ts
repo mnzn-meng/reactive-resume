@@ -1,9 +1,9 @@
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import { execFileSync } from "node:child_process";
 import { expect, it } from "vite-plus/test";
 import * as forme from "@formepdf/core";
 import { act, createElement } from "react";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 import { createResumePdfFile } from "../server";
 import { Document, Page, Text } from "./primitives";
 import { lostCharacters, renderResume, renderResumeElement } from "./render";

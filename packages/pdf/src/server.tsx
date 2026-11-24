@@ -1,10 +1,10 @@
 import type { FormeEngine } from "./forme/render";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import type { Template } from "@reactive-resume/schema/templates";
+import type { ResumeData } from "@zhiye/schema/resume/data";
+import type { Template } from "@zhiye/schema/templates";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import * as forme from "@formepdf/core";
-import { parseResumeData } from "@reactive-resume/schema/resume/data";
+import { parseResumeData } from "@zhiye/schema/resume/data";
 import { createFontPreparer, createFontSubsetter } from "./forme/font-subset";
 import { loadFonts } from "./forme/fonts";
 import { loadImages } from "./forme/images";

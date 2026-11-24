@@ -1,8 +1,8 @@
 import { expect, it } from "vite-plus/test";
-import { createEntry } from "@reactive-resume/resume/entries";
-import { applyResumeProposals } from "@reactive-resume/resume/proposals";
-import { skillItemSchema, experienceItemSchema, projectItemSchema } from "@reactive-resume/schema/resume/data";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { createEntry } from "@zhiye/resume/entries";
+import { applyResumeProposals } from "@zhiye/resume/proposals";
+import { skillItemSchema, experienceItemSchema, projectItemSchema } from "@zhiye/schema/resume/data";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 import { proposeTranslation, translationFields, translationView } from "./translation";
 
 function fixture() {

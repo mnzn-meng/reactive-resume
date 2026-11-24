@@ -1,5 +1,5 @@
-import type { FormFillPlan } from "@reactive-resume/utils/form-fill";
-import { FORM_FILL_SCRIPT } from "@reactive-resume/utils/form-fill";
+import type { FormFillPlan } from "@zhiye/utils/form-fill";
+import { FORM_FILL_SCRIPT } from "@zhiye/utils/form-fill";
 
 /** Capture the asynchronous desktop script result on controlled browser pages. */
 export function formFillInvocation(plan: FormFillPlan, requestId: string) {

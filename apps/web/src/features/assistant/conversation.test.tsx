@@ -1,11 +1,11 @@
 import type { AssistantDocument } from "./document";
 // @vitest-environment happy-dom
-import type { Proposal } from "@reactive-resume/resume/proposals";
+import type { Proposal } from "@zhiye/resume/proposals";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
-import { applyProposals, getStateIn } from "@reactive-resume/resume/proposals";
+import { applyProposals, getStateIn } from "@zhiye/resume/proposals";
 
 const mocks = vi.hoisted(() => ({
 	chat: vi.fn(),
@@ -43,7 +43,7 @@ vi.mock("@/libs/orpc/client", () => ({
 		career: { facts: { key: () => ["facts"], queryOptions: () => ({ queryKey: ["facts"] }) } },
 	},
 }));
-vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: vi.fn() } }));
+vi.mock("@zhiye/ui/components/toast", () => ({ toast: { add: vi.fn() } }));
 vi.mock("@tanstack/react-router", () => ({ useNavigate: () => vi.fn(), useSearch: () => ({}) }));
 vi.mock("./use-assistant-chat", () => ({ useAssistantChat: mocks.chat }));
 vi.mock("./chat", async (importOriginal) => ({

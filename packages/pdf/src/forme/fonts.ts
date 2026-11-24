@@ -1,7 +1,7 @@
 import type { PdfFontRequest } from "../hooks/use-register-fonts";
 import type { FormeFont } from "@formepdf/react";
-import { isValidFontFile, prepareFontBytes } from "@reactive-resume/fonts/files";
-import { resolveFontSource } from "@reactive-resume/fonts/sources";
+import { isValidFontFile, prepareFontBytes } from "@zhiye/fonts/files";
+import { resolveFontSource } from "@zhiye/fonts/sources";
 
 // One download per font file for the life of the page or server process.
 const cache = new Map<string, Promise<Uint8Array>>();

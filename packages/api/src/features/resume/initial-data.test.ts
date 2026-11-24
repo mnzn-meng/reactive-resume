@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vite-plus/test";
-import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
+import { sampleResumeData } from "@zhiye/schema/resume/sample";
 import { createResumeData } from "./initial-data";
 
 describe("createResumeData", () => {

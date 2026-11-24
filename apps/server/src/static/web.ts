@@ -1,15 +1,15 @@
-import type { Locale } from "@reactive-resume/utils/locale";
+import type { Locale } from "@zhiye/utils/locale";
 import { createHash } from "node:crypto";
 import { existsSync } from "node:fs";
 import fs from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { serveStatic } from "@hono/node-server/serve-static";
-import { env } from "@reactive-resume/env/server";
-import { jsonLdScript, socialMetaTags } from "@reactive-resume/pdf/social";
-import { templateSchema } from "@reactive-resume/schema/templates";
-import { isAppSectionPath, isFeedbackPath } from "@reactive-resume/utils/app-paths";
-import { defaultLocale, getLocaleAlternates, languageTag, localizedUrl } from "@reactive-resume/utils/locale";
-import { escapeHtml } from "@reactive-resume/utils/string";
+import { env } from "@zhiye/env/server";
+import { jsonLdScript, socialMetaTags } from "@zhiye/pdf/social";
+import { templateSchema } from "@zhiye/schema/templates";
+import { isAppSectionPath, isFeedbackPath } from "@zhiye/utils/app-paths";
+import { defaultLocale, getLocaleAlternates, languageTag, localizedUrl } from "@zhiye/utils/locale";
+import { escapeHtml } from "@zhiye/utils/string";
 import { getPageLocale } from "./locale";
 import { CONTEXT7_ASK_URL } from "./seo";
 

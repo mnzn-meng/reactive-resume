@@ -1,6 +1,6 @@
 import type { StorageReadOptions } from "./read";
 import { del, get, list, put } from "@vercel/blob";
-import { env } from "@reactive-resume/env/server";
+import { env } from "@zhiye/env/server";
 import { readStorageBody } from "./read";
 
 export function blobOptions() {

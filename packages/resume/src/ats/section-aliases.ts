@@ -1,4 +1,4 @@
-import type { CustomSectionType } from "@reactive-resume/schema/resume/data";
+import type { CustomSectionType } from "@zhiye/schema/resume/data";
 
 /**
  * Conventional English headings the live builder lint accepts without complaint.

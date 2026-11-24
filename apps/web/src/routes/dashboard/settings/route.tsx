@@ -1,10 +1,10 @@
-import type { IconName } from "@reactive-resume/ui/components/icon";
+import type { IconName } from "@zhiye/ui/components/icon";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { createFileRoute, Link, Outlet, retainSearchParams, useRouterState } from "@tanstack/react-router";
 import z from "zod";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Icon } from "@reactive-resume/ui/components/icon";
+import { Button } from "@zhiye/ui/components/button";
+import { Icon } from "@zhiye/ui/components/icon";
 import { Page, PageBody, RootHeader } from "@/components/calm/page";
 import { SectionRail, SectionRailItem } from "@/components/calm/section-rail";
 import { PageHeader } from "@/components/layout/page-header";

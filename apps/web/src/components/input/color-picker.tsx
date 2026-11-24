@@ -4,10 +4,10 @@ import { Trans } from "@lingui/react/macro";
 import { hsvaToRgbaString, rgbaStringToHsva } from "@uiw/color-convert";
 import ReactColorColorful from "@uiw/react-color-colorful";
 import { useRef } from "react";
-import { IconButton } from "@reactive-resume/ui/components/icon-button";
-import { Popover, PopoverContent, PopoverTrigger } from "@reactive-resume/ui/components/popover";
-import { Separator } from "@reactive-resume/ui/components/separator";
-import { cn } from "@reactive-resume/utils/style";
+import { IconButton } from "@zhiye/ui/components/icon-button";
+import { Popover, PopoverContent, PopoverTrigger } from "@zhiye/ui/components/popover";
+import { Separator } from "@zhiye/ui/components/separator";
+import { cn } from "@zhiye/utils/style";
 import { useControlledState } from "@/hooks/use-controlled-state";
 
 const presetColors = [

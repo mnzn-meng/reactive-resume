@@ -1,7 +1,7 @@
 import { t } from "@lingui/core/macro";
 import { useRouter } from "@tanstack/react-router";
-import { Skeleton } from "@reactive-resume/ui/components/skeleton";
-import { Tabs } from "@reactive-resume/ui/components/tabs";
+import { Skeleton } from "@zhiye/ui/components/skeleton";
+import { Tabs } from "@zhiye/ui/components/tabs";
 import { LoadingScreen } from "@/components/layout/loading-screen";
 import { useResumeData } from "@/features/resume/builder/draft";
 import { BackLink, usePageScale } from "@/features/resume/editor/chrome";

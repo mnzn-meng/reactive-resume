@@ -1,7 +1,7 @@
 import { call, ORPCError } from "@orpc/server";
 import z from "zod";
-import { pdfImportPreviewSchema } from "@reactive-resume/import/review";
-import { localeSchema } from "@reactive-resume/utils/locale";
+import { pdfImportPreviewSchema } from "@zhiye/import/review";
+import { localeSchema } from "@zhiye/utils/locale";
 import { protectedProcedure } from "../../context";
 import { storageUploadRateLimit } from "../../middleware/rate-limit";
 import { crudRouter } from "./crud";
@@ -9,8 +9,8 @@ import { crudRouter } from "./crud";
 async function readPdfImport(file: File, signal?: AbortSignal) {
 	const [{ extractPdf }, { parsePdfResume }, { buildExtractedDocument }] = await Promise.all([
 		import("./pdf-analysis"),
-		import("@reactive-resume/import/pdf-lines"),
-		import("@reactive-resume/resume/ats-pdf"),
+		import("@zhiye/import/pdf-lines"),
+		import("@zhiye/resume/ats-pdf"),
 	]);
 	const raw = await extractPdf(file, signal, 0);
 	const document = buildExtractedDocument(raw);
@@ -71,23 +71,22 @@ export const importResumeFile = protectedProcedure
 				if (!preview.data) throw new Error("The PDF has no readable text layer.");
 				data = preview.data;
 			} else if (input.format === "LINKEDIN") {
-				const { parseLinkedInExport } = await import("@reactive-resume/import/linkedin");
+				const { parseLinkedInExport } = await import("@zhiye/import/linkedin");
 				data = parseLinkedInExport(new Uint8Array(await input.file.arrayBuffer()));
 			} else {
 				const text = await input.file.text();
 				if (input.format === "JSON_RESUME") {
-					const { parseJSONResume } = await import("@reactive-resume/import/json-resume");
+					const { parseJSONResume } = await import("@zhiye/import/json-resume");
 					data = parseJSONResume(text);
 				} else if (input.format === "REACTIVE_RESUME_V4") {
-					const { parseReactiveResumeV4JSON } = await import("@reactive-resume/import/reactive-resume-v4-json");
+					const { parseReactiveResumeV4JSON } = await import("@zhiye/import/reactive-resume-v4-json");
 					data = parseReactiveResumeV4JSON(text);
 				} else {
-					const { parseReactiveResumeJSON } = await import("@reactive-resume/import/reactive-resume-json");
+					const { parseReactiveResumeJSON } = await import("@zhiye/import/reactive-resume-json");
 					data = parseReactiveResumeJSON(text);
 				}
 			}
-			const { convertLegacyStylesheet, needsLegacyStyleConversion } =
-				await import("@reactive-resume/pdf/semantic-legacy");
+			const { convertLegacyStylesheet, needsLegacyStyleConversion } = await import("@zhiye/pdf/semantic-legacy");
 			if (needsLegacyStyleConversion(data.metadata)) data.metadata.stylesheet = convertLegacyStylesheet(data);
 		} catch (error) {
 			throw new ORPCError("BAD_REQUEST", {

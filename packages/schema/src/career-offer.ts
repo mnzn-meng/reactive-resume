@@ -1,6 +1,6 @@
 import type { OfferTerms } from "./career";
-import { parseAmount, parseDecimal } from "@reactive-resume/utils/amount";
-import { fromZonedDateTime } from "@reactive-resume/utils/timezone";
+import { parseAmount, parseDecimal } from "@zhiye/utils/amount";
+import { fromZonedDateTime } from "@zhiye/utils/timezone";
 import { careerOfferInputSchema } from "./career";
 
 type OfferEntry = {

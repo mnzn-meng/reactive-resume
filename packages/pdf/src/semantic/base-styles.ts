@@ -1,7 +1,7 @@
-import type { ResolvedNodeStyle, SemanticNode } from "@reactive-resume/resume/stylesheet";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import type { Template } from "@reactive-resume/schema/templates";
-import { resolveBoldFontWeight } from "@reactive-resume/fonts";
+import type { ResolvedNodeStyle, SemanticNode } from "@zhiye/resume/stylesheet";
+import type { ResumeData } from "@zhiye/schema/resume/data";
+import type { Template } from "@zhiye/schema/templates";
+import { resolveBoldFontWeight } from "@zhiye/fonts";
 import { findSection } from "../section-title";
 import { getTemplatePageSize } from "../templates/shared/page-size";
 

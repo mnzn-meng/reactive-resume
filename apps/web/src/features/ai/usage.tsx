@@ -1,4 +1,4 @@
-import type { AiAction, AiUsageSummary } from "@reactive-resume/schema/ai-usage";
+import type { AiAction, AiUsageSummary } from "@zhiye/schema/ai-usage";
 import { t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react/macro";
 

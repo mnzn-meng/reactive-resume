@@ -1,9 +1,9 @@
 import type { ModelMessage, UIMessage } from "ai";
 import { pruneMessages } from "ai";
 import { estimateTokenCount as estimateTextTokenCount } from "tokenx";
-import { getVisibleResumeStructure } from "@reactive-resume/resume/markdown";
-import { resumeEntryTypeSchema } from "@reactive-resume/resume/structural-proposals";
-import { resumeDataSchema } from "@reactive-resume/schema/resume/data";
+import { getVisibleResumeStructure } from "@zhiye/resume/markdown";
+import { resumeEntryTypeSchema } from "@zhiye/resume/structural-proposals";
+import { resumeDataSchema } from "@zhiye/schema/resume/data";
 import { translationView } from "./translation";
 
 // Pure model-context pruning, wired into the agent loop via prepareStep so it runs before every

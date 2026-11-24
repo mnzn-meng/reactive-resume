@@ -1,12 +1,12 @@
-import type { PageMap } from "@reactive-resume/pdf/page-map";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { PageMap } from "@zhiye/pdf/page-map";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import type { PDFDocumentProxy } from "pdfjs-dist";
 import type { CSSProperties, ReactNode } from "react";
 import { i18n } from "@lingui/core";
 import { ph } from "@lingui/core/macro";
 import { Trans, useLingui } from "@lingui/react/macro";
-import { Spinner } from "@reactive-resume/ui/components/spinner";
-import { cn } from "@reactive-resume/utils/style";
+import { Spinner } from "@zhiye/ui/components/spinner";
+import { cn } from "@zhiye/utils/style";
 import { DEFAULT_PDF_PAGE_SIZE, getResumePreviewGapValue, getScaledPreviewPageSize } from "./preview.shared.utils";
 
 export type ResumePreviewProps = {

@@ -1,13 +1,13 @@
-import type { InterviewTimelineEntry } from "@reactive-resume/schema/applications/data";
+import type { InterviewTimelineEntry } from "@zhiye/schema/applications/data";
 import { beforeEach, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { downloadWithAnchor } from "@reactive-resume/utils/file";
+import { toast } from "@zhiye/ui/components/toast";
+import { downloadWithAnchor } from "@zhiye/utils/file";
 import { interviewCalendarAction, showInterviewCancellation } from "./calendar";
 import { getAccountGeneration, setAccountScope } from "@/libs/auth/account-scope";
 
-vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: vi.fn() } }));
-vi.mock("@reactive-resume/utils/file", () => ({ downloadWithAnchor: vi.fn() }));
+vi.mock("@zhiye/ui/components/toast", () => ({ toast: { add: vi.fn() } }));
+vi.mock("@zhiye/utils/file", () => ({ downloadWithAnchor: vi.fn() }));
 const application = { company: "Fictional Cedar", role: "Engineer" };
 const interview: InterviewTimelineEntry = {
 	id: "original-round",
@@ -42,7 +42,7 @@ it("downloads updated details with the original round identity", async () => {
 	const [blob, name] = call;
 	expect(name).toBe("Fictional-Cedar-2027-03-28.ics");
 	const text = await (blob as Blob).text();
-	expect(text).toContain("UID:original-round@reactive-resume");
+	expect(text).toContain("UID:original-round@zhiye");
 	expect(text).toContain("DTSTART:20270328T100000Z");
 	expect(text).toContain("Maya\\, Lead");
 });
@@ -58,7 +58,7 @@ it("offers the cancellation download and fences late results/actions after an ac
 	if (!(blob instanceof Blob)) throw new Error("Cancellation file missing");
 	const text = await blob.text();
 	expect(text).toContain("METHOD:CANCEL");
-	expect(text).toContain("UID:original-round@reactive-resume");
+	expect(text).toContain("UID:original-round@zhiye");
 	expect(text).toContain("STATUS:CANCELLED");
 	vi.clearAllMocks();
 	setAccountScope("calendar-b");

@@ -5,19 +5,19 @@ import { Trans } from "@lingui/react/macro";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useId, useState } from "react";
-import { nextPreparationStep } from "@reactive-resume/schema/applications/preparation";
-import { Button, buttonVariants } from "@reactive-resume/ui/components/button";
+import { nextPreparationStep } from "@zhiye/schema/applications/preparation";
+import { Button, buttonVariants } from "@zhiye/ui/components/button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { IconButton } from "@reactive-resume/ui/components/icon-button";
-import { Label } from "@reactive-resume/ui/components/label";
-import { Textarea } from "@reactive-resume/ui/components/textarea";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/dropdown-menu";
+import { Icon } from "@zhiye/ui/components/icon";
+import { IconButton } from "@zhiye/ui/components/icon-button";
+import { Label } from "@zhiye/ui/components/label";
+import { Textarea } from "@zhiye/ui/components/textarea";
+import { cn } from "@zhiye/utils/style";
 import { useDefaultProvider, useWorkspace } from "../hooks";
 import { useCareerTime, useNow } from "../shared";
 import { PrepareReview } from "./prepare-review";

@@ -1,20 +1,20 @@
 import type { useHasUsableAiProvider } from "@/features/settings/integrations/hooks/use-has-usable-ai-provider";
-import type { IconName } from "@reactive-resume/ui/components/icon";
+import type { IconName } from "@zhiye/ui/components/icon";
 import type { ReactNode } from "react";
 import { Trans, useLingui } from "@lingui/react/macro";
 import { useId } from "react";
-import { aiModelForTask } from "@reactive-resume/ai/task-models";
-import { Badge } from "@reactive-resume/ui/components/badge";
-import { Button } from "@reactive-resume/ui/components/button";
+import { aiModelForTask } from "@zhiye/ai/task-models";
+import { Badge } from "@zhiye/ui/components/badge";
+import { Button } from "@zhiye/ui/components/button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/dropdown-menu";
+import { Icon } from "@zhiye/ui/components/icon";
+import { cn } from "@zhiye/utils/style";
 import { isImeComposing } from "@/libs/keyboard";
 import { ENTER_CLASS, stagger } from "@/libs/motion";
 

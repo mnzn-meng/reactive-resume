@@ -1,4 +1,4 @@
-import type { Locale } from "@reactive-resume/utils/locale";
+import type { Locale } from "@zhiye/utils/locale";
 import type { ReactNode } from "react";
 import { plural, t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
@@ -6,25 +6,19 @@ import { Trans } from "@lingui/react/macro";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useId, useRef, useState } from "react";
-import { Button } from "@reactive-resume/ui/components/button";
-import {
-	DialogContent,
-	DialogDescription,
-	DialogFooter,
-	DialogHeader,
-	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Input } from "@reactive-resume/ui/components/input";
-import { Label } from "@reactive-resume/ui/components/label";
-import { RadioGroup, RadioGroupItem } from "@reactive-resume/ui/components/radio-group";
-import { SegmentedControl, SegmentedControlItem } from "@reactive-resume/ui/components/segmented-control";
-import { SheetContent } from "@reactive-resume/ui/components/sheet";
-import { Textarea } from "@reactive-resume/ui/components/textarea";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { getLanguageName, localeSchema } from "@reactive-resume/utils/locale";
-import { pendingRequestId, settleRequestId } from "@reactive-resume/utils/string";
-import { cn } from "@reactive-resume/utils/style";
+import { Button } from "@zhiye/ui/components/button";
+import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@zhiye/ui/components/dialog";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Input } from "@zhiye/ui/components/input";
+import { Label } from "@zhiye/ui/components/label";
+import { RadioGroup, RadioGroupItem } from "@zhiye/ui/components/radio-group";
+import { SegmentedControl, SegmentedControlItem } from "@zhiye/ui/components/segmented-control";
+import { SheetContent } from "@zhiye/ui/components/sheet";
+import { Textarea } from "@zhiye/ui/components/textarea";
+import { toast } from "@zhiye/ui/components/toast";
+import { getLanguageName, localeSchema } from "@zhiye/utils/locale";
+import { pendingRequestId, settleRequestId } from "@zhiye/utils/string";
+import { cn } from "@zhiye/utils/style";
 import { defaultCopySource, formatEdited } from "./filter";
 import { handOverImportFile } from "./import/pending-file";
 import { useNewDocumentsStore } from "./new-documents";

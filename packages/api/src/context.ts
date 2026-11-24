@@ -1,12 +1,12 @@
-import type { Locale } from "@reactive-resume/utils/locale";
+import type { Locale } from "@zhiye/utils/locale";
 import type { User } from "better-auth";
 import { ORPCError, os } from "@orpc/server";
 import { eq } from "drizzle-orm";
-import { auth } from "@reactive-resume/auth/config";
-import { getTrustedOrigins } from "@reactive-resume/auth/trusted-origins";
-import { db } from "@reactive-resume/db/client";
-import { user } from "@reactive-resume/db/schema";
-import { env } from "@reactive-resume/env/server";
+import { auth } from "@zhiye/auth/config";
+import { getTrustedOrigins } from "@zhiye/auth/trusted-origins";
+import { db } from "@zhiye/db/client";
+import { user } from "@zhiye/db/schema";
+import { env } from "@zhiye/env/server";
 import { withAiDestination, withWebDestination } from "./features/ai/destination";
 
 interface ORPCContext {

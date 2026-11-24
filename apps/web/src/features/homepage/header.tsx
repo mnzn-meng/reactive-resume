@@ -1,6 +1,6 @@
 import { t } from "@lingui/core/macro";
 import { useEffect, useRef, useState } from "react";
-import { cn } from "@reactive-resume/utils/style";
+import { cn } from "@zhiye/utils/style";
 import { goToScene, SCENE, useLanding } from "./scroll";
 import { LanguageDoorway } from "./sections";
 import { CtaLink, SignInLink } from "./ui";

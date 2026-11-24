@@ -1,10 +1,10 @@
-import type { AIModelSuggestion } from "@reactive-resume/ai/models";
-import type { AIProvider } from "@reactive-resume/ai/types";
+import type { AIModelSuggestion } from "@zhiye/ai/models";
+import type { AIProvider } from "@zhiye/ai/types";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { useRef, useState } from "react";
-import { AI_PROVIDER_DEFAULT_MODELS } from "@reactive-resume/ai/defaults";
-import { getAIProviderModelGroups } from "@reactive-resume/ai/models";
+import { AI_PROVIDER_DEFAULT_MODELS } from "@zhiye/ai/defaults";
+import { getAIProviderModelGroups } from "@zhiye/ai/models";
 import {
 	ComboboxContent,
 	ComboboxGroup,
@@ -15,10 +15,10 @@ import {
 	ComboboxRoot,
 	ComboboxTrigger,
 	useFilter,
-} from "@reactive-resume/ui/components/combobox";
-import { Input } from "@reactive-resume/ui/components/input";
-import { InputGroupAddon, InputGroupButton } from "@reactive-resume/ui/components/input-group";
-import { Label } from "@reactive-resume/ui/components/label";
+} from "@zhiye/ui/components/combobox";
+import { Input } from "@zhiye/ui/components/input";
+import { InputGroupAddon, InputGroupButton } from "@zhiye/ui/components/input-group";
+import { Label } from "@zhiye/ui/components/label";
 
 type ProviderModelProps = {
 	id: string;

@@ -3,10 +3,10 @@ import { afterAll, beforeAll, describe, expect, it } from "vite-plus/test";
 import { createRouterClient } from "@orpc/server";
 import { eq } from "drizzle-orm";
 import { Pool } from "pg";
-import { auth, linkAnonymousAccount, setAccountLinkHook } from "@reactive-resume/auth/config";
-import { db, withDatabasePool } from "@reactive-resume/db/client";
-import * as schema from "@reactive-resume/db/schema";
-import { env } from "@reactive-resume/env/server";
+import { auth, linkAnonymousAccount, setAccountLinkHook } from "@zhiye/auth/config";
+import { db, withDatabasePool } from "@zhiye/db/client";
+import * as schema from "@zhiye/db/schema";
+import { env } from "@zhiye/env/server";
 import { authRouter } from "./router";
 
 // Like the OAuth CI checks, this uses a disposable, migrated database, with isolated fixture tables.

@@ -6,7 +6,7 @@ import { afterEach, beforeEach, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createDefaultApplicationLanes } from "@reactive-resume/schema/applications/lanes";
+import { createDefaultApplicationLanes } from "@zhiye/schema/applications/lanes";
 
 const account = vi.hoisted(() => ({
 	timeZone: "UTC",
@@ -14,8 +14,8 @@ const account = vi.hoisted(() => ({
 	download: vi.fn(),
 	offers: [] as unknown[],
 }));
-vi.mock("@reactive-resume/utils/file", async (importOriginal) => ({
-	...(await importOriginal<typeof import("@reactive-resume/utils/file")>()),
+vi.mock("@zhiye/utils/file", async (importOriginal) => ({
+	...(await importOriginal<typeof import("@zhiye/utils/file")>()),
 	downloadWithAnchor: account.download,
 }));
 vi.mock("@tanstack/react-router", () => ({

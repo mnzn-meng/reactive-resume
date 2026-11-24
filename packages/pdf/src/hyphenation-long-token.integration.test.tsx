@@ -1,8 +1,8 @@
 import type { ElementInfo } from "@formepdf/core";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import { describe, expect, it } from "vite-plus/test";
 import * as forme from "@formepdf/core";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 import { renderResume } from "./forme/render";
 
 // #3686: Forme 0.29 built hypher without `alloc`, so hyphenating a word over 45 bytes panicked and aborted the render.

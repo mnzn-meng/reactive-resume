@@ -1,9 +1,9 @@
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import { ORPCError } from "@orpc/client";
-import { SEMANTIC_CSS_LIMITS_V1 } from "@reactive-resume/resume/stylesheet";
-import { parseResumeData } from "@reactive-resume/schema/resume/data";
-import { syncResumeDates, upgradeResumeDates } from "@reactive-resume/schema/resume/dates";
-import { parseResumeDataForWrite } from "@reactive-resume/schema/resume/write";
+import { SEMANTIC_CSS_LIMITS_V1 } from "@zhiye/resume/stylesheet";
+import { parseResumeData } from "@zhiye/schema/resume/data";
+import { syncResumeDates, upgradeResumeDates } from "@zhiye/schema/resume/dates";
+import { parseResumeDataForWrite } from "@zhiye/schema/resume/write";
 
 function parseApiResumeData(data: unknown, code: "BAD_REQUEST" | "INTERNAL_SERVER_ERROR", message: string): ResumeData {
 	try {

@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
-import * as schema from "@reactive-resume/db/schema";
+import * as schema from "@zhiye/db/schema";
 
 const mocks = vi.hoisted(() => {
 	const updateWhere = vi.fn((_where?: unknown) => Promise.resolve([]));
@@ -34,11 +34,11 @@ vi.mock("better-auth", async (importOriginal) => ({
 	...(await importOriginal<typeof import("better-auth")>()),
 	betterAuth: () => ({ $context: Promise.resolve({}), api: {} }),
 }));
-vi.mock("@reactive-resume/db/client", () => ({
+vi.mock("@zhiye/db/client", () => ({
 	db: { transaction: mocks.transaction },
 }));
-vi.mock("@reactive-resume/email/transport", () => ({ sendEmail: vi.fn() }));
-vi.mock("@reactive-resume/env/server", () => ({
+vi.mock("@zhiye/email/transport", () => ({ sendEmail: vi.fn() }));
+vi.mock("@zhiye/env/server", () => ({
 	env: { APP_URL: "https://resume.example", AUTH_SECRET: "link-test" },
 }));
 

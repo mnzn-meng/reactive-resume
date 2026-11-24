@@ -1,8 +1,8 @@
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import { describe, expect, it } from "vite-plus/test";
 import { produce } from "immer";
-import { customSectionItemDefinitionByType } from "@reactive-resume/schema/resume/data";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { customSectionItemDefinitionByType } from "@zhiye/schema/resume/data";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 import {
 	addBuiltinSection,
 	CUSTOM_SECTION_TYPES,

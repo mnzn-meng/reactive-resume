@@ -1,10 +1,10 @@
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import type { Template } from "@reactive-resume/schema/templates";
+import type { ResumeData } from "@zhiye/schema/resume/data";
+import type { Template } from "@zhiye/schema/templates";
 import z, { ZodError } from "zod";
-import { resumeDataSchema } from "@reactive-resume/schema/resume/data";
-import { templateSchema } from "@reactive-resume/schema/templates";
-import { parseColorString } from "@reactive-resume/utils/color";
-import { generateId } from "@reactive-resume/utils/string";
+import { resumeDataSchema } from "@zhiye/schema/resume/data";
+import { templateSchema } from "@zhiye/schema/templates";
+import { parseColorString } from "@zhiye/utils/color";
+import { generateId } from "@zhiye/utils/string";
 import { rethrowAsImportError } from "./error";
 
 function colorToRgba(color: string): string {

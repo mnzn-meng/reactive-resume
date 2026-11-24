@@ -1,14 +1,14 @@
 import type * as React from "react";
 import { Menu as MenuPrimitive } from "@base-ui/react/menu";
-import { Icon } from "@reactive-resume/ui/components/icon";
+import { Icon } from "@zhiye/ui/components/icon";
 import {
 	menuItemClassName,
 	menuLabelClassName,
 	menuPopupClassName,
 	menuSeparatorClassName,
 	menuShortcutClassName,
-} from "@reactive-resume/ui/components/menu-styles";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/menu-styles";
+import { cn } from "@zhiye/utils/style";
 
 function DropdownMenu({ ...props }: MenuPrimitive.Root.Props) {
 	return <MenuPrimitive.Root data-slot="dropdown-menu" {...props} />;

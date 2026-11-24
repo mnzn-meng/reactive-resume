@@ -1,6 +1,6 @@
 import type { RouterInput } from "@/libs/orpc/client";
-import type { JdTermMatch } from "@reactive-resume/resume/ats-pdf";
-import type { ResumeData, SkillItem } from "@reactive-resume/schema/resume/data";
+import type { JdTermMatch } from "@zhiye/resume/ats-pdf";
+import type { ResumeData, SkillItem } from "@zhiye/schema/resume/data";
 import type { CSSProperties } from "react";
 import { ph, t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
@@ -8,18 +8,18 @@ import { Plural, Trans } from "@lingui/react/macro";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { useId, useMemo, useState } from "react";
-import { buildMarkdown } from "@reactive-resume/resume/markdown";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Input } from "@reactive-resume/ui/components/input";
-import { Label } from "@reactive-resume/ui/components/label";
-import { NativeSelect } from "@reactive-resume/ui/components/native-select";
-import { Spinner } from "@reactive-resume/ui/components/spinner";
-import { Textarea } from "@reactive-resume/ui/components/textarea";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { formatList } from "@reactive-resume/utils/locale";
-import { generateId, isolate, pendingRequestId, settleRequestId } from "@reactive-resume/utils/string";
-import { cn } from "@reactive-resume/utils/style";
+import { buildMarkdown } from "@zhiye/resume/markdown";
+import { Button } from "@zhiye/ui/components/button";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Input } from "@zhiye/ui/components/input";
+import { Label } from "@zhiye/ui/components/label";
+import { NativeSelect } from "@zhiye/ui/components/native-select";
+import { Spinner } from "@zhiye/ui/components/spinner";
+import { Textarea } from "@zhiye/ui/components/textarea";
+import { toast } from "@zhiye/ui/components/toast";
+import { formatList } from "@zhiye/utils/locale";
+import { generateId, isolate, pendingRequestId, settleRequestId } from "@zhiye/utils/string";
+import { cn } from "@zhiye/utils/style";
 import { useEditorStore } from "../store";
 import { checkStateOf, editWithUndo } from "./actions";
 import { CheckAiLine } from "./ai-line";
@@ -66,7 +66,7 @@ export type JobMatch = {
 	retryApplication: () => void;
 };
 
-const loadAtsPdf = () => import("@reactive-resume/resume/ats-pdf");
+const loadAtsPdf = () => import("@zhiye/resume/ats-pdf");
 
 /**
  * Job match reads the posting of the application the resume is linked to, or one pasted for this visit, and sorts

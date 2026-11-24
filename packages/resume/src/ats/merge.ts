@@ -1,6 +1,6 @@
 import type { AtsReport } from "./types";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import { escapeHtml, stripHtml } from "@reactive-resume/utils/string";
+import type { ResumeData } from "@zhiye/schema/resume/data";
+import { escapeHtml, stripHtml } from "@zhiye/utils/string";
 
 /** The fields an import can push a sentence into, in reading order. */
 const HEADING_FIELDS = ["company", "position", "school", "degree", "area", "grade", "location"] as const;

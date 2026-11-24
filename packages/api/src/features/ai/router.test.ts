@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import { createRouterClient } from "@orpc/server";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 
 const service = vi.hoisted(() => ({
 	getRunnableById: vi.fn(),

@@ -1,5 +1,5 @@
 import type { ComponentProps, ReactNode } from "react";
-import { cn } from "@reactive-resume/utils/style";
+import { cn } from "@zhiye/utils/style";
 
 /** Calm page frame (`.page`): 40px side margins from 1024, 32 from 640, 16 on phones; 28px above the header. */
 export function Page({ className, ...props }: ComponentProps<"div">) {

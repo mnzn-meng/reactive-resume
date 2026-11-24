@@ -1,8 +1,8 @@
 import type { DialogSchema } from "./schemas";
 import { lazy, Suspense, useState } from "react";
-import { Dialog } from "@reactive-resume/ui/components/dialog";
-import { Sheet } from "@reactive-resume/ui/components/sheet";
-import { useBreakpoint } from "@reactive-resume/ui/hooks/use-breakpoint";
+import { Dialog } from "@zhiye/ui/components/dialog";
+import { Sheet } from "@zhiye/ui/components/sheet";
+import { useBreakpoint } from "@zhiye/ui/hooks/use-breakpoint";
 import { useDialogStore } from "./store";
 
 type RenderDialogProps = { dialog: DialogSchema; mobileSheet: boolean };

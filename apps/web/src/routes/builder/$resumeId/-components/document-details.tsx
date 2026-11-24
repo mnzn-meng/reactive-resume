@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { useLingui } from "@lingui/react";
 import { Plural, Trans } from "@lingui/react/macro";
-import { DialogDescription, DialogHeader, DialogTitle } from "@reactive-resume/ui/components/dialog";
+import { DialogDescription, DialogHeader, DialogTitle } from "@zhiye/ui/components/dialog";
 import { templates } from "@/dialogs/resume/template/data";
 import { useCurrentResume } from "@/features/resume/builder/draft";
 import { useEditorStore } from "@/features/resume/editor/store";

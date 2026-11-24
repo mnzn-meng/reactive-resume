@@ -1,8 +1,8 @@
 import type { ComponentProps, ReactNode } from "react";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { cn } from "@reactive-resume/utils/style";
+import { Icon } from "@zhiye/ui/components/icon";
+import { cn } from "@zhiye/utils/style";
 
 /** Row actions show on hover and on keyboard focus inside the row; touch screens always show them. */
 export const revealOnRowClassName =

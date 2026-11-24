@@ -1,11 +1,11 @@
 import type { Application } from "@/features/applications/types";
 // @vitest-environment happy-dom
-import type { ApplicationReview } from "@reactive-resume/ai/application-review";
+import type { ApplicationReview } from "@zhiye/ai/application-review";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 import { PrepareReview } from "./prepare-review";
 
 const workspace = vi.hoisted(() => ({

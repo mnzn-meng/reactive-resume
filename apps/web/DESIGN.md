@@ -200,7 +200,7 @@ The front matter records the app type scale. Each style is one utility in `globa
 
 ## Iconography
 
-App icons use **Phosphor** (regular weight) through `Icon` from `@reactive-resume/ui/components/icon`. `Icon` takes the glyph's Phosphor name (`x`, `gear-six`, `magnifying-glass`), the same names the [Phosphor catalog](https://phosphoricons.com) and resume icons use. To use another glyph, add it to the `icons` map in that file.
+App icons use **Phosphor** (regular weight) through `Icon` from `@zhiye/ui/components/icon`. `Icon` takes the glyph's Phosphor name (`x`, `gear-six`, `magnifying-glass`), the same names the [Phosphor catalog](https://phosphoricons.com) and resume icons use. To use another glyph, add it to the `icons` map in that file.
 
 Use 20px icons on desktop and 24px on touch interfaces. Regular weight is the default; the filled weight appears only on the selected navigation item. `sparkle` marks AI and nothing else. Marketing illustrations may use filled icons, such as the GitHub star.
 

@@ -2,8 +2,8 @@ import type { VariantProps } from "class-variance-authority";
 import { Button as ButtonPrimitive } from "@base-ui/react/button";
 import { cva } from "class-variance-authority";
 import { isValidElement } from "react";
-import { Spinner } from "@reactive-resume/ui/components/spinner";
-import { cn } from "@reactive-resume/utils/style";
+import { Spinner } from "@zhiye/ui/components/spinner";
+import { cn } from "@zhiye/utils/style";
 
 // Written out in full so Tailwind finds the classes: the secondary look, for a primary button outside an open dialog
 // or sheet (`data-top-layer` on their popups).

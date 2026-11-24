@@ -1,7 +1,7 @@
 import type * as React from "react";
 import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
-import { popupSlideClassName } from "@reactive-resume/ui/components/menu-styles";
-import { cn } from "@reactive-resume/utils/style";
+import { popupSlideClassName } from "@zhiye/ui/components/menu-styles";
+import { cn } from "@zhiye/utils/style";
 
 function Popover({ ...props }: PopoverPrimitive.Root.Props) {
 	return <PopoverPrimitive.Root data-slot="popover" {...props} />;

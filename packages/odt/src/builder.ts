@@ -1,8 +1,8 @@
 import type { InlineStyle, OdtBlock, OdtInline, OdtListItem, SectionTitleResolver } from "./types";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import { assertResumeRenderBudget } from "@reactive-resume/schema/resume/limits";
-import { toSafeLink } from "@reactive-resume/utils/link";
-import { isRTL } from "@reactive-resume/utils/locale";
+import type { ResumeData } from "@zhiye/schema/resume/data";
+import { assertResumeRenderBudget } from "@zhiye/schema/resume/limits";
+import { toSafeLink } from "@zhiye/utils/link";
+import { isRTL } from "@zhiye/utils/locale";
 import { toHex } from "./html-to-odt";
 import { renderSection } from "./sections";
 import { paragraph, text } from "./types";

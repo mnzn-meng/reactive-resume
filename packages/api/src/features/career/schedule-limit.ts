@@ -1,7 +1,7 @@
-import type { DbOrTx } from "@reactive-resume/db/client";
+import type { DbOrTx } from "@zhiye/db/client";
 import { ORPCError } from "@orpc/client";
 import { eq, sql } from "drizzle-orm";
-import { careerSchedule } from "@reactive-resume/db/schema";
+import { careerSchedule } from "@zhiye/db/schema";
 
 /** Caller holds the user lock so concurrent application and schedule inserts share the same account limit. */
 export async function assertScheduleCapacity(tx: DbOrTx, userId: string) {

@@ -1,5 +1,5 @@
 import type { PostingSource } from "./data";
-import { formatReadTime } from "@reactive-resume/utils/timezone";
+import { formatReadTime } from "@zhiye/utils/timezone";
 
 /** Only retained retrieval metadata can name when and where a page was read; an edited job link cannot. */
 export function postingReadReceipt(source: PostingSource | null | undefined, locale: string, tick = Date.now()) {

@@ -1,14 +1,8 @@
-import type { FactCategory } from "@reactive-resume/schema/career";
-import type {
-	CustomSection,
-	CustomSectionType,
-	LayoutPage,
-	ResumeData,
-	SectionType,
-} from "@reactive-resume/schema/resume/data";
-import { MAX_RESUME_FACT_CHARACTERS } from "@reactive-resume/schema/career";
-import { assertResumeRenderBudget, assertRichTextComplexity } from "@reactive-resume/schema/resume/limits";
-import { toSafeLink } from "@reactive-resume/utils/link";
+import type { FactCategory } from "@zhiye/schema/career";
+import type { CustomSection, CustomSectionType, LayoutPage, ResumeData, SectionType } from "@zhiye/schema/resume/data";
+import { MAX_RESUME_FACT_CHARACTERS } from "@zhiye/schema/career";
+import { assertResumeRenderBudget, assertRichTextComplexity } from "@zhiye/schema/resume/limits";
+import { toSafeLink } from "@zhiye/utils/link";
 
 type Sections = ResumeData["sections"];
 

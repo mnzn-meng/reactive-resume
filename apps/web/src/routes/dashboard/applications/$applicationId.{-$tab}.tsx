@@ -1,7 +1,7 @@
 import { t } from "@lingui/core/macro";
 import { createFileRoute } from "@tanstack/react-router";
 import z from "zod";
-import { workspaceTabSchema } from "@reactive-resume/schema/career";
+import { workspaceTabSchema } from "@zhiye/schema/career";
 import { Workspace } from "@/features/career/workspace/shell";
 import { getPageTitle } from "@/libs/seo";
 

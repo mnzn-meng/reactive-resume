@@ -1,7 +1,7 @@
 import type { PageMap } from "./page-map";
-import type { Proposal } from "@reactive-resume/resume/proposals";
+import type { Proposal } from "@zhiye/resume/proposals";
 import { describe, expect, it } from "vite-plus/test";
-import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
+import { sampleResumeData } from "@zhiye/schema/resume/sample";
 import { measureProposalPageFit } from "./page-map";
 
 describe("proposal page fit", () => {

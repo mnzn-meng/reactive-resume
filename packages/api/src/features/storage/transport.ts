@@ -1,9 +1,9 @@
 import { randomUUID } from "node:crypto";
 import { del, get, issueSignedToken, list, presignUrl } from "@vercel/blob";
 import { z } from "zod";
-import { getTrustedOrigins } from "@reactive-resume/auth/trusted-origins";
-import { getRedis, redisKey } from "@reactive-resume/db/redis";
-import { env } from "@reactive-resume/env/server";
+import { getTrustedOrigins } from "@zhiye/auth/trusted-origins";
+import { getRedis, redisKey } from "@zhiye/db/redis";
+import { env } from "@zhiye/env/server";
 import { resolveUserFromRequestHeaders } from "../../context";
 import { createRateLimiter } from "../../redis";
 import { blobOptions, blobPath } from "./blob";

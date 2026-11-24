@@ -4,9 +4,9 @@ import { afterEach, beforeEach, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { buildMarkdown } from "@reactive-resume/resume/markdown";
-import { collectPassages } from "@reactive-resume/resume/proposals";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { buildMarkdown } from "@zhiye/resume/markdown";
+import { collectPassages } from "@zhiye/resume/proposals";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 import { useEditorStore } from "../store";
 
 const api = vi.hoisted(() => ({ review: vi.fn(), read: vi.fn(), id: "resume-a" }));

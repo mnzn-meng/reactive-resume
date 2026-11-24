@@ -1,4 +1,4 @@
-import type { CareerSource } from "@reactive-resume/schema/career";
+import type { CareerSource } from "@zhiye/schema/career";
 import { randomUUID } from "node:crypto";
 import { existsSync } from "node:fs";
 import { readdir, readFile } from "node:fs/promises";
@@ -6,16 +6,16 @@ import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vite-
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import * as tables from "@reactive-resume/db/schema";
-import { reviewedAnswerEvidence, reviewedAnswerInputSchema } from "@reactive-resume/schema/application-answers";
+import * as tables from "@zhiye/db/schema";
+import { reviewedAnswerEvidence, reviewedAnswerInputSchema } from "@zhiye/schema/application-answers";
 import {
 	careerOfferInputSchema,
 	careerProfileDataSchema,
 	careerWorkspaceDataSchema,
 	offerTermsSchema,
 	savedItemDataSchema,
-} from "@reactive-resume/schema/career";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+} from "@zhiye/schema/career";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 import { truncateCascade } from "../../test-database";
 import { reviewedAnswers } from "./answers";
 
@@ -39,7 +39,7 @@ vi.mock("../documents/exports", async () => ({
 	...(await vi.importActual<typeof import("../documents/exports")>("../documents/exports")),
 	fileResponse: fixture.packetRender,
 }));
-vi.mock("@reactive-resume/db/client", () => ({
+vi.mock("@zhiye/db/client", () => ({
 	get db() {
 		return fixture.db;
 	},
@@ -331,7 +331,7 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 	async function packetFixture() {
 		const { applicationPackets } = await import("../applications/packet");
 		const { applicationProfileService: profiles } = await import("../application-profile/service");
-		const { applicationProfileDataSchema } = await import("@reactive-resume/schema/application-profile");
+		const { applicationProfileDataSchema } = await import("@zhiye/schema/application-profile");
 		await getDb()
 			.update(tables.application)
 			.set({ status: "saved", activity: [], sentResumeVersionId: null })
@@ -493,7 +493,7 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 
 	it("links private profiles and reviewed answers atomically, preserving both on conflicts and copy failure", async () => {
 		const { applicationProfileService: profiles } = await import("../application-profile/service");
-		const { applicationProfileDataSchema } = await import("@reactive-resume/schema/application-profile");
+		const { applicationProfileDataSchema } = await import("@zhiye/schema/application-profile");
 		const guestProfile = await profiles.save("alice", {
 			data: applicationProfileDataSchema.parse({ phone: "PRIVATE GUEST PHONE" }),
 			expectedRevision: null,
@@ -508,7 +508,7 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 			expectedEvidence: reviewedAnswerEvidence([evidence], [], [evidence.id], []),
 		});
 		const row = await reviewedAnswers.save("alice", input);
-		const { linkAnonymousAccount, setAccountLinkHook } = await import("@reactive-resume/auth/config");
+		const { linkAnonymousAccount, setAccountLinkHook } = await import("@zhiye/auth/config");
 		await expect(linkAnonymousAccount({ fromUserId: "alice", toUserId: "bob" })).rejects.toMatchObject({
 			status: "CONFLICT",
 		});
@@ -2620,7 +2620,7 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 			if (state === "closed") {
 				await applications.update({ userId: "alice", id: "alice-app", status: "closed", closedReason: "no-response" });
 			} else {
-				const { careerScheduleInputSchema } = await import("@reactive-resume/schema/career");
+				const { careerScheduleInputSchema } = await import("@zhiye/schema/career");
 				const [schedule] = await careerJobs.list("alice");
 				await careerJobs.save("alice", {
 					...careerScheduleInputSchema.parse(schedule),
@@ -3197,7 +3197,7 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 	);
 	it("isolates private application answers from Career AI context, old preference saves and documents", async () => {
 		const { applicationProfileService: profiles } = await import("../application-profile/service");
-		const { applicationProfileDataSchema } = await import("@reactive-resume/schema/application-profile");
+		const { applicationProfileDataSchema } = await import("@zhiye/schema/application-profile");
 		const data = applicationProfileDataSchema.parse({
 			email: "PRIVATE-PROFILE@example.test",
 			workAuthorization: [{ countryCode: "DE", authorized: "no", needsSponsorship: "unknown" }],
@@ -3234,7 +3234,7 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 
 	it("rejects stale profile writes/deletes and permits only one concurrent creation or update", async () => {
 		const { applicationProfileService: profiles } = await import("../application-profile/service");
-		const { applicationProfileDataSchema } = await import("@reactive-resume/schema/application-profile");
+		const { applicationProfileDataSchema } = await import("@zhiye/schema/application-profile");
 		const data = applicationProfileDataSchema.parse({ phone: "FIRST" });
 		const created = await Promise.allSettled([
 			profiles.save("alice", { data, expectedRevision: null }),
@@ -3258,7 +3258,7 @@ describe.skipIf(!databaseUrl)("career knowledge, context and data lifecycle", ()
 
 	it("preserves submitted answers when the profile is edited/deleted, exports it and cascades account deletion", async () => {
 		const { applicationProfileService: profiles } = await import("../application-profile/service");
-		const { applicationProfileDataSchema } = await import("@reactive-resume/schema/application-profile");
+		const { applicationProfileDataSchema } = await import("@zhiye/schema/application-profile");
 		const saved = await profiles.save("alice", {
 			data: applicationProfileDataSchema.parse({ phone: "PRIVATE PHONE" }),
 			expectedRevision: null,

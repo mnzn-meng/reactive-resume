@@ -1,7 +1,7 @@
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import { syncResumeDates, upgradeResumeDates } from "@reactive-resume/schema/resume/dates";
-import { parseResumeDataForWrite } from "@reactive-resume/schema/resume/write";
-import { escapeHtml, fnv1a } from "@reactive-resume/utils/string";
+import type { ResumeData } from "@zhiye/schema/resume/data";
+import { syncResumeDates, upgradeResumeDates } from "@zhiye/schema/resume/dates";
+import { parseResumeDataForWrite } from "@zhiye/schema/resume/write";
+import { escapeHtml, fnv1a } from "@zhiye/utils/string";
 
 /**
  * Suggested edits to a document's text, shared by Check, the assistant and Improve. A proposal replaces one passage

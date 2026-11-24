@@ -1,12 +1,12 @@
 import type { ApplicationSummary } from "./types";
-import type { ApplicationStageSource, NextStep } from "@reactive-resume/schema/applications/next-step";
-export type { NextStep, OfferHint } from "@reactive-resume/schema/applications/next-step";
-import type { InterviewKind } from "@reactive-resume/schema/applications/data";
-import type { IconName } from "@reactive-resume/ui/components/icon";
+import type { ApplicationStageSource, NextStep } from "@zhiye/schema/applications/next-step";
+export type { NextStep, OfferHint } from "@zhiye/schema/applications/next-step";
+import type { InterviewKind } from "@zhiye/schema/applications/data";
+import type { IconName } from "@zhiye/ui/components/icon";
 import { plural, t } from "@lingui/core/macro";
-import { hasApplicationSubmission } from "@reactive-resume/schema/applications/data";
-import { needsAttention } from "@reactive-resume/schema/applications/next-step";
-import { applicationSentAt } from "@reactive-resume/schema/applications/outcomes";
+import { hasApplicationSubmission } from "@zhiye/schema/applications/data";
+import { needsAttention } from "@zhiye/schema/applications/next-step";
+import { applicationSentAt } from "@zhiye/schema/applications/outcomes";
 import { interviewKindOf } from "./interviews";
 import { isCurrentLaneEvent } from "./lanes";
 import { getClosedReasonLabel } from "./stages";
@@ -21,7 +21,7 @@ export {
 	needsFollowUp,
 	nextStepSortKey,
 	compareNextStepSortKeys,
-} from "@reactive-resume/schema/applications/next-step";
+} from "@zhiye/schema/applications/next-step";
 
 /** Whole days in the current lane, including lane-only moves. */
 export const daysInLane = (application: StageSource, now = new Date()) => {

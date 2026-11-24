@@ -1,4 +1,4 @@
-import { reportStorageCleanupSummary, runStorageCleanup } from "@reactive-resume/api/features/storage/cleanup";
+import { reportStorageCleanupSummary, runStorageCleanup } from "@zhiye/api/features/storage/cleanup";
 
 /** Retries durable post-delete storage cleanup. PostgreSQL leases jobs so server instances don't duplicate work. */
 export function startStorageCleanupScheduler() {

@@ -1,12 +1,12 @@
-import type { EntryHeader } from "@reactive-resume/schema/resume/data";
+import type { EntryHeader } from "@zhiye/schema/resume/data";
 import type { ReactNode } from "react";
 import { Radio } from "@base-ui/react/radio";
 import { RadioGroup } from "@base-ui/react/radio-group";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
-import { entryHeaderOf } from "@reactive-resume/schema/resume/data";
-import { SegmentedControl, SegmentedControlItem } from "@reactive-resume/ui/components/segmented-control";
-import { cn } from "@reactive-resume/utils/style";
+import { entryHeaderOf } from "@zhiye/schema/resume/data";
+import { SegmentedControl, SegmentedControlItem } from "@zhiye/ui/components/segmented-control";
+import { cn } from "@zhiye/utils/style";
 import { DesignHeading, Field, Help, Lede } from "./fields";
 import { useDesign } from "./style-groups";
 import { IconPicker } from "@/components/input/icon-picker";

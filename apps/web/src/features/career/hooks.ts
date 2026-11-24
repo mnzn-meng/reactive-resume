@@ -1,6 +1,6 @@
 import type { RouterOutput } from "@/libs/orpc/client";
-import type { CareerWorkspace, GenerateTask } from "@reactive-resume/schema/career";
 import type { QueryClient } from "@tanstack/react-query";
+import type { CareerWorkspace, GenerateTask } from "@zhiye/schema/career";
 import type { SetStateAction } from "react";
 import { t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
@@ -8,7 +8,7 @@ import { ORPCError } from "@orpc/client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouteContext, useRouter } from "@tanstack/react-router";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { EMPTY_WORKSPACE } from "@reactive-resume/schema/career";
+import { EMPTY_WORKSPACE } from "@zhiye/schema/career";
 import { pendingCommits } from "./pending-commits";
 import { useRemoving } from "./removing";
 import { useHasUsableAiProvider } from "@/features/settings/integrations/hooks/use-has-usable-ai-provider";

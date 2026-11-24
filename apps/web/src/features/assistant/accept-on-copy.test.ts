@@ -1,10 +1,10 @@
 // @vitest-environment happy-dom
 import type { Resume } from "@/features/resume/builder/draft";
-import type { Proposal } from "@reactive-resume/resume/proposals";
 import type { QueryClient } from "@tanstack/react-query";
+import type { Proposal } from "@zhiye/resume/proposals";
 import { afterEach, beforeEach, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 
 const mocks = vi.hoisted(() => ({
 	copyForJob: vi.fn(),
@@ -16,7 +16,7 @@ const mocks = vi.hoisted(() => ({
 }));
 vi.mock("@tanstack/react-router", () => ({ useParams: () => ({}), useBlocker: vi.fn() }));
 vi.mock("@tanstack/react-query", () => ({ useQueryClient: () => ({ setQueryData: vi.fn() }) }));
-vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: mocks.toast, close: vi.fn() } }));
+vi.mock("@zhiye/ui/components/toast", () => ({ toast: { add: mocks.toast, close: vi.fn() } }));
 vi.mock("@/features/applications/queries", () => ({ applicationsListQueryKey: () => ["applications"] }));
 vi.mock("@/libs/orpc/client", () => ({
 	client: {

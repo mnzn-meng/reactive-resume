@@ -1,7 +1,7 @@
 import type { ComponentProps } from "react";
 import { Trans } from "@lingui/react/macro";
-import { buttonVariants } from "@reactive-resume/ui/components/button";
-import { cn } from "@reactive-resume/utils/style";
+import { buttonVariants } from "@zhiye/ui/components/button";
+import { cn } from "@zhiye/utils/style";
 
 /** The one title of a sign-in page: every page of the family uses the same size and position. */
 export function AuthTitle({ className, children, ...props }: ComponentProps<"h1">) {

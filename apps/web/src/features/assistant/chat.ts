@@ -1,9 +1,9 @@
-import type { TranscriptLabels } from "@reactive-resume/ai/tools/transcript";
-import type { WorkspaceTab } from "@reactive-resume/schema/career";
+import type { TranscriptLabels } from "@zhiye/ai/tools/transcript";
+import type { WorkspaceTab } from "@zhiye/schema/career";
 import type { FileUIPart, UIMessage } from "ai";
 import { i18n } from "@lingui/core";
 import { ph, t } from "@lingui/core/macro";
-import { transcriptOf as sharedTranscriptOf } from "@reactive-resume/ai/tools/transcript";
+import { transcriptOf as sharedTranscriptOf } from "@zhiye/ai/tools/transcript";
 
 /** What a message shares with the model; each context chip turns one off. The career coach uses the last four. */
 export type MessageContext = {

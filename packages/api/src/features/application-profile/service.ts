@@ -1,11 +1,11 @@
-import type { DbOrTx } from "@reactive-resume/db/client";
-import type { ApplicationProfileData } from "@reactive-resume/schema/application-profile";
+import type { DbOrTx } from "@zhiye/db/client";
+import type { ApplicationProfileData } from "@zhiye/schema/application-profile";
 import { ORPCError } from "@orpc/client";
 import { eq } from "drizzle-orm";
-import { db } from "@reactive-resume/db/client";
-import { applicationProfile } from "@reactive-resume/db/schema";
-import { applicationProfileDataSchema } from "@reactive-resume/schema/application-profile";
-import { generateId } from "@reactive-resume/utils/string";
+import { db } from "@zhiye/db/client";
+import { applicationProfile } from "@zhiye/db/schema";
+import { applicationProfileDataSchema } from "@zhiye/schema/application-profile";
+import { generateId } from "@zhiye/utils/string";
 import { lockUser } from "../documents/ownership";
 
 export const applicationProfileService = {

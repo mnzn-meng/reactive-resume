@@ -6,17 +6,17 @@ import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vite-
 import { createRouterClient } from "@orpc/server";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import * as tables from "@reactive-resume/db/schema";
-import { careerStoryInputSchema, EMPTY_WORKSPACE } from "@reactive-resume/schema/career";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import * as tables from "@zhiye/db/schema";
+import { careerStoryInputSchema, EMPTY_WORKSPACE } from "@zhiye/schema/career";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 
 const fixture = vi.hoisted(() => ({ db: undefined as ReturnType<typeof drizzle> | undefined, directory: "" }));
-vi.mock("@reactive-resume/db/client", () => ({
+vi.mock("@zhiye/db/client", () => ({
 	get db() {
 		return fixture.db;
 	},
 }));
-vi.mock("@reactive-resume/env/server", () => ({
+vi.mock("@zhiye/env/server", () => ({
 	env: {
 		APP_URL: "http://localhost:3000",
 		AUTH_SECRET: "isolated-trash-secret-at-least-32-characters",

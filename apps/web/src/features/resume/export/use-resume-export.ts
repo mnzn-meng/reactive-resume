@@ -1,21 +1,21 @@
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import { t } from "@lingui/core/macro";
 import { useState } from "react";
-import { buildMarkdown } from "@reactive-resume/resume/markdown";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { downloadWithAnchor, getDefaultFileName, sanitizeFileName } from "@reactive-resume/utils/file";
+import { buildMarkdown } from "@zhiye/resume/markdown";
+import { toast } from "@zhiye/ui/components/toast";
+import { downloadWithAnchor, getDefaultFileName, sanitizeFileName } from "@zhiye/utils/file";
 import { createResumePdfBlob } from "./pdf-document";
 import { getLostCharactersMessage, getReadableErrorMessage } from "@/libs/error-message";
 
 // DOCX and ODT are large and only some exports need them; they load when one starts.
-const loadDocx = () => import("@reactive-resume/docx");
-const loadOdt = () => import("@reactive-resume/odt");
+const loadDocx = () => import("@zhiye/docx");
+const loadOdt = () => import("@zhiye/odt");
 
 /** Starts loading the DOCX and ODT builders, for controls that lead to those formats. */
 export const preloadDocumentExport = () => {
 	void loadDocx();
 	void loadOdt();
-	void import("@reactive-resume/pdf/section-title");
+	void import("@zhiye/pdf/section-title");
 };
 
 type ExportableResume = {
@@ -43,7 +43,7 @@ export async function createExportFile(resume: ExportableResume, format: ExportF
 	}
 
 	// Section titles are stored empty by default; DOCX, ODT and Markdown use the PDF's localized headings.
-	const { getResumeSectionTitle } = await import("@reactive-resume/pdf/section-title");
+	const { getResumeSectionTitle } = await import("@zhiye/pdf/section-title");
 	const resolveTitle = (sectionId: string) => getResumeSectionTitle(data, sectionId);
 	if (format === "md") return new Blob([buildMarkdown(data, resolveTitle)], { type: "text/markdown" });
 	if (format === "odt") return (await loadOdt()).buildOdt(data, resolveTitle);

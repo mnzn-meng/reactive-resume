@@ -1,11 +1,11 @@
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import type { Template } from "@reactive-resume/schema/templates";
 import type { QueryClient } from "@tanstack/react-query";
+import type { ResumeData } from "@zhiye/schema/resume/data";
+import type { Template } from "@zhiye/schema/templates";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { buildMarkdown } from "@reactive-resume/resume/markdown";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
-import { fnv1a } from "@reactive-resume/utils/string";
+import { buildMarkdown } from "@zhiye/resume/markdown";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
+import { fnv1a } from "@zhiye/utils/string";
 import { createResumePdfBlob } from "@/features/resume/export/pdf-document";
 import { createPdfFirstPageImage, releaseThumbnailUrls } from "@/features/resume/preview/pdf-thumbnail";
 import { enqueueThumbnailRender } from "@/features/resume/preview/resume-thumbnail.shared";

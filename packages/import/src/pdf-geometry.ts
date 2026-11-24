@@ -1,4 +1,4 @@
-import type { ExtractedDocument } from "@reactive-resume/resume/ats-pdf";
+import type { ExtractedDocument } from "@zhiye/resume/ats-pdf";
 
 type Line = ExtractedDocument["lines"][number];
 

@@ -1,7 +1,7 @@
 import type { ImproveLine } from "./improve";
 import type { Menu } from "@base-ui/react/menu";
-import type { IconName } from "@reactive-resume/ui/components/icon";
 import type { Editor } from "@tiptap/react";
+import type { IconName } from "@zhiye/ui/components/icon";
 import type { ReactNode } from "react";
 import { Toolbar } from "@base-ui/react/toolbar";
 import { t } from "@lingui/core/macro";
@@ -21,11 +21,11 @@ import {
 	DropdownMenuRadioItem,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { useBreakpoint } from "@reactive-resume/ui/hooks/use-breakpoint";
-import { useKeyboardInset } from "@reactive-resume/ui/hooks/use-keyboard-inset";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/dropdown-menu";
+import { Icon } from "@zhiye/ui/components/icon";
+import { useBreakpoint } from "@zhiye/ui/hooks/use-breakpoint";
+import { useKeyboardInset } from "@zhiye/ui/hooks/use-keyboard-inset";
+import { cn } from "@zhiye/utils/style";
 import { ImprovePanel, lineAtCaret } from "./improve";
 import { acceptImproveLine, improveSourceChanges } from "./improve-history";
 import { cleanPastedHtml } from "@/components/input/pasted-html";

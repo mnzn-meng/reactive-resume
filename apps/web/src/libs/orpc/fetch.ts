@@ -1,4 +1,4 @@
-import type { DeferredFetch } from "@reactive-resume/utils/deferred-request";
+import type { DeferredFetch } from "@zhiye/utils/deferred-request";
 import { t } from "@lingui/core/macro";
 import { getAccountId } from "@/libs/auth/account-scope";
 

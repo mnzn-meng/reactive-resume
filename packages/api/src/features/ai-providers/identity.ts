@@ -1,9 +1,9 @@
-import type { DbOrTx } from "@reactive-resume/db/client";
+import type { DbOrTx } from "@zhiye/db/client";
 import { createHmac } from "node:crypto";
 import { ORPCError } from "@orpc/client";
 import { and, eq } from "drizzle-orm";
-import { aiProvider } from "@reactive-resume/db/schema";
-import { env } from "@reactive-resume/env/server";
+import { aiProvider } from "@zhiye/db/schema";
+import { env } from "@zhiye/env/server";
 
 export const serverProviderId = (userId: string) => `server-ai:${userId}`;
 

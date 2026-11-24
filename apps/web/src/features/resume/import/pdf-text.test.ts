@@ -1,8 +1,8 @@
-import type { RawExtraction } from "@reactive-resume/resume/ats-pdf";
+import type { RawExtraction } from "@zhiye/resume/ats-pdf";
 import { beforeAll, describe, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
-import { parseResumeText } from "@reactive-resume/import/plain-text";
-import { buildExtractedDocument } from "@reactive-resume/resume/ats-pdf";
+import { parseResumeText } from "@zhiye/import/plain-text";
+import { buildExtractedDocument } from "@zhiye/resume/ats-pdf";
 import { documentToLines, readPdfSource } from "./pdf-text";
 import { ImportError, readResumeFile } from "./read-file";
 

@@ -4,9 +4,9 @@ import { Trans } from "@lingui/react/macro";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { useMemo } from "react";
-import { buildMarkdown } from "@reactive-resume/resume/markdown";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { cn } from "@reactive-resume/utils/style";
+import { buildMarkdown } from "@zhiye/resume/markdown";
+import { Icon } from "@zhiye/ui/components/icon";
+import { cn } from "@zhiye/utils/style";
 import { useCareerTime } from "../shared";
 import { AiNotice } from "./fit";
 import { IconTile, List, ListRow } from "@/components/calm/list-row";
@@ -15,7 +15,7 @@ import { SectionHeading } from "@/components/calm/section-heading";
 import { orpc } from "@/libs/orpc/client";
 
 // The same matcher as the builder's Job match, loaded only once there's a posting to match.
-const loadAtsPdf = () => import("@reactive-resume/resume/ats-pdf");
+const loadAtsPdf = () => import("@zhiye/resume/ats-pdf");
 
 /** The first spelling of a term the posting uses, as it writes it ("Figma", not "figma"). */
 function asWritten(forms: readonly string[], posting: string) {

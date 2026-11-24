@@ -1,8 +1,8 @@
 import { beforeAll, describe, expect, it } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { strFromU8, unzipSync } from "fflate";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
-import { buildAccountZip } from "@reactive-resume/utils/account-zip";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
+import { buildAccountZip } from "@zhiye/utils/account-zip";
 import { detectImportKind, detectJsonImportKind, parseResumeJson } from "@/features/resume/import/read-file";
 import { getLocaleMessages } from "@/libs/locale";
 

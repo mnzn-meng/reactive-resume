@@ -1,10 +1,10 @@
 import type { EditableFields } from "../../dto/application";
 import type { DocumentFilters } from "../../dto/documents";
-import type { DbOrTx } from "@reactive-resume/db/client";
+import type { DbOrTx } from "@zhiye/db/client";
 import { ORPCError } from "@orpc/client";
 import { and, asc, count, eq, gte, inArray, isNotNull, isNull, lt } from "drizzle-orm";
-import { db } from "@reactive-resume/db/client";
-import * as schema from "@reactive-resume/db/schema";
+import { db } from "@zhiye/db/client";
+import * as schema from "@zhiye/db/schema";
 import { activeApplications } from "../applications/access";
 import { applicationService, insertApplication } from "../applications/service";
 import { notifyResumeUpdated, resumeService, writeResumeFields } from "../resume/service";

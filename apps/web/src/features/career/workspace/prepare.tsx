@@ -1,25 +1,25 @@
 import type { SavedData, SavedItem } from "../hooks";
 import type { WorkspaceTabProps } from "./shell";
 import type { Application } from "@/features/applications/types";
-import type { InterviewTimelineEntry } from "@reactive-resume/schema/applications/data";
+import type { InterviewTimelineEntry } from "@zhiye/schema/applications/data";
 import { i18n } from "@lingui/core";
 import { plural, t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useRouteContext } from "@tanstack/react-router";
 import { useId, useState } from "react";
-import { firstFutureLead, PREPARE_LEADS } from "@reactive-resume/schema/career-schedule";
-import { Button, buttonVariants } from "@reactive-resume/ui/components/button";
-import { Checkbox } from "@reactive-resume/ui/components/checkbox";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@reactive-resume/ui/components/dialog";
-import { EmptyState } from "@reactive-resume/ui/components/empty-state";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Skeleton } from "@reactive-resume/ui/components/skeleton";
-import { SwitchRow } from "@reactive-resume/ui/components/switch";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { useBreakpoint } from "@reactive-resume/ui/hooks/use-breakpoint";
-import { formatList } from "@reactive-resume/utils/locale";
-import { cn } from "@reactive-resume/utils/style";
+import { firstFutureLead, PREPARE_LEADS } from "@zhiye/schema/career-schedule";
+import { Button, buttonVariants } from "@zhiye/ui/components/button";
+import { Checkbox } from "@zhiye/ui/components/checkbox";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@zhiye/ui/components/dialog";
+import { EmptyState } from "@zhiye/ui/components/empty-state";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Skeleton } from "@zhiye/ui/components/skeleton";
+import { SwitchRow } from "@zhiye/ui/components/switch";
+import { toast } from "@zhiye/ui/components/toast";
+import { useBreakpoint } from "@zhiye/ui/hooks/use-breakpoint";
+import { formatList } from "@zhiye/utils/locale";
+import { cn } from "@zhiye/utils/style";
 import { latest, useDefaultProvider, useGenerate, useSavedItems, useTicks, useWorkspace } from "../hooks";
 import {
 	Eyebrow,

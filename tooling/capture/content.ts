@@ -1,5 +1,5 @@
-import { readJobPostingScripts } from "@reactive-resume/import/job-posting";
-import { capturePostingUrl, postingCaptureSchema } from "@reactive-resume/schema/applications/capture";
+import { readJobPostingScripts } from "@zhiye/import/job-posting";
+import { capturePostingUrl, postingCaptureSchema } from "@zhiye/schema/applications/capture";
 
 /** Runs only in the extension's isolated world, for the active top-level tab. No page code or credentials are read. */
 export function captureDocument(doc: Document, address: string) {

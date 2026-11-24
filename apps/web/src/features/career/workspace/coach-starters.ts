@@ -1,4 +1,4 @@
-import type { ApplicationStatus } from "@reactive-resume/schema/applications/data";
+import type { ApplicationStatus } from "@zhiye/schema/applications/data";
 import { t } from "@lingui/core/macro";
 
 /** Two or three first questions for the coach, by where the application stands (the same on web and mobile). */

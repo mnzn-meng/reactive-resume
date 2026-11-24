@@ -1,8 +1,8 @@
-import type { PageMap } from "@reactive-resume/pdf/page-map";
-import type { Proposal } from "@reactive-resume/resume/proposals";
+import type { PageMap } from "@zhiye/pdf/page-map";
+import type { Proposal } from "@zhiye/resume/proposals";
 import { t } from "@lingui/core/macro";
 import { useQuery } from "@tanstack/react-query";
-import { measureProposalPageFit } from "@reactive-resume/pdf/page-map";
+import { measureProposalPageFit } from "@zhiye/pdf/page-map";
 import { useResumeStore } from "@/features/resume/builder/draft";
 import { createResumePdfBlob } from "@/features/resume/export/pdf-document";
 

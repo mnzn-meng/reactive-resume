@@ -1,6 +1,6 @@
 import type { BetterAuthOptions } from "better-auth";
-import { getCoordination } from "@reactive-resume/db/coordination";
-import { getRedis, redisKey } from "@reactive-resume/db/redis";
+import { getCoordination } from "@zhiye/db/coordination";
+import { getRedis, redisKey } from "@zhiye/db/redis";
 
 // Match Better Auth's rolling inactivity window: only accepted requests extend it.
 const consumeScript = `

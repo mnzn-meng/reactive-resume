@@ -4,7 +4,7 @@ import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
-import { Tabs, TabsCount, TabsList, TabsTrigger } from "@reactive-resume/ui/components/tabs";
+import { Tabs, TabsCount, TabsList, TabsTrigger } from "@zhiye/ui/components/tabs";
 import { CareerCrumb } from "../career-crumb";
 import { useRemoving } from "../removing";
 import { Page, PageBody, PageHeader } from "@/components/calm/page";

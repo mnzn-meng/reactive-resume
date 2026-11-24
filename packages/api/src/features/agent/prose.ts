@@ -1,7 +1,7 @@
-import type { ResumeChange } from "@reactive-resume/resume/structural-proposals";
+import type { ResumeChange } from "@zhiye/resume/structural-proposals";
 import { parseDocument } from "htmlparser2";
 import { fromMarkdown } from "mdast-util-from-markdown";
-import { assertRichTextComplexity } from "@reactive-resume/schema/resume/limits";
+import { assertRichTextComplexity } from "@zhiye/schema/resume/limits";
 
 const SCOPE_MESSAGE = "Use Add section in Write for a new section, or add an entry in its matching section.";
 

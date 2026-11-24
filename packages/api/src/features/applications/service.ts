@@ -1,24 +1,24 @@
 import type { ApplicationDocumentKind, EditableFields } from "../../dto/application";
-import type { DbOrTx } from "@reactive-resume/db/client";
+import type { DbOrTx } from "@zhiye/db/client";
 import type {
 	AiMetadata,
 	ApplicationClosedReason,
 	ApplicationStatus,
 	ApplicationTimelineEntry,
 	InterviewDetails,
-} from "@reactive-resume/schema/applications/data";
+} from "@zhiye/schema/applications/data";
 import { createHash } from "node:crypto";
 import { ORPCError } from "@orpc/client";
 import { and, arrayContains, asc, count, desc, eq, inArray, isNotNull, isNull, lt, sql } from "drizzle-orm";
-import { db } from "@reactive-resume/db/client";
-import * as schema from "@reactive-resume/db/schema";
-import { lintResumeForAts } from "@reactive-resume/resume/ats";
-import { latestStageEntryId } from "@reactive-resume/schema/applications/data";
-import { SUBMITTED_DOCUMENT_LOCKED } from "@reactive-resume/schema/applications/errors";
-import { isDateOnlyFollowUp } from "@reactive-resume/schema/applications/follow-up";
-import { canonicalOpportunityUrl } from "@reactive-resume/schema/applications/posting-url";
-import { careerWorkspaceDataSchema, EMPTY_WORKSPACE } from "@reactive-resume/schema/career";
-import { generateId } from "@reactive-resume/utils/string";
+import { db } from "@zhiye/db/client";
+import * as schema from "@zhiye/db/schema";
+import { lintResumeForAts } from "@zhiye/resume/ats";
+import { latestStageEntryId } from "@zhiye/schema/applications/data";
+import { SUBMITTED_DOCUMENT_LOCKED } from "@zhiye/schema/applications/errors";
+import { isDateOnlyFollowUp } from "@zhiye/schema/applications/follow-up";
+import { canonicalOpportunityUrl } from "@zhiye/schema/applications/posting-url";
+import { careerWorkspaceDataSchema, EMPTY_WORKSPACE } from "@zhiye/schema/career";
+import { generateId } from "@zhiye/utils/string";
 import { requestRunCancellation } from "../agent/cancellation";
 import { prepareRunAt } from "../career/scheduling";
 import { isRetriedCreate, lockUser, recordCreateRequest } from "../documents/ownership";

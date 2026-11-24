@@ -1,15 +1,15 @@
 import type { CheckIssue } from "./issues";
 import type { CheckResult } from "./use-check";
-import type { AtsCategory, AtsReport } from "@reactive-resume/resume/ats";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { AtsCategory, AtsReport } from "@zhiye/resume/ats";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import { i18n } from "@lingui/core";
 import { ph, t } from "@lingui/core/macro";
 import { Plural, Trans } from "@lingui/react/macro";
 import { getRouteApi } from "@tanstack/react-router";
 import { useState } from "react";
-import { ATS_CATEGORIES } from "@reactive-resume/resume/ats";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Collapsible, CollapsibleContent } from "@reactive-resume/ui/components/collapsible";
+import { ATS_CATEGORIES } from "@zhiye/resume/ats";
+import { Button } from "@zhiye/ui/components/button";
+import { Collapsible, CollapsibleContent } from "@zhiye/ui/components/collapsible";
 import {
 	Dialog,
 	DialogContent,
@@ -17,12 +17,12 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Spinner } from "@reactive-resume/ui/components/spinner";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@reactive-resume/ui/components/tabs";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/dialog";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Spinner } from "@zhiye/ui/components/spinner";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@zhiye/ui/components/tabs";
+import { toast } from "@zhiye/ui/components/toast";
+import { cn } from "@zhiye/utils/style";
 import { PanelBody } from "../chrome/panel";
 import { useEditorStore } from "../store";
 import { useCheckActions } from "./actions";

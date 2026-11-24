@@ -3,8 +3,8 @@ import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { useQuery } from "@tanstack/react-query";
 import { useRouteContext } from "@tanstack/react-router";
-import { Badge } from "@reactive-resume/ui/components/badge";
-import { Icon } from "@reactive-resume/ui/components/icon";
+import { Badge } from "@zhiye/ui/components/badge";
+import { Icon } from "@zhiye/ui/components/icon";
 import { applicationsListQueryOptions } from "@/features/applications/queries";
 
 type StatusDocument = Pick<DocumentSummary, "id" | "application">;

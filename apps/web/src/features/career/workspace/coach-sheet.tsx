@@ -1,26 +1,26 @@
 import type { Application } from "@/features/applications/types";
 import type { MessageContext } from "@/features/assistant/chat";
 import type { RouterOutput } from "@/libs/orpc/client";
-import type { WorkspaceTab } from "@reactive-resume/schema/career";
+import type { WorkspaceTab } from "@zhiye/schema/career";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { aiModelForTask } from "@reactive-resume/ai/task-models";
-import { Button } from "@reactive-resume/ui/components/button";
+import { aiModelForTask } from "@zhiye/ai/task-models";
+import { Button } from "@zhiye/ui/components/button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { IconButton } from "@reactive-resume/ui/components/icon-button";
-import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@reactive-resume/ui/components/sheet";
-import { Spinner } from "@reactive-resume/ui/components/spinner";
-import { isolate } from "@reactive-resume/utils/string";
+} from "@zhiye/ui/components/dropdown-menu";
+import { Icon } from "@zhiye/ui/components/icon";
+import { IconButton } from "@zhiye/ui/components/icon-button";
+import { Sheet, SheetContent, SheetDescription, SheetTitle } from "@zhiye/ui/components/sheet";
+import { Spinner } from "@zhiye/ui/components/spinner";
+import { isolate } from "@zhiye/utils/string";
 import {
 	CoachThread,
 	connectionName,

@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useRef } from "react";
 import z from "zod";
-import { Button } from "@reactive-resume/ui/components/button";
+import { Button } from "@zhiye/ui/components/button";
 import {
 	DialogClose,
 	DialogContent,
@@ -13,10 +13,10 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
-import { FormControl, FormDescription, FormItem, FormLabel, FormMessage } from "@reactive-resume/ui/components/form";
-import { Input } from "@reactive-resume/ui/components/input";
-import { toast } from "@reactive-resume/ui/components/toast";
+} from "@zhiye/ui/components/dialog";
+import { FormControl, FormDescription, FormItem, FormLabel, FormMessage } from "@zhiye/ui/components/form";
+import { Input } from "@zhiye/ui/components/input";
+import { toast } from "@zhiye/ui/components/toast";
 import { useDialogStore } from "../store";
 import { ChipInput } from "@/components/input/chip-input";
 import { useExistingTags } from "@/features/documents/tag-suggestions";

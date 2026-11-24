@@ -3,11 +3,11 @@ import type {
 	ProposeResumeEditsInput,
 	ReadPageOutput,
 	SearchWebOutput,
-} from "@reactive-resume/ai/tools/agent-tool-contracts";
+} from "@zhiye/ai/tools/agent-tool-contracts";
 import type { ToolSet } from "ai";
 import { tool } from "ai";
 import z from "zod";
-import { assistantSystemPromptTemplate } from "@reactive-resume/ai/prompts";
+import { assistantSystemPromptTemplate } from "@zhiye/ai/prompts";
 import {
 	askUserQuestionInputSchema,
 	proposeResumeEditsInputSchema,
@@ -15,7 +15,7 @@ import {
 	readPageOutputSchema,
 	searchWebInputSchema,
 	searchWebOutputSchema,
-} from "@reactive-resume/ai/tools/agent-tool-contracts";
+} from "@zhiye/ai/tools/agent-tool-contracts";
 import { dataBlock } from "../ai/data-block";
 
 export const MAX_AGENT_WEB_CALLS = 6;

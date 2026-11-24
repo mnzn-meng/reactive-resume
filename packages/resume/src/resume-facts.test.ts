@@ -1,6 +1,6 @@
 import { expect, it } from "vite-plus/test";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
-import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
+import { sampleResumeData } from "@zhiye/schema/resume/sample";
 import { buildMarkdown, resumeFactProposals } from "./markdown";
 
 it("retains visible excerpts while excluding header fields and hidden content", () => {

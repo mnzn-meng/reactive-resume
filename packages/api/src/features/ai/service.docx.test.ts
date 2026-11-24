@@ -2,14 +2,14 @@ import { Buffer } from "node:buffer";
 import { deflateRawSync } from "node:zlib";
 import { afterEach, describe, expect, it, vi } from "vite-plus/test";
 import { zipSync } from "fflate";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 
 const generateTextMock = vi.hoisted(() => vi.fn());
 const envMock = vi.hoisted(() => ({
 	FLAG_ALLOW_UNSAFE_AI_BASE_URL: false,
 }));
 
-vi.mock("@reactive-resume/env/server", () => ({ env: envMock }));
+vi.mock("@zhiye/env/server", () => ({ env: envMock }));
 vi.mock("ai", async (importOriginal) => {
 	const actual = await importOriginal<typeof import("ai")>();
 	return { ...actual, generateText: generateTextMock };

@@ -1,8 +1,8 @@
 import type { ComponentProps, ReactNode } from "react";
 import { useState } from "react";
-import { IconButton } from "@reactive-resume/ui/components/icon-button";
-import { Switch } from "@reactive-resume/ui/components/switch";
-import { cn } from "@reactive-resume/utils/style";
+import { IconButton } from "@zhiye/ui/components/icon-button";
+import { Switch } from "@zhiye/ui/components/switch";
+import { cn } from "@zhiye/utils/style";
 import { ListRow } from "@/components/calm/list-row";
 
 // The pieces every Design category is drawn with (`.f2`, `.lb`, `.help`, `.sh`, `.numf` on the boards), so the seven

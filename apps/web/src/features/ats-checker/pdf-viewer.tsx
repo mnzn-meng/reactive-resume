@@ -4,8 +4,8 @@ import { Trans } from "@lingui/react/macro";
 import { AnnotationMode } from "pdfjs-dist/legacy/build/pdf.mjs";
 import { EventBus, LinkTarget, PDFLinkService, PDFViewer } from "pdfjs-dist/legacy/web/pdf_viewer.mjs";
 import { useEffect, useReducer, useRef } from "react";
-import { Spinner } from "@reactive-resume/ui/components/spinner";
-import { cn } from "@reactive-resume/utils/style";
+import { Spinner } from "@zhiye/ui/components/spinner";
+import { cn } from "@zhiye/utils/style";
 import { getDocument, getPdfWorker } from "@/features/resume/preview/pdfjs";
 import "pdfjs-dist/legacy/web/pdf_viewer.css";
 

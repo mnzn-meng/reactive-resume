@@ -1,6 +1,6 @@
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import { resumeDataSchema } from "@reactive-resume/schema/resume/data";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import type { ResumeData } from "@zhiye/schema/resume/data";
+import { resumeDataSchema } from "@zhiye/schema/resume/data";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 import { rethrowAsImportError } from "./error";
 
 const BUILT_IN_LAYOUT_SECTION_IDS = defaultResumeData.metadata.layout.pages.flatMap(({ main, sidebar }) => [

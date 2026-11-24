@@ -1,13 +1,13 @@
-import type { AuthProvider } from "@reactive-resume/auth/types";
-import type { IconName } from "@reactive-resume/ui/components/icon";
+import type { AuthProvider } from "@zhiye/auth/types";
+import type { IconName } from "@zhiye/ui/components/icon";
 import { i18n } from "@lingui/core";
 import { plural, t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouteContext } from "@tanstack/react-router";
 import { useState } from "react";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { toast } from "@reactive-resume/ui/components/toast";
+import { Icon } from "@zhiye/ui/components/icon";
+import { toast } from "@zhiye/ui/components/toast";
 import { SettingsRow, SettingsSection, subRowClassName, subRowsClassName, TextAction } from "../section";
 import { getProviderName, useAuthAccounts, useAuthProviderActions, useEnabledProviders } from "./auth-hooks";
 import { SessionsRow } from "./sessions";

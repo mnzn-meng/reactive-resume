@@ -19,16 +19,10 @@ import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { useReducedMotion } from "motion/react";
 import { useState } from "react";
-import { Button } from "@reactive-resume/ui/components/button";
-import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogHeader,
-	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
-import { IconButton } from "@reactive-resume/ui/components/icon-button";
-import { cn } from "@reactive-resume/utils/style";
+import { Button } from "@zhiye/ui/components/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@zhiye/ui/components/dialog";
+import { IconButton } from "@zhiye/ui/components/icon-button";
+import { cn } from "@zhiye/utils/style";
 import { getDisplayLane, getLaneLabel, laneDotColor } from "../lanes";
 import { CLOSED_REASONS, getClosedReasonLabel } from "../stages";
 import { useApplicationActions } from "../use-application-actions";

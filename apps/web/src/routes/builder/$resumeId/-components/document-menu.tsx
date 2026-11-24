@@ -3,7 +3,7 @@ import { Trans } from "@lingui/react/macro";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useRef, useState } from "react";
-import { Button } from "@reactive-resume/ui/components/button";
+import { Button } from "@zhiye/ui/components/button";
 import {
 	Dialog,
 	DialogContent,
@@ -11,7 +11,7 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
+} from "@zhiye/ui/components/dialog";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -20,10 +20,10 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { isolate } from "@reactive-resume/utils/string";
+} from "@zhiye/ui/components/dropdown-menu";
+import { Icon } from "@zhiye/ui/components/icon";
+import { toast } from "@zhiye/ui/components/toast";
+import { isolate } from "@zhiye/utils/string";
 import { NotesSectionBuilder } from "../-sidebar/right/sections/notes";
 import { DocumentDetails } from "./document-details";
 import { ChipInput } from "@/components/input/chip-input";

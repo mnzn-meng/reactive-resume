@@ -4,7 +4,7 @@ import { afterEach, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Dialog } from "@reactive-resume/ui/components/dialog";
+import { Dialog } from "@zhiye/ui/components/dialog";
 
 const api = vi.hoisted(() => ({
 	documents: [] as unknown[],

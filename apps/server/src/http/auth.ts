@@ -1,8 +1,8 @@
 import { isIP } from "node:net";
-import { migrateUserStorage } from "@reactive-resume/api/features/storage";
-import { auth, setAccountLinkHook } from "@reactive-resume/auth/config";
-import { isSessionIntentPath } from "@reactive-resume/utils/auth-intent";
-import { TRUSTED_IP_HEADERS } from "@reactive-resume/utils/rate-limit";
+import { migrateUserStorage } from "@zhiye/api/features/storage";
+import { auth, setAccountLinkHook } from "@zhiye/auth/config";
+import { isSessionIntentPath } from "@zhiye/utils/auth-intent";
+import { TRUSTED_IP_HEADERS } from "@zhiye/utils/rate-limit";
 
 setAccountLinkHook(({ fromUserId, toUserId, excludedStoragePrefixes }) =>
 	migrateUserStorage(fromUserId, toUserId, excludedStoragePrefixes),

@@ -1,8 +1,8 @@
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import { createEntry } from "@reactive-resume/resume/entries";
-import { readLegacyDates } from "@reactive-resume/schema/resume/dates";
-import { defaultResumeData, sectionDefaults } from "@reactive-resume/schema/resume/default";
-import { templateSchema } from "@reactive-resume/schema/templates";
+import type { ResumeData } from "@zhiye/schema/resume/data";
+import { createEntry } from "@zhiye/resume/entries";
+import { readLegacyDates } from "@zhiye/schema/resume/dates";
+import { defaultResumeData, sectionDefaults } from "@zhiye/schema/resume/default";
+import { templateSchema } from "@zhiye/schema/templates";
 
 export const ownershipCases = templateSchema.options.flatMap((template) =>
 	[

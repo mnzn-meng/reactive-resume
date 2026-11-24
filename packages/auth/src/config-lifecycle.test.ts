@@ -11,7 +11,7 @@ vi.mock("better-auth", async (importOriginal) => ({
 	...(await importOriginal<typeof import("better-auth")>()),
 	betterAuth: mocks.betterAuth,
 }));
-vi.mock("@reactive-resume/db/client", () => ({
+vi.mock("@zhiye/db/client", () => ({
 	db: {
 		transaction: (run: (tx: { delete: typeof mocks.delete }) => Promise<void>) =>
 			run({ delete: mocks.delete, update: () => ({ set: () => ({ where: async () => undefined }) }) } as never),
@@ -26,8 +26,8 @@ vi.mock("./oauth-profile", async (importOriginal) => ({
 	allocateUniqueUsername: mocks.allocateUniqueUsername,
 	isUsernameReserved: vi.fn(async () => false),
 }));
-vi.mock("@reactive-resume/email/transport", () => ({ sendEmail: vi.fn() }));
-vi.mock("@reactive-resume/env/server", () => ({ env: mocks.env }));
+vi.mock("@zhiye/email/transport", () => ({ sendEmail: vi.fn() }));
+vi.mock("@zhiye/env/server", () => ({ env: mocks.env }));
 
 function createInstance(context = Promise.resolve({})) {
 	return {
@@ -98,7 +98,7 @@ describe("credential enrollment and recovery", () => {
 	it.each([false, true])("revokes historical passkeys on password recovery with verified=%s", async (emailVerified) => {
 		const { options } = await securityHooks();
 		await options.emailAndPassword.onPasswordReset({ user: { id: "owner", emailVerified } });
-		const schema = await import("@reactive-resume/db/schema");
+		const schema = await import("@zhiye/db/schema");
 		expect(mocks.delete).toHaveBeenCalledWith(schema.passkey);
 	});
 });

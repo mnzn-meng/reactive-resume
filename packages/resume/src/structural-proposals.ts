@@ -1,9 +1,9 @@
-import type { CustomSectionType, ResumeData } from "@reactive-resume/schema/resume/data";
+import type { CustomSectionType, ResumeData } from "@zhiye/schema/resume/data";
 import z from "zod";
-import { customSectionItemDefinitionByType, sectionTypeSchema } from "@reactive-resume/schema/resume/data";
-import { readLegacyDates } from "@reactive-resume/schema/resume/dates";
-import { sectionDefaults } from "@reactive-resume/schema/resume/default";
-import { generateId } from "@reactive-resume/utils/string";
+import { customSectionItemDefinitionByType, sectionTypeSchema } from "@zhiye/schema/resume/data";
+import { readLegacyDates } from "@zhiye/schema/resume/dates";
+import { sectionDefaults } from "@zhiye/schema/resume/default";
+import { generateId } from "@zhiye/utils/string";
 import { applyResumePatches } from "./patch";
 
 export const resumeFieldTargetSchema = z.strictObject({

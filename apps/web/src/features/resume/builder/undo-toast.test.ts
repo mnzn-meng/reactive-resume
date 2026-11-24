@@ -26,7 +26,7 @@ const mocks = vi.hoisted(() => {
 	return { store, history, toasts: [] as Toast[] };
 });
 vi.mock("./draft", () => ({ useResumeStore: { getState: () => mocks.store } }));
-vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: (toast: Toast) => mocks.toasts.push(toast) } }));
+vi.mock("@zhiye/ui/components/toast", () => ({ toast: { add: (toast: Toast) => mocks.toasts.push(toast) } }));
 
 import { undoToast } from "./undo-toast";
 

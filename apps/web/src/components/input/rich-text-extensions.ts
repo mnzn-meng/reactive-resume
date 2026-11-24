@@ -5,7 +5,7 @@ import { Table, TableCell, TableHeader, TableRow } from "@tiptap/extension-table
 import TextAlign from "@tiptap/extension-text-align";
 import { TextStyle } from "@tiptap/extension-text-style";
 import StarterKit from "@tiptap/starter-kit";
-import { isDarkColor } from "@reactive-resume/utils/color";
+import { isDarkColor } from "@zhiye/utils/color";
 import { ContentDirection } from "./content-direction";
 import { ParagraphIndent } from "./paragraph-indent";
 import { LiteralHeading, LiteralParagraph, LiteralWhitespaceInput } from "./rich-input-whitespace";

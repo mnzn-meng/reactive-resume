@@ -1,8 +1,8 @@
-import type { Template } from "@reactive-resume/schema/templates";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
-import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
-import { templateSchema } from "@reactive-resume/schema/templates";
-import { generateId } from "@reactive-resume/utils/string";
+import type { Template } from "@zhiye/schema/templates";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
+import { sampleResumeData } from "@zhiye/schema/resume/sample";
+import { templateSchema } from "@zhiye/schema/templates";
+import { generateId } from "@zhiye/utils/string";
 
 /**
  * Templates for heuristic edge cases. Run against every template, mutations of the PDF parser's heading, link,

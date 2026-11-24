@@ -6,20 +6,20 @@ import { Trans } from "@lingui/react/macro";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useId, useRef, useState } from "react";
 import { create } from "zustand";
-import { Badge } from "@reactive-resume/ui/components/badge";
-import { Button } from "@reactive-resume/ui/components/button";
+import { Badge } from "@zhiye/ui/components/badge";
+import { Button } from "@zhiye/ui/components/button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { IconButton } from "@reactive-resume/ui/components/icon-button";
-import { Input } from "@reactive-resume/ui/components/input";
-import { SegmentedControl, SegmentedControlItem } from "@reactive-resume/ui/components/segmented-control";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/dropdown-menu";
+import { Icon } from "@zhiye/ui/components/icon";
+import { IconButton } from "@zhiye/ui/components/icon-button";
+import { Input } from "@zhiye/ui/components/input";
+import { SegmentedControl, SegmentedControlItem } from "@zhiye/ui/components/segmented-control";
+import { toast } from "@zhiye/ui/components/toast";
+import { cn } from "@zhiye/utils/style";
 import { formatVersionMoment, formatVersionTime, getVersionDetail, getVersionTitle } from "./format";
 import { rowGroundClassName, rowLinkClassName } from "@/components/calm/list-row";
 import { AiResultUsage } from "@/features/ai/usage";

@@ -1,11 +1,11 @@
-import type { AiAction } from "@reactive-resume/schema/ai-usage";
+import type { AiAction } from "@zhiye/schema/ai-usage";
 import { plural } from "@lingui/core/macro";
 import { Trans, useLingui } from "@lingui/react/macro";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { groupAiUsage } from "@reactive-resume/schema/ai-usage";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@reactive-resume/ui/components/collapsible";
-import { Icon } from "@reactive-resume/ui/components/icon";
+import { groupAiUsage } from "@zhiye/schema/ai-usage";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@zhiye/ui/components/collapsible";
+import { Icon } from "@zhiye/ui/components/icon";
 import { SettingsSection } from "../section";
 import { aiActionLabel } from "@/features/ai/usage";
 import { orpc } from "@/libs/orpc/client";

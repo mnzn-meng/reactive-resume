@@ -21,7 +21,7 @@ vi.mock("@hono/node-server/serve-static", () => ({
 	serveStatic: mocks.serveStatic,
 }));
 
-vi.mock("@reactive-resume/env/server", () => ({
+vi.mock("@zhiye/env/server", () => ({
 	env: mocks.env,
 }));
 

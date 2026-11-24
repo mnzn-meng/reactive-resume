@@ -1,7 +1,7 @@
 import { t } from "@lingui/core/macro";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "@tanstack/react-router";
-import { toast } from "@reactive-resume/ui/components/toast";
+import { toast } from "@zhiye/ui/components/toast";
 import { clearAccountData } from "@/libs/auth/clear-account-data";
 import { authClient } from "@/libs/auth/client";
 

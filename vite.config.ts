@@ -2,7 +2,7 @@ import { defineConfig } from "vite-plus";
 
 const workspaceImportPatterns = [
 	{
-		regex: "@reactive-resume/[^/]+/src(?:/|$)|(?:^|/)(?:apps|packages)/[^/]+/src(?:/|$)",
+		regex: "@zhiye/[^/]+/src(?:/|$)|(?:^|/)(?:apps|packages)/[^/]+/src(?:/|$)",
 		message:
 			"Use the workspace package export map instead of private src paths, including re-exports and dynamic imports.",
 	},
@@ -128,7 +128,7 @@ export default defineConfig({
 				},
 				{
 					groupName: "workspace",
-					elementNamePattern: ["@reactive-resume/**"],
+					elementNamePattern: ["@zhiye/**"],
 				},
 			],
 			groups: [

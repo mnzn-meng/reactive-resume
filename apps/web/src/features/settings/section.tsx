@@ -1,7 +1,7 @@
 import type { ComponentProps, ReactNode } from "react";
 import { useEffect, useId, useRef } from "react";
-import { Button } from "@reactive-resume/ui/components/button";
-import { cn } from "@reactive-resume/utils/style";
+import { Button } from "@zhiye/ui/components/button";
+import { cn } from "@zhiye/utils/style";
 import { ListRow } from "@/components/calm/list-row";
 import { SectionHeading } from "@/components/calm/section-heading";
 

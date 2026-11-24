@@ -1,5 +1,5 @@
 import type { RouterOutput } from "@/libs/orpc/client";
-import type { PostingCapture } from "@reactive-resume/schema/applications/capture";
+import type { PostingCapture } from "@zhiye/schema/applications/capture";
 import type { SetStateAction } from "react";
 import { i18n } from "@lingui/core";
 import { t } from "@lingui/core/macro";
@@ -7,12 +7,12 @@ import { Plural, Trans } from "@lingui/react/macro";
 import { ORPCError } from "@orpc/client";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useId, useRef, useState } from "react";
-import { aiModelForTask } from "@reactive-resume/ai/task-models";
-import { supportsNativeWebSearch } from "@reactive-resume/ai/types";
-import { readPastedPostingHeader } from "@reactive-resume/import/job-posting";
-import { postingReadReceipt } from "@reactive-resume/schema/applications/posting-source";
-import { Alert, AlertDescription, AlertTitle } from "@reactive-resume/ui/components/alert";
-import { Button, buttonVariants } from "@reactive-resume/ui/components/button";
+import { aiModelForTask } from "@zhiye/ai/task-models";
+import { supportsNativeWebSearch } from "@zhiye/ai/types";
+import { readPastedPostingHeader } from "@zhiye/import/job-posting";
+import { postingReadReceipt } from "@zhiye/schema/applications/posting-source";
+import { Alert, AlertDescription, AlertTitle } from "@zhiye/ui/components/alert";
+import { Button, buttonVariants } from "@zhiye/ui/components/button";
 import {
 	Dialog,
 	DialogContent,
@@ -20,24 +20,24 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
+} from "@zhiye/ui/components/dialog";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Input } from "@reactive-resume/ui/components/input";
-import { InputGroup, InputGroupAddon, InputGroupInput } from "@reactive-resume/ui/components/input-group";
-import { Label } from "@reactive-resume/ui/components/label";
-import { NativeSelect } from "@reactive-resume/ui/components/native-select";
-import { SegmentedControl, SegmentedControlItem } from "@reactive-resume/ui/components/segmented-control";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@reactive-resume/ui/components/tabs";
-import { Textarea } from "@reactive-resume/ui/components/textarea";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { isolate } from "@reactive-resume/utils/string";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/dropdown-menu";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Input } from "@zhiye/ui/components/input";
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@zhiye/ui/components/input-group";
+import { Label } from "@zhiye/ui/components/label";
+import { NativeSelect } from "@zhiye/ui/components/native-select";
+import { SegmentedControl, SegmentedControlItem } from "@zhiye/ui/components/segmented-control";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@zhiye/ui/components/tabs";
+import { Textarea } from "@zhiye/ui/components/textarea";
+import { toast } from "@zhiye/ui/components/toast";
+import { isolate } from "@zhiye/utils/string";
+import { cn } from "@zhiye/utils/style";
 import { getCategoryLane, getLaneLabel, laneMoveInput } from "../lanes";
 import { useInvalidateApplications } from "../use-application-actions";
 import { useApplicationLanes } from "../use-application-lanes";

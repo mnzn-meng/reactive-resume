@@ -1,8 +1,8 @@
 import { t } from "@lingui/core/macro";
 import { useRef } from "react";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { toast } from "@reactive-resume/ui/components/toast";
+import { Button } from "@zhiye/ui/components/button";
+import { Icon } from "@zhiye/ui/components/icon";
+import { toast } from "@zhiye/ui/components/toast";
 import { AttachmentPreview } from "./attachment-preview";
 
 export type FileAttachment = { url: string; name: string };

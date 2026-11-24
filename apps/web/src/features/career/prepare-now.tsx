@@ -1,7 +1,7 @@
 import { t } from "@lingui/core/macro";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
-import { Button } from "@reactive-resume/ui/components/button";
+import { Button } from "@zhiye/ui/components/button";
 import { CareerLoadError } from "./load-state";
 import { useNow } from "./shared";
 import { collectInterviews } from "@/features/applications/interviews";

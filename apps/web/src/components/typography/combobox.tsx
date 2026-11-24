@@ -2,8 +2,8 @@ import type { MultiComboboxProps, SingleComboboxProps } from "@/components/ui/co
 import { t } from "@lingui/core/macro";
 import { useEffect, useRef, useState } from "react";
 import { List, useListRef, type RowComponentProps } from "react-window";
-import { fontList, getFont, getFontDisplayName, getFontSearchKeywords, sortFontWeights } from "@reactive-resume/fonts";
-import { Button } from "@reactive-resume/ui/components/button";
+import { fontList, getFont, getFontDisplayName, getFontSearchKeywords, sortFontWeights } from "@zhiye/fonts";
+import { Button } from "@zhiye/ui/components/button";
 import {
 	ComboboxRoot,
 	ComboboxTrigger,
@@ -13,12 +13,12 @@ import {
 	ComboboxList,
 	ComboboxItem,
 	ComboboxEmpty,
-} from "@reactive-resume/ui/components/combobox";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { IconButton } from "@reactive-resume/ui/components/icon-button";
-import { InputGroupAddon } from "@reactive-resume/ui/components/input-group";
-import { Kbd } from "@reactive-resume/ui/components/kbd";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/combobox";
+import { Icon } from "@zhiye/ui/components/icon";
+import { IconButton } from "@zhiye/ui/components/icon-button";
+import { InputGroupAddon } from "@zhiye/ui/components/input-group";
+import { Kbd } from "@zhiye/ui/components/kbd";
+import { cn } from "@zhiye/utils/style";
 import { FontDisplay } from "./font-display";
 import { Combobox } from "@/components/ui/combobox";
 

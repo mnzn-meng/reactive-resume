@@ -1,7 +1,7 @@
 import type { LaneMode } from "./lanes";
 import { ORPCError } from "@orpc/client";
 import { useQuery } from "@tanstack/react-query";
-import { createDefaultApplicationLanes, getActiveApplicationLanes } from "@reactive-resume/schema/applications/lanes";
+import { createDefaultApplicationLanes, getActiveApplicationLanes } from "@zhiye/schema/applications/lanes";
 import { orpc } from "@/libs/orpc/client";
 
 /**

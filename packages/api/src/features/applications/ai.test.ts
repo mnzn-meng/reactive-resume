@@ -16,8 +16,8 @@ vi.mock("../ai-providers/service", () => ({
 vi.mock("../resume/service", () => ({ resumeService: { getById: vi.fn(), create: vi.fn() } }));
 vi.mock("../cover-letters/service", () => ({ coverLetterService: { create: vi.fn() } }));
 // A copy, so a test can set the server's SearXNG URL.
-vi.mock("@reactive-resume/env/server", async (importOriginal) => ({
-	env: { ...(await importOriginal<typeof import("@reactive-resume/env/server")>()).env },
+vi.mock("@zhiye/env/server", async (importOriginal) => ({
+	env: { ...(await importOriginal<typeof import("@zhiye/env/server")>()).env },
 }));
 vi.mock("../web-access/credentials", async (importOriginal) => {
 	const { webAccessService } = await importOriginal<typeof import("../web-access/credentials")>();
@@ -36,7 +36,7 @@ vi.mock("./service", () => ({
 const { aiRouter, generateJson, generatePlainText } = await import("./ai");
 const { aiProvidersService } = await import("../ai-providers/service");
 const { fetchJobPosting, searchJobPostings } = await import("./posting");
-const { env } = await import("@reactive-resume/env/server");
+const { env } = await import("@zhiye/env/server");
 
 describe("copilot provider-failure translation", () => {
 	const schema = z.object({ summary: z.string() });

@@ -1,13 +1,13 @@
 import type { WebAccessContext } from "../web-access/contracts";
 import { z } from "zod";
-import { jobPostingsIn, readJobPosting as readStructuredPosting } from "@reactive-resume/import/job-posting";
-import { countryName } from "@reactive-resume/utils/region";
+import { jobPostingsIn, readJobPosting as readStructuredPosting } from "@zhiye/import/job-posting";
+import { countryName } from "@zhiye/utils/region";
 import { htmlToText } from "../web-access/builtin";
 import { MAX_CONTENT_CHARS, MAX_SEARCH_QUERY_CHARS, WebAccessError } from "../web-access/contracts";
 import { readPage, searchWeb } from "../web-access/service";
 
 export { htmlToText } from "../web-access/builtin";
-export { decodeEscapedNewlines } from "@reactive-resume/import/job-posting";
+export { decodeEscapedNewlines } from "@zhiye/import/job-posting";
 export { WebAccessError as PostingFetchError } from "../web-access/contracts";
 
 /** Matches the applications feature's cap on a saved posting. */

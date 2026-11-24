@@ -1,11 +1,11 @@
-import type { ApplicationClosedReason } from "@reactive-resume/schema/applications/data";
+import type { ApplicationClosedReason } from "@zhiye/schema/applications/data";
 import { t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
 import { useQuery } from "@tanstack/react-query";
 import { useDeferredValue } from "react";
-import { Alert, AlertDescription, AlertTitle } from "@reactive-resume/ui/components/alert";
-import { Icon } from "@reactive-resume/ui/components/icon";
+import { Alert, AlertDescription, AlertTitle } from "@zhiye/ui/components/alert";
+import { Icon } from "@zhiye/ui/components/icon";
 import { useApplicationLanes } from "../use-application-lanes";
 import { orpc } from "@/libs/orpc/client";
 

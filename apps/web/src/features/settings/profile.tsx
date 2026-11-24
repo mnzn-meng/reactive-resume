@@ -1,5 +1,5 @@
 import type { RouterOutput } from "@/libs/orpc/client";
-import type { ApplicationProfileData } from "@reactive-resume/schema/application-profile";
+import type { ApplicationProfileData } from "@zhiye/schema/application-profile";
 import type { ReactNode } from "react";
 import { plural, t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
@@ -7,7 +7,7 @@ import { Trans } from "@lingui/react/macro";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouteContext } from "@tanstack/react-router";
 import { useId, useState } from "react";
-import { applicationProfileDataSchema } from "@reactive-resume/schema/application-profile";
+import { applicationProfileDataSchema } from "@zhiye/schema/application-profile";
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -17,8 +17,8 @@ import {
 	AlertDialogFooter,
 	AlertDialogHeader,
 	AlertDialogTitle,
-} from "@reactive-resume/ui/components/alert-dialog";
-import { Button } from "@reactive-resume/ui/components/button";
+} from "@zhiye/ui/components/alert-dialog";
+import { Button } from "@zhiye/ui/components/button";
 import {
 	Dialog,
 	DialogClose,
@@ -27,17 +27,17 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Input } from "@reactive-resume/ui/components/input";
-import { Label } from "@reactive-resume/ui/components/label";
-import { NativeSelect } from "@reactive-resume/ui/components/native-select";
-import { SegmentedControl, SegmentedControlItem } from "@reactive-resume/ui/components/segmented-control";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { parseAmount } from "@reactive-resume/utils/amount";
-import { downloadWithAnchor } from "@reactive-resume/utils/file";
-import { countryName, SEARCH_REGION_CODES } from "@reactive-resume/utils/region";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/dialog";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Input } from "@zhiye/ui/components/input";
+import { Label } from "@zhiye/ui/components/label";
+import { NativeSelect } from "@zhiye/ui/components/native-select";
+import { SegmentedControl, SegmentedControlItem } from "@zhiye/ui/components/segmented-control";
+import { toast } from "@zhiye/ui/components/toast";
+import { parseAmount } from "@zhiye/utils/amount";
+import { downloadWithAnchor } from "@zhiye/utils/file";
+import { countryName, SEARCH_REGION_CODES } from "@zhiye/utils/region";
+import { cn } from "@zhiye/utils/style";
 import { TextAction } from "./section";
 import { List, ListRow } from "@/components/calm/list-row";
 import { SectionHeading } from "@/components/calm/section-heading";

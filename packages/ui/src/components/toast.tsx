@@ -1,6 +1,6 @@
 import { Toast as ToastPrimitive } from "@base-ui/react/toast";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Spinner } from "@reactive-resume/ui/components/spinner";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Spinner } from "@zhiye/ui/components/spinner";
 
 /**
  * One toast at a time, bottom centre, 24px from the edge: an ink fill with page-colour text, 12px radius, e3. A new toast replaces the current one,

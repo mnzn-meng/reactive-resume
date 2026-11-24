@@ -30,7 +30,7 @@ vi.mock("@/features/resume/builder/draft", () => ({
 	useResumeStore: { getState: () => ({ resume: mocks.resume }) },
 }));
 vi.mock("@/libs/error-message", () => ({ toastError: vi.fn() }));
-vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: vi.fn() } }));
+vi.mock("@zhiye/ui/components/toast", () => ({ toast: { add: vi.fn() } }));
 vi.mock("@/libs/orpc/client", () => ({
 	client: {
 		applications: { create: mocks.create },

@@ -9,8 +9,8 @@ import type { ReactNode } from "react";
 import { ph } from "@lingui/core/macro";
 import { Trans, useLingui } from "@lingui/react/macro";
 import { useEffect, useRef, useState } from "react";
-import { isRTL } from "@reactive-resume/utils/locale";
-import { cn } from "@reactive-resume/utils/style";
+import { isRTL } from "@zhiye/utils/locale";
+import { cn } from "@zhiye/utils/style";
 import { AnnotationMode, getDocument, getPdfWorker, RenderingCancelledException } from "./pdfjs";
 import { DEFAULT_PDF_PAGE_SIZE, getPreviewCanvasScale, getScaledPreviewPageSize } from "./preview.shared.utils";
 

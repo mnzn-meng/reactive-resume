@@ -1,7 +1,7 @@
 import { ORPCError } from "@orpc/client";
 import { and, eq, isNull } from "drizzle-orm";
-import { db } from "@reactive-resume/db/client";
-import { resume } from "@reactive-resume/db/schema";
+import { db } from "@zhiye/db/client";
+import { resume } from "@zhiye/db/schema";
 
 /** A name-only lookup across the owner's whole library, independent of the visible page and filters. */
 export async function suggestDuplicateName(input: { userId: string; id: string }) {

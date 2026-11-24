@@ -1,5 +1,5 @@
 import type { DocumentsSearch } from "@/features/documents/documents-page";
-import type { Template } from "@reactive-resume/schema/templates";
+import type { Template } from "@zhiye/schema/templates";
 import { t } from "@lingui/core/macro";
 import { createFileRoute, stripSearchParams } from "@tanstack/react-router";
 import { useEffect, useEffectEvent, useRef } from "react";

@@ -1,8 +1,8 @@
 import type { Style } from "../../forme/style-types";
-import type { ResumeData, StyleIntent, StyleSlot } from "@reactive-resume/schema/resume/data";
-import type { SectionStyleRuleContext } from "@reactive-resume/schema/resume/style-rules";
-import { resolveStyleIntentForSlot } from "@reactive-resume/schema/resume/style-rules";
-import { rgbaStringToHex } from "@reactive-resume/utils/color";
+import type { ResumeData, StyleIntent, StyleSlot } from "@zhiye/schema/resume/data";
+import type { SectionStyleRuleContext } from "@zhiye/schema/resume/style-rules";
+import { resolveStyleIntentForSlot } from "@zhiye/schema/resume/style-rules";
+import { rgbaStringToHex } from "@zhiye/utils/color";
 
 export type ResolveStyleRuleSlotOptions = SectionStyleRuleContext & {
 	slot: StyleSlot;

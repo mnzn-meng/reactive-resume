@@ -1,5 +1,5 @@
-import type { ApplicationStatus } from "@reactive-resume/schema/applications/data";
-import type { StageBaseline } from "@reactive-resume/schema/applications/stage-baselines";
+import type { ApplicationStatus } from "@zhiye/schema/applications/data";
+import type { StageBaseline } from "@zhiye/schema/applications/stage-baselines";
 import { randomUUID } from "node:crypto";
 import { readdir, readFile } from "node:fs/promises";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vite-plus/test";
@@ -7,19 +7,19 @@ import { createRouterClient } from "@orpc/server";
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import * as tables from "@reactive-resume/db/schema";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import * as tables from "@zhiye/db/schema";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 
 const fixture = vi.hoisted(() => ({
 	db: undefined as ReturnType<typeof drizzle> | undefined,
 	email: vi.fn().mockResolvedValue(true),
 }));
-vi.mock("@reactive-resume/db/client", () => ({
+vi.mock("@zhiye/db/client", () => ({
 	get db() {
 		return fixture.db;
 	},
 }));
-vi.mock("@reactive-resume/env/server", () => ({
+vi.mock("@zhiye/env/server", () => ({
 	env: {
 		APP_URL: "http://localhost:3000",
 		AUTH_SECRET: "synthetic-test-secret-at-least-32-chars",
@@ -29,7 +29,7 @@ vi.mock("@reactive-resume/env/server", () => ({
 		FLAG_DISABLE_API_RATE_LIMIT: true,
 	},
 }));
-vi.mock("@reactive-resume/email/transport", () => ({ sendEmail: vi.fn(), sendCareerNotification: fixture.email }));
+vi.mock("@zhiye/email/transport", () => ({ sendEmail: vi.fn(), sendCareerNotification: fixture.email }));
 vi.mock("../storage/service", () => ({ getStorageService: () => ({ delete: async () => {} }), uploadFile: vi.fn() }));
 
 const databaseUrl = process.env.INTEGRATIONS_TEST_DATABASE_URL ?? process.env.COVER_LETTER_TEST_DATABASE_URL;
@@ -40,7 +40,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 	let applications: typeof import("./service").applicationService;
 	let lanes: typeof import("./lanes").applicationLaneService;
 	let career: typeof import("../career/service").careerService;
-	let linkGuest: typeof import("@reactive-resume/auth/config").linkAnonymousAccount;
+	let linkGuest: typeof import("@zhiye/auth/config").linkAnonymousAccount;
 	const schemaName = `application_lanes_test_${randomUUID().replaceAll("-", "")}`;
 	let beforeMigration: Record<string, unknown>;
 	let afterMigration: Record<string, unknown>;
@@ -110,7 +110,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 		applications = (await import("./service")).applicationService;
 		lanes = (await import("./lanes")).applicationLaneService;
 		career = (await import("../career/service")).careerService;
-		linkGuest = (await import("@reactive-resume/auth/config")).linkAnonymousAccount;
+		linkGuest = (await import("@zhiye/auth/config")).linkAnonymousAccount;
 	}, 30_000);
 	afterAll(async () => {
 		await pool?.end();
@@ -384,7 +384,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 
 	it("a deferred bulk move through the router leaves rows whose stage changed since, and moves the rest", async () => {
 		const { applicationsRouter } = await import("./router");
-		const { latestStageEntryId } = await import("@reactive-resume/schema/applications/data");
+		const { latestStageEntryId } = await import("@zhiye/schema/applications/data");
 		const client = createRouterClient(applicationsRouter, {
 			context: {
 				locale: "en-US",
@@ -435,7 +435,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 
 	it("two quick bulk moves of one row from one client are saved in order, the second from what the first saved", async () => {
 		const { applicationsRouter } = await import("./router");
-		const { stageBaselinesFor } = await import("@reactive-resume/schema/applications/stage-baselines");
+		const { stageBaselinesFor } = await import("@zhiye/schema/applications/stage-baselines");
 		const client = createRouterClient(applicationsRouter, {
 			context: {
 				locale: "en-US",
@@ -480,8 +480,8 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 
 	it("a bulk move chosen while a single move of the row is on its way is saved after it, from its answer", async () => {
 		const { applicationsRouter } = await import("./router");
-		const { latestStageEntryId } = await import("@reactive-resume/schema/applications/data");
-		const { stageBaselinesFor } = await import("@reactive-resume/schema/applications/stage-baselines");
+		const { latestStageEntryId } = await import("@zhiye/schema/applications/data");
+		const { stageBaselinesFor } = await import("@zhiye/schema/applications/stage-baselines");
 		const client = createRouterClient(applicationsRouter, {
 			context: {
 				locale: "en-US",
@@ -551,7 +551,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 	it("Career submit and message changes answer with their saved stage, and a bulk move after them is saved", async () => {
 		const { applicationsRouter } = await import("./router");
 		const { careerRouter } = await import("../career/router");
-		const { savedStageIn, stageBaselinesFor } = await import("@reactive-resume/schema/applications/stage-baselines");
+		const { savedStageIn, stageBaselinesFor } = await import("@zhiye/schema/applications/stage-baselines");
 		const context = {
 			locale: "en-US",
 			reqHeaders: new Headers(),
@@ -668,7 +668,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 				user: { id: "alice" },
 			} as never,
 		});
-		const { latestStageEntryId } = await import("@reactive-resume/schema/applications/data");
+		const { latestStageEntryId } = await import("@zhiye/schema/applications/data");
 		const takeHome = await addLane("Take-home", "interview");
 		const replacement = await addLane("Panel", "interview");
 		const id = await applications.create({ userId: "alice", company: "Kauri", role: "Lead", laneId: takeHome.id });
@@ -731,7 +731,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 
 	it("a deferred bulk move leaves a row moved away and back since, but not one only edited since", async () => {
 		const { applicationsRouter } = await import("./router");
-		const { latestStageEntryId } = await import("@reactive-resume/schema/applications/data");
+		const { latestStageEntryId } = await import("@zhiye/schema/applications/data");
 		const client = createRouterClient(applicationsRouter, {
 			context: {
 				locale: "en-US",
@@ -812,7 +812,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 				status: row.status,
 				laneId: row.laneId,
 				closedReason: row.closedReason,
-				stageEntryId: (await import("@reactive-resume/schema/applications/data")).latestStageEntryId(row.activity),
+				stageEntryId: (await import("@zhiye/schema/applications/data")).latestStageEntryId(row.activity),
 			};
 		};
 		const stored = async (id: string) =>
@@ -866,8 +866,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 			"%s: answered Career reply then bulk uses its saved write before list reload",
 			async (kind) => {
 				const { apps, careerClient } = await clients();
-				const { savedStageIn, stageBaselinesFor } =
-					await import("@reactive-resume/schema/applications/stage-baselines");
+				const { savedStageIn, stageBaselinesFor } = await import("@zhiye/schema/applications/stage-baselines");
 				const id = await apps.create({
 					company: "Cedar",
 					role: "Lead",
@@ -924,8 +923,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 			"repeated %s cannot acknowledge an outside later move",
 			async (action) => {
 				const { apps, careerClient } = await clients();
-				const { savedStageIn, stageBaselinesFor } =
-					await import("@reactive-resume/schema/applications/stage-baselines");
+				const { savedStageIn, stageBaselinesFor } = await import("@zhiye/schema/applications/stage-baselines");
 				const referral = await addLane("Referral", "applied");
 				const id = await apps.create({
 					company: "Hazel",

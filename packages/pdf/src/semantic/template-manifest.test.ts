@@ -1,9 +1,9 @@
-import type { SemanticNode } from "@reactive-resume/resume/stylesheet/types";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import type { Template } from "@reactive-resume/schema/templates";
+import type { SemanticNode } from "@zhiye/resume/stylesheet/types";
+import type { ResumeData } from "@zhiye/schema/resume/data";
+import type { Template } from "@zhiye/schema/templates";
 import { describe, expect, it } from "vite-plus/test";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
-import { templateSchema } from "@reactive-resume/schema/templates";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
+import { templateSchema } from "@zhiye/schema/templates";
 import { getTemplateSemanticManifest } from "./template-manifest";
 import { buildSemanticTree } from "./tree";
 

@@ -4,9 +4,9 @@ import { Trans } from "@lingui/react/macro";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouteContext } from "@tanstack/react-router";
 import { useEffect, useId, useRef, useState } from "react";
-import { MAX_RESUME_FACT_CHARACTERS } from "@reactive-resume/schema/career";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Checkbox } from "@reactive-resume/ui/components/checkbox";
+import { MAX_RESUME_FACT_CHARACTERS } from "@zhiye/schema/career";
+import { Button } from "@zhiye/ui/components/button";
+import { Checkbox } from "@zhiye/ui/components/checkbox";
 import {
 	Dialog,
 	DialogContent,
@@ -14,10 +14,10 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Label } from "@reactive-resume/ui/components/label";
-import { NativeSelect } from "@reactive-resume/ui/components/native-select";
+} from "@zhiye/ui/components/dialog";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Label } from "@zhiye/ui/components/label";
+import { NativeSelect } from "@zhiye/ui/components/native-select";
 import { CATEGORIES, categoryLabel } from "./fact-categories";
 import { getAccountGeneration, getAccountId } from "@/libs/auth/account-scope";
 import { getOrpcErrorMessage } from "@/libs/error-message";

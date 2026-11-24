@@ -1,13 +1,8 @@
-import type { Website } from "@reactive-resume/schema/resume/data";
+import type { Website } from "@zhiye/schema/resume/data";
 import { t } from "@lingui/core/macro";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import {
-	InputGroup,
-	InputGroupAddon,
-	InputGroupInput,
-	InputGroupText,
-} from "@reactive-resume/ui/components/input-group";
-import { cn } from "@reactive-resume/utils/style";
+import { Icon } from "@zhiye/ui/components/icon";
+import { InputGroup, InputGroupAddon, InputGroupInput, InputGroupText } from "@zhiye/ui/components/input-group";
+import { cn } from "@zhiye/utils/style";
 
 const DEFAULT_PREFIX = "https://";
 const HTTP_PREFIX = /^https?:\/\//i;

@@ -1,14 +1,14 @@
 // @vitest-environment happy-dom
 import type { Application } from "../types";
-import type { InterviewTimelineEntry } from "@reactive-resume/schema/applications/data";
+import type { InterviewTimelineEntry } from "@zhiye/schema/applications/data";
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { Toaster } from "@reactive-resume/ui/components/toast";
-import { prepareRequest } from "@reactive-resume/utils/deferred-request";
+import { Toaster } from "@zhiye/ui/components/toast";
+import { prepareRequest } from "@zhiye/utils/deferred-request";
 import { pendingCommits } from "@/features/career/pending-commits";
 import { invalidateAccountScope, setAccountScope } from "@/libs/auth/account-scope";
 

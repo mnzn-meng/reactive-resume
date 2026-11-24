@@ -1,13 +1,13 @@
-import type { DbOrTx } from "@reactive-resume/db/client";
-import type { ReviewedAnswerInput } from "@reactive-resume/schema/application-answers";
-import type { reuseAnswerInputSchema } from "@reactive-resume/schema/application-answers";
+import type { DbOrTx } from "@zhiye/db/client";
+import type { ReviewedAnswerInput } from "@zhiye/schema/application-answers";
+import type { reuseAnswerInputSchema } from "@zhiye/schema/application-answers";
 import type z from "zod";
 import { createHash } from "node:crypto";
 import { isDeepStrictEqual } from "node:util";
 import { ORPCError } from "@orpc/client";
 import { and, desc, eq } from "drizzle-orm";
-import { db } from "@reactive-resume/db/client";
-import * as tables from "@reactive-resume/db/schema";
+import { db } from "@zhiye/db/client";
+import * as tables from "@zhiye/db/schema";
 import {
 	answerFactRevision,
 	answerStoryRevision,
@@ -16,7 +16,7 @@ import {
 	reviewedAnswerEvidence,
 	reviewedAnswerInputSchema,
 	reuseAnswerInputSchema as reuseSchema,
-} from "@reactive-resume/schema/application-answers";
+} from "@zhiye/schema/application-answers";
 import { assertAiOperations } from "../ai/usage";
 import { availableApplicationContext } from "../applications/access";
 import { activeApplications } from "../applications/access";

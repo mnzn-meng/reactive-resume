@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
 import { useLingui } from "@lingui/react/macro";
 import { Link, useRouteContext } from "@tanstack/react-router";
-import { Avatar, AvatarFallback, AvatarImage } from "@reactive-resume/ui/components/avatar";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { getInitials } from "@reactive-resume/utils/string";
-import { cn } from "@reactive-resume/utils/style";
+import { Avatar, AvatarFallback, AvatarImage } from "@zhiye/ui/components/avatar";
+import { Icon } from "@zhiye/ui/components/icon";
+import { getInitials } from "@zhiye/utils/string";
+import { cn } from "@zhiye/utils/style";
 import { useCommandPaletteStore } from "@/features/command-palette/store";
 
 type PhoneHeaderActionsProps = {

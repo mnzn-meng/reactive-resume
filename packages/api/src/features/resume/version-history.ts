@@ -1,7 +1,7 @@
-import type { DbOrTx } from "@reactive-resume/db/client";
-import type { ResumeVersionKind } from "@reactive-resume/db/schema";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import * as schema from "@reactive-resume/db/schema";
+import type { DbOrTx } from "@zhiye/db/client";
+import type { ResumeVersionKind } from "@zhiye/db/schema";
+import type { ResumeData } from "@zhiye/schema/resume/data";
+import * as schema from "@zhiye/db/schema";
 import { readAiUsage } from "../ai/usage";
 import { createVersionHistory } from "../documents/version-history";
 import { parseStoredResumeData, parseWritableResumeData } from "./resume-data-validation";

@@ -52,7 +52,7 @@ Boundaries: code/commits/PRs written normal.
 
 ```sh
 pnpm check:affected                              # changed packages: typecheck, tests (DB suites included), boundaries, lint, format
-pnpm test:db exec -- pnpm --filter @reactive-resume/api test   # DB suites on per-worktree databases, no silent skips
+pnpm test:db exec -- pnpm --filter @zhiye/api test   # DB suites on per-worktree databases, no silent skips
 pnpm test:e2e:local --build [spec]               # Playwright on a per-worktree DB, port and storage
 pnpm lingui:extract                              # web and PDF catalogs; run before building
 pnpm lingui:check                                # catalogs match source (CI gate)
@@ -62,7 +62,7 @@ pnpm check:agent-docs                            # paths named in agent docs exi
 ```
 
 - One package: `pnpm --filter <name> test [file]` (paths relative to the package; no extra `--`). Package names come
-  from each `package.json`: apps are `web` and `server`; shared packages are `@reactive-resume/<name>`.
+  from each `package.json`: apps are `web` and `server`; shared packages are `@zhiye/<name>`.
 - `--filter <pkg> exec vp test run <file> -t "<name>"` runs one test. Most scripts use `--passWithNoTests`, so a green
   run with zero tests proves nothing.
 - `check:affected` compares against `TURBO_SCM_BASE` (default `origin/main`; fetch first if stale) and needs the local
@@ -103,15 +103,15 @@ Details behind those rows:
   `packages/pdf`. Shared filtering lives in `packages/pdf/src/templates/shared/filtering.ts`.
 - UI styles are in `packages/ui/src/styles/`; web design rules are in `apps/web/DESIGN.md`.
 
-`packages/utils` takes a helper only when no domain package owns it: JSON Patch belongs in `@reactive-resume/resume`,
-DOCX builders in `@reactive-resume/docx`.
+`packages/utils` takes a helper only when no domain package owns it: JSON Patch belongs in `@zhiye/resume`,
+DOCX builders in `@zhiye/docx`.
 
 ## Package boundaries
 
 `pnpm exec turbo boundaries` enforces them. Import other workspaces by package name and export map, never through a
-`src` path or path alias. Runtime-specific code sits behind explicit subpaths (`@reactive-resume/pdf/browser`,
-`@reactive-resume/pdf/server`, `@reactive-resume/env/server`); root exports stay environment-neutral. Wildcard exports
-are only for file-like leaf surfaces (`@reactive-resume/ui/components/*`, `@reactive-resume/ui/hooks/*`, schema model
+`src` path or path alias. Runtime-specific code sits behind explicit subpaths (`@zhiye/pdf/browser`,
+`@zhiye/pdf/server`, `@zhiye/env/server`); root exports stay environment-neutral. Wildcard exports
+are only for file-like leaf surfaces (`@zhiye/ui/components/*`, `@zhiye/ui/hooks/*`, schema model
 files).
 
 ## Changes that touch several places

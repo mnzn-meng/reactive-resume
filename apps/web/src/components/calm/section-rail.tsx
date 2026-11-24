@@ -1,8 +1,8 @@
-import type { IconName } from "@reactive-resume/ui/components/icon";
+import type { IconName } from "@zhiye/ui/components/icon";
 import type { ComponentProps } from "react";
 import { createLink } from "@tanstack/react-router";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { cn } from "@reactive-resume/utils/style";
+import { Icon } from "@zhiye/ui/components/icon";
+import { cn } from "@zhiye/utils/style";
 
 /**
  * Calm section rail (`.rail`): the navigation inside one page, 200px wide, for five to eight sibling sections. Under

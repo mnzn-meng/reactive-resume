@@ -5,8 +5,8 @@ import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vite-
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import * as tables from "@reactive-resume/db/schema";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import * as tables from "@zhiye/db/schema";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 import { truncateCascade } from "../../test-database";
 import { runStorageCleanup } from "../storage/cleanup";
 
@@ -22,7 +22,7 @@ const fixture = vi.hoisted(() => ({
 	>(),
 }));
 
-vi.mock("@reactive-resume/db/client", () => ({
+vi.mock("@zhiye/db/client", () => ({
 	get db() {
 		return fixture.db;
 	},
@@ -66,12 +66,12 @@ vi.mock("../storage/service", async (importOriginal) => {
 	return actual;
 });
 vi.mock("../resume/events", () => ({ publishResumeUpdated: vi.fn().mockResolvedValue(undefined) }));
-vi.mock("@reactive-resume/auth/config", () => ({
+vi.mock("@zhiye/auth/config", () => ({
 	auth: { $context: Promise.resolve({ secretConfig: { key: "synthetic-test-key" } }) },
 	isCustomOAuthProviderEnabled: () => false,
 }));
 const renderPdf = vi.hoisted(() => vi.fn());
-vi.mock("@reactive-resume/pdf/server", () => ({ createResumePdfFile: renderPdf }));
+vi.mock("@zhiye/pdf/server", () => ({ createResumePdfFile: renderPdf }));
 vi.mock("../resume/public-render-rate-limit", () => ({ publicRenderRateLimiter: { consume: vi.fn() } }));
 
 function getDb() {
@@ -491,7 +491,7 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 	it("does not copy pending or abandoned erasure prefixes when guest work changes owners", async () => {
 		const { migrateUserStorage } = await import("../storage/service");
 		const { linkAnonymousAccount, setAccountLinkHook } =
-			await vi.importActual<typeof import("@reactive-resume/auth/config")>("@reactive-resume/auth/config");
+			await vi.importActual<typeof import("@zhiye/auth/config")>("@zhiye/auth/config");
 		putResumeFiles("alice", "alice-trashed-1");
 		const sibling = "uploads/alice/pdfs/alice-trashed-10/keep.pdf";
 		const picture = "uploads/alice/pictures/profile.jpg";

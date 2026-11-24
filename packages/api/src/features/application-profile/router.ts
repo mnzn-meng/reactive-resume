@@ -1,8 +1,5 @@
 import z from "zod";
-import {
-	applicationProfileRecordSchema,
-	saveApplicationProfileSchema,
-} from "@reactive-resume/schema/application-profile";
+import { applicationProfileRecordSchema, saveApplicationProfileSchema } from "@zhiye/schema/application-profile";
 import { protectedProcedure } from "../../context";
 import { applicationProfileService } from "./service";
 

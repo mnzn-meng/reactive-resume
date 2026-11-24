@@ -1,11 +1,11 @@
-import type { IconName } from "@reactive-resume/ui/components/icon";
+import type { IconName } from "@zhiye/ui/components/icon";
 import type { ComponentProps, ReactNode } from "react";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { ariaShortcut, Kbd } from "@reactive-resume/ui/components/kbd";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@reactive-resume/ui/components/tooltip";
-import { cn } from "@reactive-resume/utils/style";
+import { Icon } from "@zhiye/ui/components/icon";
+import { ariaShortcut, Kbd } from "@zhiye/ui/components/kbd";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@zhiye/ui/components/tooltip";
+import { cn } from "@zhiye/utils/style";
 
 type FilterBarProps = ComponentProps<"div"> & {
 	/** Sort menu and view switch, at the end. No accent button: the page header owns that. */

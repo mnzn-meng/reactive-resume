@@ -1,8 +1,8 @@
-import type { DbOrTx } from "@reactive-resume/db/client";
+import type { DbOrTx } from "@zhiye/db/client";
 import { ORPCError } from "@orpc/client";
 import { and, desc, eq, inArray } from "drizzle-orm";
-import * as tables from "@reactive-resume/db/schema";
-import { followUpInstant } from "@reactive-resume/schema/applications/follow-up";
+import * as tables from "@zhiye/db/schema";
+import { followUpInstant } from "@zhiye/schema/applications/follow-up";
 import { isCareerSchedulingEnabled } from "../career/runner";
 import { assertScheduleCapacity } from "../career/schedule-limit";
 

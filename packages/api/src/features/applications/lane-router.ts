@@ -1,10 +1,10 @@
 import z from "zod";
-import { applicationClosedReasonSchema, applicationStatusSchema } from "@reactive-resume/schema/applications/data";
+import { applicationClosedReasonSchema, applicationStatusSchema } from "@zhiye/schema/applications/data";
 import {
 	applicationLaneColorSchema,
 	applicationLaneLabelSchema,
 	applicationPipelineSchema,
-} from "@reactive-resume/schema/applications/lanes";
+} from "@zhiye/schema/applications/lanes";
 import { protectedProcedure } from "../../context";
 import { resumeMutationRateLimit } from "../../middleware/rate-limit";
 import { applicationLaneService } from "./lanes";

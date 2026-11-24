@@ -1,4 +1,4 @@
-import type { Locale } from "@reactive-resume/utils/locale";
+import type { Locale } from "@zhiye/utils/locale";
 import authCatalog from "./auth-catalog.json";
 
 /**

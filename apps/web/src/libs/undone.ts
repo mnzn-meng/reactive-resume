@@ -1,5 +1,5 @@
 import { t } from "@lingui/core/macro";
-import { toast } from "@reactive-resume/ui/components/toast";
+import { toast } from "@zhiye/ui/components/toast";
 
 const RESTORED_MS = 1500;
 

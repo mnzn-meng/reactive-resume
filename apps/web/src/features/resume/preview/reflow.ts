@@ -1,6 +1,6 @@
-import type { SemanticNode } from "@reactive-resume/resume/stylesheet/types";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import { buildSemanticTree } from "@reactive-resume/pdf/semantic-tree";
+import type { SemanticNode } from "@zhiye/resume/stylesheet/types";
+import type { ResumeData } from "@zhiye/schema/resume/data";
+import { buildSemanticTree } from "@zhiye/pdf/semantic-tree";
 
 /** One section as the phone reflow shows it: its id and the ids of the entries the page prints. */
 export type ReflowSection = { sectionId: string; itemIds: string[] };

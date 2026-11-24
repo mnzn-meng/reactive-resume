@@ -1,15 +1,15 @@
 import { format } from "node:util";
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
-vi.mock("@reactive-resume/auth/config", () => ({
+vi.mock("@zhiye/auth/config", () => ({
 	auth: {
 		api: { getSession: vi.fn().mockResolvedValue(null) },
 	},
 }));
 const { handleOpenApi } = await import("./handler");
 const { handleRpc } = await import("../rpc/handler");
-const { auth } = await import("@reactive-resume/auth/config");
-const { db } = await import("@reactive-resume/db/client");
+const { auth } = await import("@zhiye/auth/config");
+const { db } = await import("@zhiye/db/client");
 const request = (path: string, init?: RequestInit) =>
 	handleOpenApi(new Request(`http://localhost:3000/api/openapi${path}`, init), "127.0.0.1");
 

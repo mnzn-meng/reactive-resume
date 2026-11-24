@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { ORPCError } from "@orpc/client";
-import { AGENT_REPLY_ERRORS } from "@reactive-resume/ai/tools/agent-tool-contracts";
-import { SUBMITTED_DOCUMENT_LOCKED } from "@reactive-resume/schema/applications/errors";
+import { AGENT_REPLY_ERRORS } from "@zhiye/ai/tools/agent-tool-contracts";
+import { SUBMITTED_DOCUMENT_LOCKED } from "@zhiye/schema/applications/errors";
 import {
 	getOrpcErrorMessage,
 	getReadableErrorMessage,

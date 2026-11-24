@@ -1,6 +1,6 @@
 import { createSelectSchema } from "drizzle-zod";
 import z from "zod";
-import * as schema from "@reactive-resume/db/schema";
+import * as schema from "@zhiye/db/schema";
 import {
 	aiMetadataSchema,
 	applicationClosedReasonSchema,
@@ -10,7 +10,7 @@ import {
 	interviewDetailsSchema,
 	interviewKindSchema,
 	postingSourceSchema,
-} from "@reactive-resume/schema/applications/data";
+} from "@zhiye/schema/applications/data";
 import { paginationShape } from "../pagination";
 import { agentConversationSchema } from "./agent";
 

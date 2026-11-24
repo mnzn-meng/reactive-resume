@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vite-plus/test";
 import { set } from "es-toolkit/compat";
-import { SEMANTIC_CSS_LIMITS_V1 } from "@reactive-resume/resume/stylesheet";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
-import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
+import { SEMANTIC_CSS_LIMITS_V1 } from "@zhiye/resume/stylesheet";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
+import { sampleResumeData } from "@zhiye/schema/resume/sample";
 import { parseWritableResumeData } from "./resume-data-validation";
 
 describe("parseWritableResumeData", () => {

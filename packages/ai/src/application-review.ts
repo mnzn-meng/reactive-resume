@@ -1,7 +1,7 @@
 import z from "zod";
-import { aiOperationIdsSchema } from "@reactive-resume/schema/ai-usage";
-import { careerWorkspaceSchema } from "@reactive-resume/schema/career";
-import { resumeDataSchema } from "@reactive-resume/schema/resume/data";
+import { aiOperationIdsSchema } from "@zhiye/schema/ai-usage";
+import { careerWorkspaceSchema } from "@zhiye/schema/career";
+import { resumeDataSchema } from "@zhiye/schema/resume/data";
 import { proposeEditsOutputSchema } from "./tools/agent-tool-contracts";
 
 /** Also validates account-scoped recovery drafts; no API/database module enters either app. */

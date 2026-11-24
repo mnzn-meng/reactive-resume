@@ -1,5 +1,5 @@
-import type { PostingCapture } from "@reactive-resume/schema/applications/capture";
-import { postingCaptureSchema } from "@reactive-resume/schema/applications/capture";
+import type { PostingCapture } from "@zhiye/schema/applications/capture";
+import { postingCaptureSchema } from "@zhiye/schema/applications/capture";
 let pending: PostingCapture | null = null;
 export function receivePostingCapture() {
 	if (window.location.pathname !== "/dashboard/applications/" || !window.location.hash.startsWith("#posting=")) return;

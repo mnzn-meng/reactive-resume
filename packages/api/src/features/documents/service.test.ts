@@ -10,7 +10,7 @@ const resumeServiceMock = vi.hoisted(() => ({
 }));
 const applicationServiceMock = vi.hoisted(() => ({ update: vi.fn() }));
 const insertApplicationMock = vi.hoisted(() => vi.fn());
-vi.mock("@reactive-resume/db/client", () => ({ db: dbMock }));
+vi.mock("@zhiye/db/client", () => ({ db: dbMock }));
 const writeResumeFieldsMock = vi.hoisted(() => vi.fn(async () => ({ id: "new", updatedAt: new Date() })));
 vi.mock("../resume/service", () => ({
 	resumeService: resumeServiceMock,

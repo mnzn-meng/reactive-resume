@@ -1,5 +1,5 @@
-import type { AIProvider } from "@reactive-resume/ai/types";
-import { isDirectAiProvider } from "@reactive-resume/ai/types";
+import type { AIProvider } from "@zhiye/ai/types";
+import { isDirectAiProvider } from "@zhiye/ai/types";
 
 type AiProviderCapabilityInput = {
 	provider: AIProvider;

@@ -1,9 +1,9 @@
 import type * as React from "react";
 import { t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { inputBaseClassName } from "@reactive-resume/ui/components/input";
-import { cn } from "@reactive-resume/utils/style";
+import { Icon } from "@zhiye/ui/components/icon";
+import { inputBaseClassName } from "@zhiye/ui/components/input";
+import { cn } from "@zhiye/utils/style";
 import { useNow } from "@/features/career/shared";
 
 type DateFieldProps = Omit<React.ComponentProps<"input">, "type" | "value"> & {

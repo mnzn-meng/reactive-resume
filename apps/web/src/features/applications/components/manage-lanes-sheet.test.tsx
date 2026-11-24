@@ -1,12 +1,12 @@
 // @vitest-environment happy-dom
-import type { ApplicationPipeline } from "@reactive-resume/schema/applications/lanes";
+import type { ApplicationPipeline } from "@zhiye/schema/applications/lanes";
 import type { ReactNode } from "react";
 import { act, cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createDefaultApplicationLanes } from "@reactive-resume/schema/applications/lanes";
+import { createDefaultApplicationLanes } from "@zhiye/schema/applications/lanes";
 import { ImportApplicationsSheet } from "./import-applications-sheet";
 import { ManageLanesSheet } from "./manage-lanes-sheet";
 
@@ -33,7 +33,7 @@ vi.mock("../queries", () => ({
 	applicationsListQueryKey: () => ["applications"],
 }));
 vi.mock("../use-application-actions", () => ({ useInvalidateApplications: () => api.invalidate }));
-vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: vi.fn() } }));
+vi.mock("@zhiye/ui/components/toast", () => ({ toast: { add: vi.fn() } }));
 const clients: QueryClient[] = [];
 function show(children: ReactNode) {
 	const client = new QueryClient({ defaultOptions: { queries: { retry: false }, mutations: { retry: false } } });

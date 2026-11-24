@@ -1,4 +1,4 @@
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 
 const SECTION_ITEM_SHAPES: Record<string, Record<string, unknown>> = {
 	profiles: {

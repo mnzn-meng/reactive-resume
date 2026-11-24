@@ -5,7 +5,7 @@ export default defineConfig({
 	sourceLocale: "en-US",
 	// Accented, stretched English for checking layouts; not a shipped translation.
 	pseudoLocale: "zu-ZA",
-	// The interface ships in these two languages; `supportedLocales` in @reactive-resume/utils/locale mirrors the list.
+	// The interface ships in these two languages; `supportedLocales` in @zhiye/utils/locale mirrors the list.
 	locales: ["en-US", "zh-CN", "zu-ZA"],
 	fallbackLocales: {
 		"zu-ZA": "en-US",

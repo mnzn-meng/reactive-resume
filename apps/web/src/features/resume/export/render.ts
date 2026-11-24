@@ -1,6 +1,6 @@
-import type { PageMap } from "@reactive-resume/pdf/page-map";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import { createResumePdfBlob } from "@reactive-resume/pdf/browser";
+import type { PageMap } from "@zhiye/pdf/page-map";
+import type { ResumeData } from "@zhiye/schema/resume/data";
+import { createResumePdfBlob } from "@zhiye/pdf/browser";
 
 export type RenderInput = {
 	data: ResumeData;

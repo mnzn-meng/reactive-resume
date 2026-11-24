@@ -1,4 +1,4 @@
-import type { ApplicationProfileData } from "@reactive-resume/schema/application-profile";
+import type { ApplicationProfileData } from "@zhiye/schema/application-profile";
 import * as pg from "drizzle-orm/pg-core";
 import { user } from "./auth";
 

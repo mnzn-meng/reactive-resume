@@ -1,4 +1,4 @@
-import type { Locale } from "@reactive-resume/utils/locale";
+import type { Locale } from "@zhiye/utils/locale";
 import * as React from "react";
 import {
 	Body,
@@ -15,7 +15,7 @@ import {
 	Tailwind,
 	Text,
 } from "react-email";
-import { isRTL } from "@reactive-resume/utils/locale";
+import { isRTL } from "@zhiye/utils/locale";
 import { authEmailMessages, formatMessage } from "./auth-messages";
 
 // ponytail: server dev consumes this source through tsx, which emits React.createElement here.

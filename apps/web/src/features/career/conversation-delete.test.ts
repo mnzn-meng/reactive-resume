@@ -2,7 +2,7 @@
 import { afterEach, beforeEach, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { QueryClient } from "@tanstack/react-query";
-import { prepareRequest } from "@reactive-resume/utils/deferred-request";
+import { prepareRequest } from "@zhiye/utils/deferred-request";
 import { deleteConversation } from "./coach-thread";
 import { pendingCommits } from "./pending-commits";
 import { setAccountScope } from "@/libs/auth/account-scope";
@@ -12,7 +12,7 @@ const env = vi.hoisted(() => ({
 	deleted: vi.fn(),
 	notices: [] as { actionProps: { onClick: () => void } }[],
 }));
-vi.mock("@reactive-resume/ui/components/toast", () => ({
+vi.mock("@zhiye/ui/components/toast", () => ({
 	toast: {
 		add: (notice: (typeof env.notices)[number]) => {
 			env.notices.push(notice);

@@ -1,6 +1,6 @@
-export { canonicalOpportunityUrl } from "@reactive-resume/schema/applications/posting-url";
+export { canonicalOpportunityUrl } from "@zhiye/schema/applications/posting-url";
 /** One owner for the briefing time: the schema helper the editor and the server both use. */
-export { prepareRunAt } from "@reactive-resume/schema/career-schedule";
+export { prepareRunAt } from "@zhiye/schema/career-schedule";
 /** Preserve local wall time across daily schedules, advancing nonexistent DST times forward. */
 export function nextCareerRun(previous: Date, days: number, timezone: string): Date {
 	const formatter = new Intl.DateTimeFormat("en-CA", {

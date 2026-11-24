@@ -8,7 +8,7 @@ import {
 	parseUrl,
 	publicHttpsAgent,
 	resolveHostAddresses,
-} from "@reactive-resume/utils/url-security.node";
+} from "@zhiye/utils/url-security.node";
 import { MAX_PAGE_BYTES, WebAccessError } from "./contracts";
 
 /** Preserve the posting reader's HTTPS-only policy. */

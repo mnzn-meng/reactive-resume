@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
-import { TRUSTED_IP_HEADERS } from "@reactive-resume/utils/rate-limit";
+import { TRUSTED_IP_HEADERS } from "@zhiye/utils/rate-limit";
 
 const mocks = vi.hoisted(() => ({
 	ipAddress: vi.fn<(request: Request) => string | undefined>(),
@@ -22,11 +22,11 @@ vi.mock("@vercel/functions", () => ({
 	waitUntil: mocks.waitUntil,
 	attachDatabasePool: mocks.attachDatabasePool,
 }));
-vi.mock("@reactive-resume/api/features/agent/streams", () => ({
+vi.mock("@zhiye/api/features/agent/streams", () => ({
 	configureAgentStreamLifetime: mocks.configureAgentStreamLifetime,
 }));
-vi.mock("@reactive-resume/auth/config", () => ({ initializeAuth: mocks.initializeAuth }));
-vi.mock("@reactive-resume/db/client", () => ({ getPool: mocks.getPool }));
+vi.mock("@zhiye/auth/config", () => ({ initializeAuth: mocks.initializeAuth }));
+vi.mock("@zhiye/db/client", () => ({ getPool: mocks.getPool }));
 vi.mock("./http/app", () => ({ createApp: mocks.createApp }));
 
 function spoofedRequest() {

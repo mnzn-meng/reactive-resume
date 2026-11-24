@@ -1,6 +1,6 @@
-import type { SemanticStylesheet } from "@reactive-resume/schema/resume/stylesheet";
-import { convertLegacyStylesheet, needsLegacyStyleConversion } from "@reactive-resume/pdf/semantic-legacy";
-import { parseResumeData } from "@reactive-resume/schema/resume/data";
+import type { SemanticStylesheet } from "@zhiye/schema/resume/stylesheet";
+import { convertLegacyStylesheet, needsLegacyStyleConversion } from "@zhiye/pdf/semantic-legacy";
+import { parseResumeData } from "@zhiye/schema/resume/data";
 
 type Metadata = { stylesheet?: unknown; styleRules?: unknown };
 

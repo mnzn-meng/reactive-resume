@@ -1,5 +1,5 @@
 import { createRouter } from "@tanstack/react-router";
-import { followStageWrites } from "@reactive-resume/schema/applications/stage-baselines";
+import { followStageWrites } from "@zhiye/schema/applications/stage-baselines";
 import { ErrorScreen } from "./components/layout/error-screen";
 import { LoadingScreen } from "./components/layout/loading-screen";
 import { NotFoundScreen } from "./components/layout/not-found-screen";

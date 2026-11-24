@@ -1,7 +1,7 @@
 import type { SavedData, SavedItem } from "./hooks";
 import type { ApplicationSummary } from "@/features/applications/types";
-import type { CareerProfileData } from "@reactive-resume/schema/career";
-import type { IconName } from "@reactive-resume/ui/components/icon";
+import type { CareerProfileData } from "@zhiye/schema/career";
+import type { IconName } from "@zhiye/ui/components/icon";
 import type { ReactNode } from "react";
 import { i18n } from "@lingui/core";
 import { plural, t } from "@lingui/core/macro";
@@ -9,10 +9,10 @@ import { Trans } from "@lingui/react/macro";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { annualBaseHint, selectOfferPair } from "@reactive-resume/schema/career-offer";
-import { Alert } from "@reactive-resume/ui/components/alert";
-import { Badge } from "@reactive-resume/ui/components/badge";
-import { Button, buttonVariants } from "@reactive-resume/ui/components/button";
+import { annualBaseHint, selectOfferPair } from "@zhiye/schema/career-offer";
+import { Alert } from "@zhiye/ui/components/alert";
+import { Badge } from "@zhiye/ui/components/badge";
+import { Button, buttonVariants } from "@zhiye/ui/components/button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -21,15 +21,15 @@ import {
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { EmptyState } from "@reactive-resume/ui/components/empty-state";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { IconButton } from "@reactive-resume/ui/components/icon-button";
-import { Skeleton } from "@reactive-resume/ui/components/skeleton";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { formatList } from "@reactive-resume/utils/locale";
-import { cn } from "@reactive-resume/utils/style";
-import { formatDateOnly } from "@reactive-resume/utils/timezone";
+} from "@zhiye/ui/components/dropdown-menu";
+import { EmptyState } from "@zhiye/ui/components/empty-state";
+import { Icon } from "@zhiye/ui/components/icon";
+import { IconButton } from "@zhiye/ui/components/icon-button";
+import { Skeleton } from "@zhiye/ui/components/skeleton";
+import { toast } from "@zhiye/ui/components/toast";
+import { formatList } from "@zhiye/utils/locale";
+import { cn } from "@zhiye/utils/style";
+import { formatDateOnly } from "@zhiye/utils/timezone";
 import { CareerCrumb } from "./career-crumb";
 import { CareerLoadError } from "./load-state";
 import { formatBonus, formatMoney, matchingPlace, meetsMinimum, moneyDifference } from "./offer-compare";

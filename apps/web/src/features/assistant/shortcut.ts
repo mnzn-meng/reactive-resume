@@ -1,4 +1,4 @@
-import { isApple } from "@reactive-resume/ui/components/kbd";
+import { isApple } from "@zhiye/ui/components/kbd";
 import { useEditorStore } from "@/features/resume/editor/store";
 
 export function useAssistantShortcutEnabled() {

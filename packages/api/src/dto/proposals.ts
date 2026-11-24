@@ -1,5 +1,5 @@
 import z from "zod";
-import { MAX_REVIEWED_WORDING } from "@reactive-resume/resume/proposals";
+import { MAX_REVIEWED_WORDING } from "@zhiye/resume/proposals";
 
 /** Document saves atomically record assistant acceptance and explicit Undo/Redo outcomes. */
 export const proposalApplicationsSchema = z

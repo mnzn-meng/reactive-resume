@@ -1,8 +1,8 @@
-import type { DbOrTx } from "@reactive-resume/db/client";
-import type { GenerateTask, SavedItemData } from "@reactive-resume/schema/career";
+import type { DbOrTx } from "@zhiye/db/client";
+import type { GenerateTask, SavedItemData } from "@zhiye/schema/career";
 import { ORPCError } from "@orpc/client";
 import z from "zod";
-import { careerWorkspaceSchema, savedItemDataSchema } from "@reactive-resume/schema/career";
+import { careerWorkspaceSchema, savedItemDataSchema } from "@zhiye/schema/career";
 import { aiProvidersService } from "../ai-providers/service";
 import { generateJson } from "../ai/application-generation";
 import { getModel } from "../ai/service";

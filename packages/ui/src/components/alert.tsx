@@ -1,7 +1,7 @@
 import type { VariantProps } from "class-variance-authority";
 import type * as React from "react";
 import { cva } from "class-variance-authority";
-import { cn } from "@reactive-resume/utils/style";
+import { cn } from "@zhiye/utils/style";
 
 /** Inline alerts: an 18px icon and 13px text on a soft ground with its own text ink, no border. Errors are announced (`role="alert"`); the rest are static. */
 const alertVariants = cva(

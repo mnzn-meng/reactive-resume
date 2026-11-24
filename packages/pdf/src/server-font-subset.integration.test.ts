@@ -1,5 +1,5 @@
 import { expect, it, vi } from "vite-plus/test";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 import { createResumePdfFile } from "./server";
 
 // The real engine, recording the font bytes each layout pass is handed.

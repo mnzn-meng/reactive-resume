@@ -1,4 +1,4 @@
-import { createSerialQueue } from "@reactive-resume/utils/queue";
+import { createSerialQueue } from "@zhiye/utils/queue";
 
 export type ResumeThumbnailSize = {
 	height: number;

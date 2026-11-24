@@ -1,19 +1,15 @@
 import type { ProviderFields } from "./provider-fields";
 import type { RouterOutput } from "@/libs/orpc/client";
-import type { AIProvider } from "@reactive-resume/ai/types";
+import type { AIProvider } from "@zhiye/ai/types";
 import { i18n } from "@lingui/core";
 import { plural, t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { ORPCError } from "@orpc/client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useId, useRef, useState } from "react";
-import {
-	AI_PROVIDER_DEFAULT_BASE_URLS,
-	getAIProviderSetupProblem,
-	isAPIKeyOptional,
-} from "@reactive-resume/ai/defaults";
-import { Badge } from "@reactive-resume/ui/components/badge";
-import { Button } from "@reactive-resume/ui/components/button";
+import { AI_PROVIDER_DEFAULT_BASE_URLS, getAIProviderSetupProblem, isAPIKeyOptional } from "@zhiye/ai/defaults";
+import { Badge } from "@zhiye/ui/components/badge";
+import { Button } from "@zhiye/ui/components/button";
 import {
 	Dialog,
 	DialogContent,
@@ -21,20 +17,20 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
+} from "@zhiye/ui/components/dialog";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Label } from "@reactive-resume/ui/components/label";
-import { Spinner } from "@reactive-resume/ui/components/spinner";
-import { Switch } from "@reactive-resume/ui/components/switch";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/dropdown-menu";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Label } from "@zhiye/ui/components/label";
+import { Spinner } from "@zhiye/ui/components/spinner";
+import { Switch } from "@zhiye/ui/components/switch";
+import { toast } from "@zhiye/ui/components/toast";
+import { cn } from "@zhiye/utils/style";
 import { SettingsSection } from "../section";
 import { describeTest, keyEnding, providerDefaults, providerLabel, providerOptions } from "./catalog";
 import { NextSteps } from "./next-steps";

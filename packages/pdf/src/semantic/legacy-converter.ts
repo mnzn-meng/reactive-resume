@@ -1,21 +1,15 @@
 import type { Style } from "../forme/style-types";
-import type {
-	CustomSectionType,
-	ResumeData,
-	StyleIntent,
-	StyleRule,
-	StyleSlot,
-} from "@reactive-resume/schema/resume/data";
-import type { SemanticStylesheet, StylesheetSource } from "@reactive-resume/schema/resume/stylesheet";
+import type { CustomSectionType, ResumeData, StyleIntent, StyleRule, StyleSlot } from "@zhiye/schema/resume/data";
+import type { SemanticStylesheet, StylesheetSource } from "@zhiye/schema/resume/stylesheet";
 import {
 	escapeCssComment,
 	escapeCssString,
 	SEMANTIC_CSS_LIMITS_V1,
 	serializeGeneratedStylesheet,
-} from "@reactive-resume/resume/stylesheet";
-import { styleRulesSchema } from "@reactive-resume/schema/resume/data";
-import { getSectionStyleRuleContext } from "@reactive-resume/schema/resume/style-rules";
-import { rgbaStringToHex } from "@reactive-resume/utils/color";
+} from "@zhiye/resume/stylesheet";
+import { styleRulesSchema } from "@zhiye/schema/resume/data";
+import { getSectionStyleRuleContext } from "@zhiye/schema/resume/style-rules";
+import { rgbaStringToHex } from "@zhiye/utils/color";
 import { resolveStyleRuleSlot } from "../templates/shared/style-rules";
 
 const styleSlots = [

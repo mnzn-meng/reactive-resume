@@ -1,10 +1,10 @@
 // @vitest-environment happy-dom
 
-import type { LayoutPage } from "@reactive-resume/schema/resume/data";
-import type { Template } from "@reactive-resume/schema/templates";
+import type { LayoutPage } from "@zhiye/schema/resume/data";
+import type { Template } from "@zhiye/schema/templates";
 import { describe, expect, it } from "vite-plus/test";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
-import { templateLayouts } from "@reactive-resume/schema/templates";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
+import { templateLayouts } from "@zhiye/schema/templates";
 import { buildDocument } from "./builder";
 
 const NAME = "HeaderProbe";

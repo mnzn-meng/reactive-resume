@@ -1,6 +1,6 @@
 import type { ComponentProps, ReactNode } from "react";
 import { useLayoutEffect, useRef, useState } from "react";
-import { cn } from "@reactive-resume/utils/style";
+import { cn } from "@zhiye/utils/style";
 
 /**
  * True when the action buttons, at their own widths, don't fit one line: they then stack, each the full width, the

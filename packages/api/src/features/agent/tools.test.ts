@@ -1,4 +1,4 @@
-import type { ReadPageOutput } from "@reactive-resume/ai/tools/agent-tool-contracts";
+import type { ReadPageOutput } from "@zhiye/ai/tools/agent-tool-contracts";
 import type { z } from "zod";
 import { afterEach, describe, expect, it, vi } from "vite-plus/test";
 import { buildAgentInstructions, buildAgentTools, MAX_AGENT_WEB_CALLS } from "./tools";

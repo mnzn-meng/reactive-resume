@@ -1,6 +1,6 @@
 import { expect, it } from "vite-plus/test";
 import { APICallError } from "ai";
-import { AGENT_REPLY_ERRORS } from "@reactive-resume/ai/tools/agent-tool-contracts";
+import { AGENT_REPLY_ERRORS } from "@zhiye/ai/tools/agent-tool-contracts";
 import { WebAccessError } from "../web-access/contracts";
 import { replyErrorMessage } from "./reply-errors";
 

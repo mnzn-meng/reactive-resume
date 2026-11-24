@@ -1,6 +1,6 @@
 import type { BaseSettingsSnapshot, ResolvedNodeStyle, ResolveStylesheetContext, SemanticNode } from "./types";
 import { describe, expect, it } from "vite-plus/test";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 import { resolveStylesheet } from "./cascade";
 import { compileStylesheet } from "./compile";
 import { SEMANTIC_CSS_LIMITS_V1 } from "./limits";

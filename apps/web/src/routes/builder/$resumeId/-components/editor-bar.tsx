@@ -1,9 +1,9 @@
 import type { EditorMode } from "@/features/resume/editor/store";
 import { t } from "@lingui/core/macro";
 import { Plural, Trans } from "@lingui/react/macro";
-import { IconButton } from "@reactive-resume/ui/components/icon-button";
-import { TabsList, TabsTrigger } from "@reactive-resume/ui/components/tabs";
-import { cn } from "@reactive-resume/utils/style";
+import { IconButton } from "@zhiye/ui/components/icon-button";
+import { TabsList, TabsTrigger } from "@zhiye/ui/components/tabs";
+import { cn } from "@zhiye/utils/style";
 import { DocumentMenu } from "./document-menu";
 import { useShortcutSettings } from "@/features/keyboard-shortcuts/settings";
 import { useCurrentResume, useResumeStore } from "@/features/resume/builder/draft";

@@ -6,9 +6,9 @@ import type {
 	ProposeEditsInput,
 	ProposeEditsOutput,
 	ProposeResumeEditsInput,
-} from "@reactive-resume/ai/tools/agent-tool-contracts";
-import type { DbOrTx } from "@reactive-resume/db/client";
-import type { WorkspaceTab } from "@reactive-resume/schema/career";
+} from "@zhiye/ai/tools/agent-tool-contracts";
+import type { DbOrTx } from "@zhiye/db/client";
+import type { WorkspaceTab } from "@zhiye/schema/career";
 import type { FilePart, ImagePart, ModelMessage, TextPart, UIMessage, UIMessageChunk } from "ai";
 import { ORPCError } from "@orpc/client";
 import { streamToEventIterator } from "@orpc/server";
@@ -24,15 +24,15 @@ import {
 	wrapLanguageModel,
 } from "ai";
 import { and, asc, count, desc, eq, getColumns, gt, inArray, isNull, sql } from "drizzle-orm";
-import { aiModelForTask } from "@reactive-resume/ai/task-models";
-import { agentWebSources } from "@reactive-resume/ai/tools/agent-tool-contracts";
-import { supportsNativeWebSearch } from "@reactive-resume/ai/types";
-import { db } from "@reactive-resume/db/client";
-import * as schema from "@reactive-resume/db/schema";
-import { env } from "@reactive-resume/env/server";
-import { canApplyTo, withEditedText } from "@reactive-resume/resume/proposals";
-import { aiOperationIds } from "@reactive-resume/schema/ai-usage";
-import { buildConversationTitle, generateId } from "@reactive-resume/utils/string";
+import { aiModelForTask } from "@zhiye/ai/task-models";
+import { agentWebSources } from "@zhiye/ai/tools/agent-tool-contracts";
+import { supportsNativeWebSearch } from "@zhiye/ai/types";
+import { db } from "@zhiye/db/client";
+import * as schema from "@zhiye/db/schema";
+import { env } from "@zhiye/env/server";
+import { canApplyTo, withEditedText } from "@zhiye/resume/proposals";
+import { aiOperationIds } from "@zhiye/schema/ai-usage";
+import { buildConversationTitle, generateId } from "@zhiye/utils/string";
 import { aiProvidersService } from "../ai-providers/service";
 import { assertAgentEnvironment } from "../ai/credentials";
 import { approvedAiProviderId } from "../ai/destination";

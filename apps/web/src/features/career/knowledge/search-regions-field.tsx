@@ -1,4 +1,4 @@
-import type { SearchRegionsAction } from "@reactive-resume/utils/region";
+import type { SearchRegionsAction } from "@zhiye/utils/region";
 import { t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Trans } from "@lingui/react/macro";
@@ -12,16 +12,16 @@ import {
 	ComboboxRoot,
 	ComboboxTrigger,
 	useFilter,
-} from "@reactive-resume/ui/components/combobox";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Input } from "@reactive-resume/ui/components/input";
+} from "@zhiye/ui/components/combobox";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Input } from "@zhiye/ui/components/input";
 import {
 	countryName,
 	MAX_SEARCH_REGIONS,
 	nextSearchRegions,
 	SEARCH_REGION_CODES,
 	shownSearchRegions,
-} from "@reactive-resume/utils/region";
+} from "@zhiye/utils/region";
 
 type Country = { value: string; label: string };
 

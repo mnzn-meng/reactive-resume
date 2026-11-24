@@ -1,7 +1,7 @@
 import type { Proposal } from "./proposals";
 import { describe, expect, it } from "vite-plus/test";
-import { experienceItemSchema } from "@reactive-resume/schema/resume/data";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { experienceItemSchema } from "@zhiye/schema/resume/data";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 import {
 	additionAfter,
 	additionParts,

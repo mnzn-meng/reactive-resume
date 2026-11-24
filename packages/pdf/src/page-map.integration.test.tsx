@@ -1,12 +1,12 @@
 import type { PageMap } from "./page-map";
 import type { ElementInfo, LayoutInfo } from "@formepdf/core";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import type { Template } from "@reactive-resume/schema/templates";
+import type { ResumeData } from "@zhiye/schema/resume/data";
+import type { Template } from "@zhiye/schema/templates";
 import { describe, expect, it } from "vite-plus/test";
 import * as forme from "@formepdf/core";
 import { getDocument } from "pdfjs-dist/legacy/build/pdf.mjs";
 import { act } from "react";
-import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
+import { sampleResumeData } from "@zhiye/schema/resume/sample";
 import { renderResume } from "./forme/render";
 import { extractPageMap, measureOverflow, parseResumeNodeKey } from "./page-map";
 

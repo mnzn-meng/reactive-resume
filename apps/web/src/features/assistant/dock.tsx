@@ -5,7 +5,7 @@ import { useDirection } from "@base-ui/react/direction-provider";
 import { Trans } from "@lingui/react/macro";
 import { AnimatePresence, m } from "motion/react";
 import { lazy, Suspense } from "react";
-import { Spinner } from "@reactive-resume/ui/components/spinner";
+import { Spinner } from "@zhiye/ui/components/spinner";
 import { useResumeAssistantDocument } from "./document";
 import { useEditorStore } from "@/features/resume/editor/store";
 import { D3, EASE, EXIT } from "@/libs/motion";

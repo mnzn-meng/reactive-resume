@@ -1,8 +1,8 @@
 import type { SQL } from "drizzle-orm";
 import { describe, expect, it, vi } from "vite-plus/test";
 import { PgDialect } from "drizzle-orm/pg-core";
-import { proposeResumeEditsInputSchema } from "@reactive-resume/ai/tools/agent-tool-contracts";
-import { createEntry } from "@reactive-resume/resume/entries";
+import { proposeResumeEditsInputSchema } from "@zhiye/ai/tools/agent-tool-contracts";
+import { createEntry } from "@zhiye/resume/entries";
 import {
 	applyProposal,
 	collectPassages,
@@ -11,11 +11,11 @@ import {
 	getStateIn,
 	readTarget,
 	resumeStructureSnapshot,
-} from "@reactive-resume/resume/proposals";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+} from "@zhiye/resume/proposals";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 
 const dbMock = vi.hoisted(() => ({ select: vi.fn() }));
-vi.mock("@reactive-resume/db/client", () => ({ db: dbMock }));
+vi.mock("@zhiye/db/client", () => ({ db: dbMock }));
 vi.mock("../resume/service", () => ({ resumeService: {} }));
 vi.mock("../cover-letters/service", () => ({ coverLetterService: {} }));
 

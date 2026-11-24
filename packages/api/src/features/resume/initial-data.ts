@@ -1,9 +1,9 @@
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import type { Template } from "@reactive-resume/schema/templates";
-import type { Locale } from "@reactive-resume/utils/locale";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
-import { sampleResumeData } from "@reactive-resume/schema/resume/sample";
-import { EMPTY_SEMANTIC_CSS_SOURCE } from "@reactive-resume/schema/resume/stylesheet";
+import type { ResumeData } from "@zhiye/schema/resume/data";
+import type { Template } from "@zhiye/schema/templates";
+import type { Locale } from "@zhiye/utils/locale";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
+import { sampleResumeData } from "@zhiye/schema/resume/sample";
+import { EMPTY_SEMANTIC_CSS_SOURCE } from "@zhiye/schema/resume/stylesheet";
 
 const LETTER_LOCALES: ReadonlySet<string> = new Set(["en-US", "en-CA", "es-MX", "fr-CA"]);
 

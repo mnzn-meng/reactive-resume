@@ -1,4 +1,4 @@
-import { defaultLocale, isLocale, supportedLocales } from "@reactive-resume/utils/locale";
+import { defaultLocale, isLocale, supportedLocales } from "@zhiye/utils/locale";
 
 /** Explicit website preference only. Shared HTML must not vary by Accept-Language. */
 export function getPageLocale(request: Request) {

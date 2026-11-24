@@ -1,5 +1,5 @@
 import z from "zod";
-import { timezoneSchema } from "@reactive-resume/utils/timezone";
+import { timezoneSchema } from "@zhiye/utils/timezone";
 
 // Canonical workflow categories stay fixed; user-owned lanes map to these categories.
 // `closed` is the terminal stage, with a reason; it replaced the old `rejected` stage and the `archived` flag.

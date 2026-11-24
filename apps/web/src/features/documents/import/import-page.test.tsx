@@ -4,8 +4,8 @@ import { afterEach, beforeEach, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { parseResumeText } from "@reactive-resume/import/plain-text";
-import { getLanguageName } from "@reactive-resume/utils/locale";
+import { parseResumeText } from "@zhiye/import/plain-text";
+import { getLanguageName } from "@zhiye/utils/locale";
 
 const api = vi.hoisted(() => ({
 	providers: vi.fn(),

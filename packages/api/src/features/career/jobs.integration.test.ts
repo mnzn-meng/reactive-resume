@@ -5,26 +5,26 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } 
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import * as tables from "@reactive-resume/db/schema";
-import { careerScheduleInputSchema } from "@reactive-resume/schema/career";
+import * as tables from "@zhiye/db/schema";
+import { careerScheduleInputSchema } from "@zhiye/schema/career";
 import { truncateCascade } from "../../test-database";
 
 const fixture = vi.hoisted(() => ({
 	db: undefined as ReturnType<typeof drizzle> | undefined,
 	search: vi.fn<typeof import("../applications/posting").searchJobPostings>(),
 	read: vi.fn<typeof import("../applications/posting").readOpenPosting>(),
-	email: vi.fn<typeof import("@reactive-resume/email/transport").sendCareerNotification>(),
+	email: vi.fn<typeof import("@zhiye/email/transport").sendCareerNotification>(),
 	generate: vi.fn<typeof import("./generate").generateCareer>(),
 	smtp: false,
 	env: { CRON_SECRET: undefined as string | undefined },
 }));
-vi.mock("@reactive-resume/db/client", () => ({
+vi.mock("@zhiye/db/client", () => ({
 	get db() {
 		return fixture.db;
 	},
 }));
-vi.mock("@reactive-resume/env/server", async () => {
-	const actual = await vi.importActual<typeof import("@reactive-resume/env/server")>("@reactive-resume/env/server");
+vi.mock("@zhiye/env/server", async () => {
+	const actual = await vi.importActual<typeof import("@zhiye/env/server")>("@zhiye/env/server");
 	return {
 		...actual,
 		env: {
@@ -57,7 +57,7 @@ vi.mock("../web-access/credentials", () => ({
 		resolve: async () => ({ provider: "tavily", apiKey: "synthetic-web-key" }),
 	},
 }));
-vi.mock("@reactive-resume/email/transport", () => ({ sendCareerNotification: fixture.email }));
+vi.mock("@zhiye/email/transport", () => ({ sendCareerNotification: fixture.email }));
 // No live AI: the briefing writer is the boundary; the provider check only has to find the connection.
 vi.mock("./generate", () => ({ generateCareer: fixture.generate }));
 vi.mock("../ai-providers/service", () => ({
@@ -2063,7 +2063,7 @@ AND NOT EXISTS(SELECT 1 FROM career_schedule s WHERE s.user_id=a.user_id AND s.a
 			.insert(tables.careerProfile)
 			.values({
 				userId: "alice",
-				data: (await import("@reactive-resume/schema/career")).careerProfileDataSchema.parse({
+				data: (await import("@zhiye/schema/career")).careerProfileDataSchema.parse({
 					targetRoles: ["Reliability engineer"],
 					locations: ["Berlin"],
 				}),

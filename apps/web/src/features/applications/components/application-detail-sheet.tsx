@@ -1,14 +1,14 @@
 import type { ApplicationLane } from "../lanes";
 import type { Application, ApplicationSummary } from "../types";
-import type { InterviewTimelineEntry } from "@reactive-resume/schema/applications/data";
+import type { InterviewTimelineEntry } from "@zhiye/schema/applications/data";
 import type { ComponentProps, ReactNode } from "react";
 import { t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react";
 import { Plural, Trans } from "@lingui/react/macro";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useId, useRef, useState } from "react";
-import { postingReadReceipt } from "@reactive-resume/schema/applications/posting-source";
-import { Button } from "@reactive-resume/ui/components/button";
+import { postingReadReceipt } from "@zhiye/schema/applications/posting-source";
+import { Button } from "@zhiye/ui/components/button";
 import {
 	Dialog,
 	DialogContent,
@@ -16,21 +16,21 @@ import {
 	DialogHeader,
 	DialogFooter,
 	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
+} from "@zhiye/ui/components/dialog";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Input } from "@reactive-resume/ui/components/input";
-import { NativeSelect } from "@reactive-resume/ui/components/native-select";
-import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle } from "@reactive-resume/ui/components/sheet";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { useBreakpoint } from "@reactive-resume/ui/hooks/use-breakpoint";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/dropdown-menu";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Input } from "@zhiye/ui/components/input";
+import { NativeSelect } from "@zhiye/ui/components/native-select";
+import { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle } from "@zhiye/ui/components/sheet";
+import { toast } from "@zhiye/ui/components/toast";
+import { useBreakpoint } from "@zhiye/ui/hooks/use-breakpoint";
+import { cn } from "@zhiye/utils/style";
 import { isInterview, interviewKindOf } from "../interviews";
 import {
 	getCategoryLane,

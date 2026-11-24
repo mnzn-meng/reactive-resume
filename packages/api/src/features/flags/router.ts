@@ -1,5 +1,5 @@
 import z from "zod";
-import { env } from "@reactive-resume/env/server";
+import { env } from "@zhiye/env/server";
 import { publicProcedure } from "../../context";
 import { isCareerSchedulingEnabled } from "../career/runner";
 

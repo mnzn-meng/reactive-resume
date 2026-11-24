@@ -4,7 +4,7 @@ const envMock = vi.hoisted(() => ({
 	ENCRYPTION_SECRET: "test-secret-with-enough-entropy",
 }));
 
-vi.mock("@reactive-resume/env/server", () => ({ env: envMock }));
+vi.mock("@zhiye/env/server", () => ({ env: envMock }));
 
 const { decryptCredential, encryptCredential } = await import("./credentials");
 

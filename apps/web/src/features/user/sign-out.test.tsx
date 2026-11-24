@@ -16,7 +16,7 @@ const signOut = vi.hoisted(() =>
 
 vi.mock("@tanstack/react-router", () => ({ useRouter: () => router }));
 vi.mock("@/libs/auth/client", () => ({ authClient: { signOut } }));
-vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: vi.fn(), close: vi.fn() } }));
+vi.mock("@zhiye/ui/components/toast", () => ({ toast: { add: vi.fn(), close: vi.fn() } }));
 
 i18n.loadAndActivate({ locale: "en", messages: {} });
 

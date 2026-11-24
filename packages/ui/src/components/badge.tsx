@@ -2,7 +2,7 @@ import type { VariantProps } from "class-variance-authority";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
 import { cva } from "class-variance-authority";
-import { cn } from "@reactive-resume/utils/style";
+import { cn } from "@zhiye/utils/style";
 
 /** A word on a tinted ground: 20px high, 6px corners, 12px medium. Colour always pairs with text. */
 const badgeVariants = cva(

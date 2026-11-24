@@ -4,7 +4,7 @@ import { expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { FileAttachmentField } from "./file-attachment-field";
 const toast = vi.hoisted(() => ({ add: vi.fn() }));
-vi.mock("@reactive-resume/ui/components/toast", () => ({ toast }));
+vi.mock("@zhiye/ui/components/toast", () => ({ toast }));
 it("rejects oversized PDFs before handing them to the upload owner, and permits the exact cap", () => {
 	i18n.loadAndActivate({ locale: "en", messages: {} });
 	const onChange = vi.fn();

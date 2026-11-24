@@ -1,6 +1,6 @@
 import type { EditorSelection } from "@/features/resume/editor/store";
 import type { VersionSummary } from "@/features/resume/share/format";
-import type { Template } from "@reactive-resume/schema/templates";
+import type { Template } from "@zhiye/schema/templates";
 import type { ReactNode } from "react";
 import { i18n } from "@lingui/core";
 import { ph, t } from "@lingui/core/macro";
@@ -9,10 +9,10 @@ import { Plural, Trans } from "@lingui/react/macro";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
-import { filterSections } from "@reactive-resume/pdf/filtering";
-import { measureOverflow } from "@reactive-resume/pdf/page-map";
-import { spillingSections } from "@reactive-resume/resume/spill";
-import { Button } from "@reactive-resume/ui/components/button";
+import { filterSections } from "@zhiye/pdf/filtering";
+import { measureOverflow } from "@zhiye/pdf/page-map";
+import { spillingSections } from "@zhiye/resume/spill";
+import { Button } from "@zhiye/ui/components/button";
 import {
 	DropdownMenu,
 	DropdownMenuCheckboxItem,
@@ -20,11 +20,11 @@ import {
 	DropdownMenuItem,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { IconButton } from "@reactive-resume/ui/components/icon-button";
-import { useBreakpoint } from "@reactive-resume/ui/hooks/use-breakpoint";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/dropdown-menu";
+import { Icon } from "@zhiye/ui/components/icon";
+import { IconButton } from "@zhiye/ui/components/icon-button";
+import { useBreakpoint } from "@zhiye/ui/hooks/use-breakpoint";
+import { cn } from "@zhiye/utils/style";
 import { templates } from "@/dialogs/resume/template/data";
 import { useCurrentBuilderResumeSelector, useResumeData, useResumeStore } from "@/features/resume/builder/draft";
 import { undoToast } from "@/features/resume/builder/undo-toast";

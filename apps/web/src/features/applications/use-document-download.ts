@@ -1,6 +1,6 @@
 import { t } from "@lingui/core/macro";
 import { useState } from "react";
-import { downloadWithAnchor, generateFilename } from "@reactive-resume/utils/file";
+import { downloadWithAnchor, generateFilename } from "@zhiye/utils/file";
 import { toastError } from "@/libs/error-message";
 import { client } from "@/libs/orpc/client";
 

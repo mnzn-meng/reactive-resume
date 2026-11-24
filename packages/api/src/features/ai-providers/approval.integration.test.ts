@@ -7,19 +7,19 @@ import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from "vite-
 import { createRouterClient } from "@orpc/server";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import { aiDestination, NO_AI_DESTINATION } from "@reactive-resume/ai/types";
-import * as tables from "@reactive-resume/db/schema";
-import { env } from "@reactive-resume/env/server";
-import { careerScheduleInputSchema } from "@reactive-resume/schema/career";
+import { aiDestination, NO_AI_DESTINATION } from "@zhiye/ai/types";
+import * as tables from "@zhiye/db/schema";
+import { env } from "@zhiye/env/server";
+import { careerScheduleInputSchema } from "@zhiye/schema/career";
 import { truncateCascade } from "../../test-database";
 
-vi.mock("@reactive-resume/env/server", async (original) => {
-	const module = await original<typeof import("@reactive-resume/env/server")>();
+vi.mock("@zhiye/env/server", async (original) => {
+	const module = await original<typeof import("@zhiye/env/server")>();
 	return { env: { ...module.env } };
 });
 const fixture = vi.hoisted(() => ({ db: undefined as ReturnType<typeof drizzle> | undefined }));
 // Only the database handle is substituted. Routers, credentials, provider resolution and HTTP transport are real.
-vi.mock("@reactive-resume/db/client", () => ({
+vi.mock("@zhiye/db/client", () => ({
 	get db() {
 		return fixture.db;
 	},
@@ -428,7 +428,7 @@ describe.skipIf(!process.env.INTEGRATIONS_TEST_DATABASE_URL)(
 						}),
 					]);
 				if (change === "resume edit") {
-					const { sampleResumeData } = await import("@reactive-resume/schema/resume/sample");
+					const { sampleResumeData } = await import("@zhiye/schema/resume/sample");
 					await getDb().insert(tables.resume).values({
 						id: "resume",
 						name: "Fictional resume",
@@ -520,7 +520,7 @@ describe.skipIf(!process.env.INTEGRATIONS_TEST_DATABASE_URL)(
 			async (change) => {
 				const provider = await add("document");
 				await knowledgeFixture();
-				const { defaultResumeData } = await import("@reactive-resume/schema/resume/default");
+				const { defaultResumeData } = await import("@zhiye/schema/resume/default");
 				await getDb()
 					.insert(tables.resume)
 					.values({

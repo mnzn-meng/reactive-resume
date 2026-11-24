@@ -1,4 +1,4 @@
-import type { Locale } from "@reactive-resume/utils/locale";
+import type { Locale } from "@zhiye/utils/locale";
 import { verifyEmail } from "./auth";
 
 const VerifyEmailPreview = (props: { url: string; locale: Locale }) => verifyEmail(props).react;

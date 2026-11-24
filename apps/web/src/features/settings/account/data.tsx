@@ -12,12 +12,12 @@ import {
 	AlertDialogFooter,
 	AlertDialogHeader,
 	AlertDialogTitle,
-} from "@reactive-resume/ui/components/alert-dialog";
-import { Input } from "@reactive-resume/ui/components/input";
-import { Spinner } from "@reactive-resume/ui/components/spinner";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { AccountExportLimitError, buildAccountZip } from "@reactive-resume/utils/account-zip";
-import { downloadWithAnchor } from "@reactive-resume/utils/file";
+} from "@zhiye/ui/components/alert-dialog";
+import { Input } from "@zhiye/ui/components/input";
+import { Spinner } from "@zhiye/ui/components/spinner";
+import { toast } from "@zhiye/ui/components/toast";
+import { AccountExportLimitError, buildAccountZip } from "@zhiye/utils/account-zip";
+import { downloadWithAnchor } from "@zhiye/utils/file";
 import { SettingsRow, SettingsSection, TextAction } from "../section";
 import { ListRow } from "@/components/calm/list-row";
 import { getAccountGeneration, getAccountId } from "@/libs/auth/account-scope";

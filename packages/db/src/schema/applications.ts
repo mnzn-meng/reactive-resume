@@ -5,9 +5,9 @@ import type {
 	ApplicationTimelineEntry,
 	Contact,
 	PostingSource,
-} from "@reactive-resume/schema/applications/data";
+} from "@zhiye/schema/applications/data";
 import * as pg from "drizzle-orm/pg-core";
-import { generateId } from "@reactive-resume/utils/string";
+import { generateId } from "@zhiye/utils/string";
 import { user } from "./auth";
 import { resume, resumeVersion } from "./resume";
 

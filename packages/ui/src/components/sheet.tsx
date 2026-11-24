@@ -1,9 +1,9 @@
 import type * as React from "react";
 import { Drawer as SheetPrimitive } from "@base-ui/react/drawer";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { useBreakpoint } from "@reactive-resume/ui/hooks/use-breakpoint";
-import { cn } from "@reactive-resume/utils/style";
+import { Button } from "@zhiye/ui/components/button";
+import { Icon } from "@zhiye/ui/components/icon";
+import { useBreakpoint } from "@zhiye/ui/hooks/use-breakpoint";
+import { cn } from "@zhiye/utils/style";
 
 function Sheet({ ...props }: SheetPrimitive.Root.Props) {
 	return <SheetPrimitive.Root data-slot="sheet" {...props} />;

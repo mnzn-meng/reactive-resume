@@ -1,6 +1,6 @@
 import z from "zod";
-import { aiOperationIdsSchema } from "@reactive-resume/schema/ai-usage";
-import { reviewedAnswerInputSchema, reuseAnswerInputSchema } from "@reactive-resume/schema/application-answers";
+import { aiOperationIdsSchema } from "@zhiye/schema/ai-usage";
+import { reviewedAnswerInputSchema, reuseAnswerInputSchema } from "@zhiye/schema/application-answers";
 import { protectedProcedure } from "../../context";
 import { reviewedAnswerSchema, reviewedAnswerViewSchema } from "../../dto/career";
 import { reviewedAnswers } from "./answers";

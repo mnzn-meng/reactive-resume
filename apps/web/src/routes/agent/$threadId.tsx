@@ -1,7 +1,7 @@
 import { t } from "@lingui/core/macro";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useEffect, useRef } from "react";
-import { toast } from "@reactive-resume/ui/components/toast";
+import { toast } from "@zhiye/ui/components/toast";
 import { orpc } from "@/libs/orpc/client";
 
 // A conversation opens on its document, with the assistant showing it; without one, Documents, saying why.

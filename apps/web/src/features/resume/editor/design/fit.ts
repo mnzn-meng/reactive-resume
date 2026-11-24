@@ -1,10 +1,10 @@
 import type { FitStep } from "./presets";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import type { WritableDraft } from "immer";
 import { i18n } from "@lingui/core";
 import { ph, plural, t } from "@lingui/core/macro";
-import { addPageWith, spillingSections } from "@reactive-resume/resume/spill";
-import { toast } from "@reactive-resume/ui/components/toast";
+import { addPageWith, spillingSections } from "@zhiye/resume/spill";
+import { toast } from "@zhiye/ui/components/toast";
 import { useEditorStore } from "../store";
 import { applyDensity, applyMargins, applyTextSize, fitToPages, matchDensity, matchMargins } from "./presets";
 import { useResumeStore } from "@/features/resume/builder/draft";

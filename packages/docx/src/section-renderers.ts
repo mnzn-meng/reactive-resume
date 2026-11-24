@@ -1,13 +1,7 @@
 import type { HtmlStyleConfig } from "./html-to-docx";
-import type {
-	CustomSection,
-	CustomSectionType,
-	EntryHeader,
-	ResumeData,
-	SectionType,
-} from "@reactive-resume/schema/resume/data";
+import type { CustomSection, CustomSectionType, EntryHeader, ResumeData, SectionType } from "@zhiye/schema/resume/data";
 import { BorderStyle, ExternalHyperlink, HeadingLevel, Paragraph, TabStopPosition, TabStopType, TextRun } from "docx";
-import { toSafeLink } from "@reactive-resume/utils/link";
+import { toSafeLink } from "@zhiye/utils/link";
 import { htmlToParagraphs } from "./html-to-docx";
 
 type Sections = ResumeData["sections"];

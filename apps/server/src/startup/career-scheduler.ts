@@ -1,4 +1,4 @@
-import { runCareerJobs } from "@reactive-resume/api/features/career/jobs";
+import { runCareerJobs } from "@zhiye/api/features/career/jobs";
 
 /** The long-running Node server owns ticks; PostgreSQL coordinates work across server instances. */
 export function startCareerScheduler() {

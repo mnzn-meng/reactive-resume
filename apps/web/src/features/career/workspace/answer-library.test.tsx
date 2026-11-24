@@ -38,7 +38,7 @@ vi.mock("@/libs/orpc/client", () => {
 	};
 });
 vi.mock("@/libs/error-message", () => ({ toastError: vi.fn() }));
-vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: vi.fn() } }));
+vi.mock("@zhiye/ui/components/toast", () => ({ toast: { add: vi.fn() } }));
 const saved = {
 	id: "saved",
 	question: "Describe your project",

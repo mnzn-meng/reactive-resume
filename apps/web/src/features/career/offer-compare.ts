@@ -1,6 +1,6 @@
-import type { CareerProfileData, OfferTerms } from "@reactive-resume/schema/career";
+import type { CareerProfileData, OfferTerms } from "@zhiye/schema/career";
 import { t } from "@lingui/core/macro";
-import { bonusAmount } from "@reactive-resume/schema/career-offer";
+import { bonusAmount } from "@zhiye/schema/career-offer";
 
 type Pay = Pick<OfferTerms, "currency" | "period">;
 

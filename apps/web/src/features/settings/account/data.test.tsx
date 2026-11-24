@@ -6,7 +6,7 @@ import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { strFromU8, unzipSync } from "fflate";
-import { AccountExportLimitError } from "@reactive-resume/utils/account-zip";
+import { AccountExportLimitError } from "@zhiye/utils/account-zip";
 
 const remove = vi.hoisted(() => vi.fn());
 const exported = vi.hoisted(() => ({ request: vi.fn(), download: vi.fn(), toast: vi.fn(), generation: 1 }));
@@ -14,8 +14,8 @@ vi.mock("@/libs/auth/account-scope", () => ({
 	getAccountId: () => "owner",
 	getAccountGeneration: () => exported.generation,
 }));
-vi.mock("@reactive-resume/utils/file", () => ({ downloadWithAnchor: exported.download }));
-vi.mock("@reactive-resume/ui/components/toast", () => ({ toast: { add: exported.toast } }));
+vi.mock("@zhiye/utils/file", () => ({ downloadWithAnchor: exported.download }));
+vi.mock("@zhiye/ui/components/toast", () => ({ toast: { add: exported.toast } }));
 vi.mock("@tanstack/react-router", () => ({ useNavigate: () => vi.fn() }));
 vi.mock("@/libs/orpc/client", () => ({
 	client: { auth: { deleteAccount: remove, exportData: exported.request } },

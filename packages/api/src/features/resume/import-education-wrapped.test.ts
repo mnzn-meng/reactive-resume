@@ -1,17 +1,17 @@
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
+import type { ResumeData } from "@zhiye/schema/resume/data";
 import { expect, it, vi } from "vite-plus/test";
 import { call } from "@orpc/server";
-import { createResumePdfFile } from "@reactive-resume/pdf/server";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
-import { templateSchema } from "@reactive-resume/schema/templates";
-import { generateId } from "@reactive-resume/utils/string";
+import { createResumePdfFile } from "@zhiye/pdf/server";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
+import { templateSchema } from "@zhiye/schema/templates";
+import { generateId } from "@zhiye/utils/string";
 const create = vi.hoisted(() => vi.fn());
 vi.mock("./service", () => ({ resumeService: { create } }));
-vi.mock("@reactive-resume/auth/config", () => ({
+vi.mock("@zhiye/auth/config", () => ({
 	auth: { api: { getSession: vi.fn().mockResolvedValue({ user: { id: "owner" } }) } },
 	verifyOAuthToken: vi.fn(),
 }));
-vi.mock("@reactive-resume/db/client", () => ({
+vi.mock("@zhiye/db/client", () => ({
 	db: {
 		select: () => ({
 			from: () => ({

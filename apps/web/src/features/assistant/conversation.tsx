@@ -1,8 +1,8 @@
 import type { ChatAttachment, MessageContext } from "./chat";
 import type { AssistantDocument } from "./document";
-import type { ProposeEditsOutput } from "@reactive-resume/ai/tools/agent-tool-contracts";
-import type { Proposal } from "@reactive-resume/resume/proposals";
-import type { IconName } from "@reactive-resume/ui/components/icon";
+import type { ProposeEditsOutput } from "@zhiye/ai/tools/agent-tool-contracts";
+import type { Proposal } from "@zhiye/resume/proposals";
+import type { IconName } from "@zhiye/ui/components/icon";
 import type { UIMessage } from "ai";
 import type { ReactNode } from "react";
 import { i18n } from "@lingui/core";
@@ -20,13 +20,13 @@ import {
 	citesKnowledge,
 	readPageOutputSchema,
 	tailoringAllows,
-} from "@reactive-resume/ai/tools/agent-tool-contracts";
-import { measureOverflow } from "@reactive-resume/pdf/page-map";
-import { withEditedText } from "@reactive-resume/resume/proposals";
-import { aiOperationIds } from "@reactive-resume/schema/ai-usage";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { IconButton } from "@reactive-resume/ui/components/icon-button";
+} from "@zhiye/ai/tools/agent-tool-contracts";
+import { measureOverflow } from "@zhiye/pdf/page-map";
+import { withEditedText } from "@zhiye/resume/proposals";
+import { aiOperationIds } from "@zhiye/schema/ai-usage";
+import { Button } from "@zhiye/ui/components/button";
+import { Icon } from "@zhiye/ui/components/icon";
+import { IconButton } from "@zhiye/ui/components/icon-button";
 import {
 	MessageScroller,
 	MessageScrollerButton,
@@ -35,11 +35,11 @@ import {
 	MessageScrollerProvider,
 	MessageScrollerViewport,
 	useMessageScroller,
-} from "@reactive-resume/ui/components/message-scroller";
-import { Spinner } from "@reactive-resume/ui/components/spinner";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { Trace, TraceIcon, TraceLine, TraceTitle } from "@reactive-resume/ui/components/trace";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/message-scroller";
+import { Spinner } from "@zhiye/ui/components/spinner";
+import { toast } from "@zhiye/ui/components/toast";
+import { Trace, TraceIcon, TraceLine, TraceTitle } from "@zhiye/ui/components/trace";
+import { cn } from "@zhiye/utils/style";
 import { attachmentErrorMessages, attachmentPart, fileToBase64, transcriptOf } from "./chat";
 import { ChatComposer } from "./chat-chrome";
 import { AssistantMarkdown } from "./markdown";

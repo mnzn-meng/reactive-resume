@@ -3,7 +3,7 @@ import type { Application, ApplicationSummary } from "./types";
 import type { QueryClient } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
-import { latestOfferHints } from "@reactive-resume/schema/applications/next-step";
+import { latestOfferHints } from "@zhiye/schema/applications/next-step";
 import { orpc } from "@/libs/orpc/client";
 
 // A single source of truth for the lightweight applications list query so the query key stays identical

@@ -1,13 +1,13 @@
-import type { CareerStoryData } from "@reactive-resume/schema/career";
+import type { CareerStoryData } from "@zhiye/schema/career";
 import type { UIMessage } from "ai";
 import type { ReactNode } from "react";
 import { t } from "@lingui/core/macro";
 import { Trans } from "@lingui/react/macro";
 import { useState } from "react";
-import { agentApprovalRequests } from "@reactive-resume/ai/tools/agent-tool-contracts";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { cn } from "@reactive-resume/utils/style";
+import { agentApprovalRequests } from "@zhiye/ai/tools/agent-tool-contracts";
+import { Button } from "@zhiye/ui/components/button";
+import { Icon } from "@zhiye/ui/components/icon";
+import { cn } from "@zhiye/utils/style";
 
 type ApprovalFact = { id: string; text: string; status: string };
 /** A saved story a proposal may update: its parts show as "Was" where they change. */

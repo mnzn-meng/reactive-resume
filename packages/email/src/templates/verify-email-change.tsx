@@ -1,4 +1,4 @@
-import type { Locale } from "@reactive-resume/utils/locale";
+import type { Locale } from "@zhiye/utils/locale";
 import { verifyEmailChange } from "./auth";
 
 type PreviewProps = { url: string; previousEmail: string; newEmail: string; locale: Locale };

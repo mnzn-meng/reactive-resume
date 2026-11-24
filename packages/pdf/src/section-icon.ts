@@ -1,5 +1,5 @@
-import type { ResumeData, SectionType } from "@reactive-resume/schema/resume/data";
-import { getDefaultSectionIconName } from "@reactive-resume/schema/resume/section-icons";
+import type { ResumeData, SectionType } from "@zhiye/schema/resume/data";
+import { getDefaultSectionIconName } from "@zhiye/schema/resume/section-icons";
 
 export const getResumeSectionIcon = (data: ResumeData, sectionId: string): string => {
 	if (sectionId === "summary") {

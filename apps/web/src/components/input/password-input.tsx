@@ -1,12 +1,7 @@
 import { t } from "@lingui/core/macro";
 import { useToggle } from "usehooks-ts";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import {
-	InputGroup,
-	InputGroupAddon,
-	InputGroupButton,
-	InputGroupInput,
-} from "@reactive-resume/ui/components/input-group";
+import { Icon } from "@zhiye/ui/components/icon";
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@zhiye/ui/components/input-group";
 
 type PasswordInputProps = Omit<React.ComponentProps<"input">, "type">;
 

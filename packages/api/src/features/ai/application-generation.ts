@@ -1,7 +1,7 @@
 import type z from "zod";
 import { ORPCError } from "@orpc/client";
 import { APICallError, generateText, RetryError } from "ai";
-import { safetySystemPrompt } from "@reactive-resume/ai/prompts";
+import { safetySystemPrompt } from "@zhiye/ai/prompts";
 import { aiDeadline, generateJson as sharedGenerateJson } from "./generate-json";
 
 // --- AI provider failure translation ------------------------------------------

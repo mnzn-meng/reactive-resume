@@ -1,9 +1,5 @@
-import { applicationPacketSchema, packetFillPlan } from "@reactive-resume/schema/applications/autofill";
-import {
-	captureInstallation,
-	capturePostingUrl,
-	postingCaptureSchema,
-} from "@reactive-resume/schema/applications/capture";
+import { applicationPacketSchema, packetFillPlan } from "@zhiye/schema/applications/autofill";
+import { captureInstallation, capturePostingUrl, postingCaptureSchema } from "@zhiye/schema/applications/capture";
 const $ = (id) => document.getElementById(id);
 const status = $("status");
 let installation = null;

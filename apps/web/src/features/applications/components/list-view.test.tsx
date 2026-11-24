@@ -7,7 +7,7 @@ import { expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { createDefaultApplicationLanes } from "@reactive-resume/schema/applications/lanes";
+import { createDefaultApplicationLanes } from "@zhiye/schema/applications/lanes";
 import { ApplicationList } from "./list-view";
 
 const mocks = vi.hoisted(() => ({
@@ -59,7 +59,7 @@ vi.mock("../use-application-actions", () => ({
 	}),
 }));
 vi.mock("@/hooks/use-confirm", () => ({ useConfirm: () => vi.fn() }));
-vi.mock("@reactive-resume/ui/hooks/use-breakpoint", () => ({ useBreakpoint: () => mocks.breakpoint }));
+vi.mock("@zhiye/ui/hooks/use-breakpoint", () => ({ useBreakpoint: () => mocks.breakpoint }));
 
 const application = (over: Partial<Application> = {}): Application =>
 	({

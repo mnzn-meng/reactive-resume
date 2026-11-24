@@ -1,5 +1,5 @@
 import type { MessageContext } from "./chat";
-import type { AgentUIMessage } from "@reactive-resume/ai/tools/agent-tool-contracts";
+import type { AgentUIMessage } from "@zhiye/ai/tools/agent-tool-contracts";
 import type { ChatTransport, UIMessage } from "ai";
 import { useChat } from "@ai-sdk/react";
 import { eventIteratorToUnproxiedDataStream } from "@orpc/client";
@@ -11,7 +11,7 @@ import {
 	uiMessageChunkSchema,
 } from "ai";
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
-import { agentMessageMetadataSchema } from "@reactive-resume/ai/tools/agent-tool-contracts";
+import { agentMessageMetadataSchema } from "@zhiye/ai/tools/agent-tool-contracts";
 import { getAccountGeneration } from "@/libs/auth/account-scope";
 import { orpc, streamClient } from "@/libs/orpc/client";
 

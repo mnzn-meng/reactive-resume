@@ -1,37 +1,33 @@
 import type { ReactNode } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
-import { Badge } from "@reactive-resume/ui/components/badge";
-import { BrandIcon } from "@reactive-resume/ui/components/brand-icon";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Checkbox } from "@reactive-resume/ui/components/checkbox";
+import { Badge } from "@zhiye/ui/components/badge";
+import { BrandIcon } from "@zhiye/ui/components/brand-icon";
+import { Button } from "@zhiye/ui/components/button";
+import { Checkbox } from "@zhiye/ui/components/checkbox";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { EmptyState } from "@reactive-resume/ui/components/empty-state";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { IconButton } from "@reactive-resume/ui/components/icon-button";
-import { Input } from "@reactive-resume/ui/components/input";
-import { InputGroup, InputGroupAddon, InputGroupInput } from "@reactive-resume/ui/components/input-group";
-import { Kbd } from "@reactive-resume/ui/components/kbd";
-import { Label } from "@reactive-resume/ui/components/label";
-import {
-	menuItemClassName,
-	menuPopupClassName,
-	menuSeparatorClassName,
-} from "@reactive-resume/ui/components/menu-styles";
-import { RadioGroup, RadioGroupItem } from "@reactive-resume/ui/components/radio-group";
-import { SegmentedControl, SegmentedControlItem } from "@reactive-resume/ui/components/segmented-control";
-import { Skeleton } from "@reactive-resume/ui/components/skeleton";
-import { Spinner } from "@reactive-resume/ui/components/spinner";
-import { Switch } from "@reactive-resume/ui/components/switch";
-import { Tabs, TabsCount, TabsList, TabsTrigger } from "@reactive-resume/ui/components/tabs";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/dropdown-menu";
+import { EmptyState } from "@zhiye/ui/components/empty-state";
+import { Icon } from "@zhiye/ui/components/icon";
+import { IconButton } from "@zhiye/ui/components/icon-button";
+import { Input } from "@zhiye/ui/components/input";
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@zhiye/ui/components/input-group";
+import { Kbd } from "@zhiye/ui/components/kbd";
+import { Label } from "@zhiye/ui/components/label";
+import { menuItemClassName, menuPopupClassName, menuSeparatorClassName } from "@zhiye/ui/components/menu-styles";
+import { RadioGroup, RadioGroupItem } from "@zhiye/ui/components/radio-group";
+import { SegmentedControl, SegmentedControlItem } from "@zhiye/ui/components/segmented-control";
+import { Skeleton } from "@zhiye/ui/components/skeleton";
+import { Spinner } from "@zhiye/ui/components/spinner";
+import { Switch } from "@zhiye/ui/components/switch";
+import { Tabs, TabsCount, TabsList, TabsTrigger } from "@zhiye/ui/components/tabs";
+import { toast } from "@zhiye/ui/components/toast";
+import { cn } from "@zhiye/utils/style";
 import { CategoryStrip } from "@/components/calm/category-strip";
 import { Crumb, CrumbLink } from "@/components/calm/crumb";
 import {

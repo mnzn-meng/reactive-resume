@@ -1,8 +1,8 @@
-import type { OutcomeSource } from "@reactive-resume/schema/applications/outcomes";
-import { applicationSentAt, furthestStage } from "@reactive-resume/schema/applications/outcomes";
-export { computeOutcomes, countSources } from "@reactive-resume/schema/applications/outcomes";
-import type { ApplicationStatus } from "@reactive-resume/schema/applications/data";
-import { STAGES } from "@reactive-resume/schema/applications/data";
+import type { OutcomeSource } from "@zhiye/schema/applications/outcomes";
+import { applicationSentAt, furthestStage } from "@zhiye/schema/applications/outcomes";
+export { computeOutcomes, countSources } from "@zhiye/schema/applications/outcomes";
+import type { ApplicationStatus } from "@zhiye/schema/applications/data";
+import { STAGES } from "@zhiye/schema/applications/data";
 import { PIPELINE } from "./stages";
 
 export type StageCount = { status: ApplicationStatus; count: number };

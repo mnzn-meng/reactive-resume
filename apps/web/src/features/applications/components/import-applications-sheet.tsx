@@ -1,5 +1,5 @@
-import type { CsvField } from "@reactive-resume/schema/applications/csv";
-import type { ApplicationStatus } from "@reactive-resume/schema/applications/data";
+import type { CsvField } from "@zhiye/schema/applications/csv";
+import type { ApplicationStatus } from "@zhiye/schema/applications/data";
 import { i18n } from "@lingui/core";
 import { ph, plural, t } from "@lingui/core/macro";
 import { Plural, Trans } from "@lingui/react/macro";
@@ -15,12 +15,12 @@ import {
 	parseCsv,
 	rowsToCsv,
 	suggestLane,
-} from "@reactive-resume/schema/applications/csv";
-import { Alert, AlertDescription, AlertTitle } from "@reactive-resume/ui/components/alert";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Label } from "@reactive-resume/ui/components/label";
-import { NativeSelect } from "@reactive-resume/ui/components/native-select";
+} from "@zhiye/schema/applications/csv";
+import { Alert, AlertDescription, AlertTitle } from "@zhiye/ui/components/alert";
+import { Button } from "@zhiye/ui/components/button";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Label } from "@zhiye/ui/components/label";
+import { NativeSelect } from "@zhiye/ui/components/native-select";
 import {
 	Sheet,
 	SheetContent,
@@ -28,11 +28,11 @@ import {
 	SheetFooter,
 	SheetHeader,
 	SheetTitle,
-} from "@reactive-resume/ui/components/sheet";
-import { Textarea } from "@reactive-resume/ui/components/textarea";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { downloadWithAnchor } from "@reactive-resume/utils/file";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/sheet";
+import { Textarea } from "@zhiye/ui/components/textarea";
+import { toast } from "@zhiye/ui/components/toast";
+import { downloadWithAnchor } from "@zhiye/utils/file";
+import { cn } from "@zhiye/utils/style";
 import { getLaneLabel, LANE_COLORS } from "../lanes";
 import { getClosedReasonLabel, getStageLabel } from "../stages";
 import { useInvalidateApplications } from "../use-application-actions";

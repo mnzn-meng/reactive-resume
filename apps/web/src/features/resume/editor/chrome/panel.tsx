@@ -1,5 +1,5 @@
 import type { ComponentProps, ReactNode } from "react";
-import { cn } from "@reactive-resume/utils/style";
+import { cn } from "@zhiye/utils/style";
 
 // What the editor's one panel slot (shell.tsx, `data-design="epanel"`, 400px) lays out the same way whatever is in it:
 // 24px sides, 20px above, a serif title with at most one action beside it, and an optional foot pinned to the bottom.

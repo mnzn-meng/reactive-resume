@@ -1,29 +1,29 @@
 import type { DocumentSummary } from "@/features/documents/filter";
 import type { RouterOutput } from "@/libs/orpc/client";
-import type { ApplicationStatus } from "@reactive-resume/schema/applications/data";
+import type { ApplicationStatus } from "@zhiye/schema/applications/data";
 import { i18n } from "@lingui/core";
 import { plural, t } from "@lingui/core/macro";
 import { Trans, useLingui } from "@lingui/react/macro";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useRef, useState } from "react";
-import { Alert, AlertDescription, AlertTitle } from "@reactive-resume/ui/components/alert";
-import { Button } from "@reactive-resume/ui/components/button";
-import { Checkbox } from "@reactive-resume/ui/components/checkbox";
+import { Alert, AlertDescription, AlertTitle } from "@zhiye/ui/components/alert";
+import { Button } from "@zhiye/ui/components/button";
+import { Checkbox } from "@zhiye/ui/components/checkbox";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
-} from "@reactive-resume/ui/components/dropdown-menu";
-import { EmptyState } from "@reactive-resume/ui/components/empty-state";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { IconButton } from "@reactive-resume/ui/components/icon-button";
-import { Skeleton } from "@reactive-resume/ui/components/skeleton";
-import { Tabs, TabsCount, TabsList, TabsTrigger } from "@reactive-resume/ui/components/tabs";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/dropdown-menu";
+import { EmptyState } from "@zhiye/ui/components/empty-state";
+import { Icon } from "@zhiye/ui/components/icon";
+import { IconButton } from "@zhiye/ui/components/icon-button";
+import { Skeleton } from "@zhiye/ui/components/skeleton";
+import { Tabs, TabsCount, TabsList, TabsTrigger } from "@zhiye/ui/components/tabs";
+import { toast } from "@zhiye/ui/components/toast";
+import { cn } from "@zhiye/utils/style";
 import { TRASH_PAGE, trashedApplicationsQueryOptions } from "./queries";
 import { DocumentThumb } from "@/components/calm/document-thumb";
 import { IconTile, List, ListRow, revealOnRowClassName } from "@/components/calm/list-row";

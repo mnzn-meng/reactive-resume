@@ -1,8 +1,8 @@
 import { expect, it, vi } from "vite-plus/test";
-import { accountBackupLimits } from "@reactive-resume/utils/account-zip";
+import { accountBackupLimits } from "@zhiye/utils/account-zip";
 
 const read = vi.hoisted(() => vi.fn());
-vi.mock("@reactive-resume/env/server", () => ({ env: { APP_URL: "http://localhost:3000" } }));
+vi.mock("@zhiye/env/server", () => ({ env: { APP_URL: "http://localhost:3000" } }));
 vi.mock("../storage/service", () => ({ getStorageService: () => ({ read }) }));
 import { exportAccountUploads } from "./export-uploads";
 

@@ -11,9 +11,9 @@ import {
 } from "@aws-sdk/client-s3";
 import { ORPCError } from "@orpc/server";
 import sharp from "sharp";
-import { db } from "@reactive-resume/db/client";
-import { env } from "@reactive-resume/env/server";
-import { getLocalDataDirectory } from "@reactive-resume/utils/monorepo.node";
+import { db } from "@zhiye/db/client";
+import { env } from "@zhiye/env/server";
+import { getLocalDataDirectory } from "@zhiye/utils/monorepo.node";
 import { lockUser } from "../documents/ownership";
 import { BlobStorageService } from "./blob";
 import { readStorageBody } from "./read";
@@ -142,8 +142,8 @@ export async function processImageForUpload(file: File): Promise<ProcessedImage>
 /** Public pictures stop serving once their owner is banned or gone. */
 export async function isPublicUploadOwner(userId: string): Promise<boolean> {
 	const [{ db }, { user }, { and, eq }, { ownerIsNotBanned }] = await Promise.all([
-		import("@reactive-resume/db/client"),
-		import("@reactive-resume/db/schema"),
+		import("@zhiye/db/client"),
+		import("@zhiye/db/schema"),
 		import("drizzle-orm"),
 		import("../documents/ownership"),
 	]);

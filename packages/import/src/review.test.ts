@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vite-plus/test";
 import { zipSync } from "fflate";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 import { extractDocxText } from "./docx-text";
 import { reviewImport, withLeftoverSection, withLinkTargets } from "./review";
 

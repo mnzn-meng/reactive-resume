@@ -1,9 +1,9 @@
-import type { Passage, Proposal, ProposalApplicationResult, ProposalState } from "@reactive-resume/resume/proposals";
+import type { Passage, Proposal, ProposalApplicationResult, ProposalState } from "@zhiye/resume/proposals";
 import { t } from "@lingui/core/macro";
 import { useQuery } from "@tanstack/react-query";
 import { useSearch } from "@tanstack/react-router";
 import { useMemo } from "react";
-import { collectPassages, getProposalState } from "@reactive-resume/resume/proposals";
+import { collectPassages, getProposalState } from "@zhiye/resume/proposals";
 import { applicationsListQueryOptions } from "@/features/applications/queries";
 import { useCurrentResume, useResumeStore } from "@/features/resume/builder/draft";
 import { getSectionName } from "@/features/resume/editor/check/issues";

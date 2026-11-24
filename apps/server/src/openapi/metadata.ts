@@ -1,4 +1,4 @@
-import { env } from "@reactive-resume/env/server";
+import { env } from "@zhiye/env/server";
 
 function appUrl() {
 	return env.APP_URL.replace(/\/+$/, "");

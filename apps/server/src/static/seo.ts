@@ -1,6 +1,6 @@
-import { env } from "@reactive-resume/env/server";
-import { templateSchema } from "@reactive-resume/schema/templates";
-import { getLocaleAlternates } from "@reactive-resume/utils/locale";
+import { env } from "@zhiye/env/server";
+import { templateSchema } from "@zhiye/schema/templates";
+import { getLocaleAlternates } from "@zhiye/utils/locale";
 
 export const CONTEXT7_ASK_URL = "https://context7.com/api/v2/ask?siteKey=ask_b3fd9335a63f1b21b1a814ac";
 const CONTEXT7_ASK_DESCRIPTION = `This site has a search endpoint: ${CONTEXT7_ASK_URL}&query=<URL-encoded question>. It returns documentation that answers the question, with a source link for each part. No API key is needed. If nothing matches, it says so.`;

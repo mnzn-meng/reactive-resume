@@ -1,10 +1,10 @@
 import type { ResolvedResumePresentation } from "./context";
-import type { ResolveStylesheetResult, SemanticCssDiagnostic, SemanticNode } from "@reactive-resume/resume/stylesheet";
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import type { Template } from "@reactive-resume/schema/templates";
-import { compileStylesheet, isFatalStylesheetDiagnostic, resolveStylesheet } from "@reactive-resume/resume/stylesheet";
-import { assertResumeRenderBudget } from "@reactive-resume/schema/resume/limits";
-import { EMPTY_SEMANTIC_CSS_SOURCE } from "@reactive-resume/schema/resume/stylesheet";
+import type { ResolveStylesheetResult, SemanticCssDiagnostic, SemanticNode } from "@zhiye/resume/stylesheet";
+import type { ResumeData } from "@zhiye/schema/resume/data";
+import type { Template } from "@zhiye/schema/templates";
+import { compileStylesheet, isFatalStylesheetDiagnostic, resolveStylesheet } from "@zhiye/resume/stylesheet";
+import { assertResumeRenderBudget } from "@zhiye/schema/resume/limits";
+import { EMPTY_SEMANTIC_CSS_SOURCE } from "@zhiye/schema/resume/stylesheet";
 import { getTemplatePageSize } from "../templates/shared/page-size";
 import { adaptResolvedPdfNode } from "./adapter";
 import { buildPdfBaseStyles } from "./base-styles";

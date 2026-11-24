@@ -1,7 +1,7 @@
-import type { ResumeData } from "@reactive-resume/schema/resume/data";
-import { readLegacyDates } from "@reactive-resume/schema/resume/dates";
-import { sectionDefaults } from "@reactive-resume/schema/resume/default";
-import { defaultResumeData } from "@reactive-resume/schema/resume/default";
+import type { ResumeData } from "@zhiye/schema/resume/data";
+import { readLegacyDates } from "@zhiye/schema/resume/dates";
+import { sectionDefaults } from "@zhiye/schema/resume/default";
+import { defaultResumeData } from "@zhiye/schema/resume/default";
 import { edgeCaseTemplates } from "./pdf-import";
 import { ownershipSource } from "./pdf-ownership";
 

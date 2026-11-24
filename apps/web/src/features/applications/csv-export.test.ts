@@ -1,5 +1,5 @@
 import type { Application } from "./types";
-import type { ApplicationLane } from "@reactive-resume/schema/applications/lanes";
+import type { ApplicationLane } from "@zhiye/schema/applications/lanes";
 import { describe, expect, it } from "vite-plus/test";
 import {
 	applyLaneMapping,
@@ -7,8 +7,8 @@ import {
 	mapCsvToApplications,
 	parseCsv,
 	suggestLane,
-} from "@reactive-resume/schema/applications/csv";
-import { createDefaultApplicationLanes } from "@reactive-resume/schema/applications/lanes";
+} from "@zhiye/schema/applications/csv";
+import { createDefaultApplicationLanes } from "@zhiye/schema/applications/lanes";
 import { exportApplicationsCsv, selectApplicationsForExport } from "./csv";
 
 const application: Application = {

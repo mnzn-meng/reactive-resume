@@ -1,8 +1,8 @@
 import { afterEach, describe, expect, it, vi } from "vite-plus/test";
 
 const recorded = vi.hoisted(() => vi.fn(async (_input: unknown) => undefined));
-vi.mock("@reactive-resume/env/server", () => ({ env: { FLAG_ALLOW_UNSAFE_AI_BASE_URL: false } }));
-vi.mock("@reactive-resume/db/client", () => {
+vi.mock("@zhiye/env/server", () => ({ env: { FLAG_ALLOW_UNSAFE_AI_BASE_URL: false } }));
+vi.mock("@zhiye/db/client", () => {
 	const database = { insert: () => ({ values: recorded }) };
 	return { db: { ...database, transaction: async (run: (tx: typeof database) => Promise<void>) => run(database) } };
 });
@@ -14,8 +14,8 @@ vi.mock("../documents/ownership", async (original) => ({
 	...(await original<typeof import("../documents/ownership")>()),
 	lockUser: async () => undefined,
 }));
-vi.mock("@reactive-resume/utils/url-security.node", async (original) => ({
-	...(await original<typeof import("@reactive-resume/utils/url-security.node")>()),
+vi.mock("@zhiye/utils/url-security.node", async (original) => ({
+	...(await original<typeof import("@zhiye/utils/url-security.node")>()),
 	fetchPublic: (input: RequestInfo | URL, init?: RequestInit) => fetch(input, init),
 }));
 

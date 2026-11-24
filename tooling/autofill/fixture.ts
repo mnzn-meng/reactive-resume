@@ -1,5 +1,5 @@
 import type { SyntheticPacket } from "./prototype";
-import { applicationProfileDataSchema } from "@reactive-resume/schema/application-profile";
+import { applicationProfileDataSchema } from "@zhiye/schema/application-profile";
 
 /** Fictional DOM shapes, not snapshots of current employer forms. */
 export function fixtureForm(kind: "greenhouse" | "lever" | "ashby") {

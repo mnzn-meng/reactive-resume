@@ -1,6 +1,6 @@
 import { expect, it, vi } from "vite-plus/test";
 
-vi.mock("@reactive-resume/db/client", () => ({ db: {} }));
+vi.mock("@zhiye/db/client", () => ({ db: {} }));
 const saveStory = vi.fn();
 vi.mock("./service", () => ({ careerService: { saveStory }, modelFact: vi.fn() }));
 const { buildCareerInstructions, buildCareerTools } = await import("./tools");

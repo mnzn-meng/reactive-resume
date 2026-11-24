@@ -18,8 +18,8 @@ const env = vi.hoisted(() => ({
 	AI_API_KEY: "",
 	AI_BASE_URL: "",
 }));
-vi.mock("@reactive-resume/env/server", () => ({ env }));
-vi.mock("@reactive-resume/db/client", () => ({
+vi.mock("@zhiye/env/server", () => ({ env }));
+vi.mock("@zhiye/db/client", () => ({
 	get db() {
 		return fixture.db;
 	},
@@ -298,7 +298,7 @@ describe.skipIf(!process.env.INTEGRATIONS_TEST_DATABASE_URL)("integration creden
 	});
 
 	it("rejects a changed AI destination at the actual service boundary", async () => {
-		const { aiDestination } = await import("@reactive-resume/ai/types");
+		const { aiDestination } = await import("@zhiye/ai/types");
 		const { withAiDestination } = await import("../ai/destination");
 		const first = await ai.create({
 			userId: "alice",

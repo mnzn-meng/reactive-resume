@@ -1,6 +1,6 @@
 import type { SQLWrapper } from "drizzle-orm";
 import { and, eq, isNull, sql } from "drizzle-orm";
-import { application } from "@reactive-resume/db/schema";
+import { application } from "@zhiye/db/schema";
 
 /** Normal workflows exclude Trash; lifecycle controls and full account exports read retained rows explicitly. */
 export const activeApplications = (userId: string) =>

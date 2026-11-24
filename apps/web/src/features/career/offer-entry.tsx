@@ -1,9 +1,9 @@
 import type { SavedData, SavedItem } from "./hooks";
 import type { ApplicationSummary } from "@/features/applications/types";
 import type { RouterOutput } from "@/libs/orpc/client";
-import type { ApplicationStatus } from "@reactive-resume/schema/applications/data";
-import type { OfferTerms } from "@reactive-resume/schema/career";
-import type { careerOfferInputSchema } from "@reactive-resume/schema/career";
+import type { ApplicationStatus } from "@zhiye/schema/applications/data";
+import type { OfferTerms } from "@zhiye/schema/career";
+import type { careerOfferInputSchema } from "@zhiye/schema/career";
 import type { FormEvent, ReactNode } from "react";
 import type z from "zod";
 import { t } from "@lingui/core/macro";
@@ -12,16 +12,16 @@ import { ORPCError } from "@orpc/client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate, useRouter, useSearch } from "@tanstack/react-router";
 import { useId, useLayoutEffect, useRef, useState } from "react";
-import { offerTermsSchema } from "@reactive-resume/schema/career";
+import { offerTermsSchema } from "@zhiye/schema/career";
 import {
 	bonusEntry,
 	offerApplications,
 	offerHintFromSalary,
 	parseOfferEntry,
 	previousOfferCurrency,
-} from "@reactive-resume/schema/career-offer";
-import { Button, buttonVariants } from "@reactive-resume/ui/components/button";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@reactive-resume/ui/components/collapsible";
+} from "@zhiye/schema/career-offer";
+import { Button, buttonVariants } from "@zhiye/ui/components/button";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@zhiye/ui/components/collapsible";
 import {
 	Dialog,
 	DialogContent,
@@ -29,16 +29,16 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-} from "@reactive-resume/ui/components/dialog";
-import { Icon } from "@reactive-resume/ui/components/icon";
-import { Input } from "@reactive-resume/ui/components/input";
-import { Label } from "@reactive-resume/ui/components/label";
-import { NativeSelect } from "@reactive-resume/ui/components/native-select";
-import { SegmentedControl, SegmentedControlItem } from "@reactive-resume/ui/components/segmented-control";
-import { Skeleton } from "@reactive-resume/ui/components/skeleton";
-import { toast } from "@reactive-resume/ui/components/toast";
-import { pendingRequestId, settleRequestId, isolate } from "@reactive-resume/utils/string";
-import { cn } from "@reactive-resume/utils/style";
+} from "@zhiye/ui/components/dialog";
+import { Icon } from "@zhiye/ui/components/icon";
+import { Input } from "@zhiye/ui/components/input";
+import { Label } from "@zhiye/ui/components/label";
+import { NativeSelect } from "@zhiye/ui/components/native-select";
+import { SegmentedControl, SegmentedControlItem } from "@zhiye/ui/components/segmented-control";
+import { Skeleton } from "@zhiye/ui/components/skeleton";
+import { toast } from "@zhiye/ui/components/toast";
+import { pendingRequestId, settleRequestId, isolate } from "@zhiye/utils/string";
+import { cn } from "@zhiye/utils/style";
 import { CurrencySelect } from "./currency-select";
 import { CareerLoadError } from "./load-state";
 import { formatMoney } from "./offer-compare";
