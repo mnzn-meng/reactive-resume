@@ -38,7 +38,7 @@ export async function resolveUserFromRequestHeaders(headers: Headers): Promise<U
 		((origin && !TRUSTED_ORIGINS.includes(origin)) || headers.get("sec-fetch-site") === "cross-site")
 	) {
 		throw new ORPCError("FORBIDDEN", {
-			message: "This request came from another site. Open Reactive Resume directly and try again.",
+			message: "This request came from another site. Open 职页 directly and try again.",
 		});
 	}
 	try {

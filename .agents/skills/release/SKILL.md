@@ -1,9 +1,9 @@
 ---
 name: release
-description: Use when releasing a new version of Reactive Resume — bumping the version, writing the release notes, creating the GitHub release, or when asked to "cut a release" / "release vX.Y.Z".
+description: Use when releasing a new version of 职页 — bumping the version, writing the release notes, creating the GitHub release, or when asked to "cut a release" / "release vX.Y.Z".
 ---
 
-# Release Reactive Resume
+# Release 职页
 
 One pipeline: version bump → release notes → PR → squash-merge → tag → GitHub release. The repository no longer
 carries a published changelog, so the release notes are the only changelog: they live in the GitHub release.

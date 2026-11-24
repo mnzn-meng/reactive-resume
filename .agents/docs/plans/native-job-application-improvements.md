@@ -1,13 +1,13 @@
-# Reactive Resume: job application improvements
+# 职页: job application improvements
 
 Status: proposed backlog. No implementation is included in this document. The mobile app it targets has been removed
 from this fork, so treat any item that depends on native screens as obsolete.
 
-Based on [HireSweep competitor research, October 30, 2026](../research/hiresweep-2026-10-30.md). Source-code findings refer to Reactive Resume 6.0.10 at commit `33920b2e856048f3c5951bddbc00ba9d29778f61`; recheck the current implementation before starting each item.
+Based on [HireSweep competitor research, October 30, 2026](../research/hiresweep-2026-10-30.md). Source-code findings refer to 职页 6.0.10 at commit `33920b2e856048f3c5951bddbc00ba9d29778f61`; recheck the current implementation before starting each item.
 
 ## Objective
 
-Connect Reactive Resume's existing resume, career, and application tools to the repetitive work of applying: capture a posting, reuse accurate answers, prepare the right documents, fill supported forms, and retain what was submitted.
+Connect the 职页 existing resume, career, and application tools to the repetitive work of applying: capture a posting, reuse accurate answers, prepare the right documents, fill supported forms, and retain what was submitted.
 
 Preserve free core functionality, optional AI, portable data, self-hosting, and equivalent web/mobile features. Extend existing domain services rather than creating a separate application automation system.
 
@@ -136,7 +136,7 @@ P0: first implementation phase. P1: next phase. P2: research and a limited colla
 - [ ] Let users review and correct extracted details before saving to the existing tracker.
 - [ ] Detect an already tracked posting and offer to open or update it.
 - [ ] Provide an equivalent mobile share/import workflow; a desktop extension alone does not complete this feature.
-- [ ] Support connecting the helper to a self-hosted Reactive Resume installation.
+- [ ] Support connecting the helper to a self-hosted 职页 installation.
 - [ ] Request access only for the intended interaction and keep browser session credentials local.
 - [ ] Fall back to URL or pasted-text import when capture is unsupported.
 
@@ -295,7 +295,7 @@ Use synthetic career histories and controlled forms for initial evaluation. Real
 | Discovery           | Valid open postings; freshness; duplicates; preference relevance; retrieval/provider cost                         |
 | Collaboration       | Useful feedback tasks; permission boundaries; revocation; demand for broader delegation                           |
 
-Set release thresholds after baseline measurement. Higher match scores and vendor feature counts are not substitutes for measured user benefit. Use voluntary research or opt-in measurement consistent with Reactive Resume's privacy commitments.
+Set release thresholds after baseline measurement. Higher match scores and vendor feature counts are not substitutes for measured user benefit. Use voluntary research or opt-in measurement consistent with the 职页 privacy commitments.
 
 ## Suggested implementation sequence
 

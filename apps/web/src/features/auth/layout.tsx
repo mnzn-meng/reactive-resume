@@ -18,7 +18,7 @@ export function AuthLayout() {
 					className="absolute start-5 top-4 flex h-9 items-center gap-2.5 rounded-md px-2 text-[15px] leading-5 font-semibold [view-transition-name:auth-brand]"
 				>
 					<BrandIcon variant="icon" alt="" className="size-6 shrink-0" />
-					Reactive Resume
+					职页
 				</Link>
 
 				<div className="flex w-full max-w-[412px] flex-col px-4">
@@ -27,7 +27,7 @@ export function AuthLayout() {
 			</div>
 
 			<aside className="hidden min-w-0 flex-1 flex-col items-center justify-center border-s border-line bg-sunken xl:flex">
-				<div role="img" aria-label={t`Two resumes made with Reactive Resume`} className="relative h-[684px] w-[584px]">
+				<div role="img" aria-label={t`Two resumes made with 职页`} className="relative h-[684px] w-[584px]">
 					<div data-design="paper" className={`${paper} start-0 top-0 -rotate-2 rtl:rotate-2`}>
 						<img src="/templates/thumb/ditto.webp" alt="" className="size-full object-cover" />
 					</div>

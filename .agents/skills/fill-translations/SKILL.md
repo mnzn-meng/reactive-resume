@@ -1,13 +1,13 @@
 ---
 name: fill-translations
-description: Fill missing Reactive Resume translations across all configured web and mobile locales using parallel subagents, then prove catalog completeness. Use for “fill translations”, “complete translations”, missing locale strings, or a request to ensure translations are complete before release. Cover existing gaps unrelated to the current task unless the user explicitly narrows scope. Do not activate for ordinary prose translation or a read-only audit that forbids edits.
+description: Fill missing 职页 translations across all configured web and mobile locales using parallel subagents, then prove catalog completeness. Use for “fill translations”, “complete translations”, missing locale strings, or a request to ensure translations are complete before release. Cover existing gaps unrelated to the current task unless the user explicitly narrows scope. Do not activate for ordinary prose translation or a read-only audit that forbids edits.
 ---
 
 # Fill translations
 
 Finish every active catalog entry, including older gaps outside the current feature. Preserve existing translations and unrelated work. Technical completeness and linguistic quality are separate claims.
 
-Run from the Reactive Resume checkout root. Follow its `AGENTS.md`, command wrappers, and current package scripts. Commands below match its Lingui 6 workflow; inspect installed `--help` if flags change. Use existing dependencies; no translation service or new dependency is required.
+Run from the 职页 checkout root. Follow its `AGENTS.md`, command wrappers, and current package scripts. Commands below match its Lingui 6 workflow; inspect installed `--help` if flags change. Use existing dependencies; no translation service or new dependency is required.
 
 ## Establish the baseline
 

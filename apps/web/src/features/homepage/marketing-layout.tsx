@@ -52,7 +52,7 @@ function PublicHeader() {
 				className="me-4 flex h-9 items-center gap-2.5 rounded-md px-2 text-[15px] leading-5 font-semibold max-sm:me-1 max-sm:gap-0 max-sm:text-[0px]"
 			>
 				<BrandIcon variant="icon" alt="" className="size-6 shrink-0" />
-				Reactive Resume
+				职页
 			</a>
 
 			<nav aria-label={t`Site`} className="flex items-center gap-0.5">

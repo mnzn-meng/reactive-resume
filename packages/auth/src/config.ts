@@ -404,7 +404,7 @@ const getAuthConfig = () => {
 	}
 
 	return betterAuth({
-		appName: "Reactive Resume",
+		appName: "职页",
 		baseURL: authBaseUrl,
 		secret: env.AUTH_SECRET,
 

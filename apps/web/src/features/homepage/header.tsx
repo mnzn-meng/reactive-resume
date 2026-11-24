@@ -55,7 +55,7 @@ export function LandingHeader({ story = true }: LandingHeaderProps) {
 					className={cn("hidden size-[30px] dark:block", night && "block")}
 				/>
 				{/* The wordmark stays in the DOM for screen readers and crawlers; the logomark is what shows. */}
-				<span className="sr-only">Reactive Resume</span>
+				<span className="sr-only">职页</span>
 			</a>
 
 			{story && (

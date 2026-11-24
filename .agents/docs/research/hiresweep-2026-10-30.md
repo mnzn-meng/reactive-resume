@@ -1,10 +1,10 @@
 # HireSweep competitor research and native feature recommendations
 
-Research date: October 30, 2026. Reactive Resume baseline: version 6.0.10, commit `33920b2e856048f3c5951bddbc00ba9d29778f61`.
+Research date: October 30, 2026. 职页 baseline: version 6.0.10, commit `33920b2e856048f3c5951bddbc00ba9d29778f61`.
 
 ## Decision
 
-HireSweep has added a meaningful application-execution layer around Reactive Resume: reusable form answers, browser-assisted applications, hosted application runs, and workflows for people applying on behalf of clients. Its resume builder, AI editing, job tracking, fit review, discovery, and API/MCP surfaces substantially overlap capabilities already present in Reactive Resume.
+HireSweep has added a meaningful application-execution layer around 职页: reusable form answers, browser-assisted applications, hosted application runs, and workflows for people applying on behalf of clients. Its resume builder, AI editing, job tracking, fit review, discovery, and API/MCP surfaces substantially overlap capabilities already present in 职页.
 
 Recommended investments, in order:
 
@@ -18,13 +18,13 @@ Defer hosted unattended applications and a managed AI subscription business. Bot
 
 ## Scope and evidence quality
 
-Reviewed HireSweep's homepage, pricing, three feature pages, recruiter landing page, comparison index, complete public documentation, public OpenAPI specification, public extension metadata, selected shipped JavaScript bundles, and Chrome Web Store listing. Compared them with Reactive Resume source for web, native mobile, API, schemas, database ownership, assistant tools, and scheduled discovery. Checked Simplify, Huntr, Teal, and LoopCV through their own product/help pages.
+Reviewed HireSweep's homepage, pricing, three feature pages, recruiter landing page, comparison index, complete public documentation, public OpenAPI specification, public extension metadata, selected shipped JavaScript bundles, and Chrome Web Store listing. Compared them with 职页 source for web, native mobile, API, schemas, database ownership, assistant tools, and scheduled discovery. Checked Simplify, Huntr, Teal, and LoopCV through their own product/help pages.
 
 HireSweep's public documentation was retrievable through its [complete documentation export](https://docs.hiresweep.com/llms-full.txt), even when individual pages with trailing slashes returned errors. Search indexing was sparse; direct HTTP retrieval supplied most HireSweep evidence.
 
 Evidence distinctions:
 
-- **Observed:** public prices and policies; explicit source attribution; published extension listing; public API contracts; client-side interfaces shipped in public assets; Reactive Resume implementation inspected at the baseline above.
+- **Observed:** public prices and policies; explicit source attribution; published extension listing; public API contracts; client-side interfaces shipped in public assets; 职页 implementation inspected at the baseline above.
 - **Documented, not exercised:** successful form filling, client approval enforcement, background submission, discovery coverage, and factuality checks in HireSweep. Published routes and UI support the presence of product work but do not establish correctness.
 - **Unknown:** paying customers, revenue, retention, conversion, employer response rates, real-world application success rate, hosted browser cost, and whether automatic application starts are enabled in production.
 
@@ -50,7 +50,7 @@ Annual billing is advertised at 18% less. Monthly credits do not roll over. Paid
 
 Credit costs are 1 for an AI action, 10 for a search that finds jobs, 10 for a browser application, and 25 for a hosted application. Building, editing, exporting, and sharing resumes are free. Thus the $27 plan's form-only upper bound is 200 local-browser applications or 80 hosted applications. Reviews, tailoring, letters, searches, and other AI requests consume the same balance and reduce those totals. These are arithmetic ceilings, not measured user costs. The apply guide also documents an exception to broad refund language: a local run left at review without cancellation can consume held credits when the hold expires. Sources: [plans](https://docs.hiresweep.com/guides/plans-and-usage), [application charging details](https://docs.hiresweep.com/guides/applying-to-jobs#what-it-costs).
 
-Hosted AI removes provider setup for new users. Its privacy policy identifies Anthropic Claude as its hosted AI and also describes personal provider keys. Reactive Resume already supports administrator-provided AI as well as personal connections; the difference is a turnkey funded service, not a missing model integration. Sources: [HireSweep AI](https://docs.hiresweep.com/guides/using-ai), [privacy policy](https://docs.hiresweep.com/legal/privacy-policy), [Reactive Resume shared AI implementation](../../../packages/api/src/features/ai-providers/service.ts).
+Hosted AI removes provider setup for new users. Its privacy policy identifies Anthropic Claude as its hosted AI and also describes personal provider keys. 职页 already supports administrator-provided AI as well as personal connections; the difference is a turnkey funded service, not a missing model integration. Sources: [HireSweep AI](https://docs.hiresweep.com/guides/using-ai), [privacy policy](https://docs.hiresweep.com/legal/privacy-policy), [职页 shared AI implementation](../../../packages/api/src/features/ai-providers/service.ts).
 
 ### Discovery and matching
 
@@ -64,13 +64,13 @@ HireSweep documents these steps:
 
 The supported-board table distinguishes discovery, browser filling, and autonomous application support. Those are separate capabilities: finding a Workday job does not imply applying to it in a hosted browser. LinkedIn search uses the signed-in user's extension and runs on explicit searches, not recurring server searches. Indeed is described as retired. The marketing FAQ says LinkedIn is not searched, while the detailed extension and board guides describe browser-local LinkedIn search; the latter is the more specific account. Sources: [discovery](https://hiresweep.com/features/job-discovery), [discovery guide](https://docs.hiresweep.com/guides/discovering-jobs), [board matrix](https://docs.hiresweep.com/guides/supported-job-boards), [extension guide](https://docs.hiresweep.com/guides/installing-the-browser-extension).
 
-Reactive Resume already schedules discovery, reads and verifies individual postings, canonicalizes URLs, suppresses duplicates, saves opportunities, and supports in-app and optional email notifications. Its discovery chips match preference phrases; they are not equivalent to a resume-based semantic ranking. Existing retrieval uses configurable web-access providers rather than HireSweep's documented directory/feed approach. This is a quality and onboarding opportunity, not a missing discovery feature. Evidence: [jobs](../../../packages/api/src/features/career/jobs.ts), [matching](../../../packages/api/src/features/career/matching.ts), [posting retrieval](../../../packages/api/src/features/applications/posting.ts).
+职页 already schedules discovery, reads and verifies individual postings, canonicalizes URLs, suppresses duplicates, saves opportunities, and supports in-app and optional email notifications. Its discovery chips match preference phrases; they are not equivalent to a resume-based semantic ranking. Existing retrieval uses configurable web-access providers rather than HireSweep's documented directory/feed approach. This is a quality and onboarding opportunity, not a missing discovery feature. Evidence: [jobs](../../../packages/api/src/features/career/jobs.ts), [matching](../../../packages/api/src/features/career/matching.ts), [posting retrieval](../../../packages/api/src/features/applications/posting.ts).
 
 ### Tailoring and truthful edits
 
 HireSweep documents a separate tailored copy, rewriting and reordering existing content, a before/after match score, and a list of edits dropped for unsupported skills, figures, or experience. Cover letters have tone choices and text/Word downloads. These are product claims; this research did not test their ability to prevent invented claims. Sources: [tailoring feature](https://hiresweep.com/features/tailoring), [tailoring guide](https://docs.hiresweep.com/guides/tailoring-and-cover-letters).
 
-Reactive Resume already offers copies linked to jobs and assistant-generated passage edits that the user accepts or rejects, on web and mobile. The separate `applications.ai.tailorResume` endpoint, exposed through MCP, rewrites only the professional summary and then links the new copy. Its MCP description accurately describes this limitation. Do not infer that the main web/mobile tailoring workflow is summary-only. Evidence: [web assistant](../../../apps/web/src/features/assistant/assistant-panel.tsx), [mobile assistant](../../../apps/mobile/src/features/assistant/assistant-screen.tsx), [proposed edits](../../../packages/api/src/features/agent/tools.ts), [API tailoring](../../../packages/api/src/features/applications/ai.ts), [MCP description](../../../packages/mcp/src/tool-meta.ts).
+职页 already offers copies linked to jobs and assistant-generated passage edits that the user accepts or rejects, on web and mobile. The separate `applications.ai.tailorResume` endpoint, exposed through MCP, rewrites only the professional summary and then links the new copy. Its MCP description accurately describes this limitation. Do not infer that the main web/mobile tailoring workflow is summary-only. Evidence: [web assistant](../../../apps/web/src/features/assistant/assistant-panel.tsx), [mobile assistant](../../../apps/mobile/src/features/assistant/assistant-screen.tsx), [proposed edits](../../../packages/api/src/features/agent/tools.ts), [API tailoring](../../../packages/api/src/features/applications/ai.ts), [MCP description](../../../packages/mcp/src/tool-meta.ts).
 
 Useful addition: a consistent, reviewable tailoring result across all entry points, identifying the posting requirement, proposed passage, supporting facts, and unsupported additions left out. A higher match score should remain an editing aid, not a prediction of hiring success.
 
@@ -78,7 +78,7 @@ Useful addition: a consistent, reviewable tailoring result across all entry poin
 
 HireSweep has structured contact details, country-specific work authorization, sponsorship, location, availability, salary expectations, references, voluntary self-identification, and up to 200 saved answers. Answers supplied during a run become reusable. Its policy says optional demographic, disability, and veteran answers are excluded from model requests. Source: [apply profile](https://docs.hiresweep.com/guides/setting-up-your-apply-profile), [privacy policy](https://docs.hiresweep.com/legal/privacy-policy).
 
-Reactive Resume has overlapping career preferences, facts, stories, application-specific answers, drafting/tightening, copy/download controls, and submitted snapshots. The inspected schema does not provide an equivalent structured application profile or user-wide question/answer library. Reusing career evidence is different from reusing a reviewed answer to a recurring form question. Evidence: [career schemas](../../../packages/schema/src/career.ts), [web Apply](../../../apps/web/src/features/career/workspace/apply.tsx), [mobile Apply](../../../apps/mobile/src/features/workspace/tabs/apply.tsx).
+职页 has overlapping career preferences, facts, stories, application-specific answers, drafting/tightening, copy/download controls, and submitted snapshots. The inspected schema does not provide an equivalent structured application profile or user-wide question/answer library. Reusing career evidence is different from reusing a reviewed answer to a recurring form question. Evidence: [career schemas](../../../packages/schema/src/career.ts), [web Apply](../../../apps/web/src/features/career/workspace/apply.tsx), [mobile Apply](../../../apps/mobile/src/features/workspace/tabs/apply.tsx).
 
 This is the clearest native addition with value independent of browser automation.
 
@@ -97,7 +97,7 @@ The Chrome Web Store listing independently confirms a published extension, descr
 
 Some operational metadata is inconsistent: the public extension endpoint reported store version 3.4.0 and bundled version 3.9.0, while the actual store listing reported 3.9.0, updated October 28. This establishes version-metadata drift, not a demonstrated failure. Sources: [version endpoint](https://hiresweep.com/api/extension/version), [store](https://chromewebstore.google.com/detail/eedckokmfkjihmnpiepnpocgiofjjhch).
 
-Reactive Resume's Apply workflow prepares and records answers; users submit on the employer's site. Its similarly named MCP `autofill_application_from_job` populates the internal application record from a posting. It is not employer-form autofill. No equivalent browser extension or hosted application execution was found in inspected source.
+the 职页 Apply workflow prepares and records answers; users submit on the employer's site. Its similarly named MCP `autofill_application_from_job` populates the internal application record from a posting. It is not employer-form autofill. No equivalent browser extension or hosted application execution was found in inspected source.
 
 ### Clients, approvals, and reports
 
@@ -105,11 +105,11 @@ HireSweep's operator workflow includes separate client resumes, profiles, applic
 
 This represents substantial product work, supported by public OpenAPI routes for clients, roster matching, approval requests, public decisions, and report links. Public routes are evidence of contracts, not a security audit. Source: [OpenAPI](https://hiresweep.com/api/openapi/spec.json).
 
-Reactive Resume's inspected resume, application, and career records are user-owned. Multiple resumes do not provide delegated access, client isolation, permissions, approvals, or shared reporting. A full agency module would be a new ownership model, not a small UI addition.
+the 职页 inspected resume, application, and career records are user-owned. Multiple resumes do not provide delegated access, client isolation, permissions, approvals, or shared reporting. A full agency module would be a new ownership model, not a small UI addition.
 
-## What is already covered or stronger in Reactive Resume
+## What is already covered or stronger in 职页
 
-| Capability                                 | HireSweep evidence                             | Current Reactive Resume baseline                                                           | Decision                                           |
+| Capability                                 | HireSweep evidence                             | Current 职页 baseline                                                                      | Decision                                           |
 | ------------------------------------------ | ---------------------------------------------- | ------------------------------------------------------------------------------------------ | -------------------------------------------------- |
 | Resume design, import/export, public links | 16 templates, PDF/Word/JSON, password links    | 18 templates, broader export options, public sharing                                       | Already covered                                    |
 | ATS and posting checks                     | Resume score and free text-based checker       | PDF parser/readability checks, posting terms, writing review                               | Already covered; compare quality, not score labels |
@@ -122,16 +122,16 @@ Reactive Resume's inspected resume, application, and career records are user-own
 | Employer-form autofill                     | Extension and hosted browser                   | Not found                                                                                  | Build browser assistance in stages                 |
 | Client approvals and reporting             | Documented operator workflows                  | Not found                                                                                  | Validate narrow collaboration first                |
 
-Reactive Resume evidence: [template schema](../../../packages/schema/src/templates.ts), [career schema](../../../packages/schema/src/career.ts), [workspace](../../../apps/web/src/features/career/workspace), [native workspace](../../../apps/mobile/src/features/workspace), [ATS checker](../../../apps/web/src/features/ats-checker), [MCP](../../../packages/mcp/src), [career implementation guide](../../../docs/contributing/career-platform.mdx).
+职页 evidence: [template schema](../../../packages/schema/src/templates.ts), [career schema](../../../packages/schema/src/career.ts), [workspace](../../../apps/web/src/features/career/workspace), [native workspace](../../../apps/mobile/src/features/workspace), [ATS checker](../../../apps/web/src/features/ats-checker), [MCP](../../../packages/mcp/src), [career implementation guide](../../../docs/contributing/career-platform.mdx).
 
 ## Wider competitor check
 
 HireSweep's own comparison pages are useful for learning its positioning, but were not treated as independent descriptions of competitors.
 
-| Product  | Primary-source evidence                                                                                                                             | Implication for Reactive Resume                                                                                                            |
+| Product  | Primary-source evidence                                                                                                                             | Implication for 职页                                                                                                                       |
 | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
 | Simplify | Free core autofill, job tracking, and matches; paid AI assistance; separate Autopilot submits without review                                        | Autofill is established competition, not HireSweep's unique invention. Differentiation needs control, portability, and integrated evidence |
-| Huntr    | Free Basic includes application autofill; paid advanced AI. Application Packets bundle a tailored resume, letter, and follow-up, with bulk creation | A coherent prepare-and-review flow can improve existing Reactive Resume features without autonomous submission                             |
+| Huntr    | Free Basic includes application autofill; paid advanced AI. Application Packets bundle a tailored resume, letter, and follow-up, with bulk creation | A coherent prepare-and-review flow can improve existing 职页 features without autonomous submission                                        |
 | Teal     | Free job capture extension and tracking; job-linked guidance, contacts, checklists, and follow-up                                                   | Capture and workflow continuity matter independently of hosted form execution                                                              |
 | LoopCV   | Searches, applications, and outreach on behalf of clients; shared dashboard and agency offerings                                                    | Client application operations form an established category, but serving it changes product scope                                           |
 
@@ -189,7 +189,7 @@ If demand supports workspaces, model membership, actor versus owner, scoped perm
 
 ## Why defer unattended applications
 
-Hosted application execution adds persistent browser infrastructure, page-specific maintenance, account/session handling, document uploads, captchas, ambiguous completion states, and recovery from failed or duplicated attempts. These costs continue after initial implementation and complicate Reactive Resume's lightweight self-hosting/deployment options.
+Hosted application execution adds persistent browser infrastructure, page-specific maintenance, account/session handling, document uploads, captchas, ambiguous completion states, and recovery from failed or duplicated attempts. These costs continue after initial implementation and complicate the 职页 lightweight self-hosting/deployment options.
 
 HireSweep's own guides demonstrate these limits: browser handoffs, hosted versus local restrictions, question timeouts, a global auto-start switch, duplicate suppression, and automatic runs without per-job tailoring. These are useful lessons, not proof its service is unreliable.
 
@@ -205,12 +205,12 @@ Use synthetic histories and controlled forms before any real applications. No li
 - Discovery: compare valid open postings, duplicates, freshness, preference relevance, and provider cost across the same queries and regions.
 - Collaboration: observe a small opt-in group of actual coaches/helpers to distinguish document feedback demand from agency operations demand.
 
-Set release thresholds after collecting baseline results. Do not substitute vendor feature lists or higher match scores for user outcomes. Use voluntary research or opt-in local measurement consistent with Reactive Resume's privacy positioning.
+Set release thresholds after collecting baseline results. Do not substitute vendor feature lists or higher match scores for user outcomes. Use voluntary research or opt-in local measurement consistent with the 职页 privacy positioning.
 
 ## Attribution, maturity, and strategic interpretation
 
-HireSweep explicitly states that portions derive from Reactive Resume and reproduces its MIT notice. It identifies itself as proprietary software operated by ManuSoft Inc. This research establishes attribution is present; it makes no finding about complete license compliance or exact fork ancestry. Source: [license page](https://docs.hiresweep.com/legal/license).
+HireSweep explicitly states that portions derive from 职页 and reproduces its MIT notice. It identifies itself as proprietary software operated by ManuSoft Inc. This research establishes attribution is present; it makes no finding about complete license compliance or exact fork ancestry. Source: [license page](https://docs.hiresweep.com/legal/license).
 
 Its changelog describes launch in October 2026 and a subsequent move to one credit balance in the same month. Together with the small public extension count and version/documentation discrepancies, this supports treating it as an early product with a broad documented scope. It does not establish the absence of customers or commercial potential. Sources: [changelog](https://docs.hiresweep.com/changelog), [store listing](https://chromewebstore.google.com/detail/eedckokmfkjihmnpiepnpocgiofjjhch).
 
-The practical competitive lesson is workflow completion. Reactive Resume already has many of the underlying capabilities and a richer documented candidate-preparation system than this review found in HireSweep. The best native additions connect those capabilities to the repetitive work outside the editor: capture the posting, reuse reviewed answers, prepare the right documents, and help fill the form. Agency operations and unattended submission should earn their place through demand and operating economics.
+The practical competitive lesson is workflow completion. 职页 already has many of the underlying capabilities and a richer documented candidate-preparation system than this review found in HireSweep. The best native additions connect those capabilities to the repetitive work outside the editor: capture the posting, reuse reviewed answers, prepare the right documents, and help fill the form. Agency operations and unattended submission should earn their place through demand and operating economics.

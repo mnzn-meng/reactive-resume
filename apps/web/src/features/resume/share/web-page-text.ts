@@ -10,7 +10,7 @@ msg`Download Word`;
 msg`Share`;
 msg`Link copied`;
 // The credit's short form (area H's public page).
-msg`Made with Reactive Resume`;
+msg`Made with 职页`;
 msg`This resume is password-protected`;
 msg`Enter the password the resume owner shared with you.`;
 msg`Password`;
@@ -18,6 +18,6 @@ msg`Unlock`;
 msg`That password isn't correct. Check it with the resume owner and try again.`;
 msg`This resume isn't shared right now`;
 msg`If someone sent you this link, ask them for a new one.`;
-msg`Go to Reactive Resume`;
+msg`Go to 职页`;
 msg`Only you can see this address. Publish it in Share.`;
 msg`Open Share`;

@@ -255,7 +255,7 @@ function Sidebar() {
 		>
 			<Link to="/" className="mb-2 flex h-9 items-center gap-2.5 px-2 text-[15px] leading-5 font-semibold">
 				<BrandIcon variant="icon" alt="" className="size-6 shrink-0" />
-				Reactive Resume
+				职页
 			</Link>
 
 			<button
@@ -380,7 +380,7 @@ function Rail() {
 			aria-label={t`Main`}
 			className="sticky top-0 flex h-svh flex-col items-center gap-1 border-e border-line bg-bg pt-4 pb-3 [view-transition-name:app-nav]"
 		>
-			<Link to="/" aria-label="Reactive Resume" className="mb-2 grid size-9 place-items-center rounded-md">
+			<Link to="/" aria-label="职页" className="mb-2 grid size-9 place-items-center rounded-md">
 				<BrandIcon variant="icon" alt="" className="size-6" />
 			</Link>
 			<RailTip label={t`Search or jump to…`} icon="magnifying-glass">

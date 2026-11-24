@@ -469,7 +469,7 @@ export function ApplicationFormSheet({ open, onOpenChange, application: requeste
 						</Field>
 					)}
 
-					{/* Resume: link a live Reactive Resume (unlocks AI) or upload the exact PDF you sent. */}
+					{/* Resume: link a live resume (unlocks AI) or upload the exact PDF you sent. */}
 					<Field label={t`Resume`}>
 						{(id) => (
 							<div className="flex flex-col gap-2">
@@ -478,7 +478,7 @@ export function ApplicationFormSheet({ open, onOpenChange, application: requeste
 									className="w-full"
 									value={form.resumeId || null}
 									options={resumeOptions}
-									placeholder={t`Link a Reactive Resume (recommended)`}
+									placeholder={t`Link a live resume (recommended)`}
 									showClear
 									emptyMessage={t`No resumes yet.`}
 									onValueChange={(value) => set("resumeId", value ?? "")}
@@ -489,7 +489,7 @@ export function ApplicationFormSheet({ open, onOpenChange, application: requeste
 									onChange={(value) => set("resumeFile", value)}
 								/>
 								<p className="text-xs text-ink-3">
-									<Trans>Link a Reactive Resume to use a fit check against each requirement and tailoring.</Trans>
+									<Trans>Link a live resume to use a fit check against each requirement and tailoring.</Trans>
 								</p>
 							</div>
 						)}

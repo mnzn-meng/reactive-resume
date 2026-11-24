@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-Reactive Resume provides security updates for version `5.0.x` and newer.
+职页 provides security updates for version `5.0.x` and newer.
 Earlier major versions are no longer supported.
 
 | Version | Supported          |
@@ -20,7 +20,7 @@ Preferred reporting channels:
 
 - Use GitHub's private vulnerability reporting for this repository.
 - If that is unavailable, email `amruth@rxresu.me` with the subject
-  `Security Vulnerability: Reactive Resume`.
+  `Security Vulnerability: 职页`.
 
 Please include as much detail as possible, including:
 

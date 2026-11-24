@@ -89,7 +89,7 @@ function FeedbackUnavailable({ reason }: FeedbackUnavailableProps) {
 					)}
 				</p>
 				<Link to="/" className={buttonVariants({ variant: "secondary", className: "mt-2.5" })}>
-					<Trans>Go to Reactive Resume</Trans>
+					<Trans>Go to 职页</Trans>
 				</Link>
 			</div>
 		</main>
@@ -119,7 +119,7 @@ function FeedbackReview({ token, view }: FeedbackReviewProps) {
 				</div>
 				<Link to="/" className="ms-auto flex shrink-0 items-center gap-2 rounded-xs t-caption text-ink-3">
 					<BrandIcon variant="icon" alt="" className="size-[18px]" />
-					<span className="max-sm:sr-only">Reactive Resume</span>
+					<span className="max-sm:sr-only">职页</span>
 				</Link>
 			</header>
 

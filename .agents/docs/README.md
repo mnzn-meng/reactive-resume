@@ -1,6 +1,6 @@
 # Agent docs
 
-Tracked reference for coding agents working on Reactive Resume. Everything here is in git, so it exists in every
+Tracked reference for coding agents working on 职页. Everything here is in git, so it exists in every
 worktree. `pnpm check:agent-docs` checks that repo paths named in these docs exist.
 
 | Path               | Holds                                                                          |

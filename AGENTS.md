@@ -1,4 +1,4 @@
-# Reactive Resume: agent instructions
+# 职页: agent instructions
 
 This is the index for coding agents. It holds hard rules and pointers; detail lives in the linked files. Agent
 reference docs are in `.agents/docs/` (start at its `README.md`).

@@ -74,10 +74,10 @@ describe("web app fallback classification", () => {
 			<!doctype html>
 			<html>
 				<head>
-					<title>Reactive Resume — A free resume builder</title>
+					<title>职页 — A free resume builder</title>
 					<meta
 						name="description"
-						content="Reactive Resume is a free resume builder that makes it easy to create, update, and share your resume."
+						content="职页 is a free resume builder that makes it easy to create, update, and share your resume."
 					>
 				</head>
 				<body><div id="app"></div></body>
@@ -91,7 +91,7 @@ describe("web app fallback classification", () => {
 		expect(html).toContain('<meta property="og:url" content="https://rxresu.me/">');
 		expect(html).toContain('<script type="application/ld+json">');
 		expect(html).toContain(
-			'<meta property="og:description" content="Reactive Resume is a free resume builder that makes it easy to create, update, and share your resume.">',
+			'<meta property="og:description" content="职页 is a free resume builder that makes it easy to create, update, and share your resume.">',
 		);
 		expect(html).not.toContain("utm_source");
 
@@ -195,7 +195,7 @@ describe("web app fallback classification", () => {
 		"serves the %s page as an indexable shell rather than a 404",
 		async (path) => {
 			vi.mocked(fs.readFile).mockResolvedValue(
-				`<html><head><title>Reactive Resume — A free resume builder</title><meta name="description" content="Marketing copy."></head><body></body></html>`,
+				`<html><head><title>职页 — A free resume builder</title><meta name="description" content="Marketing copy."></head><body></body></html>`,
 			);
 
 			const response = await handleWebApp(new Request(`https://example.com/${path}`));

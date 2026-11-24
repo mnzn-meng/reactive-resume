@@ -49,9 +49,9 @@ function requireImportKind(kind: ImportKind | null, file: File): ImportKind {
 	if (!kind) {
 		// JSON is a supported type: say what's wrong with this JSON, not that the type is.
 		if (file.name.toLowerCase().endsWith(".json"))
-			throw new ImportError(t`This JSON isn't a Reactive Resume or JSON Resume file.`);
+			throw new ImportError(t`This JSON isn't a 职页 or JSON Resume file.`);
 		throw new ImportError(
-			t`This file type can't be imported. Use a PDF, Word, Reactive Resume or JSON Resume file, or a LinkedIn export (.zip).`,
+			t`This file type can't be imported. Use a PDF, Word, 职页 or JSON Resume file, or a LinkedIn export (.zip).`,
 		);
 	}
 	return kind;

@@ -45,7 +45,7 @@ export const applicationLane = pg.pgTable(
 	],
 );
 
-// A tracked job application. Points at the live Reactive Resume that was sent (resumeId),
+// A tracked job application. Points at the live resume that was sent (resumeId),
 // which is the reason this lives inside the product rather than a generic tracker.
 export const application = pg.pgTable(
 	"application",

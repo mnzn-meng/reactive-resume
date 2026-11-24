@@ -8,7 +8,7 @@ export function socialMetaTags(tags: {
 }) {
 	return [
 		`<meta property="og:type" content="${tags.type}">`,
-		`<meta property="og:site_name" content="Reactive Resume">`,
+		`<meta property="og:site_name" content="职页">`,
 		`<meta property="og:title" content="${tags.title}">`,
 		`<meta property="og:description" content="${tags.description}">`,
 		`<meta property="og:url" content="${tags.url}">`,

@@ -21,7 +21,7 @@ import { authEmailMessages, formatMessage } from "./auth-messages";
 // ponytail: server dev consumes this source through tsx, which emits React.createElement here.
 void React;
 
-const appName = "Reactive Resume";
+const appName = "职页";
 // A PNG from this installation (mail clients block SVG, and a self-hosted server shouldn't lean on the public site).
 const appUrl = (process.env.APP_URL ?? "https://rxresu.me").replace(/\/+$/, "");
 const logoUrl = `${appUrl}/apple-touch-icon-180x180.png`;

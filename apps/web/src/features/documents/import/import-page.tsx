@@ -860,7 +860,7 @@ function Formats() {
 			note: <Trans>Read with your AI connection. Save an older .doc file as .docx first.</Trans>,
 		},
 		{
-			name: "Reactive Resume",
+			name: "职页",
 			extension: ".json",
 			note: <Trans>A file exported from this app, version 4 included. Comes in exactly as it is.</Trans>,
 		},

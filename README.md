@@ -1,11 +1,11 @@
 <div align="center">
   <a href="https://rxresu.me">
-    <img src="apps/web/public/opengraph/banner.jpg" alt="Reactive Resume" />
+    <img src="apps/web/public/opengraph/banner.png" alt="职页" />
   </a>
 
-  <h1>Reactive Resume</h1>
+  <h1>职页</h1>
 
-  <p>Reactive Resume is a free resume builder for writing resumes, checking your work, and tracking job applications.</p>
+  <p>职页 is a free resume builder for writing resumes, checking your work, and tracking job applications.</p>
 
   <p>
     <a href="https://rxresu.me"><strong>Get Started</strong></a>
@@ -18,7 +18,7 @@ Create a free account, import an existing resume or start fresh, and see the fin
 
 You own your data. No tracking, no ads, and no paid tier. Optional AI features use a provider you connect; hosting and provider usage may have their own costs.
 
-![Reactive Resume v6 editor with Write, Design, and Check modes and a live PDF preview](.github/assets/editor-overview.webp)
+![职页 v6 editor with Write, Design, and Check modes and a live PDF preview](.github/assets/editor-overview.webp)
 
 ## Features
 
@@ -70,7 +70,7 @@ You own your data. No tracking, no ads, and no paid tier. Optional AI features u
 
 **Import, Export, and Sharing**
 
-- Import Reactive Resume JSON, JSON Resume, LinkedIn data exports, PDF, and Word files
+- Import 职页 JSON, JSON Resume, LinkedIn data exports, PDF, and Word files
 - JSON, LinkedIn, and readable PDF imports work without AI; Word imports require a connected provider
 - Export resumes and letters as PDF, Word (DOCX), Markdown, or JSON
 - REST API for document management, imports, exports, checks, and application workflows
@@ -228,7 +228,7 @@ The full documentation lives at [docs.rxresu.me](https://docs.rxresu.me):
 
 ## Self-Hosting
 
-Reactive Resume runs the same application everywhere: PostgreSQL for data, plus storage for uploads. Pick the option that fits how much you want to manage.
+职页 runs the same application everywhere: PostgreSQL for data, plus storage for uploads. Pick the option that fits how much you want to manage.
 
 | Option                                          | Best for                                      | Guide                                                                                                               |
 | ----------------------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
@@ -241,7 +241,7 @@ Reactive Resume runs the same application everywhere: PostgreSQL for data, plus 
 
 ### Hostinger
 
-The quickest way to get going is a 1-click deploy on Hostinger, starting at $6.49/month. Their VPS plans include a ready-made Reactive Resume template that provisions the Docker environment and brings the app up for you, with weekly backups and a Docker manager UI included — so you can skip the setup entirely.
+The quickest way to get going is a 1-click deploy on Hostinger, starting at $6.49/month. Their VPS plans include a ready-made 职页 template that provisions the Docker environment and brings the app up for you, with weekly backups and a Docker manager UI included — so you can skip the setup entirely.
 
 <a href="https://www.hostg.xyz/aff_c?offer_id=48&amp;aff_id=232413&amp;url_id=6857">
   <img src="https://assets.hostinger.com/vps/deploy.svg" alt="Deploy on Hostinger" width="148" height="32" />

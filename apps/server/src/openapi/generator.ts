@@ -126,10 +126,10 @@ function legacyOperationIds() {
 export async function generateOpenApiSpec({ appUrl, version }: GenerateOpenApiSpecOptions) {
 	const spec = await openAPIGenerator.generate(openAPIRouter, {
 		info: {
-			title: "Reactive Resume",
+			title: "职页",
 			version,
 			description:
-				"Reactive Resume API. Mutations do not support Idempotency-Key. Do not automatically retry POST, PUT, PATCH or DELETE requests after a timeout: first read the resource to determine whether the operation succeeded. Existing enum values and response shapes are retained for compatibility.",
+				"职页 API. Mutations do not support Idempotency-Key. Do not automatically retry POST, PUT, PATCH or DELETE requests after a timeout: first read the resource to determine whether the operation succeeded. Existing enum values and response shapes are retained for compatibility.",
 			license: { name: "MIT" },
 		},
 		servers: [{ url: `${appUrl}/api/openapi` }],

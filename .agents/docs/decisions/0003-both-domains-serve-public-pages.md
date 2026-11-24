@@ -2,7 +2,7 @@
 
 Status: accepted (2026-10-26)
 
-Reactive Resume answers on `APP_URL` (`rxresu.me`) and an optional alias, `APP_ALIAS_URL` (`rx.cv`). Every public page works on both without a redirect: resume web pages, the short link `/<username>`, the home page and marketing pages, and the API they call. A link that works on one domain works on the other, so people never meet "works here but not there". Share shows and copies the alias, the shorter address.
+职页 answers on `APP_URL` (`rxresu.me`) and an optional alias, `APP_ALIAS_URL` (`rx.cv`). Every public page works on both without a redirect: resume web pages, the short link `/<username>`, the home page and marketing pages, and the API they call. A link that works on one domain works on the other, so people never meet "works here but not there". Share shows and copies the alias, the shorter address.
 
 Sign-in and the editor (`/auth`, `/dashboard`, `/builder`, `/agent`) live on `APP_URL` only. On the alias, the server answers them with a 301 and the web app does the same for links followed inside it. Login cookies, passkeys and social sign-in callbacks belong to one domain.
 

@@ -80,9 +80,9 @@ export function handlePagesSitemap() {
 export function handleLlms() {
 	const baseUrl = appUrl();
 	const body = [
-		"# Reactive Resume",
+		"# 职页",
 		"",
-		`> Reactive Resume is a free resume builder. Write a resume in an editor beside a live page, pick one of ${templateSchema.options.length} templates, check that applicant tracking systems can read it, tailor it to a job posting, and download it. No ads, no tracking, no paid tier.`,
+		`> 职页 is a free resume builder. Write a resume in an editor beside a live page, pick one of ${templateSchema.options.length} templates, check that applicant tracking systems can read it, tailor it to a job posting, and download it. No ads, no tracking, no paid tier.`,
 		"",
 		"## Search",
 		"",
@@ -90,7 +90,7 @@ export function handleLlms() {
 		"",
 		"## Product",
 		"",
-		`- [Homepage](${baseUrl}/): what Reactive Resume does, with answers to common questions.`,
+		`- [Homepage](${baseUrl}/): what 职页 does, with answers to common questions.`,
 		`- [Resume templates](${baseUrl}/resume-templates): browse all ${templateSchema.options.length} free templates, compare layouts and download sample PDFs.`,
 		`- [ATS checker](${baseUrl}/ats-checker): a free tool that shows the text applicant tracking systems extract from a resume PDF and what to fix. It runs in the browser; the file is never uploaded.`,
 		`- [Get started](${baseUrl}/dashboard): create an account and a first resume.`,
@@ -99,7 +99,7 @@ export function handleLlms() {
 		"",
 		"- Price: free, every feature.",
 		"- Export: PDF, Word (DOCX), Markdown and JSON.",
-		"- Import: PDF, LinkedIn data export, JSON Resume, Reactive Resume JSON; Word files with an AI provider.",
+		"- Import: PDF, LinkedIn data export, JSON Resume, 职页 JSON; Word files with an AI provider.",
 		"- Private by default: a resume stays in the account and is never published to a link.",
 		"- AI: optional, with the user's own API key (OpenAI, Anthropic, Google Gemini, OpenRouter, Ollama and others). Nothing is sent to an AI service without one.",
 		"- Also includes: a job application tracker, version history and passkeys.",

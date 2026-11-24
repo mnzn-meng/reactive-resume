@@ -654,7 +654,7 @@ function KitPage() {
 								>
 									<div className="mb-2 flex h-9 items-center gap-2.5 px-2 text-[15px]/5 font-semibold">
 										<BrandIcon variant="icon" alt="" className="size-6 shrink-0" />
-										Reactive Resume
+										职页
 									</div>
 									<div
 										data-design="srch"

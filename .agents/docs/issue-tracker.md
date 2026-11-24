@@ -1,6 +1,6 @@
 # Issue tracker
 
-Planned work lives in **Linear**, team **Reactive Resume** (key `RX`): tickets are `RX-<n>`, the spec is the issue
+Planned work lives in **Linear**, team **职页** (key `RX`): tickets are `RX-<n>`, the spec is the issue
 description plus its comments and attachments. Public bug reports and feature requests arrive as **GitHub issues** on
 `reactive-resume/reactive-resume`; use `gh issue view <n> --comments` for those.
 

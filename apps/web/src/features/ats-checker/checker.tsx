@@ -568,11 +568,7 @@ function Result({ result, file, signedIn, importError, onFix, onFile, onReset }:
 					) : (
 						<>
 							<Button size="lg" className="w-full leading-5" onClick={onFix}>
-								{issues.length === 0 ? (
-									<Trans>Edit it in Reactive Resume</Trans>
-								) : (
-									<Trans>Fix these in the editor</Trans>
-								)}
+								{issues.length === 0 ? <Trans>Edit it in 职页</Trans> : <Trans>Fix these in the editor</Trans>}
 							</Button>
 							<p className="text-center text-xs/4 text-ink-3 max-lg:hidden">
 								<Trans>Brings this file into a free resume and opens Check.</Trans>
