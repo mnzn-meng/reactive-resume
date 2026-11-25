@@ -8,37 +8,6 @@ type Data = ResumeData | WritableDraft<ResumeData>;
 type Metadata = Pick<Data["metadata"], "typography" | "design" | "page">;
 
 /**
- * Five traditional resume faces, set in Regular and Bold. Families that aren't a pairing leave the control with no
- * selection; any other font is chosen in Advanced.
- */
-export const FONT_PAIRINGS = [
-	{ id: "classic", label: msg`Classic`, heading: "EB Garamond", body: "EB Garamond", headingWeight: "600" },
-	{ id: "traditional", label: msg`Traditional`, heading: "Tinos", body: "Tinos", headingWeight: "700" },
-	{ id: "balanced", label: msg`Balanced`, heading: "Source Serif 4", body: "Source Sans 3", headingWeight: "600" },
-	{ id: "professional", label: msg`Professional`, heading: "Carlito", body: "Carlito", headingWeight: "700" },
-	{ id: "clean", label: msg`Clean`, heading: "Lato", body: "Lato", headingWeight: "700" },
-] as const;
-
-export type FontPairingId = (typeof FONT_PAIRINGS)[number]["id"];
-
-export function matchFontPairing(metadata: Pick<Metadata, "typography">): FontPairingId | null {
-	const { heading, body } = metadata.typography;
-	return (
-		FONT_PAIRINGS.find((pairing) => pairing.heading === heading.fontFamily && pairing.body === body.fontFamily)?.id ??
-		null
-	);
-}
-
-export function applyFontPairing(metadata: WritableDraft<Metadata>, id: FontPairingId) {
-	const pairing = FONT_PAIRINGS.find((candidate) => candidate.id === id);
-	if (!pairing) return;
-	metadata.typography.heading.fontFamily = pairing.heading;
-	metadata.typography.heading.fontWeights = [pairing.headingWeight];
-	metadata.typography.body.fontFamily = pairing.body;
-	metadata.typography.body.fontWeights = ["400", "700"];
-}
-
-/**
  * Density sets the body line height and the gap between entries. "Normal" is today's default, so resumes
  * saved before the redesign show as Normal; the others follow the spec's proportions around it.
  */
@@ -82,7 +51,8 @@ export function applyMargins(metadata: WritableDraft<Metadata>, id: MarginId) {
 	metadata.page.marginY = MARGINS[id].marginY;
 }
 
-export const TEXT_SIZE = { min: 9, max: 12.5, step: 0.5 } as const;
+/** The text-size bounds Fit to one page works within. */
+const TEXT_SIZE = { min: 9, max: 12.5, step: 0.5 } as const;
 
 /** Sets the body size and scales the heading with it, keeping their ratio. */
 export function applyTextSize(metadata: WritableDraft<Metadata>, size: number) {

@@ -1,4 +1,3 @@
-import type { DensityId, FontPairingId, MarginId } from "./presets";
 import type { ResumeData } from "@zhiye/schema/resume/data";
 import type { WritableDraft } from "immer";
 import type { CSSProperties } from "react";
@@ -11,31 +10,11 @@ import { createContext, useContext, useId, useState } from "react";
 import { Button } from "@zhiye/ui/components/button";
 import { Icon } from "@zhiye/ui/components/icon";
 import { Input } from "@zhiye/ui/components/input";
-import { SegmentedControl, SegmentedControlItem } from "@zhiye/ui/components/segmented-control";
-import { Slider } from "@zhiye/ui/components/slider";
-import { SwitchRow } from "@zhiye/ui/components/switch";
 import { contrastOnWhite, parseColorString } from "@zhiye/utils/color";
 import { cn } from "@zhiye/utils/style";
 import { Field, Help, wellClassName } from "./fields";
-import {
-	ACCENTS,
-	applyDensity,
-	applyFontPairing,
-	applyMargins,
-	applyTextSize,
-	darkenForWhite,
-	FONT_PAIRINGS,
-	hexToRgba,
-	normalizeHex,
-	matchDensity,
-	matchFontPairing,
-	matchMargins,
-	rgbaToHex,
-	TEXT_SIZE,
-} from "./presets";
+import { ACCENTS, darkenForWhite, hexToRgba, normalizeHex, rgbaToHex } from "./presets";
 import { ColorPicker } from "@/components/input/color-picker";
-import { Combobox } from "@/components/ui/combobox";
-import { getLocaleOptions } from "@/features/locale/locale-options";
 import { useResumeData, useUpdateResumeData } from "@/features/resume/builder/draft";
 
 type Metadata = Pick<ResumeData["metadata"], "typography" | "design" | "page">;
@@ -63,111 +42,6 @@ export function useDesign(): DesignSource {
 				discrete ? { newStep: true } : { coalesceKey: `design.${key}` },
 			),
 	};
-}
-
-const familiesLabel = (heading: string, body: string) => (heading === body ? heading : `${heading} + ${body}`);
-
-type TypeGroupProps = {
-	/** Brings the exact typography editor into view. Without it, the Custom row isn't offered. */
-	onCustomFonts?: () => void;
-};
-
-/** Type: five font pairings (or any font, in Advanced), the text size (9–12.5 pt) and density. */
-export function TypeGroup({ onCustomFonts }: TypeGroupProps) {
-	const { i18n } = useLingui();
-	const { metadata, write } = useDesign();
-	const sizeLabelId = useId();
-	if (!metadata) return null;
-
-	const pairing = matchFontPairing(metadata);
-	const density = matchDensity(metadata);
-	const size = metadata.typography.body.fontSize;
-	const { heading, body } = metadata.typography;
-
-	return (
-		<div className="grid gap-4">
-			<div className="grid gap-1">
-				<RadioGroup
-					aria-label={t`Font pairing`}
-					value={pairing ?? null}
-					onValueChange={(value) => write("pairing", (draft) => applyFontPairing(draft, value as FontPairingId), true)}
-					className="grid gap-1"
-				>
-					{FONT_PAIRINGS.map((option) => (
-						<Radio.Root
-							key={option.id}
-							value={option.id}
-							className="flex h-12 cursor-pointer items-center gap-3 rounded-lg border border-line px-3 text-start transition-colors duration-quick hover:bg-hover data-checked:border-accent data-checked:bg-accent-soft data-checked:hover:bg-accent-soft"
-						>
-							<span className="text-sm font-medium">{i18n._(option.label)}</span>
-							<span className="truncate text-xs text-ink-3">{familiesLabel(option.heading, option.body)}</span>
-							{pairing === option.id && <Icon name="check" size={18} className="ms-auto text-accent-text" />}
-						</Radio.Root>
-					))}
-				</RadioGroup>
-
-				{onCustomFonts && (
-					<button
-						type="button"
-						onClick={onCustomFonts}
-						className="flex h-12 cursor-pointer items-center gap-3 rounded-lg border border-dashed border-line px-3 text-start transition-colors duration-quick hover:bg-hover"
-					>
-						<span className="text-sm font-medium">
-							<Trans>Custom</Trans>
-						</span>
-						<span className="truncate text-xs text-ink-3">
-							{pairing ? <Trans>Any font, in Advanced</Trans> : familiesLabel(heading.fontFamily, body.fontFamily)}
-						</span>
-						<Icon name="arrow-down" size={18} className="ms-auto text-ink-3" />
-					</button>
-				)}
-			</div>
-
-			<div className="grid gap-2">
-				<div className="flex items-center justify-between text-[13px]">
-					<span id={sizeLabelId} className="font-medium">
-						<Trans>Text size</Trans>
-					</span>
-					<span className="font-mono text-xs text-ink-2">{i18n.number(size)} pt</span>
-				</div>
-				<Slider
-					aria-labelledby={sizeLabelId}
-					min={TEXT_SIZE.min}
-					max={TEXT_SIZE.max}
-					step={TEXT_SIZE.step}
-					value={[Math.min(TEXT_SIZE.max, Math.max(TEXT_SIZE.min, size))]}
-					onValueChange={(value) =>
-						write("size", (draft) => applyTextSize(draft, Array.isArray(value) ? (value[0] ?? size) : value))
-					}
-				/>
-				<span className="text-xs text-ink-3">
-					<Trans>10–11 recommended</Trans>
-				</span>
-			</div>
-
-			<div className="grid gap-2">
-				<span className="text-[13px] font-medium">
-					<Trans>Density</Trans>
-				</span>
-				<SegmentedControl
-					aria-label={t`Density`}
-					value={density ?? ""}
-					onValueChange={(value) => write("density", (draft) => applyDensity(draft, value as DensityId), true)}
-					className="w-full"
-				>
-					<SegmentedControlItem value="compact">
-						<Trans>Compact</Trans>
-					</SegmentedControlItem>
-					<SegmentedControlItem value="normal">
-						<Trans>Normal</Trans>
-					</SegmentedControlItem>
-					<SegmentedControlItem value="roomy">
-						<Trans>Roomy</Trans>
-					</SegmentedControlItem>
-				</SegmentedControl>
-			</div>
-		</div>
-	);
 }
 
 /** Color: eight accents or a custom hex, with its contrast on white and a darker shade when it's too light. */
@@ -304,127 +178,6 @@ export function ColorGroup() {
 			<Help className="-mt-1">
 				<Trans>Used for headings, icons and the header band.</Trans>
 			</Help>
-		</div>
-	);
-}
-
-/** Page: paper, language (section titles and date words), margins, icons and link underlines. */
-export function PageGroup({ showLanguage = true }: { showLanguage?: boolean } = {}) {
-	const { metadata, write } = useDesign();
-	const languageId = useId();
-	if (!metadata) return null;
-
-	const { page } = metadata;
-	const margins = matchMargins(metadata);
-
-	return (
-		<div className="grid gap-4">
-			<div className="grid gap-2">
-				<span className="text-[13px] font-medium">
-					<Trans>Paper</Trans>
-				</span>
-				<SegmentedControl
-					aria-label={t`Paper`}
-					value={page.format}
-					onValueChange={(value) =>
-						write(
-							"format",
-							(draft) => {
-								draft.page.format = value as typeof page.format;
-							},
-							true,
-						)
-					}
-					className="w-full"
-				>
-					<SegmentedControlItem value="letter" className="flex-1">
-						<Trans context="US Letter paper size (8.5 × 11 in), shown beside A4">Letter</Trans>
-					</SegmentedControlItem>
-					<SegmentedControlItem value="a4" className="flex-1">
-						A4
-					</SegmentedControlItem>
-					<SegmentedControlItem value="free-form" className="flex-1">
-						<Trans>Free-form</Trans>
-					</SegmentedControlItem>
-				</SegmentedControl>
-			</div>
-
-			{showLanguage && (
-				<div className="grid gap-2">
-					<label htmlFor={languageId} className="text-[13px] font-medium">
-						<Trans>Language</Trans>
-					</label>
-					<Combobox
-						id={languageId}
-						options={getLocaleOptions()}
-						value={page.locale}
-						onValueChange={(locale) =>
-							write(
-								"locale",
-								(draft) => {
-									draft.page.locale = (locale ?? "en-US") as string;
-								},
-								true,
-							)
-						}
-					/>
-					<span className="text-xs text-ink-3">
-						<Trans>Sets section titles, date words and text direction. Your content isn't translated.</Trans>
-					</span>
-				</div>
-			)}
-
-			<div className="grid gap-2">
-				<span className="text-[13px] font-medium">
-					<Trans>Margins</Trans>
-				</span>
-				<SegmentedControl
-					aria-label={t`Margins`}
-					value={margins ?? ""}
-					onValueChange={(value) => write("margins", (draft) => applyMargins(draft, value as MarginId), true)}
-					className="w-full"
-				>
-					<SegmentedControlItem value="narrow">
-						<Trans>Narrow</Trans>
-					</SegmentedControlItem>
-					<SegmentedControlItem value="normal">
-						<Trans>Normal</Trans>
-					</SegmentedControlItem>
-					<SegmentedControlItem value="wide">
-						<Trans>Wide</Trans>
-					</SegmentedControlItem>
-				</SegmentedControl>
-			</div>
-
-			<div className="grid">
-				<SwitchRow
-					label={t`Icons in contact line`}
-					description={t`Also shows the icons on skills, profiles and interests.`}
-					checked={!page.hideIcons}
-					onCheckedChange={(checked) =>
-						write(
-							"icons",
-							(draft) => {
-								draft.page.hideIcons = !checked;
-							},
-							true,
-						)
-					}
-				/>
-				<SwitchRow
-					label={t`Underline links`}
-					checked={!page.hideLinkUnderline}
-					onCheckedChange={(checked) =>
-						write(
-							"underline",
-							(draft) => {
-								draft.page.hideLinkUnderline = !checked;
-							},
-							true,
-						)
-					}
-				/>
-			</div>
 		</div>
 	);
 }

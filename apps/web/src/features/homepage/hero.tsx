@@ -25,7 +25,7 @@ const fragmentKind = {
 const pillAccent = "bg-accent-soft text-[oklch(0.36_0.1_150)] dark:text-accent-text";
 
 /** The four lines of the headline; the footer repeats them. Lines 2 and 4 are highlighted. */
-export const getHeadline = () =>
+const getHeadline = () =>
 	[
 		t({
 			message: "A free",

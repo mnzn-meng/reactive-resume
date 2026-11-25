@@ -3,7 +3,7 @@ import { i18n } from "@lingui/core";
 import { msg } from "@lingui/core/macro";
 import { I18nProvider } from "@lingui/react";
 import { renderToStaticMarkup } from "react-dom/server";
-import { ACCENTS, FONT_PAIRINGS } from "../editor/design/presets";
+import { ACCENTS } from "../editor/design/presets";
 import { PdfCanvasPage } from "./pdf-canvas";
 import { ResumePreviewLoader } from "./preview.shared";
 import { LevelDisplay } from "@/components/level/display";
@@ -20,8 +20,8 @@ beforeEach(() => {
 	i18n.loadAndActivate({ locale: "de-DE", messages: {} });
 });
 
-it("defers pairing and accent labels to Lingui", () => {
-	const labels = [...FONT_PAIRINGS, ...ACCENTS].map(({ label }) => label);
+it("defers accent labels to Lingui", () => {
+	const labels = ACCENTS.map(({ label }) => label);
 	for (const [index, label] of labels.entries()) {
 		expect(label).toHaveProperty("id");
 		i18n.load("de-DE", { [label.id]: `Übersetzung ${index}` });

@@ -41,7 +41,7 @@ type DownloadMenuProps<Id extends string> = {
  * B16 (P4): every format as a row that is the download, the one file name, Print, and Check as a quiet line. Download
  * PDF stays one click on the split button; this is its ▾. A file that can't be made offers PDF instead.
  */
-export function DownloadMenu<Id extends string>({
+function DownloadMenu<Id extends string>({
 	trigger,
 	formats,
 	defaultFileName,

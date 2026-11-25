@@ -237,7 +237,7 @@ export function flattenAlpha(style: FormeStyle, backdrop: Rgb): { style: FormeSt
 	return { style: next as FormeStyle, backdrop: own };
 }
 
-export const COLOR_KEYS = new Set([
+const COLOR_KEYS = new Set([
 	"color",
 	"backgroundColor",
 	"borderColor",
@@ -247,7 +247,7 @@ export const COLOR_KEYS = new Set([
 	"borderLeftColor",
 ]);
 
-export const LENGTH_KEYS = new Set([
+const LENGTH_KEYS = new Set([
 	"width",
 	"height",
 	"minWidth",

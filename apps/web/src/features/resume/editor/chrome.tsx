@@ -1,5 +1,4 @@
-import type { IconName } from "@zhiye/ui/components/icon";
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps } from "react";
 import { t } from "@lingui/core/macro";
 import { useLingui } from "@lingui/react/macro";
 import { useHotkey } from "@tanstack/react-hotkeys";
@@ -213,18 +212,6 @@ export function usePageScale(
 	}, [canvasRef]);
 
 	return { canvasRef, fitScale, pageScale };
-}
-
-type CanvasStatusPillProps = { icon: IconName; children: ReactNode };
-
-/** The dark pill above the first page while a version or template is previewed instead of the live document. */
-export function CanvasStatusPill({ icon, children }: CanvasStatusPillProps) {
-	return (
-		<span role="status" className="flex h-8 items-center gap-2 rounded-lg bg-ink px-3 text-[13px] text-bg">
-			<Icon name={icon} size={18} />
-			{children}
-		</span>
-	);
 }
 
 // Base UI's trigger hands its ref, handlers and aria state to the element it renders.

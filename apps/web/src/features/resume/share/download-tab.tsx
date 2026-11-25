@@ -76,7 +76,7 @@ type FormatRadioGroupProps<Id extends string> = {
 };
 
 /** Format radio cards: icon, name, extension and when to use it. PDF is marked "Best for applying". */
-export function FormatRadioGroup<Id extends string>({ formats, value, onChange }: FormatRadioGroupProps<Id>) {
+function FormatRadioGroup<Id extends string>({ formats, value, onChange }: FormatRadioGroupProps<Id>) {
 	return (
 		<RadioGroup
 			aria-label={t`Format`}
@@ -123,7 +123,7 @@ export function FormatRadioGroup<Id extends string>({ formats, value, onChange }
 type FileNameFieldProps = { value: string; extension: string; hint: ReactNode; onChange: (value: string) => void };
 
 /** The file name recruiters see, with the extension shown after it. Characters file systems reject are dropped. */
-export function FileNameField({ value, extension, hint, onChange }: FileNameFieldProps) {
+function FileNameField({ value, extension, hint, onChange }: FileNameFieldProps) {
 	const id = useId();
 
 	return (
@@ -163,7 +163,7 @@ type DownloadActionsProps = {
 /**
  * The failure alert (with PDF as the fallback) and the 44px button that shows its progress.
  */
-export function DownloadActions({ state, label, onDownload, onDownloadPdf }: DownloadActionsProps) {
+function DownloadActions({ state, label, onDownload, onDownloadPdf }: DownloadActionsProps) {
 	return (
 		<>
 			{state === "error" && (

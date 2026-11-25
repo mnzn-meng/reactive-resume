@@ -77,7 +77,7 @@ export function contentSecurityPolicy(html = "") {
 	].join("; ");
 }
 
-export const BASE_SECURITY_HEADERS = {
+const BASE_SECURITY_HEADERS = {
 	Link: `<${CONTEXT7_ASK_URL}>; rel="search"; type="text/plain"; title="Search zhiye.example"`,
 	"X-Frame-Options": "DENY",
 	"X-Content-Type-Options": "nosniff",

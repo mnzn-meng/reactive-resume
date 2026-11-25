@@ -1,14 +1,13 @@
 {
 	"$schema": "https://unpkg.com/knip@6/schema.json",
 	"tags": ["-lintignore"],
-	"ignoreBinaries": ["pdftotext", "mktemp"],
+	"ignoreBinaries": ["pdftotext"],
 	"workspaces": {
 		".": {
 			"entry": ["tests/e2e/autofill-prototype.mjs"]
 		},
 		"apps/web": {
 			"entry": [
-				"lingui.config.ts",
 				"vitest.config.ts",
 				"vitest.setup.ts",
 				"src/features/homepage/prerender.tsx",
@@ -44,13 +43,13 @@
 				"@ai-sdk/togetherai",
 				"@ai-sdk/xai",
 				"@aws-sdk/client-s3",
-				"@better-auth/api-key",
 				"@better-auth/drizzle-adapter",
 				"@better-auth/infra",
 				"@better-auth/passkey",
 				"@bramus/specificity",
 				"@formepdf/react",
 				"@orpc/experimental-ratelimit",
+				"@resvg/resvg-wasm",
 				"@sindresorhus/slugify",
 				"@t3-oss/env-core",
 				"@uiw/color-convert",
