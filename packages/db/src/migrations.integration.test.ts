@@ -15,10 +15,10 @@ const migrationsFolder = fileURLToPath(new URL("../../../migrations", import.met
 const v6Migration = "20261001042749_v6_release";
 
 // Needs CREATE DATABASE permission; owns and deletes two disposable databases, never the supplied database.
-describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("database migrations", () => {
+describe.skipIf(!process.env.INTEGRATIONS_TEST_DATABASE_URL)("database migrations", () => {
 	it("freezes Last edited at updated_at for documents that existed before edited_at, and only content edits move it", async () => {
-		const databaseUrl = process.env.COVER_LETTER_TEST_DATABASE_URL;
-		if (!databaseUrl) throw new Error("COVER_LETTER_TEST_DATABASE_URL is required");
+		const databaseUrl = process.env.INTEGRATIONS_TEST_DATABASE_URL;
+		if (!databaseUrl) throw new Error("INTEGRATIONS_TEST_DATABASE_URL is required");
 		const admin = new Pool({ connectionString: databaseUrl });
 		const baselineFolder = await mkdtemp(path.join(tmpdir(), "rr-edited-at-"));
 		const databaseName = `edited_at_upgrade_${randomUUID().replaceAll("-", "")}`;
@@ -37,22 +37,19 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("database migration
 				`INSERT INTO "user" (id,name,email,username,display_username) VALUES ('up-a','Ana','ana@example.test','ana','ana'),('up-b','Ben','ben@example.test','ben','ben')`,
 			);
 			await pool.query(
-				`INSERT INTO resume (id,user_id,name,data) VALUES ('a-resume','up-a','A resume','{"basics":{}}'),('b-resume','up-b','B resume','{"basics":{}}')`,
-			);
-			await pool.query(
-				`INSERT INTO cover_letter (id,user_id,name,content,style) VALUES ('a-letter','up-a','A letter','Old letter','{}')`,
+				`INSERT INTO resume (id,user_id,name,data,slug) VALUES ('a-resume','up-a','A resume','{"basics":{}}','a-resume'),('b-resume','up-b','B resume','{"basics":{}}','b-resume')`,
 			);
 			await pool.query(`UPDATE resume SET updated_at='2025-01-02T00:00:00Z' WHERE id='a-resume'`);
 			await pool.query(`UPDATE resume SET updated_at='2025-02-02T00:00:00Z' WHERE id='b-resume'`);
-			await pool.query(`UPDATE cover_letter SET updated_at='2025-03-04T00:00:00Z' WHERE id='a-letter'`);
 
 			await migrate(db, { migrationsFolder });
 
-			const baseline = (
-				await pool.query(
-					`SELECT id,user_id,updated_at,edited_at FROM resume UNION ALL SELECT id,user_id,updated_at,edited_at FROM cover_letter ORDER BY id`,
-				)
-			).rows as { id: string; user_id: string; updated_at: Date; edited_at: Date | null }[];
+			const baseline = (await pool.query(`SELECT id,user_id,updated_at,edited_at FROM resume ORDER BY id`)).rows as {
+				id: string;
+				user_id: string;
+				updated_at: Date;
+				edited_at: Date | null;
+			}[];
 			// No preset edited_at anywhere: the migration itself must freeze the baseline the library already showed.
 			expect(baseline.map((row) => [row.id, row.edited_at?.getTime()])).toEqual(
 				baseline.map((row) => [row.id, row.updated_at.getTime()]),
@@ -64,56 +61,35 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("database migration
 					await pool.query(
 						`SELECT id FROM (
 							SELECT id,coalesce(edited_at,updated_at) AS at,user_id FROM resume
-							UNION ALL SELECT id,coalesce(edited_at,updated_at),user_id FROM cover_letter
 						) d WHERE user_id=$1 ORDER BY at DESC, id`,
 						[userId],
 					)
 				).rows.map((row) => row.id as string);
-			expect(await order("up-a")).toEqual(["a-letter", "a-resume"]);
+			expect(await order("up-a")).toEqual(["a-resume"]);
 			expect(await order("up-b")).toEqual(["b-resume"]);
 
-			// What the documents service does for tags, sharing, rename, lock and Trash: the detail changes and Drizzle's
+			// What the documents service does for tags, rename, lock and Trash: the detail changes and Drizzle's
 			// $onUpdate moves updated_at, but none of it may move "Last edited" or the default order.
-			await pool.query(
-				`UPDATE resume SET tags='{remote}',is_public=true,is_locked=true,name='Renamed' WHERE id='a-resume'`,
-			);
+			await pool.query(`UPDATE resume SET tags='{remote}',is_locked=true,name='Renamed' WHERE id='a-resume'`);
 			await pool.query(`UPDATE resume SET updated_at=now() WHERE id='a-resume'`);
-			await pool.query(
-				`UPDATE cover_letter SET name='Renamed letter',tags='{remote}',trashed_at=now() WHERE id='a-letter'`,
-			);
-			await pool.query(`UPDATE cover_letter SET updated_at=now() WHERE id='a-letter'`);
 			const afterMetadata = (await pool.query(`SELECT edited_at,updated_at FROM resume WHERE id='a-resume'`))
 				.rows[0] as { edited_at: Date; updated_at: Date };
 			expect(afterMetadata.edited_at).toEqual(new Date("2025-01-02T00:00:00.000Z"));
 			// The concurrency check still follows every write.
 			expect(afterMetadata.updated_at.getTime()).toBeGreaterThan(Date.parse("2025-01-02T00:00:00Z"));
-			expect((await pool.query(`SELECT edited_at FROM cover_letter WHERE id='a-letter'`)).rows[0].edited_at).toEqual(
-				new Date("2025-03-04T00:00:00.000Z"),
-			);
-			expect(await order("up-a")).toEqual(["a-letter", "a-resume"]);
+			expect(await order("up-a")).toEqual(["a-resume"]);
 			expect(await order("up-b")).toEqual(["b-resume"]);
 
 			// A real content edit advances it: the resume's data, and each of a letter's text, recipient and design fields.
 			await pool.query(`UPDATE resume SET data=jsonb_set(data,'{basics,name}','"Ana"') WHERE id='a-resume'`);
-			const editedAt = async (table: "resume" | "cover_letter", id: string) =>
+			const editedAt = async (table: "resume", id: string) =>
 				(await pool.query(`SELECT edited_at,updated_at FROM ${table} WHERE id=$1`, [id])).rows[0] as {
 					edited_at: Date;
 					updated_at: Date;
 				};
 			const resumeEdit = await editedAt("resume", "a-resume");
 			expect(resumeEdit.edited_at.getTime()).toBeGreaterThan(Date.parse("2025-01-02T00:00:00Z"));
-			expect(await order("up-a")).toEqual(["a-resume", "a-letter"]);
-
-			for (const [column, value] of [
-				["content", "'New letter'"],
-				["recipient", "'Acme'"],
-				["style", '\'{"primaryColor":"#000"}\''],
-			] as const) {
-				const before = Date.parse("2025-03-04T00:00:00Z");
-				await pool.query(`UPDATE cover_letter SET edited_at=$1 WHERE id='a-letter'`, [new Date(before)]);
-				await pool.query(`UPDATE cover_letter SET ${column}=${value} WHERE id='a-letter'`);
-				expect((await editedAt("cover_letter", "a-letter")).edited_at.getTime()).toBeGreaterThan(before);
-			}
+			expect(await order("up-a")).toEqual(["a-resume"]);
 
 			// A transaction opened first can write last after waiting for another writer's row lock.
 			// Compare in PostgreSQL, retaining microseconds instead of depending on JS millisecond timing.
@@ -150,9 +126,9 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("database migration
 		}
 	}, 30_000);
 
-	it("creates the current schema, preserves v5 documents on upgrade, and supports retries and rollback", async () => {
-		const databaseUrl = process.env.COVER_LETTER_TEST_DATABASE_URL;
-		if (!databaseUrl) throw new Error("COVER_LETTER_TEST_DATABASE_URL is required");
+	it("creates the current schema, preserves v5 documents on upgrade, and supports retries", async () => {
+		const databaseUrl = process.env.INTEGRATIONS_TEST_DATABASE_URL;
+		if (!databaseUrl) throw new Error("INTEGRATIONS_TEST_DATABASE_URL is required");
 		const admin = new Pool({ connectionString: databaseUrl });
 		const baselineFolder = await mkdtemp(path.join(tmpdir(), "rr-v5-migrations-"));
 		try {
@@ -186,15 +162,15 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("database migration
 						await pool.query(
 							`INSERT INTO "user" (id,name,email,username,display_username) VALUES ('owner','Owner','owner@example.test','owner','owner')`,
 						);
-						await pool.query(`INSERT INTO resume (id,user_id,name,data) VALUES ('resume','owner','Resume',$1)`, [data]);
+						await pool.query(
+							`INSERT INTO resume (id,user_id,name,data,slug) VALUES ('resume','owner','Resume',$1,'resume')`,
+							[data],
+						);
 						await pool.query(
 							`INSERT INTO application (id,user_id,company,role,resume_id,status,activity) VALUES ('rejected','owner','Acme','Engineer','resume','rejected','[{"type":"stage","stage":"saved"},{"type":"stage","stage":"rejected"}]')`,
 						);
 						await pool.query(
 							`INSERT INTO application (id,user_id,company,role,status,archived) VALUES ('archived','owner','Other','Engineer','interviewing',true),('active','owner','Other','Engineer','saved',false)`,
-						);
-						await pool.query(
-							`INSERT INTO cover_letter (id,user_id,name,content,style,source_application_id) VALUES ('library','owner','Library','Existing letter','{}','active')`,
 						);
 						for (const label of ["Imported", "AI edit", "Before restore", "Restored version", "Manual save"]) {
 							await pool.query(
@@ -245,6 +221,17 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("database migration
 						)
 					).find((sql) => sql.includes("application_resume_id_index"));
 					if (!indexMigration) throw new Error("The foreign-key index migration is missing.");
+					// That migration predates the cover-letter and OAuth-provider removals. Replaying it against the current
+					// schema needs the columns and tables it indexed, so stand them up for the replay and take them down again.
+					await pool.query(
+						`CREATE TABLE cover_letter (id text PRIMARY KEY, source_resume_id text, source_application_id text);
+						 CREATE TABLE cover_letter_version (id text PRIMARY KEY, user_id text);
+						 CREATE TABLE oauth_access_token (id text PRIMARY KEY, session_id text, user_id text, refresh_id text, client_id text);
+						 CREATE TABLE oauth_client (id text PRIMARY KEY, user_id text);
+						 CREATE TABLE oauth_consent (id text PRIMARY KEY, client_id text);
+						 CREATE TABLE oauth_refresh_token (id text PRIMARY KEY, session_id text, user_id text, client_id text);
+						 ALTER TABLE application ADD COLUMN cover_letter_id text, ADD COLUMN sent_cover_letter_version_id text;`,
+					);
 					const validity = (valid: boolean) =>
 						pool.query(
 							`UPDATE pg_index SET indisvalid = $1 WHERE indexrelid = 'application_resume_id_index'::regclass`,
@@ -256,6 +243,10 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("database migration
 					);
 					await validity(true);
 					await expect(pool.query(indexMigration)).resolves.toBeDefined();
+					await pool.query(
+						`DROP TABLE cover_letter, cover_letter_version, oauth_access_token, oauth_client, oauth_consent, oauth_refresh_token;
+						 ALTER TABLE application DROP COLUMN cover_letter_id, DROP COLUMN sent_cover_letter_version_id;`,
+					);
 					if (upgrade) {
 						expect((await pool.query("SELECT id,status,closed_reason FROM application ORDER BY id")).rows).toEqual([
 							{ id: "active", status: "saved", closed_reason: null },
@@ -275,49 +266,6 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("database migration
 							{ id: "Manual save", kind: "auto", data },
 							{ id: "Restored version", kind: "restored", data },
 						]);
-						const letters = (await pool.query("SELECT * FROM cover_letter ORDER BY name")).rows;
-						expect(letters).toHaveLength(2);
-						expect(letters[0]).toMatchObject({
-							id: "library",
-							content: "Existing letter",
-							layout: "freeform",
-							sender_linked: false,
-							design_linked: false,
-						});
-						expect(letters[1]).toMatchObject({
-							recipient: "Acme",
-							content: "<p>Keep this letter</p>",
-							source_resume_id: "resume",
-							source_application_id: "rejected",
-							sender_linked: true,
-							design_linked: true,
-							style: { basics: data.basics, picture: {}, metadata: {}, sectionId: "letter", itemId: "item" },
-						});
-						expect(
-							(
-								await pool.query(
-									"SELECT id,cover_letter_id FROM application WHERE cover_letter_id IS NOT NULL ORDER BY id",
-								)
-							).rows,
-						).toEqual([
-							{ id: "active", cover_letter_id: "library" },
-							{ id: "rejected", cover_letter_id: letters[1].id },
-						]);
-						expect((await pool.query("SELECT kind,data FROM cover_letter_version")).rows).toEqual([
-							{
-								kind: "created",
-								data: {
-									name: letters[1].name,
-									recipient: "Acme",
-									content: "<p>Keep this letter</p>",
-									style: letters[1].style,
-									layout: "freeform",
-									recipientName: "",
-									recipientCompany: "",
-									letterDate: null,
-								},
-							},
-						]);
 						expect((await pool.query("SELECT data FROM resume")).rows[0].data).toEqual({
 							...data,
 							customSections: [data.customSections[0]],
@@ -327,31 +275,6 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("database migration
 					const before = (await pool.query("SELECT * FROM drizzle.__drizzle_migrations ORDER BY id")).rows;
 					await migrate(db, { migrationsFolder });
 					expect((await pool.query("SELECT * FROM drizzle.__drizzle_migrations ORDER BY id")).rows).toEqual(before);
-					if (upgrade) {
-						expect((await pool.query("SELECT count(*)::integer AS count FROM cover_letter")).rows[0].count).toBe(2);
-						const laneReferences = (await pool.query("SELECT id,lane_id FROM application ORDER BY id")).rows;
-						await pool.query(await readFile(path.join(migrationsFolder, v6Migration, "rollback.sql"), "utf8"));
-						expect((await pool.query("SELECT id,lane_id FROM application ORDER BY id")).rows).toEqual(laneReferences);
-						await pool.query(
-							`INSERT INTO application (id,user_id,company,role,status) VALUES ('v5-writer','owner','Fixture','Role','rejected')`,
-						);
-						expect((await pool.query("SELECT status FROM application WHERE id='rejected'")).rows[0].status).toBe(
-							"rejected",
-						);
-						expect((await pool.query("SELECT archived FROM application WHERE id='archived'")).rows[0].archived).toBe(
-							true,
-						);
-						expect((await pool.query("SELECT label FROM resume_version WHERE id='Imported'")).rows[0].label).toBe(
-							"Imported",
-						);
-						expect((await pool.query("SELECT data FROM resume")).rows[0].data.customSections).toContainEqual(
-							expect.objectContaining({
-								id: "letter",
-								type: "cover-letter",
-								items: [expect.objectContaining({ content: "<p>Keep this letter</p>" })],
-							}),
-						);
-					}
 				} finally {
 					await pool.end();
 					await admin.query(`DROP DATABASE "${databaseName}"`);

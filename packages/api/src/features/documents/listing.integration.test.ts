@@ -20,7 +20,7 @@ vi.mock("../resume/service", () => ({ resumeService: {} }));
 vi.mock("../applications/service", () => ({ applicationService: {} }));
 
 // Disposable database only; the test owns and drops its isolated schema.
-describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("document SQL pages on a large account", () => {
+describe.skipIf(!process.env.INTEGRATIONS_TEST_DATABASE_URL)("document SQL pages on a large account", () => {
 	const schemaName = `documents_test_${randomUUID().replaceAll("-", "")}`;
 	let admin: Pool;
 	let pool: Pool;
@@ -28,10 +28,10 @@ describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("document SQL pages
 	let headers: Headers;
 
 	beforeAll(async () => {
-		admin = new Pool({ connectionString: process.env.COVER_LETTER_TEST_DATABASE_URL });
+		admin = new Pool({ connectionString: process.env.INTEGRATIONS_TEST_DATABASE_URL });
 		await admin.query(`CREATE SCHEMA ${schemaName}`);
 		pool = new Pool({
-			connectionString: process.env.COVER_LETTER_TEST_DATABASE_URL,
+			connectionString: process.env.INTEGRATIONS_TEST_DATABASE_URL,
 			options: `-c search_path=${schemaName}`,
 		});
 		fixture.db = drizzle({ client: pool });

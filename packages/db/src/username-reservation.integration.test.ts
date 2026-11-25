@@ -3,15 +3,15 @@ import { readdir, readFile } from "node:fs/promises";
 import { afterAll, beforeAll, describe, expect, it } from "vite-plus/test";
 import { Pool } from "pg";
 
-describe.skipIf(!process.env.COVER_LETTER_TEST_DATABASE_URL)("serialized username claims", () => {
+describe.skipIf(!process.env.INTEGRATIONS_TEST_DATABASE_URL)("serialized username claims", () => {
 	const namespace = `username_test_${randomUUID().replaceAll("-", "")}`;
 	let admin: Pool;
 	let pool: Pool;
 	beforeAll(async () => {
-		admin = new Pool({ connectionString: process.env.COVER_LETTER_TEST_DATABASE_URL });
+		admin = new Pool({ connectionString: process.env.INTEGRATIONS_TEST_DATABASE_URL });
 		await admin.query(`CREATE SCHEMA ${namespace}`);
 		pool = new Pool({
-			connectionString: process.env.COVER_LETTER_TEST_DATABASE_URL,
+			connectionString: process.env.INTEGRATIONS_TEST_DATABASE_URL,
 			options: `-c search_path=${namespace}`,
 			max: 3,
 		});
