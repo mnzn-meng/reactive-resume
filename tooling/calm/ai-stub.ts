@@ -4,7 +4,8 @@ import { createServer } from "node:http";
 import { COACH_ANSWER, careerJson } from "./ai-stub-career.ts";
 
 /**
- * A scripted OpenAI-compatible provider for the assistant spec. It answers the connection test, and plays a small
+ * A scripted OpenAI-compatible provider for the local dev server (tooling/calm/dev.mjs). It answers the connection
+ * test, and plays a small
  * conversation: read the document, propose an edit to its first passage, then say what changed. A message asking
  * for "a question" makes it ask one first; "slowly" streams a long reply that can be stopped. Structured career work,
  * letter drafts and the workspace coach get the persona's words from ai-stub-career.ts.

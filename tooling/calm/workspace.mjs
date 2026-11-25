@@ -2,7 +2,7 @@ import { createHash, randomUUID } from "node:crypto";
 import { request } from "@playwright/test";
 
 // The application workspaces of the boards (J3, W1–W12, N5–N9), written through the app's own flows: career.generate
-// against the AI stub (tests/e2e/fixtures/ai-stub-career.ts holds the words), the workspace, answer and document
+// against the AI stub (tooling/calm/ai-stub-career.ts holds the words), the workspace, answer and document
 // APIs. Runs after seed.mjs has set the persona's dates, because a generated result records the version of what it
 // read (application, Knowledge, documents) and reads as outdated when those change afterwards. It then dates each
 // result as the boards draw it. Called by seed.mjs; adds its ids to each account's entry in ids.json.

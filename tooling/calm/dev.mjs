@@ -49,8 +49,8 @@ async function start() {
 async function run() {
 	mkdirSync(env.LOCAL_STORAGE_PATH, { recursive: true });
 	await ensureDatabases([database]);
-	// Node 26 runs the e2e stub's TypeScript as it is.
-	const { startAiStub } = await import(pathToFileURL(resolve(root, "tests/e2e/fixtures/ai-stub.ts")).href);
+	// Node 26 runs the stub's TypeScript as it is.
+	const { startAiStub } = await import(pathToFileURL(resolve(root, "tooling/calm/ai-stub.ts")).href);
 	await startAiStub(ports.ai);
 	console.log(`AI stub on ${aiBaseUrl}`);
 

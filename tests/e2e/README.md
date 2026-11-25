@@ -10,7 +10,7 @@ Start PostgreSQL and install Chromium once:
 
 `docker compose -f compose.dev.yml up -d postgres`
 
-`pnpm exec playwright install chromium`
+`pnpm exec playwright install chromium webkit`
 
 Then build the app and run the suite:
 
@@ -18,9 +18,8 @@ Then build the app and run the suite:
 
 `pnpm test:e2e:local` runs the browser job's setup from CI against this checkout only. It creates and migrates a
 database named after the checkout directory (`rr_<checkout>_e2e`), stores uploads in a matching directory under the
-system temporary folder, picks a free port, and sets the same fixed secrets and flags as CI, including
-`FLAG_ALLOW_UNSAFE_AI_BASE_URL=true` for the assistant specs. Separate worktrees can run it at the same time without
-sharing a server or data.
+system temporary folder, picks a free port, and sets the same fixed secrets and flags as CI. Separate worktrees can
+run it at the same time without sharing a server or data.
 
 - `--build` runs `pnpm build` first. Without it, the command uses the existing `apps/server/dist` build and stops if
   there isn't one. Rebuild after changing application code.
@@ -46,16 +45,10 @@ viewports, copy) and HTTP-only contracts belong in web unit tests and API integr
 - Email/password sign-up (with and without a username), sign-out and sign-in through the UI; a failed sign-out keeps
   the session, a successful one clears private browser storage.
 - Guest login, and a guest's resume carried over when they create an account. Skips without `FLAG_ENABLE_GUEST_LOGIN=true`.
-- Builder section editing, with autosave across reloads and a draft kept when saving during navigation fails.
-- JSON export/import through the Import page, including an older file whose resume still carries a cover letter.
-- Browser-made PDFs keep shaped scripts as text (checked with `pdftotext`).
-- An application stage move acknowledged in an Undo toast persists when the page reloads or closes.
-- The account ZIP export (with uploaded bytes and history), then account deletion.
-- The assistant, against a scripted OpenAI-compatible provider (`fixtures/ai-stub.ts`): proposals change nothing
-  until accepted, a clarifying question, and Stop. It needs `FLAG_ALLOW_UNSAFE_AI_BASE_URL=true` so the server may
-  call the stub on 127.0.0.1, and skips without it. The same spec checks that application create and resume linking
-  refuse another account's resources.
-- The employer-form fill script in Chromium and WebKit leaves hidden or clipped private controls untouched.
+- Browser-made PDFs keep shaped scripts as text (checked with `pdftotext`), and the configured font mirror is the one
+  both the browser and the server render with.
+- The employer-form fill script in Chromium and WebKit leaves hidden or clipped private controls untouched; the fill
+  specs launch WebKit themselves, so the browser download above has to include it.
 - The capture helper extension (`posting-capture-extension.spec.ts`) runs only with `RUN_CAPTURE_EXTENSION=1` and
   a headed Chromium.
 
