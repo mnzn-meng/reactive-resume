@@ -5,7 +5,7 @@ import type { ProposalApplications } from "@zhiye/resume/proposals";
 import type { ResumeData } from "@zhiye/schema/resume/data";
 import type { Locale } from "@zhiye/utils/locale";
 import { ORPCError } from "@orpc/client";
-import { and, arrayContains, asc, desc, eq, inArray, isNotNull, isNull, lt } from "drizzle-orm";
+import { and, arrayContains, arrayOverlaps, asc, desc, eq, inArray, isNotNull, isNull, lt } from "drizzle-orm";
 import { match } from "ts-pattern";
 import { db } from "@zhiye/db/client";
 import * as schema from "@zhiye/db/schema";
@@ -435,6 +435,24 @@ export const resumeService = {
 			await db.transaction(async (tx) => {
 				if (input.aiOperationIds?.length) await lockUser(tx, input.userId);
 				await assertAiOperations(input.userId, input.aiOperationIds ?? [], RESUME_AI_ACTIONS, tx);
+				// An AI result backs one document: importing the same reviewed draft twice would count its requests
+				// twice. Copies keep their source's ids for provenance, so only imports are checked, and a trashed
+				// original may be replaced by a fresh import.
+				if (input.origin === "import" && input.aiOperationIds?.length) {
+					const [claimed] = await tx
+						.select({ id: schema.resume.id })
+						.from(schema.resume)
+						.where(
+							and(
+								eq(schema.resume.userId, input.userId),
+								isNull(schema.resume.trashedAt),
+								arrayOverlaps(schema.resume.aiOperationIds, input.aiOperationIds),
+							),
+						)
+						.limit(1);
+					if (claimed)
+						throw new ORPCError("FORBIDDEN", { message: "This AI result is already attached to another resume." });
+				}
 				await tx.insert(schema.resume).values({
 					id,
 					name: input.name,
