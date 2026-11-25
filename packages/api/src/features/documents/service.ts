@@ -169,6 +169,16 @@ export const documentsService = {
 	) => {
 		await assertUnlocked(input);
 		const application = input.applicationId ? await assertOwnedApplication(input.userId, input.applicationId) : null;
+		// Detaching must not leave the application pointing at a document it no longer holds, so read the old link first.
+		const previousApplicationId = input.applicationId
+			? null
+			: ((
+					await db
+						.select({ applicationId: schema.resume.applicationId })
+						.from(schema.resume)
+						.where(and(eq(schema.resume.id, input.id), eq(schema.resume.userId, input.userId)))
+						.limit(1)
+				)[0]?.applicationId ?? null);
 		// Answers with the resume's new revision, so the open editor's next autosave builds on it. The account lock
 		// comes first, then the resume, then the application: the order every document and application write takes.
 		const resume = await writeResumeFields({
@@ -185,6 +195,11 @@ export const documentsService = {
 		});
 		if (application && !application.sentResumeVersionId && (!application.resumeId || application.status === "saved"))
 			await applicationService.update({ userId: input.userId, id: application.id, resumeId: input.id });
+		if (previousApplicationId)
+			await db
+				.update(schema.application)
+				.set({ resumeId: null })
+				.where(and(eq(schema.application.id, previousApplicationId), eq(schema.application.resumeId, input.id)));
 		return resume;
 	},
 
