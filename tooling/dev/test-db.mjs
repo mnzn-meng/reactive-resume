@@ -72,8 +72,8 @@ const [testUrl] = unitDatabases.map(databaseUrl);
 const unitEnv = {
 	...ciEnv,
 	DATABASE_URL: testUrl,
-	COVER_LETTER_TEST_DATABASE_URL: testUrl,
 	INTEGRATIONS_TEST_DATABASE_URL: testUrl,
+	OAUTH_TEST_DATABASE_URL: testUrl,
 	REQUIRE_DB_TESTS: "1",
 };
 

@@ -601,7 +601,7 @@ describe.skipIf(!databaseUrl)("Trash batch operations", () => {
 			);
 
 		const result = await service.emptyTrash({ userId: "alice" });
-		expect(result.deleted).toBe(153);
+		expect(result.deleted).toBe(152);
 		const remaining = await getDb()
 			.select()
 			.from(tables.storageCleanupJob)

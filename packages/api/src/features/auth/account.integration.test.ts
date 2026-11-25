@@ -23,9 +23,6 @@ describe.skipIf(!process.env.OAUTH_TEST_DATABASE_URL)("account wrapper ownership
 			"session",
 			"account",
 			"verification",
-			"apikey",
-			"oauth_access_token",
-			"oauth_resource",
 			"jwks",
 			"resume",
 			"resume_version",
@@ -81,15 +78,7 @@ describe.skipIf(!process.env.OAUTH_TEST_DATABASE_URL)("account wrapper ownership
 			[JSON.stringify({ picture: oldUrl })],
 		);
 		await pool.query(
-			`INSERT INTO cover_letter (id, name, user_id, style) VALUES ('guest-letter', 'Guest', 'link-guest', $1)`,
-			[JSON.stringify({ picture: oldUrl })],
-		);
-		await pool.query(
-			`INSERT INTO cover_letter_version (id, cover_letter_id, user_id, data) VALUES ('guest-letter-version', 'guest-letter', 'link-guest', $1)`,
-			[JSON.stringify({ style: { picture: oldUrl } })],
-		);
-		await pool.query(
-			`INSERT INTO application (id, user_id, company, role, resume_file_url, cover_letter_url) VALUES ('guest-application', 'link-guest', 'Example', 'Engineer', $1, NULL)`,
+			`INSERT INTO application (id, user_id, company, role, resume_file_url) VALUES ('guest-application', 'link-guest', 'Example', 'Engineer', $1)`,
 			[oldUrl],
 		);
 		await withDatabasePool(pool, () => linkAnonymousAccount({ fromUserId: "link-guest", toUserId: "link-owner" }));
@@ -100,17 +89,13 @@ describe.skipIf(!process.env.OAUTH_TEST_DATABASE_URL)("account wrapper ownership
 		expect((await pool.query("SELECT data FROM resume WHERE id = 'owner-resume'")).rows[0]?.data).toEqual({
 			picture: "existing",
 		});
-		for (const [table, column, value] of [
-			["resume_version", "data", { picture: newUrl }],
-			["cover_letter", "style", { picture: newUrl }],
-			["cover_letter_version", "data", { style: { picture: newUrl } }],
-		] as const) {
+		for (const [table, column, value] of [["resume_version", "data", { picture: newUrl }]] as const) {
 			expect((await pool.query(`SELECT user_id, ${column} AS value FROM ${table}`)).rows).toEqual([
 				{ user_id: "link-owner", value },
 			]);
 		}
-		expect((await pool.query("SELECT user_id, resume_file_url, cover_letter_url FROM application")).rows).toEqual([
-			{ user_id: "link-owner", resume_file_url: newUrl, cover_letter_url: null },
+		expect((await pool.query("SELECT user_id, resume_file_url FROM application")).rows).toEqual([
+			{ user_id: "link-owner", resume_file_url: newUrl },
 		]);
 	});
 

@@ -10,11 +10,7 @@ const setupFile = fileURLToPath(new URL("./vitest.setup.ts", import.meta.url));
 // Real-database suites skip without their URLs. CI and `pnpm test:db exec` set REQUIRE_DB_TESTS=1 so a
 // missing URL fails the run instead of passing with skipped suites.
 if (process.env.REQUIRE_DB_TESTS === "1") {
-	const missing = [
-		"COVER_LETTER_TEST_DATABASE_URL",
-		"INTEGRATIONS_TEST_DATABASE_URL",
-		"OAUTH_TEST_DATABASE_URL",
-	].filter((name) => !process.env[name]);
+	const missing = ["INTEGRATIONS_TEST_DATABASE_URL", "OAUTH_TEST_DATABASE_URL"].filter((name) => !process.env[name]);
 	if (missing.length > 0) {
 		throw new Error(
 			`REQUIRE_DB_TESTS=1, but ${missing.join(", ")} ${missing.length === 1 ? "is" : "are"} not set. ` +

@@ -85,6 +85,7 @@ it.skipIf(!databaseUrl)(
 				const resumeData = structuredClone(defaultResumeData);
 				resumeData.picture.url = `${settings.APP_URL}/api/${photo}`;
 				resumeData.basics.location = foreign;
+				resumeData.basics.website.url = `${settings.APP_URL}/api/${large}`;
 				const [resume] = await db
 					.insert(tables.resume)
 					.values({
@@ -96,6 +97,7 @@ it.skipIf(!databaseUrl)(
 				if (!resume) throw new Error("Resume fixture missing");
 				const oldData = { ...structuredClone(resumeData), historicalField: "Keep historical JSON verbatim" };
 				oldData.picture.url = `${settings.APP_URL}/api/${oldPhoto}`;
+				oldData.basics.website.url = `${settings.APP_URL}/api/${missing}`;
 				const [resumeVersion] = await db
 					.insert(tables.resumeVersion)
 					.values({ userId: ownerId, resumeId: resume.id, data: oldData, kind: "named", name: "Earlier copy" })

@@ -71,7 +71,7 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
       '[{"id":"legacy-stage","type":"stage","stage":"applied","at":"2025-01-01T12:00:00.000Z"}]',
       '2025-01-01T12:00:00Z','2025-01-01T12:00:00Z','2025-01-02T12:00:00Z','Keep legacy notes')`);
 				await pool.query(
-					`INSERT INTO resume (id,user_id,name,data) VALUES ('migration-resume','migration-owner','Legacy','{}')`,
+					`INSERT INTO resume (id,user_id,name,data,slug) VALUES ('migration-resume','migration-owner','Legacy','{}','migration-resume')`,
 				);
 				await pool.query(
 					`INSERT INTO resume_version (id,resume_id,user_id,data,kind) VALUES ('migration-version','migration-resume','migration-owner','{}','sent')`,
