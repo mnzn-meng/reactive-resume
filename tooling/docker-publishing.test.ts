@@ -87,7 +87,7 @@ it("validates release tags against the built version and distinguishes prereleas
 });
 
 const commit = "a".repeat(40);
-const healthy = { service: "reactive-resume", status: "healthy", version: "6.0.0", revision: commit };
+const healthy = { service: "zhiye", status: "healthy", version: "6.0.0", revision: commit };
 
 it.each([
 	["matching release", [healthy], 0, 3],
