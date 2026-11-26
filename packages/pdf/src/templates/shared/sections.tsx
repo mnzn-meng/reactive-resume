@@ -1302,8 +1302,10 @@ const EducationSection = ({ sectionId = "education", sectionData }: ItemSectionP
 					// The tier and the study mode ride on the fields they qualify, so the line reads the way the document does.
 					const tier = item.schoolTag?.trim() ?? "";
 					const mode = item.studyMode?.trim() ?? "";
-					const schoolText = tier ? `${item.school}（${tier}）` : item.school;
-					const degreeText = mode ? `${item.degree}（${mode}）` : item.degree;
+					// Chinese documents set a label in full-width brackets; other scripts keep the Latin pair.
+					const [open, close] = data.metadata.page.locale.startsWith("zh") ? ["（", "）"] : [" (", ")"];
+					const schoolText = tier ? `${item.school}${open}${tier}${close}` : item.school;
+					const degreeText = mode ? `${item.degree}${open}${mode}${close}` : item.degree;
 					const school = { field: "school", value: schoolText, website: item.website };
 					const area = { field: "area", value: item.area };
 
