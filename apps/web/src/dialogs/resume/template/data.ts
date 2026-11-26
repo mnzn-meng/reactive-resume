@@ -146,7 +146,7 @@ export const templates = {
 	},
 	onyx: {
 		name: msg({ message: "Standard", context: "Template name" }),
-		description: msg`One column with a photo beside the header and clear section headings. A simple top-to-bottom layout for your experience.`,
+		description: msg`One column with the photo beside the header and plain section headings: the layout screening software reads most cleanly.`,
 		imageUrl: "/templates/jpg/onyx.jpg",
 		tags: [
 			msg({ message: "ATS friendly", context: "Template style tag" }),
@@ -157,7 +157,7 @@ export const templates = {
 	},
 	persian: {
 		name: msg({ message: "Editorial", context: "Template name" }),
-		description: msg`Single-column Wall Street style with a centered header and ruled section headings.`,
+		description: msg`Single-column finance look: a centered header over ruled section headings, and numbers that line up.`,
 		imageUrl: "/templates/jpg/persian.jpg",
 		tags: [
 			msg({ message: "ATS friendly", context: "Template style tag" }),
