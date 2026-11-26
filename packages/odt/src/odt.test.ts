@@ -22,7 +22,10 @@ describe("buildOdt", () => {
 		expect(strFromU8(bytes.subarray(30, 38 + ODT_MIME_TYPE.length))).toBe(`mimetype${ODT_MIME_TYPE}`);
 		const files = unzipSync(bytes);
 		expect(Object.keys(files)).toEqual(["mimetype", "META-INF/manifest.xml", "content.xml", "styles.xml", "meta.xml"]);
-		expect(strFromU8(files["content.xml"] ?? new Uint8Array())).toContain("Cascade Studios");
+		// Name the person from the fixture itself, so the sample's own content can change.
+		const company = sampleResumeData.sections.experience.items[0]?.company ?? "";
+		expect(company).not.toBe("");
+		expect(strFromU8(files["content.xml"] ?? new Uint8Array())).toContain(company);
 	});
 });
 

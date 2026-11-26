@@ -186,13 +186,19 @@ describe("formatEditableYearMonth", () => {
 	});
 
 	it.each([
-		["ja-JP", "2022年3月"],
 		["ko-KR", "2022년 3월"],
 		["pt-BR", "mar. de 2022"],
 		["ru-RU", "март 2022 г."],
 	])("falls back to the stored date when %s prints %s", (locale, printed) => {
 		expect(formatYearMonth("2022-03", { locale, format: "short" }).replace(/\s/g, " ")).toBe(printed);
 		expect(formatEditableYearMonth("2022-03", { locale, format: "short" })).toBe("2022-03");
+	});
+
+	// A year-and-month printed the way Chinese and Japanese write it now reads back, so the editor can keep the text.
+	it("keeps a printed 年月 date that reads back exactly", () => {
+		expect(formatYearMonth("2022-03", { locale: "ja-JP", format: "short" })).toBe("2022年3月");
+		expect(formatEditableYearMonth("2022-03", { locale: "ja-JP", format: "short" })).toBe("2022年3月");
+		expect(formatEditableYearMonth("2022-03", { locale: "zh-CN", format: "short" })).toContain("2022");
 	});
 });
 

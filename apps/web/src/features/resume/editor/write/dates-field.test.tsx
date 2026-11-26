@@ -55,9 +55,10 @@ describe("editing a printed date", () => {
 		);
 
 	it("edits a date whose printed form can't be read back, then shows it printed again", () => {
-		mount("ja-JP");
+		// Korean prints a year and month the parser doesn't read back; Chinese and Japanese now do.
+		mount("ko-KR");
 		const input = screen.getByRole<HTMLInputElement>("textbox", { name: "Date" });
-		expect(input.value).toBe("2022年3月");
+		expect(input.value).toBe("2022년 3월");
 
 		fireEvent.focus(input);
 		expect(input.value).toBe("2022-03");
@@ -66,7 +67,7 @@ describe("editing a printed date", () => {
 		expect(screen.queryByText(/isn't saved/)).toBeNull();
 
 		fireEvent.blur(input);
-		expect(input.value).toBe("2023年3月");
+		expect(input.value).toBe("2023년 3월");
 	});
 
 	it("keeps the printed form while editing when it can be read back", () => {

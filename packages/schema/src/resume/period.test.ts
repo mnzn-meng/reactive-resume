@@ -10,6 +10,10 @@ describe("parsePeriod", () => {
 		["Jan 2020 until now", { start: { year: 2020, month: 1 }, ongoing: true }],
 		["Fall 2019 - Spring 2021", { start: { year: 2019, month: 9 }, end: { year: 2021, month: 3 }, ongoing: false }],
 		["15/03/2020", { start: { year: 2020, month: 3 }, ongoing: false }],
+		["2015.09 - 2018.06", { start: { year: 2015, month: 9 }, end: { year: 2018, month: 6 }, ongoing: false }],
+		["2015/9 - 2018/6", { start: { year: 2015, month: 9 }, end: { year: 2018, month: 6 }, ongoing: false }],
+		["2015年9月 - 2018年6月", { start: { year: 2015, month: 9 }, end: { year: 2018, month: 6 }, ongoing: false }],
+		["2015 年 - 至今", { start: { year: 2015 }, ongoing: true }],
 	])("reads %s", (input, expected) => {
 		expect(parsePeriod(input)).toEqual(expected);
 	});

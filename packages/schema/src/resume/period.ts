@@ -164,6 +164,17 @@ function parseEndpoint(raw: string, { months, present }: Tokens): EndpointResult
 	const iso = /^(\d{4})-(\d{1,2})(?:-(\d{1,2}))?$/.exec(value);
 	if (iso?.[1] && iso[2]) return read(toEndpoint(Number(iso[1]), Number(iso[2])), iso[3] ? "day" : "iso");
 
+	// The year first, joined by a dot or a slash: 2015.09, 2015.9, 2015/09.
+	const yearMonth = /^(\d{4})[./](\d{1,2})$/.exec(value);
+	if (yearMonth?.[1] && yearMonth[2]) return read(toEndpoint(Number(yearMonth[1]), Number(yearMonth[2])), "iso");
+
+	// Spelled out the way Chinese resumes write it: 2015年9月, 2015 年 9 月, or the year alone.
+	const spokenYear = /^(\d{4})\s*年(?:\s*(\d{1,2})\s*月)?$/.exec(value);
+	if (spokenYear?.[1])
+		return spokenYear[2]
+			? read(toEndpoint(Number(spokenYear[1]), Number(spokenYear[2])), "iso")
+			: read(toEndpoint(Number(spokenYear[1])), "year");
+
 	const monthYear = /^(\d{1,2})[/.](\d{4})$/.exec(value);
 	if (monthYear?.[1] && monthYear[2]) return read(toEndpoint(Number(monthYear[2]), Number(monthYear[1])), "numeric");
 

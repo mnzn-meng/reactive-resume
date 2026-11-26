@@ -28,13 +28,19 @@ export function createResumeData(options: CreateResumeDataOptions): ResumeData {
 	if (email && !options.withSampleData) data.basics.email = email;
 	if (options.locale) data.metadata.page.locale = options.locale;
 	if (!options.withSampleData) {
-		// A blank resume starts on choices Design offers (the Balanced pairing, the Ink blue accent), so its first visit
-		// shows them selected rather than reading as something custom.
-		data.metadata.typography.heading.fontFamily = "Source Serif 4";
-		data.metadata.typography.heading.fontWeights = ["600"];
-		data.metadata.typography.body.fontFamily = "Source Sans 3";
+		// A blank resume starts on a readable pairing in the document's own script: a serif heading over a sans body.
+		// Chinese text set in a Latin face falls back glyph by glyph, which never lines up with the Latin parts of the page.
+		const chinese = options.locale === "zh-CN";
+		data.metadata.typography.heading.fontFamily = chinese ? "Noto Serif SC" : "Source Serif 4";
+		// CJK faces ship Regular and Bold only, so ask for the weights they actually have.
+		data.metadata.typography.heading.fontWeights = chinese ? ["700"] : ["600"];
+		data.metadata.typography.body.fontFamily = chinese ? "Noto Sans SC" : "Source Sans 3";
 		data.metadata.typography.body.fontWeights = ["400", "700"];
 		data.metadata.design.colors.primary = "rgba(47, 90, 138, 1)";
+		// Interests, volunteering and references are not part of a resume's first page here; they stay one toggle away.
+		data.sections.interests.hidden = true;
+		data.sections.volunteer.hidden = true;
+		data.sections.references.hidden = true;
 		// Where Letter is the paper people print on.
 		if (options.locale && LETTER_LOCALES.has(options.locale)) data.metadata.page.format = "letter";
 	}

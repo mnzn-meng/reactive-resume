@@ -14,12 +14,28 @@ describe("createResumeData", () => {
 		expect(data.basics.name).toBe(sampleResumeData.basics.name);
 	});
 
-	it("starts a blank resume on an offered pairing and accent, on Letter paper where that's the norm", () => {
+	it("starts a blank resume on a readable pairing and accent, on Letter paper where that's the norm", () => {
 		const us = createResumeData({ locale: "en-US" });
 		expect(us.metadata.typography.heading.fontFamily).toBe("Source Serif 4");
 		expect(us.metadata.typography.body.fontFamily).toBe("Source Sans 3");
 		expect(us.metadata.design.colors.primary).toBe("rgba(47, 90, 138, 1)");
 		expect(us.metadata.page.format).toBe("letter");
 		expect(createResumeData({ locale: "de-DE" }).metadata.page.format).toBe("a4");
+	});
+
+	it("starts a blank resume without references, interests or volunteering on the page", () => {
+		const data = createResumeData({ locale: "zh-CN" });
+		expect(data.sections.references.hidden).toBe(true);
+		expect(data.sections.interests.hidden).toBe(true);
+		expect(data.sections.volunteer.hidden).toBe(true);
+		expect(data.sections.experience.hidden).toBe(false);
+	});
+
+	it("sets a Chinese resume in Chinese faces, on A4", () => {
+		const cn = createResumeData({ locale: "zh-CN" });
+		expect(cn.metadata.typography.heading.fontFamily).toBe("Noto Serif SC");
+		expect(cn.metadata.typography.heading.fontWeights).toEqual(["700"]);
+		expect(cn.metadata.typography.body.fontFamily).toBe("Noto Sans SC");
+		expect(cn.metadata.page.format).toBe("a4");
 	});
 });
