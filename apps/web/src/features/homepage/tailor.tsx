@@ -117,16 +117,16 @@ export function Tailor() {
 								F
 							</span>
 							<div className="flex flex-col">
-								<b className="text-[15px] font-semibold">{t`Senior Product Designer`}</b>
-								<span className="text-[12.5px] text-ink-3">{t`Fieldnote · Remote, EU`}</span>
+								<b className="text-[15px] font-semibold">{t`Senior Backend Engineer`}</b>
+								<span className="text-[12.5px] text-ink-3">{t`Yunqi Cloud · Hangzhou`}</span>
 							</div>
 							<span className={cn(labelClass, "ms-auto text-[10px] tracking-[.06em] text-ink-3")}>{t`Posting`}</span>
 						</div>
 						<p className="text-ink-2">
 							<Trans>
-								You’ll own our <PostingKeyword id="a">design systems</PostingKeyword>, run{" "}
-								<PostingKeyword id="b">user research</PostingKeyword> with customers and hold a high bar for{" "}
-								<PostingKeyword id="c">accessibility</PostingKeyword>, working in a{" "}
+								You’ll own our <PostingKeyword id="a">trading platform</PostingKeyword>, run{" "}
+								<PostingKeyword id="b">capacity planning</PostingKeyword> with SRE and hold a high bar for{" "}
+								<PostingKeyword id="c">reliability</PostingKeyword>, working in a{" "}
 								<PostingKeyword id="d">cross-functional</PostingKeyword> team.
 							</Trans>
 						</p>
@@ -149,7 +149,7 @@ export function Tailor() {
 						</div>
 						<div className="relative h-10">
 							<div className="absolute start-[calc(var(--ap)*25%)] top-0 flex h-10 w-[calc(25%-6px)] min-w-max flex-col justify-center overflow-hidden rounded-lg border border-line bg-raised px-2 font-ui text-[11.5px] leading-[1.2] font-semibold whitespace-nowrap text-ink shadow-e2 [transition:inset-inline-start_.5s_var(--ease)]">
-								{t`Fieldnote`}
+								{t`Yunqi Cloud`}
 								<span className="text-[10.5px] font-normal text-ink-3">{t`Resume attached`}</span>
 							</div>
 						</div>
@@ -163,7 +163,7 @@ export function Tailor() {
 					>
 						<div className="flex flex-col gap-[2.6cqw] p-[9cqw] font-display text-[2.2cqw] leading-normal text-[oklch(0.3_0.01_95)]">
 							<span className="font-martian text-[1.6cqw] font-medium text-[oklch(0.48_0.1_150)]">
-								{t`Fit check · Fieldnote`}
+								{t`Fit check · Yunqi Cloud`}
 							</span>
 							<span className="text-[3cqw]">{t`6 of 7 requirements met`}</span>
 							{["92%", "86%", "90%", "62%"].map((width) => (

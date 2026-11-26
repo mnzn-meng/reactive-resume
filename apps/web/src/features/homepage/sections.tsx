@@ -39,7 +39,7 @@ export function LanguageDoorway({ className, nameClassName }: LanguageDoorwayPro
 }
 
 /**
- * 12 Closing call to action. The story hands over: Alex's Fieldnote card rests at Interview on the board Tailor
+ * 12 Closing call to action. The story hands over: Chen's Yunqi Cloud card rests at Interview on the board Tailor
  * started, and an empty card waits under Saved for the reader's own.
  */
 export function Closing() {
@@ -72,7 +72,7 @@ export function Closing() {
 						{t`Yours`}
 					</span>
 					<span className="col-start-3 flex h-11 min-w-0 flex-col justify-center rounded-lg border border-line bg-raised px-2 font-ui text-[11.5px] leading-[1.2] font-semibold text-ink shadow-e2">
-						{t`Fieldnote`}
+						{t`Yunqi Cloud`}
 						<span className="truncate text-[10.5px] font-normal text-ink-3">{t`Interview done`}</span>
 					</span>
 				</div>

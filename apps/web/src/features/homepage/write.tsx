@@ -104,12 +104,12 @@ export function Write() {
 								{t`Experience`}
 							</span>
 							<div className="flex items-baseline justify-between gap-[1em]">
-								<b className="font-display text-[1.55em] leading-[1.1] font-normal">{t`Lead Product Designer`}</b>
+								<b className="font-display text-[1.55em] leading-[1.1] font-normal">{t`Senior Backend Engineer`}</b>
 								<span className="font-martian text-[.72em] whitespace-nowrap text-[oklch(0.5_0.01_95)]">
 									{t`2021 – Present`}
 								</span>
 							</div>
-							<span className="text-[oklch(0.45_0.01_95)]">{t`Northwind Labs · Lisbon`}</span>
+							<span className="text-[oklch(0.45_0.01_95)]">{t`Yizhan Commerce · Hangzhou`}</span>
 						</div>
 
 						{/* Each line draws its own bullet, so the rewrite keeps one when the original collapses away. */}
@@ -120,7 +120,7 @@ export function Write() {
 									className="relative block ps-[1.1em] opacity-[calc(1-var(--oc))] [clip-path:inset(0_0_calc(100%-var(--wov))_0)] before:absolute before:start-[.25em] before:content-['•']"
 								>
 									<TypedText
-										text={t`Responsible for the design system and helping other teams with their designs.`}
+										text={t`Maintained the order pipeline and helped other teams integrate with it.`}
 										progress="--ta"
 										className="bg-[linear-gradient(oklch(0.55_0.17_27),oklch(0.55_0.17_27))] [box-decoration-break:clone] [background-size:calc(var(--st)*100%)_2px] [background-position:0_58%] bg-no-repeat text-[color-mix(in_oklch,oklch(0.28_0.01_95),oklch(0.55_0.15_27)_calc(var(--st)*70%))]"
 									/>
@@ -206,10 +206,10 @@ export function Write() {
 						</ul>
 						<div className="col-start-1 mt-[1.2em] flex [translate:0_calc(-1*var(--row-off))] flex-col gap-[.25em]">
 							<div className="flex items-baseline justify-between gap-[1em]">
-								<b className="font-display text-[1.55em] leading-[1.1] font-normal">{t`Product Designer`}</b>
-								<span className="font-martian text-[.72em] whitespace-nowrap text-[oklch(0.5_0.01_95)]">{t`2017 – 2021`}</span>
+								<b className="font-display text-[1.55em] leading-[1.1] font-normal">{t`Backend Engineer`}</b>
+								<span className="font-martian text-[.72em] whitespace-nowrap text-[oklch(0.5_0.01_95)]">{t`2018 – 2021`}</span>
 							</div>
-							<span className="text-[oklch(0.45_0.01_95)]">{t`Parcel & Co. · Porto`}</span>
+							<span className="text-[oklch(0.45_0.01_95)]">{t`Hexin Payment · Shanghai`}</span>
 							<ul className="mt-[.3em] list-disc ps-[1.1em]">
 								<li>
 									<AccessibilityBullet />

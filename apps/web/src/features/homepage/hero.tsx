@@ -54,92 +54,92 @@ const getHeadline = () =>
  */
 const getFragments = () => [
 	{
-		text: t`Lead Product Designer`,
+		text: t`Senior Backend Engineer`,
 		at: ["-30vw", "-28vh", "-6vw", "-14vh", "-4deg", 1, 0.9],
 		className: cn(fragmentKind.display, "text-[2.3vw] text-ink-2"),
 	},
 	{
-		text: t`Design systems`,
+		text: t`Distributed systems`,
 		at: ["-39vw", "4vh", "-4vw", "2vh", "-8deg", 1.1, 1.2],
 		className: cn(fragmentKind.pill, pillAccent),
 	},
 	{
-		text: t`Lisbon`,
+		text: t`Hangzhou`,
 		at: ["41vw", "20vh", "6vw", "10vh", "-3deg", 1, 0.5],
 		className: cn(fragmentKind.serif, "text-[2.8vw] text-ink-3"),
 	},
 	{
-		text: t`+13 pts activation`,
+		text: t`P99 down 40%`,
 		at: ["-17vw", "33vh", "-2vw", "12vh", "4deg", 1, 1],
 		className: cn(fragmentKind.display, "text-[2.8vw] font-light text-accent-text font-stretch-[92%]"),
 	},
 	{
-		text: t`Figma`,
+		text: t`Go`,
 		at: ["21vw", "37vh", "4vw", "14vh", "10deg", 1.1, 1.3],
 		className: cn(fragmentKind.pill, "bg-raised text-ink shadow-e2"),
 	},
 	{
-		text: t`WCAG 2.1 AA`,
+		text: t`Kubernetes`,
 		at: ["-44vw", "-12vh", "-7vw", "-4vh", "0deg", 1, 0.3],
 		className: cn(fragmentKind.mono, "text-ink-3"),
 	},
 	{
-		text: t`BA, Communication Design`,
+		text: t`MSc, Computer Science`,
 		at: ["10vw", "-40vh", "1vw", "-11vh", "-2deg", 1, 0.6],
 		className: cn(fragmentKind.serif, "text-[1.5vw] text-ink-2"),
 	},
 	{
-		text: t`University of Porto`,
+		text: t`Zhejiang University`,
 		at: ["-9vw", "-43vh", "-3vw", "-16vh", "2deg", 1, 0.35],
 		className: cn(fragmentKind.mono, "text-ink-3"),
 	},
 	{
-		text: t`Parcel & Co.`,
+		text: t`Yizhan Commerce`,
 		at: ["39vw", "3vh", "5vw", "1vh", "-6deg", 1, 0.8],
 		className: cn(fragmentKind.display, "text-[1.9vw] text-ink-2 font-stretch-[108%]"),
 	},
 	{
-		text: t`Shipped checkout for iOS`,
+		text: t`Rebuilt the order pipeline`,
 		at: ["-27vw", "23vh", "-5vw", "8vh", "3deg", 1, 0.7],
 		className: cn(fragmentKind.serif, "text-[1.7vw] text-ink-2 italic"),
 	},
 	{
-		text: t`Prototyping`,
+		text: t`Capacity planning`,
 		at: ["6vw", "42vh", "0vw", "16vh", "-5deg", 1.1, 1.1],
 		className: cn(fragmentKind.pill, pillAccent),
 	},
 	{
-		text: "alex@morgan.design",
+		text: "chen.mo@example.com",
 		at: ["25vw", "29vh", "4vw", "9vh", "2deg", 1, 0.4],
 		className: cn(fragmentKind.mono, "text-ink-3"),
 	},
 	{
-		text: t`Barista, 2012`,
+		text: t`CET-6, 604`,
 		at: ["-44vw", "38vh", "-6vw", "15vh", "-7deg", 1, 0.8],
 		className: cn(fragmentKind.serif, "text-[2.2vw] text-ink-3 italic"),
 	},
 	{
-		text: t`40% faster reviews`,
+		text: t`120k QPS at peak`,
 		at: ["44vw", "38vh", "6vw", "13vh", "-4deg", 1, 1],
 		className: cn(fragmentKind.display, "text-[2.4vw] font-light text-ink-2 font-stretch-[94%]"),
 	},
 	{
-		text: t`Promoted to lead, 2021`,
+		text: t`Promoted to lead, 2023`,
 		at: ["-38vw", "-38vh", "-5vw", "-13vh", "4deg", 1, 0.5],
 		className: cn(fragmentKind.serif, "text-[1.7vw] text-ink-2"),
 	},
 	{
-		text: t`Spanish, B2`,
+		text: t`English, working`,
 		at: ["-26vw", "43vh", "-3vw", "16vh", "0deg", 1, 0.3],
 		className: cn(fragmentKind.mono, "text-ink-3"),
 	},
 	{
-		text: t`Six product teams`,
+		text: t`Four-person team`,
 		at: ["30vw", "45vh", "5vw", "17vh", "-2deg", 1, 0.6],
 		className: cn(fragmentKind.display, "text-[1.5vw] text-ink-3 font-stretch-[110%]"),
 	},
 	{
-		text: t`Accessibility`,
+		text: t`Reliability`,
 		at: ["-13vw", "-33vh", "-2vw", "-10vh", "7deg", 1.1, 1.2],
 		className: cn(fragmentKind.pill, pillAccent),
 	},
@@ -225,7 +225,7 @@ export function Hero() {
 					{getFragments().map(({ text, at: [x, y, tx, ty, r, s, z], className }) => (
 						<span
 							key={text}
-							// Each word sets its own direction, so "Parcel & Co." keeps its full stop at the end in Arabic.
+							// Each word sets its own direction, so "Yizhan Commerce" keeps its full stop at the end in Arabic.
 							dir="auto"
 							className={cn("hero-fragment", className)}
 							style={{ "--x": x, "--y": y, "--tx": tx, "--ty": ty, "--r": r, "--s": s, "--z": z } as CSSProperties}

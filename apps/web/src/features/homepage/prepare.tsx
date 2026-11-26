@@ -175,7 +175,7 @@ function PencilTick({ tick }: { tick: string }) {
 	);
 }
 
-/** 0 Messages: Sam's confirmation, pasted in and read for you, with the stage change it proposes. */
+/** 0 Messages: Lin's confirmation, pasted in and read for you, with the stage change it proposes. */
 function MessagesPanel() {
 	const time = useTime(INTERVIEW_AT);
 	return (
@@ -183,15 +183,15 @@ function MessagesPanel() {
 			<span className="font-martian text-[.74em] font-medium text-ink-3">{t`Messages · Pasted from your email`}</span>
 			<div className="flex flex-col gap-[.15em] border-b border-line pb-[.7em] text-[.92em] text-ink-2">
 				<span>
-					<b className="font-semibold text-ink">{t`From`}</b> {t`Sam, Fieldnote`}
+					<b className="font-semibold text-ink">{t`From`}</b> {t`Lin, Yunqi Cloud`}
 				</span>
 				<span>
-					<b className="font-semibold text-ink">{t`Subject`}</b> {t`Re: Senior Product Designer`}
+					<b className="font-semibold text-ink">{t`Subject`}</b> {t`Re: Senior Backend Engineer`}
 				</span>
 			</div>
 			<p className="font-display text-[1.25em] leading-[1.45] text-pretty text-ink">
-				{t`Hi Alex, great to confirm: you’ll meet our design team today at ${time}, by video. Could you bring an example of your onboarding work?`}
-				<span className="mt-[.3em] block italic">{t`Sam`}</span>
+				{t`Hi Chen, great to confirm: you’ll meet our platform team today at ${time}, by video. Could you bring an example of your order pipeline work?`}
+				<span className="mt-[.3em] block italic">{t`Lin`}</span>
 			</p>
 
 			<div className="flex [transform:translateY(calc((1-var(--mr))*10px))] flex-col gap-[.7em] rounded-[.7em] border border-line bg-raised p-[1.1em] opacity-(--mr) shadow-e2 [transition:transform_.4s_var(--ease)]">
@@ -206,7 +206,7 @@ function MessagesPanel() {
 				</span>
 				<span className="flex items-start gap-[.5em] text-ink-2">
 					<Icon name="check" size={17} className="mt-[.1em] shrink-0 text-accent-text" />
-					{t`Asks for an example of your onboarding work.`}
+					{t`Asks for an example of your order pipeline work.`}
 				</span>
 				<div className="mt-[.2em] flex flex-wrap items-center justify-between gap-[.6em] rounded-[.6em] border border-accent bg-surface px-[.9em] py-[.7em]">
 					<span className="flex items-center gap-[.6em] font-medium text-ink">
@@ -234,31 +234,31 @@ function MessagesPanel() {
 function FitPanel() {
 	const rows = [
 		{
-			requirement: t`Own and evolve a design system`,
+			requirement: t`Own and evolve the trading platform`,
 			tone: "supported",
 			label: t`Supported`,
-			evidence: t`Built a shared design system used by six product teams.`,
+			evidence: t`Rebuilt the order pipeline around an event log; P99 latency fell 40%.`,
 		},
 		{
-			requirement: t`Run research with customers`,
+			requirement: t`Run capacity planning with SRE`,
 			tone: "supported",
 			label: t`Supported`,
-			evidence: t`Led research for the onboarding redesign; activation rose from 31% to 44%.`,
+			evidence: t`Planned three sales peaks at 120k QPS without adding on-call load.`,
 		},
 		{
-			requirement: t`A high bar for accessibility`,
+			requirement: t`A high bar for reliability`,
 			tone: "supported",
 			label: t`Supported`,
-			evidence: t`Shipped checkout flows that meet WCAG 2.1 AA.`,
+			evidence: t`Cut recovery time from 30 minutes to 5 with canary releases and circuit breakers.`,
 		},
 		{
 			requirement: t`Lead across functions`,
 			tone: "partial",
 			label: t`Partly supported`,
-			evidence: t`You partnered with engineering. How you led the work isn’t described yet.`,
+			evidence: t`You partnered with product and SRE. How you led the work isn’t described yet.`,
 		},
 		{
-			requirement: t`Mentor other designers`,
+			requirement: t`Mentor other engineers`,
 			tone: "missing",
 			label: t`No evidence yet`,
 			evidence: t`Knowledge doesn’t mention mentoring.`,
@@ -297,18 +297,18 @@ function PlanPanel() {
 	const rows = [
 		{
 			minutes: 10,
-			title: t`Your onboarding story`,
-			detail: t`Name the problem, what you led and how activation was measured.`,
+			title: t`Your go-live story`,
+			detail: t`Name the problem, what you led and how the go-live rate was measured.`,
 		},
 		{
 			minutes: 10,
-			title: t`Design system trade-offs`,
-			detail: t`Rehearse one disagreement with engineering and how it ended.`,
+			title: t`Trading platform trade-offs`,
+			detail: t`Rehearse one disagreement with product and how it ended.`,
 		},
 		{
 			minutes: 5,
 			title: t`Questions to ask`,
-			detail: t`Who owns the design system today? What does success look like in 90 days?`,
+			detail: t`Who owns the trading platform today? What does success look like in 90 days?`,
 		},
 		{ minutes: 5, title: t`Say it aloud`, detail: t`Practice your introduction once. Keep it to about 90 seconds.` },
 	];
@@ -321,7 +321,7 @@ function PlanPanel() {
 			)}
 		>
 			<h3 className="font-display text-[1.55em] leading-[1.15] text-ink">{t`A focused 30-minute plan`}</h3>
-			<span className="text-ink-2">{t`Built from the posting, Sam’s message and your two strongest stories.`}</span>
+			<span className="text-ink-2">{t`Built from the posting, Lin’s message and your two strongest stories.`}</span>
 			<div aria-hidden="true" className="h-[.3em] overflow-hidden rounded-full bg-[oklch(0.93_0.006_95)]">
 				<div className="h-full origin-left [transform:scaleX(calc((var(--k1)*10+var(--k2)*10+var(--k3)*5+var(--k4)*5)/30))] rounded-full bg-[oklch(0.5_0.1_150)] rtl:origin-right" />
 			</div>
@@ -397,7 +397,7 @@ function PractisePanel({ active }: { active: boolean }) {
 			<p className="font-display text-[1.4em] leading-[1.25] text-pretty text-ink">{question}</p>
 			<p className="min-h-[5.6em] rounded-[.6em] border border-line-2 px-[.9em] py-[.7em] leading-[1.55] text-ink">
 				<TypedText
-					text={t`At Northwind Labs I led research for our onboarding redesign. I interviewed 14 customers, found three drop-off points, and we shipped a shorter setup. Activation rose from 31% to 44%.`}
+					text={t`At Yizhan Commerce I led the order pipeline rebuild. I mapped three failure points in merchant go-live, moved the pipeline onto an event log, and held 120k QPS at peak. The merchant go-live rate rose from 31% to 44%.`}
 					progress="--ty"
 					rate={120}
 				/>
@@ -413,7 +413,7 @@ function PractisePanel({ active }: { active: boolean }) {
 					<span className="font-medium text-accent-text">{t`Contribution clear`}</span>
 				</span>
 			</div>
-			<span className={cn(note, "mt-auto")}>{t`Practice questions are simulated, not from Fieldnote.`}</span>
+			<span className={cn(note, "mt-auto")}>{t`Practice questions are simulated, not from Yunqi Cloud.`}</span>
 		</div>
 	);
 }
@@ -431,7 +431,7 @@ function DebriefPanel() {
 			<div className="flex flex-col gap-[.3em]">
 				<span className="text-[.86em] text-ink-2">{t`What did they ask?`}</span>
 				<span className="font-display text-[1.3em] leading-[1.3] text-ink italic">
-					{t`“How did you measure the onboarding redesign?”`}
+					{t`“How did you measure the go-live rebuild?”`}
 				</span>
 			</div>
 			<div className="flex flex-col gap-[.45em]">
@@ -457,7 +457,7 @@ function DebriefPanel() {
 					<span className="font-martian mt-[.1em] shrink-0 rounded-[.35em] bg-accent-soft px-[.45em] py-[.15em] text-[.74em] text-accent-text">
 						{t`Supported`}
 					</span>
-					{t`The 13-point activation lift. Knowledge has the before and after.`}
+					{t`The 13-point go-live lift. Knowledge has the before and after.`}
 				</p>
 				<p className="flex items-start gap-[.6em] text-ink opacity-(--db3)">
 					<span className="font-martian mt-[.1em] shrink-0 rounded-[.35em] bg-warn-soft px-[.45em] py-[.15em] text-[.74em] text-warn-text">
@@ -494,7 +494,7 @@ function Countdown() {
 }
 
 /**
- * 06 Prepare. The resume Share sent off comes back as a reply: Fieldnote confirms an interview today at half past
+ * 06 Prepare. The resume Share sent off comes back as a reply: Yunqi Cloud confirms an interview today at half past
  * five. The scroll winds a pencil clock through the day while the application's folder moves from tab to tab: the
  * message read, the fit stamped, a plan ticked off, an answer practised. At the interview everything but the clock
  * steps back for a breath, then the debrief comes in as the light goes. The tabs jump to each part of the day.
@@ -667,12 +667,12 @@ export function Prepare() {
 								);
 							})}
 						</div>
-						{/* The folder's label: the same Fieldnote role Tailor applied to, its stage moving on when the change is applied. */}
+						{/* The folder's label: the same Yunqi Cloud role Tailor applied to, its stage moving on when the change is applied. */}
 						<span className="me-[.6em] mb-[.45em] hidden shrink-0 -rotate-1 items-center gap-[.5em] rounded-paper bg-paper py-[.3em] ps-[.35em] pe-[.7em] text-[.8em] font-medium text-[oklch(0.3_0.01_95)] shadow-e1 @min-[640px]:flex">
 							<span className="font-anybody grid size-[1.6em] place-items-center rounded-[.35em] bg-[oklch(0.22_0.01_95)] text-[1.05em] leading-none text-white">
 								F
 							</span>
-							{t`Fieldnote`}
+							{t`Yunqi Cloud`}
 							<span className="grid">
 								<span className="col-start-1 row-start-1 flex items-center gap-[.35em] opacity-[calc(1-var(--mc))]">
 									<span className="size-[.5em] rounded-full bg-stage-applied" />

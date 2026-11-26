@@ -19,21 +19,26 @@ function useStory() {
 			part: "s",
 			letter: t`S`,
 			label: t`Situation`,
-			text: t`Most new teams at Northwind Labs stalled during setup and never reached activation.`,
+			text: t`Most new merchants at Yizhan Commerce stalled during integration and never went live.`,
 		},
-		{ part: "t", letter: t`T`, label: t`Task`, text: t`Find out why, and shorten setup without adding support work.` },
+		{
+			part: "t",
+			letter: t`T`,
+			label: t`Task`,
+			text: t`Find out why, and shorten integration without adding support work.`,
+		},
 		{
 			part: "a",
 			letter: t`A`,
 			label: t`Action`,
-			text: t`Interviewed 14 customers, mapped three drop-off points and prototyped a shorter setup with engineering.`,
+			text: t`Interviewed 14 merchants, mapped three failure points and rebuilt the go-live checklist with the platform team.`,
 		},
-		{ part: "r", letter: t`R`, label: t`Result`, text: t`Activation rose from 31% to 44% in one quarter.` },
+		{ part: "r", letter: t`R`, label: t`Result`, text: t`Merchant go-live rate rose from 31% to 44% in one quarter.` },
 		{
 			part: "f",
 			letter: t`R`,
 			label: t`Reflection`,
-			text: t`Next time, I’d agree how to measure success before the first prototype.`,
+			text: t`Next time, I’d agree how to measure success before the first change.`,
 		},
 	] satisfies { part: Part; letter: string; label: string; text: string }[];
 }
@@ -45,36 +50,36 @@ function useStory() {
 function useDraft(destination: Destination, withResult: boolean): Draft {
 	const drafts: Record<Destination, [Part, string][]> = {
 		answer: [
-			["s", t`At Northwind Labs, most new teams stalled before they finished setup.`],
+			["s", t`At Yizhan Commerce, most new merchants stalled before they finished integration.`],
 			[
 				"a",
-				t`I interviewed 14 customers, mapped three drop-off points and prototyped a shorter setup with engineering.`,
+				t`I interviewed 14 merchants, mapped three failure points and rebuilt the go-live checklist with the platform team.`,
 			],
-			["r", t`Activation rose from 31% to 44% in one quarter.`],
+			["r", t`Merchant go-live rate rose from 31% to 44% in one quarter.`],
 		],
 		opening: [
-			["s", t`New teams at Northwind were stalling in setup; most never got through.`],
+			["s", t`New merchants at Yizhan were stalling in integration; most never went live.`],
 			["t", t`My job was to find out why, without adding support work.`],
 			[
 				"a",
-				t`So I talked to 14 customers, found the three places people dropped off, and we prototyped a shorter setup.`,
+				t`So I talked to 14 merchants, found the three places they got stuck, and we rebuilt the go-live checklist.`,
 			],
-			["r", t`Within a quarter, activation went from 31% to 44%.`],
-			["f", t`If I did it again, I’d agree on the measure before the first prototype.`],
+			["r", t`Within a quarter, go-live rate went from 31% to 44%.`],
+			["f", t`If I did it again, I’d agree on the measure before the first change.`],
 		],
 		reply: [
 			[
 				"a",
-				t`Thanks, Sam. Here’s one: at Northwind Labs I led the onboarding redesign, from 14 customer interviews to a shorter setup.`,
+				t`Thanks, Lin. Here’s one: at Yizhan Commerce I led the go-live rebuild, from 14 merchant interviews to a shorter checklist.`,
 			],
-			["r", t`Activation rose from 31% to 44% in one quarter.`],
+			["r", t`Merchant go-live rate rose from 31% to 44% in one quarter.`],
 			["a", t`Happy to walk you through it on our call.`],
 		],
 	};
 	const contexts: Record<Destination, string> = {
-		answer: t`Apply · Describe a product improvement you led.`,
+		answer: t`Apply · Describe a platform change you led.`,
 		opening: t`Practice · Your opening, about 40 seconds aloud`,
-		reply: t`Messages · Reply to Sam at Fieldnote`,
+		reply: t`Messages · Reply to Lin at Yunqi Cloud`,
 	};
 	const kept = drafts[destination].filter(([part]) => withResult || part !== "r");
 
@@ -147,7 +152,7 @@ export function Remember() {
 							{t`Story · 5 of 5 parts`}
 						</span>
 						<h3 className="mt-2 font-display text-[clamp(20px,1.7vw,26px)] leading-[1.15] text-pretty text-ink">
-							{t`Fixing onboarding drop-off at Northwind Labs`}
+							{t`Fixing merchant go-live at Yizhan Commerce`}
 						</h3>
 						{/* Below 1000px only the five tiles show, so the switch and the draft it changes share the screen. */}
 						<ul className="mt-4 flex flex-col divide-y divide-line font-ui text-[14px] leading-[1.5] max-[999px]:mt-3 max-[999px]:flex-row max-[999px]:gap-1.5 max-[999px]:divide-y-0">

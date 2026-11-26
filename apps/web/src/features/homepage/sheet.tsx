@@ -5,7 +5,7 @@ import { Trans } from "@lingui/react/macro";
 import { Icon } from "@zhiye/ui/components/icon";
 
 /*
- * The demo resume page that every scene shows: Alex Morgan's resume, in one of five looks. Everything is sized in
+ * The demo resume page that every scene shows: Chen Mo's resume, in one of five looks. Everything is sized in
  * cqw so a page reads the same at any width. The scenes steer it through inherited CSS variables:
  *   --chk        Check's scan progress; ticks each section heading as the scan passes it.
  *   --dw         Check's date warning; flags the second job's mixed date format.
@@ -165,8 +165,8 @@ function Keyword({ id, children }: KeywordProps) {
 export function ProfileSummary() {
 	return (
 		<Trans>
-			Product designer with nine years of experience building <Keyword id="a">design systems</Keyword> and research-led
-			products for B2B teams.
+			Backend engineer with six years of experience building a <Keyword id="a">trading platform</Keyword> and keeping it
+			reliable for merchants and their busiest days.
 		</Trans>
 	);
 }
@@ -174,7 +174,7 @@ export function ProfileSummary() {
 export function ResearchBullet() {
 	return (
 		<Trans>
-			Led <Keyword id="b">user research</Keyword> for the onboarding redesign; activation rose from 31% to 44%.
+			Led <Keyword id="b">capacity planning</Keyword> for three sales peaks; 120k QPS held without adding on-call load.
 		</Trans>
 	);
 }
@@ -182,14 +182,15 @@ export function ResearchBullet() {
 export function AccessibilityBullet() {
 	return (
 		<Trans>
-			Shipped <Keyword id="c">accessible</Keyword> checkout flows for web and iOS, meeting WCAG 2.1 AA.
+			Made <Keyword id="c">reliability</Keyword> measurable with canary releases and circuit breakers; recovery time
+			fell from 30 minutes to 5.
 		</Trans>
 	);
 }
 
 /** The rewritten line the assistant suggests in Write, and the line the page carries everywhere else. */
 export const designSystemBullet = () =>
-	t`Built a shared design system used by six product teams, cutting UI review time by 40%.`;
+	t`Rebuilt the order pipeline around an event log, cutting P99 latency by 40% and holding 120k QPS at peak.`;
 
 type HeadingProps = {
 	template: SheetTemplate;
@@ -216,7 +217,7 @@ function Heading({ template, children, tick }: HeadingProps) {
 
 type SheetProps = { template?: SheetTemplate };
 
-/** Alex Morgan's resume, as a page. Decorative: the scenes' own copy says what it shows. */
+/** Chen Mo's resume, as a page. Decorative: the scenes' own copy says what it shows. */
 export function Sheet({ template = sheetTemplates[0] as SheetTemplate }: SheetProps) {
 	return (
 		<div
@@ -229,18 +230,18 @@ export function Sheet({ template = sheetTemplates[0] as SheetTemplate }: SheetPr
 					style={{ alignItems: template.align, ...template.header }}
 				>
 					<span className="leading-none" style={template.title}>
-						{t`Alex Morgan`}
+						{t`Chen Mo`}
 					</span>
 					<span className="text-[2.3cqw] font-medium" style={{ color: template.subtitleColor }}>
-						{t`Senior Product Designer`}
+						{t`Backend Engineer`}
 					</span>
 					<span
 						className="flex flex-wrap gap-x-[3cqw] gap-y-[.4cqw] text-[1.6cqw] opacity-78"
 						style={{ justifyContent: template.align }}
 					>
-						<span>alex@morgan.design</span>
-						<span>{t`Lisbon, Portugal`}</span>
-						<span>morgan.design</span>
+						<span>chen.mo@example.com</span>
+						<span>{t`Hangzhou, China`}</span>
+						<span>chenmo.dev</span>
 					</span>
 				</header>
 
@@ -262,10 +263,10 @@ export function Sheet({ template = sheetTemplates[0] as SheetTemplate }: SheetPr
 							<div className="flex flex-col gap-[1.8cqw]">
 								<div>
 									<div className="flex justify-between gap-[2cqw]">
-										<b className="font-semibold">{t`Lead Product Designer`}</b>
+										<b className="font-semibold">{t`Senior Backend Engineer`}</b>
 										<span className="whitespace-nowrap opacity-70">{t`2021 – Present`}</span>
 									</div>
-									<div className="opacity-78">{t`Northwind Labs · Lisbon`}</div>
+									<div className="opacity-78">{t`Yizhan Commerce · Hangzhou`}</div>
 									<ul className="mt-[.6cqw] flex list-disc flex-col gap-[.4cqw] ps-[2.2cqw]">
 										<li>{designSystemBullet()}</li>
 										<li>
@@ -275,15 +276,15 @@ export function Sheet({ template = sheetTemplates[0] as SheetTemplate }: SheetPr
 								</div>
 								<div>
 									<div className="flex justify-between gap-[2cqw]">
-										<b className="font-semibold">{t`Product Designer`}</b>
+										<b className="font-semibold">{t`Backend Engineer`}</b>
 										<span className="grid justify-items-end whitespace-nowrap">
 											<span className="col-start-1 row-start-1 opacity-[calc(.7*(1-var(--dw,0)))]">{t`2017 – 2021`}</span>
 											<span className="col-start-1 row-start-1 -mx-[.5cqw] rounded-[.4cqw] bg-[oklch(0.92_0.09_85)] px-[.5cqw] text-[oklch(0.4_0.09_70)] opacity-[var(--dw,0)] shadow-[0_0_0_.3cqw_oklch(0.75_0.13_80)]">
-												{t`06/2017 – 2021`}
+												{t`06/2018 – 2021`}
 											</span>
 										</span>
 									</div>
-									<div className="opacity-78">{t`Parcel & Co. · Porto`}</div>
+									<div className="opacity-78">{t`Hexin Payment · Shanghai`}</div>
 									<ul className="mt-[.6cqw] list-disc ps-[2.2cqw]">
 										<li>
 											<AccessibilityBullet />
@@ -298,10 +299,10 @@ export function Sheet({ template = sheetTemplates[0] as SheetTemplate }: SheetPr
 								{t`Education`}
 							</Heading>
 							<div className="flex justify-between gap-[2cqw]">
-								<b className="font-semibold">{t`BA, Communication Design`}</b>
-								<span className="whitespace-nowrap opacity-70">{t`2013 – 2017`}</span>
+								<b className="font-semibold">{t`MSc, Computer Science`}</b>
+								<span className="whitespace-nowrap opacity-70">{t`2015 – 2018`}</span>
 							</div>
-							<div className="opacity-78">{t`University of Porto`}</div>
+							<div className="opacity-78">{t`Zhejiang University`}</div>
 						</section>
 					</div>
 
@@ -311,11 +312,11 @@ export function Sheet({ template = sheetTemplates[0] as SheetTemplate }: SheetPr
 								{t`Skills`}
 							</Heading>
 							<div className="flex flex-col gap-[.3cqw]">
-								<span>{t`Design systems`}</span>
-								<span>{t`User research`}</span>
-								<span>{t`Accessibility`}</span>
-								<span>{t`Prototyping`}</span>
-								<span>{t`Figma, HTML and CSS`}</span>
+								<span>{t`Trading systems`}</span>
+								<span>{t`Capacity planning`}</span>
+								<span>{t`Reliability`}</span>
+								<span>{t`High concurrency`}</span>
+								<span>{t`Go, MySQL and Redis`}</span>
 								<span className="block max-h-[calc(var(--kwd,0)*3em)] overflow-hidden opacity-[var(--kwd,0)]">
 									<Keyword id="d">{t`Cross-functional leadership`}</Keyword>
 								</span>
@@ -326,9 +327,8 @@ export function Sheet({ template = sheetTemplates[0] as SheetTemplate }: SheetPr
 								{t`Languages`}
 							</Heading>
 							<div className="flex flex-col gap-[.3cqw]">
-								<span>{t`English (native)`}</span>
-								<span>{t`Portuguese (native)`}</span>
-								<span>{t`Spanish (B2)`}</span>
+								<span>{t`Chinese (native)`}</span>
+								<span>{t`English (CET-6 604)`}</span>
 							</div>
 						</section>
 					</div>

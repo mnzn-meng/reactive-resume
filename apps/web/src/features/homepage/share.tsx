@@ -56,7 +56,7 @@ export function Share() {
 	const ready = useLanding((state) => state.shareReady);
 	const [format, setFormat] = useState(0);
 	const chosen = formats[format] ?? formats[0];
-	const fileName = `alex-morgan-resume.${chosen?.extension ?? "pdf"}`;
+	const fileName = `chen-mo-resume.${chosen?.extension ?? "pdf"}`;
 	const label = t`Export`;
 
 	return (
