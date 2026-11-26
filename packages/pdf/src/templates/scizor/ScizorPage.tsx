@@ -15,6 +15,7 @@ import {
 } from "../shared/contact-item";
 import { TemplateProvider } from "../shared/context";
 import { filterSections } from "../shared/filtering";
+import { headerSubtitle } from "../shared/header-line";
 import { getTemplateMetrics } from "../shared/metrics";
 import { hasTemplatePicture } from "../shared/picture";
 import {
@@ -91,7 +92,7 @@ const Header = ({ styles }: ScizorHeaderProps) => {
 			<View style={styles.headerIdentity}>
 				<Heading style={styles.headerName}>{basics.name}</Heading>
 				<SemanticTemplatePartView partKeys={["header-name-rule"]} style={styles.headerNameRule} />
-				{basics.headline && <Text style={styles.headerHeadline}>{basics.headline}</Text>}
+				{headerSubtitle(basics) && <Text style={styles.headerHeadline}>{headerSubtitle(basics)}</Text>}
 
 				<SemanticContactListView style={styles.headerContactRow}>
 					<LocationContactItem location={basics.location} style={styles.headerContactItem} />

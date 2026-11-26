@@ -411,7 +411,9 @@ export function EntryFields({
 					<Text {...props} field="school" label={<Trans>School</Trans>} wide autoFocus={autoFocus} />
 					<Text {...props} field="degree" label={<Trans>Degree</Trans>} />
 					<Text {...props} field="area" label={<Trans>Area of study</Trans>} />
-					<Text {...props} field="grade" label={<Trans>Grade</Trans>} />
+					<Text {...props} field="grade" label={<Trans>GPA or rank</Trans>} />
+					<Text {...props} field="schoolTag" label={<Trans>School tier</Trans>} />
+					<Text {...props} field="studyMode" label={<Trans>Study mode</Trans>} />
 					<Text {...props} field="location" label={<Trans>Location</Trans>} />
 					<Dates {...props} expectable />
 					<Link {...props} />

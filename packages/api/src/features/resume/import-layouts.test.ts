@@ -38,7 +38,8 @@ it.each(shipped)("preserves complete shipped identity and work history / $templa
 			`${c.template}.pdf`,
 		),
 	);
-	expect(data.basics).toEqual(c.basics);
+	// A PDF carries no job intent; the importer leaves it empty, and the comparison ignores that key.
+	expect({ ...data.basics, jobIntent: undefined }).toEqual(c.basics);
 	expect(pdfExperienceFields(data.sections.experience.items)).toEqual(c.experience);
 	expect(data.customSections.filter((section) => section.title !== "Community")).toEqual([]);
 });
@@ -51,7 +52,7 @@ it.each(pdfImportCases)(
 		const expectedBasics = { ...source.basics };
 		if (c.template === "persian") expectedBasics.name = "JORDAN SAMPLE";
 		if (c.template === "smeargle") expectedBasics.headline = "P R O D U C T & P L A T F O R M L E A D";
-		expect(data.basics).toEqual(expectedBasics);
+		expect({ ...data.basics, jobIntent: undefined }).toEqual({ ...expectedBasics, jobIntent: undefined });
 		expect(pdfExperienceFields(data.sections.experience.items)).toEqual(
 			pdfExperienceFields(source.sections.experience.items),
 		);
@@ -64,7 +65,7 @@ it.each(pdfImportCases)(
 );
 it("keeps a wrapped rail contact as identity and preserves every displayed name character", async () => {
 	const data = await save(new File([readFileSync(new URL("./fixtures/glalie-rail.pdf", import.meta.url))], "rail.pdf"));
-	expect(data.basics).toEqual({
+	expect({ ...data.basics, jobIntent: undefined }).toEqual({
 		name: "Fiction al Review er",
 		headline: "",
 		email: "reviewer@example.invalid",

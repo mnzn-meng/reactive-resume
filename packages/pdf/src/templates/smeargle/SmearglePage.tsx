@@ -16,6 +16,7 @@ import {
 import { TemplateProvider } from "../shared/context";
 import { getFeaturedSummaryLayout } from "../shared/featured-summary";
 import { filterSections } from "../shared/filtering";
+import { headerSubtitle } from "../shared/header-line";
 import { getTemplateMetrics } from "../shared/metrics";
 import { hasTemplatePicture } from "../shared/picture";
 import {
@@ -113,7 +114,7 @@ const Header = ({ styles }: SmeargleHeaderProps) => {
 	return (
 		<SemanticHeaderView style={styles.header}>
 			<View style={styles.headerTitle}>
-				{basics.headline && <Text style={styles.headerKicker}>{basics.headline}</Text>}
+				{headerSubtitle(basics) && <Text style={styles.headerKicker}>{headerSubtitle(basics)}</Text>}
 				<Heading style={styles.headerName}>{basics.name}</Heading>
 
 				<SemanticContactListView style={styles.contactList}>

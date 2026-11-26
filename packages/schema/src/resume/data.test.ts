@@ -82,6 +82,15 @@ it("defaults fields that resumes saved before they existed leave out", () => {
 	);
 });
 
+it("reads a resume saved before the job intent existed", () => {
+	const legacy = JSON.parse(JSON.stringify(defaultResumeData));
+	delete legacy.basics.jobIntent;
+
+	const parsed = resumeDataSchema.parse(legacy);
+	expect(parsed.basics.jobIntent).toBeUndefined();
+	expect(defaultResumeData.basics.jobIntent).toBeUndefined();
+});
+
 it("drops a cover-letter section saved before the feature was removed, and its layout entries", () => {
 	const legacy = JSON.parse(JSON.stringify(defaultResumeData));
 	legacy.customSections.push({

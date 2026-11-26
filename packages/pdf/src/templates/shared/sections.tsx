@@ -1299,7 +1299,12 @@ const EducationSection = ({ sectionId = "education", sectionData }: ItemSectionP
 					const roleFirst = leadsWithRole(entry.lead, "education", item);
 					const hasArea = Boolean(item.area.trim());
 					const hasDegree = Boolean(item.degree.trim());
-					const school = { field: "school", value: item.school, website: item.website };
+					// The tier and the study mode ride on the fields they qualify, so the line reads the way the document does.
+					const tier = item.schoolTag?.trim() ?? "";
+					const mode = item.studyMode?.trim() ?? "";
+					const schoolText = tier ? `${item.school}（${tier}）` : item.school;
+					const degreeText = mode ? `${item.degree}（${mode}）` : item.degree;
+					const school = { field: "school", value: schoolText, website: item.website };
 					const area = { field: "area", value: item.area };
 
 					const renderInlineHeader = () => (
@@ -1312,14 +1317,14 @@ const EducationSection = ({ sectionId = "education", sectionData }: ItemSectionP
 										separator=" "
 										runs={[
 											{ ...area, bold: roleFirst },
-											{ field: "degree", value: item.degree, prefix: "(", suffix: ")" },
+											{ field: "degree", value: degreeText, prefix: "(", suffix: ")" },
 										]}
 									/>
 								) : null
 							}
 							middle={
 								<ItemTitle field="school" website={item.website} bold={!roleFirst}>
-									{item.school}
+									{schoolText}
 								</ItemTitle>
 							}
 							trailing={
@@ -1334,7 +1339,7 @@ const EducationSection = ({ sectionId = "education", sectionData }: ItemSectionP
 					const renderSplitHeader = () => {
 						const pairs = {
 							"education-degree-grade": [
-								{ field: "degree", value: item.degree },
+								{ field: "degree", value: degreeText },
 								{ field: "grade", value: item.grade },
 							],
 							"education-location-period": [
@@ -1360,7 +1365,7 @@ const EducationSection = ({ sectionId = "education", sectionData }: ItemSectionP
 										<ItemTitle field="area">{item.area}</ItemTitle>
 									) : (
 										<ItemTitle field="school" website={item.website}>
-											{item.school}
+											{schoolText}
 										</ItemTitle>
 									)}
 									{(hasFirst || hasSecondPair) && pairRuns(hasFirst ? firstHost : secondHost)}
@@ -1371,7 +1376,7 @@ const EducationSection = ({ sectionId = "education", sectionData }: ItemSectionP
 										{hasSecond &&
 											(roleFirst ? (
 												<ItemTitle field="school" website={item.website} bold={false}>
-													{item.school}
+													{schoolText}
 												</ItemTitle>
 											) : (
 												<Text semanticField="area">{item.area}</Text>
@@ -1392,7 +1397,7 @@ const EducationSection = ({ sectionId = "education", sectionData }: ItemSectionP
 								lead={roleFirst ? area : school}
 								runs={[
 									roleFirst ? school : area,
-									{ field: "degree", value: item.degree },
+									{ field: "degree", value: degreeText },
 									{ field: "location", value: item.location },
 									{ field: "grade", value: item.grade },
 								]}

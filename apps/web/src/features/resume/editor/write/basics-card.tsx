@@ -32,6 +32,21 @@ export function BasicsView({ locked }: { locked: boolean }) {
 	const write = useBasicsWriter();
 	const updateResumeData = useUpdateResumeData();
 
+	// The intent is optional on older documents, so every write starts from a full object.
+	const intent = (key: "position" | "city" | "availability") => ({
+		value: basics.jobIntent?.[key] ?? "",
+		onChange: (value: string) =>
+			write(`jobIntent.${key}`, (target) => {
+				target.jobIntent = {
+					position: "",
+					city: "",
+					availability: "",
+					...target.jobIntent,
+					[key]: value,
+				};
+			}),
+	});
+
 	const text = (key: TextKey) => ({
 		value: basics[key],
 		onChange: (value: string) =>
@@ -54,6 +69,9 @@ export function BasicsView({ locked }: { locked: boolean }) {
 					{...text("name")}
 				/>
 				<TextField label={<Trans>Headline</Trans>} wide {...text("headline")} />
+				<TextField label={<Trans>Target role</Trans>} wide {...intent("position")} />
+				<TextField label={<Trans>Preferred city</Trans>} {...intent("city")} />
+				<TextField label={<Trans>Available from</Trans>} {...intent("availability")} />
 				{/* Addresses run long: Email gets a full row, also in a narrow panel. */}
 				<TextField
 					label={<Trans>Email</Trans>}

@@ -29,6 +29,7 @@ export const latinSampleResumeData: ResumeData = {
 			url: "https://davidkowalski.games",
 			label: "davidkowalski.games",
 		},
+		jobIntent: { position: "", city: "", availability: "" },
 		customFields: [
 			{
 				id: "019bef5a-0477-77e0-968b-5d0e2ecb34e3",
@@ -112,6 +113,8 @@ export const latinSampleResumeData: ResumeData = {
 					degree: "Bachelor of Science",
 					area: "Computer Science",
 					grade: "3.6 GPA",
+					schoolTag: "State university",
+					studyMode: "Full-time",
 					location: "Seattle, WA",
 					period: "2014 - 2018",
 					website: {

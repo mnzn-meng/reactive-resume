@@ -19,6 +19,7 @@ import {
 import { semanticNodeKeys } from "../../semantic/node-keys";
 import { Link as PdfLink, Text as PdfText } from "../../text";
 import { useTemplateIconSlot, useTemplatePageNodeKey, useTemplateStyle } from "./context";
+import { headerSubtitle } from "./header-line";
 import { resolveIconSize } from "./icon-size";
 import { getPictureShadow } from "./picture-shadow";
 import { safeTextStyle } from "./safe-text-style";
@@ -89,7 +90,7 @@ const usePrimitiveNodeKey = ({
 
 	if (parentKey.endsWith("/header")) {
 		if (heading && children === data.basics.name) return semanticNodeKeys.headerPart(parentKey, "name");
-		if (!heading && children === data.basics.headline) return semanticNodeKeys.headerPart(parentKey, "headline");
+		if (!heading && children === headerSubtitle(data.basics)) return semanticNodeKeys.headerPart(parentKey, "headline");
 	}
 
 	if (heading && parentKey.includes("/section-") && !parentKey.includes("/section-items")) {

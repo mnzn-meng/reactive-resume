@@ -25,6 +25,7 @@ export const sampleResumeData: ResumeData = {
 			url: "https://chenmo.dev",
 			label: "chenmo.dev",
 		},
+		jobIntent: { position: "后端工程师", city: "杭州", availability: "一个月内到岗" },
 		customFields: [
 			{
 				id: "019bef5a-0477-77e0-968b-5d0e2ecb34e3",
@@ -142,6 +143,8 @@ export const sampleResumeData: ResumeData = {
 					degree: "硕士",
 					area: "计算机科学与技术",
 					grade: "GPA 3.9/4.0（专业前 5%）",
+					schoolTag: "985/211/双一流",
+					studyMode: "全日制",
 					location: "杭州",
 					period: "2015.09 - 2018.06",
 					website: {

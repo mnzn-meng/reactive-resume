@@ -15,6 +15,7 @@ import {
 } from "../shared/contact-item";
 import { TemplateProvider } from "../shared/context";
 import { filterSections } from "../shared/filtering";
+import { headerSubtitle } from "../shared/header-line";
 import { getTemplateMetrics } from "../shared/metrics";
 import { hasTemplatePicture } from "../shared/picture";
 import {
@@ -79,7 +80,7 @@ function Header({ styles }: PersianHeaderProps) {
 		<SemanticHeaderView style={styles.header}>
 			<View style={styles.headerIdentity}>
 				<Heading style={styles.headerName}>{basics.name}</Heading>
-				{basics.headline && <Text style={styles.headerHeadline}>{basics.headline}</Text>}
+				{headerSubtitle(basics) && <Text style={styles.headerHeadline}>{headerSubtitle(basics)}</Text>}
 				<SemanticContactListView style={styles.contactList}>
 					<PhoneContactItem phone={basics.phone} style={styles.contactItem} textStyle={styles.contactText} />
 					<EmailContactItem email={basics.email} style={styles.contactItem} textStyle={styles.contactText} />

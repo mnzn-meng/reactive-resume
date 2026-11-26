@@ -17,6 +17,7 @@ import {
 } from "../shared/contact-item";
 import { TemplateProvider } from "../shared/context";
 import { filterSections } from "../shared/filtering";
+import { headerSubtitle } from "../shared/header-line";
 import { getTemplateMetrics } from "../shared/metrics";
 import { hasTemplatePicture } from "../shared/picture";
 import {
@@ -127,7 +128,7 @@ const Header = ({ styles }: LeafishHeaderProps) => {
 					<View style={styles.headerTitle}>
 						<View style={styles.headerIdentity}>
 							<Heading style={styles.headerName}>{basics.name}</Heading>
-							<Text>{basics.headline}</Text>
+							<Text>{headerSubtitle(basics)}</Text>
 						</View>
 
 						<Section section="summary" placement="main" />

@@ -100,6 +100,13 @@ const customFieldSchema = z.object({
 	link: z.string().describe("If the custom field should be a link, the URL to link to.").catch(""),
 });
 
+/** What the applicant is asking for: the line a Chinese resume prints under the name. */
+const jobIntentSchema = z.object({
+	position: z.string().catch("").describe("The role the resume is aimed at."),
+	city: z.string().catch("").describe("The city the applicant wants to work in."),
+	availability: z.string().catch("").describe("When the applicant can start, in their own words."),
+});
+
 export const basicsSchema = z.object({
 	name: z.string().describe("The full name of the author of the resume."),
 	headline: z.string().describe("The headline of the author of the resume."),
@@ -108,6 +115,9 @@ export const basicsSchema = z.object({
 	location: z.string().describe("The location of the author of the resume."),
 	website: websiteSchema.describe("The website of the author of the resume."),
 	customFields: z.array(customFieldSchema).describe("The custom fields to display on the resume."),
+	jobIntent: jobIntentSchema
+		.optional()
+		.describe("The role, city and start date the applicant is asking for. Empty parts are not printed."),
 });
 
 const summarySchema = z.object({
@@ -176,7 +186,12 @@ export const educationItemSchema = baseItemSchema.extend({
 		.describe("The name of the school or institution. Empty while the entry is a draft, which isn't printed."),
 	degree: z.string().describe("The degree or qualification obtained."),
 	area: z.string().describe("The area of study or specialization."),
-	grade: z.string().describe("The grade or score achieved."),
+	grade: z.string().describe("The grade or score achieved: a GPA, or a class rank such as '前 5%'."),
+	schoolTag: z
+		.string()
+		.optional()
+		.describe("A short label for the school, such as 985, 211 or 双一流. Absent prints nothing extra."),
+	studyMode: z.string().optional().describe("Full-time or part-time study, in the applicant's own words."),
 	location: z.string().describe("The location of the school or institution."),
 	period: z
 		.string()

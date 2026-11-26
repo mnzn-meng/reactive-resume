@@ -14,6 +14,7 @@ import {
 	hasContactDetails,
 	WebsiteContactItem,
 } from "./contact-item";
+import { headerSubtitle } from "./header-line";
 import { getTemplateMetrics } from "./metrics";
 import { hasTemplatePicture } from "./picture";
 import { Heading, SemanticContactListView, SemanticHeaderPicture, SemanticHeaderView, Text } from "./primitives";
@@ -92,7 +93,7 @@ export const TemplateHeader = ({
 			<View style={styles.title}>
 				<View style={styles.identity}>
 					<Heading style={styles.name}>{basics.name}</Heading>
-					<Text>{basics.headline}</Text>
+					<Text>{headerSubtitle(basics)}</Text>
 				</View>
 				{!contactListOutsideTitle && contactList}
 			</View>
