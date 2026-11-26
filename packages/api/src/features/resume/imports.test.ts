@@ -4,7 +4,8 @@ import { expect, it, vi } from "vite-plus/test";
 import { call } from "@orpc/server";
 import { createResumePdfFile } from "@zhiye/pdf/server";
 import { defaultResumeData } from "@zhiye/schema/resume/default";
-import { sampleResumeData } from "@zhiye/schema/resume/sample";
+// Rendering these PDFs happens in Node, where no CJK face is available; the Latin fixture is the one that reads back.
+import { latinSampleResumeData as sampleResumeData } from "@zhiye/schema/resume/sample-latin";
 import { generateId } from "@zhiye/utils/string";
 import { importMatrixTemplates } from "./fixtures/pdf-import";
 const create = vi.hoisted(() => vi.fn());

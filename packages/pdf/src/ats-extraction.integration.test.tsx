@@ -13,7 +13,7 @@ import {
 	harvestPdfDocument,
 	PDF_OPS,
 } from "@zhiye/resume/ats-pdf";
-import { sampleResumeData } from "@zhiye/schema/resume/sample";
+import { latinSampleResumeData } from "@zhiye/schema/resume/sample-latin";
 import { ResumeDocument } from "./document";
 import { renderToBuffer } from "./forme/testing";
 
@@ -86,7 +86,7 @@ describe("a resume rendered by this app", () => {
 	 * so a false positive shows up as a failing assertion rather than as lost trust.
 	 */
 	it("reports nothing that would cost a single-column export points", { timeout: 60_000 }, async () => {
-		const data = structuredClone(sampleResumeData);
+		const data = structuredClone(latinSampleResumeData);
 		// Sample content mixes month/year and year-only periods; this fixture needs consistent dates.
 		for (const section of [...Object.values(data.sections), ...data.customSections]) {
 			for (const item of section.items) {

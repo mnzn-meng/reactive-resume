@@ -13,26 +13,56 @@ import { extractPageMap, measureOverflow, parseResumeNodeKey } from "./page-map"
 // The sample's picture points at a web path that doesn't exist in Node; hide it so renders stay quiet.
 const data: ResumeData = { ...sampleResumeData, picture: { ...sampleResumeData.picture, hidden: true } };
 
+/**
+ * A document long enough to spill past every authored page, whatever the sample holds this month. Each authored
+ * page carries more entries than fits, so the test checks the mapping rather than the sample's own length.
+ */
+const longData: ResumeData = (() => {
+	const next = structuredClone(data);
+	const repeat = <T extends { id: string }>(items: readonly T[], count: number): T[] =>
+		Array.from({ length: count }, (_, index) => {
+			const source = items[index % Math.max(items.length, 1)];
+			if (!source) throw new Error("The sample section this test pads is empty.");
+			return { ...structuredClone(source), id: `${source.id}-pad-${index}` };
+		});
+
+	next.sections.experience.items = repeat(next.sections.experience.items, 12);
+	next.sections.projects.items = repeat(next.sections.projects.items, 10);
+	const [custom] = next.customSections;
+	if (custom?.items?.length) custom.items = repeat(custom.items, 10);
+	return next;
+})();
+
 const renderPageMap = async (template: Template): Promise<PageMap> =>
 	(await renderResume(forme, { data, template })).pageMap;
 
 describe("authored page overflow", () => {
 	it.each(["onyx", "rhyhorn", "lapras", "porygon"] as const)(
-		"maps the sample's early spill pages in %s",
+		"maps the pages a long document spills onto in %s",
 		async (template) => {
-			const rendered = await act(() => renderResume(forme, { data, template }));
+			const rendered = await act(() => renderResume(forme, { data: longData, template }));
 			const pageMap = rendered.pageMap;
-			const overflow = measureOverflow(data, { pageMap, pageCount: pageMap.pages.length });
-			expect(pageMap.pages).toHaveLength(5);
-			expect(overflow?.spills.map(({ authoredPage, pages }) => ({ authoredPage, pages }))).toEqual([
-				{ authoredPage: 1, pages: [2] },
-				{ authoredPage: 2, pages: [4] },
-			]);
-			expect(overflow?.spills[0]?.lines).toBeGreaterThan(0);
+			const authored = longData.metadata.layout.pages.length;
+			expect(pageMap.pages.length).toBeGreaterThan(authored);
+
+			const overflow = measureOverflow(longData, { pageMap, pageCount: pageMap.pages.length });
+			expect(overflow?.authored).toBe(authored);
+			expect(overflow?.spills.length).toBeGreaterThan(0);
+
+			for (const spill of overflow?.spills ?? []) {
+				// A spill is the run of pages after the authored page, in order, each one carrying more of its content.
+				expect(spill.pages[0]).toBeGreaterThan(spill.authoredPage);
+				expect(spill.pages).toEqual([...spill.pages].sort((left, right) => left - right));
+				expect(spill.pages.every((page, index) => index === 0 || page === (spill.pages[index - 1] ?? 0) + 1)).toBe(
+					true,
+				);
+				expect(spill.lines).toBeGreaterThan(0);
+			}
+
 			const loading = getDocument({ data: rendered.pdf.slice(), useSystemFonts: true });
 			try {
 				const pdf = await loading.promise;
-				const lineHeight = data.metadata.typography.body.fontSize * data.metadata.typography.body.lineHeight;
+				const lineHeight = longData.metadata.typography.body.fontSize * longData.metadata.typography.body.lineHeight;
 				for (const spill of overflow?.spills ?? []) {
 					let height = 0;
 					for (const number of spill.pages) {

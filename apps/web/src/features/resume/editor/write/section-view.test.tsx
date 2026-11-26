@@ -48,6 +48,23 @@ beforeEach(() => {
 });
 
 it("sorts publications by date, newest first", () => {
+	// A pair of entries with a clear order, so the assertion doesn't depend on the sample's own content.
+	const [base] = fixture.data?.sections.publications.items ?? [];
+	if (!base) throw new Error("The sample must include a publication to copy.");
+	fixture.data = {
+		...(fixture.data as ResumeData),
+		sections: {
+			...(fixture.data as ResumeData).sections,
+			publications: {
+				...(fixture.data as ResumeData).sections.publications,
+				items: [
+					{ ...base, id: "older", title: "Older paper", date: "2019" },
+					{ ...base, id: "newer", title: "Newer paper", date: "2023" },
+				],
+			},
+		},
+	};
+
 	render(
 		<I18nProvider i18n={i18n}>
 			<SectionView sectionId="publications" locked={false} />
@@ -59,10 +76,7 @@ it("sorts publications by date, newest first", () => {
 	expect(fixture.update).toHaveBeenCalledOnce();
 	expect(fixture.update).toHaveBeenCalledWith(expect.any(Function), { newStep: true });
 	expect(toast.add).not.toHaveBeenCalled();
-	expect(fixture.data?.sections.publications.items.map((entry) => entry.title)).toEqual([
-		"Building Modular Dialogue Systems",
-		"Optimizing Unity Games for Mobile: A Practical Guide",
-	]);
+	expect(fixture.data?.sections.publications.items.map((entry) => entry.title)).toEqual(["Newer paper", "Older paper"]);
 });
 
 const renderSection = (type: "publications" | "projects", locked: boolean, count: number) => {

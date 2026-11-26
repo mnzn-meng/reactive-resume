@@ -2,7 +2,8 @@ import { beforeEach, expect, it, vi } from "vite-plus/test";
 import { call } from "@orpc/server";
 import { unzipSync, strFromU8 } from "fflate";
 import { defaultResumeData } from "@zhiye/schema/resume/default";
-import { sampleResumeData } from "@zhiye/schema/resume/sample";
+// The PDF is rendered and read back in Node, which has no CJK face; the Latin fixture is the readable one.
+import { latinSampleResumeData as sampleResumeData } from "@zhiye/schema/resume/sample-latin";
 
 const getResume = vi.hoisted(() => vi.fn());
 vi.mock("../resume/service", () => ({ resumeService: { getById: getResume } }));
