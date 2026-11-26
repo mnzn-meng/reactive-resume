@@ -28,23 +28,23 @@ const pillAccent = "bg-accent-soft text-[oklch(0.36_0.1_150)] dark:text-accent-t
 const getHeadline = () =>
 	[
 		t({
-			message: "A free",
-			comment: "Hero headline, line 1 of 4: A free / resume builder / and / career manager.",
+			message: "Turn your",
+			comment: "Hero headline, line 1 of 4: Turn your / Chinese resume / into one page, / ready to send.",
 		}),
 		t({
-			message: "resume builder",
+			message: "Chinese resume",
 			comment:
-				"Hero headline, line 2 of 4: A free / resume builder / and / career manager. Lines 2 and 4 are highlighted: keep each a complete phrase.",
+				"Hero headline, line 2 of 4: Turn your / Chinese resume / into one page, / ready to send. Lines 2 and 4 are highlighted: keep each a complete phrase.",
 		}),
 		t({
-			message: "and",
+			message: "into one page,",
 			context: "hero headline",
-			comment: "Hero headline, line 3 of 4: A free / resume builder / and / career manager.",
+			comment: "Hero headline, line 3 of 4: Turn your / Chinese resume / into one page, / ready to send.",
 		}),
 		t({
-			message: "career manager.",
+			message: "ready to send.",
 			comment:
-				"Hero headline, line 4 of 4: A free / resume builder / and / career manager. Lines 2 and 4 are highlighted: keep each a complete phrase.",
+				"Hero headline, line 4 of 4: Turn your / Chinese resume / into one page, / ready to send. Lines 2 and 4 are highlighted: keep each a complete phrase.",
 		}),
 	] as const;
 
@@ -269,7 +269,7 @@ export function Hero() {
 
 				<div className="absolute inset-x-(--gutter) bottom-[clamp(20px,4vh,40px)] z-2 flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
 					<p className="max-w-full font-display text-base leading-[1.45] text-pretty text-ink-2 min-[900px]:max-w-[min(25em,calc(50vw-var(--pw)/2-5vw))] min-[900px]:text-[clamp(17px,1.3vw,20px)]">
-						{t`Build a professional resume, download it as PDF or Word, and manage your job search in one place. Free templates, no ads, no paywall.`}
+						{t`Build a one-page Chinese resume in minutes, export PDF or Word for free without a watermark, and keep every application in one place.`}
 					</p>
 					<div className="flex flex-col items-end gap-2">
 						<CtaLink size="hero" />

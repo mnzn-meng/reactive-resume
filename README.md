@@ -77,7 +77,7 @@ You own your data. No tracking, no ads, and no paid tier. Optional AI features u
 
 **Privacy and Control**
 
-- Self-host with Docker, Vercel, Cloudflare Workers, or a 1-click deploy on Hostinger
+- Self-host with Docker, Vercel, or Cloudflare Workers
 - No tracking or ads; export your account data or delete your account
 - Passkeys and linked sign-in providers
 - English and Simplified Chinese interfaces, light/dark/system themes, and reduced-motion support
@@ -232,22 +232,11 @@ The full documentation lives at [docs.zhiye.example](https://docs.zhiye.example)
 
 | Option                                          | Best for                                      | Guide                                                                                                                       |
 | ----------------------------------------------- | --------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| [Hostinger](#hostinger)                         | A ready-made VPS with no setup                | [Hostinger guide](https://docs.zhiye.example/self-hosting/hostinger)                                                        |
 | [Vercel](#vercel)                               | Serverless, with managed database and storage | [Vercel guide](https://docs.zhiye.example/self-hosting/vercel)                                                              |
 | [Cloudflare Workers](#cloudflare-workers)       | Workers, R2 and your own PostgreSQL           | [Cloudflare guide](https://docs.zhiye.example/self-hosting/cloudflare)                                                      |
 | [Docker and Kubernetes](#docker-and-kubernetes) | Your own server, homelab or cluster           | [Docker](https://docs.zhiye.example/self-hosting/docker) · [Kubernetes](https://docs.zhiye.example/self-hosting/kubernetes) |
 
 > **PDF generation in v6** uses Forme in the browser and on the server. No Browserless, Chromium, or external print service is needed. Legacy `PRINTER_*` and `BROWSERLESS_*` environment variables can be removed.
-
-### Hostinger
-
-The quickest way to get going is a 1-click deploy on Hostinger, starting at $6.49/month. Their VPS plans include a ready-made Docker template that provisions the environment and brings the app up for you, with weekly backups and a Docker manager UI included — so you can skip the setup entirely.
-
-<a href="https://www.hostg.xyz/aff_c?offer_id=48&amp;aff_id=232413&amp;url_id=6857">
-  <img src="https://assets.hostinger.com/vps/deploy.svg" alt="Deploy on Hostinger" width="148" height="32" />
-</a>
-
-See the [Hostinger guide](https://docs.zhiye.example/self-hosting/hostinger) for what the template sets up and what to configure afterwards, such as email, your own domain, and turning off sign-ups.
 
 ### Vercel
 

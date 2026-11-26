@@ -12,20 +12,20 @@ export const createNoindexFollowMeta = () => ({ name: "robots", content: "noinde
 
 /** The homepage's title and description in the active locale. The prerendered page and the route share them. */
 export const getHomepageMeta = () => ({
-	title: `${t`Free resume builder with PDF & Word downloads`} | ${appName}`,
-	description: t`Free resume builder. Create, update, and share your resume, with PDF and Word downloads, no ads and no paywall.`,
+	title: `${t`Chinese resume builder: one page, PDF & Word`} | ${appName}`,
+	description: t`Build a one-page Chinese resume with structured fields and Chinese typography, check that software can read the PDF, and export PDF or Word for free without a watermark.`,
 });
 
 /** The ATS checker's title and description in the active locale. The prerendered page and the route share them. */
 export const getAtsCheckerMeta = () => ({
-	title: `${t`Free ATS resume checker`} | ${appName}`,
+	title: `${t`Resume readability check`} | ${appName}`,
 	// Keep under ~120 characters so Google's mobile SERP snippet is not truncated at 3 lines.
-	description: t`Check whether software can read your resume PDF. Runs entirely in your browser, so your file is never uploaded.`,
+	description: t`Check whether screening software can read your resume PDF. Runs entirely in your browser, so your file is never uploaded.`,
 });
 
 export const getTemplatesMeta = () => ({
-	title: `${t`Free resume templates with PDF examples`} | ${appName}`,
-	description: t`Browse free resume templates, compare one-column and two-column layouts, and download sample PDFs. Customize your resume and export to PDF or Word.`,
+	title: `${t`Free Chinese resume templates with PDF samples`} | ${appName}`,
+	description: t`Browse free Chinese resume templates, compare one-column and two-column layouts, and download sample PDFs. Customize your resume and export to PDF or Word.`,
 });
 
 /** Shared app and saved-document tab title. Marketing pages keep their own search titles. */

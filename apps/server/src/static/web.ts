@@ -127,15 +127,15 @@ function htmlResponse(html: string, headers: Record<string, string>, template = 
 
 // The English copy, for a build without prerendered pages; a prerendered page carries its own locale's title and
 // description, and the social cards reuse them.
-const ROOT_TITLE = "Free resume builder with PDF &amp; Word downloads | 职页";
+const ROOT_TITLE = "Chinese resume builder: one page, PDF &amp; Word | 职页";
 const ROOT_DESCRIPTION =
-	"Free resume builder. Create, update, and share your resume, with PDF and Word downloads, no ads and no paywall.";
-const ATS_CHECKER_TITLE = "Free ATS resume checker | 职页";
+	"Build a one-page Chinese resume with structured fields and Chinese typography, check that software can read the PDF, and export PDF or Word for free without a watermark.";
+const ATS_CHECKER_TITLE = "Resume readability check | 职页";
 const ATS_CHECKER_DESCRIPTION =
-	"Check whether software can read your resume PDF. Runs entirely in your browser, so your file is never uploaded.";
-const TEMPLATES_TITLE = "Free resume templates with PDF examples | 职页";
+	"Check whether screening software can read your resume PDF. Runs entirely in your browser, so your file is never uploaded.";
+const TEMPLATES_TITLE = "Free Chinese resume templates with PDF samples | 职页";
 const TEMPLATES_DESCRIPTION =
-	"Browse free resume templates, compare one-column and two-column layouts, and download sample PDFs. Customize your resume and export to PDF or Word.";
+	"Browse free Chinese resume templates, compare one-column and two-column layouts, and download sample PDFs. Customize your resume and export to PDF or Word.";
 
 type StructuredData = Record<string, unknown>;
 
