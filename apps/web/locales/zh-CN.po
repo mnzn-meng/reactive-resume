@@ -743,7 +743,7 @@ msgstr "找到 {0}，{unreadable} 不可读"
 msgid "{0} free resume templates"
 msgstr "{0} 个免费简历模板"
 
-#. placeholder {0}: template.name
+#. placeholder {0}: i18n._(template.name)
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "{0} has one column."
 msgstr "{0} 为单栏。"
@@ -753,7 +753,7 @@ msgstr "{0} 为单栏。"
 msgid "{0} has one weight"
 msgstr "{0} 只有一种字重"
 
-#. placeholder {0}: template.name
+#. placeholder {0}: i18n._(template.name)
 #: src/routes/builder/$resumeId/-components/design-panel.tsx
 msgid "{0} has two columns: a sidebar and a main column."
 msgstr "{0} 为双栏：侧栏和主栏。"
@@ -923,7 +923,7 @@ msgstr "{0}/5 部分"
 msgid "{0} posting"
 msgstr "{0} 职位发布"
 
-#. placeholder {0}: templates[id].name
+#. placeholder {0}: i18n._(templates[id].name)
 #: src/features/templates/gallery.tsx
 msgid "{0} resume template preview"
 msgstr "{0} 简历模板预览"
@@ -2197,6 +2197,11 @@ msgstr "说出来大约 90 秒"
 #: src/features/applications/components/application-detail-sheet.tsx
 msgid "About the job"
 msgstr "关于该职位"
+
+#: src/dialogs/resume/template/data.ts
+msgctxt "Template name"
+msgid "Academic"
+msgstr "学术"
 
 #: src/features/resume/editor/design/entries-group.tsx
 #: src/features/resume/editor/design/style-groups.tsx
@@ -3918,6 +3923,11 @@ msgid "Burgundy"
 msgstr "酒红色"
 
 #: src/dialogs/resume/template/data.ts
+msgctxt "Template name"
+msgid "Business"
+msgstr "商务"
+
+#: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
 msgid "Business analyst"
 msgstr "业务分析师"
@@ -4516,6 +4526,11 @@ msgid "Classic"
 msgstr "经典的"
 
 #: src/dialogs/resume/template/data.ts
+msgctxt "Template name"
+msgid "Classic"
+msgstr "经典"
+
+#: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
 msgid "Clean"
 msgstr "简洁"
@@ -4704,6 +4719,11 @@ msgstr "颜色"
 msgid "Color of {label}"
 msgstr "{label}的颜色"
 
+#: src/dialogs/resume/template/data.ts
+msgctxt "Template name"
+msgid "Column"
+msgstr "双列"
+
 #: src/features/applications/components/import-applications-sheet.tsx
 msgid "Column {header} goes to"
 msgstr "{header} 列转到"
@@ -4768,6 +4788,11 @@ msgstr "紧凑型"
 
 #: src/features/resume/editor/design/entries-group.tsx
 msgctxt "Entry header layout"
+msgid "Compact"
+msgstr "紧凑"
+
+#: src/dialogs/resume/template/data.ts
+msgctxt "Template name"
 msgid "Compact"
 msgstr "紧凑"
 
@@ -6014,6 +6039,11 @@ msgctxt "Template style tag"
 msgid "Creative"
 msgstr "创意"
 
+#: src/dialogs/resume/template/data.ts
+msgctxt "Template name"
+msgid "Crisp"
+msgstr "利落"
+
 #: src/features/resume/editor/write/picture-settings.tsx
 msgid "Crop and upload"
 msgstr "裁剪并上传"
@@ -7087,6 +7117,11 @@ msgid "Editorial"
 msgstr "社论"
 
 #: src/dialogs/resume/template/data.ts
+msgctxt "Template name"
+msgid "Editorial"
+msgstr "书卷"
+
+#: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
 msgid "Editorial"
 msgstr "编辑风"
@@ -8068,6 +8103,11 @@ msgstr "免费。文件从未离开您的浏览器。"
 msgid "French"
 msgstr "法语"
 
+#: src/dialogs/resume/template/data.ts
+msgctxt "Template name"
+msgid "Fresh"
+msgstr "清爽"
+
 #: src/features/homepage/prepare.tsx
 msgid "From"
 msgstr "从"
@@ -8148,6 +8188,11 @@ msgstr "来自您的定时任务"
 #: src/features/career/workspace/practise.tsx
 msgid "From your story"
 msgstr "来自您的故事"
+
+#: src/dialogs/resume/template/data.ts
+msgctxt "Template name"
+msgid "Frost"
+msgstr "霜白"
 
 #: src/features/resume/share/history-tab.tsx
 msgid "Frozen"
@@ -9270,7 +9315,7 @@ msgstr "两端对齐"
 msgid "Kannada"
 msgstr "卡纳达语"
 
-#. placeholder {0}: templates[current].name
+#. placeholder {0}: i18n._(templates[current].name)
 #: src/features/resume/editor/design/template-group.tsx
 msgid "Keep {0}"
 msgstr "保留 {0}"
@@ -9660,6 +9705,11 @@ msgstr "省略"
 #: src/features/homepage/sheet.tsx
 msgid "Led <0>capacity planning</0> for three sales peaks; 120k QPS held without adding on-call load."
 msgstr "为三次大促做<0>容量规划</0>，峰值 12 万 QPS 未增加值班负担。"
+
+#: src/dialogs/resume/template/data.ts
+msgctxt "Template name"
+msgid "Ledger"
+msgstr "账页"
 
 #: src/features/resume/editor/design/template-group.tsx
 msgid "Left"
@@ -10259,6 +10309,11 @@ msgstr "马拉地语"
 msgid "March 2022"
 msgstr "2022 年 3 月"
 
+#: src/dialogs/resume/template/data.ts
+msgctxt "Template name"
+msgid "Margin"
+msgstr "页边"
+
 #: src/routes/builder/$resumeId/-sidebar/right/sections/page.tsx
 msgid "Margins"
 msgstr "边距"
@@ -10441,9 +10496,19 @@ msgstr "上方的消息不再发送给 AI，因此它不会记住这些内容。
 msgid "Microphone blocked. Allow it in your browser settings, or type your answer."
 msgstr "麦克风已被阻止。请在浏览器设置中允许，或输入您的回答。"
 
+#: src/dialogs/resume/template/data.ts
+msgctxt "Template name"
+msgid "Midnight"
+msgstr "午夜"
+
 #: src/features/applications/components/application-detail-sheet.tsx
 msgid "min"
 msgstr "分钟"
+
+#: src/dialogs/resume/template/data.ts
+msgctxt "Template name"
+msgid "Minimal"
+msgstr "极简"
 
 #: src/dialogs/resume/template/data.ts
 msgctxt "Template style tag"
@@ -12906,6 +12971,11 @@ msgstr "精致"
 msgid "Portrait"
 msgstr "纵向"
 
+#: src/dialogs/resume/template/data.ts
+msgctxt "Template name"
+msgid "Portrait"
+msgstr "肖像"
+
 #: src/libs/locale.ts
 msgid "Portuguese (Brazil)"
 msgstr "葡萄牙语（巴西）"
@@ -13192,12 +13262,12 @@ msgstr "预设"
 msgid "Press <0>{RETURN_KEY}</0> to add or save the current keyword."
 msgstr "按 <0>{RETURN_KEY}</0> 添加或保存当前关键词。"
 
-#. placeholder {0}: templates[previewTemplate].name
+#. placeholder {0}: i18n._(templates[previewTemplate].name)
 #: src/routes/builder/$resumeId/-components/page-canvas.tsx
 msgid "Preview · {0} · Page {page} of {pages} · {formatLabel}"
 msgstr "预览 · {0} · 第 {page} 页，共 {pages} 页 · {formatLabel}"
 
-#. placeholder {0}: templates[id].name
+#. placeholder {0}: i18n._(templates[id].name)
 #: src/features/resume/editor/design/template-group.tsx
 msgid "Preview {0}"
 msgstr "预览 {0}"
@@ -16098,6 +16168,11 @@ msgstr "侧栏"
 msgid "Sidebar"
 msgstr "侧边栏"
 
+#: src/dialogs/resume/template/data.ts
+msgctxt "Template name"
+msgid "Sidebar"
+msgstr "侧栏"
+
 #: src/features/resume/editor/check/issues.ts
 msgid "Sidebar is read after the main column"
 msgstr "侧边栏在主栏之后阅读"
@@ -16457,6 +16532,11 @@ msgstr "西班牙语"
 msgid "Spanish (B2)"
 msgstr "西班牙语（B2）"
 
+#: src/dialogs/resume/template/data.ts
+msgctxt "Template name"
+msgid "Spark"
+msgstr "星火"
+
 #: src/features/career/workspace/practise.tsx
 msgid "Speak"
 msgstr "语音"
@@ -16573,6 +16653,11 @@ msgstr "仅显示阶段和日期。备注、联系人和薪酬保持私密。"
 #: src/features/applications/components/manage-lanes-sheet.tsx
 msgid "Stages, in order"
 msgstr "阶段（按顺序）"
+
+#: src/dialogs/resume/template/data.ts
+msgctxt "Template name"
+msgid "Standard"
+msgstr "标准"
 
 #: src/features/settings/profile.tsx
 msgid "Standard answers"
@@ -16800,6 +16885,11 @@ msgstr "更强的动词"
 msgctxt "Template style tag"
 msgid "Structured"
 msgstr "结构化"
+
+#: src/dialogs/resume/template/data.ts
+msgctxt "Template name"
+msgid "Studio"
+msgstr "画廊"
 
 #: src/features/resume/stylesheet/toolbar.tsx
 msgid "Stylesheet editor"
@@ -17131,7 +17221,7 @@ msgstr "泰卢固语"
 msgid "Template"
 msgstr "模板"
 
-#. placeholder {0}: templates[preview].name
+#. placeholder {0}: i18n._(templates[preview].name)
 #: src/features/resume/editor/design/template-group.tsx
 msgid "Template changed to {0}"
 msgstr "模板更改为{0}"

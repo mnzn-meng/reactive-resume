@@ -55,7 +55,7 @@ export function TemplateGallery() {
 		{ id: "ats", label: t`ATS-safe` },
 	];
 	const shown = all.filter((id) => shows(id, filter));
-	const name = templates[selected].name;
+	const name = i18n._(templates[selected].name);
 
 	const pick = (id: Template) => {
 		setSelected(id);
@@ -130,7 +130,7 @@ export function TemplateGallery() {
 											src={`/templates/thumb/${id}.webp`}
 											srcSet={`/templates/thumb/${id}-small.webp 300w, /templates/thumb/${id}.webp 596w`}
 											sizes="(min-width: 90rem) 150px, (min-width: 640px) 200px, 45vw"
-											alt={t`${templates[id].name} resume template preview`}
+											alt={t`${i18n._(templates[id].name)} resume template preview`}
 											width={298}
 											height={420}
 											// The first rows are on the first screen, and the first preview is its largest paint.
@@ -144,7 +144,7 @@ export function TemplateGallery() {
 													: "shadow-[var(--shadow-1),0_0_0_1px_var(--line)] group-hover:shadow-[var(--shadow-1),0_0_0_1px_var(--line-2)]",
 											)}
 										/>
-										<span className="text-sm font-medium">{templates[id].name}</span>
+										<span className="text-sm font-medium">{i18n._(templates[id].name)}</span>
 										<span className="-mt-[7px] text-xs/4 text-ink-3">{facts(id)}</span>
 									</button>
 								</li>
@@ -256,11 +256,12 @@ function Step({ label, icon, onClick }: { label: string; icon: "caret-left" | "c
 
 /** The template's real sample page. Paper never inverts; it dims a little in the dark. */
 function Preview({ id }: { id: Template }): ReactNode {
+	const { i18n } = useLingui();
 	return (
 		<img
 			key={id}
 			src={templates[id].imageUrl}
-			alt={t`${templates[id].name} resume template preview`}
+			alt={t`${i18n._(templates[id].name)} resume template preview`}
 			width={600}
 			height={848}
 			decoding="async"

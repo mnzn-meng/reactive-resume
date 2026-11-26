@@ -301,7 +301,7 @@ function ResumePageCaption(props: ResumePageCaptionProps) {
 			{viewing ? null : previewTemplate ? (
 				<div className={label}>
 					<Trans>
-						Preview · {templates[previewTemplate].name} · Page {page} of {pages} · {formatLabel}
+						Preview · {i18n._(templates[previewTemplate].name)} · Page {page} of {pages} · {formatLabel}
 					</Trans>
 				</div>
 			) : (

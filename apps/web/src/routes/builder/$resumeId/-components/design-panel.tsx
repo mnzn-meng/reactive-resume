@@ -190,8 +190,8 @@ export function DesignPanel() {
 					<div className="flex flex-col pb-6">
 						<Lede>
 							{columns.columns === 2
-								? t`${template.name} has two columns: a sidebar and a main column.`
-								: t`${template.name} has one column.`}
+								? t`${i18n._(template.name)} has two columns: a sidebar and a main column.`
+								: t`${i18n._(template.name)} has one column.`}
 						</Lede>
 						<LayoutSectionBuilder />
 					</div>

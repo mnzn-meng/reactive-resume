@@ -78,7 +78,7 @@ export function TemplateGroup({ crumb, onUse }: TemplateGroupProps) {
 	const shown = TEMPLATE_IDS.filter(
 		(id) =>
 			matchesFilter(id, filter) &&
-			[templates[id].name, i18n._(templates[id].description), ...templates[id].tags.map((tag) => i18n._(tag))]
+			[i18n._(templates[id].name), i18n._(templates[id].description), ...templates[id].tags.map((tag) => i18n._(tag))]
 				.join(" ")
 				.toLocaleLowerCase()
 				.includes(query.trim().toLocaleLowerCase()),
@@ -98,7 +98,7 @@ export function TemplateGroup({ crumb, onUse }: TemplateGroupProps) {
 			},
 			{ newStep: true },
 		);
-		undoToast(t`Template changed to ${templates[preview].name}`);
+		undoToast(t`Template changed to ${i18n._(templates[preview].name)}`);
 		cancel();
 		onUse?.();
 	};
@@ -162,11 +162,11 @@ export function TemplateGroup({ crumb, onUse }: TemplateGroupProps) {
 			{/* Over the canvas, beside the page it changes: its start edge follows the panel's width. */}
 			<div
 				role="status"
-				aria-label={templates[chosen].name}
+				aria-label={i18n._(templates[chosen].name)}
 				className="mt-auto flex flex-col gap-1.5 border-t border-line pt-3 min-[1280px]:fixed min-[1280px]:start-[calc(var(--editor-panel)+24px)] min-[1280px]:end-6 min-[1280px]:bottom-5 min-[1280px]:z-20 min-[1280px]:rounded-xl min-[1280px]:border min-[1280px]:bg-raised min-[1280px]:px-[18px] min-[1280px]:py-3.5 min-[1280px]:shadow-e2"
 			>
 				<div className="flex items-baseline gap-2.5">
-					<h3 className="t-section-title">{templates[chosen].name}</h3>
+					<h3 className="t-section-title">{i18n._(templates[chosen].name)}</h3>
 					<span className="t-small text-ink-3">{styleTags(chosen)}</span>
 					<span className="sr-only">{preview ? t`Previewing` : t`Current`}</span>
 				</div>
@@ -181,7 +181,7 @@ export function TemplateGroup({ crumb, onUse }: TemplateGroupProps) {
 				)}
 				<div className="mt-1 flex justify-end gap-2">
 					<Button variant="secondary" onClick={cancel}>
-						<Trans>Keep {templates[current].name}</Trans>
+						<Trans>Keep {i18n._(templates[current].name)}</Trans>
 					</Button>
 					{/* Ink, not the accent: Download PDF stays the one accent button. */}
 					<Button
@@ -214,7 +214,7 @@ function TemplateCard({ id, data, current, previewing, onPreview }: TemplateCard
 			ref={ref}
 			type="button"
 			aria-pressed={previewing || current}
-			aria-label={t`Preview ${templates[id].name}`}
+			aria-label={t`Preview ${i18n._(templates[id].name)}`}
 			onClick={onPreview}
 			className="flex min-w-0 flex-col text-start"
 		>
@@ -227,7 +227,7 @@ function TemplateCard({ id, data, current, previewing, onPreview }: TemplateCard
 				<img src={thumbnail ?? templates[id].imageUrl} alt="" className="size-full object-cover object-top" />
 			</span>
 			<span className="mt-[7px] flex items-center gap-1.5 t-ui font-medium">
-				{templates[id].name}
+				{i18n._(templates[id].name)}
 				{previewing ? (
 					<Badge variant="accent">{t`Previewing`}</Badge>
 				) : (

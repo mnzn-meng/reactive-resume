@@ -3,7 +3,8 @@ import type { Template } from "@zhiye/schema/templates";
 import { msg } from "@lingui/core/macro";
 
 export type TemplateMetadata = {
-	name: string;
+	/** A layout word, translated: the gallery, the design panel and the sample file all read it through i18n. */
+	name: MessageDescriptor;
 	description: MessageDescriptor;
 	imageUrl: string;
 	/** Style tags (one shared context keeps short words apart from the same words elsewhere); the column count comes from `templateLayouts`. */
@@ -16,7 +17,7 @@ export type TemplateMetadata = {
  */
 export const templates = {
 	azurill: {
-		name: "Sidebar",
+		name: msg({ message: "Sidebar", context: "Template name" }),
 		description: msg`Two-column with a bold colored sidebar and skill bars; great for creative or tech roles where visual flair is welcome.`,
 		imageUrl: "/templates/jpg/azurill.jpg",
 		tags: [
@@ -26,7 +27,7 @@ export const templates = {
 		],
 	},
 	bronzor: {
-		name: "Ledger",
+		name: msg({ message: "Ledger", context: "Template name" }),
 		description: msg`One column with labeled section rows and subtle dividers. A compact layout for experience, education and supporting details.`,
 		imageUrl: "/templates/jpg/bronzor.jpg",
 		tags: [
@@ -38,7 +39,7 @@ export const templates = {
 		],
 	},
 	chikorita: {
-		name: "Margin",
+		name: msg({ message: "Margin", context: "Template name" }),
 		description: msg`Two-column with a soft header accent and circular profile photo; ideal for marketing, HR, or client-facing roles.`,
 		imageUrl: "/templates/jpg/chikorita.jpg",
 		tags: [
@@ -49,7 +50,7 @@ export const templates = {
 		],
 	},
 	ditgar: {
-		name: "Portrait",
+		name: msg({ message: "Portrait", context: "Template name" }),
 		description: msg`Two-column with a dark teal sidebar and skills grid; modern feel for developers, data scientists, or technical PMs.`,
 		imageUrl: "/templates/jpg/ditgar.jpg",
 		tags: [
@@ -61,7 +62,7 @@ export const templates = {
 		],
 	},
 	ditto: {
-		name: "Compact",
+		name: msg({ message: "Compact", context: "Template name" }),
 		description: msg`Two columns beneath a colored header band. Keep experience in the main column and supporting details in the sidebar.`,
 		imageUrl: "/templates/jpg/ditto.jpg",
 		tags: [
@@ -71,7 +72,7 @@ export const templates = {
 		],
 	},
 	gengar: {
-		name: "Midnight",
+		name: msg({ message: "Midnight", context: "Template name" }),
 		description: msg`Two-column with accent colors and clean typography; balanced choice for business analysts or operations roles.`,
 		imageUrl: "/templates/jpg/gengar.jpg",
 		tags: [
@@ -82,7 +83,7 @@ export const templates = {
 		],
 	},
 	glalie: {
-		name: "Frost",
+		name: msg({ message: "Frost", context: "Template name" }),
 		description: msg`Two-column, minimal with light gray sidebar and subtle icons; professional and understated for legal, finance, or executive roles.`,
 		imageUrl: "/templates/jpg/glalie.jpg",
 		tags: [
@@ -95,7 +96,7 @@ export const templates = {
 		],
 	},
 	kakuna: {
-		name: "Classic",
+		name: msg({ message: "Classic", context: "Template name" }),
 		description: msg`Single-column with a magenta left border accent; compact and efficient for entry-level or internship applications.`,
 		imageUrl: "/templates/jpg/kakuna.jpg",
 		tags: [
@@ -108,7 +109,7 @@ export const templates = {
 		],
 	},
 	lapras: {
-		name: "Fresh",
+		name: msg({ message: "Fresh", context: "Template name" }),
 		description: msg`Single-column; polished and serious for senior or enterprise-level positions.`,
 		imageUrl: "/templates/jpg/lapras.jpg",
 		tags: [
@@ -119,7 +120,7 @@ export const templates = {
 		],
 	},
 	leafish: {
-		name: "Column",
+		name: msg({ message: "Column", context: "Template name" }),
 		description: msg`Two-column with a muted color sidebar; earthy and calm, suits sustainability, healthcare, or nonprofit sectors.`,
 		imageUrl: "/templates/jpg/leafish.jpg",
 		tags: [
@@ -132,7 +133,7 @@ export const templates = {
 		],
 	},
 	meowth: {
-		name: "Crisp",
+		name: msg({ message: "Crisp", context: "Template name" }),
 		description: msg`Single-column with uppercase section headings over a rule and the photo beside the name; compact and ATS-friendly, well-suited for Asian resume conventions (CN/JP/KR).`,
 		imageUrl: "/templates/jpg/meowth.jpg",
 		tags: [
@@ -144,7 +145,7 @@ export const templates = {
 		],
 	},
 	onyx: {
-		name: "Standard",
+		name: msg({ message: "Standard", context: "Template name" }),
 		description: msg`One column with a photo beside the header and clear section headings. A simple top-to-bottom layout for your experience.`,
 		imageUrl: "/templates/jpg/onyx.jpg",
 		tags: [
@@ -155,7 +156,7 @@ export const templates = {
 		],
 	},
 	persian: {
-		name: "Editorial",
+		name: msg({ message: "Editorial", context: "Template name" }),
 		description: msg`Single-column Wall Street style with a centered header and ruled section headings.`,
 		imageUrl: "/templates/jpg/persian.jpg",
 		tags: [
@@ -166,7 +167,7 @@ export const templates = {
 		],
 	},
 	pikachu: {
-		name: "Spark",
+		name: msg({ message: "Spark", context: "Template name" }),
 		description: msg`Two-column with a left margin color; simple and approachable for creative, editorial, or junior roles.`,
 		imageUrl: "/templates/jpg/pikachu.jpg",
 		tags: [
@@ -178,7 +179,7 @@ export const templates = {
 		],
 	},
 	porygon: {
-		name: "Minimal",
+		name: msg({ message: "Minimal", context: "Template name" }),
 		description: msg`Single-column ruled form inspired by the Japanese rirekisho: a bordered header of field cells and every section as a table with a solid title bar; dense and fast to scan for engineering, operations, or applications in Japan.`,
 		imageUrl: "/templates/jpg/porygon.jpg",
 		tags: [
@@ -192,7 +193,7 @@ export const templates = {
 		],
 	},
 	rhyhorn: {
-		name: "Academic",
+		name: msg({ message: "Academic", context: "Template name" }),
 		description: msg`Single-column with a minimal top header and lots of whitespace; clean and modern for designers or content creators.`,
 		imageUrl: "/templates/jpg/rhyhorn.jpg",
 		tags: [
@@ -206,7 +207,7 @@ export const templates = {
 		],
 	},
 	scizor: {
-		name: "Business",
+		name: msg({ message: "Business", context: "Template name" }),
 		description: msg`Single-column with uppercase section headings and a primary-color top rule on every page; polished for executive, consulting, or startup resumes.`,
 		imageUrl: "/templates/jpg/scizor.jpg",
 		tags: [
@@ -218,7 +219,7 @@ export const templates = {
 		],
 	},
 	smeargle: {
-		name: "Studio",
+		name: msg({ message: "Studio", context: "Template name" }),
 		description: msg`Single-column set like a magazine feature: a large display name under an uppercase kicker and the summary as a larger standfirst; refined for writers, designers, and communications roles.`,
 		imageUrl: "/templates/jpg/smeargle.jpg",
 		tags: [

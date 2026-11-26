@@ -60,7 +60,7 @@ export function DocumentDetails() {
 						{formatRelativeTime(resume.updatedAt, i18n.locale)}
 					</time>
 				</Row>
-				<Row label={<Trans>Template</Trans>}>{templates[template].name}</Row>
+				<Row label={<Trans>Template</Trans>}>{i18n._(templates[template].name)}</Row>
 				<Row label={<Trans>Language</Trans>}>
 					{languageName(page.locale, i18n.locale) ?? i18n._(localeMap[resolveLocale(page.locale)])}
 				</Row>

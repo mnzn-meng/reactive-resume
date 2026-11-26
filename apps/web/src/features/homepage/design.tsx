@@ -140,7 +140,7 @@ export function Design() {
 											className="absolute inset-0 size-full rounded-paper bg-paper object-contain shadow-paper dark:brightness-[.93]"
 										/>
 										<span className={cn(pageLabel, "absolute start-0 top-[calc(100%+10px)]")}>
-											{templates[cell.template].name}
+											{i18n._(templates[cell.template].name)}
 										</span>
 									</>
 								)}
