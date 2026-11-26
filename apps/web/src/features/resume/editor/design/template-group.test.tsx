@@ -34,13 +34,13 @@ const mount = () =>
 
 it("previews a chosen template without saving, keeps the original on Escape, and commits only with Use", () => {
 	const view = mount();
-	fireEvent.click(screen.getByRole("button", { name: "Preview Ditto" }));
+	fireEvent.click(screen.getByRole("button", { name: "Preview Compact" }));
 	expect(useEditorStore.getState().previewTemplate).toBe("ditto");
 	expect(api.write).not.toHaveBeenCalled();
 	fireEvent.keyDown(screen.getByRole("group", { name: "Template preview" }), { key: "Escape" });
 	expect(useEditorStore.getState().previewTemplate).toBeNull();
 	expect(api.write).not.toHaveBeenCalled();
-	fireEvent.click(screen.getByRole("button", { name: "Preview Ditto" }));
+	fireEvent.click(screen.getByRole("button", { name: "Preview Compact" }));
 	fireEvent.click(screen.getByRole("button", { name: "Use this template" }));
 	const data = structuredClone(defaultResumeData);
 	api.write.mock.calls[0]?.[0](data);
@@ -49,7 +49,7 @@ it("previews a chosen template without saving, keeps the original on Escape, and
 	expect(data.metadata.layout).toEqual(defaultResumeData.metadata.layout);
 	expect(api.write.mock.calls[0]?.[1]).toEqual({ newStep: true });
 	expect(useEditorStore.getState().previewTemplate).toBeNull();
-	fireEvent.click(screen.getByRole("button", { name: "Preview Ditto" }));
+	fireEvent.click(screen.getByRole("button", { name: "Preview Compact" }));
 	view.unmount();
 	expect(useEditorStore.getState().previewTemplate).toBeNull();
 });
@@ -57,6 +57,6 @@ it("previews a chosen template without saving, keeps the original on Escape, and
 it("filters by style tags as well as template names", () => {
 	mount();
 	fireEvent.change(screen.getByRole("searchbox", { name: "Filter templates" }), { target: { value: "Finance" } });
-	expect(screen.getByRole("button", { name: "Preview Persian" })).toBeTruthy();
-	expect(screen.queryByRole("button", { name: "Preview Onyx" })).toBeNull();
+	expect(screen.getByRole("button", { name: "Preview Editorial" })).toBeTruthy();
+	expect(screen.queryByRole("button", { name: "Preview Standard" })).toBeNull();
 });
