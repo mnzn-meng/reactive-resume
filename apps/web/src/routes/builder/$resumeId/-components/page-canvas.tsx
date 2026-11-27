@@ -32,6 +32,8 @@ import { CheckPageLayer, PageViewToggle } from "@/features/resume/editor/check/p
 import { ParserView } from "@/features/resume/editor/check/parser-view";
 import { usePageScale, ZoomBar } from "@/features/resume/editor/chrome";
 import { addSpillPage, runFit } from "@/features/resume/editor/design/fit";
+import { trimSuggestions } from "@/features/resume/editor/design/trim";
+import { applyTrim } from "@/features/resume/editor/design/trim-apply";
 import { PageOverlay } from "@/features/resume/editor/page-overlay";
 import { markProposals, pendingProposals } from "@/features/resume/editor/proposals/proposals";
 import { useEditorStore } from "@/features/resume/editor/store";
@@ -496,8 +498,9 @@ function PageMenu({ pageIndex }: { pageIndex: number }) {
 type OverflowChipProps = NonNullable<ReturnType<typeof measureOverflow>>;
 
 /**
- * Names the first authored page that spills, with two ways out: Add page, which moves the sections that spill off
- * the last page onto a new one, and Fit, which tightens the design until it fits. Each is one undo step.
+ * Names the first authored page that spills, with three ways out: Add page, which moves the sections that spill off
+ * the last page onto a new one; Fit, which tightens the design until it fits; and Shorten, which lists the wording
+ * that is taking the room. Each is one undo step.
  */
 function OverflowChip({ authored, spills, pageCount }: OverflowChipProps) {
 	const [fitting, setFitting] = useState(false);
@@ -507,6 +510,7 @@ function OverflowChip({ authored, spills, pageCount }: OverflowChipProps) {
 	const data = useResumeData();
 	const pageMap = useEditorStore((state) => state.rendered.pageMap);
 	const canAddPage = !!data && spillingSections(data.metadata.layout.pages, pageMap?.nodes) !== null;
+	const trims = data ? trimSuggestions(data) : [];
 	const action =
 		"h-6 rounded-md bg-surface px-2.5 text-xs font-semibold whitespace-nowrap text-ink shadow-e1 disabled:opacity-60";
 
@@ -538,6 +542,36 @@ function OverflowChip({ authored, spills, pageCount }: OverflowChipProps) {
 			>
 				<Plural value={authored} _1="Fit to one page" other="Fit to # pages" />
 			</button>
+			{trims.length > 0 && (
+				<DropdownMenu>
+					<DropdownMenuTrigger
+						render={
+							<button type="button" className={action}>
+								<Trans>Shorten</Trans>
+							</button>
+						}
+					/>
+					<DropdownMenuContent align="end" className="w-80">
+						{trims.map((suggestion) => (
+							<DropdownMenuItem
+								key={suggestion.id}
+								onSelect={() => {
+									useResumeStore.getState().updateResumeData((draft) => applyTrim(draft, suggestion), {
+										newStep: true,
+									});
+								}}
+								className="flex items-start gap-2"
+							>
+								<span className="flex min-w-0 flex-col gap-0.5">
+									<span className="text-[13px] font-medium">{i18n._(suggestion.label)}</span>
+									<span className="truncate text-xs text-ink-3">{suggestion.text}</span>
+								</span>
+								<span className="ms-auto text-xs text-ink-3 tabular-nums">{i18n.number(suggestion.lines)}</span>
+							</DropdownMenuItem>
+						))}
+					</DropdownMenuContent>
+				</DropdownMenu>
+			)}
 		</span>
 	);
 }
