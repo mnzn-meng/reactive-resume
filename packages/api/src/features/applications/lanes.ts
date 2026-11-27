@@ -15,9 +15,16 @@ import { generateId } from "@zhiye/utils/string";
 import { lockUser } from "../documents/ownership";
 
 /** Call with the owner lock held. IDs are deterministic across migration, lazy seeding and retries. */
-export async function ensureApplicationPipeline(tx: DbOrTx, userId: string): Promise<ApplicationPipeline> {
+export async function ensureApplicationPipeline(
+	tx: DbOrTx,
+	userId: string,
+	locale?: string,
+): Promise<ApplicationPipeline> {
 	await tx.insert(schema.applicationPipeline).values({ userId }).onConflictDoNothing();
-	await tx.insert(schema.applicationLane).values(createDefaultOwnedApplicationLanes(userId)).onConflictDoNothing();
+	await tx
+		.insert(schema.applicationLane)
+		.values(createDefaultOwnedApplicationLanes(userId, locale))
+		.onConflictDoNothing();
 	const [pipeline] = await tx
 		.select()
 		.from(schema.applicationPipeline)
@@ -148,10 +155,10 @@ export async function applicationTransitionValues(
 }
 
 export const applicationLaneService = {
-	get: (userId: string) =>
+	get: (userId: string, locale?: string) =>
 		db.transaction(async (tx) => {
 			await lockUser(tx, userId);
-			return ensureApplicationPipeline(tx, userId);
+			return ensureApplicationPipeline(tx, userId, locale);
 		}),
 	mutate: (
 		userId: string,

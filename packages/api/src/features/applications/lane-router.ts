@@ -21,7 +21,7 @@ export const applicationLanesRouter = {
 		})
 		.input(z.object({}).optional().default({}))
 		.output(applicationPipelineSchema)
-		.handler(({ context }) => applicationLaneService.get(context.user.id)),
+		.handler(({ context }) => applicationLaneService.get(context.user.id, context.locale)),
 	create: protectedProcedure
 		.route({
 			method: "POST",

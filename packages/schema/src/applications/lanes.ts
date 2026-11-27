@@ -32,18 +32,45 @@ const DEFAULT_COLORS: Record<ApplicationStatus, string> = {
 	closed: "#C36B5C",
 };
 
+/**
+ * A stage a domestic search expects but the canonical categories have no room for: 笔试 sits between sending the
+ * application and the first interview, so it rides on `screening`. It is a user lane, so writers resolve it by id.
+ */
+const EXTRA_LANES: Record<
+	string,
+	{ id: string; category: ApplicationStatus; label: string; after: ApplicationStatus }[]
+> = {
+	zh: [{ id: "written-test", category: "screening", label: "笔试", after: "applied" }],
+};
+
 /** Synthetic category IDs support clients connected to servers predating lane support. */
-export function createDefaultApplicationLanes(): ApplicationLane[] {
-	return APPLICATION_STATUSES.map((category, position) => ({
+export function createDefaultApplicationLanes(locale = "en-US"): ApplicationLane[] {
+	const language = locale.split("-")[0] ?? locale;
+	const lanes: Omit<ApplicationLane, "position">[] = APPLICATION_STATUSES.map((category) => ({
 		id: category,
 		category,
 		label: null,
 		color: DEFAULT_COLORS[category],
-		position,
 		systemKey: category,
 		closedReason: null,
 		retiredAt: null,
 	}));
+
+	// Each extra lane follows the category it was slotted after, so the board reads in the order people work in.
+	for (const extra of EXTRA_LANES[language] ?? []) {
+		const at = lanes.findIndex((lane) => lane.category === extra.after);
+		lanes.splice(at + 1, 0, {
+			id: extra.id,
+			category: extra.category,
+			label: extra.label,
+			color: DEFAULT_COLORS[extra.category],
+			systemKey: null,
+			closedReason: null,
+			retiredAt: null,
+		});
+	}
+
+	return lanes.map((lane, position) => ({ ...lane, position }));
 }
 
 export function getActiveApplicationLanes(lanes: readonly ApplicationLane[]): ApplicationLane[] {

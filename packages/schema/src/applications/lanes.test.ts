@@ -7,6 +7,36 @@ import {
 	getApplicationLane,
 } from "./lanes";
 
+describe("default lanes by interface language", () => {
+	it("keeps the six canonical categories for an English board", () => {
+		expect(createDefaultApplicationLanes("en-US").map((lane) => lane.id)).toEqual([
+			"saved",
+			"applied",
+			"screening",
+			"interview",
+			"offer",
+			"closed",
+		]);
+	});
+
+	it("puts a written test between applying and screening for a Chinese board", () => {
+		const lanes = createDefaultApplicationLanes("zh-CN");
+		expect(lanes.map((lane) => lane.id)).toEqual([
+			"saved",
+			"applied",
+			"written-test",
+			"screening",
+			"interview",
+			"offer",
+			"closed",
+		]);
+		const written = lanes.find((lane) => lane.id === "written-test");
+		expect(written).toMatchObject({ category: "screening", label: "笔试", systemKey: null, position: 2 });
+		// A user lane never claims a canonical status, so status-only writes still land on `screening`.
+		expect(lanes.filter((lane) => lane.systemKey === "screening")).toHaveLength(1);
+	});
+});
+
 describe("application lane compatibility helpers", () => {
 	it("resolves omitted and unknown old-server lane IDs to category defaults", () => {
 		const lanes = createDefaultApplicationLanes();

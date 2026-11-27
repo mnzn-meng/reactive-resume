@@ -194,6 +194,23 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 		expect((await lanes.get("bob")).lanes).toHaveLength(6);
 	});
 
+	it("seeds a written-test lane when the board is first opened in Chinese", async () => {
+		const pipeline = await lanes.get("bob", "zh-CN");
+		expect(pipeline.lanes.map((lane) => lane.label ?? lane.systemKey)).toEqual([
+			"saved",
+			"applied",
+			"笔试",
+			"screening",
+			"interview",
+			"offer",
+			"closed",
+		]);
+		expect(pipeline.lanes.find((lane) => lane.label === "笔试")).toMatchObject({
+			category: "screening",
+			systemKey: null,
+		});
+	});
+
 	it("rolling old-server writes reconcile non-null lane references and preserve existing history", async () => {
 		const custom = await addLane("Technical", "interview");
 		const id = await applications.create({ userId: "alice", company: "Co", role: "Role", laneId: custom.id });
