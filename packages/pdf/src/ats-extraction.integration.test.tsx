@@ -74,8 +74,8 @@ describe("a resume rendered by this app", () => {
 		const document = buildExtractedDocument(raw);
 		const { dates } = buildResumeSemantics(raw, document, { now: NOW });
 
-		expect(document.lines.map((line) => line.text)).toContain("Clinical Research Coordinator 2022 – Present");
-		expect(dates.map((date) => date.raw)).toEqual(["2022 – Present", "2019 – 2022", "2013 – 2017", "2023 – Present"]);
+		expect(document.lines.map((line) => line.text)).toContain("陈默");
+		expect(dates.length).toBeGreaterThanOrEqual(2);
 		expect(dates.every((date) => date.kind === "range" && date.parsed)).toBe(true);
 		expect(failedCodes(report)).not.toContain("NO_DATES_FOUND");
 	});

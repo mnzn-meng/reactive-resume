@@ -403,18 +403,13 @@ export const sampleResumeData: ResumeData = {
 			pages: [
 				{
 					fullWidth: false,
-					main: ["summary", "education", "experience"],
-					sidebar: ["profiles", "skills"],
+					main: ["summary", "education", "experience", "projects"],
+					sidebar: ["profiles", "skills", "certifications", "languages"],
 				},
 				{
 					fullWidth: false,
-					main: ["019becaf-0b87-769d-98a6-46ccf558c0e8", "awards"],
-					sidebar: ["certifications", "languages", "interests", "references"],
-				},
-				{
-					fullWidth: true,
-					main: ["projects", "publications", "volunteer"],
-					sidebar: [],
+					main: ["019becaf-0b87-769d-98a6-46ccf558c0e8", "awards", "publications"],
+					sidebar: ["interests", "references"],
 				},
 			],
 		},

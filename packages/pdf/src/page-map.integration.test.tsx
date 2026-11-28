@@ -82,6 +82,12 @@ describe("authored page overflow", () => {
 	);
 
 	it("counts each spill's extent once, excludes the next authored page, and tolerates a missing map", () => {
+		// The sample's own page count changes as the demo content does; this test needs three authored pages.
+		const threePages = structuredClone(data);
+		threePages.metadata.layout.pages = [
+			...threePages.metadata.layout.pages.slice(0, 2),
+			{ fullWidth: true, main: ["projects"], sidebar: [] },
+		];
 		const boxes: [number, number, number, number][] = [
 			[0, 1, 20, 600],
 			[1, 1, 20, 150],
@@ -103,7 +109,7 @@ describe("authored page overflow", () => {
 				height,
 			})),
 		};
-		expect(measureOverflow(data, { pageMap, pageCount: 5 })).toEqual({
+		expect(measureOverflow(threePages, { pageMap, pageCount: 5 })).toEqual({
 			authored: 3,
 			pageCount: 5,
 			spills: [
@@ -111,8 +117,8 @@ describe("authored page overflow", () => {
 				{ authoredPage: 2, pages: [4], lines: 13 },
 			],
 		});
-		expect(measureOverflow(data, { pageMap, pageCount: 3 })).toBeNull();
-		expect(measureOverflow(data, { pageMap: undefined, pageCount: 5 })).toEqual({
+		expect(measureOverflow(threePages, { pageMap, pageCount: 3 })).toBeNull();
+		expect(measureOverflow(threePages, { pageMap: undefined, pageCount: 5 })).toEqual({
 			authored: 3,
 			pageCount: 5,
 			spills: [],
