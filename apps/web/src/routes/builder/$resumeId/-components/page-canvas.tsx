@@ -566,7 +566,9 @@ function OverflowChip({ authored, spills, pageCount }: OverflowChipProps) {
 									<span className="text-[13px] font-medium">{i18n._(suggestion.label)}</span>
 									<span className="truncate text-xs text-ink-3">{suggestion.text}</span>
 								</span>
-								<span className="ms-auto text-xs text-ink-3 tabular-nums">{i18n.number(suggestion.lines)}</span>
+								<span className="ms-auto text-xs whitespace-nowrap text-ink-3 tabular-nums">
+									<Plural value={suggestion.lines} one="# line" other="# lines" />
+								</span>
 							</DropdownMenuItem>
 						))}
 					</DropdownMenuContent>
