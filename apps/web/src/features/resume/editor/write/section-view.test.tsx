@@ -1,6 +1,6 @@
 // @vitest-environment happy-dom
 import type { ResumeData } from "@zhiye/schema/resume/data";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeAll, beforeEach, expect, it, vi } from "vite-plus/test";
 import { i18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
@@ -48,7 +48,8 @@ vi.mock("@/features/resume/editor/chrome/panel", () => ({
 	PanelBody: ({ children }: { children?: unknown }) => children,
 	PanelHeader: () => null,
 }));
-vi.mock("@/hooks/use-confirm", () => ({ usePrompt: () => vi.fn() }));
+const ask = vi.hoisted(() => vi.fn(async (..._args: unknown[]) => null as string | null));
+vi.mock("@/hooks/use-confirm", () => ({ usePrompt: () => ask }));
 vi.mock("@/libs/dnd", () => ({ dndContextProps: () => ({}) }));
 vi.mock("@zhiye/ui/components/toast", () => ({ toast: { add: vi.fn() } }));
 
@@ -147,4 +148,24 @@ it.each([
 	renderSection(type, locked, count);
 
 	expect(screen.queryByRole("button", { name: "Sort by date" })).toBeNull();
+});
+
+it("refuses to rename a built-in section over a name another section shows", async () => {
+	const data = fixture.data;
+	if (!data) throw new Error("Missing resume fixture");
+	// Experience takes a name of its own, so Education may no longer claim it.
+	data.sections.experience.title = "Work history";
+
+	render(
+		<I18nProvider i18n={i18n}>
+			<SectionView sectionId="education" locked={false} />
+		</I18nProvider>,
+	);
+	fireEvent.click(screen.getByRole("button", { name: "Rename" }));
+
+	await waitFor(() => expect(ask).toHaveBeenCalled());
+	const options = ask.mock.calls[0]?.[1] as { validate?: (value: string) => string | undefined } | undefined;
+	expect(options?.validate?.("Work history")).toBeTruthy();
+	expect(options?.validate?.(" work HISTORY ")).toBeTruthy();
+	expect(options?.validate?.("Learning")).toBeUndefined();
 });

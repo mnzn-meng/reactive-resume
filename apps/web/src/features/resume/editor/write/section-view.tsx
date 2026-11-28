@@ -22,7 +22,6 @@ import { addEntryTo } from "./actions";
 import { EntryRow, moveEntry } from "./entry-row";
 import { TextField } from "./fields";
 import {
-	BUILTIN_SECTION_TYPES,
 	countEntriesToCheck,
 	describeEntry,
 	getEntries,
@@ -30,6 +29,8 @@ import {
 	getSectionObject,
 	getSectionType,
 	isDraftEntry,
+	isSameSectionTitle,
+	sectionTitles,
 } from "./model";
 import { useProposedCount, useSectionTitle, useSortSensors } from "./outline";
 import { SummaryEditor } from "./summary-editor";
@@ -79,24 +80,27 @@ export function SectionView({ sectionId, locked }: SectionViewProps) {
 	return <SectionBody section={section} locked={locked} />;
 }
 
+/** The names every other section shows, kept fresh as titles change. Selected as stored values, so the snapshot stays
+ * stable: a selector that builds a new array makes the store read as "changed" on every render and React loops. */
+function useTakenSectionTitles(section: WriteSection) {
+	const sections = useCurrentBuilderResumeSelector((resume) => resume.data.sections);
+	const summary = useCurrentBuilderResumeSelector((resume) => resume.data.summary);
+	const customSections = useCurrentBuilderResumeSelector((resume) => resume.data.customSections);
+	return useMemo(
+		() => sectionTitles({ sections, summary, customSections }, section.id),
+		[sections, summary, customSections, section.id],
+	);
+}
+
+/** Whether another section already shows this name. */
+function titleTaken(name: string, taken: string[]) {
+	return taken.some((candidate) => isSameSectionTitle(candidate, name));
+}
+
 function SectionBody({ section, locked }: { section: WriteSection; locked: boolean }) {
 	const title = useSectionTitle(section);
 	const isSummary = section.kind === "summary";
-	// Every other section's name, so two sections can never share one. Select the stored array (a stable reference) and
-	// derive the list here: a selector that builds a new array reads as "changed" on every render and loops forever.
-	const customSections = useCurrentBuilderResumeSelector((resume) => resume.data.customSections);
-	const takenTitles = useMemo(
-		() =>
-			[
-				getSectionTitle("summary"),
-				...BUILTIN_SECTION_TYPES.map((type) => getSectionTitle(type)),
-				...customSections
-					.filter((candidate) => candidate.id !== section.id && !candidate.hidden)
-					.map((candidate) => candidate.title.trim())
-					.filter(Boolean),
-			].filter((candidate, index, all) => all.indexOf(candidate) === index),
-		[customSections, section.id],
-	);
+	const takenTitles = useTakenSectionTitles(section);
 	const proposed = useProposedCount(section.id);
 	const update = useUpdateResumeData();
 
@@ -129,7 +133,7 @@ function SectionBody({ section, locked }: { section: WriteSection; locked: boole
 						label={<Trans>Title</Trans>}
 						value={title}
 						validate={(value) =>
-							takenTitles.some((taken) => taken.toLocaleLowerCase() === value.trim().toLocaleLowerCase())
+							titleTaken(value, takenTitles)
 								? t`Another section is already called this. It will be numbered when you leave the field.`
 								: undefined
 						}
@@ -300,6 +304,7 @@ function SectionOptions({ section, title, locked }: SectionOptionsProps) {
 	const prompt = usePrompt();
 	const updateResumeData = useUpdateResumeData();
 	const settings = useCurrentBuilderResumeSelector((resume) => getSectionObject(resume.data, section) ?? null);
+	const takenTitles = useTakenSectionTitles(section);
 	if (!settings) return null;
 
 	const edit = (mutate: (target: NonNullable<ReturnType<typeof getSectionObject>>) => void) =>
@@ -325,6 +330,11 @@ function SectionOptions({ section, title, locked }: SectionOptionsProps) {
 			// The title as shown, also for a built-in section that keeps its default name.
 			defaultValue: title,
 			confirmText: t`Rename`,
+			// An empty field falls back to the kind's name, and that name can already belong to another section.
+			validate: (value) =>
+				titleTaken(value.trim() || getSectionTitle(section.type), takenTitles)
+					? t`Another section is already called this. Pick a different name.`
+					: undefined,
 		});
 		if (next === null || next === settings.title || next === title) return;
 		edit((target) => {

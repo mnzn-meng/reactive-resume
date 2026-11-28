@@ -66,3 +66,29 @@ it("shows a prompt helper below its input and preserves empty submission", async
 	fireEvent.click(screen.getByRole("button", { name: "Add link" }));
 	await expect(answer).resolves.toBe("");
 });
+
+it("keeps a prompt open while its text is rejected", async () => {
+	const { result } = renderHook(() => usePrompt(), { wrapper });
+	let answer!: Promise<string | null>;
+	await act(() => {
+		answer = result.current("Rename section", {
+			defaultValue: "Experience",
+			validate: (value) => (value === "Education" ? "Another section is already called this." : undefined),
+		});
+	});
+
+	const field = screen.getByRole("textbox", { name: "Rename section" });
+	fireEvent.change(field, { target: { value: "Education" } });
+
+	expect(screen.getByText("Another section is already called this.")).toBeTruthy();
+	const confirm = screen.getByRole("button", { name: "Confirm" });
+	expect(confirm).toBeDisabled();
+
+	// Enter must not slip past the check either.
+	fireEvent.keyDown(field, { key: "Enter" });
+	expect(screen.getByRole("alertdialog")).toBeTruthy();
+
+	fireEvent.change(field, { target: { value: "Work history" } });
+	fireEvent.click(screen.getByRole("button", { name: "Confirm" }));
+	await expect(answer).resolves.toBe("Work history");
+});

@@ -10,6 +10,7 @@ import {
 	AlertDialogHeader,
 	AlertDialogTitle,
 } from "@zhiye/ui/components/alert-dialog";
+import { FormControl, FormItem, FormMessage } from "@zhiye/ui/components/form";
 import { Icon } from "@zhiye/ui/components/icon";
 import { Input } from "@zhiye/ui/components/input";
 import { cn } from "@zhiye/utils/style";
@@ -23,6 +24,8 @@ type AskOptions = {
 	/** Prompts only: the text the field starts with. */
 	defaultValue?: string;
 	maxLength?: number;
+	/** Prompts only: says what's wrong with the text so far. While it returns a message, the dialog won't confirm. */
+	validate?: (value: string) => string | undefined;
 	/** An aborted request dismisses its pending confirmation. */
 	signal?: AbortSignal;
 	/** @deprecated Ignored. A permanent delete asks once with a plain danger button (`variant: "danger"`). */
@@ -89,6 +92,9 @@ export function ConfirmDialogProvider({ children }: { children: React.ReactNode 
 		setState((previous) => ({ ...previous, open: false, resolve: null }));
 	};
 
+	// A prompt that rejects the text keeps the dialog open and says why, rather than closing and losing what was typed.
+	const inputError = state.withInput ? state.validate?.(value) : undefined;
+
 	return (
 		<AskContext.Provider value={ask}>
 			{children}
@@ -105,18 +111,26 @@ export function ConfirmDialogProvider({ children }: { children: React.ReactNode 
 					</AlertDialogHeader>
 
 					{state.withInput && (
-						<Input
-							value={value}
-							maxLength={state.maxLength}
-							aria-label={state.title}
-							// A prompt opens with its text selected: typing replaces the name.
-							onFocus={(event) => event.currentTarget.select()}
-							onChange={(event) => setValue(event.target.value)}
-							onKeyDown={(event) => {
-								if (isImeComposing(event)) return;
-								if (event.key === "Enter") answer(value);
-							}}
-						/>
+						<FormItem hasError={Boolean(inputError)}>
+							<FormControl
+								render={
+									<Input
+										value={value}
+										maxLength={state.maxLength}
+										aria-label={state.title}
+										// A prompt opens with its text selected: typing replaces the name.
+										onFocus={(event) => event.currentTarget.select()}
+										onChange={(event) => setValue(event.target.value)}
+										onKeyDown={(event) => {
+											if (isImeComposing(event)) return;
+											if (event.key !== "Enter" || inputError) return;
+											answer(value);
+										}}
+									/>
+								}
+							/>
+							<FormMessage errors={inputError ? [inputError] : []} />
+						</FormItem>
 					)}
 
 					{state.withInput && (
@@ -131,6 +145,7 @@ export function ConfirmDialogProvider({ children }: { children: React.ReactNode 
 						</AlertDialogCancel>
 						<AlertDialogAction
 							variant={state.hold ? "danger" : (state.variant ?? (state.withInput ? "secondary" : "primary"))}
+							disabled={Boolean(inputError)}
 							onClick={() => answer(state.withInput ? value : "")}
 						>
 							{state.confirmText ?? t`Confirm`}

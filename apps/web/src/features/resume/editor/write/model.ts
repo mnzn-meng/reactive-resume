@@ -12,6 +12,7 @@ import { nextFreeSectionTitle } from "@zhiye/resume/section-title";
 import { sectionTypeSchema } from "@zhiye/schema/resume/data";
 import { hasUnreadableDateText } from "@zhiye/schema/resume/dates";
 import { generateId, stripHtml } from "@zhiye/utils/string";
+import { getSectionTitle } from "@/libs/resume/section";
 
 type Data = ResumeData | WritableDraft<ResumeData>;
 
@@ -80,6 +81,42 @@ export function getSectionObject(data: Data, section: WriteSection): SectionObje
 export function isSectionHidden(data: Data, id: string): boolean {
 	const section = resolveSection(data, id);
 	return section ? (getSectionObject(data, section)?.hidden ?? false) : false;
+}
+
+/**
+ * What every section other than `excludeId` shows as its name — a section's own title when it has one, otherwise the
+ * name of its kind. The duplicate check compares against this, so renaming a built-in section over another one's name
+ * counts as a clash just like naming a custom section does. Hidden sections still hold their names: they can be shown
+ * again, and two sections sharing a name is confusing either way.
+ */
+export function sectionTitles(
+	data: Pick<ResumeData, "summary" | "sections" | "customSections">,
+	excludeId?: string,
+): string[] {
+	const stored = (id: string) => {
+		if (id === "summary") return data.summary.title;
+		if (isBuiltinSectionType(id)) return data.sections[id].title;
+		return data.customSections.find((section) => section.id === id)?.title ?? "";
+	};
+	const kindOf = (id: string): SectionType | "summary" | null => {
+		if (id === "summary" || isBuiltinSectionType(id)) return id;
+		return data.customSections.find((section) => section.id === id)?.type ?? null;
+	};
+
+	const ids = ["summary", ...BUILTIN_SECTION_TYPES, ...data.customSections.map((section) => section.id)];
+	const titles = ids
+		.filter((id) => id !== excludeId)
+		.map((id) => {
+			const kind = kindOf(id);
+			return (stored(id).trim() || (kind ? getSectionTitle(kind) : "")).trim();
+		})
+		.filter((title) => title.length > 0);
+	return titles.filter((title, index) => titles.indexOf(title) === index);
+}
+
+/** Whether two section names read as the same name: case and surrounding spaces don't tell them apart. */
+export function isSameSectionTitle(one: string, other: string): boolean {
+	return one.trim().toLocaleLowerCase() === other.trim().toLocaleLowerCase();
 }
 
 export function findEntry(data: Data, sectionId: string, entryId: string): Entry | undefined {
@@ -331,22 +368,9 @@ export function addBuiltinSection(draft: WritableDraft<ResumeData>, type: "summa
 }
 
 /** Add section → Custom section: a new section of a type, named after it, with one draft entry. */
-/** Every title the outline shows: custom sections' own, built-ins' own, and a built-in's default name (`base`) for
- * the type being added when that section has entries under its default name. */
-function shownTitles(draft: WritableDraft<ResumeData>, type: CustomSectionType, base: string) {
-	const titles = draft.customSections.map((section) => section.title);
-	for (const [key, section] of Object.entries(draft.sections)) {
-		if (section.title.trim()) titles.push(section.title);
-		else if (key === type && section.items.length > 0) titles.push(base);
-	}
-	if (draft.summary.title.trim()) titles.push(draft.summary.title);
-	else if (type === "summary" && draft.summary.content.trim()) titles.push(base);
-	return titles;
-}
-
 export function addCustomSection(draft: WritableDraft<ResumeData>, type: CustomSectionType, base: string) {
 	// A second "Projects" would be indistinguishable in the outline: it is "Projects 2".
-	const title = nextFreeSectionTitle(base, shownTitles(draft, type, base));
+	const title = nextFreeSectionTitle(base, sectionTitles(draft));
 	const entry = createEntry(type);
 	const section = {
 		id: generateId(),

@@ -1,16 +1,20 @@
 import type { ResumeData } from "@zhiye/schema/resume/data";
-import { describe, expect, it } from "vite-plus/test";
+import { beforeAll, describe, expect, it } from "vite-plus/test";
+import { i18n } from "@lingui/core";
 import { produce } from "immer";
 import { customSectionItemDefinitionByType } from "@zhiye/schema/resume/data";
 import { defaultResumeData } from "@zhiye/schema/resume/default";
 import {
 	addBuiltinSection,
+	addCustomSection,
 	CUSTOM_SECTION_TYPES,
 	countEntriesToCheck,
 	createEntry,
 	getOutlineRows,
+	isSameSectionTitle,
 	isSectionHidden,
 	moveSection,
+	sectionTitles,
 } from "./model";
 
 const resume = (edit?: (data: ResumeData) => void) => {
@@ -134,5 +138,56 @@ describe("addBuiltinSection with a hidden section", () => {
 		});
 		const next = produce(started, (draft) => void addBuiltinSection(draft, "education"));
 		expect(next.metadata.layout.pages[0]?.main).toEqual(["experience", "education"]);
+	});
+});
+
+describe("section titles", () => {
+	beforeAll(() => {
+		i18n.loadAndActivate({ locale: "en", messages: {} });
+	});
+
+	it("lists what every other section shows, under its own title or its kind's name", () => {
+		const data = produce(resume(), (draft) => {
+			draft.sections.experience.title = "Work history";
+			addCustomSection(draft, "projects", "Projects");
+		});
+
+		const titles = sectionTitles(data, "summary");
+
+		expect(titles).toContain("Work history");
+		expect(titles).toContain("Education");
+		expect(titles).toContain("Projects");
+		// The section being reviewed isn't competing with itself.
+		expect(titles).not.toContain("Summary");
+	});
+
+	it("keeps a name that two sections already share only once", () => {
+		const data = produce(resume(), (draft) => {
+			draft.sections.experience.title = "Education";
+		});
+
+		expect(sectionTitles(data, "summary").filter((title) => title === "Education")).toHaveLength(1);
+	});
+
+	it("holds the name of a hidden section, which can be shown again", () => {
+		const data = produce(resume(), (draft) => {
+			draft.sections.education.hidden = true;
+		});
+
+		expect(sectionTitles(data, "summary")).toContain("Education");
+	});
+
+	it("compares names without case or surrounding spaces", () => {
+		expect(isSameSectionTitle("  Work History ", "work history")).toBe(true);
+		expect(isSameSectionTitle("Work history", "Work history 2")).toBe(false);
+	});
+
+	it("numbers a new custom section past a built-in that keeps its default name", () => {
+		// The built-in Education shows "Education", so a custom section of that type can't take it too.
+		const data = produce(resume(), (draft) => {
+			addCustomSection(draft, "education", "Education");
+		});
+
+		expect(data.customSections.at(-1)?.title).toBe("Education 2");
 	});
 });
