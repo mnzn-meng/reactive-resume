@@ -8,6 +8,7 @@ import { plural, t } from "@lingui/core/macro";
 import { Plural, Trans } from "@lingui/react/macro";
 import { useEffect, useMemo } from "react";
 import { sortSectionItemsByPeriod } from "@zhiye/resume/section-sort";
+import { nextFreeSectionTitle } from "@zhiye/resume/section-title";
 import { getDefaultSectionIconName } from "@zhiye/schema/resume/section-icons";
 import { Badge } from "@zhiye/ui/components/badge";
 import { Button } from "@zhiye/ui/components/button";
@@ -21,6 +22,7 @@ import { addEntryTo } from "./actions";
 import { EntryRow, moveEntry } from "./entry-row";
 import { TextField } from "./fields";
 import {
+	BUILTIN_SECTION_TYPES,
 	countEntriesToCheck,
 	describeEntry,
 	getEntries,
@@ -80,6 +82,17 @@ export function SectionView({ sectionId, locked }: SectionViewProps) {
 function SectionBody({ section, locked }: { section: WriteSection; locked: boolean }) {
 	const title = useSectionTitle(section);
 	const isSummary = section.kind === "summary";
+	// Every other section's name, so two sections can never share one.
+	const takenTitles = useCurrentBuilderResumeSelector((resume) =>
+		[
+			getSectionTitle("summary"),
+			...BUILTIN_SECTION_TYPES.map((type) => getSectionTitle(type)),
+			...resume.data.customSections
+				.filter((candidate) => candidate.id !== section.id && !candidate.hidden)
+				.map((candidate) => candidate.title.trim())
+				.filter(Boolean),
+		].filter((candidate, index, all) => all.indexOf(candidate) === index),
+	);
 	const proposed = useProposedCount(section.id);
 	const update = useUpdateResumeData();
 
@@ -111,6 +124,19 @@ function SectionBody({ section, locked }: { section: WriteSection; locked: boole
 					<TextField
 						label={<Trans>Title</Trans>}
 						value={title}
+						validate={(value) =>
+							takenTitles.some((taken) => taken.toLocaleLowerCase() === value.trim().toLocaleLowerCase())
+								? t`Another section is already called this. It will be numbered when you leave the field.`
+								: undefined
+						}
+						onBlur={() => {
+							const unique = nextFreeSectionTitle(title.trim(), takenTitles);
+							if (unique === title.trim()) return;
+							update((draft) => {
+								const target = getSectionObject(draft, section);
+								if (target) target.title = unique;
+							});
+						}}
 						onChange={(title) =>
 							update(
 								(draft) => {

@@ -8,7 +8,7 @@ import { useLingui } from "@lingui/react";
 import { Plural, Trans } from "@lingui/react/macro";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
-import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { filterSections } from "@zhiye/pdf/filtering";
 import { measureOverflow } from "@zhiye/pdf/page-map";
 import { spillingSections } from "@zhiye/resume/spill";
@@ -105,22 +105,24 @@ function ResumePageCanvas() {
 	// Check → Writing's and the assistant's proposed edits show on the page, the old text struck through and the new
 	// highlighted.
 	const markEdits = mode === "check" && checkTab === "writing" && pageView === "page" && proposals.length > 0;
-	const marked = [...(markEdits ? proposals : []), ...assistantProposals];
+	const marked = useMemo(
+		() => [...(markEdits ? proposals : []), ...assistantProposals],
+		[markEdits, proposals, assistantProposals],
+	);
 	const applications = useResumeStore((state) => state.proposalApplications);
 	const pendingOnPage = data ? pendingProposals(data, assistantProposals, undefined, applications).length : 0;
 	const parser = mode === "check" && pageView === "parser" && !viewing;
 
-	// Design: a hovered or focused template is drawn on the page until it's applied or the pointer leaves.
-	const previewData = viewing
-		? compareId === historyVersionId
-			? data
-			: viewing.data
-		: data && previewTemplate
-			? { ...data, metadata: { ...data.metadata, template: previewTemplate } }
-			: // Only undecided edits change the page: once every one is decided, it draws (and measures) as it is.
-				data && pendingProposals(data, marked, undefined, applications).length > 0
-				? markProposals(data, marked, applications)
-				: undefined;
+	// Design: a hovered or focused template is drawn on the page until it's applied or the pointer leaves. Memoized,
+	// because a fresh object each render made the preview re-render forever and its shadow flicker.
+	const previewData = useMemo(() => {
+		if (viewing) return compareId === historyVersionId ? data : viewing.data;
+		if (!data) return undefined;
+		if (previewTemplate) return { ...data, metadata: { ...data.metadata, template: previewTemplate } };
+		// Only undecided edits change the page: once every one is decided, it draws (and measures) as it is.
+		const undecided = pendingProposals(data, marked, undefined, applications);
+		return undecided.length > 0 ? markProposals(data, marked, applications) : undefined;
+	}, [viewing, compareId, historyVersionId, data, previewTemplate, marked, applications]);
 	// Fit is the resume's as it is: a render with edits marked (old and new text both shown) doesn't count. The callback
 	// keeps one identity (the preview re-reports on every new one), reading whether this render is marked from a ref.
 	const fitRendered = useEditorStore((state) => state.fitRendered);

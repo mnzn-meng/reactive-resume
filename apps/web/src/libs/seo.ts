@@ -12,7 +12,7 @@ export const createNoindexFollowMeta = () => ({ name: "robots", content: "noinde
 
 /** The homepage's title and description in the active locale. The prerendered page and the route share them. */
 export const getHomepageMeta = () => ({
-	title: `${t`Chinese resume builder: one page, PDF & Word`} | ${appName}`,
+	title: `${t`Free resume builder: PDF and Microsoft Word`} | ${appName}`,
 	description: t`Build a one-page Chinese resume with structured fields and Chinese typography, check that software can read the PDF, and export PDF or Word for free without a watermark.`,
 });
 

@@ -24,26 +24,27 @@ const fragmentKind = {
 // The field is dimmed to 78%, so the light pills take a deeper green to keep their text at 4.5:1.
 const pillAccent = "bg-accent-soft text-[oklch(0.36_0.1_150)] dark:text-accent-text";
 
-/** The four lines of the headline; the footer repeats them. Lines 2 and 4 are highlighted. */
+/**
+ * The headline in four parts: "免费的" and "和" in the plain face, "简历制作" and "职业生涯管理工具。" in the accent
+ * face. The first two sit left of the page, the last two right of it.
+ */
 const getHeadline = () =>
 	[
 		t({
-			message: "Your experience,",
-			comment: "Hero headline, line 1 of 4: Your experience, / on one page, / machine-readable, / and worth reading.",
+			message: "Free",
+			comment: "Hero headline, part 1 of 4: Free / resume building / and / career management. Plain face.",
 		}),
 		t({
-			message: "on one page,",
-			comment:
-				"Hero headline, line 2 of 4: Your experience, / on one page, / machine-readable, / and worth reading. Lines 2 and 4 are highlighted: keep each a complete phrase.",
+			message: "resume building",
+			comment: "Hero headline, part 2 of 4: Free / resume building / and / career management. Accent face.",
 		}),
 		t({
-			message: "machine-readable,",
-			comment: "Hero headline, line 3 of 4: Your experience, / on one page, / machine-readable, / and worth reading.",
+			message: "and",
+			comment: "Hero headline, part 3 of 4: Free / resume building / and / career management. Plain face.",
 		}),
 		t({
-			message: "and worth reading.",
-			comment:
-				"Hero headline, line 4 of 4: Your experience, / on one page, / machine-readable, / and worth reading. Lines 2 and 4 are highlighted: keep each a complete phrase.",
+			message: "career management.",
+			comment: "Hero headline, part 4 of 4: Free / resume building / and / career management. Accent face.",
 		}),
 	] as const;
 
@@ -242,9 +243,8 @@ export function Hero() {
 					id="hero-title"
 					className="absolute inset-x-(--gutter) top-32 font-display text-[8vw] leading-[1.05] font-light text-ink min-[900px]:sr-only"
 				>
-					{headline[0]} <br className="min-[900px]:hidden" />
-					<em className="text-accent-text">{headline[1]}</em> <br className="min-[900px]:hidden" />
-					{headline[2]} <em className="text-accent-text">{headline[3]}</em>
+					{headline[0]} <em className="text-accent-text">{headline[1]}</em> {headline[2]}{" "}
+					<em className="text-accent-text">{headline[3]}</em>
 				</h1>
 
 				{/* The headline, drawn as two halves either side of the page (below 900px, stacked above it). Both halves share one
@@ -268,7 +268,7 @@ export function Hero() {
 
 				<div className="absolute inset-x-(--gutter) bottom-[clamp(20px,4vh,40px)] z-2 flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
 					<p className="max-w-full font-display text-base leading-[1.45] text-pretty text-ink-2 min-[900px]:max-w-[min(25em,calc(50vw-var(--pw)/2-5vw))] min-[900px]:text-[clamp(17px,1.3vw,20px)]">
-						{t`Build a one-page resume in minutes, export PDF or Word for free without a watermark, and keep every application in one place.`}
+						{t`Make a professional resume, download it as PDF or Microsoft Word, and manage your job search in one place.`}
 					</p>
 					<div className="flex flex-col items-end gap-2">
 						<CtaLink size="hero" />
