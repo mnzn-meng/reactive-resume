@@ -38,10 +38,17 @@ it.each(shipped)("preserves complete shipped identity and work history / $templa
 			`${c.template}.pdf`,
 		),
 	);
-	// A PDF carries no job intent; the importer leaves it empty, and the comparison ignores that key.
-	expect({ ...data.basics, jobIntent: undefined }).toEqual(c.basics);
+	// A PDF carries no job intent and every import mints fresh custom-field ids; neither is part of what's preserved.
+	const stable = (basics: ResumeData["basics"]) => ({
+		...basics,
+		jobIntent: undefined,
+		customFields: basics.customFields.map(({ id: _id, ...field }) => field),
+	});
+	expect(stable(data.basics)).toEqual(stable(c.basics as ResumeData["basics"]));
 	expect(pdfExperienceFields(data.sections.experience.items)).toEqual(c.experience);
-	expect(data.customSections.filter((section) => section.title !== "Community")).toEqual([]);
+	expect(data.customSections.map((section) => ({ title: section.title, items: section.items.length }))).toEqual(
+		c.customSections,
+	);
 });
 it.each(pdfImportCases)(
 	"preserves whole identity, record fields and rich wording / $template / $kind / $period / $index",
