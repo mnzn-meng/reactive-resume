@@ -247,6 +247,9 @@ export function DatesField({
 									className="size-4"
 									checked={dates.present}
 									onCheckedChange={(present) => {
+										// Ticking Present retires whatever the end field complained about; leaving the flag set
+										// kept the box red after the message for it had already gone.
+										if (present) setInvalidFor("end")(null);
 										const { expected: _expected, ...rest } = current;
 										onChange({ ...rest, present, end: dates.end });
 									}}
