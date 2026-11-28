@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
+import { createContext, useCallback, useContext, useRef } from "react";
 
 type DocumentRef = { id: string };
 export type OnDocumentEffect = (
@@ -8,8 +8,6 @@ export type OnDocumentEffect = (
 ) => void | Promise<void>;
 
 type DocumentLibrarySession = {
-	hadDocuments: boolean;
-	setHadDocuments: (value: boolean) => void;
 	registerEffect: (play: OnDocumentEffect) => () => void;
 	playEffect: OnDocumentEffect;
 };
@@ -19,7 +17,6 @@ type DocumentLibraryProviderProps = { children: ReactNode };
 
 /** Lives with the account-keyed dashboard shell, across Documents/Trash navigation. */
 export function DocumentLibraryProvider({ children }: DocumentLibraryProviderProps) {
-	const [hadDocuments, setHadDocuments] = useState(false);
 	const effect = useRef<OnDocumentEffect | undefined>(undefined);
 	const registerEffect = useCallback((play: OnDocumentEffect) => {
 		effect.current = play;
@@ -28,21 +25,7 @@ export function DocumentLibraryProvider({ children }: DocumentLibraryProviderPro
 		};
 	}, []);
 	const playEffect = useCallback<OnDocumentEffect>((...args) => effect.current?.(...args), []);
-	return (
-		<DocumentLibraryContext value={{ hadDocuments, setHadDocuments, registerEffect, playEffect }}>
-			{children}
-		</DocumentLibraryContext>
-	);
-}
-
-export function useDocumentHistory(hasDocuments: boolean) {
-	const session = useContext(DocumentLibraryContext);
-	if (!session) throw new Error("Document library provider is missing");
-	const { setHadDocuments } = session;
-	useEffect(() => {
-		if (hasDocuments) setHadDocuments(true);
-	}, [hasDocuments, setHadDocuments]);
-	return hasDocuments || session.hadDocuments;
+	return <DocumentLibraryContext value={{ registerEffect, playEffect }}>{children}</DocumentLibraryContext>;
 }
 
 /** Undo toasts outlive their originating page; animate the currently mounted collection. */

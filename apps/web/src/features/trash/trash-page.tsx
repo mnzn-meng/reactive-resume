@@ -34,7 +34,6 @@ import { companyInitials } from "@/features/applications/components/list-view";
 import { getStageLabel } from "@/features/applications/stages";
 import { useBatchActions } from "@/features/documents/document-actions";
 import { documentKey } from "@/features/documents/filter";
-import { useDocumentHistory } from "@/features/documents/library-session";
 import { PageNavigation } from "@/features/documents/page-navigation";
 import { useDocumentRemovalMotion } from "@/features/documents/removal-motion";
 import { useShortcutsPage } from "@/features/keyboard-shortcuts/store";
@@ -102,7 +101,6 @@ export function TrashPage({ kind, onKindChange }: TrashPageProps) {
 	});
 	const totals = { documents: documents.data?.total ?? 0, applications: applications.data?.total ?? 0 };
 	const total = totals.documents + totals.applications;
-	useDocumentHistory(totals.documents > 0);
 
 	const loaded = Boolean(documents.data && applications.data);
 	const failed = documents.isError || applications.isError;

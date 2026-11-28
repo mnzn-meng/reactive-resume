@@ -32,7 +32,6 @@ import { LinkApplicationDialog, TagsDialog, useBatchActions } from "./document-a
 import { DocumentCard, DocumentRow } from "./document-card";
 import { documentKey } from "./filter";
 import { LibraryError } from "./library-error";
-import { useDocumentHistory } from "./library-session";
 import { useNewDocumentsStore } from "./new-documents";
 import { PageNavigation } from "./page-navigation";
 import { useDocumentRemovalMotion } from "./removal-motion";
@@ -198,10 +197,11 @@ export function DocumentsPage({ search, onSearchChange }: DocumentsPageProps) {
 		refetch: refetchCounts,
 	} = useQuery(orpc.documents.counts.queryOptions());
 	const trashCount = libraryCounts?.trash ?? 0;
-	const hadDocuments = useDocumentHistory(
-		shown.length > 0 || (libraryCounts ? libraryCounts.active + libraryCounts.trash > 0 : false),
-	);
-	const firstRun = rowsCurrent && !filtered && offset === 0 && pageData?.total === 0 && !hadDocuments;
+	// Empty for good — nothing here, nothing in trash. Unknown counts count as empty, and the skeleton below keeps a
+	// first run from showing before they arrive. What happened earlier in the session doesn't matter: after the last
+	// document goes, this page has to say what a fresh load says, without asking for a refresh.
+	const libraryEmpty = !libraryCounts || libraryCounts.active + libraryCounts.trash === 0;
+	const firstRun = rowsCurrent && !filtered && offset === 0 && pageData?.total === 0 && libraryEmpty;
 	const tags = displayed?.tags ?? [];
 	// A job with more than one document here gets a chip, in place of the group headings the library had.
 	// The chip narrows by the job's name through the filter text; an exact filter needs an application filter on

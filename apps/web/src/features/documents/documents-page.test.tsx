@@ -426,6 +426,21 @@ it("keeps the new-document button when the library is empty", async () => {
 	expect(screen.getByRole("button", { name: "New document" })).not.toHaveClass("hidden");
 });
 
+it("turns into the first-run screen when the last document goes, without a reload", async () => {
+	const { client, input } = setup("grid", false);
+	await screen.findByText("Document 0");
+	expect(screen.queryByRole("button", { name: "Choose a file" })).toBeNull();
+
+	// The last document leaves and both answers come back empty. What the session saw earlier must not keep the plain
+	// "No documents" box around: a refresh would show the start screen, so this has to as well.
+	act(() => {
+		client.setQueryData(orpc.documents.page.queryKey({ input: { ...input, offset: 0 } }), page(0, 0));
+		client.setQueryData(orpc.documents.counts.queryOptions().queryKey, { active: 0, trash: 0 });
+	});
+
+	expect(await screen.findByRole("button", { name: "Choose a file" })).toBeVisible();
+});
+
 it("first run's Choose a file opens the file picker, then imports the chosen file", async () => {
 	i18n.loadAndActivate({ locale: "en-US", messages: {} });
 	const client = new QueryClient({ defaultOptions: { queries: { staleTime: Infinity, retry: false } } });
