@@ -292,10 +292,12 @@ export function DocumentsPage({ search, onSearchChange }: DocumentsPageProps) {
 	const sortLabels: Record<DocumentSort, string> = { edited: t`Last edited`, name: t`Name`, created: t`Created` };
 	const clearFilters = () => onSearchChange({ q: "", tags: [] });
 
+	// Always here: the empty states below have no create button of their own, and the new-document dialog returns focus
+	// to this one afterwards — a hidden trigger leaves both the page and the dialog without a way forward.
 	const newDocumentButton = (
 		<Button
 			aria-label={t`New document`}
-			className={cn("max-sm:size-11 max-sm:p-0", rowsCurrent && shown.length === 0 && "hidden")}
+			className="max-sm:size-11 max-sm:p-0"
 			data-document-new-trigger
 			onClick={() => openDialog("document.new", undefined)}
 		>

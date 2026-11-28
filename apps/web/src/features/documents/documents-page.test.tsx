@@ -396,6 +396,36 @@ it.each(["empty", "error"])(
 		expect(requests.navigate).not.toHaveBeenCalled();
 	},
 );
+it("keeps the new-document button when the library is empty", async () => {
+	i18n.loadAndActivate({ locale: "en-US", messages: {} });
+	const client = new QueryClient({ defaultOptions: { queries: { staleTime: Infinity, retry: false } } });
+	const input = {
+		trashed: false,
+		q: "",
+		tags: [],
+		sort: "edited" as const,
+		limit: 100,
+		offset: 0,
+	};
+	// Documents exist in the library, so this isn't the first run: the empty state below has no create button of its own,
+	// and the new-document dialog returns focus to this trigger.
+	client.setQueryData(orpc.documents.page.queryKey({ input }), { items: [], total: 0, tags: [] });
+	client.setQueryData(orpc.documents.counts.queryOptions().queryKey, { active: 3, trash: 0 });
+
+	render(
+		<I18nProvider i18n={i18n}>
+			<QueryClientProvider client={client}>
+				<DocumentLibraryProvider>
+					<DocumentsPage search={{ q: "", tags: [], sort: "edited", view: "grid" }} onSearchChange={vi.fn()} />
+				</DocumentLibraryProvider>
+			</QueryClientProvider>
+		</I18nProvider>,
+	);
+
+	await screen.findByText("No documents");
+	expect(screen.getByRole("button", { name: "New document" })).not.toHaveClass("hidden");
+});
+
 it("first run's Choose a file opens the file picker, then imports the chosen file", async () => {
 	i18n.loadAndActivate({ locale: "en-US", messages: {} });
 	const client = new QueryClient({ defaultOptions: { queries: { staleTime: Infinity, retry: false } } });
