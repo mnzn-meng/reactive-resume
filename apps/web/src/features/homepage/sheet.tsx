@@ -78,7 +78,7 @@ export const sheetTemplates: SheetTemplate[] = [
 		},
 	},
 	{
-		name: msg`Banner`,
+		name: msg`Margin`,
 		root: { ...bodyText(fonts.sans), "--accent-ink": "oklch(0.5 0.12 40)" } as CSSProperties,
 		header: { padding: "8cqw 8cqw 6cqw", background: "oklch(0.5 0.12 40)", color: "#fff", textAlign: "center" },
 		align: "center",
@@ -101,7 +101,7 @@ export const sheetTemplates: SheetTemplate[] = [
 		},
 	},
 	{
-		name: msg`Mono`,
+		name: msg`Minimal`,
 		root: { ...bodyText(fonts.mono, "1.42cqw"), "--accent-ink": "oklch(0.25 0.01 95)" } as CSSProperties,
 		header: { margin: "0 8cqw", padding: "8cqw 0 4cqw", borderBottom: "0.2cqw dashed oklch(0.3 0.01 95)" },
 		align: "flex-start",

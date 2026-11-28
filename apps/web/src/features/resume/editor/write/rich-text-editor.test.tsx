@@ -72,6 +72,23 @@ it("shows the placeholder only for empty content before the field receives focus
 	expect(screen.queryByText("Improve works on a line once you have written one.")).toBeNull();
 });
 
+it("drops the placeholder on the first typed character", async () => {
+	mocks.mobile = false;
+	i18n.load("en", {});
+	i18n.activate("en");
+	render(
+		<I18nProvider i18n={i18n}>
+			<RichTextEditor label="Description" value="" placeholder="Describe your work" onChange={vi.fn()} />
+		</I18nProvider>,
+	);
+	const box = await screen.findByRole("textbox", { name: "Description" });
+	expect(screen.getByText("Describe your work")).toBeVisible();
+
+	await userEvent.click(box);
+	await userEvent.type(box, "x");
+	expect(screen.queryByText("Describe your work")).toBeNull();
+});
+
 it("keeps empty desktop entry formatting visible before typing, with Improve disabled", async () => {
 	mocks.mobile = false;
 	i18n.load("en", {});

@@ -28,24 +28,22 @@ const pillAccent = "bg-accent-soft text-[oklch(0.36_0.1_150)] dark:text-accent-t
 const getHeadline = () =>
 	[
 		t({
-			message: "Turn your",
-			comment: "Hero headline, line 1 of 4: Turn your / Chinese resume / into one page, / ready to send.",
+			message: "Your experience,",
+			comment: "Hero headline, line 1 of 4: Your experience, / on one page, / machine-readable, / and worth reading.",
 		}),
 		t({
-			message: "resume",
-			context: "hero headline",
+			message: "on one page,",
 			comment:
-				"Hero headline, line 2 of 4: Turn your / resume / into one page, / ready to send. Lines 2 and 4 are highlighted: keep each a complete phrase. Chinese keeps 中文简历 here; English leaves the qualifier out so an English page doesn't ask for a Chinese document.",
+				"Hero headline, line 2 of 4: Your experience, / on one page, / machine-readable, / and worth reading. Lines 2 and 4 are highlighted: keep each a complete phrase.",
 		}),
 		t({
-			message: "into one page,",
-			context: "hero headline",
-			comment: "Hero headline, line 3 of 4: Turn your / Chinese resume / into one page, / ready to send.",
+			message: "machine-readable,",
+			comment: "Hero headline, line 3 of 4: Your experience, / on one page, / machine-readable, / and worth reading.",
 		}),
 		t({
-			message: "ready to send.",
+			message: "and worth reading.",
 			comment:
-				"Hero headline, line 4 of 4: Turn your / Chinese resume / into one page, / ready to send. Lines 2 and 4 are highlighted: keep each a complete phrase.",
+				"Hero headline, line 4 of 4: Your experience, / on one page, / machine-readable, / and worth reading. Lines 2 and 4 are highlighted: keep each a complete phrase.",
 		}),
 	] as const;
 

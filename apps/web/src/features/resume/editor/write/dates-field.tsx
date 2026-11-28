@@ -192,6 +192,9 @@ export function DatesField({
 								–
 							</span>
 							<MonthYearInput
+								// Unticking Present restores the stored date; remounting drops the stale typed text that
+								// would otherwise come back without its error.
+								key={dates.present ? "present" : "end"}
 								label={t`End`}
 								value={dates.end}
 								locale={locale}

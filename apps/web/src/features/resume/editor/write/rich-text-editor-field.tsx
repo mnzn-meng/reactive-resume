@@ -477,7 +477,7 @@ export function RichTextEditor({
 
 				<div className="relative">
 					<EditorContent editor={editor} />
-					{placeholder && editor && editor.getText().length === 0 && (
+					{placeholder && characters === 0 && !editing && (
 						<span aria-hidden="true" className="pointer-events-none absolute start-3 top-2 text-sm/5 text-ink-3">
 							{placeholder}
 						</span>
