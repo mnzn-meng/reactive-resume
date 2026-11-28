@@ -82,16 +82,20 @@ export function SectionView({ sectionId, locked }: SectionViewProps) {
 function SectionBody({ section, locked }: { section: WriteSection; locked: boolean }) {
 	const title = useSectionTitle(section);
 	const isSummary = section.kind === "summary";
-	// Every other section's name, so two sections can never share one.
-	const takenTitles = useCurrentBuilderResumeSelector((resume) =>
-		[
-			getSectionTitle("summary"),
-			...BUILTIN_SECTION_TYPES.map((type) => getSectionTitle(type)),
-			...resume.data.customSections
-				.filter((candidate) => candidate.id !== section.id && !candidate.hidden)
-				.map((candidate) => candidate.title.trim())
-				.filter(Boolean),
-		].filter((candidate, index, all) => all.indexOf(candidate) === index),
+	// Every other section's name, so two sections can never share one. Select the stored array (a stable reference) and
+	// derive the list here: a selector that builds a new array reads as "changed" on every render and loops forever.
+	const customSections = useCurrentBuilderResumeSelector((resume) => resume.data.customSections);
+	const takenTitles = useMemo(
+		() =>
+			[
+				getSectionTitle("summary"),
+				...BUILTIN_SECTION_TYPES.map((type) => getSectionTitle(type)),
+				...customSections
+					.filter((candidate) => candidate.id !== section.id && !candidate.hidden)
+					.map((candidate) => candidate.title.trim())
+					.filter(Boolean),
+			].filter((candidate, index, all) => all.indexOf(candidate) === index),
+		[customSections, section.id],
 	);
 	const proposed = useProposedCount(section.id);
 	const update = useUpdateResumeData();

@@ -8,14 +8,29 @@ import { sampleResumeData } from "@zhiye/schema/resume/sample";
 import { toast } from "@zhiye/ui/components/toast";
 import { SectionView } from "./section-view";
 
-const fixture = vi.hoisted(() => ({
-	data: null as ResumeData | null,
-	update: vi.fn(),
-}));
+const fixture = vi.hoisted(() => {
+	const state = {
+		data: null as ResumeData | null,
+		update: vi.fn(),
+		/**
+		 * Zustand hands React the selector's result as a snapshot and compares it by reference. A selector that builds a
+		 * new array or object therefore reads as "changed" on every render, which React turns into an endless render loop
+		 * (the browser shows "This page couldn't load"). Mocking the store would hide exactly that, so keep the rule here.
+		 */
+		select: (selector: (resume: { data: ResumeData }) => unknown) => {
+			const resume = { data: state.data as ResumeData };
+			const first = selector(resume);
+			if (!Object.is(first, selector(resume))) {
+				throw new Error("A store selector must return the same reference for unchanged data, or React loops forever.");
+			}
+			return first;
+		},
+	};
+	return state;
+});
 
 vi.mock("@/features/resume/builder/draft", () => ({
-	useCurrentBuilderResumeSelector: (selector: (resume: { data: ResumeData }) => unknown) =>
-		selector({ data: fixture.data as ResumeData }),
+	useCurrentBuilderResumeSelector: fixture.select,
 	useUpdateResumeData: () => fixture.update,
 }));
 vi.mock("./actions", () => ({ addEntryTo: vi.fn() }));
