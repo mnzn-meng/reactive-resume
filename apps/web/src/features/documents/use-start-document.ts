@@ -96,7 +96,9 @@ export function useStartDocument(applicationId?: string, locale?: Locale) {
 					t`Sample resume`,
 					resumes.map((resume) => resume.name),
 				);
-				const resumeId = await createResume({ name, tags: [], withSampleData: true, ...(locale ? { locale } : {}) });
+				// The sample is Chen Mo's Chinese resume: it keeps its own language, so an English interface doesn't print
+				// English section headings over Chinese content.
+				const resumeId = await createResume({ name, tags: [], withSampleData: true });
 				await created(resumeId);
 				toast.add({ description: t`Sample resume added. Delete it anytime.` });
 				void navigate({ to: "/builder/$resumeId", params: { resumeId } });

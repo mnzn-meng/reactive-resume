@@ -66,24 +66,27 @@ export const crudRouter = {
 		.input(resumeDto.create.input)
 		.use(resumeMutationRateLimit)
 		.output(resumeDto.create.output)
-		.handler(({ context, input }) =>
-			resumeService.create({
+		.handler(({ context, input }) => {
+			// The sample is a Chinese document: an interface locale stands in for a blank resume's language, but it must
+			// not relabel a Chinese sample's section headings. An explicit choice still wins.
+			const documentLocale = input.locale ?? (input.withSampleData ? undefined : context.locale);
+			return resumeService.create({
 				name: input.name,
 				...(input.autoName ? { autoName: true } : {}),
 				tags: input.tags,
-				locale: input.locale ?? context.locale,
+				...(documentLocale ? { locale: documentLocale } : {}),
 				userId: context.user.id,
 				data: createResumeData({
 					withSampleData: input.withSampleData,
+					...(documentLocale ? { locale: documentLocale } : {}),
 					name: context.user.name,
 					// A guest's address is a placeholder (see the auth anonymous plugin), not one to print. The plugin adds
 					// `isAnonymous` to the user row; the shared User type doesn't name it.
 					email: (context.user as { isAnonymous?: boolean | null }).isAnonymous ? undefined : context.user.email,
-					locale: input.locale ?? context.locale,
 					template: input.template,
 				}),
-			}),
-		),
+			});
+		}),
 
 	import: protectedProcedure
 		.route({
