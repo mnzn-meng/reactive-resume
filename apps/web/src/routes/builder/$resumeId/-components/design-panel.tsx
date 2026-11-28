@@ -115,7 +115,7 @@ export function DesignPanel() {
 		metadata.page.dateFormat ?? "short"
 	];
 	const summaries: Record<DesignCategory, string> = {
-		template: `${template.name} · ${columns.columns === 1 ? t`One column` : t`Two columns`}${columns.atsSafe ? ` · ${t`ATS-safe`}` : ""}`,
+		template: `${i18n._(template.name)} · ${columns.columns === 1 ? t`One column` : t`Two columns`}${columns.atsSafe ? ` · ${t`ATS-safe`}` : ""}`,
 		layout: `${plural(metadata.layout.pages.length, { one: "One page", other: "# pages" })} · ${hidden ? t`${visible} sections shown, ${hidden} hidden` : t`${visible} sections shown`}`,
 		entries: `${layoutLabel} · ${entry.lead === "organization" ? t`company first` : t`position first`}\n${entry.accent === "none" ? t`No accent` : { rule: t`Rule accent`, bar: t`Bar accent`, band: t`Band accent` }[entry.accent]} · ${levelLabel}`,
 		typography: t`Headings in ${metadata.typography.heading.fontFamily}, ${metadata.typography.heading.fontSize} pt\nBody in ${metadata.typography.body.fontFamily}, ${metadata.typography.body.fontSize} pt`,
