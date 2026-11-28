@@ -194,14 +194,16 @@ describe.skipIf(!databaseUrl)("application lanes: persisted owner and workflow i
 		expect((await lanes.get("bob")).lanes).toHaveLength(6);
 	});
 
-	it("seeds a written-test lane when the board is first opened in Chinese", async () => {
+	it("seeds the domestic stages when the board is first opened in Chinese", async () => {
 		const pipeline = await lanes.get("bob", "zh-CN");
 		expect(pipeline.lanes.map((lane) => lane.label ?? lane.systemKey)).toEqual([
 			"saved",
 			"applied",
 			"笔试",
 			"screening",
+			"群面",
 			"interview",
+			"HR 面",
 			"offer",
 			"closed",
 		]);

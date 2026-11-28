@@ -19,14 +19,16 @@ describe("default lanes by interface language", () => {
 		]);
 	});
 
-	it("puts a written test between applying and screening for a Chinese board", () => {
+	it("puts the written test, the group interview and the HR round where a Chinese board expects them", () => {
 		const lanes = createDefaultApplicationLanes("zh-CN");
 		expect(lanes.map((lane) => lane.id)).toEqual([
 			"saved",
 			"applied",
 			"written-test",
 			"screening",
+			"group-interview",
 			"interview",
+			"hr-interview",
 			"offer",
 			"closed",
 		]);
